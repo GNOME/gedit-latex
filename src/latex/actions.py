@@ -96,4 +96,29 @@ class LaTeXCommentAction(IAction):
 		editor.toggle_comment("%")
 		
 		
+class LaTeXSpellCheckAction(IAction):
+	_log = getLogger("LaTeXSpellCheckAction")
+	
+	@property
+	def label(self):
+		return "Spell Check"
+	
+	@property
+	def stock_id(self):
+		return None
+	
+	@property
+	def accelerator(self):
+		return "<Ctrl><Alt>S"
+	
+	@property
+	def tooltip(self):
+		return None
+	
+	def activate(self, editor):
+		editor.spell_check()
+		
+		
+		
+		
 		

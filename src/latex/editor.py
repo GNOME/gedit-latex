@@ -34,9 +34,26 @@ class LaTeXEditor(Editor):
 	
 	def init(self, file):
 		self._log.debug("init(%s)" % file)
+		
+		self.register_marker_type("latex-spell", "#ffeccf")
 	
 	def save(self):
 		pass
+	
+	def spell_check(self):
+		#self.content
+		
+		self._log.debug("spell_check")
+		
+		self.remove_markers("latex-spell")
+		
+		id = self.create_marker("latex-spell", 15, 30)
+	
+	def activate_marker(self, marker, event):
+		"""
+		A marker has been activated
+		"""
+		self._log.debug("activate_marker(%s, %s)" % (marker, event))
 	
 	def destroy(self):
 		pass

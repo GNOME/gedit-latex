@@ -29,7 +29,7 @@ from logging import getLogger
 import gedit
 import gtk
 
-from ..latex.actions import LaTeXMenuAction, LaTeXNewAction, LaTeXCommentAction
+from ..latex.actions import LaTeXMenuAction, LaTeXNewAction, LaTeXCommentAction, LaTeXSpellCheckAction
 
 
 # TODO: extensions and UI path should be asked from Action objects
@@ -45,10 +45,11 @@ from ..latex.actions import LaTeXMenuAction, LaTeXNewAction, LaTeXCommentAction
 
 ACTION_OBJECTS = { "LaTeXMenuAction" : LaTeXMenuAction(), 
 				   "LaTeXNewAction" : LaTeXNewAction(),
-				   "LaTeXCommentAction" : LaTeXCommentAction() }
+				   "LaTeXCommentAction" : LaTeXCommentAction(),
+				   "LaTeXSpellCheckAction" : LaTeXSpellCheckAction() }
 
 ACTION_EXTENSIONS = { None : ["LaTeXNewAction"],
-					  ".tex" : ["LaTeXMenuAction", "LaTeXCommentAction"] }
+					  ".tex" : ["LaTeXMenuAction", "LaTeXCommentAction", "LaTeXSpellCheckAction"] }
 
 
 from ..tools import Tool, ToolJob, ToolAction
@@ -80,6 +81,7 @@ class GeditWindowDecorator(object):
 		<placeholder name="ExtraMenu_1">
 			<menu action="LaTeXMenuAction">
 				<menuitem action="LaTeXCommentAction" />
+				<menuitem action="LaTeXSpellCheckAction" />
 			</menu>
 		</placeholder>
 	</menubar>

@@ -18,45 +18,27 @@
 # this program; if not, write to the Free Software Foundation, Inc., 51 Franklin
 # Street, Fifth Floor, Boston, MA  02110-1301, USA
 
-import gtk
+"""
+base.util
+"""
 
-from ..base.interface import View, POSITION_LEFT
+class RangeMap(object):
+	def __init__(self):
+		self._map = {}
+	
+	def put(self, lower, upper, value):
+		"""
+		Put value in range [lower, upper]
+		"""
+		self._map[(lower, upper)] = value
+		
+	def lookup(self, position):
+		"""
+		Lookup
+		"""
+		values = []
+		for range, value in self._map.iteritems():
+			if position >= range[0] and position <= range[1]:
+				values.append(value)
+		return values
 
-
-class OutlineView(View):
-	@property
-	def position(self):
-		return POSITION_LEFT
-	
-	@property
-	def content(self):
-		"""
-		Return an instance of TreeModel
-		"""
-		return OutlineModel()
-	
-	def get_state(self):
-		"""
-		Return the current expand state
-		"""
-		pass
-	
-	def set_state(self):
-		"""
-		Set an expand state
-		"""
-		pass
-	
-	
-class OutlineModel(TreeModel):
-	@property
-	def root(self):
-		pass
-	
-	def reset(self):
-		pass
-	
-	def render(self):
-		pass
-	
-	

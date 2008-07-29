@@ -20,6 +20,9 @@
 
 """
 base
+
+These are classes that are used and returned by the base layer but should
+not be created, extended or implemented.
 """
 
 from urlparse import urlparse
@@ -59,7 +62,20 @@ class File(object):
 		return self._uri
 	
 	
-
-
+class Marker(object):
+	"""
+	A Marker created by the Editor
+	"""
+	def __init__(self, left_mark, right_mark):
+		self._left_mark = left_mark
+		self._right_mark = right_mark
+	
+	@property
+	def left_mark(self):
+		return self._left_mark
+	
+	@property
+	def right_mark(self):
+		return self._right_mark
 
 	

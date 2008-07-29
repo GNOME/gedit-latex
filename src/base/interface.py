@@ -25,6 +25,7 @@ These classes form the interface exposed by the plugin base
 """
 
 from logging import getLogger
+import gtk
 
 
 class Template(object):
@@ -141,6 +142,8 @@ import re
 
 from .completion import CompletionDistributor
 from .templates import TemplateDelegate
+from util import RangeMap
+from . import Marker
 
 
 class Editor(object):
@@ -164,6 +167,13 @@ class Editor(object):
 			self._completion_distributor = CompletionDistributor(self, completion_handlers)
 		else:
 			self._completion_distributor = None
+		
+		# marker framework
+		self._marker_type_tags = {}    # marker type ids -> TextTag object
+		self._marker_maps = {}	   	   # marker type ids -> RangeMap object
+		
+		# TODO: disconnect on destroy
+		self._button_press_handler = self._text_view.connect("button-press-event", self._on_button_pressed)
 		
 		# start life-cycle for subclass
 		self.init(file)
@@ -350,6 +360,99 @@ class Editor(object):
 			else:
 				# comment
 				self._text_buffer.insert(tmpIt, "%")
+	
+	#
+	# markers are used for spell checking
+	#
+	
+	def register_marker_type(self, marker_type, background_color):
+		"""
+		@param marker_type: a string
+		@param background_color: a hex color
+		"""
+		assert not marker_type in self._marker_type_tags.keys()
+		
+		# add tag
+		self._marker_type_tags[marker_type] = self._text_buffer.create_tag(marker_type, 
+										background=background_color)
+		# create map
+		self._marker_maps[marker_type] = RangeMap()
+	
+	def create_marker(self, marker_type, start_offset, end_offset):
+		"""
+		Mark a section of the text
+		
+		@return: a Marker object
+		"""
+		assert marker_type in self._marker_type_tags.keys()
+		
+		# hightlight
+		left = self._text_buffer.get_iter_at_offset(start_offset)
+		right = self._text_buffer.get_iter_at_offset(end_offset)
+		self._text_buffer.apply_tag_by_name(marker_type, left, right)
+		
+		# create Marker object and put into map
+		left_mark = self._text_buffer.create_mark(None, left, True)
+		right_mark = self._text_buffer.create_mark(None, right, False)
+		marker = Marker(left_mark, right_mark)
+		
+		self._marker_maps[marker_type].put(start_offset, end_offset, marker)
+	
+	def remove_marker(self, marker):
+		"""
+		@param id: the id of the marker to remove
+		"""
+		
+	
+	def remove_markers(self, marker_type):
+		"""
+		Remove all markers of a type
+		"""
+		assert marker_type in self._marker_type_tags.keys()
+		
+		self._text_buffer.remove_tag_by_name(marker_type, self._text_buffer.get_start_iter(), 
+									self._text_buffer.get_end_iter())
+	
+	def replace_marker_content(self, marker, content):
+		# get TextIters
+		left = self._text_buffer.get_iter_at_mark(marker.left_mark)
+		right = self._text_buffer.get_iter_at_mark(marker.right_mark)
+		
+		# replace
+		self._text_buffer.delete(left, right)
+		left = self._text_buffer.get_iter_at_mark(marker.left_mark)
+		self._text_buffer.insert(left, content)
+		
+		# cleanup
+		self._text_buffer.delete_mark(marker.left_mark)
+		self._text_buffer.delete_mark(marker.right_mark)
+	
+	def _on_button_pressed(self, text_view, event):
+		"""
+		Mouse button has been pressed on the TextView
+		"""
+		if event.button == 3:	# right button
+			x, y = text_view.get_pointer()
+			x, y = text_view.window_to_buffer_coords(gtk.TEXT_WINDOW_WIDGET, x, y)
+			it = text_view.get_iter_at_location(x, y)
+			offset = it.get_offset()
+			
+			for map in self._marker_maps.itervalues():
+				for marker in map.lookup(offset):
+					self.activate_marker(marker, event)
+	
+	def activate_marker(self, marker, event):
+		"""
+		A marker has been activated
+		
+		To be overridden
+		
+		@param id: id of the activated marker
+		@param event: the event of the mouse click (for raising context menus)
+		"""
+		pass
+	
+	
 	
 	@property
 	def completion_handlers(self):
