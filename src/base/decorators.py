@@ -190,11 +190,15 @@ class GeditWindowDecorator(object):
 		self._tab_decorators = {}
 		self._active_tab_decorator = None
 		active_view = self._window.get_active_view()
-		for view in self._window.get_views():
+		views = self._window.get_views()
+		for view in views:
 			tab = gedit.tab_get_from_document(view.get_buffer())
 			decorator = self._create_tab_decorator(tab)
 			if view is active_view:
-				self._active_tab_decorator = adapter
+				self._active_tab_decorator = decorator
+		
+		if len(views) > 0 and not self._active_tab_decorator:
+			self._log.warning("_init_tab_decorators: no active decorator found")
 	
 	def _on_action_activated(self, gtk_action, action):
 		"""
@@ -308,7 +312,7 @@ from . import File
 
 EDITORS = {".tex" : LaTeXEditor}
 
-	
+
 class GeditTabDecorator(object):
 	"""
 	This monitors the opened file and manages the Editor objects
@@ -326,9 +330,13 @@ class GeditTabDecorator(object):
 		self._editor = None
 		self._editor_uri = None
 		
+		# initially check the editor instance
 		#
+		# this needs to be done, because when we init for already opened files
+		# (when plugin is activated in config) we get no "loaded" signal
+		self._adjust_editor()
+		
 		# listen to GeditDocument signals
-		#
 		self._text_buffer.connect("loaded", self._on_load)
 		self._text_buffer.connect("saved", self._on_save)
 	

@@ -440,13 +440,19 @@ class CompletionDistributor(object):
 		
 		for handler in self._handlers:
 			delimiters = handler.prefix_delimiters
-			prefix = self._find_prefix(delimiters)
+			self._log.debug("_complete: delims are %s" % delimiters)
 			
+			prefix = self._find_prefix(delimiters)
 			if prefix:
+				if handler.strip_delimiter:
+					prefix = prefix[1:]
+				
 				proposals = handler.complete(prefix)
 				assert type(proposals) is list
 				
 				all_proposals.extend(proposals)
+			else:
+				self._log.debug("_complete: no prefix for %s" % handler)
 		
 		if len(all_proposals):
 			self._popup.activate(all_proposals, self._text_view)
@@ -464,19 +470,28 @@ class CompletionDistributor(object):
 		it_right = self._text_buffer.get_iter_at_mark(self._text_buffer.get_insert())
 		it_left = it_right.copy()
 		
+		# go back by one character (insert iter points to the char at the right of
+		# the cursor)
+		if not it_left.backward_char():
+			self._log.debug("_find_prefix: start of buffer reached")
+			return None
+		
 		i = 0
 		while i < self._MAX_PREFIX_LENGTH:
 			c = it_left.get_char()
 			
 			if c in delimiters:
+				self._log.debug("_find_prefix: got delimiter at %s" % i)
 				break
 			
 			if not it_left.backward_char():
+				self._log.debug("_find_prefix: start of buffer reached")
 				return None
 			
 			i += 1
 
 		if i == self._MAX_PREFIX_LENGTH:
+			self._log.debug("_find_prefix: prefix too long")
 			return None
 		
 		# TODO: check for \\ and don't complete there
@@ -486,6 +501,7 @@ class CompletionDistributor(object):
 		#		return None
 		
 		prefix = self._text_buffer.get_text(it_left, it_right, False)
+		self._log.debug("_find_prefix: '%s'" % prefix)
 		
 		return prefix
 	

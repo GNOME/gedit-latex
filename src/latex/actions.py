@@ -86,14 +86,14 @@ class LaTeXCommentAction(IAction):
 	
 	@property
 	def accelerator(self):
-		return None
+		return "<Ctrl><Alt>C"
 	
 	@property
 	def tooltip(self):
 		return None
 	
 	def activate(self, editor):
-		self._log.debug("activate")
+		editor.toggle_comment("%")
 		
 		
 		

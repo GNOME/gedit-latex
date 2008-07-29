@@ -41,6 +41,15 @@ class GeditLaTeXPlugin(gedit.Plugin):
 		gedit.Plugin.__init__(self)
 		self._window_decorators = {}
 		
+		# be sure that we're running on a gedit with the new binding API
+		# see http://ftp.acc.umu.se/pub/GNOME/sources/gedit/2.15/gedit-2.15.2.changes
+		#
+		# TODO: we should support earlier versions because e.g. Debian Etch still offers 2.14
+		
+		if gedit.version < (2, 15, 2):
+			from util import open_error
+			open_error("LaTeX Plugin requires gedit 2.15.2 or newer")
+		
 	def activate(self, window):
 		"""
 		Called when the plugin is loaded with gedit or activated in 

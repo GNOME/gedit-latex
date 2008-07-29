@@ -19,11 +19,35 @@
 # Street, Fifth Floor, Boston, MA  02110-1301, USA
 
 """
-snippets
+util
 """
 
-class Snippet(object):
-	def __init__(self, label, template_expression):
-		self.label = label
-		self.template_expression = template_expression
-	
+import gtk
+import traceback
+
+
+def open_error(message, secondary_message=None):
+	"""
+	Popup an error dialog window
+	"""
+	dialog = gtk.MessageDialog(None, gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT, 
+							gtk.MESSAGE_ERROR, gtk.BUTTONS_OK, message)
+	if secondary_message:
+		dialog.format_secondary_text(message)
+	dialog.run()
+	dialog.destroy()
+
+
+
+def caught(f):
+	"""
+	'caught'-decorator. This runs the decorated method in a try-except-block
+	and shows an error dialog on exception.
+	"""
+	def newFunction(*args, **kw):
+		try:
+			return f(*args, **kw)
+		except Exception, e:
+			stack = traceback.format_exc(limit=10)
+			open_error(str(e), stack)
+	return newFunction

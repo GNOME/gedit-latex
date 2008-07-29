@@ -49,6 +49,9 @@ class MalformedTemplateException(Exception):
 	"""
 
 
+from ..util import caught
+
+
 class TemplateCompiler(object):
 	
 	_S_DEFAULT, _S_IDENT, _S_PLACEHOLDER = 0, 1, 2
@@ -76,56 +79,62 @@ class TemplateCompiler(object):
 		@raise MalformedTemplateException: if the expression could not be tokenized
 		@return: a list of tokens
 		"""
+		
+		# TODO: redo this from DFA
+		
 		self._reset()
 		
 		state = self._S_DEFAULT
 		offset = 0
 		
-		for c in expression:
-			if state == self._S_DEFAULT:
-				# we're in plain text
-				if c == "$":
-					# the magic char appeared, so change state
-					state = self._S_IDENT
-				else:
-					# nothing special, so append to plain text
-					self._plain += c
-					offset += 1
-					
-			elif state == self._S_IDENT:
-				# the magic char has appeared
-				if c == "{":
-					# a placeholder is starting, so create a builder for its name
-					name = []
-					# save its position
-					position = offset
-					# and change state
-					state = self._S_PLACEHOLDER
-				elif c == "_":
-					# "$_" marks the final cursor position
-					self._final_cursor_offset = offset
-					# and change state back to default
-					state = self._S_DEFAULT
-				else:
-					# false alarm, the magic sign was just a dollar sign, so append
-					# the "$" and the current char to plain text
-					plain += "$" + c
-					offset += 2
-					# and change to default state
-					state = self._S_DEFAULT
-					
-			elif state == self._S_PLACEHOLDER:
-				# we're in a placeholder definition
-				if c == "}":
-					# it is ending, so append object
-					self._placeholders.append(Placeholder("".join(name), position))
-					self._plain += "".join(name)
-					# change state
-					state = self._S_DEFAULT
-				else:
-					# it is not ending
-					name.append(c)
-					offset += 1
+		try:
+			for c in expression:
+				if state == self._S_DEFAULT:
+					# we're in plain text
+					if c == "$":
+						# the magic char appeared, so change state
+						state = self._S_IDENT
+					else:
+						# nothing special, so append to plain text
+						self._plain += c
+						offset += 1
+						
+				elif state == self._S_IDENT:
+					# the magic char has appeared
+					if c == "{":
+						# a placeholder is starting, so create a builder for its name
+						name = []
+						# save its position
+						position = offset
+						# and change state
+						state = self._S_PLACEHOLDER
+					elif c == "_":
+						# "$_" marks the final cursor position
+						self._final_cursor_offset = offset
+						# and change state back to default
+						state = self._S_DEFAULT
+					else:
+						# false alarm, the magic sign was just a dollar sign, so append
+						# the "$" and the current char to plain text
+						plain += "$" + c
+						offset += 2
+						# and change to default state
+						state = self._S_DEFAULT
+						
+				elif state == self._S_PLACEHOLDER:
+					# we're in a placeholder definition
+					if c == "}":
+						# it is ending, so append object
+						self._placeholders.append(Placeholder("".join(name), position))
+						self._plain += "".join(name)
+						# change state
+						state = self._S_DEFAULT
+					else:
+						# it is not ending
+						name.append(c)
+						offset += 1
+		except Exception, e:
+			raise MalformedTemplateException(e)
 		
 		# if everything went fine we should end up in default state
 		if state != self._S_DEFAULT:

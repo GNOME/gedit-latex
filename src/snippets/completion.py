@@ -26,7 +26,55 @@ Snippet-specific completion classes
 
 from logging import getLogger
 
-from ..base.interface import ICompletionHandler
+from ..base.interface import ICompletionHandler, IProposal, Template
+
+
+class SnippetProposal(IProposal):
+	def __init__(self, snippet, overlap):
+		self._snippet = snippet
+		self._overlap = overlap
+	
+	@property
+	def source(self):
+		"""
+		@return: a subclass of Source to be inserted on activation
+		"""
+		return Template(self._snippet.template_expression)
+	
+	@property
+	def label(self):
+		"""
+		@return: a string (may be pango markup) to be shown in proposals popup
+		"""
+		return self._snippet.label
+	
+	@property
+	def details(self):
+		"""
+		@return: a widget to be shown in details popup
+		"""
+		self._snippet.template_expression
+	
+	@property
+	def icon(self):
+		"""
+		@return: an instance of gtk.gdk.Pixbuf
+		"""
+		return None
+	
+	@property
+	def overlap(self):
+		"""
+		@return: the number of overlapping characters from the beginning of the
+			proposal and the prefix it was generated for
+		"""
+		return self._overlap
+
+
+from . import Snippet
+
+
+SNIPPETS = [Snippet("includegraphics", "\\includegraphics[${Attributes}]{${Filename}}")]
 
 
 class SnippetCompletionHandler(ICompletionHandler):
@@ -41,7 +89,7 @@ class SnippetCompletionHandler(ICompletionHandler):
 	
 	@property
 	def prefix_delimiters(self):
-		return ["\t","\n"," "]
+		return ["\t", "\n", " "]
 	
 	@property
 	def strip_delimiter(self):
@@ -50,6 +98,11 @@ class SnippetCompletionHandler(ICompletionHandler):
 	def complete(self, prefix):
 		self._log.debug("complete(%s)" % prefix)
 		
-		return []
+		overlap = len(prefix)
+		
+		matching_snippets = [snippet for snippet in SNIPPETS if snippet.label.startswith(prefix)]
+		proposals = [SnippetProposal(snippet, overlap) for snippet in matching_snippets]
+		
+		return proposals
 	
 	
