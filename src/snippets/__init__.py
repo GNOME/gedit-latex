@@ -18,25 +18,7 @@
 # this program; if not, write to the Free Software Foundation, Inc., 51 Franklin
 # Street, Fifth Floor, Boston, MA  02110-1301, USA
 
-from logging import getLogger
+"""
+snippets
+"""
 
-from ..base.interface import Editor
-from completion import LaTeXCompletionHandler
-from ..snippets.completion import SnippetCompletionHandler
-
-
-class LaTeXEditor(Editor):
-	_log = getLogger("LaTeXEditor")
-	
-	@property
-	def completion_handlers(self):
-		return [LaTeXCompletionHandler(), SnippetCompletionHandler()]
-	
-	def init(self, file):
-		self._log.debug("init(%s)" % file)
-	
-	def save(self):
-		pass
-	
-	def destroy(self):
-		pass

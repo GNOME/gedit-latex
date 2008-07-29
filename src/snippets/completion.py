@@ -18,25 +18,38 @@
 # this program; if not, write to the Free Software Foundation, Inc., 51 Franklin
 # Street, Fifth Floor, Boston, MA  02110-1301, USA
 
+"""
+snippets.completion
+
+Snippet-specific completion classes
+"""
+
 from logging import getLogger
 
-from ..base.interface import Editor
-from completion import LaTeXCompletionHandler
-from ..snippets.completion import SnippetCompletionHandler
+from ..base.interface import ICompletionHandler
 
 
-class LaTeXEditor(Editor):
-	_log = getLogger("LaTeXEditor")
+class SnippetCompletionHandler(ICompletionHandler):
+	"""
+	"""
+	
+	_log = getLogger("SnippetCompletionHandler")
 	
 	@property
-	def completion_handlers(self):
-		return [LaTeXCompletionHandler(), SnippetCompletionHandler()]
+	def trigger_keys(self):
+		return []
 	
-	def init(self, file):
-		self._log.debug("init(%s)" % file)
+	@property
+	def prefix_delimiters(self):
+		return ["\t","\n"," "]
 	
-	def save(self):
-		pass
+	@property
+	def strip_delimiter(self):
+		return True
 	
-	def destroy(self):
-		pass
+	def complete(self, prefix):
+		self._log.debug("complete(%s)" % prefix)
+		
+		return []
+	
+	
