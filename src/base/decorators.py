@@ -332,6 +332,10 @@ class GeditTabDecorator(object):
 		self._text_buffer.connect("loaded", self._on_load)
 		self._text_buffer.connect("saved", self._on_save)
 	
+	@property
+	def tab(self):
+		return self._tab
+	
 	def _on_load(self, document, param):
 		"""
 		A file has been loaded
@@ -370,7 +374,10 @@ class GeditTabDecorator(object):
 			# eventually create new editor instance
 			if ext in EDITORS.keys():
 				editor_class = EDITORS[ext]
-				self._editor = editor_class.__new__(editor_class, self, f)
+				
+				self._editor = editor_class.__new__(editor_class)
+				editor_class.__init__(self._editor, self, f)
+				
 				self._editor_uri = uri
 				
 			# URI has changed

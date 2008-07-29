@@ -21,10 +21,15 @@
 from logging import getLogger
 
 from ..base.interface import Editor
+from completion import LaTeXCompletionHandler
 
 
 class LaTeXEditor(Editor):
 	_log = getLogger("LaTeXEditor")
+	
+	@property
+	def completion_handlers(self):
+		return [LaTeXCompletionHandler()]
 	
 	def init(self, file):
 		self._log.debug("init(%s)" % file)

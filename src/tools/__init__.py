@@ -80,10 +80,10 @@ class ToolJob():
 
 import gtk
 
-from ..base.interface import Action
+from ..base.interface import IAction
 
 	
-class ToolAction(Action):
+class ToolAction(IAction):
 	
 	_log = getLogger("ToolAction")
 	
@@ -95,12 +95,16 @@ class ToolAction(Action):
 		return self._tool.label
 	
 	@property
-	def tooltip(self):
-		return self._tool.description
-	
-	@property
 	def stock_id(self):
 		return gtk.STOCK_CONVERT
+	
+	@property
+	def accelerator(self):
+		return None
+	
+	@property
+	def tooltip(self):
+		return self._tool.description
 	
 	def activate(self, editor):
 		self._log.debug("activate: " + str(self._tool))

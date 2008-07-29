@@ -25,17 +25,36 @@ latex.actions
 from logging import getLogger
 import gtk
 
-from ..base.interface import Action
+from ..base.interface import IAction
 
 
-class LaTeXMenuAction(Action):
+class LaTeXMenuAction(IAction):
 	@property
 	def label(self):
 		return "LaTeX"
 	
+	@property
+	def stock_id(self):
+		return None
+	
+	@property
+	def accelerator(self):
+		return None
+	
+	@property
+	def tooltip(self):
+		return None
+	
+	def activate(self, editor):
+		pass
+	
 
-class LaTeXNewAction(Action):
+class LaTeXNewAction(IAction):
 	_log = getLogger("LaTeXNewAction")
+	
+	@property
+	def label(self):
+		return "New LaTeX Document..."
 	
 	@property
 	def stock_id(self):
@@ -43,23 +62,35 @@ class LaTeXNewAction(Action):
 		return None
 	
 	@property
-	def label(self):
-		return "New LaTeX Document..."
+	def accelerator(self):
+		return None
+	
+	@property
+	def tooltip(self):
+		return None
 	
 	def activate(self, editor):
 		self._log.debug("activate")
 	
 
-class LaTeXCommentAction(Action):
+class LaTeXCommentAction(IAction):
 	_log = getLogger("LaTeXCommentAction")
+	
+	@property
+	def label(self):
+		return "Toggle Comment"
 	
 	@property
 	def stock_id(self):
 		return None
 	
 	@property
-	def label(self):
-		return "Toggle Comment"
+	def accelerator(self):
+		return None
+	
+	@property
+	def tooltip(self):
+		return None
 	
 	def activate(self, editor):
 		self._log.debug("activate")

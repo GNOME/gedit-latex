@@ -20,10 +20,10 @@
 
 import gtk
 
-from ..base.interface import TreeView, POSITION_LEFT
+from ..base.interface import View, POSITION_LEFT
 
 
-class OutlineView(TreeView):
+class OutlineView(View):
 	@property
 	def position(self):
 		return POSITION_LEFT
