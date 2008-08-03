@@ -19,18 +19,20 @@
 # Street, Fifth Floor, Boston, MA  02110-1301, USA
 
 """
-base.issues
+latex.views
+
+LaTeX-specific views
 """
 
+from base.interface import IView
 
-class IssueHandler(object):
-	def reset(self):
-		pass
-	
-	def issue(self, issue):
-		pass
-	
-	
-class IssueView(IssueHandler):
-	pass
 
+class ConsistencyView(IView):
+    """
+    Checking consistency of a LaTeX document means parsing and validating it.
+    
+    This view is file-specific
+    """
+    @property
+    def position(self):
+        return IView.POSITION_BOTTOM

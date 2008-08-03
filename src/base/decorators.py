@@ -52,12 +52,12 @@ ACTION_EXTENSIONS = { None : ["LaTeXNewAction"],
 					  ".tex" : ["LaTeXMenuAction", "LaTeXCommentAction", "LaTeXSpellCheckAction"] }
 
 
-from ..tools import Tool, ToolJob, ToolAction
+from ..tools import Tool, Job, ToolAction
 
 
 # TODO: this should come from configuration
 
-TOOLS = [ Tool("LaTeX → PDF", [".tex"], [ToolJob("rubber $filename", True)], "Create a PDF from LaTeX source") ]
+TOOLS = [ Tool("LaTeX → PDF", [".tex"], [Job("rubber $filename", True)], "Create a PDF from LaTeX source") ]
 
 
 class GeditWindowDecorator(object):
@@ -105,6 +105,14 @@ class GeditWindowDecorator(object):
 				self._window.connect("tab_added", self._on_tab_added),
 				self._window.connect("tab_removed", self._on_tab_removed),
 				self._window.connect("active_tab_changed", self._on_active_tab_changed) ]
+	
+	def _init_views(self):
+		"""
+		Hook views
+		"""
+		
+		# TODO:
+	
 	
 	def _init_actions(self):
 		"""

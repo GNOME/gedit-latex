@@ -29,6 +29,9 @@ from logging import getLogger
 
 
 class Tool(object):
+	"""
+	The model of a tool. This is to be stored in configuration.
+	"""
 	def __init__(self, label, extensions, jobs, description):
 		self._label = label
 		self._extensions = extensions
@@ -64,7 +67,10 @@ class Tool(object):
 		return "Tool{%s}" % self._label
 	
 	
-class ToolJob():
+class Job():
+	"""
+	The model of a Job (part of a Tool).
+	"""
 	def __init__(self, command_template, must_succeed):
 		self._command_template = command_template
 		self._must_succeed = must_succeed
@@ -87,8 +93,11 @@ class ToolAction(IAction):
 	
 	_log = getLogger("ToolAction")
 	
-	def init(self, tool):
+	def init(self, tool, tool_view):
 		self._tool = tool
+		self._tool_view = tool_view
+		
+		self._processor = Processor()
 	
 	@property
 	def label(self):
@@ -108,4 +117,22 @@ class ToolAction(IAction):
 	
 	def activate(self, editor):
 		self._log.debug("activate: " + str(self._tool))
+		
+		self._processor.run(editor.file, self._tool, self._tool_view)
+		
+		
+class Processor(object):
+	
+	# TODO: this should be a singleton
+	
+	def run(self, file, tool, structured_issue_handler):
+		# init issue handler
+		self._issue_handler = structured_issue_handler
+		self._issue_handler.reset()
+		parent_id = self._issue_handler.add_section(tool.label)
+		
+	
+	def _exit(self, condition):
+		pass
+	
 

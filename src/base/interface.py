@@ -28,6 +28,23 @@ from logging import getLogger
 import gtk
 
 
+class IView(object):
+	"""
+	A view can be global (static) or file-specific (dynamic)
+	"""
+	
+	# TODO:
+	
+	POSITION_SIDE, POSITION_BOTTOM = 0, 1
+	
+	@property
+	def position(self):
+		"""
+		@return: POSITION_SIDE | POSITION_BOTTOM
+		"""
+		raise NotImplementedError
+
+
 class Template(object):
 	"""
 	This one is exposed and should be used by the 'real' plugin code

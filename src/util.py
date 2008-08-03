@@ -20,6 +20,9 @@
 
 """
 util
+
+Utility classes, functions and decorators used at various places across
+the project
 """
 
 import gtk
@@ -38,16 +41,27 @@ def open_error(message, secondary_message=None):
 	dialog.destroy()
 
 
-
 def caught(f):
 	"""
 	'caught'-decorator. This runs the decorated method in a try-except-block
 	and shows an error dialog on exception.
 	"""
-	def newFunction(*args, **kw):
+	def new_function(*args, **kw):
 		try:
 			return f(*args, **kw)
 		except Exception, e:
 			stack = traceback.format_exc(limit=10)
 			open_error(str(e), stack)
-	return newFunction
+	return new_function
+
+
+class IIssueHandler(object):
+	"""
+	This should be subclassed by an IssueView
+	"""
+	def reset(self):
+		raise NotImplementedError
+	
+	def issue(self, issue):
+		raise NotImplementedError
+
