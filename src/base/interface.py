@@ -33,7 +33,8 @@ class IView(object):
 	A view can be global (static) or file-specific (dynamic)
 	"""
 	
-	# TODO:
+	# TODO: use the adapter pattern for view like in
+	# http://help.eclipse.org/stable/nftopic/org.eclipse.platform.doc.isv/reference/api/org/eclipse/ui/views/contentoutline/ContentOutline.html
 	
 	POSITION_SIDE, POSITION_BOTTOM = 0, 1
 	
@@ -43,6 +44,7 @@ class IView(object):
 		@return: POSITION_SIDE | POSITION_BOTTOM
 		"""
 		raise NotImplementedError
+	
 
 
 class Template(object):
