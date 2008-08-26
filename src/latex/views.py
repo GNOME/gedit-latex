@@ -24,15 +24,82 @@ latex.views
 LaTeX-specific views
 """
 
-from base.interface import IView
+import gtk
+from logging import getLogger
+
+from ..base.interface import View
 
 
-class ConsistencyView(IView):
+class LaTeXConsistencyView(View):
     """
     Checking consistency of a LaTeX document means parsing and validating it.
     
     This view is file-specific
     """
+    
+    _log = getLogger("LaTeXConsistencyView")
+    
+    def __init__(self):
+        self._log.debug("__init__")
+        View.__init__(self)
+    
+    @staticmethod
     @property
     def position(self):
-        return IView.POSITION_BOTTOM
+        return View.POSITION_BOTTOM
+    
+    @staticmethod
+    @property
+    def label(self):
+        return "Consistency"
+    
+    @staticmethod
+    @property
+    def icon(self):
+        return gtk.STOCK_CONVERT
+    
+    @staticmethod
+    @property
+    def scope():
+        return View.SCOPE_EDITOR
+    
+    
+    def clear(self):
+        pass
+    
+    def append_issue(self, issue):
+        self._log.debug("append_issue: " + str(issue))
+        
+        
+class LaTeXSymbolMapView(View):
+    """
+    """
+    _log = getLogger("LaTeXSymbolMapView")
+    
+    def __init__(self):
+        self._log.debug("__init__")
+        View.__init__(self)
+    
+    @staticmethod
+    @property
+    def position(self):
+        return View.POSITION_SIDE
+    
+    @staticmethod
+    @property
+    def label(self):
+        return "Symbols"
+    
+    @staticmethod
+    @property
+    def icon(self):
+        return gtk.STOCK_CONVERT
+    
+    @staticmethod
+    @property
+    def scope(self):
+        return View.SCOPE_WINDOW
+    
+        
+        
+        

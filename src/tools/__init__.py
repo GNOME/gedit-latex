@@ -21,8 +21,8 @@
 """
 tools
 
-A tool is what we called a build profile before. This is more generic.
-It can be used for cleaning up, converting files and for building PDFs etc.
+A tool is what we called a 'build profile' before. 'Tool' is more generic.
+It can be used for cleaning up, converting files, for building PDFs etc.
 """
 
 from logging import getLogger
@@ -67,9 +67,9 @@ class Tool(object):
 		return "Tool{%s}" % self._label
 	
 	
-class Job():
+class Job(object):
 	"""
-	The model of a Job (part of a Tool).
+	A Job forms one command to be executed in a Tool
 	"""
 	def __init__(self, command_template, must_succeed):
 		self._command_template = command_template
@@ -90,12 +90,15 @@ from ..base.interface import IAction
 
 	
 class ToolAction(IAction):
+	"""
+	This hooks Tools in the UI. A ToolAction is instantiated for each registered Tool.
+	"""
 	
 	_log = getLogger("ToolAction")
 	
-	def init(self, tool, tool_view):
+	def init(self, tool):
 		self._tool = tool
-		self._tool_view = tool_view
+		#self._tool_view = tool_view
 		
 		self._processor = Processor()
 	
@@ -135,4 +138,7 @@ class Processor(object):
 	def _exit(self, condition):
 		pass
 	
+
+
+
 
