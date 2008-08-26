@@ -26,14 +26,13 @@ Essential views
 
 import gtk
 
-from issues import IIssueHandler, IStructuredIssueHandler
 
-
-class ToolView(IStructuredIssueHandler):
-    """
-    This displays the output of a running Tool
+class ToolView(object):
     
-    This is only window-specific
-    """
+    _log = getLogger("ToolView")
     
+    def load_tool(self, tool):
+        pass
     
+    def append_issue(self, job, issue):
+        pass

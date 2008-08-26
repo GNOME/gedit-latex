@@ -19,38 +19,18 @@
 # Street, Fifth Floor, Boston, MA  02110-1301, USA
 
 """
-util
-
-Utility classes, functions and decorators used at various places across
-the project
+issues
 """
 
-import gtk
-import traceback
-
-
-def open_error(message, secondary_message=None):
-	"""
-	Popup an error dialog window
-	"""
-	dialog = gtk.MessageDialog(None, gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT, 
-							gtk.MESSAGE_ERROR, gtk.BUTTONS_OK, message)
-	if secondary_message:
-		dialog.format_secondary_text(message)
-	dialog.run()
-	dialog.destroy()
-
-
-def caught(f):
-	"""
-	'caught'-decorator. This runs the decorated method in a try-except-block
-	and shows an error dialog on exception.
-	"""
-	def new_function(*args, **kw):
-		try:
-			return f(*args, **kw)
-		except Exception, e:
-			stack = traceback.format_exc(limit=10)
-			open_error(str(e), stack)
-	return new_function
-
+class Issue(object):
+    SEVERITY_WARNING, SEVERITY_ERROR, SEVERITY_INFO, SEVERITY_TASK = 0, 1, 2, 3
+    
+    def __init__(self, message, start, end, file, severity):
+        self.message = message
+        self.start = start
+        self.end = end
+        self.file = file
+        self.severity = severity
+        
+    def __str__(self):
+        return "Issue{'%s', %s, %s, %s, %s}" % (self.message, self.start, self.end, self.file, self.severity)
