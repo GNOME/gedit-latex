@@ -28,22 +28,58 @@ from logging import getLogger
 import gtk
 
 
-class IView(object):
+class View(gtk.HBox):
 	"""
-	A view can be global (static) or file-specific (dynamic)
+	A view
 	"""
 	
 	# TODO: use the adapter pattern for view like in
 	# http://help.eclipse.org/stable/nftopic/org.eclipse.platform.doc.isv/reference/api/org/eclipse/ui/views/contentoutline/ContentOutline.html
 	
+	
 	POSITION_SIDE, POSITION_BOTTOM = 0, 1
 	
+	SCOPE_WINDOW, SCOPE_EDITOR = 0, 1
+	
+	
+	def __init__(self):
+		gtk.HBox.__init__(self)
+		
+		self.init()
+	
+	@staticmethod
 	@property
 	def position(self):
 		"""
 		@return: POSITION_SIDE | POSITION_BOTTOM
 		"""
-		raise NotImplementedError
+		return self.POSITION_SIDE
+	
+	@staticmethod
+	@property
+	def label(self):
+		"""
+		@return: a label string used for this view
+		"""
+		return ""
+	
+	@staticmethod
+	@property
+	def icon(self):
+		"""
+		@return: an icon for this view (gtk.Image or a stock_id string)
+		"""
+		return None
+	
+	@staticmethod
+	@property
+	def scope(self):
+		"""
+		@return: the scope of this View:
+			SCOPE_WINDOW: the View is created with the window and the same instance is passed to every Editor
+			SCOPE_EDITOR: the View is created with the Editor and destroyed with it
+		"""
+		return self.SCOPE_WINDOW
 	
 
 
