@@ -23,6 +23,7 @@ from logging import getLogger
 from ..base.interface import Editor
 from completion import LaTeXCompletionHandler
 from ..snippets.completion import SnippetCompletionHandler
+from ..issues import Issue
 
 
 class LaTeXEditor(Editor):
@@ -30,19 +31,31 @@ class LaTeXEditor(Editor):
 	
 	@property
 	def completion_handlers(self):
-		return [LaTeXCompletionHandler(), SnippetCompletionHandler()]
+		"""
+		Return the CompletionHandlers to load when this Editor is used
+		"""
+		return [ LaTeXCompletionHandler(), SnippetCompletionHandler() ]
 	
-	def init(self, file):
+	def init(self, file, context):
 		self._log.debug("init(%s)" % file)
 		
+		self._file = file
+		
 		self.register_marker_type("latex-spell", "#ffeccf")
+		
+		self._consistency_view = context.views["LaTeXConsistencyView"]
+		#self._symbol_map_view = context.views["LaTeXSymbolMapView"]
 	
 	def save(self):
-		pass
+		"""
+		The file has been saved
+		
+		Update models and pass issues
+		"""
+		self._consistency_view.clear()
+		self._consistency_view.append_issue(Issue("Error", 0, 1, self._file, Issue.SEVERITY_ERROR))
 	
 	def spell_check(self):
-		#self.content
-		
 		self._log.debug("spell_check")
 		
 		self.remove_markers("latex-spell")
@@ -57,3 +70,5 @@ class LaTeXEditor(Editor):
 	
 	def destroy(self):
 		pass
+	
+	

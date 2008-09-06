@@ -33,10 +33,6 @@ class View(gtk.HBox):
 	A view
 	"""
 	
-	# TODO: use the adapter pattern for view like in
-	# http://help.eclipse.org/stable/nftopic/org.eclipse.platform.doc.isv/reference/api/org/eclipse/ui/views/contentoutline/ContentOutline.html
-	
-	
 	POSITION_SIDE, POSITION_BOTTOM = 0, 1
 	
 	SCOPE_WINDOW, SCOPE_EDITOR = 0, 1
@@ -45,36 +41,71 @@ class View(gtk.HBox):
 	def __init__(self):
 		gtk.HBox.__init__(self)
 		
-		self.init()
+		self._initialized = False
+		
+		# connect to expose event to init() on first expose
+		self._expose_handler = self.connect("expose-event", self._on_expose_event)
+		
+	def _on_expose_event(self, *args):
+		"""
+		The View has been exposed for the first time
+		"""
+		self._do_init()
 	
-	@staticmethod
+	def _do_init(self):
+		self.disconnect(self._expose_handler)
+		self.init()
+		self.show_all()
+		self._initialized = True
+	
+	def assure_init(self):
+		"""
+		This may be called by the subclassing instance to assure that the View
+		has been initialized. 
+		
+		This is necessary because methods of the instance may be called before 
+		init() as the View is initialized on the first exposure.
+		"""
+		if not self._initialized:
+			self._do_init()
+	
+	def init(self):
+		"""
+		To be overridden
+		"""
+
 	@property
 	def position(self):
 		"""
+		To be overridden
+		
 		@return: POSITION_SIDE | POSITION_BOTTOM
 		"""
 		return self.POSITION_SIDE
 	
-	@staticmethod
 	@property
 	def label(self):
 		"""
+		To be overridden
+		
 		@return: a label string used for this view
 		"""
 		return ""
 	
-	@staticmethod
 	@property
 	def icon(self):
 		"""
+		To be overridden
+		
 		@return: an icon for this view (gtk.Image or a stock_id string)
 		"""
 		return None
 	
-	@staticmethod
 	@property
 	def scope(self):
 		"""
+		To be overridden
+		
 		@return: the scope of this View:
 			SCOPE_WINDOW: the View is created with the window and the same instance is passed to every Editor
 			SCOPE_EDITOR: the View is created with the Editor and destroyed with it
@@ -201,6 +232,12 @@ from util import RangeMap
 from . import Marker
 
 
+from ..latex.views import LaTeXConsistencyView
+
+
+EDITOR_SCOPE_VIEWS = { ".tex" : {"LaTeXConsistencyView" : LaTeXConsistencyView } }
+
+
 class Editor(object):
 	
 	__log = getLogger("Editor")
@@ -213,25 +250,47 @@ class Editor(object):
 		self._text_buffer = tab_decorator.tab.get_document()
 		self._text_view = tab_decorator.tab.get_view()
 		
-		# template delegate
+		# create template delegate
 		self._template_delegate = TemplateDelegate(self)
 		
-		# hook completion handlers
+		# hook completion handlers of the subclassing Editor
 		completion_handlers = self.completion_handlers
 		if len(completion_handlers):
 			self._completion_distributor = CompletionDistributor(self, completion_handlers)
 		else:
 			self._completion_distributor = None
 		
-		# marker framework
-		self._marker_type_tags = {}    # marker type ids -> TextTag object
-		self._marker_maps = {}	   	   # marker type ids -> RangeMap object
+		# init marker framework
+		self._marker_type_tags = {}    # marker type id -> TextTag object
+		self._marker_maps = {}	   	   # marker type id -> RangeMap object
+		
+		
+		# create editor-specific views
+		self._views = {}
+		try:
+			for id, clazz in EDITOR_SCOPE_VIEWS[file.extension].iteritems():
+				# create View instance and add it to the map
+				view = clazz.__new__(clazz)
+				clazz.__init__(view)
+				self._views[id] = view
+				
+				self.__log.debug("Created view " + id)
+		except KeyError:
+			self.__log.debug("No views")
+		
+		# create context object
+		context = Context(self._views)
+		
 		
 		# TODO: disconnect on destroy
 		self._button_press_handler = self._text_view.connect("button-press-event", self._on_button_pressed)
 		
 		# start life-cycle for subclass
-		self.init(file)
+		self.init(file, context)
+	
+	@property
+	def views(self):
+		return self._views
 	
 	@property
 	def tab_decorator(self):
@@ -518,9 +577,10 @@ class Editor(object):
 		"""
 		return []
 	
-	def init(self, file):
+	def init(self, file, context):
 		"""
 		@param file: File object
+		@param context: Context object
 		"""
 	
 	def save(self):
@@ -533,4 +593,17 @@ class Editor(object):
 		The edited file has been closed or saved as another file
 		"""
 		
-		
+	
+class Context(object):
+	"""
+	The Context is passed to Editors and is used to retrieve View instances. We could pass
+	the map of views directly but a Context is more generic and may be used for more
+	things in the future.
+	"""
+	def __init__(self, views):
+		self._views = views
+	
+	@property
+	def views(self):
+		return self._views
+	

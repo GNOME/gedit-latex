@@ -60,6 +60,13 @@ from ..tools import Tool, Job, ToolAction
 TOOLS = [ Tool("LaTeX → PDF", [".tex"], [Job("rubber $filename", True)], "Create a PDF from LaTeX source") ]
 
 
+from interface import View
+from ..latex.views import LaTeXSymbolMapView
+
+
+WINDOW_SCOPE_VIEWS = { ".tex" : {"LaTeXSymbolMapView" : LaTeXSymbolMapView } }
+
+
 class GeditWindowDecorator(object):
 	"""
 	This class
@@ -71,24 +78,24 @@ class GeditWindowDecorator(object):
 	_log = getLogger("GeditWindowDecorator")
 	
 	_ui = """
-<ui>
-	<menubar name="MenuBar">
-		<menu name="FileMenu" action="File">
-			<placeholder name="FileOps_1">
-				<menuitem action="LaTeXNewAction" />
-			</placeholder>
-		</menu>
-		<placeholder name="ExtraMenu_1">
-			<menu action="LaTeXMenuAction">
-				<menuitem action="LaTeXCommentAction" />
-				<menuitem action="LaTeXSpellCheckAction" />
-			</menu>
-		</placeholder>
-	</menubar>
-	<toolbar name="LaTeXToolbar">
-		<toolitem action="LaTeXNewAction" />
-	</toolbar>
-</ui>"""
+		<ui>
+			<menubar name="MenuBar">
+				<menu name="FileMenu" action="File">
+					<placeholder name="FileOps_1">
+						<menuitem action="LaTeXNewAction" />
+					</placeholder>
+				</menu>
+				<placeholder name="ExtraMenu_1">
+					<menu action="LaTeXMenuAction">
+						<menuitem action="LaTeXCommentAction" />
+						<menuitem action="LaTeXSpellCheckAction" />
+					</menu>
+				</placeholder>
+			</menubar>
+			<toolbar name="LaTeXToolbar">
+				<toolitem action="LaTeXNewAction" />
+			</toolbar>
+		</ui>"""
 	
 	def __init__(self, window):
 		self._window = window
@@ -98,21 +105,34 @@ class GeditWindowDecorator(object):
 		
 		self._init_tab_decorators()
 		
+		self._init_views()
+		
 		#
 		# listen to tab signals
 		#
-		self._handler_ids = [
+		self._tab_signal_handlers = [
 				self._window.connect("tab_added", self._on_tab_added),
 				self._window.connect("tab_removed", self._on_tab_removed),
 				self._window.connect("active_tab_changed", self._on_active_tab_changed) ]
 	
 	def _init_views(self):
 		"""
-		Hook views
 		"""
 		
-		# TODO:
+		# selection states for each TabDecorator
+		self._selected_bottom_views = {}
+		self._selected_side_views = {}
+		
+		# currently hooked editor-scope views
+		self._side_views = []
+		self._bottom_views = []
+		
+		# currently hooked window-scope views
+		self._window_side_views = []
+		self._window_bottom_views = []
 	
+		# caches window-scope View instances
+		self._views = {}
 	
 	def _init_actions(self):
 		"""
@@ -151,9 +171,9 @@ class GeditWindowDecorator(object):
 		self._tool_action_group = gtk.ActionGroup("LaTeXPluginToolActions")
 		
 		tool_ui = """<ui>
-	<menubar name="MenuBar">
-		<menu name="ToolsMenu" action="Tools">
-			<placeholder name="ToolsOps_1">"""
+			<menubar name="MenuBar">
+				<menu name="ToolsMenu" action="Tools">
+					<placeholder name="ToolsOps_1">"""
 		
 		i = 1
 		for tool in TOOLS:
@@ -186,9 +206,9 @@ class GeditWindowDecorator(object):
 			i += 1
 		
 		tool_ui += """</placeholder>
-		</menu>
-	</menubar>
-</ui>"""
+					</menu>
+				</menubar>
+			</ui>"""
 		
 		self._ui_manager.insert_action_group(self._tool_action_group, -1)
 		self._tool_ui_id = self._ui_manager.add_ui_from_string(tool_ui)
@@ -207,6 +227,8 @@ class GeditWindowDecorator(object):
 			if view is active_view:
 				self._active_tab_decorator = decorator
 		
+		self._log.debug("_init_tab_decorators: initialized %s decorators" % len(views))
+		
 		if len(views) > 0 and not self._active_tab_decorator:
 			self._log.warning("_init_tab_decorators: no active decorator found")
 	
@@ -220,14 +242,24 @@ class GeditWindowDecorator(object):
 		active_editor = self._active_tab_decorator.editor
 		action.activate(active_editor)
 	
-	def adjust_actions(self, extension):
+	def adjust(self, tab_decorator):
 		"""
 		Enable/disable action according to the extension of the currently
 		active file
 		"""
-		self._log.debug("adjust_actions(%s)" % extension)
 		
-		# TODO: improve this!
+		# TODO: improve and simplify this!
+		
+		extension = tab_decorator.extension
+		
+		self._log.debug("adjust: %s, %s" % (tab_decorator, extension))
+		
+		#
+		# adjust actions
+		#
+		# FIXME: we always get the state of the new decorator after tab change
+		# but we need to save the one of the old decorator
+		#
 		
 		# disable all actions
 		for name in ACTION_OBJECTS.keys():
@@ -263,8 +295,116 @@ class GeditWindowDecorator(object):
 					self._tool_action_group.get_action(name).set_sensitive(True)
 			except KeyError:
 				pass
+		
+		#
+		# save selection state
+		#
+		self._selected_bottom_views[tab_decorator] = self._get_selected_bottom_view()
+		self._selected_side_views[tab_decorator] = self._get_selected_side_view()
+		
+		#
+		# adjust editor-scope views
+		#
+		
+		# hide all
+		for view in self._side_views:
+			self._window.get_side_panel().remove_item(view)
+			self._side_views.remove(view)
+		
+		for view in self._bottom_views:
+			self._window.get_bottom_panel().remove_item(view)
+			self._bottom_views.remove(view)
+			
+		# show given views
+		if tab_decorator.editor:
+			for id, view in tab_decorator.editor.views.iteritems():
+				panel = None
+				if view.position == View.POSITION_BOTTOM:
+					self._window.get_bottom_panel().add_item(view, view.label, view.icon)
+					self._bottom_views.append(view)
+				elif view.position == View.POSITION_SIDE:
+					self._window.get_side_panel().add_item(view, view.label, view.icon)
+					self._side_views.append(view)
+					
+				else:
+					raise RuntimeError("Invalid position: %s" % view.position)
+		
+		#
+		# adjust window-scope views
+		#
+		
+		# hide all
+		for view in self._window_side_views:
+			self._window.get_side_panel().remove_item(view)
+			self._window_side_views.remove(view)
+		
+		for view in self._window_bottom_views:
+			self._window.get_bottom_panel().remove_item(view)
+			self._window_bottom_views.remove(view)
+			
+		# show given views
+		try:
+			for id, clazz in WINDOW_SCOPE_VIEWS[extension].iteritems():
+				
+				view = None
+				try:
+					view = self._views[id]
+				except KeyError:
+					# create instance
+					view = clazz.__new__(clazz)
+					clazz.__init__(view)
+					self._views[id] = view
+				
+				panel = None
+				if view.position == View.POSITION_BOTTOM:
+					self._window.get_bottom_panel().add_item(view, view.label, view.icon)
+					self._window_bottom_views.append(view)
+				elif view.position == View.POSITION_SIDE:
+					self._window.get_side_panel().add_item(view, view.label, view.icon)
+					self._window_side_views.append(view)
+					
+				else:
+					raise RuntimeError("Invalid position: %s" % view.position)
+		except KeyError:
+			self._log.debug("No window-scope views for this extension")
+		
+		#
+		# restore selection state
+		#
+		self._set_selected_bottom_view(self._selected_bottom_views[tab_decorator])
+		self._set_selected_side_view(self._selected_side_views[tab_decorator])
+	
+	def _get_selected_bottom_view(self):
+		notebook = self._window.get_bottom_panel().get_children()[0].get_children()[0]
+		assert type(notebook) is gtk.Notebook
+		
+		return notebook.get_current_page()
+	
+	def _get_selected_side_view(self):
+		notebook = self._window.get_side_panel().get_children()[1]
+		assert type(notebook) is gtk.Notebook
+		
+		return notebook.get_current_page()
+	
+	def _set_selected_bottom_view(self, view):
+		notebook = self._window.get_bottom_panel().get_children()[0].get_children()[0]
+		assert type(notebook) is gtk.Notebook
+		
+		self._log.debug("_set_selected_bottom_view: %s" % view)
+		
+		notebook.set_current_page(view)
+	
+	def _set_selected_side_view(self, view):
+		notebook = self._window.get_side_panel().get_children()[1]
+		assert type(notebook) is gtk.Notebook
+		
+		self._log.debug("_set_selected_side_view: %s" % view)
+		
+		notebook.set_current_page(view)
 	
 	def _on_tab_added(self, window, tab):
+		self._log.debug("tab_added")
+		
 		if not tab in self._tab_decorators.keys():
 			self._create_tab_decorator(tab)
 			
@@ -275,6 +415,8 @@ class GeditWindowDecorator(object):
 		@param window: GeditWindow
 		@param tab: the closed GeditTab
 		"""
+		self._log.debug("tab_removed")
+		
 		self._tab_decorators[tab].destroy()
 		del self._tab_decorators[tab]
 	
@@ -285,6 +427,8 @@ class GeditWindowDecorator(object):
 		@param window: the GeditWindow
 		@param tab: the activated GeditTab
 		"""
+		self._log.debug("active_tab_changed")
+		
 		if tab in self._tab_decorators.keys():
 			decorator = self._tab_decorators[tab]
 		else:
@@ -293,7 +437,7 @@ class GeditWindowDecorator(object):
 		self._active_tab_decorator = decorator
 		
 		# enable/disable the right actions
-		self.adjust_actions(decorator.extension)
+		self.adjust(decorator)
 	
 	def _create_tab_decorator(self, tab):
 		"""
@@ -307,7 +451,7 @@ class GeditWindowDecorator(object):
 		#
 		# disconnect from tab signals
 		#
-		for id in self._handler_ids:
+		for id in self._tab_signal_handlers:
 			self._window.disconnect(id)
 		#
 		# destroy tab decorators
@@ -326,7 +470,7 @@ EDITORS = {".tex" : LaTeXEditor}
 class GeditTabDecorator(object):
 	"""
 	This monitors the opened file and manages the Editor objects
-	according to the file extension
+	according to the current file extension
 	"""
 	
 	_log = getLogger("GeditTabDecorator")
@@ -385,11 +529,8 @@ class GeditTabDecorator(object):
 				self._editor = None
 			f = File(uri)
 			ext = f.extension.lower()
-			
-			# tell WindowDecorator to adjust actions
-			self._window_decorator.adjust_actions(ext)
-			
-			# eventually create new editor instance
+
+			# create new editor instance
 			if ext in EDITORS.keys():
 				editor_class = EDITORS[ext]
 				
@@ -397,7 +538,10 @@ class GeditTabDecorator(object):
 				editor_class.__init__(self._editor, self, f)
 				
 				self._editor_uri = uri
-				
+			
+			# tell WindowDecorator to adjust actions
+			self._window_decorator.adjust(self)
+			
 			# URI has changed
 			return True
 		else:

@@ -24,6 +24,7 @@ views
 Essential views
 """
 
+from logging import getLogger
 import gtk
 
 
