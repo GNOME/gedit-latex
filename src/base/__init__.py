@@ -26,7 +26,7 @@ not be created, extended or implemented.
 """
 
 from urlparse import urlparse
-from os.path import splitext, basename
+from os.path import splitext, basename, dirname
 
 
 class File(object):
@@ -54,6 +54,10 @@ class File(object):
 	@property
 	def basename(self):
 		return basename(self.path)
+	
+	@property
+	def dirname(self):
+		return dirname(self.path)
 	
 	@property
 	def uri(self):

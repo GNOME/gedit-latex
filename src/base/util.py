@@ -23,6 +23,19 @@ base.util
 """
 
 class RangeMap(object):
+	"""
+	The RangeMap stores a mapping from ranges to values. That means if you store
+	a value V in the range [LO, HI] with PUT(LO, HI, V) then a lookup at a
+	position X returns the value when X is in [LO, HI]. Of course, there may be
+	multiple values at the same position when ranges are overlapping.
+	
+	This is needed for
+	 * spell checking (lookup word objects by cursor position)
+	 * outline tree (lookup symbols by cursor position)
+	"""
+	
+	# TODO: find a faster structure for this (some tree or anything)
+	
 	def __init__(self):
 		self._map = {}
 	
@@ -34,11 +47,15 @@ class RangeMap(object):
 		
 	def lookup(self, position):
 		"""
-		Lookup
+		Lookup a value
 		"""
 		values = []
 		for range, value in self._map.iteritems():
 			if position >= range[0] and position <= range[1]:
 				values.append(value)
 		return values
+	
+	# TODO: maybe implement some remove() method to save memory and speedup the 
+	# lookup(). Keep in mind, that only the spell checker may call a remove()
+	# because for the outline tree the map is destroyed and rebuilt.
 

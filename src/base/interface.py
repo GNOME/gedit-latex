@@ -146,7 +146,10 @@ class IAction(object):
 	def tooltip(self):
 		raise NotImplementedError
 
-	def activate(self, editor):
+	def activate(self, context):
+		"""
+		@param context: the current WindowContext instance
+		"""
 		raise NotImplementedError
 
 
@@ -278,8 +281,10 @@ class Editor(object):
 		except KeyError:
 			self.__log.debug("No views")
 		
+		
 		# create context object
-		context = Context(self._views)
+		context = WindowContext()
+		context.views = self._views
 		
 		
 		# TODO: disconnect on destroy
@@ -287,6 +292,10 @@ class Editor(object):
 		
 		# start life-cycle for subclass
 		self.init(file, context)
+	
+	@property
+	def file(self):
+		return self._file
 	
 	@property
 	def views(self):
@@ -580,7 +589,7 @@ class Editor(object):
 	def init(self, file, context):
 		"""
 		@param file: File object
-		@param context: Context object
+		@param context: WindowContext object
 		"""
 	
 	def save(self):
@@ -594,16 +603,14 @@ class Editor(object):
 		"""
 		
 	
-class Context(object):
+class WindowContext(object):
 	"""
-	The Context is passed to Editors and is used to retrieve View instances. We could pass
-	the map of views directly but a Context is more generic and may be used for more
+	The WindowContext is passed to Editors and is used to retrieve View instances. We could 
+	pass the map of views directly but a Context is more generic and may be used for more
 	things in the future.
 	"""
-	def __init__(self, views):
-		self._views = views
+	def __init__(self):
+		self.views = {}
+		self.active_editor = None
 	
-	@property
-	def views(self):
-		return self._views
 	

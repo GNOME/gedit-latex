@@ -38,8 +38,6 @@ from ..latex.actions import LaTeXMenuAction, LaTeXNewAction, LaTeXCommentAction,
 
 # FIXME: there is no 'active_tab_changed' after the last 'tab_removed'!
 
-# TODO: unify the two action types so that e.g. adjust_actions() gets simpler
-
 # TODO: maybe create ActionDelegate for WindowDecorator
 
 
@@ -57,14 +55,18 @@ from ..tools import Tool, Job, ToolAction
 
 # TODO: this should come from configuration
 
-TOOLS = [ Tool("LaTeX → PDF", [".tex"], [Job("rubber $filename", True)], "Create a PDF from LaTeX source") ]
+TOOLS = [ Tool("LaTeX → PDF", [".tex"], [Job("rubber $filename", True), Job("gnome-open $shortname.pdf", True)], "Create a PDF from LaTeX source"),
+		  Tool("Cleanup LaTeX Build", [".tex"], [Job("rm -f $directory/*.aux $directory/*.log", True)], "Remove LaTeX build files") ]
 
 
-from interface import View
+from interface import View, WindowContext
 from ..latex.views import LaTeXSymbolMapView
 
 
 WINDOW_SCOPE_VIEWS = { ".tex" : {"LaTeXSymbolMapView" : LaTeXSymbolMapView } }
+
+
+from views import ToolView
 
 
 class GeditWindowDecorator(object):
@@ -100,6 +102,12 @@ class GeditWindowDecorator(object):
 	def __init__(self, window):
 		self._window = window
 		
+		#
+		# initialize context object
+		#
+		self._window_context = WindowContext()
+		
+		
 		self._init_actions()
 		self._load_tool_actions()
 		
@@ -133,6 +141,19 @@ class GeditWindowDecorator(object):
 	
 		# caches window-scope View instances
 		self._views = {}
+		
+		#
+		# init the ToolView, it's always present
+		#
+		# TODO: position is ignored
+		# 
+		tool_view = ToolView()
+		self._views["ToolView"] = tool_view
+		self._window.get_bottom_panel().add_item(tool_view, tool_view.label, tool_view.icon)
+		#self._window_bottom_views.append(tool_view)
+		
+		# update context
+		self._window_context.views = self._views
 	
 	def _init_actions(self):
 		"""
@@ -239,8 +260,7 @@ class GeditWindowDecorator(object):
 		@param gtk_action: the activated gtk.Action
 		@param action: a base.interface.Action object for the activated action (not a gtk.Action)
 		"""
-		active_editor = self._active_tab_decorator.editor
-		action.activate(active_editor)
+		action.activate(self._window_context)
 	
 	def adjust(self, tab_decorator):
 		"""
@@ -373,6 +393,11 @@ class GeditWindowDecorator(object):
 		#
 		self._set_selected_bottom_view(self._selected_bottom_views[tab_decorator])
 		self._set_selected_side_view(self._selected_side_views[tab_decorator])
+		
+		#
+		# update context object
+		#
+		self._window_context.active_editor = self._active_tab_decorator.editor
 	
 	def _get_selected_bottom_view(self):
 		notebook = self._window.get_bottom_panel().get_children()[0].get_children()[0]

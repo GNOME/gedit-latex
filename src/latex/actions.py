@@ -45,7 +45,7 @@ class LaTeXMenuAction(IAction):
 	def tooltip(self):
 		return None
 	
-	def activate(self, editor):
+	def activate(self, context):
 		pass
 	
 
@@ -69,7 +69,7 @@ class LaTeXNewAction(IAction):
 	def tooltip(self):
 		return None
 	
-	def activate(self, editor):
+	def activate(self, context):
 		self._log.debug("activate")
 	
 
@@ -92,7 +92,7 @@ class LaTeXCommentAction(IAction):
 	def tooltip(self):
 		return None
 	
-	def activate(self, editor):
+	def activate(self, context):
 		editor.toggle_comment("%")
 		
 		
@@ -115,7 +115,7 @@ class LaTeXSpellCheckAction(IAction):
 	def tooltip(self):
 		return None
 	
-	def activate(self, editor):
+	def activate(self, context):
 		editor.spell_check()
 		
 		

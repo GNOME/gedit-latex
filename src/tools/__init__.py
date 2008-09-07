@@ -30,7 +30,7 @@ from logging import getLogger
 
 class Tool(object):
 	"""
-	The model of a tool. This is to be stored in configuration.
+	The model of a tool. This is to be stored in preferences.
 	"""
 	def __init__(self, label, extensions, jobs, description):
 		self._label = label
@@ -98,9 +98,9 @@ class ToolAction(IAction):
 	
 	def init(self, tool):
 		self._tool = tool
-		#self._tool_view = tool_view
+		self._tool_view = None
 		
-		self._processor = Processor()
+		self._runner = ToolRunner()
 	
 	@property
 	def label(self):
@@ -118,27 +118,83 @@ class ToolAction(IAction):
 	def tooltip(self):
 		return self._tool.description
 	
-	def activate(self, editor):
+	def activate(self, context):
 		self._log.debug("activate: " + str(self._tool))
 		
-		self._processor.run(editor.file, self._tool, self._tool_view)
+		if not self._tool_view:
+			self._tool_view = context.views["ToolView"]
 		
+		if context.active_editor:
+			self._runner.run(context.active_editor.file, self._tool, self._tool_view)
+			self._log.debug("activate: " + str(context.active_editor.file))
 		
-class Processor(object):
+
+from util import Process
+from string import Template
+
+
+class ToolRunner(Process):
+	"""
+	This runs a Tool
+	"""
 	
-	# TODO: this should be a singleton
+	_log = getLogger("ToolProcessor")
 	
-	def run(self, file, tool, structured_issue_handler):
+	def run(self, file, tool, view):
 		# init issue handler
-		self._issue_handler = structured_issue_handler
-		self._issue_handler.reset()
-		parent_id = self._issue_handler.add_section(tool.label)
+		#self._issue_handler = structured_issue_handler
+		#self._issue_handler.reset()
+		#parent_id = self._issue_handler.add_section(tool.label)
 		
+		self._file = file
+		self._job_iter = iter(tool.jobs)
+		
+		self._proceed()
+	
+	def _proceed(self):
+		try:
+			self._job = self._job_iter.next()
+			
+			command_template = Template(self._job.command_template)
+			command = command_template.safe_substitute({"filename" : self._file.path, 
+														"shortname" : self._file.shortname,
+														"directory" : self._file.dirname})
+			
+			Process.run(self, command)
+		except StopIteration:
+			# finished
+			return
+	
+	def _stdout(self, text):
+		"""
+		"""
+		self._log.error("_stdout: " + text)
+		
+	def _stderr(self, text):
+		"""
+		"""
+		self._log.debug("_stderr: " + text)
+	
+	def _abort(self):
+		"""
+		"""
+		self._log.debug("_abort")
 	
 	def _exit(self, condition):
-		pass
-	
-
-
+		"""
+		"""
+		self._log.debug("_exit")
+		
+		assert self._job
+		
+		if condition:
+			if self._job.must_succeed:
+				# tool failed
+				pass
+			else:
+				self._proceed()
+		else:
+			self._proceed()
+			
 
 
