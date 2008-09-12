@@ -29,21 +29,11 @@ from ..base.interface import IAction
 
 
 class LaTeXMenuAction(IAction):
-	@property
-	def label(self):
-		return "LaTeX"
 	
-	@property
-	def stock_id(self):
-		return None
-	
-	@property
-	def accelerator(self):
-		return None
-	
-	@property
-	def tooltip(self):
-		return None
+	label = "LaTeX"
+	stock_id = None
+	accelerator = None
+	tooltip = None
 	
 	def activate(self, context):
 		pass
@@ -52,22 +42,10 @@ class LaTeXMenuAction(IAction):
 class LaTeXNewAction(IAction):
 	_log = getLogger("LaTeXNewAction")
 	
-	@property
-	def label(self):
-		return "New LaTeX Document..."
-	
-	@property
-	def stock_id(self):
-		#return gtk.STOCK_NEW
-		return None
-	
-	@property
-	def accelerator(self):
-		return None
-	
-	@property
-	def tooltip(self):
-		return None
+	label = "New LaTeX Document..."
+	stock_id = None
+	accelerator = None
+	tooltip = None
 	
 	def activate(self, context):
 		self._log.debug("activate")
@@ -76,21 +54,10 @@ class LaTeXNewAction(IAction):
 class LaTeXCommentAction(IAction):
 	_log = getLogger("LaTeXCommentAction")
 	
-	@property
-	def label(self):
-		return "Toggle Comment"
-	
-	@property
-	def stock_id(self):
-		return None
-	
-	@property
-	def accelerator(self):
-		return "<Ctrl><Alt>C"
-	
-	@property
-	def tooltip(self):
-		return None
+	label = "Toggle Comment"
+	stock_id = None
+	accelerator = "<Ctrl><Alt>C"
+	tooltip = None
 	
 	def activate(self, context):
 		editor.toggle_comment("%")
@@ -99,24 +66,13 @@ class LaTeXCommentAction(IAction):
 class LaTeXSpellCheckAction(IAction):
 	_log = getLogger("LaTeXSpellCheckAction")
 	
-	@property
-	def label(self):
-		return "Spell Check"
-	
-	@property
-	def stock_id(self):
-		return None
-	
-	@property
-	def accelerator(self):
-		return "<Ctrl><Alt>S"
-	
-	@property
-	def tooltip(self):
-		return None
+	label = "Spell Check"
+	stock_id = None
+	accelerator = "<Ctrl><Alt>S"
+	tooltip = None
 	
 	def activate(self, context):
-		editor.spell_check()
+		context.active_editor.spell_check()
 		
 		
 		

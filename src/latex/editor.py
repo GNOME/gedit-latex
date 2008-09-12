@@ -51,7 +51,7 @@ class LaTeXEditor(Editor, IIssueHandler):
 		self.register_marker_type("latex-error", "#ffdddd")
 		self.register_marker_type("latex-warning", "#ffffcf")
 		
-		self._consistency_view = context.views["LaTeXConsistencyView"]
+		self._issue_view = context.views["LaTeXIssueView"]
 		self._outline_view = context.views["LaTeXOutlineView"]
 		
 		self._parser = LaTeXParser()
@@ -82,7 +82,7 @@ class LaTeXEditor(Editor, IIssueHandler):
 			self.remove_markers("latex-warning")
 			
 			# reset issues
-			self._consistency_view.clear()
+			self._issue_view.clear()
 			
 			# parse document
 			self._document = self._parser.parse(self.content, self._file, self)
@@ -106,7 +106,7 @@ class LaTeXEditor(Editor, IIssueHandler):
 	def issue(self, issue):
 		# see IIssueHandler.issue
 		
-		self._consistency_view.append_issue(issue)
+		self._issue_view.append_issue(issue)
 		
 		if issue.file == self._file:
 			if issue.severity == Issue.SEVERITY_ERROR:

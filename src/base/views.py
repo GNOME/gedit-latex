@@ -35,24 +35,13 @@ class ToolView(View):
 	
 	_log = getLogger("ToolView")
 	
+	position = View.POSITION_BOTTOM
+	label = "Tools"
+	icon = gtk.STOCK_CONVERT
+	scope = View.SCOPE_WINDOW
+	
 	def init(self):
 		self._log.debug("init")
-	
-	@property
-	def position(self):
-		return View.POSITION_BOTTOM
-	
-	@property
-	def label(self):
-		return "Tools"
-	
-	@property
-	def icon(self):
-		return gtk.STOCK_CONVERT
-	
-	@property
-	def scope():
-		return View.SCOPE_WINDOW
 	
 	def load_tool(self, tool):
 		pass

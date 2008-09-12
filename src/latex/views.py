@@ -32,16 +32,19 @@ from ..base.interface import View
 from ..issues import Issue
 
 
-class LaTeXConsistencyView(View):
+class LaTeXIssueView(View):
 	"""
 	Checking consistency of a LaTeX document means parsing and validating it.
 	
 	This view is editor-specific
 	"""
 	
-	# TODO: rename to LaTeXIssueView because it's more generic
+	_log = getLogger("LaTeXIssueView")
 	
-	_log = getLogger("LaTeXConsistencyView")
+	position = View.POSITION_BOTTOM
+	label = "LaTeX Issues"
+	icon = gtk.STOCK_CONVERT
+	scope = View.SCOPE_EDITOR
 	
 	def init(self):
 		self._log.debug("init")
@@ -83,22 +86,6 @@ class LaTeXConsistencyView(View):
 		
 		self.pack_start(self._scr, True)
 		
-	@property
-	def position(self):
-		return View.POSITION_BOTTOM
-	
-	@property
-	def label(self):
-		return "Consistency"
-	
-	@property
-	def icon(self):
-		return gtk.STOCK_CONVERT
-	
-	@property
-	def scope():
-		return View.SCOPE_EDITOR
-	
 	def clear(self):
 		self.assure_init()
 		
@@ -119,24 +106,13 @@ class LaTeXSymbolMapView(View):
 	"""
 	_log = getLogger("LaTeXSymbolMapView")
 	
+	position = View.POSITION_SIDE
+	label = "Symbols"
+	icon = gtk.STOCK_CONVERT
+	scope = View.SCOPE_WINDOW
+	
 	def init(self):
 		self._log.debug("init")
-	
-	@property
-	def position(self):
-		return View.POSITION_SIDE
-	
-	@property
-	def label(self):
-		return "Symbols"
-	
-	@property
-	def icon(self):
-		return gtk.STOCK_CONVERT
-	
-	@property
-	def scope(self):
-		return View.SCOPE_WINDOW
 	
 	
 class LaTeXOutlineView(View):
@@ -144,24 +120,14 @@ class LaTeXOutlineView(View):
 	"""
 	_log = getLogger("LaTeXOutlineView")
 	
+	position = View.POSITION_SIDE
+	label = "Outline"
+	icon = gtk.STOCK_CONVERT
+	scope = View.SCOPE_EDITOR
+	
 	def init(self):
 		self._log.debug("init")
 	
-	@property
-	def position(self):
-		return View.POSITION_SIDE
-	
-	@property
-	def label(self):
-		return "Outline"
-	
-	@property
-	def icon(self):
-		return gtk.STOCK_CONVERT
-	
-	@property
-	def scope(self):
-		return View.SCOPE_EDITOR
 	
 		
 		

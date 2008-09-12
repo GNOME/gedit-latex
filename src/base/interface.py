@@ -30,12 +30,32 @@ import gtk
 
 class View(gtk.HBox):
 	"""
-	A view
+	Base class for a view
 	"""
+	
+	# TODO: call destroy()
 	
 	POSITION_SIDE, POSITION_BOTTOM = 0, 1
 	
 	SCOPE_WINDOW, SCOPE_EDITOR = 0, 1
+	
+	#
+	# these should be overriden by subclasses
+	#
+	
+	# a label string used for this view
+	label = ""
+	
+	# an icon for this view (gtk.Image or a stock_id string)
+	icon = None
+	
+	# position: POSITION_SIDE | POSITION_BOTTOM
+	position = POSITION_SIDE
+	
+	# the scope of this View:
+	# 	SCOPE_WINDOW: the View is created with the window and the same instance is passed to every Editor
+	#	SCOPE_EDITOR: the View is created with the Editor and destroyed with it
+	scope = SCOPE_WINDOW
 	
 	
 	def __init__(self):
@@ -73,46 +93,12 @@ class View(gtk.HBox):
 		"""
 		To be overridden
 		"""
-
-	@property
-	def position(self):
+	
+	def destroy(self):
 		"""
 		To be overridden
+		"""
 		
-		@return: POSITION_SIDE | POSITION_BOTTOM
-		"""
-		return self.POSITION_SIDE
-	
-	@property
-	def label(self):
-		"""
-		To be overridden
-		
-		@return: a label string used for this view
-		"""
-		return ""
-	
-	@property
-	def icon(self):
-		"""
-		To be overridden
-		
-		@return: an icon for this view (gtk.Image or a stock_id string)
-		"""
-		return None
-	
-	@property
-	def scope(self):
-		"""
-		To be overridden
-		
-		@return: the scope of this View:
-			SCOPE_WINDOW: the View is created with the window and the same instance is passed to every Editor
-			SCOPE_EDITOR: the View is created with the Editor and destroyed with it
-		"""
-		return self.SCOPE_WINDOW
-	
-
 
 class Template(object):
 	"""
@@ -235,10 +221,10 @@ from util import RangeMap
 from . import Marker
 
 
-from ..latex.views import LaTeXConsistencyView, LaTeXOutlineView
+from ..latex.views import LaTeXIssueView, LaTeXOutlineView
 
 
-EDITOR_SCOPE_VIEWS = { ".tex" : {"LaTeXConsistencyView" : LaTeXConsistencyView, 
+EDITOR_SCOPE_VIEWS = { ".tex" : {"LaTeXIssueView" : LaTeXIssueView, 
 								 "LaTeXOutlineView" : LaTeXOutlineView} }
 
 
@@ -327,6 +313,13 @@ class Editor(object):
 		charset = self._text_buffer.get_encoding().get_charset()
 		return self._text_buffer.get_text(self._text_buffer.get_start_iter(), 
 									self._text_buffer.get_end_iter(), False).decode(charset)
+	
+	def content_changed(self, reference_timestamp):
+		"""
+		Return True if the content of this Editor has changed since a given
+		reference
+		"""
+		# TODO:
 	
 	def insert(self, source):
 		"""
@@ -486,7 +479,7 @@ class Editor(object):
 				self._text_buffer.insert(tmpIt, "%")
 	
 	#
-	# markers are used for spell checking
+	# markers are used for spell checking (identified) and highlighting (anonymous)
 	#
 	
 	def register_marker_type(self, marker_type, background_color, anonymous=True):
@@ -575,9 +568,6 @@ class Editor(object):
 		@param id: id of the activated marker
 		@param event: the event of the mouse click (for raising context menus)
 		"""
-		pass
-	
-	
 	
 	@property
 	def completion_handlers(self):
