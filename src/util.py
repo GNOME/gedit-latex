@@ -36,7 +36,7 @@ def open_error(message, secondary_message=None):
 	dialog = gtk.MessageDialog(None, gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT, 
 							gtk.MESSAGE_ERROR, gtk.BUTTONS_OK, message)
 	if secondary_message:
-		dialog.format_secondary_text(message)
+		dialog.format_secondary_text(secondary_message)
 	dialog.run()
 	dialog.destroy()
 

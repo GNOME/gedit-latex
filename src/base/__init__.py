@@ -33,15 +33,16 @@ class File(object):
 	"""
 	Abstracts from filename
 	"""
+	
 	def __init__(self, uri):
-		self._uri = uri
+		"""
+		@param uri: any URI, URL or local filename
+		"""
+		self._uri = urlparse(uri)
 	
 	@property
 	def path(self):
-		"""
-		@return: filename
-		"""
-		return urlparse(self._uri).path
+		return self._uri.path
 	
 	@property
 	def extension(self):
@@ -61,13 +62,16 @@ class File(object):
 	
 	@property
 	def uri(self):
+		return self._uri.geturl()
+	
+	def __eq__(self, file):
 		"""
-		@return: general URI of this file
+		Override equality operator
 		"""
-		return self._uri
+		return self.uri == file.uri
 	
 	def __str__(self):
-		return self._uri
+		return self.uri
 	
 	
 class Marker(object):

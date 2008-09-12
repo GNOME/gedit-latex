@@ -235,10 +235,11 @@ from util import RangeMap
 from . import Marker
 
 
-from ..latex.views import LaTeXConsistencyView
+from ..latex.views import LaTeXConsistencyView, LaTeXOutlineView
 
 
-EDITOR_SCOPE_VIEWS = { ".tex" : {"LaTeXConsistencyView" : LaTeXConsistencyView } }
+EDITOR_SCOPE_VIEWS = { ".tex" : {"LaTeXConsistencyView" : LaTeXConsistencyView, 
+								 "LaTeXOutlineView" : LaTeXOutlineView} }
 
 
 class Editor(object):
@@ -319,7 +320,7 @@ class Editor(object):
 	# methods/properties to be used/overridden by the subclass
 	
 	@property
-	def contents(self):
+	def content(self):
 		"""
 		Return the string contained in the TextBuffer
 		"""
@@ -488,10 +489,11 @@ class Editor(object):
 	# markers are used for spell checking
 	#
 	
-	def register_marker_type(self, marker_type, background_color):
+	def register_marker_type(self, marker_type, background_color, anonymous=True):
 		"""
 		@param marker_type: a string
 		@param background_color: a hex color
+		@param anonymous: markers of an anonymous type may not be activated and do not get a unique ID
 		"""
 		assert not marker_type in self._marker_type_tags.keys()
 		
@@ -601,6 +603,7 @@ class Editor(object):
 		"""
 		The edited file has been closed or saved as another file
 		"""
+		self._template_delegate.destroy()
 		
 	
 class WindowContext(object):

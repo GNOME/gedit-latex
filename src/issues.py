@@ -22,15 +22,39 @@
 issues
 """
 
+
+class IIssueHandler(object):
+	"""
+	A class implementing this interface handles issues
+	"""
+	def issue(self, issue):
+		"""
+		An issue has occured
+		"""
+		raise NotImplementedError
+
+
 class Issue(object):
-    SEVERITY_WARNING, SEVERITY_ERROR, SEVERITY_INFO, SEVERITY_TASK = 0, 1, 2, 3
-    
-    def __init__(self, message, start, end, file, severity):
-        self.message = message
-        self.start = start
-        self.end = end
-        self.file = file
-        self.severity = severity
-        
-    def __str__(self):
-        return "Issue{'%s', %s, %s, %s, %s}" % (self.message, self.start, self.end, self.file, self.severity)
+	"""
+	An issue can be a warning, an error, an info or a task that occures or is
+	recognized during parsing and validation of a source file
+	"""
+	
+	SEVERITY_WARNING, SEVERITY_ERROR, SEVERITY_INFO, SEVERITY_TASK = 0, 1, 2, 3
+	
+	def __init__(self, message, start, end, file, severity):
+		"""
+		@param message: a str in Pango markup
+		@param start: the start offset of the issue
+		@param end: the end offset
+		@param file: the File object representing the file the issue occured in
+		@param severity: one of SEVERITY_*
+		"""
+		self.message = message
+		self.start = start
+		self.end = end
+		self.file = file
+		self.severity = severity
+		
+	def __str__(self):
+		return "Issue{'%s', %s, %s, %s, %s}" % (self.message, self.start, self.end, self.file, self.severity)

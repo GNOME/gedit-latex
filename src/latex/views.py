@@ -39,6 +39,8 @@ class LaTeXConsistencyView(View):
 	This view is editor-specific
 	"""
 	
+	# TODO: rename to LaTeXIssueView because it's more generic
+	
 	_log = getLogger("LaTeXConsistencyView")
 	
 	def init(self):
@@ -55,6 +57,7 @@ class LaTeXConsistencyView(View):
 		#self._view.set_headers_visible(False)
 		
 		column = gtk.TreeViewColumn()
+		column.set_title("Message")
 		
 		pixbuf_renderer = gtk.CellRendererPixbuf()
 		column.pack_start(pixbuf_renderer, False)
@@ -65,6 +68,7 @@ class LaTeXConsistencyView(View):
 		column.add_attribute(text_renderer, "markup", 1)
 		
 		self._view.append_column(column)
+		#self._view.insert_column_with_attributes(-1, "Message", column)
 		
 		#self._view.insert_column_with_attributes(-1, "", gtk.CellRendererPixbuf(), pixbuf=0)
 		#self._view.insert_column_with_attributes(-1, "Description", gtk.CellRendererText(), markup=1)
@@ -133,6 +137,31 @@ class LaTeXSymbolMapView(View):
 	@property
 	def scope(self):
 		return View.SCOPE_WINDOW
+	
+	
+class LaTeXOutlineView(View):
+	"""
+	"""
+	_log = getLogger("LaTeXOutlineView")
+	
+	def init(self):
+		self._log.debug("init")
+	
+	@property
+	def position(self):
+		return View.POSITION_SIDE
+	
+	@property
+	def label(self):
+		return "Outline"
+	
+	@property
+	def icon(self):
+		return gtk.STOCK_CONVERT
+	
+	@property
+	def scope(self):
+		return View.SCOPE_EDITOR
 	
 		
 		
