@@ -147,7 +147,7 @@ class GeditWindowDecorator(object):
 		#
 		# TODO: position is ignored
 		# 
-		tool_view = ToolView()
+		tool_view = ToolView(self._window_context)
 		self._views["ToolView"] = tool_view
 		self._window.get_bottom_panel().add_item(tool_view, tool_view.label, tool_view.icon)
 		#self._window_bottom_views.append(tool_view)
@@ -262,6 +262,24 @@ class GeditWindowDecorator(object):
 		"""
 		action.activate(self._window_context)
 	
+	def activate_tab(self, file):
+		"""
+		Activate the GeditTab containing the given File (this is called through the WindowContext)
+		
+		@param file: a File object
+		@raise KeyError: if no matching tab could be found
+		"""
+		self._log.debug("activate_tab: %s" % file)
+		
+		for tab, tab_decorator in self._tab_decorators.iteritems():
+			self._log.debug("activate_tab: found %s" % tab_decorator.file)
+			
+			if tab_decorator.file == file:
+				self._window.set_active_tab(tab)
+				return
+			
+		raise KeyError
+	
 	def adjust(self, tab_decorator):
 		"""
 		Enable/disable action according to the extension of the currently
@@ -372,7 +390,7 @@ class GeditWindowDecorator(object):
 				except KeyError:
 					# create instance
 					view = clazz.__new__(clazz)
-					clazz.__init__(view)
+					clazz.__init__(view, self._window_context)
 					self._views[id] = view
 				
 				panel = None
@@ -571,6 +589,19 @@ class GeditTabDecorator(object):
 			return True
 		else:
 			return False
+	
+	@property
+	def file(self):
+		"""
+		Return the File contained in the decorated tab
+		"""
+		
+		# TODO: manage a File object, not the editor's URI
+		
+		if self._editor_uri:
+			return File(self._editor_uri)
+		else:
+			return None
 	
 	@property
 	def editor(self):

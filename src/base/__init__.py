@@ -58,12 +58,13 @@ class View(gtk.HBox):
 	scope = SCOPE_WINDOW
 	
 	
-	def __init__(self):
+	def __init__(self, context):
 		gtk.HBox.__init__(self)
 		
+		self._context = context
 		self._initialized = False
 		
-		# connect to expose event to init() on first expose
+		# connect to expose event and init() on first expose
 		self._expose_handler = self.connect("expose-event", self._on_expose_event)
 		
 	def _on_expose_event(self, *args):
@@ -74,7 +75,7 @@ class View(gtk.HBox):
 	
 	def _do_init(self):
 		self.disconnect(self._expose_handler)
-		self.init()
+		self.init(self._context)
 		self.show_all()
 		self._initialized = True
 	
@@ -89,7 +90,7 @@ class View(gtk.HBox):
 		if not self._initialized:
 			self._do_init()
 	
-	def init(self):
+	def init(self, context):
 		"""
 		To be overridden
 		"""
@@ -253,6 +254,9 @@ class Editor(object):
 		self._marker_type_tags = {}    # marker type id -> TextTag object
 		self._marker_maps = {}	   	   # marker type id -> RangeMap object
 		
+		# create context object
+		# FIXME: don't create a new one
+		context = WindowContext(self._tab_decorator._window_decorator)
 		
 		# create editor-specific views
 		self._views = {}
@@ -260,19 +264,17 @@ class Editor(object):
 			for id, clazz in EDITOR_SCOPE_VIEWS[file.extension].iteritems():
 				# create View instance and add it to the map
 				view = clazz.__new__(clazz)
-				clazz.__init__(view)
+				clazz.__init__(view, context)
 				self._views[id] = view
 				
 				self.__log.debug("Created view " + id)
 		except KeyError:
 			self.__log.debug("No views")
-		
-		
-		# create context object
-		context = WindowContext()
+
+
 		context.views = self._views
-		
-		
+
+
 		# TODO: disconnect on destroy
 		self._button_press_handler = self._text_view.connect("button-press-event", self._on_button_pressed)
 		
@@ -601,9 +603,22 @@ class WindowContext(object):
 	pass the map of views directly but a Context is more generic and may be used for more
 	things in the future.
 	"""
-	def __init__(self):
+	def __init__(self, window_decorator=None):
+		self._window_decorator = window_decorator
 		self.views = {}
 		self.active_editor = None
+	
+	def activate_editor(self, file):
+		"""
+		Activate the Editor containing a given File
+		
+		@param file: a File object
+		@raise KeyError: if no matching Editor could be found
+		@raise AssertError: if the file is no File object
+		"""
+		assert type(file) is File
+		
+		self._window_decorator.activate_tab(file)
 
 
 from urlparse import urlparse
@@ -615,11 +630,15 @@ class File(object):
 	Abstracts from filename
 	"""
 	
+	_DEFAULT_SCHEME = "file://"
+	
 	def __init__(self, uri):
 		"""
 		@param uri: any URI, URL or local filename
 		"""
 		self._uri = urlparse(uri)
+		if len(self._uri.scheme) == 0:
+			self._uri = urlparse("%s%s" % (self._DEFAULT_SCHEME, uri))
 	
 	@property
 	def path(self):

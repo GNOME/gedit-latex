@@ -40,7 +40,7 @@ class ToolView(View):
 	icon = gtk.STOCK_CONVERT
 	scope = View.SCOPE_WINDOW
 	
-	def init(self):
+	def init(self, context):
 		self._log.debug("init")
 	
 	def load_tool(self, tool):

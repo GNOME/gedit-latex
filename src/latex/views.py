@@ -46,8 +46,10 @@ class LaTeXIssueView(View):
 	icon = gtk.STOCK_CONVERT
 	scope = View.SCOPE_EDITOR
 	
-	def init(self):
+	def init(self, context):
 		self._log.debug("init")
+		
+		self._context = context
 		
 		self._icons = { Issue.SEVERITY_WARNING : None, 
 						Issue.SEVERITY_ERROR : None, 
@@ -76,7 +78,7 @@ class LaTeXIssueView(View):
 		#self._view.insert_column_with_attributes(-1, "", gtk.CellRendererPixbuf(), pixbuf=0)
 		#self._view.insert_column_with_attributes(-1, "Description", gtk.CellRendererText(), markup=1)
 		self._view.insert_column_with_attributes(-1, "File", gtk.CellRendererText(), text=2)
-		#self._view.connect("row-activated", self._on_row_activated)
+		self._view.connect("row-activated", self._on_row_activated)
 		
 		self._scr = gtk.ScrolledWindow()
 		
@@ -85,7 +87,13 @@ class LaTeXIssueView(View):
 		self._scr.set_shadow_type(gtk.SHADOW_IN)
 		
 		self.pack_start(self._scr, True)
+	
+	def _on_row_activated(self, view, path, column):
+		it = self._store.get_iter(path)
+		issue = self._store.get(self._store.get_iter(path), 3)[0]
 		
+		self._context.activate_editor(issue.file)
+	
 	def clear(self):
 		self.assure_init()
 		
@@ -111,7 +119,7 @@ class LaTeXSymbolMapView(View):
 	icon = gtk.STOCK_CONVERT
 	scope = View.SCOPE_WINDOW
 	
-	def init(self):
+	def init(self, context):
 		self._log.debug("init")
 	
 	
@@ -125,7 +133,7 @@ class LaTeXOutlineView(View):
 	icon = gtk.STOCK_CONVERT
 	scope = View.SCOPE_EDITOR
 	
-	def init(self):
+	def init(self, context):
 		self._log.debug("init")
 	
 	
