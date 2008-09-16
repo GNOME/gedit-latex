@@ -86,7 +86,7 @@ class Job(object):
 
 import gtk
 
-from ..base.interface import IAction
+from ..base import IAction
 
 	
 class ToolAction(IAction):

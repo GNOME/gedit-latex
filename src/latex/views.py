@@ -28,7 +28,7 @@ import gtk
 from gtk.gdk import Pixbuf, pixbuf_new_from_file
 from logging import getLogger
 
-from ..base.interface import View
+from ..base import View
 from ..issues import Issue
 
 

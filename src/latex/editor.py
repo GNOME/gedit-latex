@@ -20,7 +20,7 @@
 
 from logging import getLogger
 
-from ..base.interface import Editor
+from ..base import Editor
 from completion import LaTeXCompletionHandler
 from ..snippets.completion import SnippetCompletionHandler
 from ..issues import Issue, IIssueHandler

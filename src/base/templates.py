@@ -143,7 +143,7 @@ class TemplateCompiler(object):
 
 import gtk.gdk
 
-from .interface import Template
+from . import Template
 
 	
 class TemplateDelegate(object):

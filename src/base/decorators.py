@@ -59,7 +59,7 @@ TOOLS = [ Tool("LaTeX → PDF", [".tex"], [Job("rubber --inplace --maxerr -1 --p
 		  Tool("Cleanup LaTeX Build", [".tex"], [Job("rm -f $directory/*.aux $directory/*.log", True)], "Remove LaTeX build files") ]
 
 
-from interface import View, WindowContext
+from . import View, WindowContext
 from ..latex.views import LaTeXSymbolMapView
 
 
@@ -258,7 +258,7 @@ class GeditWindowDecorator(object):
 		An action has been activated - propagate to action object
 		
 		@param gtk_action: the activated gtk.Action
-		@param action: a base.interface.Action object for the activated action (not a gtk.Action)
+		@param action: a base.Action object for the activated action (not a gtk.Action)
 		"""
 		action.activate(self._window_context)
 	

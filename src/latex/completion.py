@@ -26,7 +26,7 @@ LaTeX-specific completion classes
 
 from logging import getLogger
 
-from ..base.interface import ICompletionHandler, IProposal, Template
+from ..base import ICompletionHandler, IProposal, Template
 
 
 class LaTeXTemplateProposal(IProposal):

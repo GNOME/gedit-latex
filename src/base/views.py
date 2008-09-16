@@ -26,7 +26,7 @@ from logging import getLogger
 import gtk
 
 
-from interface import View
+from . import View
 
 
 class ToolView(View):

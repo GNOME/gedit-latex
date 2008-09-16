@@ -25,7 +25,7 @@ latex.actions
 from logging import getLogger
 import gtk
 
-from ..base.interface import IAction
+from ..base import IAction
 
 
 class LaTeXMenuAction(IAction):
@@ -60,7 +60,7 @@ class LaTeXCommentAction(IAction):
 	tooltip = None
 	
 	def activate(self, context):
-		editor.toggle_comment("%")
+		context.active_editor.toggle_comment("%")
 		
 		
 class LaTeXSpellCheckAction(IAction):
