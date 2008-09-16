@@ -25,7 +25,6 @@ LaTeX parser and object model
 """
 
 from logging import getLogger
-from xml.sax.saxutils import escape
 from os.path import exists
 from os import popen, system
 from re import compile
@@ -33,7 +32,7 @@ from re import compile
 #from ..concepts import Issue, EventTrigger
 #from ..environment import Environment
 
-from ..util import caught
+from ..util import caught, escape
 from ..issues import Issue
 
 

@@ -27,7 +27,16 @@ the project
 
 import gtk
 import traceback
+from xml.sax import saxutils
 
+
+def escape(string, remove_newlines=True):
+	"""
+	Prepares a string for inclusion in Pango markup and error messages
+	"""
+	s = saxutils.escape(string)
+	return s.replace("\n", " ")
+	
 
 def open_error(message, secondary_message=None):
 	"""

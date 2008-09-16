@@ -28,11 +28,12 @@ import gtk.gdk
 from os.path import basename
 
 
-from document import Node
-from LaTeXPlugin2.concepts import Issue
-from LaTeXPlugin2.outline import AbstractOutlineView
-from LaTeXPlugin2.installation import getSystemResource, getUserResource
-from LaTeXPlugin2.settings import Settings
+from parser import Node
+from ..issues import Issue
+#from LaTeXPlugin2.concepts import Issue
+#from LaTeXPlugin2.outline import AbstractOutlineView
+#from LaTeXPlugin2.installation import getSystemResource, getUserResource
+#from LaTeXPlugin2.settings import Settings
 
 
 class OutlineNode(list):
@@ -69,37 +70,42 @@ class Outline(object):
 		self.newcommands = []	# OutlineNode objects, TODO: only the name can be stored
 
 
-class OutlineGenerator(object):
+class LaTeXOutlineGenerator(object):
 	
 	# FIXME: every firstOfType() may raise and IndexError!!!
+	
 	# TODO: generate issues
 	
 	_log = getLogger("OutlineGenerator")
 	
-	_STRUCTURE_LEVELS = { "part" : 1, "chapter" : 2, 
-			"section" : 3, "section*" : 3,
-			"subsection" : 4, "subsection*" : 4,
-			"subsubsection" : 5, "subsubsection*" : 5,
-			"paragraph" : 6, "subparagraph" : 7 }
+	_STRUCTURE_LEVELS = { "part" : 1, 
+						  "chapter" : 2, 
+						  "section" : 3, "section*" : 3,
+						  "subsection" : 4, "subsection*" : 4,
+						  "subsubsection" : 5, "subsubsection*" : 5,
+						  "paragraph" : 6, 
+						  "subparagraph" : 7 }
 	
 	def __init__(self):
-		self.cfgLabelsInTree = False
-		self.cfgTablesInTree = Settings().get("LatexOutlineTables", True, True)
-		self.cfgGraphicsInTree = Settings().get("LatexOutlineGraphics", True, True)
+		self.cfgLabelsInTree = True
+		self.cfgTablesInTree = True
+		self.cfgGraphicsInTree = True
 	
-	def generate(self, documentNode, outline):
+	def generate(self, documentNode, issue_handler):
 		"""
 		Generates an outline model from a document model and returns a list
 		of list of issues if some occured.
 		"""
 		
-		self._issues = []
-		self._outline = outline
-		self._stack = [outline.rootNode]
+		self._issue_handler = issue_handler
+		self._outline = Outline()
+		self._stack = [self._outline.rootNode]
 		
 		self._labelCache = {}
 		
 		self._walk(documentNode)
+		
+		return self._outline
 	
 	def _walk(self, parentNode, foreign=False):
 		"""
@@ -214,129 +220,129 @@ class OutlineGenerator(object):
 		return self._issues
 
 
-class OutlineTreeStore(gtk.TreeStore):
-	"""
-	Used to have defined columns in the outline TreeStore.
-	"""
-
-	def __init__(self):
-		gtk.TreeStore.__init__(self, str, gtk.gdk.Pixbuf, object)
-	
-	def load(self, outlineRootNode):
-		"""
-		Load new outline model
-		"""
-		# TODO: recursive
-		
-		self.clear()
-		
-		for node in outlineRootNode:
-			if node.type == OutlineNode.STRUCTURE:
-				icon = self._LEVEL_ICONS[node.level]
-				self.append(None, [node.value, icon, node])
-
-
-class OutlineTransformer(object):
-	
-	_ICON_LABEL = gtk.gdk.pixbuf_new_from_file(getSystemResource("/pixmaps/label.png"))
-	_ICON_TABLE = gtk.gdk.pixbuf_new_from_file(getSystemResource("/pixmaps/tree_table.png"))
-	_ICON_GRAPHICS = gtk.gdk.pixbuf_new_from_file(getSystemResource("/pixmaps/tree_includegraphics.png"))
-	
-	_LEVEL_ICONS = { 1 : gtk.gdk.pixbuf_new_from_file(getSystemResource("/pixmaps/tree_part.png")),
-				2 : gtk.gdk.pixbuf_new_from_file(getSystemResource("/pixmaps/tree_chapter.png")),
-				3 : gtk.gdk.pixbuf_new_from_file(getSystemResource("/pixmaps/tree_section.png")),
-				4 : gtk.gdk.pixbuf_new_from_file(getSystemResource("/pixmaps/tree_subsection.png")),
-				5 : gtk.gdk.pixbuf_new_from_file(getSystemResource("/pixmaps/tree_subsubsection.png")),
-				6 : gtk.gdk.pixbuf_new_from_file(getSystemResource("/pixmaps/tree_paragraph.png")),
-				7 : gtk.gdk.pixbuf_new_from_file(getSystemResource("/pixmaps/tree_paragraph.png")) }
-	
-	def transform(self, treeStore, outline, offsetMap):
-		assert type(treeStore) is OutlineTreeStore
-		
-		self._offsetMap = offsetMap
-		self._treeStore = treeStore
-		self._treeStore.clear()
-		
-		self._load(None, outline.rootNode)
-	
-	def _load(self, parent, node):
-		if node.type == OutlineNode.STRUCTURE:
-			icon = self._LEVEL_ICONS[node.level]
-			parent = self._treeStore.append(parent, [node.value, icon, node])
-		elif node.type == OutlineNode.LABEL:
-			parent = self._treeStore.append(parent, [node.value, self._ICON_LABEL, node])
-		elif node.type == OutlineNode.TABLE:
-			parent = self._treeStore.append(parent, [node.value, self._ICON_TABLE, node])
-		elif node.type == OutlineNode.GRAPHICS:
-			label = basename(node.value)
-			parent = self._treeStore.append(parent, [label, self._ICON_GRAPHICS, node])
-		
-		# store path in offset map for all non-foreign nodes
-		# check for parent to ignore root node
-		if parent and not node.foreign:
-			path = self._treeStore.get_path(parent)
-			self._offsetMap.put(node.start, path)
-			
-		for child in node:
-			self._load(parent, child)
-
-
-class OutlineView(AbstractOutlineView):
-	"""
-	Special outline view for LaTeX
-	"""
-	
-	#_log = getLogger("latex.outline.OutlineView")
-	
-	def __init__(self, treeStore):
-		AbstractOutlineView.__init__(self, treeStore)
-		
-		icoGraphics = gtk.image_new_from_file(getSystemResource("/pixmaps/tree_includegraphics.png"))
-		btnGraphics = gtk.ToggleToolButton()
-		btnGraphics.set_icon_widget(icoGraphics)
-		self._toolbar.insert(btnGraphics, -1)
-		
-		icoTables = gtk.image_new_from_file(getSystemResource("/pixmaps/tree_table.png"))
-		btnTables = gtk.ToggleToolButton()
-		btnTables.set_icon_widget(icoTables)
-		self._toolbar.insert(btnTables, -1)
-		
-		btnGraphics.set_active(Settings().get("LatexOutlineGraphics", True, True))
-		btnTables.set_active(Settings().get("LatexOutlineTables", True, True))
-		
-		btnGraphics.connect("toggled", self._graphicsToggled)
-		btnTables.connect("toggled", self._tablesToggled)
-		
-		self._toolbar.show_all()
-	
-	def _cursorChanged(self, treeView):
-		store, it = treeView.get_selection().get_selected()
-		if not it: 
-			return
-			
-		node = store.get_value(it, 2)
-		
-		if not node.foreign:
-			self.trigger("elementSelected", node.start, node.end)
-		
-	def _rowActivated(self, treeView, path, column):
-		it = self._treeStore.get_iter(path)
-		node = self._treeStore.get(it, 2)[0]
-		
-		if node.type == OutlineNode.REFERENCE:
-			self.trigger("referenceActivated", node.value)
-		elif node.type == OutlineNode.GRAPHICS:
-			self.trigger("graphicsActivated", node.value)
-	
-	def _tablesToggled(self, toggleButton):
-		value = toggleButton.get_active()
-		Settings().set("LatexOutlineTables", value)
-		self.trigger("tablesToggled", value)
-	
-	def _graphicsToggled(self, toggleButton):
-		value = toggleButton.get_active()
-		Settings().set("LatexOutlineGraphics", value)
-		self.trigger("graphicsToggled", value)
+#class OutlineTreeStore(gtk.TreeStore):
+#	"""
+#	Used to have defined columns in the outline TreeStore.
+#	"""
+#
+#	def __init__(self):
+#		gtk.TreeStore.__init__(self, str, gtk.gdk.Pixbuf, object)
+#	
+#	def load(self, outlineRootNode):
+#		"""
+#		Load new outline model
+#		"""
+#		# TODO: recursive
+#		
+#		self.clear()
+#		
+#		for node in outlineRootNode:
+#			if node.type == OutlineNode.STRUCTURE:
+#				icon = self._LEVEL_ICONS[node.level]
+#				self.append(None, [node.value, icon, node])
+#
+#
+#class OutlineTransformer(object):
+#	
+#	_ICON_LABEL = gtk.gdk.pixbuf_new_from_file(getSystemResource("/pixmaps/label.png"))
+#	_ICON_TABLE = gtk.gdk.pixbuf_new_from_file(getSystemResource("/pixmaps/tree_table.png"))
+#	_ICON_GRAPHICS = gtk.gdk.pixbuf_new_from_file(getSystemResource("/pixmaps/tree_includegraphics.png"))
+#	
+#	_LEVEL_ICONS = { 1 : gtk.gdk.pixbuf_new_from_file(getSystemResource("/pixmaps/tree_part.png")),
+#				2 : gtk.gdk.pixbuf_new_from_file(getSystemResource("/pixmaps/tree_chapter.png")),
+#				3 : gtk.gdk.pixbuf_new_from_file(getSystemResource("/pixmaps/tree_section.png")),
+#				4 : gtk.gdk.pixbuf_new_from_file(getSystemResource("/pixmaps/tree_subsection.png")),
+#				5 : gtk.gdk.pixbuf_new_from_file(getSystemResource("/pixmaps/tree_subsubsection.png")),
+#				6 : gtk.gdk.pixbuf_new_from_file(getSystemResource("/pixmaps/tree_paragraph.png")),
+#				7 : gtk.gdk.pixbuf_new_from_file(getSystemResource("/pixmaps/tree_paragraph.png")) }
+#	
+#	def transform(self, treeStore, outline, offsetMap):
+#		assert type(treeStore) is OutlineTreeStore
+#		
+#		self._offsetMap = offsetMap
+#		self._treeStore = treeStore
+#		self._treeStore.clear()
+#		
+#		self._load(None, outline.rootNode)
+#	
+#	def _load(self, parent, node):
+#		if node.type == OutlineNode.STRUCTURE:
+#			icon = self._LEVEL_ICONS[node.level]
+#			parent = self._treeStore.append(parent, [node.value, icon, node])
+#		elif node.type == OutlineNode.LABEL:
+#			parent = self._treeStore.append(parent, [node.value, self._ICON_LABEL, node])
+#		elif node.type == OutlineNode.TABLE:
+#			parent = self._treeStore.append(parent, [node.value, self._ICON_TABLE, node])
+#		elif node.type == OutlineNode.GRAPHICS:
+#			label = basename(node.value)
+#			parent = self._treeStore.append(parent, [label, self._ICON_GRAPHICS, node])
+#		
+#		# store path in offset map for all non-foreign nodes
+#		# check for parent to ignore root node
+#		if parent and not node.foreign:
+#			path = self._treeStore.get_path(parent)
+#			self._offsetMap.put(node.start, path)
+#			
+#		for child in node:
+#			self._load(parent, child)
+#
+#
+#class OutlineView(AbstractOutlineView):
+#	"""
+#	Special outline view for LaTeX
+#	"""
+#	
+#	#_log = getLogger("latex.outline.OutlineView")
+#	
+#	def __init__(self, treeStore):
+#		AbstractOutlineView.__init__(self, treeStore)
+#		
+#		icoGraphics = gtk.image_new_from_file(getSystemResource("/pixmaps/tree_includegraphics.png"))
+#		btnGraphics = gtk.ToggleToolButton()
+#		btnGraphics.set_icon_widget(icoGraphics)
+#		self._toolbar.insert(btnGraphics, -1)
+#		
+#		icoTables = gtk.image_new_from_file(getSystemResource("/pixmaps/tree_table.png"))
+#		btnTables = gtk.ToggleToolButton()
+#		btnTables.set_icon_widget(icoTables)
+#		self._toolbar.insert(btnTables, -1)
+#		
+#		btnGraphics.set_active(Settings().get("LatexOutlineGraphics", True, True))
+#		btnTables.set_active(Settings().get("LatexOutlineTables", True, True))
+#		
+#		btnGraphics.connect("toggled", self._graphicsToggled)
+#		btnTables.connect("toggled", self._tablesToggled)
+#		
+#		self._toolbar.show_all()
+#	
+#	def _cursorChanged(self, treeView):
+#		store, it = treeView.get_selection().get_selected()
+#		if not it: 
+#			return
+#			
+#		node = store.get_value(it, 2)
+#		
+#		if not node.foreign:
+#			self.trigger("elementSelected", node.start, node.end)
+#		
+#	def _rowActivated(self, treeView, path, column):
+#		it = self._treeStore.get_iter(path)
+#		node = self._treeStore.get(it, 2)[0]
+#		
+#		if node.type == OutlineNode.REFERENCE:
+#			self.trigger("referenceActivated", node.value)
+#		elif node.type == OutlineNode.GRAPHICS:
+#			self.trigger("graphicsActivated", node.value)
+#	
+#	def _tablesToggled(self, toggleButton):
+#		value = toggleButton.get_active()
+#		Settings().set("LatexOutlineTables", value)
+#		self.trigger("tablesToggled", value)
+#	
+#	def _graphicsToggled(self, toggleButton):
+#		value = toggleButton.get_active()
+#		Settings().set("LatexOutlineGraphics", value)
+#		self.trigger("graphicsToggled", value)
 
 
 	

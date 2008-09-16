@@ -27,6 +27,8 @@ from ..issues import Issue, IIssueHandler
 from ..util import caught
 
 from parser import LaTeXParser, LaTeXReferenceExpander
+from outline import LaTeXOutlineGenerator
+from validator import LaTeXValidator
 
 
 class LaTeXEditor(Editor, IIssueHandler):
@@ -101,7 +103,13 @@ class LaTeXEditor(Editor, IIssueHandler):
 				expander = LaTeXReferenceExpander()
 				expander.expand(self._document, master_file, self)
 			
-			# TODO: validate
+			# generate outline
+			self._outline_generator = LaTeXOutlineGenerator()
+			self._outline = self._outline_generator.generate(self._document, self)
+			
+			# validate
+			self._validator = LaTeXValidator()
+			self._validator.validate(self._document, self._outline, self._file, self)
 	
 	def issue(self, issue):
 		# see IIssueHandler.issue
@@ -132,6 +140,7 @@ class LaTeXEditor(Editor, IIssueHandler):
 
 
 def find_master_document(file):
+	# TODO:
 	raise RuntimeError("Master not found")
 	
 	
