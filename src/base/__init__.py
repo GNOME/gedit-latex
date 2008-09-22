@@ -274,12 +274,35 @@ class Editor(object):
 
 		context.views = self._views
 
+		
+		self._offset = None
+
 
 		# TODO: disconnect on destroy
 		self._button_press_handler = self._text_view.connect("button-press-event", self._on_button_pressed)
+		self._text_view.connect("key-release-event", self._on_key_released)
+		self._text_view.connect("button-release-event", self._on_button_released)
 		
 		# start life-cycle for subclass
 		self.init(file, context)
+	
+	def _on_key_released(self, *args):
+		"""
+		This helps to call 'move_cursor'
+		"""
+		offset = self._text_buffer.get_iter_at_mark(self._text_buffer.get_insert()).get_offset()
+		if offset != self._offset:
+			self._offset = offset
+			self.move_cursor(offset)
+	
+	def _on_button_released(self, *args):
+		"""
+		This helps to call 'move_cursor'
+		"""
+		offset = self._text_buffer.get_iter_at_mark(self._text_buffer.get_insert()).get_offset()
+		if offset != self._offset:
+			self._offset = offset
+			self.move_cursor(offset)
 	
 	@property
 	def file(self):
@@ -609,6 +632,11 @@ class Editor(object):
 	def save(self):
 		"""
 		The file has been saved to its original location
+		"""
+	
+	def move_cursor(self, offset):
+		"""
+		The cursor has moved
 		"""
 	
 	def destroy(self):

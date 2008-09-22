@@ -208,6 +208,20 @@ class LaTeXOutlineView(View):
 		
 		if not outline_node.foreign:
 			self._context.active_editor.select(outline_node.start, outline_node.end)
+	
+	def select_path(self, path):
+		"""
+		Expand a path and select the last node
+		"""
+		# disconnect from 'cursor-changed'
+		self._view.disconnect(self._cursor_changed_id)
+		
+		# select path
+		self._view.expand_to_path(path)
+		self._view.set_cursor(path)
+		
+		# connect to 'cursor-changed' again
+		self._cursor_changed_id = self._view.connect("cursor-changed", self._on_cursor_changed)
 		
 		
 #class OutlineView(AbstractOutlineView):

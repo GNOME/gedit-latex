@@ -32,8 +32,10 @@ from parser import LaTeXParser, LaTeXReferenceExpander
 from outline import LaTeXOutlineGenerator
 from validator import LaTeXValidator
 
-from ..outline import OutlineOffsetMap
+from ..base.util import RangeMap
 from outline import OutlineConverter
+from ..outline import OutlineOffsetMap
+
 
 class LaTeXEditor(Editor, IIssueHandler):
 	
@@ -62,10 +64,12 @@ class LaTeXEditor(Editor, IIssueHandler):
 		self._parser = LaTeXParser()
 		self._document_dirty = True
 		
+		self._offset_map = OutlineOffsetMap()
 		self._outline_tree_store = gtk.TreeStore(str, gtk.gdk.Pixbuf, object)
 		self._outline_view = context.views["LaTeXOutlineView"]
 		self._outline_view.set_model(self._outline_tree_store)
-		self._offset_map = OutlineOffsetMap()
+		
+		self._connect_outline_to_editor = True	# TODO: read from config
 		
 		#
 		# initially parse
@@ -126,6 +130,7 @@ class LaTeXEditor(Editor, IIssueHandler):
 			self._validator.validate(self._document, self._outline, self._file, self)
 			
 			# convert outline model and pass to outline view
+			self._offset_map = OutlineOffsetMap()
 			self._outline_view.save_state()
 			OutlineConverter().convert(self._outline_tree_store, self._outline, self._offset_map)
 			self._outline_view.restore_state()
@@ -154,6 +159,17 @@ class LaTeXEditor(Editor, IIssueHandler):
 		A marker has been activated
 		"""
 		self._log.debug("activate_marker(%s, %s)" % (marker, event))
+	
+	def move_cursor(self, offset):
+		"""
+		The cursor has moved
+		"""
+		if self._connect_outline_to_editor:
+			try:
+				path = self._offset_map.lookup(offset)
+				self._outline_view.select_path(path)
+			except KeyError:
+				pass
 	
 #	def destroy(self):
 #		Editor.destroy(self)

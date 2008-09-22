@@ -22,6 +22,8 @@
 base.util
 """
 
+from logging import getLogger
+
 class RangeMap(object):
 	"""
 	The RangeMap stores a mapping from ranges to values. That means if you store
@@ -34,6 +36,8 @@ class RangeMap(object):
 	 * outline tree (lookup symbols by cursor position)
 	"""
 	
+	_log = getLogger("RangeMap")
+	
 	# TODO: find a faster structure for this (maybe a B-tree for 1d intervals)
 	
 	def __init__(self):
@@ -43,17 +47,17 @@ class RangeMap(object):
 		"""
 		Put value in range [lower, upper]
 		"""
+		self._log.debug("put(%s,%s,%s)" % (lower, upper, value))
+		
 		self._map[(lower, upper)] = value
 		
 	def lookup(self, position):
 		"""
 		Lookup a value
 		"""
-		values = []
 		for range, value in self._map.iteritems():
 			if position >= range[0] and position <= range[1]:
-				values.append(value)
-		return values
+				return value
 	
 	# TODO: maybe implement some remove() method to save memory and speedup the 
 	# lookup(). Keep in mind, that only the spell checker may call a remove()
