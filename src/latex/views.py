@@ -138,6 +138,8 @@ class LaTeXOutlineView(View):
 	def init(self, context):
 		self._log.debug("init")
 		
+		self._context = context
+		
 		column = gtk.TreeViewColumn()
 		
 		pixbuf_renderer = gtk.CellRendererPixbuf()
@@ -151,7 +153,7 @@ class LaTeXOutlineView(View):
 		self._view = gtk.TreeView()
 		self._view.append_column(column)
 		self._view.set_headers_visible(False)
-		#self._cursor_changed_id = self._treeView.connect("cursor-changed", self._cursorChanged)
+		self._cursor_changed_id = self._view.connect("cursor-changed", self._on_cursor_changed)
 		#self._view.connect("row-activated", self._on_row_activated)
 		
 		scrolled = gtk.ScrolledWindow()
@@ -196,6 +198,16 @@ class LaTeXOutlineView(View):
 				self._view.expand_to_path(path)
 		else:
 			self._view.expand_to_path((0,))
+			
+	def _on_cursor_changed(self, view):
+		store, it = view.get_selection().get_selected()
+		if not it: 
+			return
+			
+		outline_node = store.get_value(it, 2)
+		
+		if not outline_node.foreign:
+			self._context.active_editor.select(outline_node.start, outline_node.end)
 		
 		
 #class OutlineView(AbstractOutlineView):

@@ -106,7 +106,7 @@ class GeditWindowDecorator(object):
 		#
 		# initialize context object
 		#
-		self._window_context = WindowContext()
+		self._window_context = WindowContext(self)
 		
 		
 		self._init_actions()
@@ -412,11 +412,6 @@ class GeditWindowDecorator(object):
 		#
 		self._set_selected_bottom_view(self._selected_bottom_views[tab_decorator])
 		self._set_selected_side_view(self._selected_side_views[tab_decorator])
-		
-		#
-		# update context object
-		#
-		self._window_context.active_editor = self._active_tab_decorator.editor
 	
 	def _get_selected_bottom_view(self):
 		notebook = self._window.get_bottom_panel().get_children()[0].get_children()[0]

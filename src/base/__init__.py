@@ -491,6 +491,15 @@ class Editor(object):
 				# comment
 				self._text_buffer.insert(tmpIt, "%")
 	
+	def select(self, start_offset, end_offset):
+		"""
+		Select a range of text and scroll the view to the right position
+		"""
+		it_start = self._text_buffer.get_iter_at_offset(start_offset)
+		it_end = self._text_buffer.get_iter_at_offset(end_offset)
+		self._text_buffer.select_range(it_start, it_end)
+		self._text_view.scroll_to_iter(it_start, .25)
+	
 	#
 	# markers are used for spell checking (identified) and highlighting (anonymous)
 	#
@@ -620,7 +629,10 @@ class WindowContext(object):
 	def __init__(self, window_decorator=None):
 		self._window_decorator = window_decorator
 		self.views = {}
-		self.active_editor = None
+	
+	@property
+	def active_editor(self):
+		return self._window_decorator._active_tab_decorator.editor
 	
 	def activate_editor(self, file):
 		"""
