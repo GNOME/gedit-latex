@@ -72,10 +72,10 @@ class Environment(object):
 		"""
 		Return whether kpsewhich is installed
 		"""
-		if not self._kpsewhichChecked:
-			self._kpsewhichInstalled = bool(system("kpsewhich --version $2>/dev/null") == 0)
-			self._kpsewhichChecked = True
-		return self._kpsewhichInstalled
+		if not self._kpsewhich_checked:
+			self._kpsewhich_installed = bool(system("kpsewhich --version $2>/dev/null") == 0)
+			self._kpsewhich_checked = True
+		return self._kpsewhich_installed
 	
 	def file_exists(self, filename):
 		"""

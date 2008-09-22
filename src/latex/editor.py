@@ -18,6 +18,8 @@
 # this program; if not, write to the Free Software Foundation, Inc., 51 Franklin
 # Street, Fifth Floor, Boston, MA  02110-1301, USA
 
+import gtk
+import gtk.gdk
 from logging import getLogger
 
 from ..base import Editor
@@ -30,6 +32,8 @@ from parser import LaTeXParser, LaTeXReferenceExpander
 from outline import LaTeXOutlineGenerator
 from validator import LaTeXValidator
 
+from ..outline import OutlineOffsetMap
+from outline import OutlineConverter
 
 class LaTeXEditor(Editor, IIssueHandler):
 	
@@ -54,14 +58,20 @@ class LaTeXEditor(Editor, IIssueHandler):
 		self.register_marker_type("latex-warning", "#ffffcf")
 		
 		self._issue_view = context.views["LaTeXIssueView"]
-		self._outline_view = context.views["LaTeXOutlineView"]
 		
 		self._parser = LaTeXParser()
 		self._document_dirty = True
 		
+		self._outline_tree_store = gtk.TreeStore(str, gtk.gdk.Pixbuf, object)
+		self._outline_view = context.views["LaTeXOutlineView"]
+		self._outline_view.set_model(self._outline_tree_store)
+		self._offset_map = OutlineOffsetMap()
+		
 		#
 		# initially parse
 		#
+		self._log.debug("Initial parse")
+		
 		self._parse()
 	
 	def save(self):
@@ -89,11 +99,15 @@ class LaTeXEditor(Editor, IIssueHandler):
 			# parse document
 			self._document = self._parser.parse(self.content, self._file, self)
 			
+			self._log.debug("Parsed %s bytes of content" % len(self.content))
+			
 			if self._document.is_master:
 				# expand child documents
 				expander = LaTeXReferenceExpander()
 				expander.expand(self._document, self._file, self)
 			else:
+				self._log.debug("Document is not a master")
+				
 				# find master
 				master_file = find_master_document(self._file)
 				# parse master
@@ -110,10 +124,16 @@ class LaTeXEditor(Editor, IIssueHandler):
 			# validate
 			self._validator = LaTeXValidator()
 			self._validator.validate(self._document, self._outline, self._file, self)
+			
+			# convert outline model and pass to outline view
+			self._outline_view.save_state()
+			OutlineConverter().convert(self._outline_tree_store, self._outline, self._offset_map)
+			self._outline_view.restore_state()
 	
 	def issue(self, issue):
+		#
 		# see IIssueHandler.issue
-		
+		#
 		self._issue_view.append_issue(issue)
 		
 		if issue.file == self._file:
@@ -135,8 +155,8 @@ class LaTeXEditor(Editor, IIssueHandler):
 		"""
 		self._log.debug("activate_marker(%s, %s)" % (marker, event))
 	
-	def destroy(self):
-		Editor.destroy(self)
+#	def destroy(self):
+#		Editor.destroy(self)
 
 
 def find_master_document(file):

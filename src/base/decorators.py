@@ -51,12 +51,13 @@ ACTION_EXTENSIONS = { None : ["LaTeXNewAction"],
 
 
 from ..tools import Tool, Job, ToolAction
+from ..tools.postprocess import GenericPostProcessor, RubberPostProcessor
 
 
 # TODO: this should come from configuration
 
-TOOLS = [ Tool("LaTeX → PDF", [".tex"], [Job("rubber --inplace --maxerr -1 --pdf --short --force --warn all \"$filename\"", True), Job("gnome-open $shortname.pdf", True)], "Create a PDF from LaTeX source"),
-		  Tool("Cleanup LaTeX Build", [".tex"], [Job("rm -f $directory/*.aux $directory/*.log", True)], "Remove LaTeX build files") ]
+TOOLS = [ Tool("LaTeX → PDF", [".tex"], [Job("rubber --inplace --maxerr -1 --pdf --short --force --warn all \"$filename\"", True, RubberPostProcessor), Job("gnome-open $shortname.pdf", True, GenericPostProcessor)], "Create a PDF from LaTeX source"),
+		  Tool("Cleanup LaTeX Build", [".tex"], [Job("rm -f $directory/*.aux $directory/*.log", True, GenericPostProcessor)], "Remove LaTeX build files") ]
 
 
 from . import View, WindowContext

@@ -121,11 +121,13 @@ class LaTeXSymbolMapView(View):
 	
 	def init(self, context):
 		self._log.debug("init")
-	
-	
+
+
 class LaTeXOutlineView(View):
 	"""
+	A View showing an outline of the edited LaTeX document
 	"""
+	
 	_log = getLogger("LaTeXOutlineView")
 	
 	position = View.POSITION_SIDE
@@ -135,6 +137,123 @@ class LaTeXOutlineView(View):
 	
 	def init(self, context):
 		self._log.debug("init")
+		
+		column = gtk.TreeViewColumn()
+		
+		pixbuf_renderer = gtk.CellRendererPixbuf()
+		column.pack_start(pixbuf_renderer, False)
+		column.add_attribute(pixbuf_renderer, "pixbuf", 1)
+		
+		text_renderer = gtk.CellRendererText()
+		column.pack_start(text_renderer, True)
+		column.add_attribute(text_renderer, "markup", 0)
+		
+		self._view = gtk.TreeView()
+		self._view.append_column(column)
+		self._view.set_headers_visible(False)
+		#self._cursor_changed_id = self._treeView.connect("cursor-changed", self._cursorChanged)
+		#self._view.connect("row-activated", self._on_row_activated)
+		
+		scrolled = gtk.ScrolledWindow()
+		scrolled.add(self._view)
+		scrolled.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+		
+		self.pack_start(scrolled, True)
+		
+		# this holds a list of the currently expanded paths
+		self._expandedPaths = None
+		
+	def set_model(self, model):
+		self.assure_init()
+		
+		self._view.set_model(model)
+		
+	def save_state(self):
+		"""
+		Save the current expand state
+		"""
+		self.assure_init()
+		
+		self._expanded_paths = []
+		self._view.map_expanded_rows(self._save_state_map_function)
+	
+	def _save_state_map_function(self, view, path):
+		"""
+		Mapping function for saving the current expand state
+		"""
+		self._expanded_paths.append(path)
+	
+	def restore_state(self):
+		"""
+		Restore the last expand state
+		"""
+		self.assure_init()
+		
+		self._view.collapse_all()
+		
+		if self._expanded_paths:
+			for path in self._expanded_paths:
+				self._view.expand_to_path(path)
+		else:
+			self._view.expand_to_path((0,))
+		
+		
+#class OutlineView(AbstractOutlineView):
+#	"""
+#	Special outline view for LaTeX
+#	"""
+#	
+#	#_log = getLogger("latex.outline.OutlineView")
+#	
+#	def __init__(self, treeStore):
+#		AbstractOutlineView.__init__(self, treeStore)
+#		
+#		icoGraphics = gtk.image_new_from_file(getSystemResource("/pixmaps/tree_includegraphics.png"))
+#		btnGraphics = gtk.ToggleToolButton()
+#		btnGraphics.set_icon_widget(icoGraphics)
+#		self._toolbar.insert(btnGraphics, -1)
+#		
+#		icoTables = gtk.image_new_from_file(getSystemResource("/pixmaps/tree_table.png"))
+#		btnTables = gtk.ToggleToolButton()
+#		btnTables.set_icon_widget(icoTables)
+#		self._toolbar.insert(btnTables, -1)
+#		
+#		btnGraphics.set_active(Settings().get("LatexOutlineGraphics", True, True))
+#		btnTables.set_active(Settings().get("LatexOutlineTables", True, True))
+#		
+#		btnGraphics.connect("toggled", self._graphicsToggled)
+#		btnTables.connect("toggled", self._tablesToggled)
+#		
+#		self._toolbar.show_all()
+#	
+#	def _cursorChanged(self, treeView):
+#		store, it = treeView.get_selection().get_selected()
+#		if not it: 
+#			return
+#			
+#		node = store.get_value(it, 2)
+#		
+#		if not node.foreign:
+#			self.trigger("elementSelected", node.start, node.end)
+#		
+#	def _rowActivated(self, treeView, path, column):
+#		it = self._treeStore.get_iter(path)
+#		node = self._treeStore.get(it, 2)[0]
+#		
+#		if node.type == OutlineNode.REFERENCE:
+#			self.trigger("referenceActivated", node.value)
+#		elif node.type == OutlineNode.GRAPHICS:
+#			self.trigger("graphicsActivated", node.value)
+#	
+#	def _tablesToggled(self, toggleButton):
+#		value = toggleButton.get_active()
+#		Settings().set("LatexOutlineTables", value)
+#		self.trigger("tablesToggled", value)
+#	
+#	def _graphicsToggled(self, toggleButton):
+#		value = toggleButton.get_active()
+#		Settings().set("LatexOutlineGraphics", value)
+#		self.trigger("graphicsToggled", value)
 	
 	
 		

@@ -271,7 +271,7 @@ class LaTeXParser(object):
 			for token in Lexer(string):
 				callables[token.type].__call__(token.value, token.offset)
 		except FatalParseException:
-			return self._issues
+			return
 		
 		# check stack remainder
 		for node in self._stack:
@@ -378,7 +378,7 @@ class LaTeXParser(object):
 			# set end offset of MANDATORY_ARGUMENT or EMBRACED
 			node.end = offset + 1
 		except IndexError:
-			self._issue_handler.issue(Issue("Encountered <b>}</b> without </b>{</b>", offset, offset + 1, self._file, Issue.SEVERITY_ERROR))
+			self._issue_handler.issue(Issue("Encountered <b>}</b> without <b>{</b>", offset, offset + 1, self._file, Issue.SEVERITY_ERROR))
 			# we cannot continue after that
 			raise FatalParseException
 	

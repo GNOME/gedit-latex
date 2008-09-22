@@ -34,7 +34,7 @@ class RangeMap(object):
 	 * outline tree (lookup symbols by cursor position)
 	"""
 	
-	# TODO: find a faster structure for this (some tree or anything)
+	# TODO: find a faster structure for this (maybe a B-tree for 1d intervals)
 	
 	def __init__(self):
 		self._map = {}

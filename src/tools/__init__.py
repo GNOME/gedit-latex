@@ -71,9 +71,15 @@ class Job(object):
 	"""
 	A Job forms one command to be executed in a Tool
 	"""
-	def __init__(self, command_template, must_succeed):
+	def __init__(self, command_template, must_succeed, post_processor):
+		"""
+		@param command_template: a template string for the command to be executed
+		@param must_succeed: if True this Job may cause the whole Tool to fail
+		@param post_processor: a class implementing IPostProcessor
+		"""
 		self._command_template = command_template
 		self._must_succeed = must_succeed
+		self._post_processor = post_processor
 	
 	@property
 	def command_template(self):
@@ -82,6 +88,10 @@ class Job(object):
 	@property
 	def must_succeed(self):
 		return self._must_succeed
+	
+	@property
+	def post_processor(self):
+		return self._post_processor
 
 
 import gtk
@@ -138,7 +148,7 @@ class ToolRunner(Process):
 	This runs a Tool
 	"""
 	
-	_log = getLogger("ToolProcessor")
+	_log = getLogger("ToolRunner")
 	
 	def run(self, file, tool, view):
 		# init issue handler
@@ -146,7 +156,10 @@ class ToolRunner(Process):
 		#self._issue_handler.reset()
 		#parent_id = self._issue_handler.add_section(tool.label)
 		
+		self._view = view
 		self._file = file
+		self._stdout_text = ""
+		self._stderr_text = ""
 		self._job_iter = iter(tool.jobs)
 		
 		self._proceed()
@@ -169,11 +182,13 @@ class ToolRunner(Process):
 		"""
 		"""
 		self._log.error("_stdout: " + text)
+		self._stdout_text += text
 		
 	def _stderr(self, text):
 		"""
 		"""
 		self._log.debug("_stderr: " + text)
+		self._stderr_text += text
 	
 	def _abort(self):
 		"""
@@ -187,14 +202,26 @@ class ToolRunner(Process):
 		
 		assert self._job
 		
-		if condition:
+		# create post-processor instance
+		post_processor_class = self._job.post_processor
+		
+		post_processor = post_processor_class.__new__(post_processor_class)
+		post_processor_class.__init__(post_processor)
+		
+		# run post-processor
+		post_processor.process(self._file, self._stdout_text, self._stderr_text, condition)
+		
+		# show issues
+		self._view.append_issues(self._job, post_processor.issues)
+		
+		if post_processor.successful:
+			self._proceed()
+		else:
 			if self._job.must_succeed:
-				# tool failed
+				# whole Tool failed
 				pass
 			else:
 				self._proceed()
-		else:
-			self._proceed()
 			
 
 

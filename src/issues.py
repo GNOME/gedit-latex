@@ -40,9 +40,11 @@ class Issue(object):
 	recognized during parsing and validation of a source file
 	"""
 	
-	SEVERITY_WARNING, SEVERITY_ERROR, SEVERITY_INFO, SEVERITY_TASK = 0, 1, 2, 3
+	SEVERITY_WARNING, SEVERITY_ERROR, SEVERITY_INFO, SEVERITY_TASK = 1, 2, 3, 4
 	
-	def __init__(self, message, start, end, file, severity):
+	POSITION_OFFSET, POSITION_LINE = 1, 2
+	
+	def __init__(self, message, start, end, file, severity, position_type=POSITION_OFFSET):
 		"""
 		@param message: a str in Pango markup
 		@param start: the start offset of the issue
@@ -55,6 +57,11 @@ class Issue(object):
 		self.end = end
 		self.file = file
 		self.severity = severity
+		self.position_type = position_type
 		
 	def __str__(self):
 		return "Issue{'%s', %s, %s, %s, %s}" % (self.message, self.start, self.end, self.file, self.severity)
+	
+	
+	
+	

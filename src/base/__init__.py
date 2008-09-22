@@ -311,9 +311,21 @@ class Editor(object):
 		"""
 		Return the string contained in the TextBuffer
 		"""
+		
+		# FIXME: this returns an empty string when called from Editor.init() so
+		# that the initial parse fails
+		
 		charset = self._text_buffer.get_encoding().get_charset()
-		return self._text_buffer.get_text(self._text_buffer.get_start_iter(), 
+		s = self._text_buffer.get_text(self._text_buffer.get_start_iter(), 
 									self._text_buffer.get_end_iter(), False).decode(charset)
+		
+		# workaround:
+		
+		if len(s) > 0:
+			return s
+		else:
+			self.__log.warning("GeditDocument.get_text() returned empty string, reading file")
+			return open(self._file.path).read()
 	
 	def content_changed(self, reference_timestamp):
 		"""
@@ -594,6 +606,8 @@ class Editor(object):
 		"""
 		The edited file has been closed or saved as another file
 		"""
+		self.__log.debug("destroy")
+		
 		self._template_delegate.destroy()
 		
 	
@@ -690,4 +704,72 @@ class Marker(object):
 	def right_mark(self):
 		return self._right_mark
 
+
+import logging
+from os import makedirs
+from os.path import expanduser, exists
+from shutil import copyfile
+
+#
+# init plugin resource locating
+#
+
+_PATH_SYSTEM = "/usr/lib/gedit-2/plugins/GeditLaTeXPlugin"
+_PATH_USER = expanduser("~/.gnome2/gedit/plugins/GeditLaTeXPlugin")
+
+logging.basicConfig(level=logging.DEBUG)
+_log = logging.getLogger("installation")
+
+_log.debug("Initializing resource locating")
+
+_installed_system_wide = exists(_PATH_SYSTEM)
+if _installed_system_wide:
+	# ensure that we have a user plugin dir
+	if not exists(_PATH_USER):
+		makedirs(_PATH_USER)
 	
+	PLUGIN_PATH = _PATH_SYSTEM	# only used by build to expand $plugin
+else:
+	PLUGIN_PATH = _PATH_USER	# only used by build to expand $plugin
+
+
+MODE_READONLY, MODE_READWRITE = 1, 2
+
+
+def find_resource(relative_path, access_mode=MODE_READONLY):
+	"""
+	This locates a resource used by the plugin. The access mode determines where to 
+	search for the relative path.
+	
+	@param relative_path: a relative path like 'icons/smiley.png'
+	@param access_mode: MODE_READONLY|MODE_READWRITE
+	"""
+	if access_mode == MODE_READONLY:
+		#
+		# locate a system-wide resource for read-only access
+		#
+		if _installed_system_wide:
+			path = "%s/%s" % (_PATH_SYSTEM, relative_path)
+		else:
+			path = "%s/%s" % (_PATH_USER, relative_path)
+		
+		if not exists(path):
+			_log.warning("File not found: %s" % path)
+		
+		return path
+	
+	elif access_mode == MODE_READWRITE:
+		#
+		# locate a user-specific resource for read/write access
+		#
+		path = "%s/%s" % (_PATH_USER, relativeFilename)
+	
+		if _installed_system_wide and not exists(path):
+			# resource doesn't exist yet in the user's directory
+			# copy the system-wide version		
+			try:
+				copyfile("%s/%s" % (_PATH_SYSTEM, relative_path), path)
+			except IOError:
+				_log.warning("Failed to copy resource to user directory: %s" % relative_path)
+		return path
+
