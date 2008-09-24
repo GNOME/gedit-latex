@@ -248,7 +248,7 @@ class Editor(object):
 		self._marker_maps = {}	   	   # marker type id -> RangeMap object
 		
 		
-		# TODO: pass window_context?
+		# TODO: pass window_context to Editor?
 		
 		self._window_context = self._tab_decorator._window_decorator._window_context
 		self._window_context.create_editor_views(self, file)
@@ -285,10 +285,6 @@ class Editor(object):
 	@property
 	def file(self):
 		return self._file
-	
-#	@property
-#	def views(self):
-#		return self._views
 	
 	@property
 	def tab_decorator(self):
@@ -628,14 +624,17 @@ class Editor(object):
 	
 class WindowContext(object):
 	"""
-	The WindowContext is passed to Editors and is used to retrieve View instances. We could 
-	pass the map of views directly but a Context is more generic and may be used for more
-	things in the future.
+	The WindowContext is passed to Editors and is used to 
+	 * retrieve View instances
+	 * activate a specific Editor instance
+	 * retrieve the currently active Editor
+	
+	This also creates and destroys the View instances.
 	"""
 	
 	_log = getLogger("WindowContext")
 	
-	def __init__(self, window_decorator=None, editor_scope_view_classes=None):
+	def __init__(self, window_decorator, editor_scope_view_classes):
 		"""
 		@param window_decorator: the GeditWindowDecorator this context corresponds to
 		@param editor_scope_view_classes: a map from extension to list of View classes
@@ -665,8 +664,6 @@ class WindowContext(object):
 				self._log.debug("Created view " + id)
 		except KeyError:
 			self._log.debug("No views for %s" % file.extension)
-		
-		#print str(self._editor_scope_views[editor])
 	
 	def set_window_views(self, views):
 		"""
@@ -674,9 +671,15 @@ class WindowContext(object):
 		Called by GeditWindowDecorator
 		"""
 		self._window_scope_views = views
-		
+	
+	def get_editor_views(self, editor):
+		"""
+		Return a map of all editor scope views
+		"""
+		return self._editor_scope_views[editor]
 	
 	###
+	# public interface
 	
 	@property
 	def active_editor(self):
@@ -697,7 +700,7 @@ class WindowContext(object):
 		
 		self._window_decorator.activate_tab(file)
 	
-	def get_view(self, editor, view_id):
+	def find_view(self, editor, view_id):
 		"""
 		Return a View object
 		"""
@@ -705,12 +708,6 @@ class WindowContext(object):
 			return self._editor_scope_views[editor][view_id]
 		except KeyError:
 			return self._window_scope_views[view_id]
-	
-	def get_editor_views(self, editor):
-		"""
-		Return a map of all editor scope views
-		"""
-		return self._editor_scope_views[editor]
 	
 
 from urlparse import urlparse

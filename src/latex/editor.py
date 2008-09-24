@@ -55,12 +55,12 @@ class LaTeXEditor(Editor, IIssueHandler):
 		self.register_marker_type("latex-error", "#ffdddd")
 		self.register_marker_type("latex-warning", "#ffffcf")
 		
-		self._issue_view = context.get_view(self, "LaTeXIssueView")
+		self._issue_view = context.find_view(self, "LaTeXIssueView")
 		
 		self._parser = LaTeXParser()
 		self._document_dirty = True
 		
-		self._outline_view = context.get_view(self, "LaTeXOutlineView")
+		self._outline_view = context.find_view(self, "LaTeXOutlineView")
 		
 		self._connect_outline_to_editor = True	# TODO: read from config
 		
@@ -155,7 +155,7 @@ class LaTeXEditor(Editor, IIssueHandler):
 		The cursor has moved
 		"""
 		if self._connect_outline_to_editor:
-			self._outline_view.select_offset(offset)
+			self._outline_view.select_path_by_offset(offset)
 
 
 def find_master_document(file):

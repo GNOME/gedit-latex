@@ -172,13 +172,15 @@ class LaTeXOutlineView(View):
 		# this holds a list of the currently expanded paths
 		self._expandedPaths = None
 	
-	def select_offset(self, offset):
+	def select_path_by_offset(self, offset):
 		"""
 		Select the path corresponding to a given offset in the source
 		"""
+		self.assure_init()
+		
 		try:
 			path = self._offset_map.lookup(offset)
-			self.select_path(path)
+			self._select_path(path)
 		except KeyError:
 			pass
 	
@@ -186,30 +188,19 @@ class LaTeXOutlineView(View):
 		"""
 		Load a new outline model
 		"""
-		self.save_state()
+		self.assure_init()
+		
+		self._save_state()
 		
 		self._offset_map = OutlineOffsetMap()
 		OutlineConverter().convert(self._store, outline, self._offset_map)
 		
-		self.restore_state()
+		self._restore_state()
 	
-	def set_model(self, model):
-		"""
-		@deprecated: 
-		"""
-		self.assure_init()
-		
-		self._view.set_model(model)
-		
-	def save_state(self):
+	def _save_state(self):
 		"""
 		Save the current expand state
 		"""
-		
-		# TODO: should be private
-		
-		self.assure_init()
-		
 		self._expanded_paths = []
 		self._view.map_expanded_rows(self._save_state_map_function)
 	
@@ -219,15 +210,10 @@ class LaTeXOutlineView(View):
 		"""
 		self._expanded_paths.append(path)
 	
-	def restore_state(self):
+	def _restore_state(self):
 		"""
 		Restore the last expand state
 		"""
-		
-		# TODO: should be private
-		
-		self.assure_init()
-		
 		self._view.collapse_all()
 		
 		if self._expanded_paths:
@@ -246,13 +232,10 @@ class LaTeXOutlineView(View):
 		if not outline_node.foreign:
 			self._context.active_editor.select(outline_node.start, outline_node.end)
 	
-	def select_path(self, path):
+	def _select_path(self, path):
 		"""
 		Expand a path and select the last node
 		"""
-		
-		# TODO: should be private
-		
 		# disconnect from 'cursor-changed'
 		self._view.disconnect(self._cursor_changed_id)
 		
