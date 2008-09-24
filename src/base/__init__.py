@@ -225,7 +225,7 @@ class Editor(object):
 	
 	__log = getLogger("Editor")
 	
-	_PATTERN_INDENT = re.compile("[ \t]+")
+	__PATTERN_INDENT = re.compile("[ \t]+")
 	
 	def __init__(self, tab_decorator, file):
 		self._tab_decorator = tab_decorator
@@ -257,30 +257,44 @@ class Editor(object):
 		self._offset = None
 
 		# TODO: disconnect on destroy
-		self._button_press_handler = self._text_view.connect("button-press-event", self._on_button_pressed)
-		self._text_view.connect("key-release-event", self._on_key_released)
-		self._text_view.connect("button-release-event", self._on_button_released)
+		self._button_press_handler = self._text_view.connect("button-press-event", self.__on_button_pressed)
+		self._text_view.connect("key-release-event", self.__on_key_released)
+		self._text_view.connect("button-release-event", self.__on_button_released)
 		
 		# start life-cycle for subclass
 		self.init(file, self._window_context)
 	
-	def _on_key_released(self, *args):
+	def __on_key_released(self, *args):
 		"""
 		This helps to call 'move_cursor'
 		"""
 		offset = self._text_buffer.get_iter_at_mark(self._text_buffer.get_insert()).get_offset()
 		if offset != self._offset:
 			self._offset = offset
-			self.move_cursor(offset)
+			self.on_cursor_moved(offset)
 	
-	def _on_button_released(self, *args):
+	def __on_button_released(self, *args):
 		"""
 		This helps to call 'move_cursor'
 		"""
 		offset = self._text_buffer.get_iter_at_mark(self._text_buffer.get_insert()).get_offset()
 		if offset != self._offset:
 			self._offset = offset
-			self.move_cursor(offset)
+			self.on_cursor_moved(offset)
+	
+	def __on_button_pressed(self, text_view, event):
+		"""
+		Mouse button has been pressed on the TextView
+		"""
+		if event.button == 3:	# right button
+			x, y = text_view.get_pointer()
+			x, y = text_view.window_to_buffer_coords(gtk.TEXT_WINDOW_WIDGET, x, y)
+			it = text_view.get_iter_at_location(x, y)
+			offset = it.get_offset()
+			
+			for map in self._marker_maps.itervalues():
+				for marker in map.lookup(offset):
+					self.on_marker_activated(marker, event)
 	
 	@property
 	def file(self):
@@ -354,7 +368,7 @@ class Editor(object):
 		i_end.forward_to_line_end()
 		string = self._text_buffer.get_text(i_start, i_end)
 		
-		match = self._PATTERN_INDENT.match(string)
+		match = self.__PATTERN_INDENT.match(string)
 		if match:
 			return match.group()
 		else:
@@ -539,7 +553,6 @@ class Editor(object):
 		"""
 		@param id: the id of the marker to remove
 		"""
-		
 	
 	def remove_markers(self, marker_type):
 		"""
@@ -564,21 +577,7 @@ class Editor(object):
 		self._text_buffer.delete_mark(marker.left_mark)
 		self._text_buffer.delete_mark(marker.right_mark)
 	
-	def _on_button_pressed(self, text_view, event):
-		"""
-		Mouse button has been pressed on the TextView
-		"""
-		if event.button == 3:	# right button
-			x, y = text_view.get_pointer()
-			x, y = text_view.window_to_buffer_coords(gtk.TEXT_WINDOW_WIDGET, x, y)
-			it = text_view.get_iter_at_location(x, y)
-			offset = it.get_offset()
-			
-			for map in self._marker_maps.itervalues():
-				for marker in map.lookup(offset):
-					self.activate_marker(marker, event)
-	
-	def activate_marker(self, marker, event):
+	def on_marker_activated(self, marker, event):
 		"""
 		A marker has been activated
 		
@@ -603,12 +602,12 @@ class Editor(object):
 		@param context: WindowContext object
 		"""
 	
-	def save(self):
+	def on_save(self):
 		"""
 		The file has been saved to its original location
 		"""
 	
-	def move_cursor(self, offset):
+	def on_cursor_moved(self, offset):
 		"""
 		The cursor has moved
 		"""

@@ -35,7 +35,7 @@ _PATH_SYSTEM = "/usr/lib/gedit-2/plugins/GeditLaTeXPlugin"
 _PATH_USER = expanduser("~/.gnome2/gedit/plugins/GeditLaTeXPlugin")
 
 logging.basicConfig(level=logging.DEBUG)
-_log = logging.getLogger("installation")
+_log = logging.getLogger("resources")
 
 _log.debug("Initializing resource locating")
 

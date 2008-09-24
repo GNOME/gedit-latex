@@ -71,7 +71,7 @@ class LaTeXEditor(Editor, IIssueHandler):
 		
 		self._parse()
 	
-	def save(self):
+	def on_save(self):
 		"""
 		The file has been saved
 		
@@ -144,13 +144,13 @@ class LaTeXEditor(Editor, IIssueHandler):
 		
 		id = self.create_marker("latex-spell", 15, 30)
 	
-	def activate_marker(self, marker, event):
+	def on_marker_activated(self, marker, event):
 		"""
 		A marker has been activated
 		"""
 		self._log.debug("activate_marker(%s, %s)" % (marker, event))
 	
-	def move_cursor(self, offset):
+	def on_cursor_moved(self, offset):
 		"""
 		The cursor has moved
 		"""

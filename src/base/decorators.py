@@ -557,7 +557,7 @@ class GeditTabDecorator(object):
 		if not self._adjust_editor():
 			# if the editor has not changed
 			if self._editor:
-				self._editor.save()
+				self._editor.on_save()
 	
 	def _adjust_editor(self):
 		"""

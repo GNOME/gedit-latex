@@ -43,7 +43,7 @@ class LaTeXIssueView(View):
 	
 	position = View.POSITION_BOTTOM
 	label = "LaTeX Issues"
-	icon = gtk.STOCK_CONVERT
+	icon = gtk.STOCK_DIALOG_INFO
 	scope = View.SCOPE_EDITOR
 	
 	def init(self, context):
@@ -116,7 +116,7 @@ class LaTeXSymbolMapView(View):
 	
 	position = View.POSITION_SIDE
 	label = "Symbols"
-	icon = gtk.STOCK_CONVERT
+	icon = gtk.STOCK_INDEX
 	scope = View.SCOPE_WINDOW
 	
 	def init(self, context):
@@ -135,8 +135,13 @@ class LaTeXOutlineView(View):
 	
 	position = View.POSITION_SIDE
 	label = "Outline"
-	icon = gtk.STOCK_CONVERT
 	scope = View.SCOPE_EDITOR
+	
+	@property
+	def icon(self):
+		image = gtk.Image()
+		image.set_from_file(find_resource("icons/outline.png"))
+		return image
 	
 	def init(self, context):
 		self._log.debug("init")
