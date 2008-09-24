@@ -63,3 +63,36 @@ def caught(f):
 			open_error(str(e), stack)
 	return new_function
 
+
+from gtk import glade
+
+
+class GladeInterface(object):
+	"""
+	Utility base class for interfaces loaded from a Glade definition 
+	"""
+	
+	_filename = None
+	
+	def __init__(self):
+		self.__tree = None
+	
+	def __get_tree(self):
+		if not self.__tree:
+			self.__tree = glade.XML(self._filename)
+		return self.__tree
+	
+	def _find_widget(self, name):
+		"""
+		Find a widget by its name
+		"""
+		return self.__get_tree().get_widget(name)
+	
+	def _connect_signals(self, mapping):
+		"""
+		Auto-connect signals
+		"""
+		self.__get_tree().signal_autoconnect(mapping)
+
+
+

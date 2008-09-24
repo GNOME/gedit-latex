@@ -104,8 +104,6 @@ class LaTeXIssueView(View):
 	def append_issue(self, issue):
 		self.assure_init()
 		
-		self._log.debug("append_issue: " + str(issue))
-		
 		self._store.append([None, issue.message, issue.file.basename, issue])
 		
 		

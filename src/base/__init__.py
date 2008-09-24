@@ -710,7 +710,7 @@ class WindowContext(object):
 	
 
 from urlparse import urlparse
-from os.path import splitext, basename, dirname
+from os.path import splitext, basename, dirname, exists
 
 
 class File(object):
@@ -751,6 +751,10 @@ class File(object):
 	@property
 	def uri(self):
 		return self._uri.geturl()
+	
+	@property
+	def exists(self):
+		return exists(self.path)
 	
 	def __eq__(self, file):
 		"""

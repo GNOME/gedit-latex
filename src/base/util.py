@@ -47,8 +47,6 @@ class RangeMap(object):
 		"""
 		Put value in range [lower, upper]
 		"""
-		self._log.debug("put(%s,%s,%s)" % (lower, upper, value))
-		
 		self._map[(lower, upper)] = value
 		
 	def lookup(self, position):

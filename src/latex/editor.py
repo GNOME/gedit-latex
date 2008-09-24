@@ -18,6 +18,10 @@
 # this program; if not, write to the Free Software Foundation, Inc., 51 Franklin
 # Street, Fifth Floor, Boston, MA  02110-1301, USA
 
+"""
+latex.editor
+"""
+
 import gtk
 import gtk.gdk
 from logging import getLogger
@@ -32,6 +36,8 @@ from parser import LaTeXParser, LaTeXReferenceExpander
 from outline import LaTeXOutlineGenerator
 from validator import LaTeXValidator
 
+from dialogs import ChooseMasterDialog
+
 
 class LaTeXEditor(Editor, IIssueHandler):
 	
@@ -39,12 +45,7 @@ class LaTeXEditor(Editor, IIssueHandler):
 	
 	_log = getLogger("LaTeXEditor")
 	
-	@property
-	def completion_handlers(self):
-		"""
-		Return the CompletionHandlers to load when this Editor is used
-		"""
-		return [ LaTeXCompletionHandler(), SnippetCompletionHandler() ]
+	completion_handlers = [ LaTeXCompletionHandler(), SnippetCompletionHandler() ]
 	
 	def init(self, file, context):
 		self._log.debug("init(%s)" % file)
@@ -69,7 +70,7 @@ class LaTeXEditor(Editor, IIssueHandler):
 		#
 		self._log.debug("Initial parse")
 		
-		self._parse()
+		self.__parse()
 	
 	def on_save(self):
 		"""
@@ -77,10 +78,10 @@ class LaTeXEditor(Editor, IIssueHandler):
 		
 		Update models
 		"""
-		self._parse()
+		self.__parse()
 	
 	@caught
-	def _parse(self):
+	def __parse(self):
 		"""
 		"""
 		if self._document_dirty:
@@ -106,7 +107,7 @@ class LaTeXEditor(Editor, IIssueHandler):
 				self._log.debug("Document is not a master")
 				
 				# find master
-				master_file = find_master_document(self._file)
+				master_file = self._find_master_document()
 				# parse master
 				master_content = open(master_file.path).read()
 				self._document = self._parser.parse(master_content, master_file, self)
@@ -124,7 +125,20 @@ class LaTeXEditor(Editor, IIssueHandler):
 			
 			# pass outline to view
 			self._outline_view.set_outline(self._outline)
-			
+	
+	def _find_master_document(self):
+		property_file = PropertyFile(self._file)
+		try:
+			return File(property_file["MasterFilename"])
+		except KeyError:
+			master_filename = ChooseMasterDialog().run(self._file.dirname)
+			if master_filename:
+				property_file["MasterFilename"] = master_filename
+				property_file.save()
+				return File(master_filename)
+			else:
+				raise RuntimeError("No master file chosen")
+	
 	def issue(self, issue):
 		#
 		# see IIssueHandler.issue
@@ -138,6 +152,9 @@ class LaTeXEditor(Editor, IIssueHandler):
 				self.create_marker("latex-warning", issue.start, issue.end)
 	
 	def spell_check(self):
+		"""
+		Run a spell check on the file
+		"""
 		self._log.debug("spell_check")
 		
 		self.remove_markers("latex-spell")
@@ -158,11 +175,78 @@ class LaTeXEditor(Editor, IIssueHandler):
 			self._outline_view.select_path_by_offset(offset)
 
 
-def find_master_document(file):
-	# TODO:
-	raise RuntimeError("Master not found")
+from xml.dom import minidom
+from xml.parsers.expat import ExpatError
+
+from ..base import File
+
+
+class PropertyFile(dict):
+	"""
+	A property file is a hidden XML file that holds meta data for exactly one file.
+	It can be used to store the master file of a LaTeX document fragment.
+	"""
 	
+	__log = getLogger("PropertyFile")
 	
+	# TODO: insert value as TEXT node
+	
+	def __init__(self, file):
+		"""
+		Create or load the property file for a given File
+		"""
+		self.__file = File("%s/.%s.properties.xml" % (file.dirname, file.basename))
+		
+		try:
+			self.__dom = minidom.parse(self.__file.path)
+			
+			for property_node in self.__dom.getElementsByTagName("property"):
+				k = property_node.getAttribute("key")
+				v = property_node.getAttribute("value")
+				self.__setitem__(k, v)
+				
+		except IOError:
+			self.__log.debug("File %s not found, creating empty one" % self.__file)
+			
+			self.__dom = minidom.getDOMImplementation().createDocument(None, "properties", None)
+		
+		except ExpatError, e:
+			self.__log.error("Error parsing %s: %s" % (self.__file, e))
+		
+	
+	def __find_node(self, k):
+		for node in self.__dom.getElementsByTagName("property"):
+			if node.getAttribute("key") == str(k):
+				return node
+		raise KeyError
+	
+	def __getitem__(self, k):
+		return self.__find_node(k).getAttribute("value")
+	
+	def __setitem__(self, k, v):
+		try:
+			self.__find_node(k).setAttribute("value", str(v))
+		except KeyError:
+			node = self.__dom.createElement("property")
+			node.setAttribute("key", str(k))
+			node.setAttribute("value", str(v))
+			self.__dom.documentElement.appendChild(node)
+	
+	def save(self):
+		filename = self.__file.path
+		
+		if self.__file.exists:
+			mode = "w"
+		else:
+			mode = "a"
+		
+		try:
+			f = open(self.__file.path, mode)
+			f.write(self.__dom.toxml())
+			f.close()
+			self.__log.debug("Saved to %s" % self.__file.path)
+		except IOError, e:
+			self.__log.error("Error saving %s: %s" % (self.__file.path, e))
 	
 	
 	
