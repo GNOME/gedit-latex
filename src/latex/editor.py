@@ -51,6 +51,7 @@ class LaTeXEditor(Editor, IIssueHandler):
 		self._log.debug("init(%s)" % file)
 		
 		self._file = file
+		self._context = context
 		
 		self.register_marker_type("latex-spell", "#ffeccf", anonymous=False)
 		self.register_marker_type("latex-error", "#ffdddd")
@@ -103,6 +104,8 @@ class LaTeXEditor(Editor, IIssueHandler):
 				# expand child documents
 				expander = LaTeXReferenceExpander()
 				expander.expand(self._document, self._file, self)
+				
+				self._context.set_action_enabled("LaTeXChooseMasterAction", False)
 			else:
 				self._log.debug("Document is not a master")
 				
@@ -114,6 +117,8 @@ class LaTeXEditor(Editor, IIssueHandler):
 				# expand its child documents
 				expander = LaTeXReferenceExpander()
 				expander.expand(self._document, master_file, self)
+				
+				self._context.set_action_enabled("LaTeXChooseMasterAction", True)
 			
 			# generate outline
 			self._outline_generator = LaTeXOutlineGenerator()

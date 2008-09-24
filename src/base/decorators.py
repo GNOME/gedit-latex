@@ -29,7 +29,7 @@ from logging import getLogger
 import gedit
 import gtk
 
-from ..latex.actions import LaTeXMenuAction, LaTeXNewAction, LaTeXCommentAction, LaTeXSpellCheckAction
+from ..latex.actions import LaTeXMenuAction, LaTeXNewAction, LaTeXCommentAction, LaTeXSpellCheckAction, LaTeXChooseMasterAction
 
 
 # TODO: extensions and UI path should be asked from Action objects
@@ -44,10 +44,11 @@ from ..latex.actions import LaTeXMenuAction, LaTeXNewAction, LaTeXCommentAction,
 ACTION_OBJECTS = { "LaTeXMenuAction" : LaTeXMenuAction(), 
 				   "LaTeXNewAction" : LaTeXNewAction(),
 				   "LaTeXCommentAction" : LaTeXCommentAction(),
-				   "LaTeXSpellCheckAction" : LaTeXSpellCheckAction() }
+				   "LaTeXSpellCheckAction" : LaTeXSpellCheckAction(),
+				   "LaTeXChooseMasterAction" : LaTeXChooseMasterAction() }
 
 ACTION_EXTENSIONS = { None : ["LaTeXNewAction"],
-					  ".tex" : ["LaTeXMenuAction", "LaTeXCommentAction", "LaTeXSpellCheckAction"] }
+					  ".tex" : ["LaTeXMenuAction", "LaTeXCommentAction", "LaTeXSpellCheckAction", "LaTeXChooseMasterAction"] }
 
 
 from ..tools import Tool, Job, ToolAction
@@ -93,6 +94,7 @@ class GeditWindowDecorator(object):
 				</menu>
 				<placeholder name="ExtraMenu_1">
 					<menu action="LaTeXMenuAction">
+						<menuitem action="LaTeXChooseMasterAction" />
 						<menuitem action="LaTeXCommentAction" />
 						<menuitem action="LaTeXSpellCheckAction" />
 					</menu>
@@ -305,7 +307,7 @@ class GeditWindowDecorator(object):
 		
 		# disable all actions
 		for name in ACTION_OBJECTS.keys():
-			self._action_group.get_action(name).set_sensitive(False)
+			self._action_group.get_action(name).set_visible(False)
 		
 		# disable all tool actions
 		for l in self._tool_action_extensions.values():
@@ -315,13 +317,13 @@ class GeditWindowDecorator(object):
 		
 		# enable the actions for all extensions
 		for name in ACTION_EXTENSIONS[None]:
-			self._action_group.get_action(name).set_sensitive(True)
+			self._action_group.get_action(name).set_visible(True)
 		
 		# enable the actions registered for the extension
 		if extension:
 			try:
 				for name in ACTION_EXTENSIONS[extension]:
-					self._action_group.get_action(name).set_sensitive(True)
+					self._action_group.get_action(name).set_visible(True)
 			except KeyError:
 				pass
 		

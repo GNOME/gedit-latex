@@ -708,6 +708,12 @@ class WindowContext(object):
 		except KeyError:
 			return self._window_scope_views[view_id]
 	
+	def set_action_enabled(self, action_id, enabled):
+		"""
+		Enable/disable an IAction object
+		"""
+		self._window_decorator._action_group.get_action(action_id).set_sensitive(enabled)
+	
 
 from urlparse import urlparse
 from os.path import splitext, basename, dirname, exists

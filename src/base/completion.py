@@ -111,14 +111,7 @@ class ProposalPopup(gtk.Window):
 		self._store.clear()
 		
 		for proposal in proposals:
-#			if proposal.kind == Proposal.COMMAND:
-#				icon = self._iconCommand
-#			elif proposal.kind == Proposal.CHOICE:
-#				icon = self._iconChoice
-#			elif proposal.kind == Proposal.TEMPLATE:
-#				icon = self._iconTemplate
-			icon = None
-			self._store.append([proposal.label, proposal, icon])
+			self._store.append([proposal.label, proposal, proposal.icon])
 			
 		self._view.set_cursor((0))
 		

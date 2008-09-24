@@ -31,6 +31,8 @@ from ..base import ICompletionHandler, IProposal, Template
 
 class LaTeXTemplateProposal(IProposal):
 	
+	icon = None
+	
 	def __init__(self, template, label):
 		self._template = template
 		self._label = label
@@ -53,6 +55,8 @@ class LaTeXTemplateProposal(IProposal):
 	
 
 class LaTeXProposal(IProposal):
+	
+	icon = None
 	
 	def __init__(self, source):
 		self._source = source
@@ -80,17 +84,9 @@ class LaTeXCompletionHandler(ICompletionHandler):
 	
 	_log = getLogger("LaTeXCompletionHandler")
 	
-	@property
-	def trigger_keys(self):
-		return ["backslash", "braceleft"]
-	
-	@property
-	def prefix_delimiters(self):
-		return ["\\"]
-	
-	@property
-	def strip_delimiter(self):
-		return False
+	trigger_keys = ["backslash", "braceleft"]
+	prefix_delimiters = ["\\"]
+	strip_delimiter = False
 	
 	def complete(self, prefix):
 		self._log.debug("complete(%s)" % prefix)

@@ -71,7 +71,7 @@ class Job(object):
 	"""
 	A Job forms one command to be executed in a Tool
 	"""
-	def __init__(self, command_template, must_succeed, post_processor):
+	def __init__(self, command_template, must_succeed, post_processor, pre_processor=None):
 		"""
 		@param command_template: a template string for the command to be executed
 		@param must_succeed: if True this Job may cause the whole Tool to fail
@@ -80,6 +80,7 @@ class Job(object):
 		self._command_template = command_template
 		self._must_succeed = must_succeed
 		self._post_processor = post_processor
+		self._pre_processor = pre_processor
 	
 	@property
 	def command_template(self):
@@ -92,6 +93,10 @@ class Job(object):
 	@property
 	def post_processor(self):
 		return self._post_processor
+	
+	@property
+	def pre_processor(self):
+		return self._pre_processor
 
 
 import gtk

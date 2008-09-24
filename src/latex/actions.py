@@ -48,6 +48,20 @@ class LaTeXNewAction(IAction):
 	tooltip = None
 	
 	def activate(self, context):
+		# TODO:
+		self._log.debug("activate")
+		
+
+class LaTeXChooseMasterAction(IAction):
+	_log = getLogger("LaTeXChooseMasterAction")
+	
+	label = "Choose Master Document..."
+	stock_id = None
+	accelerator = None
+	tooltip = None
+	
+	def activate(self, context):
+		# TODO:
 		self._log.debug("activate")
 	
 

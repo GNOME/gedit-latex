@@ -25,11 +25,16 @@ Snippet-specific completion classes
 """
 
 from logging import getLogger
+from gtk import gdk
 
 from ..base import ICompletionHandler, IProposal, Template
+from ..base.resources import find_resource
 
 
 class SnippetProposal(IProposal):
+	
+	icon = gdk.pixbuf_new_from_file(find_resource("icons/snippet.png"))
+	
 	def __init__(self, snippet, overlap):
 		self._snippet = snippet
 		self._overlap = overlap
@@ -56,13 +61,6 @@ class SnippetProposal(IProposal):
 		self._snippet.template_expression
 	
 	@property
-	def icon(self):
-		"""
-		@return: an instance of gtk.gdk.Pixbuf
-		"""
-		return None
-	
-	@property
 	def overlap(self):
 		"""
 		@return: the number of overlapping characters from the beginning of the
@@ -74,7 +72,9 @@ class SnippetProposal(IProposal):
 from . import Snippet
 
 
-SNIPPETS = [Snippet("includegraphics", "\\includegraphics[${Attributes}]{${Filename}}")]
+SNIPPETS = [
+		Snippet("includegraphics", "\\includegraphics[${Attributes}]{${Filename}}"),
+		Snippet("begin", "\\begin{${Environment}}\n\t$_\n\\end{${Environment}}") ]
 
 
 class SnippetCompletionHandler(ICompletionHandler):
