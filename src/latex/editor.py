@@ -32,10 +32,6 @@ from parser import LaTeXParser, LaTeXReferenceExpander
 from outline import LaTeXOutlineGenerator
 from validator import LaTeXValidator
 
-from ..base.util import RangeMap
-from outline import OutlineConverter
-from ..outline import OutlineOffsetMap
-
 
 class LaTeXEditor(Editor, IIssueHandler):
 	
@@ -59,15 +55,12 @@ class LaTeXEditor(Editor, IIssueHandler):
 		self.register_marker_type("latex-error", "#ffdddd")
 		self.register_marker_type("latex-warning", "#ffffcf")
 		
-		self._issue_view = context.views["LaTeXIssueView"]
+		self._issue_view = context.get_view(self, "LaTeXIssueView")
 		
 		self._parser = LaTeXParser()
 		self._document_dirty = True
 		
-		self._offset_map = OutlineOffsetMap()
-		self._outline_tree_store = gtk.TreeStore(str, gtk.gdk.Pixbuf, object)
-		self._outline_view = context.views["LaTeXOutlineView"]
-		self._outline_view.set_model(self._outline_tree_store)
+		self._outline_view = context.get_view(self, "LaTeXOutlineView")
 		
 		self._connect_outline_to_editor = True	# TODO: read from config
 		
@@ -129,12 +122,9 @@ class LaTeXEditor(Editor, IIssueHandler):
 			self._validator = LaTeXValidator()
 			self._validator.validate(self._document, self._outline, self._file, self)
 			
-			# convert outline model and pass to outline view
-			self._offset_map = OutlineOffsetMap()
-			self._outline_view.save_state()
-			OutlineConverter().convert(self._outline_tree_store, self._outline, self._offset_map)
-			self._outline_view.restore_state()
-	
+			# pass outline to view
+			self._outline_view.set_outline(self._outline)
+			
 	def issue(self, issue):
 		#
 		# see IIssueHandler.issue
@@ -165,14 +155,7 @@ class LaTeXEditor(Editor, IIssueHandler):
 		The cursor has moved
 		"""
 		if self._connect_outline_to_editor:
-			try:
-				path = self._offset_map.lookup(offset)
-				self._outline_view.select_path(path)
-			except KeyError:
-				pass
-	
-#	def destroy(self):
-#		Editor.destroy(self)
+			self._outline_view.select_offset(offset)
 
 
 def find_master_document(file):

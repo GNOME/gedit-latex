@@ -61,10 +61,13 @@ TOOLS = [ Tool("LaTeX → PDF", [".tex"], [Job("rubber --inplace --maxerr -1 --p
 
 
 from . import View, WindowContext
-from ..latex.views import LaTeXSymbolMapView
+from ..latex.views import LaTeXSymbolMapView, LaTeXIssueView, LaTeXOutlineView
 
 
 WINDOW_SCOPE_VIEWS = { ".tex" : {"LaTeXSymbolMapView" : LaTeXSymbolMapView } }
+
+EDITOR_SCOPE_VIEWS = { ".tex" : {"LaTeXIssueView" : LaTeXIssueView, 
+								 "LaTeXOutlineView" : LaTeXOutlineView} }
 
 
 from views import ToolView
@@ -106,7 +109,7 @@ class GeditWindowDecorator(object):
 		#
 		# initialize context object
 		#
-		self._window_context = WindowContext(self)
+		self._window_context = WindowContext(self, EDITOR_SCOPE_VIEWS)
 		
 		
 		self._init_actions()
@@ -153,8 +156,8 @@ class GeditWindowDecorator(object):
 		self._window.get_bottom_panel().add_item(tool_view, tool_view.label, tool_view.icon)
 		#self._window_bottom_views.append(tool_view)
 		
-		# update context
-		self._window_context.views = self._views
+		# update window context
+		self._window_context.set_window_views(self._views)
 	
 	def _init_actions(self):
 		"""
@@ -354,9 +357,10 @@ class GeditWindowDecorator(object):
 			self._window.get_bottom_panel().remove_item(view)
 			self._bottom_views.remove(view)
 			
-		# show given views
+		# show editor scope views
 		if tab_decorator.editor:
-			for id, view in tab_decorator.editor.views.iteritems():
+			editor_views = self._window_context.get_editor_views(tab_decorator.editor)
+			for id, view in editor_views.iteritems():
 				panel = None
 				if view.position == View.POSITION_BOTTOM:
 					self._window.get_bottom_panel().add_item(view, view.label, view.icon)
@@ -406,6 +410,9 @@ class GeditWindowDecorator(object):
 					raise RuntimeError("Invalid position: %s" % view.position)
 		except KeyError:
 			self._log.debug("No window-scope views for this extension")
+		
+		# update window context
+		self._window_context.set_window_views(self._views)
 		
 		#
 		# restore selection state

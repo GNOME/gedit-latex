@@ -123,6 +123,9 @@ class LaTeXSymbolMapView(View):
 		self._log.debug("init")
 
 
+from ..outline import OutlineOffsetMap
+
+
 class LaTeXOutlineView(View):
 	"""
 	A View showing an outline of the edited LaTeX document
@@ -150,7 +153,11 @@ class LaTeXOutlineView(View):
 		column.pack_start(text_renderer, True)
 		column.add_attribute(text_renderer, "markup", 0)
 		
-		self._view = gtk.TreeView()
+		self._offset_map = OutlineOffsetMap()
+		
+		self._store = gtk.TreeStore(str, gtk.gdk.Pixbuf, object)
+		
+		self._view = gtk.TreeView(self._store)
 		self._view.append_column(column)
 		self._view.set_headers_visible(False)
 		self._cursor_changed_id = self._view.connect("cursor-changed", self._on_cursor_changed)
@@ -164,8 +171,32 @@ class LaTeXOutlineView(View):
 		
 		# this holds a list of the currently expanded paths
 		self._expandedPaths = None
+	
+	def select_offset(self, offset):
+		"""
+		Select the path corresponding to a given offset in the source
+		"""
+		try:
+			path = self._offset_map.lookup(offset)
+			self.select_path(path)
+		except KeyError:
+			pass
+	
+	def set_outline(self, outline):
+		"""
+		Load a new outline model
+		"""
+		self.save_state()
 		
+		self._offset_map = OutlineOffsetMap()
+		OutlineConverter().convert(self._store, outline, self._offset_map)
+		
+		self.restore_state()
+	
 	def set_model(self, model):
+		"""
+		@deprecated: 
+		"""
 		self.assure_init()
 		
 		self._view.set_model(model)
@@ -174,6 +205,9 @@ class LaTeXOutlineView(View):
 		"""
 		Save the current expand state
 		"""
+		
+		# TODO: should be private
+		
 		self.assure_init()
 		
 		self._expanded_paths = []
@@ -189,6 +223,9 @@ class LaTeXOutlineView(View):
 		"""
 		Restore the last expand state
 		"""
+		
+		# TODO: should be private
+		
 		self.assure_init()
 		
 		self._view.collapse_all()
@@ -213,6 +250,9 @@ class LaTeXOutlineView(View):
 		"""
 		Expand a path and select the last node
 		"""
+		
+		# TODO: should be private
+		
 		# disconnect from 'cursor-changed'
 		self._view.disconnect(self._cursor_changed_id)
 		
@@ -222,7 +262,60 @@ class LaTeXOutlineView(View):
 		
 		# connect to 'cursor-changed' again
 		self._cursor_changed_id = self._view.connect("cursor-changed", self._on_cursor_changed)
+	
+
+
+from ..base.resources import find_resource
+from outline import OutlineNode
+from os.path import basename
+
+
+class OutlineConverter(object):
+	"""
+	This creates a gtk.TreeStore object from a LaTeX outline model
+	"""
+	
+	_ICON_LABEL = gtk.gdk.pixbuf_new_from_file(find_resource("icons/label.png"))
+	_ICON_TABLE = gtk.gdk.pixbuf_new_from_file(find_resource("icons/tree_table.png"))
+	_ICON_GRAPHICS = gtk.gdk.pixbuf_new_from_file(find_resource("icons/tree_includegraphics.png"))
+	
+	_LEVEL_ICONS = { 1 : gtk.gdk.pixbuf_new_from_file(find_resource("icons/tree_part.png")),
+				2 : gtk.gdk.pixbuf_new_from_file(find_resource("icons/tree_chapter.png")),
+				3 : gtk.gdk.pixbuf_new_from_file(find_resource("icons/tree_section.png")),
+				4 : gtk.gdk.pixbuf_new_from_file(find_resource("icons/tree_subsection.png")),
+				5 : gtk.gdk.pixbuf_new_from_file(find_resource("icons/tree_subsubsection.png")),
+				6 : gtk.gdk.pixbuf_new_from_file(find_resource("icons/tree_paragraph.png")),
+				7 : gtk.gdk.pixbuf_new_from_file(find_resource("icons/tree_paragraph.png")) }
+	
+	def convert(self, tree_store, outline, offset_map):
+		self._offsetMap = offset_map
+		self._treeStore = tree_store
+		self._treeStore.clear()
 		
+		self._load(None, outline.rootNode)
+	
+	def _load(self, parent, node):
+		if node.type == OutlineNode.STRUCTURE:
+			icon = self._LEVEL_ICONS[node.level]
+			parent = self._treeStore.append(parent, [node.value, icon, node])
+		elif node.type == OutlineNode.LABEL:
+			parent = self._treeStore.append(parent, [node.value, self._ICON_LABEL, node])
+		elif node.type == OutlineNode.TABLE:
+			parent = self._treeStore.append(parent, [node.value, self._ICON_TABLE, node])
+		elif node.type == OutlineNode.GRAPHICS:
+			label = basename(node.value)
+			parent = self._treeStore.append(parent, [label, self._ICON_GRAPHICS, node])
+		
+		# store path in offset map for all non-foreign nodes
+		# check for parent to ignore root node
+		if parent and not node.foreign:
+			path = self._treeStore.get_path(parent)
+			self._offsetMap.put(node.start, path)
+			
+		for child in node:
+			self._load(parent, child)
+
+
 		
 #class OutlineView(AbstractOutlineView):
 #	"""

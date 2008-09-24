@@ -221,13 +221,6 @@ from .templates import TemplateDelegate
 from util import RangeMap
 
 
-from ..latex.views import LaTeXIssueView, LaTeXOutlineView
-
-
-EDITOR_SCOPE_VIEWS = { ".tex" : {"LaTeXIssueView" : LaTeXIssueView, 
-								 "LaTeXOutlineView" : LaTeXOutlineView} }
-
-
 class Editor(object):
 	
 	__log = getLogger("Editor")
@@ -254,29 +247,14 @@ class Editor(object):
 		self._marker_type_tags = {}    # marker type id -> TextTag object
 		self._marker_maps = {}	   	   # marker type id -> RangeMap object
 		
-		# create context object
-		# FIXME: don't create a new one
-		context = WindowContext(self._tab_decorator._window_decorator)
 		
-		# create editor-specific views
-		self._views = {}
-		try:
-			for id, clazz in EDITOR_SCOPE_VIEWS[file.extension].iteritems():
-				# create View instance and add it to the map
-				view = clazz.__new__(clazz)
-				clazz.__init__(view, context)
-				self._views[id] = view
-				
-				self.__log.debug("Created view " + id)
-		except KeyError:
-			self.__log.debug("No views")
-
-
-		context.views = self._views
-
+		# TODO: pass window_context?
+		
+		self._window_context = self._tab_decorator._window_decorator._window_context
+		self._window_context.create_editor_views(self, file)
+		
 		
 		self._offset = None
-
 
 		# TODO: disconnect on destroy
 		self._button_press_handler = self._text_view.connect("button-press-event", self._on_button_pressed)
@@ -284,7 +262,7 @@ class Editor(object):
 		self._text_view.connect("button-release-event", self._on_button_released)
 		
 		# start life-cycle for subclass
-		self.init(file, context)
+		self.init(file, self._window_context)
 	
 	def _on_key_released(self, *args):
 		"""
@@ -308,9 +286,9 @@ class Editor(object):
 	def file(self):
 		return self._file
 	
-	@property
-	def views(self):
-		return self._views
+#	@property
+#	def views(self):
+#		return self._views
 	
 	@property
 	def tab_decorator(self):
@@ -654,12 +632,57 @@ class WindowContext(object):
 	pass the map of views directly but a Context is more generic and may be used for more
 	things in the future.
 	"""
-	def __init__(self, window_decorator=None):
+	
+	_log = getLogger("WindowContext")
+	
+	def __init__(self, window_decorator=None, editor_scope_view_classes=None):
+		"""
+		@param window_decorator: the GeditWindowDecorator this context corresponds to
+		@param editor_scope_view_classes: a map from extension to list of View classes
+		"""
 		self._window_decorator = window_decorator
-		self.views = {}
+		self._editor_scope_view_classes = editor_scope_view_classes
+		self._window_scope_views = {}	# maps view ids to View objects
+		self._editor_scope_views = {}	# maps Editor object to a map from ID to View object
+		
+		self._log.debug("init")
+	
+	def create_editor_views(self, editor, file):
+		"""
+		Create instances of the editor specific Views for a given Editor instance
+		and File
+		
+		Called Editor base class
+		"""
+		self._editor_scope_views[editor] = {}
+		try:
+			for id, clazz in self._editor_scope_view_classes[file.extension].iteritems():
+				# create View instance and add it to the map
+				view = clazz.__new__(clazz)
+				clazz.__init__(view, self)
+				self._editor_scope_views[editor][id] = view
+				
+				self._log.debug("Created view " + id)
+		except KeyError:
+			self._log.debug("No views for %s" % file.extension)
+		
+		#print str(self._editor_scope_views[editor])
+	
+	def set_window_views(self, views):
+		"""
+		
+		Called by GeditWindowDecorator
+		"""
+		self._window_scope_views = views
+		
+	
+	###
 	
 	@property
 	def active_editor(self):
+		"""
+		Return the active Editor instance
+		"""
 		return self._window_decorator._active_tab_decorator.editor
 	
 	def activate_editor(self, file):
@@ -673,7 +696,22 @@ class WindowContext(object):
 		assert type(file) is File
 		
 		self._window_decorator.activate_tab(file)
-
+	
+	def get_view(self, editor, view_id):
+		"""
+		Return a View object
+		"""
+		try:
+			return self._editor_scope_views[editor][view_id]
+		except KeyError:
+			return self._window_scope_views[view_id]
+	
+	def get_editor_views(self, editor):
+		"""
+		Return a map of all editor scope views
+		"""
+		return self._editor_scope_views[editor]
+	
 
 from urlparse import urlparse
 from os.path import splitext, basename, dirname
@@ -743,73 +781,4 @@ class Marker(object):
 	@property
 	def right_mark(self):
 		return self._right_mark
-
-
-import logging
-from os import makedirs
-from os.path import expanduser, exists
-from shutil import copyfile
-
-#
-# init plugin resource locating
-#
-
-_PATH_SYSTEM = "/usr/lib/gedit-2/plugins/GeditLaTeXPlugin"
-_PATH_USER = expanduser("~/.gnome2/gedit/plugins/GeditLaTeXPlugin")
-
-logging.basicConfig(level=logging.DEBUG)
-_log = logging.getLogger("installation")
-
-_log.debug("Initializing resource locating")
-
-_installed_system_wide = exists(_PATH_SYSTEM)
-if _installed_system_wide:
-	# ensure that we have a user plugin dir
-	if not exists(_PATH_USER):
-		makedirs(_PATH_USER)
-	
-	PLUGIN_PATH = _PATH_SYSTEM	# only used by build to expand $plugin
-else:
-	PLUGIN_PATH = _PATH_USER	# only used by build to expand $plugin
-
-
-MODE_READONLY, MODE_READWRITE = 1, 2
-
-
-def find_resource(relative_path, access_mode=MODE_READONLY):
-	"""
-	This locates a resource used by the plugin. The access mode determines where to 
-	search for the relative path.
-	
-	@param relative_path: a relative path like 'icons/smiley.png'
-	@param access_mode: MODE_READONLY|MODE_READWRITE
-	"""
-	if access_mode == MODE_READONLY:
-		#
-		# locate a system-wide resource for read-only access
-		#
-		if _installed_system_wide:
-			path = "%s/%s" % (_PATH_SYSTEM, relative_path)
-		else:
-			path = "%s/%s" % (_PATH_USER, relative_path)
-		
-		if not exists(path):
-			_log.warning("File not found: %s" % path)
-		
-		return path
-	
-	elif access_mode == MODE_READWRITE:
-		#
-		# locate a user-specific resource for read/write access
-		#
-		path = "%s/%s" % (_PATH_USER, relativeFilename)
-	
-		if _installed_system_wide and not exists(path):
-			# resource doesn't exist yet in the user's directory
-			# copy the system-wide version		
-			try:
-				copyfile("%s/%s" % (_PATH_SYSTEM, relative_path), path)
-			except IOError:
-				_log.warning("Failed to copy resource to user directory: %s" % relative_path)
-		return path
 
