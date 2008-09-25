@@ -215,6 +215,7 @@ class IProposal(object):
 
 
 import re
+from uuid import uuid1
 
 from .completion import CompletionDistributor
 from .templates import TemplateDelegate
@@ -222,8 +223,35 @@ from util import RangeMap
 
 
 class Editor(object):
+	"""
+	"""
 	
 	__log = getLogger("Editor")
+	
+	
+	class Marker(object):
+		"""
+		Markers refer to and highlight a range of text in the TextBuffer decorated by 
+		an Editor. They are used for spell checking and highlighting issues.
+		
+		Each Marker instance stores two gtk.TextMark objects refering to the start and
+		end of the text range.
+		"""
+		def __init__(self, left_mark, right_mark, id, type):
+			self.left_mark = left_mark
+			self.right_mark = right_mark
+			self.type = type
+			self.id = id
+	
+	
+	class MarkerTypeRecord(object):
+		"""
+		This used for managing Marker types
+		"""
+		def __init__(self, text_tag):
+			self.text_tag = text_tag
+			self.markers = []
+	
 	
 	__PATTERN_INDENT = re.compile("[ \t]+")
 	
@@ -243,9 +271,13 @@ class Editor(object):
 		else:
 			self._completion_distributor = None
 		
+		#
 		# init marker framework
-		self._marker_type_tags = {}    # marker type id -> TextTag object
-		self._marker_maps = {}	   	   # marker type id -> RangeMap object
+		#
+		
+		# needed for cleanup
+		self._marker_types = {}    # {marker type -> MarkerTypeRecord object}
+		self._markers = {}		# { marker id -> marker object }
 		
 		
 		# TODO: pass window_context to Editor?
@@ -290,11 +322,33 @@ class Editor(object):
 			x, y = text_view.get_pointer()
 			x, y = text_view.window_to_buffer_coords(gtk.TEXT_WINDOW_WIDGET, x, y)
 			it = text_view.get_iter_at_location(x, y)
-			offset = it.get_offset()
 			
-			for map in self._marker_maps.itervalues():
-				for marker in map.lookup(offset):
-					self.on_marker_activated(marker, event)
+			self.__log.debug("Right button pressed at offset %s" % it.get_offset())
+			
+			#
+			# find Marker at this position
+			#
+			while True:
+				for mark in it.get_marks():
+					name = mark.get_name()
+					
+					self.__log.debug("Found TextMark %s at offset %s" % (name, it.get_offset()))
+
+					if name:
+						try:
+							marker = self._markers[name]
+							self.on_marker_activated(marker, event)
+						except KeyError:
+							self.__log.warning("No marker found for this TextMark: %s" % name)
+					else:
+						self.__log.debug("Unnamed TextMark found, outside of any Markers")
+					
+					return
+				
+				# move left by one char and continue 
+				if not it.backward_char():
+					# start of buffer reached
+					return
 	
 	@property
 	def file(self):
@@ -521,47 +575,77 @@ class Editor(object):
 		@param background_color: a hex color
 		@param anonymous: markers of an anonymous type may not be activated and do not get a unique ID
 		"""
-		assert not marker_type in self._marker_type_tags.keys()
+		assert not marker_type in self._marker_types.keys()
 		
-		# add tag
-		self._marker_type_tags[marker_type] = self._text_buffer.create_tag(marker_type, 
-										background=background_color)
-		# create map
-		self._marker_maps[marker_type] = RangeMap()
+		# create gtk.TextTag
+		tag = self._text_buffer.create_tag(marker_type, background=background_color)
+		
+		# create a record for this type
+		self._marker_types[marker_type] = self.MarkerTypeRecord(tag)
 	
 	def create_marker(self, marker_type, start_offset, end_offset):
 		"""
 		Mark a section of the text
 		
+		@param marker_type: 
+		 
 		@return: a Marker object
 		"""
-		assert marker_type in self._marker_type_tags.keys()
+		assert marker_type in self._marker_types.keys()
 		
 		# hightlight
 		left = self._text_buffer.get_iter_at_offset(start_offset)
 		right = self._text_buffer.get_iter_at_offset(end_offset)
 		self._text_buffer.apply_tag_by_name(marker_type, left, right)
 		
-		# create Marker object and put into map
-		left_mark = self._text_buffer.create_mark(None, left, True)
-		right_mark = self._text_buffer.create_mark(None, right, False)
-		marker = Marker(left_mark, right_mark)
+		# create unique marker id
+		id = str(uuid1())
 		
-		self._marker_maps[marker_type].put(start_offset, end_offset, marker)
+		# create Marker object and put into map
+		left_mark = self._text_buffer.create_mark(id, left, True)
+		right_mark = self._text_buffer.create_mark(None, right, False)
+		marker = self.Marker(left_mark, right_mark, id, marker_type)
+		
+		# store Marker
+		self._markers[id] = marker
+		self._marker_types[marker_type].markers.append(marker)
 	
 	def remove_marker(self, marker):
 		"""
-		@param id: the id of the marker to remove
+		@param marker: the Marker to remove
 		"""
+		# remove TextMarks
+		self._text_buffer.delete_mark(marker.left_mark)
+		self._text_buffer.delete_mark(marker.right_mark)
+		
+		# remove Marker from MarkerTypeRecord
+		marker_type_record = self._marker_types[marker.type]
+		marker_index = marker_type_record.markers.index(marker)
+		del marker_type_record.markers[marker_index]
+		
+		# remove from id map
+		del self._markers[marker.id]
 	
 	def remove_markers(self, marker_type):
 		"""
-		Remove all markers of a type
+		Remove all markers of a certain type
 		"""
-		assert marker_type in self._marker_type_tags.keys()
+		assert marker_type in self._marker_types.keys()
 		
-		self._text_buffer.remove_tag_by_name(marker_type, self._text_buffer.get_start_iter(), 
-									self._text_buffer.get_end_iter())
+		for marker in self._marker_types[marker_type].markers:
+			# create TextIters from TextMarks
+			left_iter = self._text_buffer.get_iter_at_mark(marker.left_mark)
+			right_iter = self._text_buffer.get_iter_at_mark(marker.right_mark)
+			
+			# remove TextTag
+			self._text_buffer.remove_tag(marker_type, left_iter, right_iter)
+			
+			# remove TextMarks
+			self._text_buffer.delete_mark(marker.left_mark)
+			self._text_buffer.delete_mark(marker.right_mark)
+		
+			# remove Marker from id map
+			del self._markers[marker.id]
 	
 	def replace_marker_content(self, marker, content):
 		# get TextIters
@@ -573,9 +657,8 @@ class Editor(object):
 		left = self._text_buffer.get_iter_at_mark(marker.left_mark)
 		self._text_buffer.insert(left, content)
 		
-		# cleanup
-		self._text_buffer.delete_mark(marker.left_mark)
-		self._text_buffer.delete_mark(marker.right_mark)
+		# remove Marker
+		self.remove_marker(marker)
 	
 	def on_marker_activated(self, marker, event):
 		"""
@@ -584,7 +667,7 @@ class Editor(object):
 		To be overridden
 		
 		@param id: id of the activated marker
-		@param event: the event of the mouse click (for raising context menus)
+		@param event: the GdkEvent of the mouse click (for raising context menus)
 		"""
 	
 	@property
@@ -619,8 +702,8 @@ class Editor(object):
 		self.__log.debug("destroy")
 		
 		self._template_delegate.destroy()
-		
-	
+
+
 class WindowContext(object):
 	"""
 	The WindowContext is passed to Editors and is used to 
@@ -770,21 +853,5 @@ class File(object):
 	
 	def __str__(self):
 		return self.uri
-	
-	
-class Marker(object):
-	"""
-	A Marker created by the Editor
-	"""
-	def __init__(self, left_mark, right_mark):
-		self._left_mark = left_mark
-		self._right_mark = right_mark
-	
-	@property
-	def left_mark(self):
-		return self._left_mark
-	
-	@property
-	def right_mark(self):
-		return self._right_mark
+
 
