@@ -238,6 +238,12 @@ class Editor(object):
 		end of the text range.
 		"""
 		def __init__(self, left_mark, right_mark, id, type):
+			"""
+			@param left_mark: a gtk.TextMark
+			@param right_mark: a gtk.TextMark
+			@param id: a unique string
+			@param type: a marker type string
+			"""
 			self.left_mark = left_mark
 			self.right_mark = right_mark
 			self.type = type
@@ -248,8 +254,12 @@ class Editor(object):
 		"""
 		This used for managing Marker types
 		"""
-		def __init__(self, text_tag):
-			self.text_tag = text_tag
+		def __init__(self, tag, anonymous):
+			"""
+			@param tag: a gtk.TextTag
+			"""
+			self.tag = tag
+			self.anonymous = anonymous
 			self.markers = []
 	
 	
@@ -580,48 +590,69 @@ class Editor(object):
 		# create gtk.TextTag
 		tag = self._text_buffer.create_tag(marker_type, background=background_color)
 		
-		# create a record for this type
-		self._marker_types[marker_type] = self.MarkerTypeRecord(tag)
+		# create a MarkerTypeRecord for this type
+		self._marker_types[marker_type] = self.MarkerTypeRecord(tag, anonymous)
 	
 	def create_marker(self, marker_type, start_offset, end_offset):
 		"""
 		Mark a section of the text
 		
-		@param marker_type: 
-		 
-		@return: a Marker object
+		@param marker_type: type string
+		@return: a Marker object if the type is not anonymous or None otherwise
 		"""
-		assert marker_type in self._marker_types.keys()
+		type_record = self._marker_types[marker_type]
 		
 		# hightlight
 		left = self._text_buffer.get_iter_at_offset(start_offset)
 		right = self._text_buffer.get_iter_at_offset(end_offset)
 		self._text_buffer.apply_tag_by_name(marker_type, left, right)
 		
-		# create unique marker id
-		id = str(uuid1())
+		if type_record.anonymous:
+			# create TextMarks
+			left_mark = self._text_buffer.create_mark(None, left, True)
+			right_mark = self._text_buffer.create_mark(None, right, False)
+			
+			# create Marker object
+			marker = self.Marker(left_mark, right_mark, None, marker_type)
+			
+			# store Marker
+			type_record.markers.append(marker)
+			
+			return None
+		else:
+			# create unique marker id
+			id = str(uuid1())
+			
+			# create Marker object and put into map
+			left_mark = self._text_buffer.create_mark(id, left, True)
+			right_mark = self._text_buffer.create_mark(None, right, False)
+			marker = self.Marker(left_mark, right_mark, id, marker_type)
 		
-		# create Marker object and put into map
-		left_mark = self._text_buffer.create_mark(id, left, True)
-		right_mark = self._text_buffer.create_mark(None, right, False)
-		marker = self.Marker(left_mark, right_mark, id, marker_type)
-		
-		# store Marker
-		self._markers[id] = marker
-		self._marker_types[marker_type].markers.append(marker)
+			# store Marker
+			self._markers[id] = marker
+			type_record.markers.append(marker)
+			
+			return marker
 	
 	def remove_marker(self, marker):
 		"""
-		@param marker: the Marker to remove
+		@param marker: the Marker object to remove
 		"""
+		# create TextIters from TextMarks
+		left_iter = self._text_buffer.get_iter_at_mark(marker.left_mark)
+		right_iter = self._text_buffer.get_iter_at_mark(marker.right_mark)
+		
+		# remove TextTag
+		type_record = self._marker_types[marker.type]
+		self._text_buffer.remove_tag(type_record.tag, left_iter, right_iter)
+		
 		# remove TextMarks
 		self._text_buffer.delete_mark(marker.left_mark)
 		self._text_buffer.delete_mark(marker.right_mark)
 		
 		# remove Marker from MarkerTypeRecord
-		marker_type_record = self._marker_types[marker.type]
-		marker_index = marker_type_record.markers.index(marker)
-		del marker_type_record.markers[marker_index]
+		i = type_record.markers.index(marker)
+		del type_record.markers[i]
 		
 		# remove from id map
 		del self._markers[marker.id]
@@ -630,22 +661,23 @@ class Editor(object):
 		"""
 		Remove all markers of a certain type
 		"""
-		assert marker_type in self._marker_types.keys()
+		type_record = self._marker_types[marker_type]
 		
-		for marker in self._marker_types[marker_type].markers:
+		for marker in type_record.markers:
 			# create TextIters from TextMarks
 			left_iter = self._text_buffer.get_iter_at_mark(marker.left_mark)
 			right_iter = self._text_buffer.get_iter_at_mark(marker.right_mark)
 			
 			# remove TextTag
-			self._text_buffer.remove_tag(marker_type, left_iter, right_iter)
+			self._text_buffer.remove_tag(type_record.tag, left_iter, right_iter)
 			
 			# remove TextMarks
 			self._text_buffer.delete_mark(marker.left_mark)
 			self._text_buffer.delete_mark(marker.right_mark)
-		
-			# remove Marker from id map
-			del self._markers[marker.id]
+			
+			if not type_record.anonymous:
+				# remove Marker from id map
+				del self._markers[marker.id]
 	
 	def replace_marker_content(self, marker, content):
 		# get TextIters
