@@ -45,7 +45,7 @@ class LaTeXEditor(Editor, IIssueHandler):
 	
 	_log = getLogger("LaTeXEditor")
 	
-	completion_handlers = [ LaTeXCompletionHandler(), SnippetCompletionHandler() ]
+	completion_handlers = [ LaTeXCompletionHandler, SnippetCompletionHandler ]
 	
 	def init(self, file, context):
 		self._log.debug("init(%s)" % file)

@@ -201,6 +201,8 @@ class LanguageModelParser(sax.ContentHandler):
 		self.__command = None
 		self.__argument = None
 		
+		self.__log.debug("Parsing %s" % filename)
+		
 		sax.parse(filename, self)
 		
 	def startElement(self, name, attrs):
@@ -249,7 +251,10 @@ from ..base import File
 
 class LanguageModelFactory(object):
 	"""
-	This singleton creates LanguageModel instances
+	This singleton creates LanguageModel instances. 
+	
+	If a serialized ('pickled') LanguageModel object exists, then a copy 
+	of this object is returned. Otherwise the XML file must be parsed.
 	"""
 	
 	__log = getLogger("LanguageModelFactory")

@@ -275,9 +275,8 @@ class Editor(object):
 		self._template_delegate = TemplateDelegate(self)
 		
 		# hook completion handlers of the subclassing Editor
-		completion_handlers = self.completion_handlers
-		if len(completion_handlers):
-			self._completion_distributor = CompletionDistributor(self, completion_handlers)
+		if len(self.completion_handlers):
+			self._completion_distributor = CompletionDistributor(self, self.completion_handlers)
 		else:
 			self._completion_distributor = None
 		

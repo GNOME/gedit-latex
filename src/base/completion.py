@@ -318,9 +318,17 @@ class CompletionDistributor(object):
 	def __init__(self, editor, handlers):
 		"""
 		@param editor: the instance of Editor this CompletionDistributor should observe
-		@param handlers: a list of objects implementing ICompletionHandler
+		@param handlers: a list of classes implementing ICompletionHandler
 		"""
-		self._handlers = handlers
+		
+		self._log.debug("init")
+		
+		# instantiate completion handlers
+		self._handlers = []
+		for handler_class in handlers:
+			handler = handler_class.__new__(handler_class)
+			handler_class.__init__(handler)
+			self._handlers.append(handler)
 		
 		self._editor = editor
 		self._text_buffer = editor.tab_decorator.tab.get_document()

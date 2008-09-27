@@ -96,6 +96,8 @@ class LaTeXCompletionHandler(ICompletionHandler):
 	strip_delimiter = False			# don't remove the '\' from the prefix
 	
 	def __init__(self):
+		self._log.debug("init")
+		
 		self._language_model = LanguageModelFactory().create_language_model()
 	
 	def complete(self, prefix):
