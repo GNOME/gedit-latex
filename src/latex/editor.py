@@ -39,6 +39,7 @@ from validator import LaTeXValidator
 from dialogs import ChooseMasterDialog
 
 from . import LaTeXSource
+from ..base.preferences import Preferences
 
 
 class LaTeXEditor(Editor, IIssueHandler):
@@ -57,12 +58,14 @@ class LaTeXEditor(Editor, IIssueHandler):
 	def init(self, file, context):
 		self._log.debug("init(%s)" % file)
 		
+		self._preferences = Preferences()
+		
 		self._file = file
 		self._context = context
 		
-		self.register_marker_type("latex-spell", "#ffeccf", anonymous=False)
-		self.register_marker_type("latex-error", "#ffdddd")
-		self.register_marker_type("latex-warning", "#ffffcf")
+		self.register_marker_type("latex-spell", self._preferences["SpellingBackgroundColor"], anonymous=False)
+		self.register_marker_type("latex-error", self._preferences["ErrorBackgroundColor"])
+		self.register_marker_type("latex-warning", self._preferences["WarningBackgroundColor"])
 		
 		self._issue_view = context.find_view(self, "LaTeXIssueView")
 		
@@ -72,6 +75,8 @@ class LaTeXEditor(Editor, IIssueHandler):
 		self._outline_view = context.find_view(self, "LaTeXOutlineView")
 		
 		self._connect_outline_to_editor = True	# TODO: read from config
+		
+		
 		
 		#
 		# initially parse
@@ -216,7 +221,7 @@ class LaTeXEditor(Editor, IIssueHandler):
 		"""
 		The cursor has moved
 		"""
-		if self._connect_outline_to_editor:
+		if self._preferences["ConnectOutlineToEditor"]:
 			self._outline_view.select_path_by_offset(offset)
 
 

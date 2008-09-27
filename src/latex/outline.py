@@ -30,10 +30,6 @@ from os.path import basename
 
 from parser import Node
 from ..issues import Issue
-#from LaTeXPlugin2.concepts import Issue
-#from LaTeXPlugin2.outline import AbstractOutlineView
-#from LaTeXPlugin2.installation import getSystemResource, getUserResource
-#from LaTeXPlugin2.settings import Settings
 
 
 class OutlineNode(list):

@@ -28,6 +28,18 @@ It can be used for cleaning up, converting files, for building PDFs etc.
 from logging import getLogger
 
 
+class ToolParser(object):
+	"""
+	This parses the tools.xml file
+	"""
+	def parse(self, filename):
+		"""
+		@param filename: the filename of the tools.xml file
+		@return: a list of Tools
+		"""
+		
+
+
 class Tool(object):
 	"""
 	The model of a tool. This is to be stored in preferences.

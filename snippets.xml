@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<snippets>
+	<snippet label="figure">
+		<requiredPackages>
+			<package>graphicx</package>
+		</requiredPackages>
+		<template>\begin{figure}
+	\includegraphics{${File}}
+	\label{${Label}}
+\end{figure}</template>
+	</snippet>
+</snippets>

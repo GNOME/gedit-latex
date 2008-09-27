@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<tools>
+	<tool label="LaTeX → PDF" description="Create a PDF from LaTeX source">
+		<extensions>
+			<extension>.tex</extension>
+		</extensions>
+		<jobs>
+			<job mustSucceed="true" postProcessor="RubberPostProcessor">
+				rubber --inplace --maxerr -1 --pdf --short --force --warn all &quot;$filename&quot;
+			</job>
+			<job mustSucceed="true" postProcessor="GenericPostProcessor">
+				gnome-open &quot;$shortname.pdf&quot;
+			</job>
+		</jobs>
+	</tool>
+	<tool label="Cleanup LaTeX Build" description="Remove LaTeX build files">
+		<extensions>
+			<extension>.tex</extension>
+		</extensions>
+		<jobs>
+			<job mustSucceed="true" postProcessor="GenericPostProcessor">
+				rm -f $directory/*.aux $directory/*.log
+			</job>
+		</jobs>
+	</tool>
+</tools>
