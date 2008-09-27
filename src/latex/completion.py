@@ -25,7 +25,9 @@ LaTeX-specific completion classes
 """
 
 from logging import getLogger
+from gtk import gdk
 
+from ..base.resources import find_resource
 from ..base import ICompletionHandler, IProposal, Template
 
 
@@ -33,7 +35,7 @@ class LaTeXCommandProposal(IProposal):
 	"""
 	A proposal inserting a Template when activated
 	"""
-	icon = None
+	icon = gdk.pixbuf_new_from_file(find_resource("icons/i_command.png"))
 	
 	def __init__(self, overlap, template, label):
 		self._template = template
@@ -61,7 +63,7 @@ class LaTeXChoiceProposal(IProposal):
 	"""
 	A proposal inserting a simple string when activated
 	"""
-	icon = None
+	icon = gdk.pixbuf_new_from_file(find_resource("icons/i_choice.png"))
 	
 	def __init__(self, overlap, source, label, details):
 		self._source = source

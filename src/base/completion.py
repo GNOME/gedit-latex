@@ -440,7 +440,7 @@ class CompletionDistributor(object):
 		
 		for handler in self._handlers:
 			delimiters = handler.prefix_delimiters
-			self._log.debug("_complete: delims are %s" % delimiters)
+			#self._log.debug("_complete: delims are %s" % delimiters)
 			
 			prefix = self._find_prefix(delimiters)
 			if prefix:
@@ -451,8 +451,8 @@ class CompletionDistributor(object):
 				assert type(proposals) is list
 				
 				all_proposals.extend(proposals)
-			else:
-				self._log.debug("_complete: no prefix for %s" % handler)
+			#else:
+			#	self._log.debug("_complete: no prefix for %s" % handler)
 		
 		if len(all_proposals):
 			self._popup.activate(all_proposals, self._text_view)
@@ -481,7 +481,7 @@ class CompletionDistributor(object):
 			c = it_left.get_char()
 			
 			if c in delimiters:
-				self._log.debug("_find_prefix: got delimiter at %s" % i)
+				#self._log.debug("_find_prefix: got delimiter at %s" % i)
 				break
 			
 			if not it_left.backward_char():
@@ -501,7 +501,7 @@ class CompletionDistributor(object):
 		#		return None
 		
 		prefix = self._text_buffer.get_text(it_left, it_right, False)
-		self._log.debug("_find_prefix: '%s'" % prefix)
+		#self._log.debug("_find_prefix: '%s'" % prefix)
 		
 		return prefix
 	
