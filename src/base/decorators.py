@@ -32,13 +32,11 @@ import gtk
 from ..latex.actions import LaTeXMenuAction, LaTeXNewAction, LaTeXCommentAction, LaTeXSpellCheckAction, LaTeXChooseMasterAction
 
 
-# TODO: extensions and UI path should be asked from Action objects
-# (build UI like for tool actions)
-
+# TODO: extensions and UI path should be asked from Action objects (build UI like for tool actions)
 
 # FIXME: there is no 'active_tab_changed' after the last 'tab_removed'!
 
-# TODO: maybe create ActionDelegate for WindowDecorator
+# TODO: maybe create ActionDelegate for GeditWindowDecorator
 
 
 ACTION_OBJECTS = { "LaTeXMenuAction" : LaTeXMenuAction(), 

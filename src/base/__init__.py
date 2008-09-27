@@ -831,7 +831,7 @@ class WindowContext(object):
 	
 
 from urlparse import urlparse
-from os.path import splitext, basename, dirname, exists
+from os.path import splitext, basename, dirname, exists, getmtime
 
 
 class File(object):
@@ -876,6 +876,10 @@ class File(object):
 	@property
 	def exists(self):
 		return exists(self.path)
+	
+	@property
+	def mtime(self):
+		return getmtime(self.path)
 	
 	def __eq__(self, file):
 		"""

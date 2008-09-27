@@ -60,6 +60,8 @@ def find_resource(relative_path, access_mode=MODE_READONLY):
 	
 	@param relative_path: a relative path like 'icons/smiley.png'
 	@param access_mode: MODE_READONLY|MODE_READWRITE
+	
+	@return: the full filename of the resource
 	"""
 	if access_mode == MODE_READONLY:
 		#
@@ -79,7 +81,7 @@ def find_resource(relative_path, access_mode=MODE_READONLY):
 		#
 		# locate a user-specific resource for read/write access
 		#
-		path = "%s/%s" % (_PATH_USER, relativeFilename)
+		path = "%s/%s" % (_PATH_USER, relative_path)
 	
 		if _installed_system_wide and not exists(path):
 			# resource doesn't exist yet in the user's directory

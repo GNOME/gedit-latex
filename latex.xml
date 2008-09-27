@@ -1,0 +1,1192 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+	This file is part of the Gedit LaTeX Plugin
+	
+	Copyright (C) 2007 Michael Zeising
+	
+	This program is free software; you can redistribute it and/or modify it under
+	the terms of the GNU General Public Licence as published by the Free Software
+	Foundation; either version 2 of the Licence, or (at your option) any later
+	version.
+	
+	This program is distributed in the hope that it will be useful, but WITHOUT
+	ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+	FOR A PARTICULAR PURPOSE.  See the GNU General Public Licence for more 
+	details.
+	
+	You should have received a copy of the GNU General Public Licence along with
+	this program; if not, write to the Free Software Foundation, Inc., 51 Franklin
+	Street, Fifth Floor, Boston, MA  02110-1301, USA
+-->
+<commands>
+	<command name="parindent" />
+	<command name="indent" />
+	<command name="noindent" />
+
+	<command name="columnwidth" />
+
+	<command name="title">
+		<argument label="Title" />
+	</command>
+
+	<command name="today" />
+
+	<command name="pagebreak" />
+
+	<command name="textcopyright" />
+	<command name="textregistered" />
+
+	<command name="onecolumn" />
+	<command name="twocolumn" />
+
+	<!-- constants -->
+
+	<command name="abovedisplayskip" />
+	<command name="abovedisplayshortskip" />
+	<command name="arraycolsep" />
+	<command name="arrayrulewidth" />
+	<command name="arraystretch" />
+	<command name="baselineskip" />
+	<command name="baselinestretch" />
+	<command name="belowdisplayskip" />
+	<command name="belowdisplayshortskip" />
+	<command name="smallskipamount" />
+	<command name="medskipamount" />
+	<command name="bigskipamount" />
+	<command name="bottomfraction" />
+	<command name="columnsep" />
+	<command name="columnseprule" />
+	<command name="doublerulesep" />
+	<command name="evensidemargin" />
+	<command name="fboxrule" />
+	<command name="fboxsep" />
+
+	<!-- settings -->
+
+	<command name="addtolength">
+		<argument label="LengthCommand" />
+		<argument label="Value" />
+	</command>
+
+	<command name="setlength">
+		<argument label="LengthCommand" />
+		<argument label="Value" />
+	</command>
+
+	<command name="settowidth">
+		<argument label="LengthCommand" />
+		<argument label="Text" />
+	</command>
+
+	<!-- formatting -->
+
+	<command name="Huge" />
+	<command name="huge" />
+	<command name="large" />
+	<command name="Large" />
+	<command name="LARGE" />
+	<command name="tiny" />
+	<command name="footnotesize" />
+	<command name="scriptsize" />
+	<command name="small" />
+	<command name="normalsize" />
+	<command name="displaystyle" />
+
+	<command name="breve">
+		<argument label="Text" />
+	</command>
+
+	<command name="check">
+		<argument label="Text" />
+	</command>
+
+	<command name="dot">
+		<argument label="Text" />
+	</command>
+
+	<command name="ddot">
+		<argument label="Text" />
+	</command>
+
+	<command name="grave">
+		<argument label="Text" />
+	</command>
+
+	<command name="hat">
+		<argument label="Text" />
+	</command>
+
+	<command name="breve">
+		<argument label="Text" />
+	</command>
+
+	<command name="tilde">
+		<argument label="Text" />
+	</command>
+
+	<command name="vec">
+		<argument label="Text" />
+	</command>
+
+	<command name="widehat">
+		<argument label="Text" />
+	</command>
+
+	<command name="widetilde">
+		<argument label="Text" />
+	</command>
+
+	<command name="cal" />
+	<command name="boldmath" />
+	<command name="bf" />
+	<command name="em" />
+	<command name="it" />
+	<command name="rm" />
+	<command name="sc" />
+	<command name="sf" />
+	<command name="sl" />
+	<command name="tt" />
+
+	<command name="textbf">
+		<argument label="Text" />
+	</command>
+
+	<command name="textit">
+		<argument label="Text" />
+	</command>
+
+	<command name="texttt">
+		<argument label="Text" />
+	</command>
+
+	<command name="textsc">
+		<argument label="Text" />
+	</command>
+
+	<command name="emph">
+		<argument label="Text" />
+	</command>
+
+	<command name="bar">
+		<argument label="Formula" />
+	</command>
+
+	<command name="underline">
+		<argument label="Text" />
+	</command>
+
+	<command name="overline">
+		<argument label="Formula" />
+	</command>
+
+	<command name="overbrace">
+		<argument label="Formula" />
+	</command>
+
+	<command name="underbrace">
+		<argument label="Formula" />
+	</command>
+
+	<command name="acute">
+		<argument label="Text" />
+	</command>
+
+	<command name="mathbb" package="amssymb">
+		<argument label="Formula" />
+	</command>
+
+	<command name="mathrm">
+		<argument label="Formula" />
+	</command>
+
+	<command name="mathsf">
+		<argument label="Formula" />
+	</command>
+
+	<command name="mathit">
+		<argument label="Formula" />
+	</command>
+
+	<command name="mathtt">
+		<argument label="Formula" />
+	</command>
+
+	<command name="mathnormal">
+		<argument label="Formula" />
+	</command>
+
+	<command name="mathcal">
+		<argument label="Formula" />
+	</command>
+
+	<command name="mathfrak">
+		<argument label="Formula" />
+	</command>
+
+	<!-- structure -->
+
+	<command name="Alph">
+		<argument label="Counter" />
+	</command>
+
+	<command name="alph">
+		<argument label="Counter" />
+	</command>
+
+	<command name="arabic">
+		<argument label="Counter" />
+	</command>
+
+	<command name="part">
+		<argument label="Alternative" type="optional" />
+		<argument label="Heading" />
+	</command>
+
+	<command name="part*">
+		<argument label="Heading" />
+	</command>
+
+	<command name="chapter">
+		<argument label="Alternative" type="optional" />
+		<argument label="Heading" />
+	</command>
+
+	<command name="chapter*">
+		<argument label="Heading" />
+	</command>
+
+	<command name="section">
+		<argument label="Alternative" type="optional" />
+		<argument label="Heading" />
+	</command>
+
+	<command name="section*">
+		<argument label="Heading" />
+	</command>
+
+	<command name="subsection">
+		<argument label="Alternative" type="optional" />
+		<argument label="Heading" />
+	</command>
+
+	<command name="subsection*">
+		<argument label="Heading" />
+	</command>
+
+	<command name="subsubsection">
+		<argument label="Alternative" type="optional" />
+		<argument label="Heading" />
+	</command>
+
+	<command name="subsubsection*">
+		<argument label="Heading" />
+	</command>
+
+	<command name="paragraph">
+		<argument label="Alternative" type="optional" />
+		<argument label="Heading" />
+	</command>
+
+	<command name="paragraph*">
+		<argument label="Heading" />
+	</command>
+
+	<command name="subparagraph">
+		<argument label="Alternative" type="optional" />
+		<argument label="Heading" />
+	</command>
+
+	<command name="subparagraph*">
+		<argument label="Heading" />
+	</command>
+
+	<command name="addcontentsline">
+		<argument label="Destination">
+			<choice name="toc" />
+			<choice name="lof" />
+			<choice name="lot" />
+		</argument>
+		<argument label="Level" />
+		<argument label="Entry" />
+	</command>
+
+	<command name="addcontents">
+		<argument label="Destination">
+			<choice name="toc" />
+			<choice name="lof" />
+			<choice name="lot" />
+		</argument>
+		<argument label="Entry" />
+	</command>
+
+	<command name="listoffigures" />
+
+	<command name="listoftables" />
+
+	<command name="numberline">
+		<argument label="Number" />
+		<argument label="Entry" />
+	</command>
+
+	<command name="tableofcontents" />
+
+	<command name="addtocounter">
+		<argument label="Counter" />
+		<argument label="Value" />
+	</command>
+
+	<command name="maketitle" />
+
+	<!-- lists -->
+
+	<command name="item">
+		<argument label="Marker" type="optional" />
+	</command>
+
+	<!-- alignment -->
+
+	<command name="kill" />
+
+	<command name="indent" />
+
+	<command name="noindent" />
+
+	<command name="frenchspacing" />
+
+	<command name="flushbottom" />
+
+	<command name="extracolsep">
+		<argument label="Value" />
+	</command>
+
+	<command name="cleardoublepage" />
+
+	<command name="clearpage" />
+
+	<command name="centering" />
+
+	<command name="centerline">
+		<argument label="LineOfText" />
+	</command>
+
+	<command name="smallskip" />
+
+	<command name="medskip" />
+
+	<command name="bigskip" />
+
+	<command name="addvspace">
+		<argument label="Value" />
+	</command>
+
+	<command name="vspace">
+		<argument label="Height" />
+	</command>
+
+	<command name="vspace*">
+		<argument label="Height" />
+	</command>
+
+	<command name="hspace">
+		<argument label="Width" />
+	</command>
+
+	<command name="hspace*">
+		<argument label="Width" />
+	</command>
+
+	<command name="vfill" />
+
+	<command name="hfill" />
+
+	<command name="dotfill" />
+
+	<command name="fill" />
+
+	<command name="hrulefill" />
+
+	<!-- letter class -->
+
+	<command name="address">
+		<argument label="Sender" />
+	</command>
+
+	<command name="cc">
+		<argument label="Names" />
+	</command>
+
+	<command name="closing">
+		<argument label="Closing" />
+	</command>
+
+	<command name="encl">
+		<argument label="Enclosures" />
+	</command>
+
+	<!-- misc -->
+
+	<command name="cline">
+		<argument label="Start - End" />
+	</command>
+
+	<command name="author">
+		<argument label="Author" />
+	</command>
+
+	<command name="date">
+		<argument label="Date" />
+	</command>
+
+	<command name="and" />
+
+	<command name="fbox">
+		<argument label="Text" />
+	</command>
+
+	<command name="makebox">
+		<argument label="Width" type="optional" />
+		<argument label="Alignment" type="optional">
+			<choice name="l" />
+			<choice name="r" />
+		</argument>
+		<argument label="Text" />
+	</command>
+
+	<command name="LaTeX" />
+
+	<command name="fnsymbol">
+		<argument label="Counter" />
+	</command>
+
+	<command name="hline" />
+
+	<!-- language -->
+
+	<command name="fussy" />
+
+	<command name="footnote">
+		<argument label="Number" type="optional" />
+		<argument label="Text" />
+	</command>
+
+	<command name="footnote">
+		<argument label="Number" type="optional" />
+	</command>
+
+	<command name="footnotetext">
+		<argument label="Number" type="optional" />
+		<argument label="Text" />
+	</command>
+
+	<command name="frac">
+		<argument label="Numerator" />
+		<argument label="Denominator" />
+	</command>
+
+	<command name="frame">
+		<argument label="Text" />
+	</command>
+
+	<command name="framebox">
+		<argument label="Width" type="optional" />
+		<argument label="Alignment" type="optional" />
+		<argument label="Text" />
+	</command>
+
+	<command name="discretionary">
+		<argument label="Start" />
+		<argument label="End" />
+		<argument label="Phrase" />
+	</command>
+
+	<command name="caption">
+		<argument label="Short" type="optional" />
+		<argument label="Description" />
+	</command>
+
+	<command name="documentclass">
+		<argument label="StyleOptions" type="optional" />
+		<argument label="DocumentClass" />
+	</command>
+
+	<command name="documentstyle">
+		<argument label="StyleOptions" type="optional" />
+		<argument label="DocumentClass" />
+	</command>
+
+	<command name="begin">
+		<argument label="Environment">
+			<choice name="abstract" />
+			<choice name="appendix" />
+			<choice name="array" />
+			<choice name="align" package="amsmath" />
+			<choice name="align*" package="amsmath" />
+			<choice name="Bmatrix" package="amsmath" />
+			<choice name="bmatrix" package="amsmath" />
+			<choice name="cases" package="amsmath" />
+			<choice name="center" />
+			<choice name="document" />
+			<choice name="description" />
+			<choice name="displaymath" />
+			<choice name="enumerate" />
+			<choice name="eqnarray" />
+			<choice name="eqnarray*" />
+			<choice name="equation" />
+			<choice name="figure" />
+			<choice name="figure*" />
+			<choice name="flushleft" />
+			<choice name="flushright" />
+			<choice name="fussypar" />
+			<choice name="itemize" />
+			<choice name="letter" />
+			<choice name="lstlisting" package="listings" />
+			<choice name="math" />
+			<choice name="matrix" package="amsmath" />
+			<choice name="multicols" package="multicol" />
+			<choice name="picture" />
+			<choice name="pmatrix" package="amsmath" />
+			<choice name="smallmatrix" package="amsmath" />
+			<choice name="subarray" package="amsmath" />
+			<choice name="subequations" package="amsmath" />
+			<choice name="table" />
+			<choice name="tabular" />
+			<choice name="titlepage" />
+			<choice name="theorem" />
+			<choice name="thebibliography" />
+			<choice name="verbatim" />
+			<choice name="Vmatrix" package="amsmath" />
+			<choice name="vmatrix" package="amsmath" />
+			<choice name="Huge" />
+			<choice name="huge" />
+			<choice name="large" />
+			<choice name="Large" />
+			<choice name="LARGE" />
+			<choice name="tiny" />
+			<choice name="footnotesize" />
+			<choice name="scriptsize" />
+			<choice name="small" />
+			<choice name="normalsize" />
+		</argument>
+	</command>
+
+	<command name="end">
+		<argument label="Environment">
+			<placeholder key="OpenEnvironment" />
+		</argument>
+	</command>
+
+	<command name="newcommand">
+		<argument label="\Name" />
+		<argument label="NumOfArguments" type="optional" />
+		<argument label="Definition" />
+	</command>
+
+	<command name="renewcommand">
+		<argument label="\Name" />
+		<argument label="NumOfArguments" type="optional" />
+		<argument label="Definition" />
+	</command>
+
+	<command name="newenvironment">
+		<argument label="Name" />
+		<argument label="NumOfArguments" type="optional" />
+		<argument label="Begin" />
+		<argument label="End" />
+	</command>
+
+	<command name="newlength">
+		<argument label="Name" />
+	</command>
+
+	<command name="usepackage">
+		<argument label="Options" type="optional" />
+		<argument label="Package">
+			<choice name="babel" />
+			<choice name="url" />
+			<choice name="color" />
+			<choice name="listings" />
+			<choice name="inputenc" />
+			<choice name="graphicx" />
+			<choice name="graphics" />
+		</argument>
+	</command>
+
+	<command name="include">
+		<argument label="File">
+			<placeholder key="TexFiles" />
+		</argument>
+	</command>
+
+	<command name="includeonly">
+		<argument label="Files" />
+	</command>
+
+	<command name="input">
+		<argument label="File">
+			<placeholder key="TexFiles" />
+		</argument>
+	</command>
+
+	<!-- BibTeX -->
+
+	<command name="bibliography">
+		<argument label="Files">
+			<placeholder key="BibFiles" />
+		</argument>
+	</command>
+
+	<command name="bibliographystyle">
+		<argument label="Style">
+			<choice name="plain" />
+			<choice name="alpha" />
+			<choice name="abbrv" />
+		</argument>
+	</command>
+
+	<command name="bibitem">
+		<argument label="Marker" type="optional" />
+		<argument label="Identifier" />
+	</command>
+
+	<command name="cite">
+		<!--<argument label="Specification" type="optional" />-->
+		<argument label="Key">
+			<placeholder key="Bibitems" />
+		</argument>
+	</command>
+
+	<command name="nocite">
+		<argument label="Key">
+			<placeholder key="Bibitems" />
+		</argument>
+	</command>
+
+	<!-- referencing -->
+
+	<command name="label">
+		<argument label="Name" />
+	</command>
+
+	<command name="ref">
+		<argument label="Name">
+			<placeholder key="Labels" />
+		</argument>
+	</command>
+
+	<command name="eqref">
+		<argument label="Name">
+			<placeholder key="Labels" />
+		</argument>
+	</command>
+
+	<command name="pageref">
+		<argument label="Name">
+			<placeholder key="Labels" />
+		</argument>
+	</command>
+
+	<!-- symbols -->
+
+	<command name="imath" />
+
+	<command name="jmath" />
+
+
+	<!-- Greeks -->
+
+	<command name="alpha" />
+	<command name="beta" />
+	<command name="gamma" />
+	<command name="delta" />
+	<command name="epsilon" />
+	<command name="varepsilon" />
+	<command name="zeta" />
+	<command name="eta" />
+	<command name="theta" />
+	<command name="iota" />
+	<command name="kappa" />
+	<command name="lambda" />
+	<command name="mu" />
+	<command name="nu" />
+	<command name="xi" />
+	<command name="omicron" />
+	<command name="pi" />
+	<command name="varpi" />
+	<command name="rho" />
+	<command name="varrho" />
+	<command name="sigma" />
+	<command name="varsigma" />
+	<command name="tau" />
+	<command name="upsilon" />
+	<command name="phi" />
+	<command name="varphi" />
+	<command name="chi" />
+	<command name="psi" />
+	<command name="omega" />
+
+	<command name="Alpha" />
+	<command name="Beta" />
+	<command name="Gamma" />
+	<command name="Delta" />
+	<command name="Epsilon" />
+	<command name="Zeta" />
+	<command name="Eta" />
+	<command name="Theta" />
+	<command name="Lambda" />
+	<command name="Xi" />
+	<command name="Pi" />
+	<command name="Sigma" />
+	<command name="Phi" />
+	<command name="Psi" />
+	<command name="Omega" />
+
+
+	<!-- Math Symbols -->
+
+	<command name="ldots" />
+	<command name="vdots" />
+	<command name="cdot" />
+	<command name="cdots" />
+	<command name="ddots" />
+	<command name="pm" />
+	<command name="mp" />
+	<command name="times" />
+	<command name="div" />
+	<command name="ast" />
+	<command name="star" />
+	<command name="dagger" />
+	<command name="ddagger" />
+	<command name="amalg" />
+	<command name="cap" />
+	<command name="cup" />
+	<command name="uplus" />
+	<command name="sqcap" />
+	<command name="sqcup" />
+	<command name="vee" />
+	<command name="wedge" />
+	<command name="oplus" />
+	<command name="ominus" />
+	<command name="otimes" />
+	<command name="circ" />
+	<command name="bullet" />
+	<command name="diamond" />
+	<command name="oslash" />
+	<command name="odot" />
+	<command name="bigcirc" />
+	<command name="Box" />
+	<command name="Diamond" />
+	<command name="bigtriangleup" />
+	<command name="bigtriangleright" />
+	<command name="triangleleft" />
+	<command name="triangleright" />
+	<command name="setminus" />
+	<command name="wr" />
+
+	<command name="le" />
+	<command name="leq" />
+	<command name="ll" />
+	<command name="subset" />
+	<command name="subseteq" />
+	<command name="sqsubset" package="latexsym" />
+	<command name="sqsubseteq" />
+	<command name="in" />
+	<command name="vdash" />
+	<command name="models" />
+	<command name="ge" />
+	<command name="geq" />
+	<command name="gg" />
+	<command name="supset" />
+	<command name="supseteq" />
+	<command name="sqsupset" package="latexsym" />
+	<command name="sqsupseteq" />
+	<command name="ni" />
+	<command name="dashv" />
+	<command name="perp" />
+	<command name="neq" />
+	<command name="doteq" />
+	<command name="approx" />
+	<command name="cong" />
+	<command name="equiv" />
+	<command name="propto" />
+	<command name="prec" />
+	<command name="preceq" />
+	<command name="parallel" />
+	<command name="sim" />
+	<command name="simeq" />
+	<command name="asymp" />
+	<command name="smile" />
+	<command name="frown" />
+	<command name="bowtie" />
+	<command name="succ" />
+	<command name="succeq" />
+	<command name="mid" />
+
+	<command name="leftarrow" />
+	<command name="gets" />
+	<command name="Leftarrow" />
+	<command name="rightarrow" />
+	<command name="to" />
+	<command name="Rightarrow" />
+	<command name="leftrightarrow" />
+	<command name="Leftrightarrow" />
+	<command name="mapsto" />
+	<command name="hookleftarrow" />
+	<command name="leftharpoonup" />
+	<command name="leftharpoondown" />
+	<command name="rightleftharpoons" />
+	<command name="longleftarrow" />
+	<command name="Longleftarrow" />
+	<command name="Rightarrow" />
+	<command name="Longrightarrow" />
+	<command name="longleftrightarrow" />
+	<command name="Longleftrightarrow" />
+	<command name="longmapsto" />
+	<command name="hookrightarrow" />
+	<command name="rightharpoonup" />
+	<command name="rightharpoondown" />
+	<command name="leadsto" />
+	<command name="uparrow" />
+	<command name="Uparrow" />
+	<command name="downarrow" />
+	<command name="Downarrow" />
+	<command name="updownarrow" />
+	<command name="Updownarrow" />
+	<command name="nearrow" />
+	<command name="searrow" />
+	<command name="swarrow" />
+	<command name="nwarrow" />
+
+	<command name="aleph" />
+	<command name="hbar" />
+	<command name="ell" />
+	<command name="wp" />
+	<command name="Re" />
+	<command name="Im" />
+	<command name="mho" package="latexsym" />
+	<command name="prime" />
+	<command name="emptyset" />
+	<command name="nabla" />
+	<command name="surd" />
+	<command name="partial" />
+	<command name="top" />
+	<command name="bottom" />
+	<command name="vdash" />
+	<command name="dashv" />
+	<command name="forall" />
+	<command name="exists" />
+	<command name="neg" />
+	<command name="flat" />
+	<command name="natural" />
+	<command name="sharp" />
+	<command name="angle" />
+	<command name="backslash" />
+	<command name="Box" />
+	<command name="Diamond" />
+	<command name="triangle" />
+	<command name="clubsuit" />
+	<command name="diamondsuit" />
+	<command name="heartsuit" />
+	<command name="spadesuit" />
+	<command name="Join" />
+	<command name="infty" />
+
+	<command name="sum" />
+	<command name="int" />
+	<command name="oint" />
+	<command name="prod" />
+	<command name="coprod" />
+	<command name="bigcap" />
+	<command name="bigcup" />
+	<command name="bigsqcup" />
+	<command name="bigvee" />
+	<command name="bigwedge" />
+	<command name="bigodot" />
+	<command name="bigotimes" />
+	<command name="bigoplus" />
+	<command name="biguplus" />
+
+	<command name="arccos" />
+	<command name="arcsin" />
+	<command name="arctan" />
+	<command name="arg" />
+	<command name="cos" />
+	<command name="cosh" />
+	<command name="cot" />
+	<command name="coth" />
+	<command name="csc" />
+	<command name="deg" />
+	<command name="det" />
+	<command name="dim" />
+	<command name="exp" />
+	<command name="gcd" />
+	<command name="hom" />
+	<command name="inf" />
+	<command name="ker" />
+	<command name="lg" />
+	<command name="lim" />
+	<command name="liminf" />
+	<command name="limsup" />
+	<command name="ln" />
+	<command name="log" />
+	<command name="max" />
+	<command name="min" />
+	<command name="Pr" />
+	<command name="sec" />
+	<command name="sin" />
+	<command name="sinh" />
+	<command name="sup" />
+	<command name="tan" />
+	<command name="tanh" />
+
+
+	<command name="left" />
+	<command name="right" />
+
+	<command name="sqrt">
+		<argument label="Formula" />
+	</command>
+
+	<command name="sqrt">
+		<argument label="Root" type="optional" />
+		<argument label="Formula" />
+	</command>
+
+	<!-- graphicx -->
+
+	<command name="DeclareGraphicsRule" package="graphicx">
+		<argument label="Extension" />
+		<argument label="Type" />
+		<argument label="SizeFile" />
+		<argument label="Command" />
+	</command>
+
+	<command name="includegraphics" package="graphicx">
+		<argument label="Options" type="optional" />
+		<argument label="File">
+			<placeholder key="ImageFiles" />
+		</argument>
+	</command>
+
+	<command name="resizebox" package="graphicx">
+		<argument label="Width" />
+		<argument label="Height" />
+		<argument label="Content" />
+	</command>
+
+	<command name="rotatebox" package="graphicx">
+		<argument label="Angle" />
+		<argument label="Content" />
+	</command>
+
+	<command name="scalebox" package="graphicx">
+		<argument label="HScale" />
+		<argument label="VScale" type="optional" />
+		<argument label="Content" />
+	</command>
+
+	<command name="reflectbox" package="graphicx">
+		<argument label="Content" />
+	</command>
+
+	<command name="graphicspath" package="graphicx">
+		<argument label="Directory" />
+	</command>
+
+	<!-- amsmath -->
+
+	<command name="cfrac" package="amsmath">
+		<argument label="Numerator" />
+		<argument label="Denominator" />
+	</command>
+
+	<command name="dfrac">
+		<argument label="Numerator" />
+		<argument label="Denominator" />
+	</command>
+
+	<command name="binom">
+		<argument label="n" />
+		<argument label="k" />
+	</command>
+
+	<command name="dbinom">
+		<argument label="n" />
+		<argument label="k" />
+	</command>
+
+	<command name="tbinom">
+		<argument label="n" />
+		<argument label="k" />
+	</command>
+
+	<command name="eqref" package="amsmath">
+		<argument label="Name" />
+	</command>
+
+	<command name="text" package="amsmath">
+		<argument label="Text" />
+	</command>
+
+	<!-- picture environment -->
+
+	<command name="line" environment="picture">
+		<argument type="vector">
+			<component label="DX" />
+			<component label="DY" />
+		</argument>
+		<argument label="Length" />
+	</command>
+
+	<command name="circle" environment="picture">
+		<argument label="Diameter" />
+	</command>
+
+	<command name="oval" environment="picture">
+		<argument type="vector">
+			<component label="Width" />
+			<component label="Height" />
+		</argument>
+		<argument label="Segment" type="optional" />
+	</command>
+
+	<command name="vector" environment="picture">
+		<argument type="vector">
+			<component label="DX" />
+			<component label="DY" />
+		</argument>
+		<argument label="Length" />
+	</command>
+
+	<command name="put" environment="picture">
+		<argument type="vector">
+			<component label="X" />
+			<component label="Y" />
+		</argument>
+		<argument label="Object" />
+	</command>
+
+	<command name="dashbox" environment="picture">
+		<argument label="DashLength" />
+		<argument type="vector">
+			<component label="Width" />
+			<component label="Height" />
+		</argument>
+		<argument label="Position" type="optional" />
+	</command>
+
+	<!-- misc -->
+
+	<command name="mbox">
+		<argument label="Text" />
+	</command>
+
+	<command name="newline" />
+
+	<command name="newpage" />
+
+	<!-- units -->
+
+	<command name="unit" package="units">
+		<argument label="Value" type="optional" />
+		<argument label="Dimension" />
+	</command>
+
+	<command name="unitfrac" package="units">
+		<argument label="Value" type="optional" />
+		<argument label="Numerator" />
+		<argument label="Denominator" />
+	</command>
+
+	<!-- listings -->
+
+	<command name="lstinline" />
+
+	<command name="lstset">
+		<argument label="Options" />
+	</command>
+
+	<command name="lstinputlisting">
+		<argument label="Options" type="optional" />
+		<argument label="Filename" />
+	</command>
+
+	<!-- color -->
+
+	<command name="definecolor" package="color">
+		<argument label="Name" />
+		<argument label="Model">
+			<choice name="rgb" />
+			<choice name="gray" />
+			<choice name="cmyk" />
+			<choice name="named" />
+		</argument>
+		<argument label="Value" />
+	</command>
+
+	<command name="color" package="color">
+		<argument label="Name">
+			<placeholder key="Colors" />
+		</argument>
+	</command>
+
+	<command name="textcolor" package="color">
+		<argument label="Name">
+			<placeholder key="Colors" />
+		</argument>
+		<argument label="Text" />
+	</command>
+
+	<command name="pagecolor" package="color">
+		<argument label="Name">
+			<placeholder key="Colors" />
+		</argument>
+	</command>
+
+	<command name="multicolumn">
+		<argument label="NumOfCols" />
+		<argument label="Layout" />
+		<argument label="Text" />
+	</command>
+
+	<!-- colortbl -->
+
+	<command name="rowcolor" package="colortbl">
+		<argument label="Name">
+			<placeholder key="Colors" />
+		</argument>
+	</command>
+
+	<command name="columncolor" package="colortbl">
+		<argument label="Name">
+			<placeholder key="Colors" />
+		</argument>
+	</command>
+
+	<!-- xcolor -->
+
+	<command name="xdefinecolor" package="xcolor">
+		<argument label="Name" />
+		<argument label="Model">
+			<choice name="gray" />
+			<choice name="rgb" />
+			<choice name="cmy" />
+			<choice name="cmyk" />
+			<choice name="Gray" />
+			<choice name="RGB" />
+			<choice name="HSB" />
+		</argument>
+		<argument label="Value" />
+	</command>
+
+	<command name="rowcolors" package="xcolor">
+		<argument label="Commands" type="optional" />
+		<argument label="Num" />
+		<argument label="OddRowColor">
+			<placeholder key="Colors" />
+		</argument>
+		<argument label="EvenRowColor">
+			<placeholder key="Colors" />
+		</argument>
+	</command>
+
+</commands>

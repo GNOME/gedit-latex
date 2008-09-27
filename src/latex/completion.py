@@ -30,7 +30,9 @@ from ..base import ICompletionHandler, IProposal, Template
 
 
 class LaTeXTemplateProposal(IProposal):
-	
+	"""
+	A proposal inserting a Template when activated
+	"""
 	icon = None
 	
 	def __init__(self, template, label):
@@ -55,7 +57,9 @@ class LaTeXTemplateProposal(IProposal):
 	
 
 class LaTeXProposal(IProposal):
-	
+	"""
+	A proposal inserting a simple string when activated
+	"""
 	icon = None
 	
 	def __init__(self, source):
@@ -76,20 +80,29 @@ class LaTeXProposal(IProposal):
 	@property
 	def overlap(self):
 		return 0
-		
+	
+
+from model import LanguageModelFactory
+
 
 class LaTeXCompletionHandler(ICompletionHandler):
 	"""
+	This implements the LaTeX-specific code completion
 	"""
-	
 	_log = getLogger("LaTeXCompletionHandler")
 	
 	trigger_keys = ["backslash", "braceleft"]
 	prefix_delimiters = ["\\"]
-	strip_delimiter = False
+	strip_delimiter = False			# don't remove the '\' from the prefix
+	
+	def __init__(self):
+		self._language_model = LanguageModelFactory().create_language_model()
 	
 	def complete(self, prefix):
-		self._log.debug("complete(%s)" % prefix)
+		"""
+		Try to complete a given prefix
+		"""
+		#self._log.debug("complete(%s)" % prefix)
 		
 		proposals = [LaTeXTemplateProposal(Template("Hello[${One}][${Two}][${Three}]"), "Hello[Some]"), LaTeXProposal("\\world")]
 		
