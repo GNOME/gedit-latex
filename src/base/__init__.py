@@ -832,12 +832,15 @@ class WindowContext(object):
 
 from urlparse import urlparse
 from os.path import splitext, basename, dirname, exists, getmtime
+from glob import glob
 
 
 class File(object):
 	"""
 	Abstracts from filename
 	"""
+	
+	__log = getLogger("File")
 	
 	_DEFAULT_SCHEME = "file://"
 	
@@ -851,22 +854,44 @@ class File(object):
 	
 	@property
 	def path(self):
+		"""
+		Returns '/home/user/image.jpg' for 'file:///home/user/image.jpg'
+		"""
 		return self._uri.path
 	
 	@property
 	def extension(self):
+		"""
+		Returns 'jpg' for 'file:///home/user/image.jpg'
+		"""
 		return splitext(self.path)[1]
 	
 	@property
 	def shortname(self):
+		"""
+		Returns '/home/user/image' for 'file:///home/user/image.jpg'
+		"""
 		return splitext(self.path)[0]
 	
 	@property
 	def basename(self):
+		"""
+		Returns 'image.jpg' for 'file:///home/user/image.jpg'
+		"""
 		return basename(self.path)
 	
 	@property
+	def shortbasename(self):
+		"""
+		Returns 'image' for 'file:///home/user/image.jpg'
+		"""
+		return splitext(basename(self.path))[0]
+	
+	@property
 	def dirname(self):
+		"""
+		Returns '/home/user' for 'file:///home/user/image.jpg'
+		"""
 		return dirname(self.path)
 	
 	@property
@@ -880,6 +905,31 @@ class File(object):
 	@property
 	def mtime(self):
 		return getmtime(self.path)
+	
+	def find_neighbors(self, extension):
+		"""
+		Find other files in the directory of this one having
+		a certain extension
+		
+		@param extension: a file extension like '.tex'
+		"""
+		
+		# TODO: glob is quite expensive, find a simpler way for this
+		
+		try:
+			filenames = glob("%s/*%s" % (self.dirname, extension))
+			neighbors = [File(filename) for filename in filenames]
+			return neighbors
+		
+		except Exception, e:
+			# as seen in Bug #2002630 the glob() call compiles a regex and so we must be prepared
+			# for an exception from that because self.baseDir may contain regex characters
+			
+			# TODO: a more robust solution would be an escape() method for re
+			
+			self.__log.debug("find_neighbors: %s" % e)
+			
+			return []
 	
 	def __eq__(self, file):
 		"""

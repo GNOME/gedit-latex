@@ -79,6 +79,7 @@ class LaTeXEditor(Editor, IIssueHandler):
 		self._log.debug("Initial parse")
 		
 		self.__parse()
+		self.__update_neighbors()
 	
 	def insert(self, source):
 		# see base.Editor.insert()
@@ -97,6 +98,26 @@ class LaTeXEditor(Editor, IIssueHandler):
 		Update models
 		"""
 		self.__parse()
+		self.__update_neighbors()
+	
+	def __update_neighbors(self):
+		"""
+		Find all files in the working directory that are relevant for LaTeX, e.g.
+		other *.tex files or images.
+		"""
+		
+		# TODO: this is only needed to feed the LaTeXCompletionHandler. So maybe it should
+		# know the edited file and the Editor should call an update() method of the handler
+		# when the file is saved.
+		
+		tex_files = self._file.find_neighbors(".tex")
+		bib_files = self._file.find_neighbors(".bib")
+		
+		graphic_files = []
+		for extension in [".ps", ".pdf", ".png", ".jpg", ".eps"]:
+			graphic_files.extend(self._file.find_neighbors(extension))
+		
+		self.__latex_completion_handler.set_neighbors(tex_files, bib_files, graphic_files)
 	
 	@caught
 	def __parse(self):

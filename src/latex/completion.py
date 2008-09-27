@@ -105,8 +105,6 @@ class LaTeXCompletionHandler(ICompletionHandler):
 		
 		self._language_model = LanguageModelFactory().create_language_model()
 		
-		print self._language_model.commands["begin"].children[0].children
-	
 	def set_outline(self, outline):
 		"""
 		Process a LaTeX outline model
@@ -132,6 +130,18 @@ class LaTeXCompletionHandler(ICompletionHandler):
 		
 		# TODO: BibTeX entries
 	
+	def set_neighbors(self, tex_files, bib_files, graphic_files):
+		"""
+		"""
+		tex_choices = [Choice(None, file.shortbasename) for file in tex_files]
+		self._language_model.fill_placeholder("TexFiles", tex_choices)
+		
+		bib_choices = [Choice(None, file.shortbasename) for file in bib_files]
+		self._language_model.fill_placeholder("BibFiles", bib_choices)
+		
+		graphic_choices = [Choice(None, file.basename) for file in graphic_files]
+		self._language_model.fill_placeholder("ImageFiles", graphic_choices)
+	
 	def complete(self, prefix):
 		"""
 		Try to complete a given prefix
@@ -145,8 +155,6 @@ class LaTeXCompletionHandler(ICompletionHandler):
 		
 		try:
 			parser.parse(prefix, fragment)
-			
-			#self._log.debug(fragment.xmlPrefix)
 			
 			modelParser = PrefixModelParser(self._language_model)
 			proposals = modelParser.parse(fragment)	

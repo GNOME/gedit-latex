@@ -160,10 +160,12 @@ class LanguageModel(object):
 		Attach child elements to a placeholder
 		"""
 		try:
+			#self.__log.debug("fill_placeholder: name=%s, child_elements=%s" % (name, child_elements))
+			
 			for placeholder in self.__placeholders[name]:
 				placeholder.children = child_elements
 		except KeyError:
-			self._log.error("fill_placeholder: placeholder '%s' not registered" % name)
+			self.__log.error("fill_placeholder: placeholder '%s' not registered" % name)
 	
 	@property
 	def all_choices(self):

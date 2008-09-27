@@ -220,4 +220,7 @@ class LaTeXOutlineGenerator(object):
 		return self._issues
 
 
+
+	
+	
 	

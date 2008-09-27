@@ -129,14 +129,17 @@ class LaTeXValidator(object):
 				elif self._checkRefs and (node.value == "includegraphics"):
 					# check referenced image file
 					target = node.firstOfType(Node.MANDATORY_ARGUMENT).innerText
-					if target[0] == "/":
-						filename = target
+					if len(target) > 0:
+						if target[0] == "/":
+							filename = target
+						else:
+							filename = "%s/%s" % (self._file.dirname, target)
+						
+						if not exists(filename):
+							self._issue_handler.issue(Issue("Image <b>%s</b> could not be found" % escape(target), node.start, node.lastEnd, file, Issue.SEVERITY_WARNING))
 					else:
-						filename = "%s/%s" % (self._file.dirname, target)
+						self._issue_handler.issue(Issue("No image file specified", node.start, node.lastEnd, file, Issue.SEVERITY_WARNING))
 					
-					if not exists(filename):
-						self._issue_handler.issue(Issue("Image <b>%s</b> could not be found" % escape(target), node.start, node.lastEnd, file, Issue.SEVERITY_WARNING))
-				
 				elif self._checkRefs and (node.value == "include" or node.value == "input"):
 					# check referenced tex file
 					target = node.firstOfType(Node.MANDATORY_ARGUMENT).innerText
