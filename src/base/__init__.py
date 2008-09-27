@@ -275,8 +275,9 @@ class Editor(object):
 		self._template_delegate = TemplateDelegate(self)
 		
 		# hook completion handlers of the subclassing Editor
-		if len(self.completion_handlers):
-			self._completion_distributor = CompletionDistributor(self, self.completion_handlers)
+		completion_handlers = self.completion_handlers
+		if len(completion_handlers):
+			self._completion_distributor = CompletionDistributor(self, completion_handlers)
 		else:
 			self._completion_distributor = None
 		
@@ -412,7 +413,7 @@ class Editor(object):
 		"""
 		This may be overridden to catch special types like LaTeXSource
 		"""
-		self.__log.debug("insert_source(%s)" % source)
+		self.__log.debug("insert(%s)" % source)
 		
 		if type(source) is Template:
 			self._template_delegate.insert(source)

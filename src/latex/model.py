@@ -45,6 +45,9 @@ class Element(object):
 	def children(self):
 		return self._children
 	
+	def append_child(self, child):
+		self._children.append(child)
+	
 
 class Command(Element):
 	def __init__(self, package, name):
@@ -83,7 +86,7 @@ class Argument(Element):
 	
 	def set_children(self, children):
 		self._children = children
-	
+		
 	children = property(get_children, set_children)
 
 
@@ -110,6 +113,14 @@ class Placeholder(Element):
 	def __init__(self, name):
 		Element.__init__(self, None, Element.TYPE_PLACEHOLDER)
 		self.name = name
+	
+	def get_children(self):
+		return self._children
+	
+	def set_children(self, children):
+		self._children = children
+	
+	children = property(get_children, set_children)
 
 
 class LanguageModel(object):
@@ -234,11 +245,11 @@ class LanguageModelParser(sax.ContentHandler):
 			
 		elif name == "choice":
 			choice = Choice(package, attrs["name"])
-			self.__argument.children.append(choice)
+			self.__argument.append_child(choice)
 		
 		elif name == "placeholder":
 			placeholder = Placeholder(attrs["key"])
-			self.__argument.children.append(placeholder)
+			self.__argument.append_child(placeholder)
 			self.__language_model.register_placeholder(placeholder)
 
 

@@ -458,11 +458,18 @@ class PrefixParser(object):
 	
 	def parse(self, string, documentNode):
 		
+		# TODO: change semantic 
+		
 		self._stack = [documentNode]
 		
-		callables = {Token.COMMAND : self.command, Token.TEXT : self.text, Token.BEGIN_CURLY : self.beginCurly,
-				Token.END_CURLY : self.endCurly, Token.BEGIN_SQUARE : self.beginSquare, Token.END_SQUARE : self.endSquare,
-				Token.COMMENT : self.comment, Token.VERBATIM : self.verbatim}
+		callables = {Token.COMMAND : self.command, 
+					 Token.TEXT : self.text, 
+					 Token.BEGIN_CURLY : self.beginCurly,
+					 Token.END_CURLY : self.endCurly, 
+					 Token.BEGIN_SQUARE : self.beginSquare, 
+					 Token.END_SQUARE : self.endSquare,
+					 Token.COMMENT : self.comment, 
+					 Token.VERBATIM : self.verbatim}
 		
 		try:
 			for token in Lexer(string, skipWs=False, skipComment=False):

@@ -38,6 +38,8 @@ from validator import LaTeXValidator
 
 from dialogs import ChooseMasterDialog
 
+from . import LaTeXSource
+
 
 class LaTeXEditor(Editor, IIssueHandler):
 	
@@ -45,7 +47,12 @@ class LaTeXEditor(Editor, IIssueHandler):
 	
 	_log = getLogger("LaTeXEditor")
 	
-	completion_handlers = [ LaTeXCompletionHandler, SnippetCompletionHandler ]
+	@property
+	def completion_handlers(self):
+		self.__latex_completion_handler = LaTeXCompletionHandler()
+		self.__snippet_completion_handler = SnippetCompletionHandler()
+		
+		return [ self.__latex_completion_handler, self.__snippet_completion_handler ]
 	
 	def init(self, file, context):
 		self._log.debug("init(%s)" % file)
@@ -72,6 +79,16 @@ class LaTeXEditor(Editor, IIssueHandler):
 		self._log.debug("Initial parse")
 		
 		self.__parse()
+	
+	def insert(self, source):
+		# see base.Editor.insert()
+		
+		if type(source) is LaTeXSource:
+			# TODO: ensure that the required packages are included
+			
+			Editor.insert(self, source.source)
+		else:
+			Editor.insert(self, source)
 	
 	def on_save(self):
 		"""
@@ -130,6 +147,8 @@ class LaTeXEditor(Editor, IIssueHandler):
 			
 			# pass outline to view
 			self._outline_view.set_outline(self._outline)
+			
+			self.__latex_completion_handler.set_outline(self._outline)
 	
 	def _find_master_document(self):
 		property_file = PropertyFile(self._file)
