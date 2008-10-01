@@ -125,8 +125,6 @@ class ToolAction(IAction):
 	
 	def init(self, tool):
 		self._tool = tool
-		self._tool_view = None
-		
 		self._runner = ToolRunner()
 	
 	@property
@@ -148,11 +146,10 @@ class ToolAction(IAction):
 	def activate(self, context):
 		self._log.debug("activate: " + str(self._tool))
 		
-		if not self._tool_view:
-			self._tool_view = context.views["ToolView"]
+		tool_view = context.find_view(None, "ToolView")
 		
 		if context.active_editor:
-			self._runner.run(context.active_editor.file, self._tool, self._tool_view)
+			self._runner.run(context.active_editor.file, self._tool, tool_view)
 			self._log.debug("activate: " + str(context.active_editor.file))
 		
 

@@ -81,8 +81,6 @@ class LaTeXEditor(Editor, IIssueHandler):
 		#
 		# initially parse
 		#
-		self._log.debug("Initial parse")
-		
 		self.__parse()
 		self.__update_neighbors()
 	
@@ -128,8 +126,11 @@ class LaTeXEditor(Editor, IIssueHandler):
 	def __parse(self):
 		"""
 		"""
+		
+		self._log.debug("__parse")
+		
 		if self._document_dirty:
-			self._log.debug("Parsing content")
+			content = self.content
 			
 			# reset highlight
 			self.remove_markers("latex-error")
@@ -139,9 +140,9 @@ class LaTeXEditor(Editor, IIssueHandler):
 			self._issue_view.clear()
 			
 			# parse document
-			self._document = self._parser.parse(self.content, self._file, self)
+			self._document = self._parser.parse(content, self._file, self)
 			
-			self._log.debug("Parsed %s bytes of content" % len(self.content))
+			self._log.debug("Parsed %s bytes of content" % len(content))
 			
 			if self._document.is_master:
 				# expand child documents

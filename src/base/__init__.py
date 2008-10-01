@@ -664,6 +664,9 @@ class Editor(object):
 		type_record = self._marker_types[marker_type]
 		
 		for marker in type_record.markers:
+			assert not marker.left_mark.get_deleted()
+			assert not marker.right_mark.get_deleted()
+			
 			# create TextIters from TextMarks
 			left_iter = self._text_buffer.get_iter_at_mark(marker.left_mark)
 			right_iter = self._text_buffer.get_iter_at_mark(marker.right_mark)
@@ -678,6 +681,9 @@ class Editor(object):
 			if not type_record.anonymous:
 				# remove Marker from id map
 				del self._markers[marker.id]
+		
+		# remove markers from MarkerTypeRecord
+		type_record.markers = []
 	
 	def replace_marker_content(self, marker, content):
 		# get TextIters

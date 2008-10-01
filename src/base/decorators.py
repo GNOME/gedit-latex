@@ -29,47 +29,15 @@ from logging import getLogger
 import gedit
 import gtk
 
-from ..latex.actions import LaTeXMenuAction, LaTeXNewAction, LaTeXCommentAction, LaTeXSpellCheckAction, LaTeXChooseMasterAction
+from config import ACTION_OBJECTS, ACTION_EXTENSIONS, TOOLS, WINDOW_SCOPE_VIEWS, EDITOR_SCOPE_VIEWS, EDITORS
+from views import ToolView
+from . import File, View, WindowContext
+from ..tools import ToolAction
 
-
-# TODO: extensions and UI path should be asked from Action objects (build UI like for tool actions)
 
 # FIXME: there is no 'active_tab_changed' after the last 'tab_removed'!
 
 # TODO: maybe create ActionDelegate for GeditWindowDecorator
-
-
-ACTION_OBJECTS = { "LaTeXMenuAction" : LaTeXMenuAction(), 
-				   "LaTeXNewAction" : LaTeXNewAction(),
-				   "LaTeXCommentAction" : LaTeXCommentAction(),
-				   "LaTeXSpellCheckAction" : LaTeXSpellCheckAction(),
-				   "LaTeXChooseMasterAction" : LaTeXChooseMasterAction() }
-
-ACTION_EXTENSIONS = { None : ["LaTeXNewAction"],
-					  ".tex" : ["LaTeXMenuAction", "LaTeXCommentAction", "LaTeXSpellCheckAction", "LaTeXChooseMasterAction"] }
-
-
-from ..tools import Tool, Job, ToolAction
-from ..tools.postprocess import GenericPostProcessor, RubberPostProcessor
-
-
-# TODO: this should come from configuration
-
-TOOLS = [ Tool("LaTeX → PDF", [".tex"], [Job("rubber --inplace --maxerr -1 --pdf --short --force --warn all \"$filename\"", True, RubberPostProcessor), Job("gnome-open $shortname.pdf", True, GenericPostProcessor)], "Create a PDF from LaTeX source"),
-		  Tool("Cleanup LaTeX Build", [".tex"], [Job("rm -f $directory/*.aux $directory/*.log", True, GenericPostProcessor)], "Remove LaTeX build files") ]
-
-
-from . import View, WindowContext
-from ..latex.views import LaTeXSymbolMapView, LaTeXIssueView, LaTeXOutlineView
-
-
-WINDOW_SCOPE_VIEWS = { ".tex" : {"LaTeXSymbolMapView" : LaTeXSymbolMapView } }
-
-EDITOR_SCOPE_VIEWS = { ".tex" : {"LaTeXIssueView" : LaTeXIssueView, 
-								 "LaTeXOutlineView" : LaTeXOutlineView} }
-
-
-from views import ToolView
 
 
 class GeditWindowDecorator(object):
@@ -286,15 +254,19 @@ class GeditWindowDecorator(object):
 	
 	def adjust(self, tab_decorator):
 		"""
-		Enable/disable action according to the extension of the currently
-		active file
+		Adjust actions and views according to the currently active TabDecorator
+		(the file type it contains)
+		
+		Called by 
+		 * _on_active_tab_changed()
+		 * GeditTabDecorator when the Editor instance changes 
 		"""
 		
 		# TODO: improve and simplify this!
 		
 		extension = tab_decorator.extension
 		
-		self._log.debug("adjust: %s, %s" % (tab_decorator, extension))
+		self._log.debug("adjust: %s" % (extension))
 		
 		#
 		# adjust actions
@@ -478,11 +450,12 @@ class GeditWindowDecorator(object):
 		if tab in self._tab_decorators.keys():
 			decorator = self._tab_decorators[tab]
 		else:
+			# on gedit startup 'tab-changed' comes before 'tab-added'
 			decorator = self._create_tab_decorator(tab)
 		
 		self._active_tab_decorator = decorator
 		
-		# enable/disable the right actions
+		# adjust actions and views
 		self.adjust(decorator)
 	
 	def _create_tab_decorator(self, tab):
@@ -504,13 +477,6 @@ class GeditWindowDecorator(object):
 		#
 		for decorator in self._tab_decorators:
 			decorator.destroy()
-
-
-from ..latex.editor import LaTeXEditor
-from . import File
-
-
-EDITORS = {".tex" : LaTeXEditor}
 
 
 class GeditTabDecorator(object):

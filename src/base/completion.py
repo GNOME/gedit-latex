@@ -324,10 +324,6 @@ class CompletionDistributor(object):
 		self._log.debug("init")
 		
 		self._handlers = handlers		# we already get objects
-#		for handler_class in handlers:
-#			handler = handler_class.__new__(handler_class)
-#			handler_class.__init__(handler)
-#			self._handlers.append(handler)
 		
 		self._editor = editor
 		self._text_buffer = editor.tab_decorator.tab.get_document()
@@ -336,19 +332,13 @@ class CompletionDistributor(object):
 		self._state = self._STATE_IDLE
 		self._timer = None
 		
-		# read configuration of subclass
-#		self._trigger_keys = self.get_trigger_keys()
-#		self._prefix_delimiters = self.get_prefix_delimiters()
-	   	
 	   	# collect trigger keys from all handlers
 	   	self._trigger_keys = []
 	   	for handler in self._handlers:
 	   		self._trigger_keys.extend(handler.trigger_keys)
 		
-		
-		# TODO: is it allowed to instatiate this here?
+		# TODO: is it right to instatiate this here?
 		self._popup = ProposalPopup()
-		
 		
 		# connect to signals
 		self._text_view.connect("key-press-event", self._on_key_pressed)
@@ -361,7 +351,7 @@ class CompletionDistributor(object):
 		"""
 		key = gtk.gdk.keyval_name(event.keyval)
 		
-		#self._log.debug("_on_key_pressed(%s)" % key)
+		self._log.debug("_on_key_pressed: %s" % key)
 
 		if self._state == self._STATE_IDLE:
 			if key == "Control_L" or key == "Control_R":
