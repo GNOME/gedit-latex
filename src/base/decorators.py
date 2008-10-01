@@ -68,6 +68,8 @@ class GeditWindowDecorator(object):
 			</menubar>
 			<toolbar name="LaTeXToolbar">
 				<toolitem action="LaTeXNewAction" />
+				<separator />
+				<toolitem action="LaTeXItemizeAction" />
 			</toolbar>
 		</ui>"""
 	
@@ -145,7 +147,17 @@ class GeditWindowDecorator(object):
 		self._ui_manager.insert_action_group(self._action_group, -1)
 		self._ui_id = self._ui_manager.add_ui_from_string(self._ui)
 		
-		# TODO: hook toolbar
+		#
+		# hook the toolbar
+		#
+		self._toolbar = self._ui_manager.get_widget("/LaTeXToolbar")
+		self._toolbar.set_style(gtk.TOOLBAR_BOTH_HORIZ)
+		
+		self._main_box = self._window.get_children()[0]
+		self._main_box.pack_start(self._toolbar, False)
+		self._main_box.reorder_child(self._toolbar, 2)
+		
+		self._toolbar.show()
 	
 	def _load_tool_actions(self):
 		"""

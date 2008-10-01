@@ -22,7 +22,8 @@
 base.config
 """
 
-from ..latex.actions import LaTeXMenuAction, LaTeXNewAction, LaTeXCommentAction, LaTeXSpellCheckAction, LaTeXChooseMasterAction
+from ..latex.actions import LaTeXMenuAction, LaTeXNewAction, LaTeXCommentAction, LaTeXSpellCheckAction, LaTeXChooseMasterAction, \
+		LaTeXItemizeAction
 
 
 # TODO: extensions and UI path should be asked from Action objects (build UI like for tool actions)
@@ -32,10 +33,15 @@ ACTION_OBJECTS = { "LaTeXMenuAction" : LaTeXMenuAction(),
 				   "LaTeXNewAction" : LaTeXNewAction(),
 				   "LaTeXCommentAction" : LaTeXCommentAction(),
 				   "LaTeXSpellCheckAction" : LaTeXSpellCheckAction(),
-				   "LaTeXChooseMasterAction" : LaTeXChooseMasterAction() }
+				   "LaTeXChooseMasterAction" : LaTeXChooseMasterAction(),
+				   "LaTeXItemizeAction" : LaTeXItemizeAction() }
 
 ACTION_EXTENSIONS = { None : ["LaTeXNewAction"],
-					  ".tex" : ["LaTeXMenuAction", "LaTeXCommentAction", "LaTeXSpellCheckAction", "LaTeXChooseMasterAction"] }
+					  ".tex" : ["LaTeXMenuAction", 
+								"LaTeXCommentAction", 
+								"LaTeXSpellCheckAction", 
+								"LaTeXChooseMasterAction",
+								"LaTeXItemizeAction"] }
 
 from ..tools import Tool, Job
 from ..tools.postprocess import GenericPostProcessor, RubberPostProcessor

@@ -43,9 +43,9 @@ class LaTeXNewAction(IAction):
 	_log = getLogger("LaTeXNewAction")
 	
 	label = "New LaTeX Document..."
-	stock_id = None
+	stock_id = gtk.STOCK_NEW
 	accelerator = None
-	tooltip = None
+	tooltip = "Create a new LaTeX document"
 	
 	def activate(self, context):
 		# TODO:
@@ -87,8 +87,21 @@ class LaTeXSpellCheckAction(IAction):
 	
 	def activate(self, context):
 		context.active_editor.spell_check()
-		
-		
+
+
+from ..base import IconAction, Template, File
+from ..base.resources import find_resource
+from . import LaTeXSource
+
+
+class LaTeXItemizeAction(IconAction):
+	label = "Itemize"
+	accelerator = None
+	tooltip = "Itemize"
+	icon = File(find_resource("icons/itemize.png"))
+	
+	def activate(self, context):
+		context.active_editor.insert(LaTeXSource(Template("\\begin{itemize}\n\t\\item $_\n\\end{itemize}"), []))
 		
 		
 		
