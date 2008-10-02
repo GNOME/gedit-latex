@@ -89,7 +89,8 @@ class LaTeXSpellCheckAction(IAction):
 		context.active_editor.spell_check()
 
 
-from ..base import IconAction, Template, File
+from ..util import IconAction
+from ..base import Template, File
 from ..base.resources import find_resource
 from . import LaTeXSource
 

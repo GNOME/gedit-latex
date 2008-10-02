@@ -95,4 +95,61 @@ class GladeInterface(object):
 		self.__get_tree().signal_autoconnect(mapping)
 
 
+from uuid import uuid1
+from gtk import gdk
 
+from base import IAction
+
+
+class IconAction(IAction):
+	"""
+	A utility class for creating actions with a custom icon instead of
+	a gtk stock id.
+	
+	The subclass must provide a field 'icon'.
+	"""
+	
+	@property
+	def icon(self):
+		"""
+		Return a File object for the icon to use
+		"""
+		raise NotImplementedError
+	
+	def __init_stock_id(self):
+		#
+		# generate a new stock id
+		#
+		
+		# TODO: do we have to create the stock id every time?
+		
+		self.__stock_id = str(uuid1())
+		
+		# see http://article.gmane.org/gmane.comp.gnome.gtk%2B.python/5119
+		
+		# TODO: what is this strange construct for?
+		stock_items = (
+			((self.__stock_id, "", 0, 0, "")),
+		)
+		
+		gtk.stock_add(stock_items)
+		
+		factory = gtk.IconFactory()
+		factory.add_default()
+		
+		# TODO: use IconSource, the Pixbuf is just fallback
+		pixbuf = gdk.pixbuf_new_from_file(self.icon.path)
+		
+		icon_set = gtk.IconSet(pixbuf)
+		
+		factory.add(self.__stock_id, icon_set)
+	
+	@property
+	def stock_id(self):
+		if not "__stock_id" in dir(self):
+			self.__init_stock_id()
+		return self.__stock_id
+	
+	
+	
+	
