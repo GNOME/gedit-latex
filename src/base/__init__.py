@@ -946,4 +946,3 @@ class File(object):
 	def __str__(self):
 		return self.uri
 
-

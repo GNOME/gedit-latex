@@ -146,9 +146,12 @@ class IconAction(IAction):
 	
 	@property
 	def stock_id(self):
-		if not "__stock_id" in dir(self):
-			self.__init_stock_id()
-		return self.__stock_id
+		if self.icon:
+			if not "__stock_id" in dir(self):
+				self.__init_stock_id()
+			return self.__stock_id
+		else:
+			return None
 	
 	
 	

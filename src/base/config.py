@@ -22,8 +22,40 @@
 base.config
 """
 
+UI = """
+	<ui>
+		<menubar name="MenuBar">
+			<menu name="FileMenu" action="File">
+				<placeholder name="FileOps_1">
+					<menuitem action="LaTeXNewAction" />
+				</placeholder>
+			</menu>
+			<placeholder name="ExtraMenu_1">
+				<menu action="LaTeXMenuAction">
+					<menuitem action="LaTeXChooseMasterAction" />
+					<menuitem action="LaTeXCommentAction" />
+					<menuitem action="LaTeXSpellCheckAction" />
+				</menu>
+			</placeholder>
+		</menubar>
+		<toolbar name="LaTeXToolbar">
+			<toolitem action="LaTeXNewAction" />
+			<separator />
+			<toolitem action="LaTeXFontFamilyAction">
+				<menu action="LaTeXFontFamilyMenuAction">
+					<menuitem action="LaTeXBoldAction" />
+					<menuitem action="LaTeXItalicAction" />
+				</menu>
+			</toolitem>
+			<separator />
+			<toolitem action="LaTeXItemizeAction" />
+			<toolitem action="LaTeXEnumerateAction" />
+		</toolbar>
+	</ui>"""
+		
+
 from ..latex.actions import LaTeXMenuAction, LaTeXNewAction, LaTeXCommentAction, LaTeXSpellCheckAction, LaTeXChooseMasterAction, \
-		LaTeXItemizeAction
+		LaTeXItemizeAction, LaTeXEnumerateAction, LaTeXFontFamilyAction, LaTeXFontFamilyMenuAction, LaTeXBoldAction, LaTeXItalicAction
 
 
 # TODO: extensions and UI path should be asked from Action objects (build UI like for tool actions)
@@ -34,14 +66,24 @@ ACTION_OBJECTS = { "LaTeXMenuAction" : LaTeXMenuAction(),
 				   "LaTeXCommentAction" : LaTeXCommentAction(),
 				   "LaTeXSpellCheckAction" : LaTeXSpellCheckAction(),
 				   "LaTeXChooseMasterAction" : LaTeXChooseMasterAction(),
-				   "LaTeXItemizeAction" : LaTeXItemizeAction() }
+				   "LaTeXItemizeAction" : LaTeXItemizeAction(),
+				   "LaTeXEnumerateAction" : LaTeXEnumerateAction(),
+				   "LaTeXFontFamilyAction" : LaTeXFontFamilyAction(),
+				   "LaTeXFontFamilyMenuAction" : LaTeXFontFamilyMenuAction(),
+				   "LaTeXBoldAction" : LaTeXBoldAction(),
+				   "LaTeXItalicAction" : LaTeXItalicAction() }
 
 ACTION_EXTENSIONS = { None : ["LaTeXNewAction"],
 					  ".tex" : ["LaTeXMenuAction", 
 								"LaTeXCommentAction", 
 								"LaTeXSpellCheckAction", 
 								"LaTeXChooseMasterAction",
-								"LaTeXItemizeAction"] }
+								"LaTeXItemizeAction",
+								"LaTeXEnumerateAction",
+								"LaTeXFontFamilyAction",
+								"LaTeXFontFamilyMenuAction",
+								"LaTeXBoldAction",
+								"LaTeXItalicAction"] }
 
 from ..tools import Tool, Job
 from ..tools.postprocess import GenericPostProcessor, RubberPostProcessor

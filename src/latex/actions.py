@@ -95,6 +95,45 @@ from ..base.resources import find_resource
 from . import LaTeXSource
 
 
+class LaTeXFontFamilyAction(IconAction):
+	label = "Font Family"
+	accelerator = None
+	tooltip = "Font Family"
+	icon = File(find_resource("icons/bf.png"))
+	
+	def activate(self, context):
+		pass
+
+class LaTeXFontFamilyMenuAction(IAction):
+	label = "Font Family"
+	accelerator = None
+	tooltip = "Font Family"
+	stock_id = None
+	
+	def activate(self, context):
+		pass
+
+
+class LaTeXBoldAction(IconAction):
+	label = "Bold"
+	accelerator = None
+	tooltip = "Bold"
+	icon = File(find_resource("icons/bf.png"))
+	
+	def activate(self, context):
+		pass
+	
+
+class LaTeXItalicAction(IconAction):
+	label = "Italic"
+	accelerator = None
+	tooltip = "Italic"
+	icon = File(find_resource("icons/it.png"))
+	
+	def activate(self, context):
+		pass
+
+
 class LaTeXItemizeAction(IconAction):
 	label = "Itemize"
 	accelerator = None
@@ -103,6 +142,16 @@ class LaTeXItemizeAction(IconAction):
 	
 	def activate(self, context):
 		context.active_editor.insert(LaTeXSource(Template("\\begin{itemize}\n\t\\item $_\n\\end{itemize}"), []))
+
+
+class LaTeXEnumerateAction(IconAction):
+	label = "Enumerate"
+	accelerator = None
+	tooltip = "Enumerate"
+	icon = File(find_resource("icons/enumerate.png"))
+	
+	def activate(self, context):
+		context.active_editor.insert(LaTeXSource(Template("\\begin{enumerate}\n\t\\item $_\n\\end{enumerate}"), []))
 		
 		
 		

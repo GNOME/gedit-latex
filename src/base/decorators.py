@@ -28,8 +28,9 @@ extension point.
 from logging import getLogger
 import gedit
 import gtk
+import gobject
 
-from config import ACTION_OBJECTS, ACTION_EXTENSIONS, TOOLS, WINDOW_SCOPE_VIEWS, EDITOR_SCOPE_VIEWS, EDITORS
+from config import UI, ACTION_OBJECTS, ACTION_EXTENSIONS, TOOLS, WINDOW_SCOPE_VIEWS, EDITOR_SCOPE_VIEWS, EDITORS
 from views import ToolView
 from . import File, View, WindowContext
 from ..tools import ToolAction
@@ -38,6 +39,18 @@ from ..tools import ToolAction
 # FIXME: there is no 'active_tab_changed' after the last 'tab_removed'!
 
 # TODO: maybe create ActionDelegate for GeditWindowDecorator
+
+
+#
+# workaround for MenuToolItem
+# see http://library.gnome.org/devel/pygtk/stable/class-gtkaction.html#method-gtkaction--set-tool-item-type
+#
+class MenuToolAction(gtk.Action):
+	__gtype_name__ = "MenuToolAction"
+
+gobject.type_register(MenuToolAction)
+# needs PyGTK 2.10
+MenuToolAction.set_tool_item_type(gtk.MenuToolButton)
 
 
 class GeditWindowDecorator(object):
@@ -49,29 +62,6 @@ class GeditWindowDecorator(object):
 	"""
 	
 	_log = getLogger("GeditWindowDecorator")
-	
-	_ui = """
-		<ui>
-			<menubar name="MenuBar">
-				<menu name="FileMenu" action="File">
-					<placeholder name="FileOps_1">
-						<menuitem action="LaTeXNewAction" />
-					</placeholder>
-				</menu>
-				<placeholder name="ExtraMenu_1">
-					<menu action="LaTeXMenuAction">
-						<menuitem action="LaTeXChooseMasterAction" />
-						<menuitem action="LaTeXCommentAction" />
-						<menuitem action="LaTeXSpellCheckAction" />
-					</menu>
-				</placeholder>
-			</menubar>
-			<toolbar name="LaTeXToolbar">
-				<toolitem action="LaTeXNewAction" />
-				<separator />
-				<toolitem action="LaTeXItemizeAction" />
-			</toolbar>
-		</ui>"""
 	
 	def __init__(self, window):
 		self._window = window
@@ -139,13 +129,20 @@ class GeditWindowDecorator(object):
 		# add plugin actions
 		
 		for name, action in ACTION_OBJECTS.iteritems():
-			 gtk_action = gtk.Action(name, action.label, action.tooltip, action.stock_id)
-			 gtk_action.connect("activate", self._on_action_activated, action)
-			 self._action_group.add_action_with_accel(gtk_action, action.accelerator)
+			if name == "LaTeXFontFamilyAction":
+				gtk_action = MenuToolAction(name, action.label, action.tooltip, action.stock_id)
+				gtk_action.connect("activate", self._on_action_activated, action)
+				 
+				self._action_group.add_action_with_accel(gtk_action, action.accelerator)
+			else:
+				gtk_action = gtk.Action(name, action.label, action.tooltip, action.stock_id)
+				gtk_action.connect("activate", self._on_action_activated, action)
+				 
+				self._action_group.add_action_with_accel(gtk_action, action.accelerator)
 		
 		# merge
 		self._ui_manager.insert_action_group(self._action_group, -1)
-		self._ui_id = self._ui_manager.add_ui_from_string(self._ui)
+		self._ui_id = self._ui_manager.add_ui_from_string(UI)
 		
 		#
 		# hook the toolbar
