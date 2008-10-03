@@ -22,7 +22,21 @@
 base.preferences
 """
 
-class Preferences(dict):
+def str_to_bool(x):
+	"""
+	Converts a string to a boolean value
+	"""
+	if type(x) is bool:
+		return x
+	elif type(x) is str or type(x) is unicode:
+		try:
+			return {"false" : False, "0" : False, "true" : True, "1" : True}[x.strip().lower()]
+		except KeyError:
+			print "str_to_bool: unsupported value %s" % x
+	else:
+		print "str_to_bool: unsupported type %s" % str(type(x))
+
+class Preferences(object):
 	"""
 	A simple map storing preferences as key-value-pairs
 	"""
@@ -31,17 +45,41 @@ class Preferences(dict):
 	
 	def __new__(type):
 		if not '_instance' in type.__dict__:
-			type._instance = dict.__new__(type)
+			type._instance = object.__new__(type)
 		return type._instance
 	
 	def __init__(self):
 		if not '_ready' in dir(self):
-			
-			preferences = { "ConnectOutlineToEditor" : True,
-							"ErrorBackgroundColor" : "#ffdddd",
-							"WarningBackgroundColor" : "#ffffcf",
-							"SpellingBackgroundColor" : "#ffeccf" }
-			
-			dict.__init__(self, preferences)
-			
+			self.preferences = { "ConnectOutlineToEditor" : True,
+								 "ErrorBackgroundColor" : "#ffdddd",
+								 "WarningBackgroundColor" : "#ffffcf",
+								 "SpellingBackgroundColor" : "#ffeccf",
+								 "LightForeground" : "#7f7f7f" }
 			self._ready = True
+	
+	def get(self, key, default_value=None):
+		"""
+		Return the value for a given key
+		
+		@param key: a key string
+		@param default_value: a default value to be stored and returned if the key is not found
+		
+		@raise KeyError: if the key is not found and no default value is given
+		"""
+		try:
+			return self.preferences[key]
+		except KeyError:
+			if default_value != None:
+				self.preferences[key] = default_value
+				return default_value
+			else:
+				raise KeyError
+	
+	def get_bool(self, key, default_value=None):
+		"""
+		Special version of get() casting the string value to a boolean value
+		"""
+		return str_to_bool(self.get(key, default_value))
+		
+		
+			

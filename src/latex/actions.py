@@ -37,7 +37,10 @@ class LaTeXMenuAction(IAction):
 	
 	def activate(self, context):
 		pass
-	
+
+
+from dialogs import NewDocumentDialog
+
 
 class LaTeXNewAction(IAction):
 	_log = getLogger("LaTeXNewAction")
@@ -47,9 +50,17 @@ class LaTeXNewAction(IAction):
 	accelerator = None
 	tooltip = "Create a new LaTeX document"
 	
+	_dialog = None
+	
 	def activate(self, context):
-		# TODO:
 		self._log.debug("activate")
+		
+		if not self._dialog:
+			self._dialog = NewDocumentDialog()
+		
+		template = self._dialog.run()
+		if template:
+			context.active_editor.insert(template)
 		
 
 class LaTeXChooseMasterAction(IAction):

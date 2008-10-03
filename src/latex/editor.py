@@ -63,9 +63,9 @@ class LaTeXEditor(Editor, IIssueHandler):
 		self._file = file
 		self._context = context
 		
-		self.register_marker_type("latex-spell", self._preferences["SpellingBackgroundColor"], anonymous=False)
-		self.register_marker_type("latex-error", self._preferences["ErrorBackgroundColor"])
-		self.register_marker_type("latex-warning", self._preferences["WarningBackgroundColor"])
+		self.register_marker_type("latex-spell", self._preferences.get("SpellingBackgroundColor"), anonymous=False)
+		self.register_marker_type("latex-error", self._preferences.get("ErrorBackgroundColor"))
+		self.register_marker_type("latex-warning", self._preferences.get("WarningBackgroundColor"))
 		
 		self._issue_view = context.find_view(self, "LaTeXIssueView")
 		
@@ -222,7 +222,7 @@ class LaTeXEditor(Editor, IIssueHandler):
 		"""
 		The cursor has moved
 		"""
-		if self._preferences["ConnectOutlineToEditor"]:
+		if self._preferences.get_bool("ConnectOutlineToEditor", True):
 			self._outline_view.select_path_by_offset(offset)
 
 

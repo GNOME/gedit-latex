@@ -72,23 +72,23 @@ class GladeInterface(object):
 	Utility base class for interfaces loaded from a Glade definition 
 	"""
 	
-	_filename = None
+	filename = None
 	
 	def __init__(self):
 		self.__tree = None
 	
 	def __get_tree(self):
 		if not self.__tree:
-			self.__tree = glade.XML(self._filename)
+			self.__tree = glade.XML(self.filename)
 		return self.__tree
 	
-	def _find_widget(self, name):
+	def find_widget(self, name):
 		"""
 		Find a widget by its name
 		"""
 		return self.__get_tree().get_widget(name)
 	
-	def _connect_signals(self, mapping):
+	def connect_signals(self, mapping):
 		"""
 		Auto-connect signals
 		"""
