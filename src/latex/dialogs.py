@@ -369,7 +369,7 @@ class NewDocumentDialog(GladeInterface):
 		else:
 			date = "\\today"
 		
-		if self._getWidget("checkPDFMeta").get_active():
+		if self.find_widget("checkPDFMeta").get_active():
 			ifpdf = "\n\\usepackage{ifpdf}"
 			pdfinfo = """
 \\ifpdf

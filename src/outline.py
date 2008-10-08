@@ -25,8 +25,139 @@ Classes used for creating an outline view of LaTeX and BibTeX files
 """
 
 from logging import getLogger
+import gtk
 
 from base import View
+from base.resources import find_resource
+
+
+class BaseOutlineView(View):
+	"""
+	"""
+	
+	# TODO: toolbar
+	
+	__log = getLogger("BaseOutlineView")
+	
+	position = View.POSITION_SIDE
+	label = "Outline"
+	scope = View.SCOPE_EDITOR
+	
+	@property
+	def icon(self):
+		image = gtk.Image()
+		image.set_from_file(find_resource("icons/outline.png"))
+		return image
+	
+	def init(self, context):
+		self._log.debug("init")
+		
+		self._context = context
+		
+		column = gtk.TreeViewColumn()
+		
+		pixbuf_renderer = gtk.CellRendererPixbuf()
+		column.pack_start(pixbuf_renderer, False)
+		column.add_attribute(pixbuf_renderer, "pixbuf", 1)
+		
+		text_renderer = gtk.CellRendererText()
+		column.pack_start(text_renderer, True)
+		column.add_attribute(text_renderer, "markup", 0)
+		
+		self._offset_map = OutlineOffsetMap()
+		
+		self._store = gtk.TreeStore(str, gtk.gdk.Pixbuf, object)	# label, icon, node object
+		
+		self._view = gtk.TreeView(self._store)
+		self._view.append_column(column)
+		self._view.set_headers_visible(False)
+		self._cursor_changed_id = self._view.connect("cursor-changed", self._on_cursor_changed)
+		#self._view.connect("row-activated", self._on_row_activated)
+		
+		scrolled = gtk.ScrolledWindow()
+		scrolled.add(self._view)
+		scrolled.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+		
+		self.pack_start(scrolled, True)
+		
+		# this holds a list of the currently expanded paths
+		self._expandedPaths = None
+	
+	def select_path_by_offset(self, offset):
+		"""
+		Select the path corresponding to a given offset in the source
+		
+		Called by the Editor
+		"""
+		self.assure_init()
+		
+		try:
+			path = self._offset_map.lookup(offset)
+			self._select_path(path)
+		except KeyError:
+			pass
+	
+	def _save_state(self):
+		"""
+		Save the current expand state
+		"""
+		self._expanded_paths = []
+		self._view.map_expanded_rows(self._save_state_map_function)
+	
+	def _save_state_map_function(self, view, path):
+		"""
+		Mapping function for saving the current expand state
+		"""
+		self._expanded_paths.append(path)
+	
+	def _restore_state(self):
+		"""
+		Restore the last expand state
+		"""
+		self._view.collapse_all()
+		
+		if self._expanded_paths:
+			for path in self._expanded_paths:
+				self._view.expand_to_path(path)
+		else:
+			self._view.expand_to_path((0,))
+			
+	def _on_cursor_changed(self, view):
+		store, it = view.get_selection().get_selected()
+		if not it: 
+			return
+			
+		outline_node = store.get_value(it, 2)
+		
+		self._on_node_selected(outline_node)
+	
+	def _select_path(self, path):
+		"""
+		Expand a path and select the last node
+		"""
+		# disconnect from 'cursor-changed'
+		self._view.disconnect(self._cursor_changed_id)
+		
+		# select path
+		self._view.expand_to_path(path)
+		self._view.set_cursor(path)
+		
+		# connect to 'cursor-changed' again
+		self._cursor_changed_id = self._view.connect("cursor-changed", self._on_cursor_changed)
+	
+	#
+	
+	def _on_node_selected(self, node):
+		"""
+		To be overridden
+		"""
+		
+	def set_outline(self, outline):
+		"""
+		Load a new outline model
+		
+		To be overridden
+		"""
 
 
 #class BaseOutlineView(View):

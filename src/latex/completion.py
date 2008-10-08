@@ -91,6 +91,8 @@ class LaTeXChoiceProposal(IProposal):
 from model import LanguageModelFactory, Command, Choice, MandatoryArgument, OptionalArgument
 from parser import PrefixParser, Node
 
+from ..bibtex.cache import BibTeXDocumentCache
+
 
 class LaTeXCompletionHandler(ICompletionHandler):
 	"""
@@ -106,6 +108,7 @@ class LaTeXCompletionHandler(ICompletionHandler):
 		self._log.debug("init")
 		
 		self._language_model = LanguageModelFactory().create_language_model()
+		self._bibtex_document_cache = BibTeXDocumentCache()
 		
 	def set_outline(self, outline):
 		"""
@@ -130,7 +133,38 @@ class LaTeXCompletionHandler(ICompletionHandler):
 			newcommands.append(command)
 		self._language_model.set_newcommands(newcommands)
 		
-		# TODO: BibTeX entries
+		#
+		# bibtex entries
+		#
+		try:
+			
+			entry_choices = []
+			
+			for bib_file in outline.bibliographies:
+				try:
+					bibtex_document = self._bibtex_document_cache.get_document(bib_file)
+					
+					# generate choices from entries
+					
+					for entry in bibtex_document.entries:
+						
+						# build table data for DetailsPopup
+						rows = []
+						for field in entry.fields:
+							rows.append(["<small>%s</small>" % field.name, field.valueMarkup])
+						
+						entry_choices.append(Choice(None, entry.key, rows))
+						
+				except OSError:
+					# BibTeX file not found
+					self._log.error("Not found: %s" % bib_file)
+					
+			# attach to placeholders in CommandStore
+			self._language_model.fill_placeholder("Bibitems", entry_choices)
+				
+		except IOError:
+			self._log.debug("Failed to provide BibTeX completion due to IOError")
+			
 	
 	def set_neighbors(self, tex_files, bib_files, graphic_files):
 		"""

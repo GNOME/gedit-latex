@@ -67,7 +67,7 @@ class LaTeXEditor(Editor, IIssueHandler):
 		self.register_marker_type("latex-error", self._preferences.get("ErrorBackgroundColor"))
 		self.register_marker_type("latex-warning", self._preferences.get("WarningBackgroundColor"))
 		
-		self._issue_view = context.find_view(self, "LaTeXIssueView")
+		self._issue_view = context.find_view(self, "IssueView")
 		
 		self._parser = LaTeXParser()
 		self._document_dirty = True
@@ -150,11 +150,13 @@ class LaTeXEditor(Editor, IIssueHandler):
 				expander.expand(self._document, self._file, self)
 				
 				self._context.set_action_enabled("LaTeXChooseMasterAction", False)
+				
+				self._document_is_master = True
 			else:
 				self._log.debug("Document is not a master")
 				
 				# find master
-				master_file = self._find_master_document()
+				master_file = self.__master_file
 				# parse master
 				master_content = open(master_file.path).read()
 				self._document = self._parser.parse(master_content, master_file, self)
@@ -163,6 +165,8 @@ class LaTeXEditor(Editor, IIssueHandler):
 				expander.expand(self._document, master_file, self)
 				
 				self._context.set_action_enabled("LaTeXChooseMasterAction", True)
+				
+				self._document_is_master = False
 			
 			# generate outline
 			self._outline_generator = LaTeXOutlineGenerator()
@@ -177,7 +181,11 @@ class LaTeXEditor(Editor, IIssueHandler):
 			
 			self.__latex_completion_handler.set_outline(self._outline)
 	
-	def _find_master_document(self):
+	@property
+	def __master_file(self):
+		"""
+		Find the LaTeX master of this child
+		"""
 		property_file = PropertyFile(self._file)
 		try:
 			return File(property_file["MasterFilename"])
@@ -224,6 +232,19 @@ class LaTeXEditor(Editor, IIssueHandler):
 		"""
 		if self._preferences.get_bool("ConnectOutlineToEditor", True):
 			self._outline_view.select_path_by_offset(offset)
+		
+	@property
+	def file(self):
+		# overrides Editor.file
+		
+		# we may not call self._document.is_master because _document is always
+		# replaced by the master model
+		if self._document_is_master:
+			self._log.debug("file: returning file")
+			return self._file
+		else:
+			self._log.debug("file: returning master")
+			return self.__master_file
 
 
 from xml.dom import minidom

@@ -342,18 +342,19 @@ class Editor(object):
 				for mark in it.get_marks():
 					name = mark.get_name()
 					
-					self.__log.debug("Found TextMark %s at offset %s" % (name, it.get_offset()))
-
+					self.__log.debug("Found TextMark '%s' at offset %s" % (name, it.get_offset()))
+					
 					if name:
 						try:
 							marker = self._markers[name]
 							self.on_marker_activated(marker, event)
+							return
 						except KeyError:
-							self.__log.warning("No marker found for this TextMark: %s" % name)
+							self.__log.warning("No marker found for TextMark '%s'" % name)
 					else:
+						# FIXME: this is not safe - use another symbol for right boundaries!
 						self.__log.debug("Unnamed TextMark found, outside of any Markers")
-					
-					return
+						return
 				
 				# move left by one char and continue 
 				if not it.backward_char():

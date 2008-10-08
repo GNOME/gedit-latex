@@ -95,15 +95,21 @@ TOOLS = [ Tool("LaTeX → PDF", [".tex"], [Job("rubber --inplace --maxerr -1 --p
 		  Tool("Cleanup LaTeX Build", [".tex"], [Job("rm -f $directory/*.aux $directory/*.log", True, GenericPostProcessor)], "Remove LaTeX build files") ]
 
 
-from ..latex.views import LaTeXSymbolMapView, LaTeXIssueView, LaTeXOutlineView
+from ..views import IssueView
+from ..latex.views import LaTeXSymbolMapView, LaTeXOutlineView
+from ..bibtex.views import BibTeXOutlineView
 
 
 WINDOW_SCOPE_VIEWS = { ".tex" : {"LaTeXSymbolMapView" : LaTeXSymbolMapView } }
 
-EDITOR_SCOPE_VIEWS = { ".tex" : {"LaTeXIssueView" : LaTeXIssueView, 
-								 "LaTeXOutlineView" : LaTeXOutlineView} }
+EDITOR_SCOPE_VIEWS = { ".tex" : {"IssueView" : IssueView, 
+								 "LaTeXOutlineView" : LaTeXOutlineView},
+								 
+					   ".bib" : {"IssueView" : IssueView, 
+								 "BibTeXOutlineView" : BibTeXOutlineView} }
 
 from ..latex.editor import LaTeXEditor
+from ..bibtex.editor import BibTeXEditor
 
 
-EDITORS = {".tex" : LaTeXEditor}
+EDITORS = {".tex" : LaTeXEditor, ".bib" : BibTeXEditor}

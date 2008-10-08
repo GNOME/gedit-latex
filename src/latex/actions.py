@@ -40,6 +40,7 @@ class LaTeXMenuAction(IAction):
 
 
 from dialogs import NewDocumentDialog
+from editor import LaTeXEditor
 
 
 class LaTeXNewAction(IAction):
@@ -54,6 +55,11 @@ class LaTeXNewAction(IAction):
 	
 	def activate(self, context):
 		self._log.debug("activate")
+		
+		if not type(context.active_editor) is LaTeXEditor:
+			# the active tab doesn't contain a LaTeX file
+			# TODO: choose location and create new file and before continuing
+			raise NotImplementedError
 		
 		if not self._dialog:
 			self._dialog = NewDocumentDialog()

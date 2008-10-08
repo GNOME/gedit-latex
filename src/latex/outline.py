@@ -66,6 +66,9 @@ class Outline(object):
 		self.newcommands = []	# OutlineNode objects, TODO: only the name can be stored
 
 
+from ..base import File
+
+
 class LaTeXOutlineGenerator(object):
 	
 	# FIXME: every firstOfType() may raise and IndexError!!!
@@ -99,6 +102,8 @@ class LaTeXOutlineGenerator(object):
 		
 		self._labelCache = {}
 		
+		self._file = documentNode.value		# this is updated when a DOCUMENT occurs
+		
 		self._walk(documentNode)
 		
 		return self._outline
@@ -114,7 +119,9 @@ class LaTeXOutlineGenerator(object):
 		childForeign = foreign
 		
 		for node in parentNode:
-			if node.type == Node.COMMAND:
+			if node.type == Node.DOCUMENT:
+				self._file = node.value
+			elif node.type == Node.COMMAND:
 				if node.value in self._STRUCTURE_LEVELS.keys():
 					try:
 						headline = node.firstOfType(Node.MANDATORY_ARGUMENT).innerMarkup
@@ -185,7 +192,9 @@ class LaTeXOutlineGenerator(object):
 				
 				elif node.value == "bibliography":
 					value = node.firstOfType(Node.MANDATORY_ARGUMENT).innerText
-					self._outline.bibliographies.extend(value.split(","))
+					
+					for bib in value.split(","):
+						self._outline.bibliographies.append(File("%s/%s.bib" % (self._file.dirname, bib)))
 				
 				elif node.value == "definecolor" or node.value == "xdefinecolor":
 					name = str(node.firstOfType(Node.MANDATORY_ARGUMENT)[0])

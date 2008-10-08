@@ -22,6 +22,8 @@
 issues
 """
 
+from logging import getLogger
+
 
 class IIssueHandler(object):
 	"""
@@ -32,6 +34,16 @@ class IIssueHandler(object):
 		An issue has occured
 		"""
 		raise NotImplementedError
+
+
+class BaseIssueHandler(IIssueHandler):
+	"""
+	This is used by the BibTeXDocumentCache
+	"""
+	__log = getLogger("BaseIssueHandler")
+	
+	def issue(self, issue):
+		self.__log.debug(str(issue))
 
 
 class Issue(object):

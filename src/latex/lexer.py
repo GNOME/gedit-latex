@@ -60,29 +60,7 @@ class StringListener(object):
 		return False
 
 
-class StringReader(object):
-	"""
-	A simple string reader that is able to push back one character
-	"""
-	def __init__(self, string):
-		self._iter = iter(string)
-		self.offset = 0
-		self._pushbackChar = None
-		self._pushbackFlag = False
-	
-	def read(self):
-		if self._pushbackFlag:
-			self._pushbackFlag = False
-			return self._pushbackChar
-		else:
-			self.offset += 1
-			return self._iter.next()
-	
-	def unread(self, char):
-		#assert not self._pushbackFlag
-		
-		self._pushbackChar = char
-		self._pushbackFlag = True
+from ..util import StringReader
 
 
 class Token(object):

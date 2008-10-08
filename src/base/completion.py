@@ -351,7 +351,7 @@ class CompletionDistributor(object):
 		"""
 		key = gtk.gdk.keyval_name(event.keyval)
 		
-		self._log.debug("_on_key_pressed: %s" % key)
+		#self._log.debug("_on_key_pressed: %s" % key)
 
 		if self._state == self._STATE_IDLE:
 			if key == "Control_L" or key == "Control_R":
