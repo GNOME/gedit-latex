@@ -30,6 +30,7 @@ from base.preferences import Preferences
 from base.resources import find_resource
 from base import View
 from issues import Issue
+from util import escape
 
 
 class IssueView(View):
@@ -71,7 +72,7 @@ class IssueView(View):
 		column.add_attribute(text_renderer, "markup", 1)
 		
 		self._view.append_column(column)
-		self._view.insert_column_with_attributes(-1, "File", gtk.CellRendererText(), text=2)
+		self._view.insert_column_with_attributes(-1, "File", gtk.CellRendererText(), markup=2)
 		self._view.connect("row-activated", self._on_row_activated)
 		
 		self._scr = gtk.ScrolledWindow()
@@ -109,10 +110,12 @@ class IssueView(View):
 		
 		if local:
 			message = issue.message
+			filename = escape(issue.file.basename)
 		else:
 			message = "<span color='%s'>%s</span>" % (self._preferences.get("LightForeground", "#7f7f7f"), issue.message)
+			filename = "<span color='%s'>%s</span>" % (self._preferences.get("LightForeground", "#7f7f7f"), issue.file.basename)
 		
-		self._store.append([self._icons[issue.severity], message, issue.file.basename, issue])
+		self._store.append([self._icons[issue.severity], message, filename, issue])
 		
 		
 		

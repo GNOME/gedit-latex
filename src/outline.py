@@ -28,14 +28,14 @@ from logging import getLogger
 import gtk
 
 from base import View
+from base.preferences import Preferences
 from base.resources import find_resource
 
 
 class BaseOutlineView(View):
 	"""
+	Base class for the BibTeX and LaTeX outline views
 	"""
-	
-	# TODO: toolbar
 	
 	__log = getLogger("BaseOutlineView")
 	
@@ -53,6 +53,36 @@ class BaseOutlineView(View):
 		self._log.debug("init")
 		
 		self._context = context
+		
+		self._preferences = Preferences()
+
+		# toolbar
+
+		btn_follow = gtk.ToggleToolButton(gtk.STOCK_CONNECT)
+		btn_follow.set_tooltip_text("Follow Editor")
+		btn_follow.set_active(self._preferences.get_bool("ConnectOutlineToEditor", True))
+		btn_follow.connect("toggled", self._on_follow_toggled)
+		
+		btn_expand = gtk.ToolButton(gtk.STOCK_ZOOM_IN)
+		btn_expand.set_tooltip_text("Expand All")
+		btn_expand.connect("clicked", self._on_expand_clicked)
+		
+		btn_collapse = gtk.ToolButton(gtk.STOCK_ZOOM_OUT)
+		btn_collapse.set_tooltip_text("Collapse All")
+		btn_collapse.connect("clicked", self._on_collapse_clicked)
+		
+		self._toolbar = gtk.Toolbar()
+		self._toolbar.set_style(gtk.TOOLBAR_ICONS)
+		self._toolbar.set_icon_size(gtk.ICON_SIZE_MENU)
+		self._toolbar.insert(btn_follow, -1)
+		self._toolbar.insert(gtk.SeparatorToolItem(), -1)
+		self._toolbar.insert(btn_expand, -1)
+		self._toolbar.insert(btn_collapse, -1)
+		self._toolbar.insert(gtk.SeparatorToolItem(), -1)
+		
+		self.pack_start(self._toolbar, False)
+		
+		# tree view
 		
 		column = gtk.TreeViewColumn()
 		
@@ -82,6 +112,20 @@ class BaseOutlineView(View):
 		
 		# this holds a list of the currently expanded paths
 		self._expandedPaths = None
+		
+		self.show_all()
+	
+	def _on_follow_toggled(self, toggle_button):
+		value = toggle_button.get_active()
+		#Settings().set("LinkOutlineToEditor", value)
+		
+		#self.trigger("connectToggled", value)
+	
+	def _on_expand_clicked(self, button):
+		self._view.expand_all()
+	
+	def _on_collapse_clicked(self, button):
+		self._view.collapse_all()
 	
 	def select_path_by_offset(self, offset):
 		"""
@@ -131,6 +175,12 @@ class BaseOutlineView(View):
 		
 		self._on_node_selected(outline_node)
 	
+	def _on_row_activated(self, view, path, column):
+		it = self._store.get_iter(path)
+		node = self._store.get(it, 2)[0]
+		
+		self._on_node_activated(node)
+	
 	def _select_path(self, path):
 		"""
 		Expand a path and select the last node
@@ -146,8 +196,15 @@ class BaseOutlineView(View):
 		self._cursor_changed_id = self._view.connect("cursor-changed", self._on_cursor_changed)
 	
 	#
+	# methods to be overridden by the subclass
+	#
 	
 	def _on_node_selected(self, node):
+		"""
+		To be overridden
+		"""
+	
+	def _on_node_activated(self, node):
 		"""
 		To be overridden
 		"""
@@ -159,131 +216,6 @@ class BaseOutlineView(View):
 		To be overridden
 		"""
 
-
-#class BaseOutlineView(View):
-#	"""
-#	The OutlineViews for LaTeX and BibTeX are derived from this one
-#	"""
-#	
-#	_log = getLogger("BaseOutlineView")
-#	
-#	def init(self):
-#		
-#		#
-#		# build toolbar - contains the "connect" toggle button per default
-#		#
-#		btnConnect = gtk.ToggleToolButton(gtk.STOCK_CONNECT)
-#		btnConnect.set_tooltip_text("Connect Outline to Editor")
-#		btnConnect.set_active(Settings().get("LinkOutlineToEditor", True, True))
-#		btnConnect.connect("toggled", self._connectToggled)
-#		
-#		btn_expand = gtk.ToolButton(gtk.STOCK_ZOOM_IN)
-#		btn_expand.set_tooltip_text("Expand all")
-#		btn_expand.connect("clicked", self._on_expand_clicked)
-#		
-#		btn_collapse = gtk.ToolButton(gtk.STOCK_ZOOM_OUT)
-#		btn_collapse.set_tooltip_text("Collapse all")
-#		btn_collapse.connect("clicked", self._on_collapse_clicked)
-#		
-#		self._toolbar = gtk.Toolbar()
-#		self._toolbar.set_style(gtk.TOOLBAR_ICONS)
-#		self._toolbar.set_icon_size(gtk.ICON_SIZE_MENU)
-#		self._toolbar.insert(btnConnect, -1)
-#		self._toolbar.insert(gtk.SeparatorToolItem(), -1)
-#		self._toolbar.insert(btn_expand, -1)
-#		self._toolbar.insert(btn_collapse, -1)
-#		self._toolbar.insert(gtk.SeparatorToolItem(), -1)
-#		
-#		self.pack_start(self._toolbar, False)
-#		#
-#		# tree view
-#		#
-#		column = gtk.TreeViewColumn()
-#		
-#		pixbuf_renderer = gtk.CellRendererPixbuf()
-#		column.pack_start(pixbuf_renderer, False)
-#		column.add_attribute(pixbuf_renderer, "pixbuf", 1)
-#		
-#		text_renderer = gtk.CellRendererText()
-#		column.pack_start(text_renderer, True)
-#		column.add_attribute(text_renderer, "markup", 0)
-#		
-#		self._treeView = gtk.TreeView()
-#		self._treeView.append_column(column)
-#		self._treeView.set_headers_visible(False)
-#		self._cursorChangedId = self._treeView.connect("cursor-changed", self._cursorChanged)
-#		self._treeView.connect("row-activated", self._rowActivated)
-#		
-#		scrolledWindow = gtk.ScrolledWindow()
-#		scrolledWindow.add(self._treeView)
-#		scrolledWindow.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
-#		
-#		self.pack_start(scrolledWindow, True)
-#		
-#		self.show_all()
-#		
-#		self._expandedPaths = None	# the list of paths currently expanded
-#	
-#	def jumpToPath(self, path):
-#		"""
-#		This is used by the "connect-tree-to-editor"-feature
-#		"""
-#		# disconnect
-#		self._treeView.disconnect(self._cursorChangedId)
-#		
-#		# select
-#		self._treeView.expand_to_path(path)
-#		self._treeView.set_cursor(path)
-#		
-#		# connect again
-#		self._cursorChangedId = self._treeView.connect("cursor-changed", self._cursorChanged)
-#	
-#	def save_state(self):
-#		"""
-#		Store a list of paths of the expanded rows 
-#		"""
-#		self._expandedPaths = []
-#		self._treeView.map_expanded_rows(self._mapFunc)
-#	
-#	def _mapFunc(self, treeView, path):
-#		"""
-#		Mapping function for collecting the expand state
-#		"""
-#		self._expandedPaths.append(path)
-#	
-#	def restore_state(self):
-#		"""
-#		Expand all paths stored in the list
-#		"""
-#		self._treeView.collapse_all()
-#		
-#		if self._expandedPaths:
-#			for path in self._expandedPaths:
-#				self._treeView.expand_to_path(path)
-#		else:
-#			self._treeView.expand_to_path((0,))
-#	
-#	def _cursorChanged(self, treeView):
-#		self._log.debug("_cursorChanged")
-#		
-#	def _rowActivated(self, treeView, path, column):
-#		self._log.debug("_rowActivated")
-#		
-#	def _connectToggled(self, toggleButton):
-#		value = toggleButton.get_active()
-#		Settings().set("LinkOutlineToEditor", value)
-#		
-#		self.trigger("connectToggled", value)
-#	
-#	def _on_expand_clicked(self, button):
-#		self._treeView.expand_all()
-#	
-#	def _on_collapse_clicked(self, button):
-#		self._treeView.collapse_all()
-#		
-#	def set_outline_model(self, model):
-#		self._treeView.set_model(model)
-		
 
 class OutlineOffsetMap(object):
 	"""

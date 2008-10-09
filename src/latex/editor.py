@@ -282,6 +282,15 @@ class LaTeXEditor(Editor, IIssueHandler):
 		else:
 			self._log.debug("file: returning master")
 			return self.__master_file
+	
+	@property
+	def edited_file(self):
+		"""
+		Always returns the really edited file instead of the master
+		
+		This is called by the outline view to identify foreign nodes
+		"""
+		return self._file
 
 
 from xml.dom import minidom

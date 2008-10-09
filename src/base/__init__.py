@@ -28,7 +28,7 @@ from logging import getLogger
 import gtk
 
 
-class View(gtk.HBox):
+class View(gtk.VBox):
 	"""
 	Base class for a view
 	"""
@@ -59,7 +59,7 @@ class View(gtk.HBox):
 	
 	
 	def __init__(self, context):
-		gtk.HBox.__init__(self)
+		gtk.VBox.__init__(self)
 		
 		self._context = context
 		self._initialized = False

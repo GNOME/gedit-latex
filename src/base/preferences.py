@@ -54,7 +54,8 @@ class Preferences(object):
 								 "ErrorBackgroundColor" : "#ffdddd",
 								 "WarningBackgroundColor" : "#ffffcf",
 								 "SpellingBackgroundColor" : "#ffeccf",
-								 "LightForeground" : "#7f7f7f" }
+#								 "LightForeground" : "#7f7f7f",
+								 "LightForeground" : "#957d47" }
 			self._ready = True
 	
 	def get(self, key, default_value=None):
