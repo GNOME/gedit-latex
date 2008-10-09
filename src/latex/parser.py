@@ -75,9 +75,9 @@ class Node(list):
 		if self.type == self.COMMAND:
 			content = "".join([node.xml for node in self])
 			if len(content):
-				return "<command name=\"%s\">%s</command>" % (self.value, content)
+				return "<command name=\"%s\">%s</command>" % (escape(self.value), content)
 			else:
-				return "<command name=\"%s\" />" % self.value
+				return "<command name=\"%s\" />" % escape(self.value)
 		elif self.type == self.MANDATORY_ARGUMENT:
 			return "<mandatory>%s</mandatory>" % "".join([node.xml for node in self])
 		elif self.type == self.OPTIONAL_ARGUMENT:
@@ -211,10 +211,11 @@ class LocalizedNode(Node):
 	This Node type holds the start and end offsets of the substring it belongs to
 	in the source
 	"""
-	def __init__(self, type, start, end, value=None):
+	def __init__(self, type, start, end, value=None, file=None):
 		Node.__init__(self, type, value)
 		self.start = start
 		self.end = end
+		self.file = file
 	
 	@property
 	def lastEnd(self):
@@ -302,7 +303,7 @@ class LaTeXParser(object):
 				or top.type == Node.MANDATORY_ARGUMENT \
 				or top.type == Node.OPTIONAL_ARGUMENT \
 				or top.type == Node.EMBRACED:
-			node = LocalizedNode(Node.COMMAND, offset, offset + len(value) + 1, value)
+			node = LocalizedNode(Node.COMMAND, offset, offset + len(value) + 1, value, self._file)
 			top.append(node)
 			self._stack.append(node)
 			
@@ -321,7 +322,7 @@ class LaTeXParser(object):
 				or top.type == Node.MANDATORY_ARGUMENT \
 				or top.type == Node.OPTIONAL_ARGUMENT \
 				or top.type == Node.EMBRACED:
-			node = LocalizedNode(Node.TEXT, offset, offset + len(value), value)
+			node = LocalizedNode(Node.TEXT, offset, offset + len(value), value, self._file)
 			top.append(node)
 			self._stack.append(node)
 			
@@ -343,7 +344,7 @@ class LaTeXParser(object):
 		top = self._stack[-1]
 		
 		if top.type == Node.COMMAND:
-			node = LocalizedNode(Node.MANDATORY_ARGUMENT, offset, offset + 1)
+			node = LocalizedNode(Node.MANDATORY_ARGUMENT, offset, offset + 1, file=self._file)
 			top.append(node)
 			self._stack.append(node)
 		
@@ -351,7 +352,7 @@ class LaTeXParser(object):
 				or top.type == Node.MANDATORY_ARGUMENT \
 				or top.type == Node.OPTIONAL_ARGUMENT \
 				or top.type == Node.EMBRACED:
-			node = LocalizedNode(Node.EMBRACED, offset, offset + 1)
+			node = LocalizedNode(Node.EMBRACED, offset, offset + 1, file=self._file)
 			top.append(node)
 			self._stack.append(node)
 		
@@ -385,7 +386,7 @@ class LaTeXParser(object):
 	def beginSquare(self, value, offset):
 		top = self._stack[-1]
 		if top.type == Node.COMMAND:
-			node = LocalizedNode(Node.OPTIONAL_ARGUMENT, offset, offset + 1)
+			node = LocalizedNode(Node.OPTIONAL_ARGUMENT, offset, offset + 1, file=self._file)
 			top.append(node)
 			self._stack.append(node)
 		
@@ -393,7 +394,7 @@ class LaTeXParser(object):
 			top.value += "["
 		
 		elif top.type == Node.MANDATORY_ARGUMENT:
-			node = LocalizedNode(Node.TEXT, offset, offset + 1, "[")
+			node = LocalizedNode(Node.TEXT, offset, offset + 1, "[", self._file)
 			top.append(node)
 			self._stack.append(node)
 		
@@ -427,7 +428,7 @@ class LaTeXParser(object):
 					self._issue_handler.issue(Issue("Undefined Parse Error", offset, offset + 1, self._file, Issue.SEVERITY_ERROR))
 			
 			elif top.type == Node.MANDATORY_ARGUMENT or top.type == Node.DOCUMENT or top.type == Node.OPTIONAL_ARGUMENT:
-				node = LocalizedNode(Node.TEXT, offset, offset + 1, "]")
+				node = LocalizedNode(Node.TEXT, offset, offset + 1, "]", self._file)
 				top.append(node)
 				self._stack.append(node)
 			
@@ -664,11 +665,17 @@ class LaTeXReferenceExpander(object):
 	
 	_log = getLogger("ReferenceExpander")
 	
-	def expand(self, documentNode, master_file, issue_handler):
-		#self._baseDir = baseDir
+	def expand(self, documentNode, master_file, issue_handler, charset):
+		"""
+		@param documentNode: the master model
+		@param master_file: the File object of the master
+		@param issue_handler: an IIssueHandler object
+		@param charset: a string naming the character set used by Gedit
+		"""
 		self._master_file = master_file
 		self._issue_handler = issue_handler
 		self._parser = LaTeXParser()
+		self._charset = charset
 		self._expand(documentNode)
 		
 	def _expand(self, parentNode):
@@ -693,7 +700,8 @@ class LaTeXReferenceExpander(object):
 					
 					# parse child
 					try:
-						fragment = self._parser.parse(open(filename).read(), File(filename), self._issue_handler)
+						content = open(filename).read().decode(self._charset)
+						fragment = self._parser.parse(content, File(filename), self._issue_handler)
 						node.append(fragment)
 					except IOError, e:
 						self._log.error("Referenced file not found: %s" % filename)

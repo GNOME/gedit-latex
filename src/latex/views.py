@@ -199,22 +199,47 @@ class OutlineConverter(object):
 				7 : gtk.gdk.pixbuf_new_from_file(find_resource("icons/tree_paragraph.png")) }
 	
 	def convert(self, tree_store, outline, offset_map):
+		"""
+		Convert an Outline object to a gtk.TreeStore and update an OutlineOffsetMap
+		
+		@param tree_store: gtk.TreeStore
+		@param outline: latex.outline.Outline
+		@param offset_map: outline.OutlineOffsetMap
+		"""
 		self._offsetMap = offset_map
 		self._treeStore = tree_store
 		self._treeStore.clear()
 		
-		self._load(None, outline.rootNode)
+		self._append(None, outline.rootNode)
 	
-	def _load(self, parent, node):
+	def _append(self, parent, node):
+		"""
+		Recursively append an outline node to the TreeStore
+		
+		@param parent: a gtk.TreeIter or None
+		@param node: an OutlineNode
+		"""
+		value = node.value
+		
+		if node.file:
+			value = "%s <span color='#7f7f7f'>%s</span>" % (value, node.file.shortbasename)
+		
+		if node.foreign:
+			value = "<i>%s</i>" % value
+		
 		if node.type == OutlineNode.STRUCTURE:
 			icon = self._LEVEL_ICONS[node.level]
-			parent = self._treeStore.append(parent, [node.value, icon, node])
+			parent = self._treeStore.append(parent, [value, icon, node])
 		elif node.type == OutlineNode.LABEL:
-			parent = self._treeStore.append(parent, [node.value, self._ICON_LABEL, node])
+			parent = self._treeStore.append(parent, [value, self._ICON_LABEL, node])
 		elif node.type == OutlineNode.TABLE:
-			parent = self._treeStore.append(parent, [node.value, self._ICON_TABLE, node])
+			parent = self._treeStore.append(parent, [value, self._ICON_TABLE, node])
 		elif node.type == OutlineNode.GRAPHICS:
 			label = basename(node.value)
+			
+			if node.foreign:
+				label = "<i>%s</i>" % label
+			
 			parent = self._treeStore.append(parent, [label, self._ICON_GRAPHICS, node])
 		
 		# store path in offset map for all non-foreign nodes
@@ -224,7 +249,7 @@ class OutlineConverter(object):
 			self._offsetMap.put(node.start, path)
 			
 		for child in node:
-			self._load(parent, child)
+			self._append(parent, child)
 
 
 		

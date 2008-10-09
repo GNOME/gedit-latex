@@ -225,7 +225,7 @@ class GeditWindowDecorator(object):
 		views = self._window.get_views()
 		for view in views:
 			tab = gedit.tab_get_from_document(view.get_buffer())
-			decorator = self._create_tab_decorator(tab)
+			decorator = self._create_tab_decorator(tab, init=True)
 			if view is active_view:
 				self._active_tab_decorator = decorator
 		
@@ -259,7 +259,7 @@ class GeditWindowDecorator(object):
 				self._window.set_active_tab(tab)
 				return
 			
-		raise KeyError
+		raise KeyError("File could not be activated")
 	
 	def adjust(self, tab_decorator):
 		"""
@@ -432,8 +432,8 @@ class GeditWindowDecorator(object):
 	def _on_tab_added(self, window, tab):
 		self._log.debug("tab_added")
 		
-		if not tab in self._tab_decorators.keys():
-			self._create_tab_decorator(tab)
+#		if not tab in self._tab_decorators.keys():
+#			self._create_tab_decorator(tab)
 			
 	def _on_tab_removed(self, window, tab):
 		"""
@@ -467,11 +467,11 @@ class GeditWindowDecorator(object):
 		# adjust actions and views
 		self.adjust(decorator)
 	
-	def _create_tab_decorator(self, tab):
+	def _create_tab_decorator(self, tab, init=False):
 		"""
 		Create a new GeditTabDecorator for a GeditTab
 		"""
-		decorator = GeditTabDecorator(self, tab)
+		decorator = GeditTabDecorator(self, tab, init)
 		self._tab_decorators[tab] = decorator
 		return decorator 
 	
@@ -496,7 +496,15 @@ class GeditTabDecorator(object):
 	
 	_log = getLogger("GeditTabDecorator")
 	
-	def __init__(self, window_decorator, tab):
+	def __init__(self, window_decorator, tab, init=False):
+		"""
+		Construct a GeditTabDecorator
+		
+		@param window_decorator: the parent GeditWindowDecorator
+		@param tab: the GeditTab to create this for
+		@param init: has to be True if this is created on plugin init to decorate 
+						already opened files
+		"""
 		self._window_decorator = window_decorator
 		self._tab = tab
 		self._text_buffer = tab.get_document()
@@ -509,7 +517,8 @@ class GeditTabDecorator(object):
 		#
 		# this needs to be done, because when we init for already opened files
 		# (when plugin is activated in config) we get no "loaded" signal
-		self._adjust_editor()
+		if init:
+			self._adjust_editor()
 		
 		# listen to GeditDocument signals
 		self._text_buffer.connect("loaded", self._on_load)
@@ -523,12 +532,16 @@ class GeditTabDecorator(object):
 		"""
 		A file has been loaded
 		"""
+		self._log.debug("loaded")
+		
 		self._adjust_editor()
 	
 	def _on_save(self, document, param):
 		"""
 		The file has been saved
 		"""
+		self._log.debug("saved")
+		
 		if not self._adjust_editor():
 			# if the editor has not changed
 			if self._editor:

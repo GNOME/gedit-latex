@@ -76,7 +76,8 @@ class LaTeXEditor(Editor, IIssueHandler):
 		
 		self._connect_outline_to_editor = True	# TODO: read from config
 		
-		
+		self._outline_generator = LaTeXOutlineGenerator()
+		self._validator = LaTeXValidator()
 		
 		#
 		# initially parse
@@ -145,40 +146,58 @@ class LaTeXEditor(Editor, IIssueHandler):
 			self._log.debug("Parsed %s bytes of content" % len(content))
 			
 			if self._document.is_master:
-				# expand child documents
-				expander = LaTeXReferenceExpander()
-				expander.expand(self._document, self._file, self)
 				
 				self._context.set_action_enabled("LaTeXChooseMasterAction", False)
-				
 				self._document_is_master = True
+				
+				# expand child documents
+				expander = LaTeXReferenceExpander()
+				expander.expand(self._document, self._file, self, self.charset)
+				
+				# generate outline from the expanded model
+				self._outline = self._outline_generator.generate(self._document, self)
+				
+				# pass to view
+				self._outline_view.set_outline(self._outline)
+
+				# validate
+				self._validator.validate(self._document, self._outline, self)
 			else:
 				self._log.debug("Document is not a master")
 				
+				self._context.set_action_enabled("LaTeXChooseMasterAction", True)
+				self._document_is_master = False
+				
+				# the outline used by the outline view has to be created only from the child model
+				# otherwise we see the outline of the master and get wrong offsets
+				self._outline = self._outline_generator.generate(self._document, self)
+				self._outline_view.set_outline(self._outline)
+				
 				# find master
 				master_file = self.__master_file
+				
 				# parse master
 				master_content = open(master_file.path).read()
 				self._document = self._parser.parse(master_content, master_file, self)
+				
 				# expand its child documents
 				expander = LaTeXReferenceExpander()
-				expander.expand(self._document, master_file, self)
+				expander.expand(self._document, master_file, self, self.charset)
 				
-				self._context.set_action_enabled("LaTeXChooseMasterAction", True)
+				# create another outline of the expanded master model to make elements
+				# from the master available (labels, colors, BibTeX files etc.)
+				self._outline = self._outline_generator.generate(self._document, self)
+
+				# validate
+				self._validator.validate(self._document, self._outline, self)
 				
-				self._document_is_master = False
+				
 			
-			# generate outline
-			self._outline_generator = LaTeXOutlineGenerator()
-			self._outline = self._outline_generator.generate(self._document, self)
-			
-			# validate
-			self._validator = LaTeXValidator()
-			self._validator.validate(self._document, self._outline, self._file, self)
-			
-			# pass outline to view
-			self._outline_view.set_outline(self._outline)
-			
+			#print self._document.xml
+				
+				
+				
+			# pass outline to completion
 			self.__latex_completion_handler.set_outline(self._outline)
 	
 	@property
@@ -199,10 +218,11 @@ class LaTeXEditor(Editor, IIssueHandler):
 				raise RuntimeError("No master file chosen")
 	
 	def issue(self, issue):
-		#
 		# see IIssueHandler.issue
-		#
-		self._issue_view.append_issue(issue)
+		
+		local = (issue.file == self._file)
+		
+		self._issue_view.append_issue(issue, local)
 		
 		if issue.file == self._file:
 			if issue.severity == Issue.SEVERITY_ERROR:

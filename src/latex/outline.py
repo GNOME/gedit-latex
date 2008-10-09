@@ -36,7 +36,7 @@ class OutlineNode(list):
 	
 	ROOT, STRUCTURE, LABEL, NEWCOMMAND, REFERENCE, GRAPHICS, PACKAGE, TABLE = range(8)
 	
-	def __init__(self, type, start=None, end=None, value=None, level=None, foreign=False, numOfArgs=None):
+	def __init__(self, type, start=None, end=None, value=None, level=None, foreign=False, numOfArgs=None, file=None):
 		"""
 		numOfArgs		only used for NEWCOMMAND type
 		"""
@@ -47,6 +47,7 @@ class OutlineNode(list):
 		self.level = level
 		self.foreign = foreign
 		self.numOfArgs = numOfArgs
+		self.file = file
 	
 	@property
 	def xml(self):
@@ -59,11 +60,11 @@ class OutlineNode(list):
 class Outline(object):
 	def __init__(self):
 		self.rootNode = OutlineNode(OutlineNode.ROOT, level=0)
-		self.labels = []	# OutlineNode objects
-		self.bibliographies = []
+		self.labels = []			# OutlineNode objects
+		self.bibliographies = []	# File objects
 		self.colors = []
-		self.packages = []	# OutlineNode objects
-		self.newcommands = []	# OutlineNode objects, TODO: only the name can be stored
+		self.packages = []			# OutlineNode objects
+		self.newcommands = []		# OutlineNode objects, TODO: only the name can be stored
 
 
 from ..base import File
@@ -71,11 +72,9 @@ from ..base import File
 
 class LaTeXOutlineGenerator(object):
 	
-	# FIXME: every firstOfType() may raise and IndexError!!!
+	_log = getLogger("LaTeXOutlineGenerator")
 	
-	# TODO: generate issues
-	
-	_log = getLogger("OutlineGenerator")
+	# TODO: foreign flag is not necessary
 	
 	_STRUCTURE_LEVELS = { "part" : 1, 
 						  "chapter" : 2, 
@@ -86,6 +85,7 @@ class LaTeXOutlineGenerator(object):
 						  "subparagraph" : 7 }
 	
 	def __init__(self):
+		# TODO: read config
 		self.cfgLabelsInTree = True
 		self.cfgTablesInTree = True
 		self.cfgGraphicsInTree = True
@@ -102,7 +102,7 @@ class LaTeXOutlineGenerator(object):
 		
 		self._labelCache = {}
 		
-		self._file = documentNode.value		# this is updated when a DOCUMENT occurs
+#		self._file = documentNode.value		# this is updated when a DOCUMENT occurs
 		
 		self._walk(documentNode)
 		
@@ -119,14 +119,14 @@ class LaTeXOutlineGenerator(object):
 		childForeign = foreign
 		
 		for node in parentNode:
-			if node.type == Node.DOCUMENT:
-				self._file = node.value
-			elif node.type == Node.COMMAND:
+#			if node.type == Node.DOCUMENT:
+#				self._file = node.value
+			if node.type == Node.COMMAND:
 				if node.value in self._STRUCTURE_LEVELS.keys():
 					try:
 						headline = node.firstOfType(Node.MANDATORY_ARGUMENT).innerMarkup
 						level = self._STRUCTURE_LEVELS[node.value]
-						outlineNode = OutlineNode(OutlineNode.STRUCTURE, node.start, node.lastEnd, headline, level, foreign)
+						outlineNode = OutlineNode(OutlineNode.STRUCTURE, node.start, node.lastEnd, headline, level, foreign, file=node.file)
 						
 						while self._stack[-1].level >= level:
 							self._stack.pop()
@@ -134,19 +134,18 @@ class LaTeXOutlineGenerator(object):
 						self._stack[-1].append(outlineNode)
 						self._stack.append(outlineNode)
 					except IndexError:
-						self._log.error("%s: Malformed structure command" % node.start)
+						self._issue_handler.issue(Issue("Malformed structure command", node.start, node.end, node.file, Issue.SEVERITY_ERROR))
 				
 				elif node.value == "label":
 					value = node.firstOfType(Node.MANDATORY_ARGUMENT).innerText
 
 					if value in self._labelCache.keys():
 						start, end = self._labelCache[value]
-						self._issues.append(Issue("Label <b>%s</b> has already been defined" % value, 
-													Issue.VALIDATE_ERROR, start, end))
+						self._issue_handler.issue(Issue("Label <b>%s</b> has already been defined" % value, start, end, node.file, Issue.SEVERITY_ERROR))
 					else:
 						self._labelCache[value] = (node.start, node.lastEnd)
 					
-						labelNode = OutlineNode(OutlineNode.LABEL, node.start, node.lastEnd, value, foreign=foreign)
+						labelNode = OutlineNode(OutlineNode.LABEL, node.start, node.lastEnd, value, foreign=foreign, file=node.file)
 
 						self._outline.labels.append(labelNode)
 						if self.cfgLabelsInTree:
@@ -173,28 +172,28 @@ class LaTeXOutlineGenerator(object):
 				elif node.value == "usepackage":
 					try:
 						package = node.firstOfType(Node.MANDATORY_ARGUMENT).innerText
-						packageNode = OutlineNode(OutlineNode.PACKAGE, node.start, node.lastEnd, package)
+						packageNode = OutlineNode(OutlineNode.PACKAGE, node.start, node.lastEnd, package, file=node.file)
 						self._outline.packages.append(packageNode)
 					except Exception, e:
-						self._log.error("Malformed newcommand: %s" % e)
+						self._issue_handler.issue(Issue("Malformed usepackage command", node.start, node.end, node.file, Issue.SEVERITY_ERROR))
 				
 				elif self.cfgTablesInTree and node.value == "begin":
 					environ = node.firstOfType(Node.MANDATORY_ARGUMENT).innerText
 					
 					if environ == "tabular":
-						tableNode = OutlineNode(OutlineNode.TABLE, node.start, node.lastEnd, "<i>Table</i>", foreign=foreign)
+						tableNode = OutlineNode(OutlineNode.TABLE, node.start, node.lastEnd, "<i>Table</i>", foreign=foreign, file=node.file)
 						self._stack[-1].append(tableNode)
 				
 				elif self.cfgGraphicsInTree and node.value == "includegraphics":
 					target = node.firstOfType(Node.MANDATORY_ARGUMENT).innerText
-					graphicsNode = OutlineNode(OutlineNode.GRAPHICS, node.start, node.lastEnd, target, foreign=foreign)
+					graphicsNode = OutlineNode(OutlineNode.GRAPHICS, node.start, node.lastEnd, target, foreign=foreign, file=node.file)
 					self._stack[-1].append(graphicsNode)
 				
 				elif node.value == "bibliography":
 					value = node.firstOfType(Node.MANDATORY_ARGUMENT).innerText
 					
 					for bib in value.split(","):
-						self._outline.bibliographies.append(File("%s/%s.bib" % (self._file.dirname, bib)))
+						self._outline.bibliographies.append(File("%s/%s.bib" % (node.file.dirname, bib)))
 				
 				elif node.value == "definecolor" or node.value == "xdefinecolor":
 					name = str(node.firstOfType(Node.MANDATORY_ARGUMENT)[0])
@@ -207,9 +206,9 @@ class LaTeXOutlineGenerator(object):
 					except IndexError:
 						nArgs = 0
 					except Exception, e:
-						self._log.error("Malformed newcommand: %s" % e)
+						self._issue_handler.issue(Issue("Malformed newcommand", node.start, node.end, node.file, Issue.SEVERITY_ERROR))
 						nArgs = 0
-					ncNode = OutlineNode(OutlineNode.NEWCOMMAND, node.start, node.lastEnd, name, numOfArgs=nArgs)
+					ncNode = OutlineNode(OutlineNode.NEWCOMMAND, node.start, node.lastEnd, name, numOfArgs=nArgs, file=node.file)
 					self._outline.newcommands.append(ncNode)
 					
 					# don't walk through \newcommand
@@ -219,10 +218,6 @@ class LaTeXOutlineGenerator(object):
 					childForeign = True
 			
 			self._walk(node, childForeign)
-	
-	@property
-	def issues(self):
-		return self._issues
 
 
 

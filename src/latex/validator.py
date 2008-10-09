@@ -45,13 +45,12 @@ class LaTeXValidator(object):
 	def __init__(self):
 		self._environment = Environment()
 	
-	def validate(self, document_node, outline, file, issue_handler):
+	def validate(self, document_node, outline, issue_handler):
 		"""
 		Validate a LaTeX document
 		
 		@param document_node: the root node of the document tree
 		@param outline: a LaTeX outline object
-		@param file: the File object of the validated resource
 		@param issue_handler: an object implementing IIssueHandler
 		"""
 		
@@ -68,29 +67,31 @@ class LaTeXValidator(object):
 		self._environStack = []
 		
 		self._checkRefs = True
-		self._file = file
 		
-		self._run(document_node, document_node.value)
+#		self._file = file
+		
+		self._run(document_node)
 		
 		# evaluate label map
 		for label, used in self._labels.values():
 			if not used:
-				self._issue_handler.issue(Issue("Label <b>%s</b> is never used" % escape(label.value), label.start, label.end, self._file, Issue.SEVERITY_WARNING))
+				# FIXME: we need to know in which File the label was defined!
+				self._issue_handler.issue(Issue("Label <b>%s</b> is never used" % escape(label.value), label.start, label.end, label.file, Issue.SEVERITY_WARNING))
 		
-	def _run(self, parentNode, file):
+	def _run(self, parentNode):
 		"""
 		Recursive method validation
 		"""
 		for node in parentNode:
 			recurse = True
-			if node.type == Node.DOCUMENT:
+#			if node.type == Node.DOCUMENT:
+#				
+#				self._log.debug("DOCUMENT: %s" % node.value)
+#				
+#				# the document node contains the File object as value
+#				self._file = node.value
 				
-				self._log.debug("DOCUMENT: %s" % node.value)
-				
-				# the document node contains the File object as value
-				file = node.value
-				
-			elif node.type == Node.COMMAND:
+			if node.type == Node.COMMAND:
 				if node.value == "begin":
 					# push environment on stack
 					environ = node.firstOfType(Node.MANDATORY_ARGUMENT).innerText
@@ -102,9 +103,9 @@ class LaTeXValidator(object):
 					try:
 						tEnviron, tStart, tEnd = self._environStack.pop()
 						if tEnviron != environ:
-							self._issue_handler.issue(Issue("Environment <b>%s</b> has to be ended before <b>%s</b>" % (escape(tEnviron), escape(environ)), node.start, node.lastEnd, file, Issue.SEVERITY_ERROR))
+							self._issue_handler.issue(Issue("Environment <b>%s</b> has to be ended before <b>%s</b>" % (escape(tEnviron), escape(environ)), node.start, node.lastEnd, node.file, Issue.SEVERITY_ERROR))
 					except IndexError:
-						self._issue_handler.issue(Issue("Environment <b>%s</b> has no beginning" % escape(environ), node.start, node.lastEnd, file, Issue.SEVERITY_ERROR))
+						self._issue_handler.issue(Issue("Environment <b>%s</b> has no beginning" % escape(environ), node.start, node.lastEnd, node.file, Issue.SEVERITY_ERROR))
 				
 				elif node.value == "[":
 					# push eqn env on stack
@@ -114,9 +115,9 @@ class LaTeXValidator(object):
 					try:
 						tEnviron, tStart, tEnd = self._environStack.pop()
 						if tEnviron != "[":
-							self._issue_handler.issue(Issue("Environment <b>%s</b> has to be ended before <b>]</b>" % escape(tEnviron), node.start, node.end, file, Issue.SEVERITY_ERROR))
+							self._issue_handler.issue(Issue("Environment <b>%s</b> has to be ended before <b>]</b>" % escape(tEnviron), node.start, node.end, node.file, Issue.SEVERITY_ERROR))
 					except IndexError:
-						self._issue_handler.issue(Issue("Environment <b>%s</b> has no beginning" % escape(environ), node.start, node.end, file, Issue.SEVERITY_ERROR))
+						self._issue_handler.issue(Issue("Environment <b>%s</b> has no beginning" % escape(environ), node.start, node.end, node.file, Issue.SEVERITY_ERROR))
 				
 				elif node.value == "ref" or node.value == "eqref" or node.value == "pageref":
 					# mark label as used
@@ -124,7 +125,7 @@ class LaTeXValidator(object):
 					try:
 						self._labels[label][1] = True
 					except KeyError:
-						self._issue_handler.issue(Issue("Label <b>%s</b> has not been defined" % escape(label), node.start, node.lastEnd, file, Issue.SEVERITY_ERROR))
+						self._issue_handler.issue(Issue("Label <b>%s</b> has not been defined" % escape(label), node.start, node.lastEnd, node.file, Issue.SEVERITY_ERROR))
 				
 				elif self._checkRefs and (node.value == "includegraphics"):
 					# check referenced image file
@@ -133,12 +134,12 @@ class LaTeXValidator(object):
 						if target[0] == "/":
 							filename = target
 						else:
-							filename = "%s/%s" % (self._file.dirname, target)
+							filename = "%s/%s" % (node.file.dirname, target)
 						
 						if not exists(filename):
-							self._issue_handler.issue(Issue("Image <b>%s</b> could not be found" % escape(target), node.start, node.lastEnd, file, Issue.SEVERITY_WARNING))
+							self._issue_handler.issue(Issue("Image <b>%s</b> could not be found" % escape(target), node.start, node.lastEnd, node.file, Issue.SEVERITY_WARNING))
 					else:
-						self._issue_handler.issue(Issue("No image file specified", node.start, node.lastEnd, file, Issue.SEVERITY_WARNING))
+						self._issue_handler.issue(Issue("No image file specified", node.start, node.lastEnd, node.file, Issue.SEVERITY_WARNING))
 					
 				elif self._checkRefs and (node.value == "include" or node.value == "input"):
 					# check referenced tex file
@@ -147,10 +148,10 @@ class LaTeXValidator(object):
 						if target[0] == "/":
 							filename = "%s.tex" % target
 						else:
-							filename = "%s/%s.tex" % (self._file.dirname, target)
+							filename = "%s/%s.tex" % (node.file.dirname, target)
 						
 						if not exists(filename):
-							self._issue_handler.issue(Issue("Document <b>%s</b> could not be found" % escape(target), node.start, node.lastEnd, file, Issue.SEVERITY_WARNING))
+							self._issue_handler.issue(Issue("Document <b>%s</b> could not be found" % escape(target), node.start, node.lastEnd, node.file, Issue.SEVERITY_WARNING))
 				
 				elif self._checkRefs and node.value == "bibliography":
 					# check referenced BibTeX file(s)
@@ -159,10 +160,10 @@ class LaTeXValidator(object):
 						if target[0] == "/":
 							filename = target + ".bib"
 						else:
-							filename = "%s/%s.bib" % (self._file.dirname, target)
+							filename = "%s/%s.bib" % (node.file.dirname, target)
 						
 						if not exists(filename):
-							self._issue_handler.issue(Issue("Bibliography <b>%s</b> could not be found" % escape(filename), node.start, node.lastEnd, file, Issue.SEVERITY_WARNING))
+							self._issue_handler.issue(Issue("Bibliography <b>%s</b> could not be found" % escape(filename), node.start, node.lastEnd, node.file, Issue.SEVERITY_WARNING))
 				
 				elif node.value == "newcommand":
 					# don't validate in newcommand definitions
@@ -173,10 +174,10 @@ class LaTeXValidator(object):
 					value = node.firstOfType(Node.MANDATORY_ARGUMENT).innerText
 					
 					if not self._environment.file_exists("%s.bst" % value):
-						self._issue_handler.issue(Issue("Bibliography style <b>%s</b> could not be found" % escape(value), node.start, node.lastEnd, file, Issue.SEVERITY_WARNING))
+						self._issue_handler.issue(Issue("Bibliography style <b>%s</b> could not be found" % escape(value), node.start, node.lastEnd, node.file, Issue.SEVERITY_WARNING))
 				
 			if recurse:
-				self._run(node, file)
+				self._run(node)
 				
 				
 				

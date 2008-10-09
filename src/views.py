@@ -26,6 +26,7 @@ import gtk
 from gtk.gdk import Pixbuf, pixbuf_new_from_file
 from logging import getLogger
 
+from base.preferences import Preferences
 from base import View
 from issues import Issue
 
@@ -43,6 +44,8 @@ class IssueView(View):
 	
 	def init(self, context):
 		self._log.debug("init")
+		
+		self._preferences = Preferences()
 		
 		self._context = context
 		
@@ -96,10 +99,21 @@ class IssueView(View):
 		
 		self._store.clear()
 	
-	def append_issue(self, issue):
+	def append_issue(self, issue, local=True):
+		"""
+		Append a new Issue to the view
+		
+		@param issue: the Issue object
+		@param local: indicates whether the Issue occured in the edited file or not
+		"""
 		self.assure_init()
 		
-		self._store.append([None, issue.message, issue.file.basename, issue])
+		if local:
+			message = issue.message
+		else:
+			message = "<span color='%s'>%s</span>" % (self._preferences.get("LightForeground", "#7f7f7f"), issue.message)
+		
+		self._store.append([None, message, issue.file.basename, issue])
 		
 		
 		

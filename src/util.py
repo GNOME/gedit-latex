@@ -60,7 +60,9 @@ def escape(string, remove_newlines=True):
 	Prepares a string for inclusion in Pango markup and error messages
 	"""
 	s = saxutils.escape(string)
-	return s.replace("\n", " ")
+	s = s.replace("\n", " ")
+	s = s.replace("\"", "&quot;")
+	return s
 	
 
 def open_error(message, secondary_message=None):

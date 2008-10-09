@@ -383,25 +383,19 @@ class Editor(object):
 	# methods/properties to be used/overridden by the subclass
 	
 	@property
+	def charset(self):
+		"""
+		Return the character set used by this Editor
+		"""
+		return self._text_buffer.get_encoding().get_charset()
+	
+	@property
 	def content(self):
 		"""
 		Return the string contained in the TextBuffer
 		"""
-		
-		# FIXME: this returns an empty string when called from Editor.init() so
-		# that the initial parse fails
-		
-		charset = self._text_buffer.get_encoding().get_charset()
-		s = self._text_buffer.get_text(self._text_buffer.get_start_iter(), 
-									self._text_buffer.get_end_iter(), False).decode(charset)
-		
-		# workaround:
-		
-		if len(s) > 0:
-			return s
-		else:
-			self.__log.warning("GeditDocument.get_text() returned empty string, reading file")
-			return open(self._file.path).read()
+		return self._text_buffer.get_text(self._text_buffer.get_start_iter(), 
+									self._text_buffer.get_end_iter(), False).decode(self.charset)
 	
 	def content_changed(self, reference_timestamp):
 		"""
@@ -601,6 +595,18 @@ class Editor(object):
 		@param marker_type: type string
 		@return: a Marker object if the type is not anonymous or None otherwise
 		"""
+		
+		# check offsets
+		if start_offset < 0:
+			self.__log.error("create_marker(): start offset out of range (%s < 0)" % start_offset)
+			return
+		
+		buffer_end_offset = self._text_buffer.get_end_iter().get_offset()
+		
+		if end_offset > buffer_end_offset:
+			self.__log.error("create_marker(): end offset out of range (%s > %s)" % (end_offset, buffer_end_offset))
+		
+		
 		type_record = self._marker_types[marker_type]
 		
 		# hightlight
