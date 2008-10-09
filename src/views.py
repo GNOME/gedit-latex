@@ -27,6 +27,7 @@ from gtk.gdk import Pixbuf, pixbuf_new_from_file
 from logging import getLogger
 
 from base.preferences import Preferences
+from base.resources import find_resource
 from base import View
 from issues import Issue
 
@@ -49,15 +50,14 @@ class IssueView(View):
 		
 		self._context = context
 		
-		self._icons = { Issue.SEVERITY_WARNING : None, 
-						Issue.SEVERITY_ERROR : None, 
+		self._icons = { Issue.SEVERITY_WARNING : pixbuf_new_from_file(find_resource("icons/warning.png")), 
+						Issue.SEVERITY_ERROR : pixbuf_new_from_file(find_resource("icons/error.png")), 
 			   			Issue.SEVERITY_INFO : None,
-			   			Issue.SEVERITY_TASK : None }
+			   			Issue.SEVERITY_TASK : pixbuf_new_from_file(find_resource("icons/task.png")) }
 		
 		self._store = gtk.ListStore(Pixbuf, str, str, object)
 		
 		self._view = gtk.TreeView(self._store)
-		#self._view.set_headers_visible(False)
 		
 		column = gtk.TreeViewColumn()
 		column.set_title("Message")
@@ -71,10 +71,6 @@ class IssueView(View):
 		column.add_attribute(text_renderer, "markup", 1)
 		
 		self._view.append_column(column)
-		#self._view.insert_column_with_attributes(-1, "Message", column)
-		
-		#self._view.insert_column_with_attributes(-1, "", gtk.CellRendererPixbuf(), pixbuf=0)
-		#self._view.insert_column_with_attributes(-1, "Description", gtk.CellRendererText(), markup=1)
 		self._view.insert_column_with_attributes(-1, "File", gtk.CellRendererText(), text=2)
 		self._view.connect("row-activated", self._on_row_activated)
 		
@@ -87,16 +83,19 @@ class IssueView(View):
 		self.pack_start(self._scr, True)
 	
 	def _on_row_activated(self, view, path, column):
+		"""
+		A row has been double-clicked on
+		"""
 		it = self._store.get_iter(path)
 		issue = self._store.get(self._store.get_iter(path), 3)[0]
 		
 		self._context.activate_editor(issue.file)
 	
 	def clear(self):
+		"""
+		Remove all issues from the view
+		"""
 		self.assure_init()
-		
-		self._log.debug("clear")
-		
 		self._store.clear()
 	
 	def append_issue(self, issue, local=True):
@@ -113,7 +112,7 @@ class IssueView(View):
 		else:
 			message = "<span color='%s'>%s</span>" % (self._preferences.get("LightForeground", "#7f7f7f"), issue.message)
 		
-		self._store.append([None, message, issue.file.basename, issue])
+		self._store.append([self._icons[issue.severity], message, issue.file.basename, issue])
 		
 		
 		

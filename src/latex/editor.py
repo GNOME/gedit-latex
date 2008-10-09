@@ -32,7 +32,8 @@ from ..snippets.completion import SnippetCompletionHandler
 from ..issues import Issue, IIssueHandler
 from ..util import caught
 
-from parser import LaTeXParser, LaTeXReferenceExpander
+from parser import LaTeXParser
+from expander import LaTeXReferenceExpander
 from outline import LaTeXOutlineGenerator
 from validator import LaTeXValidator
 
@@ -58,26 +59,24 @@ class LaTeXEditor(Editor, IIssueHandler):
 	def init(self, file, context):
 		self._log.debug("init(%s)" % file)
 		
-		self._preferences = Preferences()
-		
 		self._file = file
 		self._context = context
+		
+		self._preferences = Preferences()
 		
 		self.register_marker_type("latex-spell", self._preferences.get("SpellingBackgroundColor"), anonymous=False)
 		self.register_marker_type("latex-error", self._preferences.get("ErrorBackgroundColor"))
 		self.register_marker_type("latex-warning", self._preferences.get("WarningBackgroundColor"))
 		
 		self._issue_view = context.find_view(self, "IssueView")
-		
-		self._parser = LaTeXParser()
-		self._document_dirty = True
-		
 		self._outline_view = context.find_view(self, "LaTeXOutlineView")
 		
-		self._connect_outline_to_editor = True	# TODO: read from config
-		
+		self._parser = LaTeXParser()
 		self._outline_generator = LaTeXOutlineGenerator()
 		self._validator = LaTeXValidator()
+		
+		self._connect_outline_to_editor = True	# TODO: read from config
+		self._document_dirty = True
 		
 		#
 		# initially parse
@@ -89,11 +88,35 @@ class LaTeXEditor(Editor, IIssueHandler):
 		# see base.Editor.insert()
 		
 		if type(source) is LaTeXSource:
-			# TODO: ensure that the required packages are included
+			self.ensure_packages(source.packages)
 			
 			Editor.insert(self, source.source)
 		else:
 			Editor.insert(self, source)
+	
+	POSITION_PACKAGES, POSITION_PREAMBLE = 1, 2
+	
+	def _insert_at_position(self, source, position):
+		"""
+		Insert source at a certain position in the document
+		
+		@param source: a LaTeXSource object
+		@param position: POSITION_PACKAGES | POSITION_PREAMBLE 
+		"""
+		
+		# TODO:
+	
+	def ensure_packages(self, packages):
+		"""
+		Ensure that certain packages are included
+		
+		@param packages: a list of package names
+		"""
+		if not self._document_is_master:
+			self._log.debug("ensure_packages: document is not a master")
+			return
+		
+		# TODO:
 	
 	def on_save(self):
 		"""
@@ -190,12 +213,6 @@ class LaTeXEditor(Editor, IIssueHandler):
 
 				# validate
 				self._validator.validate(self._document, self._outline, self)
-				
-				
-			
-			#print self._document.xml
-				
-				
 				
 			# pass outline to completion
 			self.__latex_completion_handler.set_outline(self._outline)

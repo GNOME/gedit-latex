@@ -19,41 +19,55 @@
 # Street, Fifth Floor, Boston, MA  02110-1301, USA
 
 """
-bibtex.cache
+latex.cache
 """
 
 from logging import getLogger
 
-from parser import BibTeXParser
-from ..issues import BaseIssueHandler
+from parser import LaTeXParser
+from ..issues import IIssueHandler
 
 
-class BibTeXDocumentCache(object):
+class CacheIssueHandler(IIssueHandler):
 	"""
-	This is used to cache BibTeX document models.
-	
-	This is only used in the context of code completion and validation for LaTeX documents
-	but not when editing a BibTeX file.
-	
-	Of course, this must be implemented as a singleton class.
+	This is used to catch the issues occuring while parsing a document
+	on cache fault.
 	"""
+	def __init__(self):
+		self.issues = []
+	
+	def clear(self):
+		self.issues = []
+	
+	def issue(self, issue):
+		self.issues.append(issue)
+
+
+class LaTeXDocumentCache(object):
+	"""
+	This caches LaTeX document models. It used to speed up 
+	the LaTeXReferenceExpander.
+	"""
+	
+	# FIXME: we need a global character set
 	
 	# TODO: serialize the cache on shutdown
 	
-	_log = getLogger("BibTeXDocumentCache")
+	_log = getLogger("LaTeXDocumentCache")
 	
 	class Entry(object):
 		"""
 		An entry in the cache
 		"""
-		_log = getLogger("bibtex.cache.BibTeXDocumentCache.Entry")
+		_log = getLogger("LaTeXDocumentCache.Entry")
 		
-		def __init__(self, file):
+		def __init__(self, file, charset):
 			self.__file = file
-			self.__parser = BibTeXParser()
-			self.__issue_handler = BaseIssueHandler()
+			self.__parser = LaTeXParser()
+			self.__issue_handler = CacheIssueHandler()
 			self.__mtime = 0
 			self.__document = None
+			self.__charset = charset
 			
 			self.synchronize()
 		
@@ -65,17 +79,25 @@ class BibTeXDocumentCache(object):
 		def document(self):
 			return self.__document
 		
+		@property
+		def issues(self):
+			return self.__issue_handler.issues
+		
 		def synchronize(self):
 			"""
 			Synchronize document model with file contents.
 			
-			This may throw OSError
+			@raise OSError: if the file is not found
 			"""
 			# update timestamp
 			self.__mtime = self.__file.mtime
 			
+			# read file
+			content = open(self.__file.path, "r").read().decode(self.__charset)
+			
 			# parse
-			self.__document = self.__parser.parse(open(self.__file.path, "r").read(), self.__file, self.__issue_handler)
+			self.__issue_handler.clear()
+			self.__document = self.__parser.parse(content, self.__file, self.__issue_handler)
 	
 	def __new__(type):
 		if not '_instance' in type.__dict__:
@@ -87,24 +109,31 @@ class BibTeXDocumentCache(object):
 			self._entries = {}
 			self._ready = True
 	
-	def get_document(self, file):
+	def get_document(self, file, charset, issue_handler):
 		"""
 		Return the (hopefully) cached document model for a given file
 		
 		@param file: a File object
+		@param charset: character set
+		@param issue_handler: an IIssueHandler to use
 		"""
 		try:
 			# update entry if necessary
 			entry = self._entries[file.uri]
+			self._log.debug("Reading '%s' from cache" % file)
 			if entry.modified:
 				self._log.debug("File '%s' modified, synchronizing..." % file)
 				entry.synchronize()
 		except KeyError:
 			self._log.debug("Cache fault for '%s'" % file)
 			# create new entry
-			entry = self.Entry(file)
+			entry = self.Entry(file, charset)
 			self._entries[file.uri] = entry
-			
+		
+		# pass cached issues to the issue handler
+		for issue in entry.issues:
+			issue_handler.issue(issue)
+		
 		return entry.document
 	
 	
