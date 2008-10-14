@@ -46,7 +46,11 @@ class LaTeXSymbolMapView(View):
 		self._log.debug("init")
 
 
+from os import system
+
+from ..base import File
 from ..outline import OutlineOffsetMap, BaseOutlineView
+from outline import OutlineNode
 
 
 class LaTeXOutlineView(BaseOutlineView):
@@ -100,12 +104,44 @@ class LaTeXOutlineView(BaseOutlineView):
 		self._restore_state()
 	
 	def _on_node_selected(self, node):
-		if not node.foreign:
+		"""
+		An outline node has been selected
+		"""
+		if node.file == self._context.active_editor.edited_file:
 			self._context.active_editor.select(node.start, node.end)
 	
 	def _on_node_activated(self, node):
-		pass
-		# TODO:
+		"""
+		An outline node has been double-clicked on
+		
+		@param node: an instance of latex.outline.OutlineNode
+		"""
+		if node.type == OutlineNode.GRAPHICS:
+			# use 'gnome-open' to open the graphics file
+			
+			target = node.value
+			
+			if not target:
+				return
+			
+			if target.startswith("/"):
+				filename = target
+			else:
+				filename = "%s/%s" % (node.file.dirname, target)
+			
+			f = File(filename)
+			
+			if not f.exists:
+				self._log.error("File not found: %s" % filename)
+				return
+			
+			system("gnome-open %s" % filename)
+			
+		else:
+			# open/activate the referenced file, if the node is 'foreign'
+			
+			if node.file != self._context.active_editor.edited_file:
+				self._context.activate_editor(node.file)
 	
 	def _on_tables_toggled(self, toggle_button):
 		value = toggle_button.get_active()

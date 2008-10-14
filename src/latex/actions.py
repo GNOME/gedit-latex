@@ -26,6 +26,25 @@ from logging import getLogger
 import gtk
 
 from ..base import IAction
+from ..util import IconAction
+
+
+class LaTeXTemplateAction(IconAction):
+	"""
+	Utility class for quickly defining Actions inserting a LaTeX template
+	"""
+	accelerator = None
+	
+	icon_name = None
+	template_source = None
+	packages = []
+	
+	@property
+	def icon(self):
+		return File(find_resource("icons/%s.png" % self.icon_name))
+	
+	def activate(self, context):
+		context.active_editor.insert(LaTeXSource(Template(self.template_source), self.packages))
 
 
 class LaTeXMenuAction(IAction):
@@ -48,7 +67,7 @@ class LaTeXNewAction(IAction):
 	
 	label = "New LaTeX Document..."
 	stock_id = gtk.STOCK_NEW
-	accelerator = None
+	accelerator = "<Ctrl><Alt>N"
 	tooltip = "Create a new LaTeX document"
 	
 	_dialog = None
@@ -106,10 +125,12 @@ class LaTeXSpellCheckAction(IAction):
 		context.active_editor.spell_check()
 
 
-from ..util import IconAction
 from ..base import Template, File
 from ..base.resources import find_resource
 from . import LaTeXSource
+
+
+# TODO: subclass LaTeXTemplateAction
 
 
 class LaTeXFontFamilyAction(IconAction):
@@ -151,24 +172,111 @@ class LaTeXItalicAction(IconAction):
 		pass
 
 
-class LaTeXItemizeAction(IconAction):
+class LaTeXItemizeAction(LaTeXTemplateAction):
 	label = "Itemize"
-	accelerator = None
 	tooltip = "Itemize"
-	icon = File(find_resource("icons/itemize.png"))
-	
-	def activate(self, context):
-		context.active_editor.insert(LaTeXSource(Template("\\begin{itemize}\n\t\\item $_\n\\end{itemize}"), []))
+	icon_name = "itemize"
+	template_source = "\\begin{itemize}\n\t\\item $_\n\\end{itemize}"
 
 
-class LaTeXEnumerateAction(IconAction):
+class LaTeXEnumerateAction(LaTeXTemplateAction):
 	label = "Enumerate"
-	accelerator = None
 	tooltip = "Enumerate"
-	icon = File(find_resource("icons/enumerate.png"))
+	icon_name = "enumerate"
+	template_source = "\\begin{enumerate}\n\t\\item $_\n\\end{enumerate}"
+
+
+class LaTeXDescriptionAction(LaTeXTemplateAction):
+	label = "Description"
+	tooltip = "Description"
+	icon_name = "description"
+	template_source = "\\begin{description}\n\t\\item[$_]\n\\end{description}"
+	
+
+class LaTeXStructureAction(IconAction):
+	label = "Structure"
+	accelerator = None
+	tooltip = "Structure"
+	icon = File(find_resource("icons/section.png"))
 	
 	def activate(self, context):
-		context.active_editor.insert(LaTeXSource(Template("\\begin{enumerate}\n\t\\item $_\n\\end{enumerate}"), []))
+		pass
+
+
+class LaTeXStructureMenuAction(IAction):
+	label = "Structure"
+	accelerator = None
+	tooltip = "Structure"
+	stock_id = None
+	
+	def activate(self, context):
+		pass
+
+
+class LaTeXPartAction(LaTeXTemplateAction):
+	label = "Part"
+	tooltip = "Part"
+	icon_name = "part"
+	template_source = "\\part{$_}"
+
+
+class LaTeXChapterAction(LaTeXTemplateAction):
+	label = "Chapter"
+	tooltip = "Chapter"
+	icon_name = "chapter"
+	template_source = "\\chapter{$_}"
+
+		
+class LaTeXSectionAction(LaTeXTemplateAction):
+	label = "Section"
+	tooltip = "Section"
+	icon_name = "section"
+	template_source = "\\section{$_}"
+		
+
+class LaTeXSubsectionAction(LaTeXTemplateAction):
+	label = "Subsection"
+	tooltip = "Subsection"
+	icon_name = "subsection"
+	template_source = "\\subsection{$_}"
+		
+
+class LaTeXParagraphAction(LaTeXTemplateAction):
+	label = "Paragraph"
+	tooltip = "Paragraph"
+	icon_name = "paragraph"
+	template_source = "\\paragraph{$_}"
 		
 		
+class LaTeXSubparagraphAction(LaTeXTemplateAction):
+	label = "Subparagraph"
+	tooltip = "Subparagraph"
+	icon_name = "paragraph"
+	template_source = "\\subparagraph{$_}"
+	
+	
+class LaTeXGraphicsAction(IconAction):
+	label = "Insert Graphics"
+	accelerator = None
+	tooltip = "Insert Graphics"
+	icon = File(find_resource("icons/graphics.png"))
+	
+	def activate(self, context):
+		pass
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 		

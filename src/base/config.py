@@ -48,12 +48,30 @@ UI = """
 			<separator />
 			<toolitem action="LaTeXItemizeAction" />
 			<toolitem action="LaTeXEnumerateAction" />
+			<toolitem action="LaTeXDescriptionAction" />
+			<separator />
+			<toolitem action="LaTeXStructureAction">
+				<menu action="LaTeXStructureMenuAction">
+					<menuitem action="LaTeXPartAction" />
+					<menuitem action="LaTeXChapterAction" />
+					<separator />
+					<menuitem action="LaTeXSectionAction" />
+					<menuitem action="LaTeXSubsectionAction" />
+					<menuitem action="LaTeXParagraphAction" />
+					<menuitem action="LaTeXSubparagraphAction" />
+				</menu>
+			</toolitem>
+			<separator />
+			<toolitem action="LaTeXGraphicsAction" />
 		</toolbar>
 	</ui>"""
 		
 
 from ..latex.actions import LaTeXMenuAction, LaTeXNewAction, LaTeXCommentAction, LaTeXSpellCheckAction, LaTeXChooseMasterAction, \
-		LaTeXItemizeAction, LaTeXEnumerateAction, LaTeXFontFamilyAction, LaTeXFontFamilyMenuAction, LaTeXBoldAction, LaTeXItalicAction
+		LaTeXItemizeAction, LaTeXEnumerateAction, LaTeXFontFamilyAction, LaTeXFontFamilyMenuAction, LaTeXBoldAction, \
+		LaTeXItalicAction, LaTeXDescriptionAction, LaTeXStructureMenuAction, LaTeXPartAction, LaTeXChapterAction, \
+		LaTeXSectionAction, LaTeXSubsectionAction, LaTeXParagraphAction,LaTeXSubparagraphAction, LaTeXStructureAction, \
+		LaTeXGraphicsAction
 
 
 # TODO: extensions and UI path should be asked from Action objects (build UI like for tool actions)
@@ -69,7 +87,17 @@ ACTION_OBJECTS = { "LaTeXMenuAction" : LaTeXMenuAction(),
 				   "LaTeXFontFamilyAction" : LaTeXFontFamilyAction(),
 				   "LaTeXFontFamilyMenuAction" : LaTeXFontFamilyMenuAction(),
 				   "LaTeXBoldAction" : LaTeXBoldAction(),
-				   "LaTeXItalicAction" : LaTeXItalicAction() }
+				   "LaTeXItalicAction" : LaTeXItalicAction(),
+				   "LaTeXDescriptionAction" : LaTeXDescriptionAction(),
+				   "LaTeXStructureAction" : LaTeXStructureAction(),
+				   "LaTeXStructureMenuAction" : LaTeXStructureMenuAction(),
+				   "LaTeXPartAction" : LaTeXPartAction(),
+				   "LaTeXChapterAction" : LaTeXChapterAction(),
+				   "LaTeXSectionAction" : LaTeXSectionAction(),
+				   "LaTeXSubsectionAction" : LaTeXSubsectionAction(),
+				   "LaTeXParagraphAction" : LaTeXParagraphAction(),
+				   "LaTeXSubparagraphAction" : LaTeXSubparagraphAction(),
+				   "LaTeXGraphicsAction" : LaTeXGraphicsAction() }
 
 ACTION_EXTENSIONS = { None : ["LaTeXNewAction"],
 					  ".tex" : ["LaTeXMenuAction", 
@@ -81,7 +109,17 @@ ACTION_EXTENSIONS = { None : ["LaTeXNewAction"],
 								"LaTeXFontFamilyAction",
 								"LaTeXFontFamilyMenuAction",
 								"LaTeXBoldAction",
-								"LaTeXItalicAction"] }
+								"LaTeXItalicAction",
+								"LaTeXDescriptionAction",
+								"LaTeXStructureAction",
+								"LaTeXStructureMenuAction",
+								"LaTeXPartAction",
+								"LaTeXChapterAction",
+								"LaTeXSectionAction",
+								"LaTeXSubsectionAction",
+								"LaTeXParagraphAction",
+								"LaTeXSubparagraphAction",
+								"LaTeXGraphicsAction"] }
 
 from ..tools import Tool, Job
 from ..tools.postprocess import GenericPostProcessor, RubberPostProcessor

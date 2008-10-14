@@ -265,6 +265,14 @@ class Editor(object):
 	
 	__PATTERN_INDENT = re.compile("[ \t]+")
 	
+	
+	# A list of file extensions
+	#
+	# If one or more files with one of these extensions is dragged and dropped on the editor,
+	# the Editor.drag_drop_received method is called. An empty list disables the dnd support.
+	dnd_extensions = []
+	
+	
 	def __init__(self, tab_decorator, file):
 		self._tab_decorator = tab_decorator
 		self._file = file
@@ -303,9 +311,47 @@ class Editor(object):
 		self._text_view.connect("key-release-event", self.__on_key_released)
 		self._text_view.connect("button-release-event", self.__on_button_released)
 		
+		# dnd support
+		if len(self.dnd_extensions) > 0:
+			self._text_view.connect("drag-data-received", self.__on_drag_data_received)
+		
 		# start life-cycle for subclass
 		self.init(file, self._window_context)
 	
+	def __on_drag_data_received(self, widget, context, x, y, data, info, timestamp):
+		"""
+		The drag destination received the data from the drag operation
+		
+		@param widget: the widget that received the signal
+		@param context: the gtk.gdk.DragContext
+		@param x: the X position of the drop
+		@param y: the Y position of the drop
+		@param data: a gtk.SelectionData object
+		@param info: an integer ID for the drag
+		@param timestamp: the time of the drag event
+		"""
+		self.__log.debug("drag-data-received")
+		
+		files = []
+		match = False
+		
+		for uri in data.get_uris():
+			file = File(uri)
+			files.append(file)
+			if file.extension.lower() in self.dnd_extensions:
+				match = True
+		
+		if match:
+			self.drag_drop_received(files)
+
+	def drag_drop_received(self, files):
+		"""
+		To be overridden
+		
+		@param files: a list of File objects dropped on the Editor
+		"""
+		pass
+
 	def __on_key_released(self, *args):
 		"""
 		This helps to call 'move_cursor'
@@ -817,10 +863,10 @@ class WindowContext(object):
 	
 	def activate_editor(self, file):
 		"""
-		Activate the Editor containing a given File
+		Activate the Editor containing a given File or open a new tab for it
 		
 		@param file: a File object
-		@raise KeyError: if no matching Editor could be found
+		
 		@raise AssertError: if the file is no File object
 		"""
 		assert type(file) is File

@@ -102,7 +102,7 @@ class BaseOutlineView(View):
 		self._view.append_column(column)
 		self._view.set_headers_visible(False)
 		self._cursor_changed_id = self._view.connect("cursor-changed", self._on_cursor_changed)
-		#self._view.connect("row-activated", self._on_row_activated)
+		self._view.connect("row-activated", self._on_row_activated)
 		
 		scrolled = gtk.ScrolledWindow()
 		scrolled.add(self._view)

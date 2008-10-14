@@ -28,6 +28,7 @@ import logging
 logging.basicConfig(level=logging.DEBUG)
 
 from base.decorators import GeditWindowDecorator
+from util import open_error
 
 
 class GeditLaTeXPlugin(gedit.Plugin):
@@ -45,9 +46,10 @@ class GeditLaTeXPlugin(gedit.Plugin):
 		# see http://ftp.acc.umu.se/pub/GNOME/sources/gedit/2.15/gedit-2.15.2.changes
 		#
 		# TODO: we should support earlier versions because e.g. Debian Etch still offers 2.14
+		#
+		# TODO: also check PyGTK version
 		
 		if gedit.version < (2, 15, 2):
-			from util import open_error
 			open_error("LaTeX Plugin requires gedit 2.15.2 or newer")
 		
 	def activate(self, window):

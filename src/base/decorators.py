@@ -129,7 +129,8 @@ class GeditWindowDecorator(object):
 		# add plugin actions
 		
 		for name, action in ACTION_OBJECTS.iteritems():
-			if name == "LaTeXFontFamilyAction":
+			# FIXME: this is quite hacky
+			if name == "LaTeXFontFamilyAction" or name == "LaTeXStructureAction":
 				gtk_action = MenuToolAction(name, action.label, action.tooltip, action.stock_id)
 				gtk_action.connect("activate", self._on_action_activated, action)
 				 
@@ -245,21 +246,29 @@ class GeditWindowDecorator(object):
 	
 	def activate_tab(self, file):
 		"""
-		Activate the GeditTab containing the given File (this is called through the WindowContext)
+		Activate the GeditTab containing the given File or open a new
+		tab for it (this is called by the WindowContext)
 		
 		@param file: a File object
-		@raise KeyError: if no matching tab could be found
 		"""
 		self._log.debug("activate_tab: %s" % file)
+		
+		encoding = None
 		
 		for tab, tab_decorator in self._tab_decorators.iteritems():
 			self._log.debug("activate_tab: found %s" % tab_decorator.file)
 			
+			encoding = tab_decorator._text_buffer.get_encoding()
+			
 			if tab_decorator.file == file:
 				self._window.set_active_tab(tab)
 				return
-			
-		raise KeyError("File could not be activated")
+		
+		# not found, open file in a new tab...
+		
+		# FIXME: we just grab the encoding from the last opened tab, because 'None' 
+		# doesn't work - maybe there's some get_default_encoding() method
+		self._window.create_tab_from_uri(file.uri, encoding, 1, False, True)
 	
 	def adjust(self, tab_decorator):
 		"""

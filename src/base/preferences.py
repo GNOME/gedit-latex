@@ -22,6 +22,7 @@
 base.preferences
 """
 
+
 def str_to_bool(x):
 	"""
 	Converts a string to a boolean value

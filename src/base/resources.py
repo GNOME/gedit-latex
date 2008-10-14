@@ -27,6 +27,9 @@ from os import makedirs
 from os.path import expanduser, exists
 from shutil import copyfile
 
+from ..util import open_error
+
+
 #
 # init plugin resource locating
 #

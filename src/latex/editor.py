@@ -49,6 +49,8 @@ class LaTeXEditor(Editor, IIssueHandler):
 	
 	_log = getLogger("LaTeXEditor")
 	
+	dnd_extensions = [".png", ".pdf", ".bib", ".tex"]
+	
 	@property
 	def completion_handlers(self):
 		self.__latex_completion_handler = LaTeXCompletionHandler()
@@ -84,8 +86,13 @@ class LaTeXEditor(Editor, IIssueHandler):
 		self.__parse()
 		self.__update_neighbors()
 	
+	def drag_drop_received(self, files):
+		# see base.Editor.drag_drop_received
+		
+		self._log.debug("drag_drop: %s" % files)
+	
 	def insert(self, source):
-		# see base.Editor.insert()
+		# see base.Editor.insert
 		
 		if type(source) is LaTeXSource:
 			self.ensure_packages(source.packages)
