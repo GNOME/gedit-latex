@@ -209,12 +209,13 @@ class OutlineConverter(object):
 			# no grouping, display entries and fields in a tree
 			
 			for entry in document.entries:
-				parent = tree_store.append(None, ["%s <span color='%s'><small>%s</small></span>" % (escape(entry.key), 
-												color, escape(entry.type)), self._ICON_ENTRY, entry])
-				for field in entry.fields:
-					tree_store.append(parent, ["<span color='%s'><small>%s</small></span> %s" % (color, escape(field.name), 
-											field.valueMarkup), self._ICON_FIELD, field])
+#				parent = tree_store.append(None, ["%s <span color='%s'><small>%s</small></span>" % (escape(entry.key), color, escape(entry.type)), self._ICON_ENTRY, entry])
+#				for field in entry.fields:
+#					tree_store.append(parent, ["<span color='%s'><small>%s</small></span> %s" % (color, escape(field.name), field.valueMarkup), self._ICON_FIELD, field])
 				
+				parent = tree_store.append(None, ["%s <span color='%s'>%s</span>" % (escape(entry.key), color, escape(entry.type)), self._ICON_ENTRY, entry])
+				for field in entry.fields:
+					tree_store.append(parent, ["<span color='%s'>%s</span> %s" % (color, escape(field.name), field.valueMarkup), self._ICON_FIELD, field])
 				
 				
 				

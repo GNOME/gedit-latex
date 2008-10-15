@@ -611,10 +611,30 @@ class Editor(object):
 		"""
 		Select a range of text and scroll the view to the right position
 		"""
+		# select
 		it_start = self._text_buffer.get_iter_at_offset(start_offset)
 		it_end = self._text_buffer.get_iter_at_offset(end_offset)
 		self._text_buffer.select_range(it_start, it_end)
-		self._text_view.scroll_to_iter(it_start, .25)
+		# scroll
+		self._text_view.scroll_to_iter(it_end, .25)
+	
+	def select_lines(self, start_line, end_line=None):
+		"""
+		Select a range of lines in the text
+		
+		@param start_line: the first line to select (counting from 0)
+		@param end_line: the last line to select (if None only the first line is selected)
+		"""
+		it_start = self._text_buffer.get_iter_at_line(start_line)
+		if end_line:
+			it_end = self._text_buffer.get_iter_at_line(end_line)
+		else:
+			it_end = it_start.copy()
+		it_end.forward_to_line_end()
+		# select
+		self._text_buffer.select_range(it_start, it_end)
+		# scroll
+		self._text_view.scroll_to_iter(it_end, .25)
 	
 	#
 	# markers are used for spell checking (identified) and highlighting (anonymous)

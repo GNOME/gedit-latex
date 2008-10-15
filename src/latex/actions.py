@@ -102,24 +102,20 @@ class LaTeXChooseMasterAction(IAction):
 	
 
 class LaTeXCommentAction(IAction):
-	_log = getLogger("LaTeXCommentAction")
-	
 	label = "Toggle Comment"
 	stock_id = None
 	accelerator = "<Ctrl><Alt>C"
-	tooltip = None
+	tooltip = "Toggle LaTeX comment on the selection"
 	
 	def activate(self, context):
 		context.active_editor.toggle_comment("%")
 		
 		
 class LaTeXSpellCheckAction(IAction):
-	_log = getLogger("LaTeXSpellCheckAction")
-	
 	label = "Spell Check"
-	stock_id = None
+	stock_id = gtk.STOCK_SPELL_CHECK
 	accelerator = "<Ctrl><Alt>S"
-	tooltip = None
+	tooltip = "Run LaTeX-aware spell check on the document"
 	
 	def activate(self, context):
 		context.active_editor.spell_check()
