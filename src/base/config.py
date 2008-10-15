@@ -125,10 +125,11 @@ from ..tools import Tool, Job
 from ..tools.postprocess import GenericPostProcessor, RubberPostProcessor
 
 
-# TODO: this should come from configuration
+TOOLS = { ".tex" : [ Tool("LaTeX → PDF", [Job("rubber --inplace --maxerr -1 --pdf --short --force --warn all \"$filename\"", True, RubberPostProcessor), Job("gnome-open $shortname.pdf", True, GenericPostProcessor)], "Create a PDF from LaTeX source"),
+					 Tool("Cleanup LaTeX Build", [Job("rm -f $directory/*.aux $directory/*.log $directory/*.toc $directory/*.bbl $directory/*.blg", True, GenericPostProcessor)], "Remove LaTeX build files")] }
 
-TOOLS = [ Tool("LaTeX → PDF", [".tex"], [Job("rubber --inplace --maxerr -1 --pdf --short --force --warn all \"$filename\"", True, RubberPostProcessor), Job("gnome-open $shortname.pdf", True, GenericPostProcessor)], "Create a PDF from LaTeX source"),
-		  Tool("Cleanup LaTeX Build", [".tex"], [Job("rm -f $directory/*.aux $directory/*.log $directory/*.toc $directory/*.bbl $directory/*.blg", True, GenericPostProcessor)], "Remove LaTeX build files") ]
+#TOOLS = [ Tool("LaTeX → PDF", [".tex"], [Job("rubber --inplace --maxerr -1 --pdf --short --force --warn all \"$filename\"", True, RubberPostProcessor), Job("gnome-open $shortname.pdf", True, GenericPostProcessor)], "Create a PDF from LaTeX source"),
+#		  Tool("Cleanup LaTeX Build", [".tex"], [Job("rm -f $directory/*.aux $directory/*.log $directory/*.toc $directory/*.bbl $directory/*.blg", True, GenericPostProcessor)], "Remove LaTeX build files") ]
 
 
 from ..views import IssueView

@@ -408,7 +408,201 @@ class NewDocumentDialog(GladeInterface):
 			template = None
 		dialog.hide()
 		return template
-		
-		
 
+
+
+# TODO: this should subclass latex.preview.PreviewRenderer
+
+		
+class UseBibliographyDialog(GladeInterface):
+	"""
+	Dialog for inserting a reference to a bibliography
+	"""
+	filename = find_resource("glade/use_bibliography_dialog.glade")
+	
+	_log = getLogger("UseBibliographyWizard")
+	
+	
+	# sample bibtex content used for rendering the preview
+	_BIBTEX = """@book{ dijkstra76,
+	title={{A Discipline of Programming}},
+	author={Edsger W. Dijkstra},
+	year=1976 }
+@article{ dijkstra68,
+	title={{Go to statement considered harmful}},
+	author={Edsger W. Dijkstra},
+	year=1968 }"""
+	
+	dialog = None
+	
+	def run(self, viewAdapter=None):
+		"""
+		Run this wizard and apply its result on the given ViewAdapter
+		"""
+		dialog = self._getDialog()
+		
+		if dialog.run() == 1:
+			
+			# get selected filenames
+			filenames = [r[1] for r in self._storeFiles if r[0]]
+			
+			# try to relativize them
+			try:
+				baseDir = viewAdapter.baseDir
+				filenames = [relativizePath(f, baseDir) for f in filenames]
+			except IOError:
+				pass
+			
+			# get filenames without extensions
+			names = [splitext(f)[0] for f in filenames]
+			
+			source = "\\bibliography{%s}\n\\bibliographystyle{%s}" % (",".join(names), 
+																	self._storeStyle[self._comboStyle.get_active()][0])
+			
+			viewAdapter.insertText(source)
+		
+		dialog.hide()
+	
+	def _getDialog(self):
+		if not self.dialog:
+			
+			self.dialog = self._getWidget("dialogUseBibliography")
+			
+			
+			
+			# bib files
+			
+			self._storeFiles = gtk.ListStore(bool, str)	 # checked, filename
+			
+			for b in Settings().bibliographies:
+				self._storeFiles.append([False, b.filename])
+				
+			self._viewFiles = self._getWidget("TreeViewFiles")
+			self._viewFiles.set_model(self._storeFiles)
+			rendererToggle = gtk.CellRendererToggle()
+			rendererToggle.connect("toggled", self._useToggled)
+			self._viewFiles.insert_column_with_attributes(-1, "Use", rendererToggle, active=0)
+			self._viewFiles.insert_column_with_attributes(-1, "Filename", gtk.CellRendererText(), text=1)
+			
+			# styles
+			
+			self._storeStyle = gtk.ListStore(str)
+			
+			styles = Environment().bibtexStyles
+			for style in styles:
+				self._storeStyle.append([style])
+			
+			self._comboStyle = self._getWidget("comboboxStyle")
+			self._comboStyle.set_model(self._storeStyle)
+			self._comboStyle.set_text_column(0)
+			
+			try:
+				recent = styles.index(Settings().get("RecentBibtexStyle", "plain"))
+			except ValueError:
+				recent = 0
+			self._comboStyle.set_active(recent)
+			
+			
+			self._imagePreview = gtk.Image()
+			self._imagePreview.show()
+			
+			scrollPreview = self._getWidget("scrollPreview")
+			scrollPreview.add_with_viewport(self._imagePreview)
+			
+			
+			self._connectSignals({ "on_buttonAddFile_clicked" : self._buttonAddFileClicked,
+									"on_buttonRemoveFile_clicked" : self._buttonRemoveFileClicked,
+									"on_buttonRefresh_clicked" : self._refreshClicked })
+			
+		return self.dialog
+	
+	def _useToggled(self, renderer, path):
+		"""
+		Toggle "Use" cell
+		"""
+		value = self._storeFiles.get(self._storeFiles.get_iter_from_string(path), 0)[0]
+		self._storeFiles.set(self._storeFiles.get_iter_from_string(path), 0, not value)
+	
+	def _refreshClicked(self, widget):
+		"""
+		The button for refreshing the preview has been clicked
+		"""
+		
+		builder = PreviewBuilder()
+		builder.addCallback("succeeded", self._previewBuilderSucceeded)
+		builder.addCallback("failed", self._previewBuilderFailed)
+		
+		self._imagePreview.set_from_stock(gtk.STOCK_EXECUTE, gtk.ICON_SIZE_BUTTON)
+		
+		# create temporary bibtex file
+		self._tempFile = NamedTemporaryFile(mode="w", suffix=".bib")
+		self._tempFile.write(self._BIBTEX)
+		self._tempFile.flush()
+		
+		filename = self._tempFile.name
+		self._filenameBase = splitext(basename(filename))[0]
+		
+		# build preview image
+		style = self._storeStyle[self._comboStyle.get_active()][0]
+		
+		builder.build("Book \\cite{dijkstra76} Article \\cite{dijkstra68} \\bibliography{%s}\\bibliographystyle{%s}" % (self._filenameBase, 
+																													style))
+		
+	def _previewBuilderSucceeded(self, previewBuilder, imageFilename):
+		# load preview image
+		self._imagePreview.set_from_file(imageFilename)
+		
+		# cleanup
+		previewBuilder.cleanup()
+		self._tempFile.close()
+	
+	def _previewBuilderFailed(self, previewBuilder):
+		self._imagePreview.set_from_stock(gtk.STOCK_STOP, gtk.ICON_SIZE_BUTTON)
+		
+		# cleanup
+		previewBuilder.cleanup()
+		self._tempFile.close()
+	
+	def _buttonAddFileClicked(self, button):
+		"""
+		Add BibTeX files
+		"""
+		filter = gtk.FileFilter()
+		filter.set_name("BibTeX Bibliography")
+		filter.add_pattern("*.bib")
+		
+		fileChooser = gtk.FileChooserDialog("Add Bibliography", buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT, 
+																		gtk.STOCK_OK, gtk.RESPONSE_ACCEPT))
+		fileChooser.set_filter(filter)
+		fileChooser.set_select_multiple(True)
+		
+		if fileChooser.run() == gtk.RESPONSE_ACCEPT:
+			filenames = [row[1] for row in self._storeFiles]
+			
+			for filename in fileChooser.get_filenames():
+				if not filename in filenames:
+					self._storeFiles.append([True, filename])
+					
+					# store in settings
+					Settings().addBibliography(filename)
+			
+		fileChooser.hide()
+
+	def _buttonRemoveFileClicked(self, button):
+		"""
+		Remove selected file
+		"""
+		
+		# TODO: remove from settings
+		
+		model, iter = self._viewFiles.get_selection().get_selected()
+		if iter:
+			# remove from settings
+			filename = model.get_value(iter, 1)
+			Settings().deleteBibliography(filename)
+			
+			model.remove(iter)
+	
+	
+	
 	

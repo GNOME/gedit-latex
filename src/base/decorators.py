@@ -51,7 +51,7 @@ class MenuToolAction(gtk.Action):
 gobject.type_register(MenuToolAction)
 # needs PyGTK 2.10
 MenuToolAction.set_tool_item_type(gtk.MenuToolButton)
-
+		
 
 class GeditWindowDecorator(object):
 	"""
@@ -73,7 +73,7 @@ class GeditWindowDecorator(object):
 		
 		
 		self._init_actions()
-		self._load_tool_actions()
+		self._init_tool_actions()
 		
 		self._init_tab_decorators()
 		
@@ -167,65 +167,6 @@ class GeditWindowDecorator(object):
 		
 		self._toolbar.show()
 	
-	def _load_tool_actions(self):
-		"""
-		 - Load defined Tools
-		 - create and init ToolActions from them
-		 - hook them in the window UI
-		 - create a map from extensions to lists of ToolActions
-		"""
-		
-		# TODO: unload first, for now this may just init
-		
-		# this is used for enable/disable actions by name
-		# None stands for every extension
-		self._tool_action_extensions = { None : [] }
-		
-		self._tool_action_group = gtk.ActionGroup("LaTeXPluginToolActions")
-		
-		tool_ui = """<ui>
-			<menubar name="MenuBar">
-				<menu name="ToolsMenu" action="Tools">
-					<placeholder name="ToolsOps_1">"""
-		
-		i = 1
-		for tool in TOOLS:
-			# hopefully unique action name
-			name = "Tool%sAction" % i
-			
-			# create mapping
-			if tool.extensions:
-				for extension in tool.extensions:
-					try:
-						self._tool_action_extensions[extension].append(name)
-					except KeyError:
-						# extension not yet mapped
-						self._tool_action_extensions[extension] = [name]
-			else:
-				self._tool_action_extensions[None].append(name)
-			
-			# create action
-			action = ToolAction()
-			action.init(tool)
-			gtk_action = gtk.Action(name, action.label, action.tooltip, action.stock_id)
-			gtk_action.connect("activate", self._on_action_activated, action)
-			
-			# TODO: allow custom accelerator
-			self._tool_action_group.add_action_with_accel(gtk_action, "<Ctrl><Alt>%s" % i)
-			
-			# add UI definition
-			tool_ui += """<menuitem action="%s" />""" % name
-			
-			i += 1
-		
-		tool_ui += """</placeholder>
-					</menu>
-				</menubar>
-			</ui>"""
-		
-		self._ui_manager.insert_action_group(self._tool_action_group, -1)
-		self._tool_ui_id = self._ui_manager.add_ui_from_string(tool_ui)
-	
 	def _init_tab_decorators(self):
 		"""
 		Look for already open tabs and create decorators for them
@@ -244,6 +185,67 @@ class GeditWindowDecorator(object):
 		
 		if len(views) > 0 and not self._active_tab_decorator:
 			self._log.warning("_init_tab_decorators: no active decorator found")
+	
+	def _init_tool_actions(self):
+		"""
+		 - Load defined Tools
+		 - create and init ToolActions from them
+		 - hook them in the window UI
+		 - create a map from extensions to lists of ToolActions
+		"""
+		
+		# TODO: unload first, for now this may just init
+		
+		# this is used for enable/disable actions by name
+		# None stands for every extension
+		self._tool_action_extensions = { None : [] }
+		
+		self._tool_action_group = gtk.ActionGroup("LaTeXPluginToolActions")
+		
+		
+		tool_ui = """<ui>
+			<menubar name="MenuBar">
+				<menu name="ToolsMenu" action="Tools">
+					<placeholder name="ToolsOps_1">"""
+		
+		
+		i = 1
+		
+		for extension, tools in TOOLS.iteritems():
+			for tool in tools:
+				# hopefully unique action name
+				name = "Tool%sAction" % i
+				
+				# update mapping
+				try:
+					self._tool_action_extensions[extension].append(name)
+				except KeyError:
+					# extension not yet mapped
+					self._tool_action_extensions[extension] = [name]
+				
+				 # create action
+				action = ToolAction()
+				action.init(tool)
+				gtk_action = gtk.Action(name, action.label, action.tooltip, action.stock_id)
+				gtk_action.connect("activate", self._on_action_activated, action)
+				
+				# TODO: allow custom accelerator
+				self._tool_action_group.add_action_with_accel(gtk_action, "<Ctrl><Alt>%s" % i)
+				
+				# add UI definition
+				tool_ui += """<menuitem action="%s" />""" % name
+				
+				i += 1
+		
+		
+		tool_ui += """</placeholder>
+					</menu>
+				</menubar>
+			</ui>"""
+		
+		self._ui_manager.insert_action_group(self._tool_action_group, -1)
+		self._tool_ui_id = self._ui_manager.add_ui_from_string(tool_ui)
+		
 	
 	def _on_action_activated(self, gtk_action, action):
 		"""

@@ -160,10 +160,11 @@ class RubberPostProcessor(object):
 	def __init__(self):
 		self._issues = None
 		self._summary = None
+		self._successful = False
 	
 	@property
 	def successful(self):
-		return True
+		return self._successful
 	
 	@property
 	def issues(self):
@@ -177,6 +178,8 @@ class RubberPostProcessor(object):
 		self._issues = []
 		
 		self._log.debug("process(): stdout=\"%s\", stderr=\"%s\"" % (stdout, stderr))
+		
+		self._successful = not bool(condition)
 		
 		pattern = re.compile(r"(?P<file>[a-zA-Z0-9./_-]+)(:(?P<line>[0-9\-]+))?:(?P<text>.*?)$", re.MULTILINE)
 		

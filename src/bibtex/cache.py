@@ -25,7 +25,7 @@ bibtex.cache
 from logging import getLogger
 
 from parser import BibTeXParser
-from ..issues import BaseIssueHandler
+from ..issues import MockIssueHandler
 
 
 class BibTeXDocumentCache(object):
@@ -51,7 +51,7 @@ class BibTeXDocumentCache(object):
 		def __init__(self, file):
 			self.__file = file
 			self.__parser = BibTeXParser()
-			self.__issue_handler = BaseIssueHandler()
+			self.__issue_handler = MockIssueHandler()
 			self.__mtime = 0
 			self.__document = None
 			

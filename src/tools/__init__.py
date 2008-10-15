@@ -28,48 +28,29 @@ It can be used for cleaning up, converting files, for building PDFs etc.
 from logging import getLogger
 
 
-class ToolParser(object):
-	"""
-	This parses the tools.xml file
-	"""
-	def parse(self, filename):
-		"""
-		@param filename: the filename of the tools.xml file
-		@return: a list of Tools
-		"""
-		
-
-
 class Tool(object):
 	"""
 	The model of a tool. This is to be stored in preferences.
 	"""
-	def __init__(self, label, extensions, jobs, description):
+	def __init__(self, label, jobs, description):
+		"""
+		Construct a Tool
+		
+		@param label: a label used when displaying the Tool in the UI
+		@param jobs: a list of Job objects
+		@param description: a descriptive string used as tooltip
+		"""
 		self._label = label
-		self._extensions = extensions
 		self._jobs = jobs
 		self._description = description
 	
 	@property
 	def label(self):
-		"""
-		A label used for this tool
-		"""
 		return self._label
 	
 	@property
 	def description(self):
-		"""
-		A label used for this tool
-		"""
 		return self._description
-	
-	@property
-	def extensions(self):
-		"""
-		The extensions this tool applies for (return None for every extension)
-		"""
-		return self._extensions
 	
 	@property
 	def jobs(self):
@@ -81,10 +62,18 @@ class Tool(object):
 	
 class Job(object):
 	"""
-	A Job forms one command to be executed in a Tool
+	A Job is one command to be executed in a Tool
+	
+	Command templates may contain the following placeholders:
+	
+	 * $filename : the full filename of the processed file
+	 * $directory : the parent directory of the processed file
+	 * $shortname : the filename of the processed file without extension ('/dir/doc' for '/dir/doc.tex')
 	"""
-	def __init__(self, command_template, must_succeed, post_processor, pre_processor=None):
+	def __init__(self, command_template, must_succeed, post_processor):
 		"""
+		Construct a Job
+		
 		@param command_template: a template string for the command to be executed
 		@param must_succeed: if True this Job may cause the whole Tool to fail
 		@param post_processor: a class implementing IPostProcessor
@@ -92,7 +81,6 @@ class Job(object):
 		self._command_template = command_template
 		self._must_succeed = must_succeed
 		self._post_processor = post_processor
-		self._pre_processor = pre_processor
 	
 	@property
 	def command_template(self):
@@ -105,10 +93,6 @@ class Job(object):
 	@property
 	def post_processor(self):
 		return self._post_processor
-	
-	@property
-	def pre_processor(self):
-		return self._pre_processor
 
 
 import gtk
@@ -159,23 +143,31 @@ from string import Template
 
 class ToolRunner(Process):
 	"""
-	This runs a Tool
+	This runs a Tool in a subprocess
 	"""
 	
 	_log = getLogger("ToolRunner")
 	
-	def run(self, file, tool, view):
-		# init issue handler
-		#self._issue_handler = structured_issue_handler
-		#self._issue_handler.reset()
-		#parent_id = self._issue_handler.add_section(tool.label)
-		
-		self._view = view
+	def run(self, file, tool, issue_handler):
+		"""
+		@param file: a File object
+		@param tool: a Tool object
+		@param issue_handler: an object implementing IStructuredIssueHandler
+		"""
 		self._file = file
 		self._stdout_text = ""
 		self._stderr_text = ""
 		self._job_iter = iter(tool.jobs)
 		
+		# init the IStructuredIssueHandler
+		self._issue_handler = issue_handler
+		self._issue_handler.clear()
+		self._root_issue_partition = self._issue_handler.add_partition("<b>%s</b>" % tool.label, None)
+		self._issue_partitions = {}
+		for job in tool.jobs:
+			self._issue_partitions[job] = self._issue_handler.add_partition(job.command_template, "running", self._root_issue_partition)
+		
+		# run
 		self._proceed()
 	
 	def _proceed(self):
@@ -187,10 +179,13 @@ class ToolRunner(Process):
 														"shortname" : self._file.shortname,
 														"directory" : self._file.dirname})
 			
+			self._issue_handler.set_partition_state(self._issue_partitions[self._job], "running")
+			
 			Process.run(self, command)
 		except StopIteration:
-			# finished
-			return
+			# Tool finished successfully
+			self._issue_handler.set_partition_state(self._root_issue_partition, "succeeded")
+			self._on_tool_succeeded()
 	
 	def _stdout(self, text):
 		"""
@@ -226,16 +221,33 @@ class ToolRunner(Process):
 		post_processor.process(self._file, self._stdout_text, self._stderr_text, condition)
 		
 		# show issues
-		self._view.append_issues(self._job, post_processor.issues)
+		self._issue_handler.append_issues(self._issue_partitions[self._job], post_processor.issues)
 		
 		if post_processor.successful:
+			self._issue_handler.set_partition_state(self._issue_partitions[self._job], "succeeded")
 			self._proceed()
 		else:
+			self._issue_handler.set_partition_state(self._issue_partitions[self._job], "failed")
 			if self._job.must_succeed:
 				# whole Tool failed
-				pass
+				self._issue_handler.set_partition_state(self._root_issue_partition, "failed")
+				self._on_tool_failed()
 			else:
 				self._proceed()
+	
+	def _on_tool_succeeded(self):
+		"""
+		The Tool has finished successfully
+		
+		To be overridden by subclass
+		"""
+	
+	def _on_tool_failed(self):
+		"""
+		The Tool has failed
+		
+		To be overridden by subclass
+		"""
 			
 
 
