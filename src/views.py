@@ -91,6 +91,8 @@ class IssueView(View):
 		issue = self._store.get(self._store.get_iter(path), 3)[0]
 		
 		self._context.activate_editor(issue.file)
+		
+		# TODO:
 	
 	def clear(self):
 		"""

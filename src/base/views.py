@@ -76,7 +76,7 @@ class ToolView(View, IStructuredIssueHandler):
 		self._view.append_column(gtk.TreeViewColumn("File", gtk.CellRendererText(), text=2))
 		self._view.append_column(gtk.TreeViewColumn("Line", gtk.CellRendererText(), text=3))
 		
-#		self._view.connect("row-activated", self._rowActivated)
+		self._view.connect("row-activated", self._on_row_activated)
 		
 		self._scroll.add(self._view)
 		
@@ -102,11 +102,11 @@ class ToolView(View, IStructuredIssueHandler):
 #		
 #		self.pack_start(self._toolbar, False)
 	
-#	def _on_row_activated(self, view, path, column):
-#		it = self._store.get_iter(path)
-#		issue = self._store.get(self._store.get_iter(path), 3)[0]
-#		
-#		self._context.activate_editor(issue.file)
+	def _on_row_activated(self, view, path, column):
+		it = self._store.get_iter(path)
+		issue = self._store.get(self._store.get_iter(path), 4)[0]
+		
+		self._context.activate_editor(issue.file)
 	
 	def clear(self):
 		self.assure_init()
@@ -158,6 +158,9 @@ class ToolView(View, IStructuredIssueHandler):
 			elif issue.severity == Issue.SEVERITY_ERROR:
 				icon = self._ICON_ERROR
 			self._store.append(partition_id, [icon, issue.message, issue.file.basename, issue.start, issue])
+			
+			self._log.debug(str(issue))
+			
 		self._view.expand_all()
 	
 	

@@ -137,6 +137,7 @@ class ToolAction(IAction):
 			self._log.debug("activate: " + str(context.active_editor.file))
 		
 
+from os import chdir
 from util import Process
 from string import Template
 
@@ -167,10 +168,13 @@ class ToolRunner(Process):
 		for job in tool.jobs:
 			self._issue_partitions[job] = self._issue_handler.add_partition(job.command_template, "running", self._root_issue_partition)
 		
+		# change working directory to prevent issues with relative paths
+		chdir(file.dirname)
+		
 		# run
-		self._proceed()
+		self.__proceed()
 	
-	def _proceed(self):
+	def __proceed(self):
 		try:
 			self._job = self._job_iter.next()
 			
@@ -187,24 +191,24 @@ class ToolRunner(Process):
 			self._issue_handler.set_partition_state(self._root_issue_partition, "succeeded")
 			self._on_tool_succeeded()
 	
-	def _stdout(self, text):
+	def _on_stdout(self, text):
 		"""
 		"""
 		self._log.error("_stdout: " + text)
 		self._stdout_text += text
 		
-	def _stderr(self, text):
+	def _on_stderr(self, text):
 		"""
 		"""
 		self._log.debug("_stderr: " + text)
 		self._stderr_text += text
 	
-	def _abort(self):
+	def _on_abort(self):
 		"""
 		"""
 		self._log.debug("_abort")
 	
-	def _exit(self, condition):
+	def _on_exit(self, condition):
 		"""
 		"""
 		self._log.debug("_exit")
@@ -225,7 +229,7 @@ class ToolRunner(Process):
 		
 		if post_processor.successful:
 			self._issue_handler.set_partition_state(self._issue_partitions[self._job], "succeeded")
-			self._proceed()
+			self.__proceed()
 		else:
 			self._issue_handler.set_partition_state(self._issue_partitions[self._job], "failed")
 			if self._job.must_succeed:
@@ -233,7 +237,7 @@ class ToolRunner(Process):
 				self._issue_handler.set_partition_state(self._root_issue_partition, "failed")
 				self._on_tool_failed()
 			else:
-				self._proceed()
+				self.__proceed()
 	
 	def _on_tool_succeeded(self):
 		"""
