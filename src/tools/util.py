@@ -40,7 +40,9 @@ class Process(object):
 	# intervall of polling stdout of the child process
 	__POLL_INTERVAL = 250
 	
-	def run(self, command):
+	def execute(self, command):
+		self.__log.debug("execute: %s" % command)
+		
 		# run child process
 		self.__process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, 
 										stderr=subprocess.PIPE)

@@ -910,6 +910,7 @@ class WindowContext(object):
 	
 
 from urlparse import urlparse
+from os import remove
 from os.path import splitext, basename, dirname, exists, getmtime
 from glob import glob
 
@@ -990,7 +991,7 @@ class File(object):
 		Find other files in the directory of this one having
 		a certain extension
 		
-		@param extension: a file extension like '.tex'
+		@param extension: a file extension pattern like '.tex' or '.*'
 		"""
 		
 		# TODO: glob is quite expensive, find a simpler way for this
@@ -1009,6 +1010,57 @@ class File(object):
 			self.__log.debug("find_neighbors: %s" % e)
 			
 			return []
+	
+	@property
+	def siblings(self):
+		"""
+		Find other files in the directory of this one having the same 
+		basename. This means for a file '/dir/a.doc' this method returns 
+		[ '/dir/a.tmp', '/dir/a.sh' ]
+		"""
+		siblings = []
+		try:
+			filenames = glob("%s.*" % self.shortname)
+			siblings = [File(filename) for filename in filenames]
+		except Exception, e:
+			# as seen in Bug #2002630 the glob() call compiles a regex and so we must be prepared
+			# for an exception from that because self.baseDir may contain regex characters
+			
+			# TODO: a more robust solution would be an escape() method for re
+			
+			self.__log.debug("find_siblings: %s" % e)
+		return siblings
+	
+	def relativize(self, base):
+		"""
+		Relativize the path of this File against a base directory. That means that e.g.
+		File("/home/user/doc.tex").relativize("/home") == "user/doc.tex"
+		"""
+		if len(base) >= len(path):
+			return path
+		if path[:len(base)] == base:
+			# bases match, return relative part
+			return path[len(base)+1:]
+		return path
+	
+	def relativize_shortname(self, base):
+		"""
+		Relativize the path of this File and return only the shortname of the resulting
+		relative path. That means that e.g.
+		File("/home/user/doc.tex").relativize_shortname("/home") == "user/doc"
+		
+		This is just a convenience method.
+		"""
+		relative_path = self.relativize(base)
+		return splitext(relative_path)[0]
+	
+	def delete(self):
+		"""
+		Delete the File from the file system
+		
+		@raise OSError: 
+		"""
+		remove(self.path)
 	
 	def __eq__(self, file):
 		"""

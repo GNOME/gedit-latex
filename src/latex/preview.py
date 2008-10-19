@@ -23,9 +23,10 @@ latex.preview
 """
 
 from ..base import File
-from ..tools import Tool, Job
-from ..tools.postprocess import RubberPostProcessor
+from ..tools import Tool, Job, ToolRunner
+from ..tools.postprocess import RubberPostProcessor, GenericPostProcessor
 from ..issues import MockStructuredIssueHandler
+from environment import Environment
 
 
 class ImageToolGenerator(object):
@@ -46,7 +47,7 @@ class ImageToolGenerator(object):
 		self.format = self.FORMAT_PNG
 		self.png_mode = self.PNG_MODE_RGBA
 		self.render_box = True
-		self.resolution = int(round(Environment().screenDpi))
+		self.resolution = int(round(Environment().screen_dpi))
 		self.antialias_factor = 4
 		self.view_command = ""
 		self.output_filename = ""
@@ -66,16 +67,16 @@ class ImageToolGenerator(object):
 			# -D num	resolution in DPI
 			# -q		quiet mode
 			# -E		generate an EPSF file with a tight bounding box
-			tool.jobs.append(Job("dvips -D %s -q -E -o $filebase.eps $filebase.dvi" % self.resolution, True, "Generic"))
+			tool.jobs.append(Job("dvips -D %s -q -E -o $shortname.eps $shortname.dvi" % self.resolution, True, GenericPostProcessor))
 			
 			# EPS -> PNG|JPG|GIF
 			if self.format == self.FORMAT_PNG:
-				command = "$plugin/util/eps2png.pl -png%s -resolution=%s -antialias=%s $filebase.eps" % (self._png_modes[self.png_mode], 
+				command = "$plugin_path/util/eps2png.pl -png%s -resolution=%s -antialias=%s $shortname.eps" % (self._png_modes[self.png_mode], 
 																				self.resolution, self.antialias_factor)
 			elif self.format == self.FORMAT_JPEG:
-				command = "$plugin/util/eps2png.pl -jpeg -resolution=%s -antialias=%s $filebase.eps" % (self.resolution, self.antialias_factor)
+				command = "$plugin_path/util/eps2png.pl -jpeg -resolution=%s -antialias=%s $shortname.eps" % (self.resolution, self.antialias_factor)
 			elif self.format == self.FORMAT_GIF:
-				command = "$plugin/util/eps2png.pl -gif -resolution=%s -antialias=%s $filebase.eps" % (self.resolution, self.antialias_factor)
+				command = "$plugin_path/util/eps2png.pl -gif -resolution=%s -antialias=%s $shortname.eps" % (self.resolution, self.antialias_factor)
 			
 			tool.jobs.append(Job(command, True, GenericPostProcessor))
 		else:
@@ -83,6 +84,11 @@ class ImageToolGenerator(object):
 			raise NotImplementedError
 		
 		return tool
+
+
+from gtk import gdk
+
+from tempfile import NamedTemporaryFile
 
 
 class PreviewRenderer(ToolRunner):
@@ -98,7 +104,7 @@ class PreviewRenderer(ToolRunner):
 		self._temp_file.flush()
 		
 		# generate Tool
-		tool = ImageToolGenerator.generate()
+		tool = ImageToolGenerator().generate()
 		self._file = File(self._temp_file.name)
 		issue_handler = MockStructuredIssueHandler()
 		
@@ -107,7 +113,7 @@ class PreviewRenderer(ToolRunner):
 	
 	def _on_tool_succeeded(self):
 		# see ToolRunner._on_tool_succeeded
-		pixbuf = gtk.gdk.pixbuf_new_from_file(self._file.filename)
+		pixbuf = gdk.pixbuf_new_from_file(self._file.shortname + ".png")
 		self.__cleanup()
 		self._on_render_succeeded(pixbuf)
 	
@@ -124,12 +130,12 @@ class PreviewRenderer(ToolRunner):
 		self._temp_file.close()
 		
 		# delete all files created during the build process
-		for filename in glob(self._file.basename + ".*"):
+		for file in self._file.siblings:
 			try:
-				unlink(filename)
-				self._log.debug("Removed %s" % filename)
+				file.delete()
+				self._log.debug("Removed %s" % file)
 			except OSError:
-				self._log.error("Failed to remove '%s'" % filename)
+				self._log.error("Failed to remove '%s'" % file)
 	
 	def _on_render_succeeded(self, pixbuf):
 		"""

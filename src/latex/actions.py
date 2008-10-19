@@ -99,6 +99,25 @@ class LaTeXChooseMasterAction(IAction):
 	def activate(self, context):
 		# TODO:
 		self._log.debug("activate")
+		
+		
+class LaTeXUseBibliographyAction(IAction):
+	_log = getLogger("LaTeXUseBibliographyAction")
+	
+	label = "Use Bibliography..."
+	stock_id = None
+	accelerator = None
+	tooltip = None
+	
+	_dialog = None
+	
+	def activate(self, context):
+		if not self._dialog:
+			from dialogs import UseBibliographyDialog
+			self._dialog = UseBibliographyDialog()
+		source = self._dialog.run_dialog(context.active_editor.edited_file)
+		if source:
+			context.active_editor.insert(source)
 	
 
 class LaTeXCommentAction(IAction):

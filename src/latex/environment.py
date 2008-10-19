@@ -115,7 +115,7 @@ class Environment(object):
 	
 	@property
 	def screen_dpi(self):
-		if not self._screenDpi:
+		if not self._screen_dpi:
 			dpi_x = screen_width() / (screen_width_mm() / 25.4)
 			dpi_y = screen_height() / (screen_height_mm() / 25.4)
 			

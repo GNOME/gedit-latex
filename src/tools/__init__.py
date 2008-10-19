@@ -141,6 +141,8 @@ from os import chdir
 from util import Process
 from string import Template
 
+from ..base.resources import PLUGIN_PATH
+
 
 class ToolRunner(Process):
 	"""
@@ -163,7 +165,7 @@ class ToolRunner(Process):
 		# init the IStructuredIssueHandler
 		self._issue_handler = issue_handler
 		self._issue_handler.clear()
-		self._root_issue_partition = self._issue_handler.add_partition("<b>%s</b>" % tool.label, None)
+		self._root_issue_partition = self._issue_handler.add_partition("<b>%s</b>" % tool.label, "running", None)
 		self._issue_partitions = {}
 		for job in tool.jobs:
 			self._issue_partitions[job] = self._issue_handler.add_partition(job.command_template, "running", self._root_issue_partition)
@@ -181,11 +183,12 @@ class ToolRunner(Process):
 			command_template = Template(self._job.command_template)
 			command = command_template.safe_substitute({"filename" : self._file.path, 
 														"shortname" : self._file.shortname,
-														"directory" : self._file.dirname})
+														"directory" : self._file.dirname,
+														"plugin_path" : PLUGIN_PATH})
 			
 			self._issue_handler.set_partition_state(self._issue_partitions[self._job], "running")
 			
-			Process.run(self, command)
+			self.execute(command)
 		except StopIteration:
 			# Tool finished successfully
 			self._issue_handler.set_partition_state(self._root_issue_partition, "succeeded")
@@ -217,6 +220,8 @@ class ToolRunner(Process):
 		
 		# create post-processor instance
 		post_processor_class = self._job.post_processor
+		
+		self._log.debug("post processor: " + str(post_processor_class))
 		
 		post_processor = post_processor_class.__new__(post_processor_class)
 		post_processor_class.__init__(post_processor)

@@ -35,6 +35,7 @@ UI = """
 					<menuitem action="LaTeXChooseMasterAction" />
 					<menuitem action="LaTeXCommentAction" />
 					<menuitem action="LaTeXSpellCheckAction" />
+					<menuitem action="LaTeXUseBibliographyAction" />
 				</menu>
 			</placeholder>
 		</menubar>
@@ -71,7 +72,7 @@ from ..latex.actions import LaTeXMenuAction, LaTeXNewAction, LaTeXCommentAction,
 		LaTeXItemizeAction, LaTeXEnumerateAction, LaTeXFontFamilyAction, LaTeXFontFamilyMenuAction, LaTeXBoldAction, \
 		LaTeXItalicAction, LaTeXDescriptionAction, LaTeXStructureMenuAction, LaTeXPartAction, LaTeXChapterAction, \
 		LaTeXSectionAction, LaTeXSubsectionAction, LaTeXParagraphAction,LaTeXSubparagraphAction, LaTeXStructureAction, \
-		LaTeXGraphicsAction
+		LaTeXGraphicsAction, LaTeXUseBibliographyAction
 
 
 # TODO: extensions and UI path should be asked from Action objects (build UI like for tool actions)
@@ -97,7 +98,8 @@ ACTION_OBJECTS = { "LaTeXMenuAction" : LaTeXMenuAction(),
 				   "LaTeXSubsectionAction" : LaTeXSubsectionAction(),
 				   "LaTeXParagraphAction" : LaTeXParagraphAction(),
 				   "LaTeXSubparagraphAction" : LaTeXSubparagraphAction(),
-				   "LaTeXGraphicsAction" : LaTeXGraphicsAction() }
+				   "LaTeXGraphicsAction" : LaTeXGraphicsAction(),
+				   "LaTeXUseBibliographyAction" : LaTeXUseBibliographyAction() }
 
 ACTION_EXTENSIONS = { None : ["LaTeXNewAction"],
 					  ".tex" : ["LaTeXMenuAction", 
@@ -119,7 +121,8 @@ ACTION_EXTENSIONS = { None : ["LaTeXNewAction"],
 								"LaTeXSubsectionAction",
 								"LaTeXParagraphAction",
 								"LaTeXSubparagraphAction",
-								"LaTeXGraphicsAction"] }
+								"LaTeXGraphicsAction",
+								"LaTeXUseBibliographyAction"] }
 
 from ..tools import Tool, Job
 from ..tools.postprocess import GenericPostProcessor, RubberPostProcessor
