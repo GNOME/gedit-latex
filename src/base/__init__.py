@@ -1003,7 +1003,7 @@ class File(object):
 		
 		except Exception, e:
 			# as seen in Bug #2002630 the glob() call compiles a regex and so we must be prepared
-			# for an exception from that because self.baseDir may contain regex characters
+			# for an exception from that because the shortname may contain regex characters
 			
 			# TODO: a more robust solution would be an escape() method for re
 			
@@ -1024,7 +1024,7 @@ class File(object):
 			siblings = [File(filename) for filename in filenames]
 		except Exception, e:
 			# as seen in Bug #2002630 the glob() call compiles a regex and so we must be prepared
-			# for an exception from that because self.baseDir may contain regex characters
+			# for an exception from that because the shortname may contain regex characters
 			
 			# TODO: a more robust solution would be an escape() method for re
 			

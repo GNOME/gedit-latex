@@ -110,9 +110,6 @@ class ToolView(View, IStructuredIssueHandler):
 	
 	def clear(self):
 		self.assure_init()
-		
-		self._log.debug("clear")
-		
 		self._store.clear()
 	
 	def add_partition(self, label, state, parent_partition_id=None):
@@ -123,8 +120,6 @@ class ToolView(View, IStructuredIssueHandler):
 		
 		@return: a unique id for the partition (here a gtk.TreeIter)
 		"""
-		self._log.debug("add_partition")
-		
 		icon = None
 		if state == "running":
 			icon = self._ICON_RUN
@@ -139,8 +134,6 @@ class ToolView(View, IStructuredIssueHandler):
 		@param partition: a partition id as returned by add_partition
 		@param state: any string
 		"""
-		self._log.debug("set_partition_state")
-		
 		icon = None
 		if state == "running":
 			icon = self._ICON_RUN

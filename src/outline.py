@@ -73,6 +73,7 @@ class BaseOutlineView(View):
 		
 		self._toolbar = gtk.Toolbar()
 		self._toolbar.set_style(gtk.TOOLBAR_ICONS)
+		# TODO: why is this deprecated?
 		self._toolbar.set_icon_size(gtk.ICON_SIZE_MENU)
 		self._toolbar.insert(btn_follow, -1)
 		self._toolbar.insert(gtk.SeparatorToolItem(), -1)

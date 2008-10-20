@@ -31,6 +31,7 @@ from logging import getLogger
 
 from ..outline import BaseOutlineView
 from ..base.resources import find_resource
+from ..base.preferences import Preferences
 from parser import Entry
 
 
@@ -42,20 +43,75 @@ class BibTeXOutlineView(BaseOutlineView):
 	Special outline view for BibTeX
 	"""
 
-	_log = getLogger("bibtex.outline.OutlineView")
+	_log = getLogger("BibTeXOutlineView")
 	
 	def init(self, context):
 		BaseOutlineView.init(self, context)
 		
-		# TODO: add grouping controls to toolbar
+		self._grouping = GROUP_NONE
 		
+		# add grouping controls to toolbar
+		
+		self._item_none = gtk.RadioMenuItem(None, "No Grouping")
+		self._item_type = gtk.RadioMenuItem(self._item_none, "Group by Type")
+		self._item_author = gtk.RadioMenuItem(self._item_none, "Group by Author")
+		self._item_year = gtk.RadioMenuItem(self._item_none, "Group by Year")
+		
+		self._preferences = Preferences()
+		
+		grouping = self._preferences.get("BibtexOutlineGrouping", GROUP_NONE)
+		if grouping == GROUP_NONE:
+			self._item_none.set_active(True)
+		elif grouping == GROUP_TYPE:
+			self._item_type.set_active(True)
+		elif grouping == GROUP_AUTHOR:
+			self._item_author.set_active(True)
+		elif grouping == GROUP_YEAR:
+			self._item_year.set_active(True)
+		
+		self._item_none.connect("toggled", self._on_grouping_toggled)
+		self._item_type.connect("toggled", self._on_grouping_toggled)
+		self._item_author.connect("toggled", self._on_grouping_toggled)
+		self._item_year.connect("toggled", self._on_grouping_toggled)
+
+		menu = gtk.Menu()
+		menu.add(self._item_none)
+		menu.add(self._item_type)
+		menu.add(self._item_author)
+		menu.add(self._item_year)
+		menu.show_all()
+
+		tool_button = gtk.MenuToolButton(gtk.STOCK_SORT_DESCENDING)
+		tool_button.set_menu(menu)
+		tool_button.show()
+		
+		self._toolbar.insert(tool_button, -1)
+	
+	def _on_grouping_toggled(self, toggle_button):
+		if self._item_none.get_active():
+			self._grouping = GROUP_NONE
+		elif self._item_type.get_active():
+			self._grouping = GROUP_TYPE
+		elif self._item_author.get_active():
+			self._grouping = GROUP_AUTHOR
+		elif self._item_year.get_active():
+			self._grouping = GROUP_YEAR
+		
+		if self._outline:
+			self._update()
+	
+	def _update(self):
+		OutlineConverter().convert(self._store, self._outline, self._grouping)
+	
 	def set_outline(self, outline):
+		"""
+		Display the given model
+		"""
+		self._outline = outline
+		
 		self.assure_init()
-		
 		self._save_state()
-		
-		OutlineConverter().convert(self._store, outline)
-		
+		self._update()
 		self._restore_state()
 		
 	def _on_node_selected(self, node):
@@ -64,9 +120,6 @@ class BibTeXOutlineView(BaseOutlineView):
 		"""
 		if isinstance(node, Entry):
 			self._context.active_editor.select(node.start, node.end)
-
-
-from ..base.preferences import Preferences
 
 
 class OutlineConverter(object):
@@ -115,13 +168,13 @@ class OutlineConverter(object):
 			for entryType in entryTypes:
 				entries = groups[entryType]
 				
-				parentType = tree_store.append(None, ["%s <small>(%s)</small>" % (escape(entryType), len(entries)), self._ICON_TYPE, None])
+				parentType = tree_store.append(None, ["%s <span color='%s'>%s</span>" % (escape(entryType), color, len(entries)), self._ICON_TYPE, None])
 				
 				for entry in entries:
 					parentEntry = tree_store.append(parentType, [escape(entry.key), self._ICON_ENTRY, entry])
 					
 					for field in entry.fields:
-						tree_store.append(parentEntry, ["<small>%s</small> %s" % (escape(field.name), field.valueMarkup),
+						tree_store.append(parentEntry, ["<span color='%s'>%s</span> %s" % (color, escape(field.name), field.valueMarkup),
 											self._ICON_FIELD, field])
 		
 		elif grouping == GROUP_YEAR:
@@ -153,14 +206,14 @@ class OutlineConverter(object):
 			for year in years:
 				entries = groups[year]
 				
-				parentYear = tree_store.append(None, ["%s <small>(%s)</small>" % (year, len(entries)), self._ICON_YEAR, None])
+				parentYear = tree_store.append(None, ["%s <span color='%s'>%s</span>" % (year, color, len(entries)), self._ICON_YEAR, None])
 				
 				for entry in entries:
-					parentEntry = tree_store.append(parentYear, ["%s <small>%s</small>" % (escape(entry.key), escape(entry.type)),
+					parentEntry = tree_store.append(parentYear, ["%s <span color='%s'>%s</span>" % (escape(entry.key), color, escape(entry.type)),
 															 self._ICON_ENTRY, entry])
 					
 					for field in entry.fields:
-						tree_store.append(parentEntry, ["<small>%s</small> %s" % (escape(field.name), field.valueMarkup),
+						tree_store.append(parentEntry, ["<span color='%s'>%s</span> %s" % (color, escape(field.name), field.valueMarkup),
 											self._ICON_FIELD, field])
 		
 		elif grouping == GROUP_AUTHOR:
@@ -195,24 +248,20 @@ class OutlineConverter(object):
 			for author in authors:
 				entries = groups[author]
 				
-				parent = tree_store.append(None, ["%s <small>(%s)</small>" % (escape(author), len(entries)), self._ICON_AUTHOR, None])
+				parent = tree_store.append(None, ["%s <span color='%s'>%s</span>" % (escape(author), color, len(entries)), self._ICON_AUTHOR, None])
 				
 				for entry in entries:
-					parentEntry = tree_store.append(parent, ["%s <small>%s</small>" % (escape(entry.key), escape(entry.type)),
+					parentEntry = tree_store.append(parent, ["%s <span color='%s'>%s</span>" % (escape(entry.key), color, escape(entry.type)),
 															 self._ICON_ENTRY, entry])
 					
 					for field in entry.fields:
-						tree_store.append(parentEntry, ["<small>%s</small> %s" % (escape(field.name), field.valueMarkup),
+						tree_store.append(parentEntry, ["<span color='%s'>%s</span> %s" % (color, escape(field.name), field.valueMarkup),
 											self._ICON_FIELD, field])
 		
 		else:
 			# no grouping, display entries and fields in a tree
 			
 			for entry in document.entries:
-#				parent = tree_store.append(None, ["%s <span color='%s'><small>%s</small></span>" % (escape(entry.key), color, escape(entry.type)), self._ICON_ENTRY, entry])
-#				for field in entry.fields:
-#					tree_store.append(parent, ["<span color='%s'><small>%s</small></span> %s" % (color, escape(field.name), field.valueMarkup), self._ICON_FIELD, field])
-				
 				parent = tree_store.append(None, ["%s <span color='%s'>%s</span>" % (escape(entry.key), color, escape(entry.type)), self._ICON_ENTRY, entry])
 				for field in entry.fields:
 					tree_store.append(parent, ["<span color='%s'>%s</span> %s" % (color, escape(field.name), field.valueMarkup), self._ICON_FIELD, field])

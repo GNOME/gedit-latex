@@ -19,13 +19,9 @@
 # Street, Fifth Floor, Boston, MA  02110-1301, USA
 
 """
+bibtex.parser
+
 BibTeX parser and object model
-
-Benchmark with listb.bib:
-
- * this		2.870 real
- * old		3.320 real
-
 """
 
 from logging import getLogger
@@ -354,16 +350,29 @@ class Value(object):
 	def __init__(self, text):
 		self.text = text 
 	
+	MAX_MARKUP_LENGTH = 50
+	
 	@property
 	def markup(self):
-		# improve display
+		text = self.text
 		
-		if self.text[0] == "{" and self.text[-1] == "}":
-			text = escape(self.text[1:-1])
-		elif self.text.startswith("\\url{") and self.text[-1] == "}":
-			text = "<u>%s</u>" % escape(self.text[5:-1])
-		else:
-			text = escape(self.text)
+		# remove braces
+		if text.startswith("{{") and text.endswith("}}"):
+			text = text[2:-2]
+		elif text.startswith("{") and text.endswith("}"):
+			text = text[1:-1]
+		elif text.startswith("\\url{") and text.endswith("}"):
+			text = text[5:-1]
+		
+		# truncate
+		if len(text) > self.MAX_MARKUP_LENGTH:
+			text = text[:self.MAX_MARKUP_LENGTH] + "..."
+		
+		# remove newlines
+		text = text.replace("\n", "")
+		
+		# escape problematic characters
+		text = escape(text)
 		
 		return text
 	

@@ -284,10 +284,8 @@ class LaTeXEditor(Editor, IIssueHandler):
 		# we may not call self._document.is_master because _document is always
 		# replaced by the master model
 		if self._document_is_master:
-			self._log.debug("file: returning file")
 			return self._file
 		else:
-			self._log.debug("file: returning master")
 			return self.__master_file
 	
 	@property

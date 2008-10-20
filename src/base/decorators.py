@@ -139,17 +139,16 @@ class GeditWindowDecorator(object):
 		# add plugin actions
 		
 		for name, action in ACTION_OBJECTS.iteritems():
+			
 			# FIXME: this is quite hacky
+			
 			if name == "LaTeXFontFamilyAction" or name == "LaTeXStructureAction":
 				gtk_action = MenuToolAction(name, action.label, action.tooltip, action.stock_id)
-				gtk_action.connect("activate", self._on_action_activated, action)
-				 
-				self._action_group.add_action_with_accel(gtk_action, action.accelerator)
 			else:
 				gtk_action = gtk.Action(name, action.label, action.tooltip, action.stock_id)
-				gtk_action.connect("activate", self._on_action_activated, action)
-				 
-				self._action_group.add_action_with_accel(gtk_action, action.accelerator)
+			
+			gtk_action.connect("activate", self._on_action_activated, action)
+			self._action_group.add_action_with_accel(gtk_action, action.accelerator)
 		
 		# merge
 		self._ui_manager.insert_action_group(self._action_group, -1)
@@ -297,6 +296,13 @@ class GeditWindowDecorator(object):
 		extension = tab_decorator.extension
 		
 		self._log.debug("adjust: %s" % (extension))
+		
+		# FIXME: a hack again...
+		# the toolbar should hide when it doesn't contain any visible items
+		if extension == ".tex":
+			self._toolbar.show()
+		else:
+			self._toolbar.hide()
 		
 		#
 		# adjust actions
