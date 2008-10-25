@@ -26,6 +26,8 @@ from logging import getLogger
 import gtk
 import gtk.gdk
 
+from preferences import Preferences
+
 
 class ProposalPopup(gtk.Window):
 	"""
@@ -67,7 +69,7 @@ class ProposalPopup(gtk.Window):
 			
 			self.add(frame)
 			
-#			self._detailsPopup = DetailsPopup()
+			self._details_popup = DetailsPopup()
 			 
 			self._ready = True
 	
@@ -84,20 +86,20 @@ class ProposalPopup(gtk.Window):
 		Load proposals, move to the cursor position and show
 		"""
 		
-		# TODO: simply this and don't call all the methods
+		# TODO: simplify this and don't call all the methods
 		
 		self._set_proposals(proposals)
 		self._move_to_cursor(text_view)
 		
 		self.show_all()
 		
-#		self._update_details_popup()
+		self._update_details_popup()
 	
 	def deactivate(self):
 		"""
 		Hide this popup and the DetailsPopup
 		"""
-#		self._detailsPopup.deactivate()
+		self._details_popup.deactivate()
 		self.hide()
 	
 	def _set_proposals(self, proposals):
@@ -143,7 +145,7 @@ class ProposalPopup(gtk.Window):
 			
 		self._view.set_cursor(index)
 		
-#		self._updateDetailsPopup()
+		self._update_details_popup()
 	
 	def _get_cursor_pos(self, text_view):
 		"""
@@ -162,33 +164,35 @@ class ProposalPopup(gtk.Window):
 		
 		return (x, y)
 	
-#	def _updateDetailsPopup(self):
-#		"""
-#		Move and show the DetailsPopup if the currently selected proposal
-#		contains details.
-#		"""
-#		try:
-#			index = self._view.get_cursor()[0][0]
-#			proposal = self._store[index][1]
-#			
-#			if not proposal.details:
-#				self._detailsPopup.hide()
-#				return
-#			
-#			# move
-#			x, y = self.get_position()
-#			width = self.get_size()[0]
-#			path, column = self._view.get_cursor()
-#			rect = self._view.get_cell_area(path, column)
-#			
-#			self._detailsPopup.move(x + width + 2, y + rect.y)
-#			
-#			# activate
-#			self._detailsPopup.activate(proposal.details)
-#			
-#		except Exception, e:
-#			self._log.error(e)
-	
+	def _update_details_popup(self):
+		"""
+		Move and show the DetailsPopup if the currently selected proposal
+		contains details.
+		"""
+		try:
+			index = self._view.get_cursor()[0][0]
+			proposal = self._store[index][1]
+			
+#			self._log.debug("proposal.details: " + str(proposal.details))
+			
+			if not proposal.details:
+				self._details_popup.hide()
+				return
+			
+			# move
+			x, y = self.get_position()
+			width = self.get_size()[0]
+			path, column = self._view.get_cursor()
+			rect = self._view.get_cell_area(path, column)
+			
+			self._details_popup.move(x + width + 2, y + rect.y)
+			
+			# activate
+			self._details_popup.activate(proposal.details)
+			
+		except Exception, e:
+			self._log.error(e)
+		
 	def _move_to_cursor(self, text_view):
 		"""
 		Move the popup to the current location of the cursor
@@ -215,77 +219,84 @@ class ProposalPopup(gtk.Window):
 		self.move(x, y)
 
 
-#class DetailsPopup(gtk.Window):
-#	"""
-#	A popup showing additional information at the right of the currently 
-#	selected proposal in the ProposalPopup.
-#	
-#	This is used to display details of a BibTeX entry or the result of
-#	a template. 
-#	"""
-#	
-#	_COLOR = Settings().get("LightForeground", "#7f7f7f")
-#	
-#	def __init__(self):
-#		gtk.Window.__init__(self, gtk.WINDOW_POPUP)
-#		
-#		self._label = gtk.Label()
-#		self._label.set_use_markup(True)
-#		self._label.set_alignment(0, .5)
-#		
-#		self._frame = gtk.Frame()
-#		self._frame.set_shadow_type(gtk.SHADOW_OUT)
-#		#self._frame.set_border_width(3)
-#		self._frame.add(self._label)
-#		
-#		self.add(self._frame)
-#		
-#	def activate(self, details):
-#		
-#		child = self._frame.get_child()
-#		if child:
-#			self._frame.remove(child)
-#			child.destroy()
-#		
-#		if type(details) is list:
-#			# table data
-#			table = gtk.Table()
-#			table.set_border_width(5)
-#			table.set_col_spacings(5)
-#			rc = 0
-#			for row in details:
-#				cc = 0
-#				for column in row:
-#					if cc == 0:
-#						# first column
-#						label = gtk.Label("<span color='%s'>%s</span>" % (self._COLOR, column))
-#					else:
-#						label = gtk.Label(column)
-#					label.set_use_markup(True)
-#					if cc == 0:
-#						# 1st column is right aligned
-#						label.set_alignment(1.0, 0.5)
-#					else:
-#						# others are left aligned
-#						label.set_alignment(0.0, 0.5)
-#					table.attach(label, cc, cc + 1, rc, rc + 1)
-#					cc += 1
-#				rc += 1
-#			self._frame.add(table)
-#		
-#		else:
-#			# markup text
-#			label = gtk.Label(details)
-#			label.set_use_markup(True)
-#			self._frame.add(label)
-#		
-#		self.show_all()
-#		
-#		# force a recompute of the window size
-#		self.resize(1, 1)
-#		
-#	def deactivate(self):
-#		self.hide()
+class DetailsPopup(gtk.Window):
+	"""
+	A popup showing additional information at the right of the currently 
+	selected proposal in the ProposalPopup.
+	
+	This is used to display details of a BibTeX entry or the result of
+	a template. 
+	"""
+	
+	def __init__(self):
+		gtk.Window.__init__(self, gtk.WINDOW_POPUP)
+		
+		self._color = Preferences().get("LightForeground", "#7f7f7f")
+		
+		self._label = gtk.Label()
+		self._label.set_use_markup(True)
+		self._label.set_alignment(0, .5)
+		
+		self._frame = gtk.Frame()
+		self._frame.set_shadow_type(gtk.SHADOW_OUT)
+		#self._frame.set_border_width(3)
+		self._frame.add(self._label)
+		
+		self.add(self._frame)
+		
+	def activate(self, details):
+		"""
+		Create widget(s) for the given details and show the popup
+		"""
+		# remove the old child widget if present
+		child = self._frame.get_child()
+		if child:
+			self._frame.remove(child)
+			child.destroy()
+		
+		# create a child widget depending on the type of details
+		if type(details) is list:
+			# table data
+			table = gtk.Table()
+			table.set_border_width(5)
+			table.set_col_spacings(5)
+			rc = 0
+			for row in details:
+				cc = 0
+				for column in row:
+					if cc == 0:
+						# first column
+						label = gtk.Label("<span color='%s'>%s</span>" % (self._color, column))
+					else:
+						label = gtk.Label(column)
+					label.set_use_markup(True)
+					if cc == 0:
+						# 1st column is right aligned
+						label.set_alignment(1.0, 0.5)
+					else:
+						# others are left aligned
+						label.set_alignment(0.0, 0.5)
+					table.attach(label, cc, cc + 1, rc, rc + 1)
+					cc += 1
+				rc += 1
+			self._frame.add(table)
+		
+		else:
+			# markup text
+			label = gtk.Label(details)
+			label.set_use_markup(True)
+			self._frame.add(label)
+		
+		self.show_all()
+		
+		# force a recompute of the window size
+		self.resize(1, 1)
+		
+	def deactivate(self):
+		"""
+		Hide the popup
+		"""
+		self.hide()
 
 
 class CompletionDistributor(object):

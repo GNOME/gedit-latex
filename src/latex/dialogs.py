@@ -26,7 +26,7 @@ from logging import getLogger
 
 from ..util import GladeInterface
 from ..base.resources import find_resource
-from ..base import Template
+from ..base import Template, File
 
 
 class ChooseMasterDialog(GladeInterface):
@@ -55,6 +55,7 @@ class ChooseMasterDialog(GladeInterface):
 
 
 import gtk
+from time import strftime
 
 from ..base.preferences import Preferences
 from environment import Environment
@@ -68,19 +69,6 @@ class NewDocumentDialog(GladeInterface):
 	
 	_log = getLogger("NewDocumentWizard")
 	
-	_DOCUMENT_CLASSES = {
-		"article" 	: _("Article"),
-		"report" 	: _("Report"),
-		"book" 		: _("Book"),
-		"beamer" 	: _("Beamer slides"),
-		"letter" 	: _("Letter"),
-		"scrartcl" 	: _("Article (KOMA-Script)"),
-		"scrreport" : _("Report (KOMA-Script)"),
-		"scrbook" 	: _("Book (KOMA-Script)"),
-		"scrlettr" 	: _("Letter (KOMA-Script)"),
-		"scrlttr2" 	: _("Letter 2 (KOMA-Script)")
-	}
-	
 	_PAPER_SIZES = (
 		("a4paper", "A4"),
 		("a5paper", "A5"),
@@ -88,86 +76,6 @@ class NewDocumentDialog(GladeInterface):
 		("executivepaper", "US-Executive"),
 		("legalbl_paper", "US-Legal"),
 		("letterpaper", "US-Letter") )
-	
-	_INPUT_ENCODINGS = {
-		"utf8" : "UTF-8 (Unicode)",
-		"ascii" : "US-ASCII",
-		"next" : "ASCII (NeXT)",
-		"ansinew" : "ASCII (Windows)",
-		"applemac" : "ASCII (Apple)",
-		"macce" : "MacCE (Apple Central European)",
-		"latin1" : "Latin-1",
-		"latin2" : "Latin-2",
-		"latin3" : "Latin-3 (South European)",
-		"latin4" : "Latin-4 (North European)",
-		"latin5" : "Latin-5 (Turkish)",
-		"latin6" : "Latin-6 (Nordic)",
-		"latin7" : "Latin-7 (Baltic)",
-		"latin8" : "Latin-8 (Celtic)",
-		"latin9" : "Latin-9 (extended Latin-1)",
-		"latin10" : "Latin-10 (South-Eastern European)",
-		"cp1250" : "CP1250 (Windows Central European)",
-		"cp1252" : "CP1252 (Windows Western European)",
-		"cp1257" : "CP1257 (Windows Baltic)",
-		"cp437" : "CP437 (DOS US)",
-		"cp850" : "CP850 (DOS Latin-1)",
-		"cp852" : "CP852 (DOS Central European)",
-		"cp858" : "CP858 (DOS Western European)",
-		"cp865" : "CP865 (DOS Nordic)"
-	}
-	
-	_BABEL_PACKAGES = {
-		"afrikaans" : "Afrikaans",
-		"american" : "American",
-		"athnum" : "Athnum",
-		"austrian" : "Austrian",
-		"naustrian" : "Austrian (new spelling)",
-		"bahasa" : "Bahasa",
-		"basque" : "Basque",
-		"breton" : "Breton",
-		"british" : "British",
-		"bulgarian" : "Bulgarian",
-		"catalan" : "Catalan",
-		"croatian" : "Croatian",
-		"czech" : "Czech",
-		"danish" : "Danish",
-		"dutch" : "Dutch",
-		"english" : "English",
-		"UKenglish" : "English (UK)",
-		"USenglish" : "English (US)",
-		"esperanto" : "Esperanto",
-		"estonian" : "Estonian",
-		"finnish" : "Finnish",
-		"francais" : "Francais",
-		"galician" : "Galician",
-		"german" : "German",
-		"ngerman" : "German (new spelling)",
-		"greek" : "Greek",
-		"hebrew" : "Hebrew",
-		"icelandic" : "Icelandic",
-		"interlingua" : "Interlingua",
-		"irish" : "Irish",
-		"italian" : "Italian",
-		"latin" : "Latin",
-		"lsorbian" : "Lsorbian",
-		"magyar" : "Magyar",
-		"norsk" : "Norsk",
-		"polish" : "Polish",
-		"portuges" : "Portuges",
-		"romanian" : "Romanian",
-		"russianb" : "Russian",
-		"samin" : "Samin",
-		"scottish" : "Scottish",
-		"serbian" : "Serbian",
-		"slovak" : "Slovak",
-		"slovene" : "Slovene",
-		"spanish" : "Spanish",
-		"swedish" : "Swedish",
-		"turkish" : "Turkish",
-		"ukraineb" : "Ukraine",
-		"usorbian" : "Usorbian",
-		"welsh" : "Welsh"
-	}
 	
 	_LOCALE_MAPPINGS = {
 		"en_US" : "american",
@@ -192,7 +100,12 @@ class NewDocumentDialog(GladeInterface):
 			self.dialog = self.find_widget("dialogNewDocument")
 		
 			lightForeground = preferences.get("LightForeground")
-				
+			
+			# file
+			self._entryName = self.find_widget("entryName")
+			self._buttonDirectory = self.find_widget("buttonDirectory")
+			self._buttonDirectory.set_action(gtk.FILE_CHOOSER_ACTION_SELECT_FOLDER)
+			
 			# meta
 			self._entry_title = self.find_widget("entryTitle")
 			self._entry_author = self.find_widget("entryAuthor")
@@ -200,37 +113,28 @@ class NewDocumentDialog(GladeInterface):
 			self._radio_date_custom = self.find_widget("radioCustom")
 			self._entry_date = self.find_widget("entryDate")
 			
+			#
 			# document classes
+			#
 			self._store_classes = gtk.ListStore(str, str)	# class, label
 			
-			classes = environment.document_classes
-			if len(classes) == 0:
-				# no classes found, show known classes
-				classes = self._DOCUMENT_CLASSES.keys()
-				classes.sort()
-			
-			for cls in classes:
-				try:
-					label = "%s <span color='%s'><small>%s</small></span>" % (cls, 
-										lightForeground, self._DOCUMENT_CLASSES[cls])
-				except KeyError:
-					label = cls
-				self._store_classes.append([cls, label])
+			for cls in environment.document_classes:
+				self._store_classes.append([cls.name, "%s <span color='%s'>%s</span>" % (cls.name, lightForeground, cls.label)])
 			
 			# get index of recent class
-			recentClass = preferences.get("RecentDocumentClass", "article")
-			try:
-				recentClassIndex = classes.index(recentClass)
-			except ValueError:
-				self._log.error("Unknown recent document class: %s" % recentClass)
-				recentClassIndex = 0
+#			recentClass = preferences.get("RecentDocumentClass", "article")
+#			try:
+#				recentClassIndex = classes.index(recentClass)
+#			except ValueError:
+#				self._log.error("Unknown recent document class: %s" % recentClass)
+#				recentClassIndex = 0
 			
 			self._comboClasses = self.find_widget("comboClass")
 			self._comboClasses.set_model(self._store_classes)
 			cell = gtk.CellRendererText()
 			self._comboClasses.pack_start(cell, True)
 			self._comboClasses.add_attribute(cell, "markup", 1)
-			self._comboClasses.set_active(recentClassIndex)
+#			self._comboClasses.set_active(recentClassIndex)
 			
 			
 			# paper
@@ -243,7 +147,7 @@ class NewDocumentDialog(GladeInterface):
 			self._storePaperSize.append(["", "<span color='%s'>Default</span>" % lightForeground])
 			i = 1
 			for size, label in self._PAPER_SIZES:
-				l = "%s <span color='%s'><small>%s</small></span>" % (size, lightForeground, label)
+				l = "%s <span color='%s'>%s</span>" % (size, lightForeground, label)
 				self._storePaperSize.append([size, l])
 				
 				if recentPaperSize == size:
@@ -268,15 +172,14 @@ class NewDocumentDialog(GladeInterface):
 			self._spinFontSize = self.find_widget("spinFontSize")
 			self._labelFontSize = self.find_widget("labelFontSize")
 			
-			
+			#
 			# input encodings
+			#
 			self._storeEncoding = gtk.ListStore(str, str)	# encoding, label
 			
-			encodings = self._INPUT_ENCODINGS.keys()
-			encodings.sort()
-			for enc in encodings:
-				self._storeEncoding.append([enc, "%s <span color='%s'><small>%s</small></span>" % (enc, 
-																		lightForeground, self._INPUT_ENCODINGS[enc])])
+			for encoding in environment.input_encodings:
+				self._storeEncoding.append([encoding.name, "%s <span color='%s'>%s</span>" % (encoding.name, 
+																		lightForeground, encoding.label)])
 			
 			self._comboEncoding = self.find_widget("comboEncoding")
 			self._comboEncoding.set_model(self._storeEncoding)
@@ -287,24 +190,23 @@ class NewDocumentDialog(GladeInterface):
 			# get index of recent encoding
 			# TODO: try to guess default from editor
 			
-			recentEncoding = preferences.get("RecentInputEncoding", "utf8")
-			try:
-				recentEncodingIndex = encodings.index(recentEncoding)
-			except ValueError:
-				self._log.error("Unknown recent input encoding: %s" % recentEncoding)
-				recentEncodingIndex = 0
+#			recentEncoding = preferences.get("RecentInputEncoding", "utf8")
+#			try:
+#				recentEncodingIndex = encodings.index(recentEncoding)
+#			except ValueError:
+#				self._log.error("Unknown recent input encoding: %s" % recentEncoding)
+#				recentEncodingIndex = 0
+#			
+#			self._comboEncoding.set_active(recentEncodingIndex)
 			
-			self._comboEncoding.set_active(recentEncodingIndex)
-			
+			#
 			# babel packages
-			
+			#
 			self._storeBabel = gtk.ListStore(str, str) # package, label
 			
-			babelPackages = self._BABEL_PACKAGES.keys()
-			babelPackages.sort()
-			for package in babelPackages:
-				self._storeBabel.append([package, "%s <span color='%s'><small>%s</small></span>" % (package, 
-																		lightForeground, self._BABEL_PACKAGES[package])])
+			for ldf in environment.language_definitions:
+				self._storeBabel.append([ldf.name, "%s <span color='%s'>%s</span>" % (ldf.name, 
+																		lightForeground, ldf.label)])
 			
 			self._comboBabel = self.find_widget("comboBabel")
 			self._comboBabel.set_model(self._storeBabel)
@@ -315,29 +217,31 @@ class NewDocumentDialog(GladeInterface):
 			# get index of recent babel package
 			# TODO: try to map locale to babel package as default value
 			
-			try:
-				defaultBabel = self._LOCALE_MAPPINGS[environment.language_code]
-			except Exception, e:
-				self._log.error("Failed to guess babel package: %s" % e)
-				defaultBabel = "english"
-			
-			recentBabel = preferences.get("RecentBabelPackage", defaultBabel)
-			try:
-				recentBabelIndex = babelPackages.index(recentBabel)
-			except ValueError:
-				self._log.error("Unknown recent babel package: %s" % recentBabel)
-				recentBabelIndex = 0
-			self._comboBabel.set_active(recentBabelIndex)
+#			try:
+#				defaultBabel = self._LOCALE_MAPPINGS[environment.language_code]
+#			except Exception, e:
+#				self._log.error("Failed to guess babel package: %s" % e)
+#				defaultBabel = "english"
+#			
+#			recentBabel = preferences.get("RecentBabelPackage", defaultBabel)
+#			try:
+#				recentBabelIndex = babelPackages.index(recentBabel)
+#			except ValueError:
+#				self._log.error("Unknown recent babel package: %s" % recentBabel)
+#				recentBabelIndex = 0
+#			self._comboBabel.set_active(recentBabelIndex)
 			
 			
 			# connect signals
 #			self.connect_signals({ "on_radioCustom_toggled" : self._on_custom_date_toggled,
 #								   "on_radioFontUser_toggled" : self._on_user_font_toggled })
+
 		return self.dialog
 	
-	def get_template(self):
+	@property
+	def source(self):
 		"""
-		Compose a Template object from the dialog
+		Compose the source
 		"""
 		# document class options
 		documentOptions = []
@@ -392,22 +296,23 @@ class NewDocumentDialog(GladeInterface):
 \\author{%s}
 \\date{%s}%s
 \\begin{document}
-	$_
+	
 \\end{document}""" % (documentOptions, documentClass, inputEncoding, babelPackage, ifpdf, title, author, date, pdfinfo)
 		
-		return Template(s)
+		return s
+	
+	@property
+	def file(self):
+		return File("%s/%s.tex" % (self._buttonDirectory.get_filename(), self._entryName.get_text()))
 	
 	def run(self):
 		"""
 		Runs the dialog and returns a Template object
 		"""
 		dialog = self.get_dialog()
-		if dialog.run() == 1:
-			template = self.get_template()
-		else:
-			template = None
+		r = dialog.run()
 		dialog.hide()
-		return template
+		return r
 
 
 from tempfile import NamedTemporaryFile

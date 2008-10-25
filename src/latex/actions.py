@@ -63,8 +63,6 @@ from editor import LaTeXEditor
 
 
 class LaTeXNewAction(IAction):
-	_log = getLogger("LaTeXNewAction")
-	
 	label = "New LaTeX Document..."
 	stock_id = gtk.STOCK_NEW
 	accelerator = "<Ctrl><Alt>N"
@@ -73,19 +71,17 @@ class LaTeXNewAction(IAction):
 	_dialog = None
 	
 	def activate(self, context):
-		self._log.debug("activate")
-		
-		if not type(context.active_editor) is LaTeXEditor:
-			# the active tab doesn't contain a LaTeX file
-			# TODO: choose location and create new file and before continuing
-			raise NotImplementedError
-		
 		if not self._dialog:
 			self._dialog = NewDocumentDialog()
 		
-		template = self._dialog.run()
-		if template:
-			context.active_editor.insert(template)
+		# we may not open the empty file and insert a Temlate here
+		# because WindowContext.activate_editor calls gedit.Window.create_tab_from_uri 
+		# which is async
+		
+		if self._dialog.run() == 1:
+			file = self._dialog.file
+			file.create(self._dialog.source)
+			context.activate_editor(file)
 		
 
 class LaTeXChooseMasterAction(IAction):
@@ -128,8 +124,8 @@ class LaTeXCommentAction(IAction):
 	
 	def activate(self, context):
 		context.active_editor.toggle_comment("%")
-		
-		
+
+
 class LaTeXSpellCheckAction(IAction):
 	label = "Spell Check"
 	stock_id = gtk.STOCK_SPELL_CHECK

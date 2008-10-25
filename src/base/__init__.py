@@ -111,6 +111,9 @@ class Template(object):
 	@property
 	def expression(self):
 		return self._expression
+	
+	def __str__(self):
+		return self._expression
 
 
 class IAction(object):
@@ -294,6 +297,7 @@ class Editor(object):
 		#
 		
 		# needed for cleanup
+		self._tags = []
 		self._marker_types = {}    # {marker type -> MarkerTypeRecord object}
 		self._markers = {}		# { marker id -> marker object }
 		
@@ -651,6 +655,8 @@ class Editor(object):
 		# create gtk.TextTag
 		tag = self._text_buffer.create_tag(marker_type, background=background_color)
 		
+		self._tags.append(tag)
+		
 		# create a MarkerTypeRecord for this type
 		self._marker_types[marker_type] = self.MarkerTypeRecord(tag, anonymous)
 	
@@ -812,6 +818,11 @@ class Editor(object):
 		"""
 		self.__log.debug("destroy")
 		
+		# delete the tags that were created for markers
+		table = self._text_buffer.get_tag_table()
+		for tag in self._tags:
+			table.remove(tag)
+		
 		self._template_delegate.destroy()
 
 
@@ -931,6 +942,15 @@ class File(object):
 		self._uri = urlparse(uri)
 		if len(self._uri.scheme) == 0:
 			self._uri = urlparse("%s%s" % (self._DEFAULT_SCHEME, uri))
+	
+	def create(self, content=None):
+		"""
+		Create a the File in the file system
+		"""
+		f = open(self.path, "w")
+		if content:
+			f.write(content)
+		f.close()
 	
 	@property
 	def path(self):

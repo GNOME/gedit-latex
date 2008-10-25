@@ -105,8 +105,12 @@ class ToolView(View, IStructuredIssueHandler):
 	def _on_row_activated(self, view, path, column):
 		it = self._store.get_iter(path)
 		issue = self._store.get(self._store.get_iter(path), 4)[0]
-		
-		self._context.activate_editor(issue.file)
+		if issue:
+			self._context.activate_editor(issue.file)
+			if self._context.active_editor:
+				self._context.active_editor.select_lines(issue.start)
+			else:
+				self._log.error("No Editor object for calling select_lines")
 	
 	def clear(self):
 		self.assure_init()

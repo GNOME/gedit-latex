@@ -262,24 +262,14 @@ class GeditWindowDecorator(object):
 		
 		@param file: a File object
 		"""
-		self._log.debug("activate_tab: %s" % file)
-		
-		encoding = None
-		
 		for tab, tab_decorator in self._tab_decorators.iteritems():
-			self._log.debug("activate_tab: found %s" % tab_decorator.file)
-			
-			encoding = tab_decorator._text_buffer.get_encoding()
-			
-			if tab_decorator.file == file:
+			if tab_decorator.file and tab_decorator.file == file:
 				self._window.set_active_tab(tab)
 				return
 		
 		# not found, open file in a new tab...
 		
-		# FIXME: we just grab the encoding from the last opened tab, because 'None' 
-		# doesn't work - maybe there's some get_default_encoding() method
-		self._window.create_tab_from_uri(file.uri, encoding, 1, False, True)
+		self._window.create_tab_from_uri(file.uri, gedit.encoding_get_current(), 1, False, True)
 	
 	def adjust(self, tab_decorator):
 		"""
@@ -538,7 +528,7 @@ class GeditTabDecorator(object):
 		self._text_view = tab.get_view()
 		
 		self._editor = None
-		self._editor_uri = None
+		self._file = None
 		
 		# initially check the editor instance
 		#
@@ -581,28 +571,28 @@ class GeditTabDecorator(object):
 		
 		@return: True if the editor has changed
 		"""
-		uri = self._text_buffer.get_uri()
-		if uri != self._editor_uri:
+		file = File(self._text_buffer.get_uri())
+		if file != self._file:
+			self._file = file
+			
 			# URI has changed - manage the editor instance
 			if self._editor:
 				# editor is present - destroy it
 				self._editor.destroy()
 				self._editor = None
-			f = File(uri)
-			ext = f.extension.lower()
+
+			extension = file.extension.lower()
 
 			# create new editor instance
-			if ext in EDITORS.keys():
-				editor_class = EDITORS[ext]
+			if extension in EDITORS.keys():
+				editor_class = EDITORS[extension]
 				
 				self._editor = editor_class.__new__(editor_class)
-				editor_class.__init__(self._editor, self, f)
-				
-				self._editor_uri = uri
+				editor_class.__init__(self._editor, self, file)
 			
 			# tell WindowDecorator to adjust actions
 			self._window_decorator.adjust(self)
-			
+
 			# URI has changed
 			return True
 		else:
@@ -610,16 +600,7 @@ class GeditTabDecorator(object):
 	
 	@property
 	def file(self):
-		"""
-		Return the File contained in the decorated tab
-		"""
-		
-		# TODO: manage a File object, not the editor's URI
-		
-		if self._editor_uri:
-			return File(self._editor_uri)
-		else:
-			return None
+		return self._file
 	
 	@property
 	def editor(self):
@@ -630,11 +611,10 @@ class GeditTabDecorator(object):
 		"""
 		@return: the extension of the currently opened file
 		"""
-		uri = self._text_buffer.get_uri()
-		if uri:
-			f = File(uri)
-			return f.extension.lower()
-		return None
+		if self._file:
+			return self._file.extension.lower()
+		else:
+			return None
 	
 	def destroy(self):
 		if self._editor:

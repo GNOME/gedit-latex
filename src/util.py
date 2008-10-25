@@ -75,7 +75,7 @@ def open_error(message, secondary_message=None):
 		dialog.format_secondary_text(secondary_message)
 	dialog.run()
 	dialog.destroy()
-
+	
 
 def caught(f):
 	"""

@@ -22,13 +22,6 @@
 latex.environment
 """
 
-# TODO: The file
-# /usr/share/texmf/web2c/texmf.cnf
-# should always contain TEXMFMAIN. We could run a
-# find /usr/share/texmf-texlive/ -name '*.bst'
-# then.
-# find /usr/share/texmf-texlive/ -name '*.cls'
-
 from os import popen, system
 from os.path import splitext, basename
 from gtk.gdk import screen_width, screen_height, screen_width_mm, screen_height_mm
@@ -38,15 +31,136 @@ from locale import getdefaultlocale, nl_langinfo, D_FMT
 from logging import getLogger
 
 
+class CnfFile(dict):
+	"""
+	This parses a .cnf file and provides its contents as a dictionary
+	"""
+	def __init__(self, filename):
+		for line in open(filename).readlines():
+			if not line.startswith("%"):
+				try:
+					key, value = line.split("=")
+					self[key.strip()] = value.strip()
+				except:
+					pass
+
+
+_INPUT_ENCODINGS = {
+	"utf8" : "UTF-8 (Unicode)",
+	"ascii" : "US-ASCII",
+	"next" : "ASCII (NeXT)",
+	"ansinew" : "ASCII (Windows)",
+	"applemac" : "ASCII (Apple)",
+	"macce" : "MacCE (Apple Central European)",
+	"latin1" : "Latin-1",
+	"latin2" : "Latin-2",
+	"latin3" : "Latin-3 (South European)",
+	"latin4" : "Latin-4 (North European)",
+	"latin5" : "Latin-5 (Turkish)",
+	"latin6" : "Latin-6 (Nordic)",
+	"latin7" : "Latin-7 (Baltic)",
+	"latin8" : "Latin-8 (Celtic)",
+	"latin9" : "Latin-9 (extended Latin-1)",
+	"latin10" : "Latin-10 (South-Eastern European)",
+	"cp1250" : "CP1250 (Windows Central European)",
+	"cp1252" : "CP1252 (Windows Western European)",
+	"cp1257" : "CP1257 (Windows Baltic)",
+	"cp437" : "CP437 (DOS US)",
+	"cp850" : "CP850 (DOS Latin-1)",
+	"cp852" : "CP852 (DOS Central European)",
+	"cp858" : "CP858 (DOS Western European)",
+	"cp865" : "CP865 (DOS Nordic)"
+}
+
+_BABEL_PACKAGES = {
+	"afrikaans" : "Afrikaans",
+	"american" : "American",
+	"athnum" : "Athnum",
+	"austrian" : "Austrian",
+	"naustrian" : "Austrian (new spelling)",
+	"bahasa" : "Bahasa",
+	"basque" : "Basque",
+	"breton" : "Breton",
+	"british" : "British",
+	"bulgarian" : "Bulgarian",
+	"catalan" : "Catalan",
+	"croatian" : "Croatian",
+	"czech" : "Czech",
+	"danish" : "Danish",
+	"dutch" : "Dutch",
+	"english" : "English",
+	"UKenglish" : "English (UK)",
+	"USenglish" : "English (US)",
+	"esperanto" : "Esperanto",
+	"estonian" : "Estonian",
+	"finnish" : "Finnish",
+	"francais" : "Francais",
+	"galician" : "Galician",
+	"german" : "German",
+	"germanb" : "German",
+	"ngerman" : "German (new spelling)",
+	"ngermanb" : "German (new spelling)",
+	"greek" : "Greek",
+	"hebrew" : "Hebrew",
+	"icelandic" : "Icelandic",
+	"interlingua" : "Interlingua",
+	"irish" : "Irish",
+	"italian" : "Italian",
+	"latin" : "Latin",
+	"lsorbian" : "Lsorbian",
+	"magyar" : "Magyar",
+	"norsk" : "Norsk",
+	"polish" : "Polish",
+	"portuges" : "Portuges",
+	"romanian" : "Romanian",
+	"russianb" : "Russian",
+	"samin" : "Samin",
+	"scottish" : "Scottish",
+	"serbian" : "Serbian",
+	"slovak" : "Slovak",
+	"slovene" : "Slovene",
+	"spanish" : "Spanish",
+	"swedish" : "Swedish",
+	"turkish" : "Turkish",
+	"ukraineb" : "Ukraine",
+	"usorbian" : "Usorbian",
+	"welsh" : "Welsh"
+}
+
+_DOCUMENT_CLASSES = {
+	"article" 	: _("Article"),
+	"report" 	: _("Report"),
+	"book" 		: _("Book"),
+	"beamer" 	: _("Beamer slides"),
+	"letter" 	: _("Letter"),
+	"scrartcl" 	: _("Article (KOMA-Script)"),
+	"scrreport" : _("Report (KOMA-Script)"),
+	"scrbook" 	: _("Book (KOMA-Script)"),
+	"scrlettr" 	: _("Letter (KOMA-Script)"),
+	"scrlttr2" 	: _("Letter 2 (KOMA-Script)")
+}
+
+
+class TeXResource(object):
+	def __init__(self, file, name, label):
+		self.file = file
+		self.name = name
+		self.label = label
+
+
+from ..base import File
+
+
 class Environment(object):
 	
-	_TEXMFMAIN = "/usr/share/texmf-texlive/"
+	_CONFIG_FILENAME = "/etc/texmf/texmf.cnf"
 	
 	"""
 	This encapsulates the user's LaTeX distribution and provides methods
 	for searching it.
 	
-	It is implemented as a signleton to be able to share caches.
+	/usr/share/texmf-texlive/tex/latex/base/*.def		input encodings
+	/usr/share/texmf-texlive/bibtex/bst/*.bst			bibtex styles
 	"""
 	
 	_log = getLogger("Environment")
@@ -60,10 +174,15 @@ class Environment(object):
 		if not '_ready' in dir(self):
 			self._bibtex_styles = None
 			self._classes = None
+			self._language_definitions = None
+			self._input_encodings = None
 			self._screen_dpi = None
 			self._kpsewhich_checked = False
 			self._kpsewhich_installed = None
 			self._file_exists_cache = {}
+			
+			cnf_file = CnfFile(self._CONFIG_FILENAME)
+			self._TEXMFMAIN = cnf_file["TEXMFDIST"]
 			
 			self._ready = True
 	
@@ -99,8 +218,7 @@ class Environment(object):
 		Return the available .bst files
 		"""
 		if not self._bibtex_styles:
-			self._bibtex_styles = [splitext(basename(f))[0] for f in popen("find %s -name '*.bst'" % self._TEXMFMAIN).readlines()]
-			self._bibtex_styles.sort()
+			self._bibtex_styles = self._find_resources("", ".bst", {})
 		return self._bibtex_styles
 	
 	@property
@@ -109,9 +227,48 @@ class Environment(object):
 		Return the available document classes
 		"""
 		if not self._classes:
-			self._classes = [splitext(basename(f))[0] for f in popen("find %s -name '*.cls'" % self._TEXMFMAIN).readlines()]
-			self._classes.sort()
+			self._classes = self._find_resources("", ".cls", _DOCUMENT_CLASSES)
 		return self._classes
+	
+	@property
+	def language_definitions(self):
+		if not self._language_definitions:
+			self._language_definitions = self._find_resources("/tex/generic/babel/", ".ldf", _BABEL_PACKAGES)
+		return self._language_definitions
+	
+	@property
+	def input_encodings(self):
+		"""
+		Return a list of all available input encodings
+		"""
+		if not self._input_encodings:
+			self._input_encodings = self._find_resources("/tex/latex/base/", ".def", _INPUT_ENCODINGS)
+		return self._input_encodings
+	
+	def _find_resources(self, relative, extension, labels):
+		"""
+		Find TeX resources
+		
+		@param relative: a path relative to TEXMFDIST, e.g. '/tex/latex/base/'
+		@param extension: the file extension of the resources, e.g. '.bst'
+		@param labels: the dictionary to be searched for labels  
+		"""
+		resources = []
+		files = [File(f) for f in popen("find %s%s -name '*%s'" % (self._TEXMFMAIN, relative, extension)).readlines()]
+		if len(files) > 0:
+			for file in files:
+				name = file.shortbasename
+				try:
+					label = labels[name]
+				except KeyError:
+					label = ""
+				resources.append(TeXResource(file, name, label))
+		else:
+			# no files found
+			self._log.error("No %s-files found in TEXMFDIST%s" % (extension, relative))
+			for name, label in labels.iteritems():
+				resources.append(TeXResource(None, name, label))
+		return resources
 	
 	@property
 	def screen_dpi(self):

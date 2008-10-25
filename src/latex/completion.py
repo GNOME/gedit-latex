@@ -151,7 +151,7 @@ class LaTeXCompletionHandler(ICompletionHandler):
 						# build table data for DetailsPopup
 						rows = []
 						for field in entry.fields:
-							rows.append(["<small>%s</small>" % field.name, field.valueMarkup])
+							rows.append([field.name, field.valueMarkup])
 						
 						entry_choices.append(Choice(None, entry.key, rows))
 						

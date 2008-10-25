@@ -133,7 +133,7 @@ class LaTeXEditor(Editor, IIssueHandler):
 		"""
 		self.__parse()
 		self.__update_neighbors()
-	
+		
 	def __update_neighbors(self):
 		"""
 		Find all files in the working directory that are relevant for LaTeX, e.g.
