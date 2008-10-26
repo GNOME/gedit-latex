@@ -77,13 +77,14 @@ class NewDocumentDialog(GladeInterface):
 		("legalbl_paper", "US-Legal"),
 		("letterpaper", "US-Letter") )
 	
+	# TODO: extend this
 	_LOCALE_MAPPINGS = {
 		"en_US" : "american",
 		"en_AU" : "english",
 		"fr" : "french",
 		"it" : "italian",
 		"ru" : "russian",
-		"de_DE" : "ngerman",
+		"de_DE" : "ngermanb",
 		"de_AU" : "naustrian"
 	}
 	
@@ -101,12 +102,16 @@ class NewDocumentDialog(GladeInterface):
 		
 			lightForeground = preferences.get("LightForeground")
 			
+			#
 			# file
-			self._entryName = self.find_widget("entryName")
-			self._buttonDirectory = self.find_widget("buttonDirectory")
-			self._buttonDirectory.set_action(gtk.FILE_CHOOSER_ACTION_SELECT_FOLDER)
+			#
+			self._entry_name = self.find_widget("entryName")
+			self._button_dir = self.find_widget("buttonDirectory")
+			self._button_dir.set_action(gtk.FILE_CHOOSER_ACTION_SELECT_FOLDER)
 			
-			# meta
+			#
+			# metadata
+			#
 			self._entry_title = self.find_widget("entryTitle")
 			self._entry_author = self.find_widget("entryAuthor")
 			self._entry_author.set_text(preferences.get("RecentAuthor", environment.username))
@@ -116,144 +121,140 @@ class NewDocumentDialog(GladeInterface):
 			#
 			# document classes
 			#
-			self._store_classes = gtk.ListStore(str, str)	# class, label
+			self._store_class = gtk.ListStore(str, str)	# document class name, markup label
 			
-			for cls in environment.document_classes:
-				self._store_classes.append([cls.name, "%s <span color='%s'>%s</span>" % (cls.name, lightForeground, cls.label)])
+			recent_document_class = preferences.get("RecentDocumentClass", "article")
 			
-			# get index of recent class
-#			recentClass = preferences.get("RecentDocumentClass", "article")
-#			try:
-#				recentClassIndex = classes.index(recentClass)
-#			except ValueError:
-#				self._log.error("Unknown recent document class: %s" % recentClass)
-#				recentClassIndex = 0
-			
-			self._comboClasses = self.find_widget("comboClass")
-			self._comboClasses.set_model(self._store_classes)
-			cell = gtk.CellRendererText()
-			self._comboClasses.pack_start(cell, True)
-			self._comboClasses.add_attribute(cell, "markup", 1)
-#			self._comboClasses.set_active(recentClassIndex)
-			
-			
-			# paper
-			recentPaperSize = preferences.get("RecentPaperSize", "")
-			if len(recentPaperSize) == 0:
-				recentPaperSizeIndex = 0
-			
-			self._storePaperSize = gtk.ListStore(str, str)  # size, label
-			
-			self._storePaperSize.append(["", "<span color='%s'>Default</span>" % lightForeground])
-			i = 1
-			for size, label in self._PAPER_SIZES:
-				l = "%s <span color='%s'>%s</span>" % (size, lightForeground, label)
-				self._storePaperSize.append([size, l])
-				
-				if recentPaperSize == size:
-					recentPaperSizeIndex = i
+			i = 0
+			recent_document_class_i = 0
+			for c in environment.document_classes:
+				self._store_class.append([c.name, "%s <span color='%s'>%s</span>" % (c.name, lightForeground, c.label)])
+				if c.name == recent_document_class:
+					recent_document_class_i = i
 				i += 1
 			
-			self._comboPaperSize = self.find_widget("comboPaperSize")
-			self._comboPaperSize.set_model(self._storePaperSize)
+			self._combo_class = self.find_widget("comboClass")
+			self._combo_class.set_model(self._store_class)
 			cell = gtk.CellRendererText()
-			self._comboPaperSize.pack_start(cell, True)
-			self._comboPaperSize.add_attribute(cell, "markup", 1)
+			self._combo_class.pack_start(cell, True)
+			self._combo_class.add_attribute(cell, "markup", 1)
+			self._combo_class.set_active(recent_document_class_i)
 			
-			self._comboPaperSize.set_active(recentPaperSizeIndex)
+			#
+			# paper
+			#
+			recent_paper_size = preferences.get("RecentPaperSize", "")
+			if len(recent_paper_size) == 0:
+				recent_paper_size_i = 0
 			
+			self._store_paper_size = gtk.ListStore(str, str)  # size, label
 			
-			self._checkLandscape = self.find_widget("checkLandscape")
-			self._checkLandscape.set_active(preferences.get_bool("RecentPaperLandscape", False))
+			self._store_paper_size.append(["", "<span color='%s'>Default</span>" % lightForeground])
+			i = 1
+			for size, label in self._PAPER_SIZES:
+				self._store_paper_size.append([size, "%s <span color='%s'>%s</span>" % (size, lightForeground, label)])
+				if recent_paper_size == size:
+					recent_paper_size_i = i
+				i += 1
 			
+			self._combo_paper_size = self.find_widget("comboPaperSize")
+			self._combo_paper_size.set_model(self._store_paper_size)
+			cell = gtk.CellRendererText()
+			self._combo_paper_size.pack_start(cell, True)
+			self._combo_paper_size.add_attribute(cell, "markup", 1)
+			self._combo_paper_size.set_active(recent_paper_size_i)
 			
+			self._check_landscape = self.find_widget("checkLandscape")
+			self._check_landscape.set_active(preferences.get_bool("RecentPaperLandscape", False))
+			
+			#
 			# font size
-			self._radioFontUser = self.find_widget("radioFontUser")
-			self._spinFontSize = self.find_widget("spinFontSize")
+			#
+			self._radio_font_user = self.find_widget("radioFontUser")
+			self._spin_font_size = self.find_widget("spinFontSize")
 			self._labelFontSize = self.find_widget("labelFontSize")
 			
 			#
 			# input encodings
 			#
-			self._storeEncoding = gtk.ListStore(str, str)	# encoding, label
+			self._store_encoding = gtk.ListStore(str, str)	# encoding, label
 			
-			for encoding in environment.input_encodings:
-				self._storeEncoding.append([encoding.name, "%s <span color='%s'>%s</span>" % (encoding.name, 
-																		lightForeground, encoding.label)])
+			recent_encoding = preferences.get("RecentInputEncoding", "utf8")
 			
-			self._comboEncoding = self.find_widget("comboEncoding")
-			self._comboEncoding.set_model(self._storeEncoding)
+			i = 0
+			recent_encoding_i = 0
+			for e in environment.input_encodings:
+				self._store_encoding.append([e.name, "%s <span color='%s'>%s</span>" % (e.name, lightForeground, e.label)])
+				if e.name == recent_encoding:
+					recent_encoding_i = i
+				i += 1
+			
+			self._combo_encoding = self.find_widget("comboEncoding")
+			self._combo_encoding.set_model(self._store_encoding)
 			cell = gtk.CellRendererText()
-			self._comboEncoding.pack_start(cell, True)
-			self._comboEncoding.add_attribute(cell, "markup", 1)
-			
-			# get index of recent encoding
-			# TODO: try to guess default from editor
-			
-#			recentEncoding = preferences.get("RecentInputEncoding", "utf8")
-#			try:
-#				recentEncodingIndex = encodings.index(recentEncoding)
-#			except ValueError:
-#				self._log.error("Unknown recent input encoding: %s" % recentEncoding)
-#				recentEncodingIndex = 0
-#			
-#			self._comboEncoding.set_active(recentEncodingIndex)
+			self._combo_encoding.pack_start(cell, True)
+			self._combo_encoding.add_attribute(cell, "markup", 1)
+			self._combo_encoding.set_active(recent_encoding_i)
 			
 			#
 			# babel packages
 			#
-			self._storeBabel = gtk.ListStore(str, str) # package, label
+			self._store_babel = gtk.ListStore(str, str) # package, label
 			
-			for ldf in environment.language_definitions:
-				self._storeBabel.append([ldf.name, "%s <span color='%s'>%s</span>" % (ldf.name, 
-																		lightForeground, ldf.label)])
+			try:
+				default_babel = self._LOCALE_MAPPINGS[environment.language_code]
+			except Exception, e:
+				self._log.error("Failed to guess babel package: %s" % e)
+				default_babel = "english"
 			
-			self._comboBabel = self.find_widget("comboBabel")
-			self._comboBabel.set_model(self._storeBabel)
+			recent_babel = preferences.get("RecentBabelPackage", default_babel)
+			
+			i = 0
+			recent_babel_i = 0
+			for l in environment.language_definitions:
+				self._store_babel.append([l.name, "%s <span color='%s'>%s</span>" % (l.name, lightForeground, l.label)])
+				if l.name == recent_babel:
+					recent_babel_i = i
+				i += 1
+			
+			self._combo_babel = self.find_widget("comboBabel")
+			self._combo_babel.set_model(self._store_babel)
 			cell = gtk.CellRendererText()
-			self._comboBabel.pack_start(cell, True)
-			self._comboBabel.add_attribute(cell, "markup", 1)
+			self._combo_babel.pack_start(cell, True)
+			self._combo_babel.add_attribute(cell, "markup", 1)
+			self._combo_babel.set_active(recent_babel_i)
 			
-			# get index of recent babel package
-			# TODO: try to map locale to babel package as default value
-			
-#			try:
-#				defaultBabel = self._LOCALE_MAPPINGS[environment.language_code]
-#			except Exception, e:
-#				self._log.error("Failed to guess babel package: %s" % e)
-#				defaultBabel = "english"
-#			
-#			recentBabel = preferences.get("RecentBabelPackage", defaultBabel)
-#			try:
-#				recentBabelIndex = babelPackages.index(recentBabel)
-#			except ValueError:
-#				self._log.error("Unknown recent babel package: %s" % recentBabel)
-#				recentBabelIndex = 0
-#			self._comboBabel.set_active(recentBabelIndex)
-			
-			
+			#
 			# connect signals
-#			self.connect_signals({ "on_radioCustom_toggled" : self._on_custom_date_toggled,
-#								   "on_radioFontUser_toggled" : self._on_user_font_toggled })
+			#
+			self.connect_signals({ "on_radioCustom_toggled" : self._on_custom_date_toggled,
+								   "on_radioFontUser_toggled" : self._on_user_font_toggled })
 
 		return self.dialog
+	
+	def _on_custom_date_toggled(self, toggle_button):
+		self._entry_date.set_sensitive(toggle_button.get_active())
+		
+	def _on_user_font_toggled(self, toggle_button):
+		self._spin_font_size.set_sensitive(toggle_button.get_active())
+		self._labelFontSize.set_sensitive(toggle_button.get_active())
 	
 	@property
 	def source(self):
 		"""
-		Compose the source
+		Compose and return the source resulting from the dialog
 		"""
 		# document class options
 		documentOptions = []
 		
-		if self._radioFontUser.get_active():
-			documentOptions.append("%spt" % self._spinFontSize.get_value_as_int())
+		if self._radio_font_user.get_active():
+			documentOptions.append("%spt" % self._spin_font_size.get_value_as_int())
 		
-		paperSize = self._storePaperSize[self._comboPaperSize.get_active()][0]
+		paperSize = self._store_paper_size[self._combo_paper_size.get_active()][0]
 		if len(paperSize) > 0:
 			documentOptions.append(paperSize)
 		
-		if self._checkLandscape.get_active():
+		if self._check_landscape.get_active():
 			documentOptions.append("landscape")
 		
 		if len(documentOptions) > 0:
@@ -262,11 +263,11 @@ class NewDocumentDialog(GladeInterface):
 			documentOptions = ""
 		
 		
-		documentClass = self._store_classes[self._comboClasses.get_active()][0]
+		documentClass = self._store_class[self._combo_class.get_active()][0]
 		title = self._entry_title.get_text()
 		author = self._entry_author.get_text()
-		babelPackage = self._storeBabel[self._comboBabel.get_active()][0]
-		inputEncoding = self._storeEncoding[self._comboEncoding.get_active()][0]
+		babelPackage = self._store_babel[self._combo_babel.get_active()][0]
+		inputEncoding = self._store_encoding[self._combo_encoding.get_active()][0]
 		
 		if self._radio_date_custom.get_active():
 			date = self._entry_date.get_text()
@@ -303,11 +304,14 @@ class NewDocumentDialog(GladeInterface):
 	
 	@property
 	def file(self):
-		return File("%s/%s.tex" % (self._buttonDirectory.get_filename(), self._entryName.get_text()))
+		"""
+		Return the File object
+		"""
+		return File("%s/%s.tex" % (self._button_dir.get_filename(), self._entry_name.get_text()))
 	
 	def run(self):
 		"""
-		Runs the dialog and returns a Template object
+		Runs the dialog
 		"""
 		dialog = self.get_dialog()
 		r = dialog.run()

@@ -137,7 +137,8 @@ _DOCUMENT_CLASSES = {
 	"scrreport" : _("Report (KOMA-Script)"),
 	"scrbook" 	: _("Book (KOMA-Script)"),
 	"scrlettr" 	: _("Letter (KOMA-Script)"),
-	"scrlttr2" 	: _("Letter 2 (KOMA-Script)")
+	"scrlttr2" 	: _("Letter 2 (KOMA-Script)"),
+	"scrreprt"	: _("Report (KOMA-Script)")
 }
 
 
