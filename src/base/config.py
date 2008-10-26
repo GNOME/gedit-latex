@@ -35,6 +35,10 @@ UI = """
 					<menuitem action="LaTeXChooseMasterAction" />
 					<menuitem action="LaTeXCommentAction" />
 					<menuitem action="LaTeXSpellCheckAction" />
+					<separator />
+					<menuitem action="LaTeXGraphicsAction" />
+					<menuitem action="LaTeXTableAction" />
+					<menuitem action="LaTeXListingAction" />
 					<menuitem action="LaTeXUseBibliographyAction" />
 				</menu>
 			</placeholder>
@@ -64,6 +68,9 @@ UI = """
 			</toolitem>
 			<separator />
 			<toolitem action="LaTeXGraphicsAction" />
+			<toolitem action="LaTeXTableAction" />
+			<toolitem action="LaTeXListingAction" />
+			<toolitem action="LaTeXUseBibliographyAction" />
 		</toolbar>
 	</ui>"""
 		
@@ -72,7 +79,7 @@ from ..latex.actions import LaTeXMenuAction, LaTeXNewAction, LaTeXCommentAction,
 		LaTeXItemizeAction, LaTeXEnumerateAction, LaTeXFontFamilyAction, LaTeXFontFamilyMenuAction, LaTeXBoldAction, \
 		LaTeXItalicAction, LaTeXDescriptionAction, LaTeXStructureMenuAction, LaTeXPartAction, LaTeXChapterAction, \
 		LaTeXSectionAction, LaTeXSubsectionAction, LaTeXParagraphAction,LaTeXSubparagraphAction, LaTeXStructureAction, \
-		LaTeXGraphicsAction, LaTeXUseBibliographyAction
+		LaTeXGraphicsAction, LaTeXUseBibliographyAction, LaTeXTableAction, LaTeXListingAction
 
 
 # TODO: extensions and UI path should be asked from Action objects (build UI like for tool actions)
@@ -99,7 +106,9 @@ ACTION_OBJECTS = { "LaTeXMenuAction" : LaTeXMenuAction(),
 				   "LaTeXParagraphAction" : LaTeXParagraphAction(),
 				   "LaTeXSubparagraphAction" : LaTeXSubparagraphAction(),
 				   "LaTeXGraphicsAction" : LaTeXGraphicsAction(),
-				   "LaTeXUseBibliographyAction" : LaTeXUseBibliographyAction() }
+				   "LaTeXUseBibliographyAction" : LaTeXUseBibliographyAction(),
+				   "LaTeXTableAction" : LaTeXTableAction(),
+				   "LaTeXListingAction" : LaTeXListingAction() }
 
 ACTION_EXTENSIONS = { None : ["LaTeXNewAction"],
 					  ".tex" : ["LaTeXMenuAction", 
@@ -122,7 +131,9 @@ ACTION_EXTENSIONS = { None : ["LaTeXNewAction"],
 								"LaTeXParagraphAction",
 								"LaTeXSubparagraphAction",
 								"LaTeXGraphicsAction",
-								"LaTeXUseBibliographyAction"] }
+								"LaTeXUseBibliographyAction",
+								"LaTeXTableAction",
+								"LaTeXListingAction"] }
 
 from ..tools import Tool, Job
 from ..tools.postprocess import GenericPostProcessor, RubberPostProcessor

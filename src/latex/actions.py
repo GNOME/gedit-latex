@@ -58,6 +58,9 @@ class LaTeXMenuAction(IAction):
 		pass
 
 
+from ..base import Template, File
+from ..base.resources import find_resource
+from . import LaTeXSource
 from dialogs import NewDocumentDialog
 from editor import LaTeXEditor
 
@@ -97,11 +100,11 @@ class LaTeXChooseMasterAction(IAction):
 		self._log.debug("activate")
 		
 		
-class LaTeXUseBibliographyAction(IAction):
+class LaTeXUseBibliographyAction(IconAction):
 	_log = getLogger("LaTeXUseBibliographyAction")
 	
 	label = "Use Bibliography..."
-	stock_id = None
+	icon = File(find_resource("icons/bib.png"))
 	accelerator = None
 	tooltip = None
 	
@@ -134,14 +137,6 @@ class LaTeXSpellCheckAction(IAction):
 	
 	def activate(self, context):
 		context.active_editor.spell_check()
-
-
-from ..base import Template, File
-from ..base.resources import find_resource
-from . import LaTeXSource
-
-
-# TODO: subclass LaTeXTemplateAction
 
 
 class LaTeXFontFamilyAction(IconAction):
@@ -272,8 +267,49 @@ class LaTeXGraphicsAction(IconAction):
 	tooltip = "Insert Graphics"
 	icon = File(find_resource("icons/graphics.png"))
 	
+	dialog = None
+	
 	def activate(self, context):
-		pass
+		if not self.dialog:
+			from dialogs import InsertGraphicsDialog
+			self.dialog = InsertGraphicsDialog()
+		source = self.dialog.run(context.active_editor.edited_file)
+		if source:
+			context.active_editor.insert(source)
+
+
+class LaTeXTableAction(IconAction):
+	label = "Insert Table or Matrix"
+	accelerator = None
+	tooltip = "Insert Table or Matrix"
+	icon = File(find_resource("icons/table.png"))
+	
+	dialog = None
+	
+	def activate(self, context):
+		if not self.dialog:
+			from dialogs import InsertTableDialog
+			self.dialog = InsertTableDialog()
+		source = self.dialog.run()
+		if source:
+			context.active_editor.insert(source)
+	
+	
+class LaTeXListingAction(IconAction):
+	label = "Insert Source Code Listing"
+	accelerator = None
+	tooltip = "Insert Source Code Listing"
+	icon = File(find_resource("icons/listing.png"))
+	
+	dialog = None
+	
+	def activate(self, context):
+		if not self.dialog:
+			from dialogs import InsertListingDialog
+			self.dialog = InsertListingDialog()
+		source = self.dialog.run(context.active_editor.edited_file)
+		if source:
+			context.active_editor.insert(source)
 	
 	
 	

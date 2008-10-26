@@ -1055,13 +1055,15 @@ class File(object):
 		"""
 		Relativize the path of this File against a base directory. That means that e.g.
 		File("/home/user/doc.tex").relativize("/home") == "user/doc.tex"
+		
+		@param base: the base directory to relativize against
 		"""
-		if len(base) >= len(path):
-			return path
-		if path[:len(base)] == base:
+		if len(base) >= len(self.path):
+			return self.path
+		if self.path[:len(base)] == base:
 			# bases match, return relative part
-			return path[len(base)+1:]
-		return path
+			return self.path[len(base)+1:]
+		return self.path
 	
 	def relativize_shortname(self, base):
 		"""
@@ -1070,6 +1072,8 @@ class File(object):
 		File("/home/user/doc.tex").relativize_shortname("/home") == "user/doc"
 		
 		This is just a convenience method.
+		
+		@param base: the base directory to relativize against
 		"""
 		relative_path = self.relativize(base)
 		return splitext(relative_path)[0]

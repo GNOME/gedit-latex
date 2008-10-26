@@ -504,5 +504,370 @@ class UseBibliographyDialog(GladeInterface, PreviewRenderer):
 		self._imagePreview.set_from_stock(gtk.STOCK_STOP, gtk.ICON_SIZE_BUTTON)
 		# remove the temp bib file
 		self._tempFile.close()
+
+
+from . import LaTeXSource
+
+
+class InsertGraphicsDialog(GladeInterface):
 	
+	_PREVIEW_WIDTH, _PREVIEW_HEIGHT = 128, 128
+	filename = find_resource("glade/insert_graphics_dialog.glade")
+	_dialog = None
 	
+	def run(self, edited_file):
+		"""
+		@param edited_file: the File currently edited
+		"""
+		dialog = self.__get_dialog()
+		
+		source = None
+		
+		if dialog.run() == 1:
+			#filename = self._fileChooser.get_filename()
+			
+			file = File(self._fileChooser.get_filename())
+			relative_filename = file.relativize(edited_file.dirname)
+			
+			width = "%.2f" % round(self.find_widget("spinbuttonWidth").get_value() / 100.0, 2)
+			caption = self.find_widget("entryCaption").get_text()
+			label = self.find_widget("entryLabel").get_text()
+			floating = self.find_widget("checkbuttonFloat").get_active()
+			spread = self.find_widget("checkbuttonSpread").get_active()
+			relativeTo = self._comboRelative.get_active()
+			rotate = self.find_widget("spinRotate").get_value()
+			flip = self.find_widget("checkFlip").get_active()
+			
+			source = ""
+			packages = ["graphicx"]
+			
+			if relativeTo == 0:		# relative to image size
+				options = "scale=%s" % width
+			else:		# relative to text width
+				options = "width=%s\\textwidth" % width
+			
+			if rotate != 0:
+				options += ", angle=%s" % rotate
+			
+			includegraphics = "\\includegraphics[%s]{%s}" % (options, relative_filename)
+			
+			if flip:
+				includegraphics = "\\reflectbox{%s}" % includegraphics
+			
+			if floating:
+				if spread:
+					ast = "*"
+				else:
+					ast = ""
+				source += "\\begin{figure%s}[ht]\n\t\\centering\n\t%s" % (ast, includegraphics)
+				if len(caption):
+					source += "\n\t\\caption{%s}" % caption
+				if len(label) and label != "fig:":
+					source += "\n\t\\label{%s}" % label
+				source += "\n\\end{figure%s}" % ast
+			else:
+				source += "\\begin{center}\n\t%s" % includegraphics
+				if len(caption):
+					source += "\n\t\\captionof{figure}{%s}" % caption
+					packages.append("caption")
+				if len(label) and label != "fig:":
+					source += "\n\t\\label{%s}" % label
+				source += "\n\\end{center}"
+				
+#			viewAdapter.insertText(source)
+#			viewAdapter.ensurePackages(packages)
+
+			source = LaTeXSource(source, packages)
+		
+		dialog.hide()
+		
+		return source
+	
+	def __get_dialog(self):
+		if not self._dialog:
+			
+			# setup the dialog
+			
+			self._dialog = self.find_widget("dialogInsertGraphics")
+			
+			previewImage = gtk.Image()
+			self._fileChooser = self.find_widget("FileChooser")
+			self._fileChooser.set_preview_widget(previewImage)
+			self._fileChooser.connect("update-preview", self.__update_preview, previewImage)
+			
+			#self._fileChooser.get_property("dialog").connect("response", self._fileChooserResponse)	# FIXME: not readable
+			#self._fileChooser.connect("file-activated", self._fileActivated)							# FIXME: doesn't work
+			
+			self._okayButton = self.find_widget("buttonOkay")
+			
+			self._comboRelative = self.find_widget("comboRelative")
+			self._comboRelative.set_active(0)
+			
+		return self._dialog
+	
+	def __update_preview(self, fileChooser, previewImage):
+		""" 
+		Update the FileChooser's preview image 
+		"""
+		filename = fileChooser.get_preview_filename()
+		
+		try:
+			pixbuf = gtk.gdk.pixbuf_new_from_file_at_size(filename, self._PREVIEW_WIDTH, self._PREVIEW_HEIGHT)
+			previewImage.set_from_pixbuf(pixbuf)
+			fileChooser.set_preview_widget_active(True)
+		except:
+			fileChooser.set_preview_widget_active(False)
+
+
+class InsertTableDialog(GladeInterface):
+	"""
+	This is used to include tables and matrices
+	"""
+	
+	filename = find_resource("glade/insert_table_dialog.glade")
+	_dialog = None
+	
+	def run(self):
+		dialog = self.__get_dialog()
+		
+		source = None
+		
+		if dialog.run() == 1:
+			floating = self.find_widget("checkbuttonFloat").get_active()
+			rows = int(self.find_widget("spinbuttonRows").get_value())
+			cols = int(self.find_widget("spinbuttonColumns").get_value())
+			caption = self.find_widget("entryCaption").get_text()
+			label = self.find_widget("entryLabel").get_text()
+			
+			s = ""
+			
+			if self.find_widget("radiobuttonTable").get_active():
+				# table
+				
+				layout = "l" * cols
+				
+				if floating:
+					s += "\\begin{table}[ht]\n\t\\centering\n\t\\begin{tabular}{%s}%s\n\t\\end{tabular}" % (layout, 
+																						self.__build_table_body(rows, cols, "\t\t"))
+					
+					if len(caption):
+						s += "\n\t\\caption{%s}" % caption
+					
+					if len(label) and label != "tab:":
+						s += "\n\t\\label{%s}" % label
+					
+					s += "\n\\end{table}"
+				
+				else:
+					s += "\\begin{center}\n\t\\begin{tabular}{%s}%s\n\t\\end{tabular}" % (layout, 
+																						self.__build_table_body(rows, cols, "\t\t"))
+					
+					if len(caption):
+						s += "\n\t\\captionof{table}{%s}" % caption
+					
+					if len(label):
+						s += "\n\t\\label{%s}" % label
+					
+					s += "\n\\end{center}"
+				packages = []
+			else:
+				environ = self._storeDelims[self._comboDelims.get_active()][2]
+				s = "\\begin{%s}%s\n\\end{%s}" % (environ, self.__build_table_body(rows, cols, "\t\t"), environ)
+				packages = ["amsmath"]
+			
+			source = LaTeXSource(Template(s), packages)
+			
+		dialog.hide()
+		
+		return source
+	
+	def __get_dialog(self):
+		if not self._dialog:
+			self._dialog = self.find_widget("dialogInsertTable")
+			
+			# delimiters
+			self._storeDelims = gtk.ListStore(gtk.gdk.Pixbuf, str, str)  	# icon, label, environment
+			
+			self._storeDelims.append([None, "None", "matrix"])
+			
+			delimiters = [("parantheses", "Parantheses", "pmatrix"), 
+						("brackets", "Brackets", "bmatrix"), 
+						("braces", "Braces", "Bmatrix"), 
+						("vbars", "Vertical Bars", "vmatrix"), 
+						("dvbars", "Double Vertical Bars", "Vmatrix")]
+			
+			for d in delimiters:
+				pixbuf = gtk.gdk.pixbuf_new_from_file(find_resource("icons/%s.png" % d[0]))
+				self._storeDelims.append([pixbuf, d[1], d[2]])
+			
+			self._comboDelims = self.find_widget("comboDelims")
+			self._comboDelims.set_model(self._storeDelims)
+			
+			cellPixbuf = gtk.CellRendererPixbuf()
+	  		self._comboDelims.pack_start(cellPixbuf, False)
+	  		self._comboDelims.add_attribute(cellPixbuf, 'pixbuf', 0)
+	  		
+			cellText = gtk.CellRendererText()
+	  		self._comboDelims.pack_start(cellText, False)
+	  		self._comboDelims.add_attribute(cellText, 'text', 1)
+	  		
+	  		self._comboDelims.set_active(0)
+	  		
+	  		self.connect_signals({ "on_radioMatrix_toggled" : self.__matrix_toggled })
+			
+		return self._dialog
+
+	def __matrix_toggled(self, toggleButton):
+		self._comboDelims.set_sensitive(toggleButton.get_active())
+
+	def __build_table_body(self, rows, cols, indent):
+		"""
+		This builds the body of a table template according to the number of rows and
+		columns.
+		"""
+		s = ""
+		for i in range(rows):
+			colList = []
+			for j in range(cols):
+				colList.append("${x}")
+			s += "\n" + indent + " & ".join(colList) + " \\\\"
+		return s
+
+
+from listing import LanguagesParser
+
+
+class InsertListingDialog(GladeInterface):
+	"""
+	"""
+	
+	filename = find_resource("glade/insert_listing_dialog.glade")
+	_dialog = None
+	
+	def run(self, edited_file):
+		"""
+		@param edited_file: the File currently edited
+		"""
+		dialog = self.__get_dialog()
+		
+		source = None
+		
+		if dialog.run() == 1:
+			
+			lstset = ""
+			options = ""
+			
+			language = self._storeLanguages[self._comboLanguage.get_active()][0]
+			try:
+				dialect = self._storeDialects[self._comboDialect.get_active()][0]
+			except IndexError:
+				dialect = ""
+			
+			if self._dialectsEnabled and len(dialect):
+				# we need the lstset command
+				lstset = "\\lstset{language=[%s]%s}\n" % (dialect, language)
+			else:
+			    options = "[language=%s]" % language
+			
+			
+			if self._checkFile.get_active():
+				file = File(self._fileChooserButton.get_filename())
+				relative_filename = file.relativize(edited_file.dirname)
+				
+				source = "%s\\lstinputlisting%s{%s}" % (lstset, options, relative_filename)
+			
+			else:
+				source = "%s\\begin{lstlisting}%s\n\t$_\n\\end{lstlisting}" % (lstset, options)
+			
+			source = LaTeXSource(Template(source), ["listings"])
+			
+		dialog.hide()
+		
+		return source
+	
+	def __get_dialog(self):
+		if not self._dialog:
+			self._dialog = self.find_widget("dialogListing")
+			
+			self._fileChooserButton = self.find_widget("fileChooserButton")
+			
+			#
+			# languages
+			#
+			self._languages = []
+			parser = LanguagesParser()
+			parser.parse(self._languages, find_resource("listings.xml"))
+			
+			recentLanguage = Preferences().get("RecentListingLanguage", "Java")
+			
+			self._storeLanguages = gtk.ListStore(str)
+			recentLanguageIndex = 0
+			i = 0
+			for l in self._languages:
+				self._storeLanguages.append([l.name])
+				if l.name == recentLanguage:
+					recentLanguageIndex = i
+				i += 1
+			
+			self._comboLanguage = self.find_widget("comboLanguage")
+			self._comboLanguage.set_model(self._storeLanguages)
+			cell = gtk.CellRendererText()
+			self._comboLanguage.pack_start(cell, True)
+			self._comboLanguage.add_attribute(cell, "text", 0)
+			
+			#
+			# dialects
+			#
+			self._labelDialect = self.find_widget("labelDialect")
+			
+			self._storeDialects = gtk.ListStore(str)
+			
+			self._comboDialect = self.find_widget("comboDialect")
+			self._comboDialect.set_model(self._storeDialects)
+			cell = gtk.CellRendererText()
+			self._comboDialect.pack_start(cell, True)
+			self._comboDialect.add_attribute(cell, "text", 0)
+			
+			self._checkFile = self.find_widget("checkFile")
+			
+			self.connect_signals({ "on_checkFile_toggled" : self._fileToggled,
+								  "on_comboLanguage_changed" : self._languagesChanged })
+			
+			
+			self._comboLanguage.set_active(recentLanguageIndex)
+			
+			self._dialectsEnabled = False
+			
+		return self._dialog
+	
+	def _languagesChanged(self, comboBox):
+		language = self._languages[comboBox.get_active()]
+		
+		self._storeDialects.clear()
+		
+		if len(language.dialects):
+			i = 0
+			for dialect in language.dialects:
+				self._storeDialects.append([dialect.name])
+				if dialect.default:
+					self._comboDialect.set_active(i)
+				i += 1
+			
+			self._labelDialect.set_sensitive(True)
+			self._comboDialect.set_sensitive(True)
+			
+			self._dialectsEnabled = True
+		else:
+			self._labelDialect.set_sensitive(False)
+			self._comboDialect.set_sensitive(False)
+			
+			self._dialectsEnabled = False
+	
+	def _fileToggled(self, toggleButton):
+		self._fileChooserButton.set_sensitive(toggleButton.get_active())
+	
+	def _specificToggled(self, toggleButton):
+		self._comboLanguage.set_sensitive(toggleButton.get_active())
+		self._labelDialect.set_sensitive(toggleButton.get_active() and self._dialectsEnabled)
+		self._comboDialect.set_sensitive(toggleButton.get_active() and self._dialectsEnabled)
+

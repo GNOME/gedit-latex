@@ -124,6 +124,7 @@ class LaTeXEditor(Editor, IIssueHandler):
 			return
 		
 		# TODO:
+		raise NotImplementedError
 	
 	def on_save(self):
 		"""
