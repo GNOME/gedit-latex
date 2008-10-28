@@ -50,6 +50,9 @@ UI = """
 					<menuitem action="LaTeXItalicAction" />
 				</menu>
 			</toolitem>
+			<toolitem action="LaTeXJustifyLeftAction" />
+			<toolitem action="LaTeXJustifyCenterAction" />
+			<toolitem action="LaTeXJustifyRightAction" />
 			<separator />
 			<toolitem action="LaTeXItemizeAction" />
 			<toolitem action="LaTeXEnumerateAction" />
@@ -67,6 +70,16 @@ UI = """
 				</menu>
 			</toolitem>
 			<separator />
+			<toolitem action="LaTeXMathAction">
+				<menu action="LaTeXMathMenuAction">
+					<menuitem action="LaTeXMathAction" />
+					<menuitem action="LaTeXDisplayMathAction" />
+					<menuitem action="LaTeXEquationAction" />
+					<menuitem action="LaTeXUnEqnArrayAction" />
+					<menuitem action="LaTeXEqnArrayAction" />
+				</menu>
+			</toolitem>
+			<separator />
 			<toolitem action="LaTeXGraphicsAction" />
 			<toolitem action="LaTeXTableAction" />
 			<toolitem action="LaTeXListingAction" />
@@ -79,7 +92,9 @@ from ..latex.actions import LaTeXMenuAction, LaTeXNewAction, LaTeXCommentAction,
 		LaTeXItemizeAction, LaTeXEnumerateAction, LaTeXFontFamilyAction, LaTeXFontFamilyMenuAction, LaTeXBoldAction, \
 		LaTeXItalicAction, LaTeXDescriptionAction, LaTeXStructureMenuAction, LaTeXPartAction, LaTeXChapterAction, \
 		LaTeXSectionAction, LaTeXSubsectionAction, LaTeXParagraphAction,LaTeXSubparagraphAction, LaTeXStructureAction, \
-		LaTeXGraphicsAction, LaTeXUseBibliographyAction, LaTeXTableAction, LaTeXListingAction
+		LaTeXGraphicsAction, LaTeXUseBibliographyAction, LaTeXTableAction, LaTeXListingAction, LaTeXJustifyLeftAction, \
+		LaTeXJustifyCenterAction, LaTeXJustifyRightAction, LaTeXMathMenuAction, LaTeXMathAction, LaTeXDisplayMathAction, \
+		LaTeXEquationAction, LaTeXUnEqnArrayAction, LaTeXEqnArrayAction
 
 
 # TODO: extensions and UI path should be asked from Action objects (build UI like for tool actions)
@@ -108,7 +123,16 @@ ACTION_OBJECTS = { "LaTeXMenuAction" : LaTeXMenuAction(),
 				   "LaTeXGraphicsAction" : LaTeXGraphicsAction(),
 				   "LaTeXUseBibliographyAction" : LaTeXUseBibliographyAction(),
 				   "LaTeXTableAction" : LaTeXTableAction(),
-				   "LaTeXListingAction" : LaTeXListingAction() }
+				   "LaTeXListingAction" : LaTeXListingAction(),
+				   "LaTeXJustifyLeftAction" : LaTeXJustifyLeftAction(),
+				   "LaTeXJustifyCenterAction" : LaTeXJustifyCenterAction(),
+				   "LaTeXJustifyRightAction" : LaTeXJustifyRightAction(),
+				   "LaTeXMathMenuAction" : LaTeXMathMenuAction(),
+				   "LaTeXMathAction" : LaTeXMathAction(),
+				   "LaTeXDisplayMathAction" : LaTeXDisplayMathAction(),
+				   "LaTeXEquationAction" : LaTeXEquationAction(),
+				   "LaTeXUnEqnArrayAction" : LaTeXUnEqnArrayAction(),
+				   "LaTeXEqnArrayAction" : LaTeXEqnArrayAction() }
 
 ACTION_EXTENSIONS = { None : ["LaTeXNewAction"],
 					  ".tex" : ["LaTeXMenuAction", 
@@ -133,7 +157,16 @@ ACTION_EXTENSIONS = { None : ["LaTeXNewAction"],
 								"LaTeXGraphicsAction",
 								"LaTeXUseBibliographyAction",
 								"LaTeXTableAction",
-								"LaTeXListingAction"] }
+								"LaTeXListingAction",
+								"LaTeXJustifyCenterAction",
+								"LaTeXJustifyLeftAction",
+								"LaTeXJustifyRightAction",
+								"LaTeXMathMenuAction",
+				   				"LaTeXMathAction",
+				   				"LaTeXDisplayMathAction",
+				   				"LaTeXEquationAction",
+				   				"LaTeXUnEqnArrayAction",
+				   				"LaTeXEqnArrayAction"] }
 
 from ..tools import Tool, Job
 from ..tools.postprocess import GenericPostProcessor, RubberPostProcessor
@@ -141,9 +174,6 @@ from ..tools.postprocess import GenericPostProcessor, RubberPostProcessor
 
 TOOLS = { ".tex" : [ Tool("LaTeX → PDF", [Job("rubber --inplace --maxerr -1 --pdf --short --force --warn all \"$filename\"", True, RubberPostProcessor), Job("gnome-open $shortname.pdf", True, GenericPostProcessor)], "Create a PDF from LaTeX source"),
 					 Tool("Cleanup LaTeX Build", [Job("rm -f $directory/*.aux $directory/*.log $directory/*.toc $directory/*.bbl $directory/*.blg", True, GenericPostProcessor)], "Remove LaTeX build files")] }
-
-#TOOLS = [ Tool("LaTeX → PDF", [".tex"], [Job("rubber --inplace --maxerr -1 --pdf --short --force --warn all \"$filename\"", True, RubberPostProcessor), Job("gnome-open $shortname.pdf", True, GenericPostProcessor)], "Create a PDF from LaTeX source"),
-#		  Tool("Cleanup LaTeX Build", [".tex"], [Job("rm -f $directory/*.aux $directory/*.log $directory/*.toc $directory/*.bbl $directory/*.blg", True, GenericPostProcessor)], "Remove LaTeX build files") ]
 
 
 from ..views import IssueView

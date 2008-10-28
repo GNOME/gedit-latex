@@ -31,6 +31,7 @@ from completion import LaTeXCompletionHandler
 from ..snippets.completion import SnippetCompletionHandler
 from ..issues import Issue, IIssueHandler
 from ..util import caught
+from copy import deepcopy
 
 from parser import LaTeXParser
 from expander import LaTeXReferenceExpander
@@ -42,8 +43,10 @@ from dialogs import ChooseMasterDialog
 from . import LaTeXSource
 from ..base.preferences import Preferences
 
+from spellcheck import SpellChecker, IMisspelledWordHandler
 
-class LaTeXEditor(Editor, IIssueHandler):
+
+class LaTeXEditor(Editor, IIssueHandler, IMisspelledWordHandler):
 	
 	# TODO: use _document_dirty
 	
@@ -80,6 +83,11 @@ class LaTeXEditor(Editor, IIssueHandler):
 		self._connect_outline_to_editor = True	# TODO: read from config
 		self._document_dirty = True
 		
+		# spell checking
+		self.__spell_checker = SpellChecker()
+		self.__suggestions_menu = None
+		self.__suggestion_items = []
+		
 		#
 		# initially parse
 		#
@@ -95,7 +103,8 @@ class LaTeXEditor(Editor, IIssueHandler):
 		# see base.Editor.insert
 		
 		if type(source) is LaTeXSource:
-			self.ensure_packages(source.packages)
+			if source.packages and len(source.packages) > 0:
+				self.ensure_packages(source.packages)
 			
 			Editor.insert(self, source.source)
 		else:
@@ -154,7 +163,7 @@ class LaTeXEditor(Editor, IIssueHandler):
 		
 		self.__latex_completion_handler.set_neighbors(tex_files, bib_files, graphic_files)
 	
-	@caught
+	#@caught
 	def __parse(self):
 		"""
 		"""
@@ -173,6 +182,9 @@ class LaTeXEditor(Editor, IIssueHandler):
 			
 			# parse document
 			self._document = self._parser.parse(content, self._file, self)
+			
+			# create a copy that won't be expanded (e.g. for spell check)
+			#self._local_document = deepcopy(self._document)
 			
 			self._log.debug("Parsed %s bytes of content" % len(content))
 			
@@ -255,21 +267,112 @@ class LaTeXEditor(Editor, IIssueHandler):
 			elif issue.severity == Issue.SEVERITY_WARNING:
 				self.create_marker("latex-warning", issue.start, issue.end)
 	
+	#
+	# spell checking begin
+	#
+	# TODO: put this in a SpellCheckDelegate or so
+	#
+	
 	def spell_check(self):
 		"""
 		Run a spell check on the file
 		"""
-		self._log.debug("spell_check")
-		
 		self.remove_markers("latex-spell")
+		self.__word_markers = {}
 		
-		id = self.create_marker("latex-spell", 15, 30)
+		#
+		# FIXME: it makes no sense to pass _document here because it contains
+		# the expanded model of the document. We must keep the the not expanded
+		# one, too.
+		#
+		self.__spell_checker.run(self._document, self.edited_file, self)
+			
+	def on_misspelled_word(self, word, position):
+		# see IMisspelledWordHandler.on_misspelled_word
+		marker = self.create_marker("latex-spell", position, position + len(word))
+		self.__word_markers[marker.id] = word
 	
 	def on_marker_activated(self, marker, event):
 		"""
 		A marker has been activated
 		"""
-		self._log.debug("activate_marker(%s, %s)" % (marker, event))
+		#self._log.debug("activate_marker(%s, %s)" % (marker, event))
+		
+		if marker.type == "latex-spell":
+			word = self.__word_markers[marker.id]
+			suggestions = self.__spell_checker.find_suggestions(word)
+			
+			self._log.debug(str(suggestions))
+			
+			# build and show the context menu
+			menu = self.__get_suggestions_menu(suggestions, marker)
+			menu.popup(None, None, None, event.button, event.time)
+			
+			# swallow the signal so that the original context menu
+			# isn't shown
+			return True
+			
+	def __get_suggestions_menu(self, suggestions, marker):
+		"""
+		Return the context menu for spell check suggestions
+		
+		@param marker: the activated Marker
+		@param suggestions: a list of suggested words
+		"""
+		if not self.__suggestions_menu:
+			self.__suggestions_menu = gtk.Menu()
+			
+			self.__suggestions_menu.add(gtk.SeparatorMenuItem())
+			
+			item_ignore = gtk.MenuItem("Ignore")
+			item_ignore.set_sensitive(False)
+			self.__suggestions_menu.add(item_ignore)
+			
+			item_add = gtk.MenuItem("Add to Dictionary")
+			item_add.set_sensitive(False)
+			self.__suggestions_menu.add(item_add)
+			
+			self.__suggestions_menu.add(gtk.SeparatorMenuItem())
+			
+			item_abort = gtk.ImageMenuItem(gtk.STOCK_CANCEL)
+			item_abort.connect("activate", self.__on_abort_spell_check_activated)
+			self.__suggestions_menu.add(item_abort)
+			
+			self.__suggestions_menu.show_all()
+		
+		# remove old suggestions
+		for item in self.__suggestion_items:
+			self.__suggestions_menu.remove(item)
+			
+		# add new ones
+		suggestions.reverse()	# we insert in reverse order, so reverse before
+		
+		for suggestion in suggestions:
+			item = gtk.MenuItem(suggestion)
+			item.connect("activate", self.__on_suggestion_activated, suggestion, marker)
+			self.__suggestions_menu.insert(item, 0)
+			item.show()
+			self.__suggestion_items.append(item)
+		
+		return self.__suggestions_menu
+	
+	def __on_suggestion_activated(self, menu_item, suggestion, marker):
+		"""
+		A suggestion from the context menu has been activated
+		
+		@param menu_item: the activated MenuItem
+		@param suggestion: the word
+		"""
+		self.replace_marker_content(marker, suggestion)
+	
+	def __on_abort_spell_check_activated(self, menu_item):
+		"""
+		"""
+		self.remove_markers("latex-spell")
+	
+	#
+	# spell checking end
+	#
 	
 	def on_cursor_moved(self, offset):
 		"""

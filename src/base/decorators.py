@@ -142,7 +142,7 @@ class GeditWindowDecorator(object):
 			
 			# FIXME: this is quite hacky
 			
-			if name == "LaTeXFontFamilyAction" or name == "LaTeXStructureAction":
+			if name in ["LaTeXFontFamilyAction", "LaTeXStructureAction", "LaTeXMathAction"]:
 				gtk_action = MenuToolAction(name, action.label, action.tooltip, action.stock_id)
 			else:
 				gtk_action = gtk.Action(name, action.label, action.tooltip, action.stock_id)

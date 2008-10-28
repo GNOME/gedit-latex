@@ -310,8 +310,80 @@ class LaTeXListingAction(IconAction):
 		source = self.dialog.run(context.active_editor.edited_file)
 		if source:
 			context.active_editor.insert(source)
+			
+			
+class LaTeXJustifyLeftAction(LaTeXTemplateAction):
+	label = "Justify Left"
+	tooltip = "Justify Left"
+	icon_name = "justify-left"
+	template_source = "\\begin{flushleft}$_\\end{flushleft}"
 	
 	
+class LaTeXJustifyCenterAction(LaTeXTemplateAction):
+	label = "Justify Center"
+	tooltip = "Justify Center"
+	icon_name = "justify-center"
+	template_source = "\\begin{center}$_\\end{center}"
+
+
+class LaTeXJustifyRightAction(LaTeXTemplateAction):
+	label = "Justify Right"
+	tooltip = "Justify Right"
+	icon_name = "justify-right"
+	template_source = "\\begin{flushright}$_\\end{flushright}"
+	
+
+class LaTeXMathMenuAction(IAction):
+	label = "Math"
+	accelerator = None
+	tooltip = "Math"
+	stock_id = None
+	
+	def activate(self, context):
+		pass
+
+
+class LaTeXMathAction(LaTeXTemplateAction):
+	label = "Mathematical Environment"
+	tooltip = "Mathematical Environment"
+	icon_name = "math"
+	template_source = "$ $_ $"
+	
+	
+class LaTeXDisplayMathAction(LaTeXTemplateAction):
+	label = "Centered Formula"
+	tooltip = "Centered Formula"
+	icon_name = "displaymath"
+	template_source = "\\[ $_ \\]"
+	
+	
+class LaTeXEquationAction(LaTeXTemplateAction):
+	label = "Numbered Equation"
+	tooltip = "Numbered Equation"
+	icon_name = "equation"
+	template_source = """\\begin{equation}
+	$_
+\\end{equation}"""
+
+
+class LaTeXUnEqnArrayAction(LaTeXTemplateAction):
+	label = "Array of Equations"
+	tooltip = "Array of Equations"
+	icon_name = "uneqnarray"
+	packages = ["amsmath"]
+	template_source = """\\begin{align*}
+	$_
+\\end{align*}"""
+
+
+class LaTeXEqnArrayAction(LaTeXTemplateAction):
+	label = "Numbered Array of Equations"
+	tooltip = "Numbered Array of Equations"
+	icon_name = "eqnarray"
+	packages = ["amsmath"]
+	template_source = """\\begin{align}
+	$_
+\\end{align}"""
 	
 	
 	

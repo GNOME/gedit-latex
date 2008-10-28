@@ -395,11 +395,10 @@ class Editor(object):
 					self.__log.debug("Found TextMark '%s' at offset %s" % (name, it.get_offset()))
 					
 					if name:
-						try:
+						if name in self._markers.keys():
 							marker = self._markers[name]
-							self.on_marker_activated(marker, event)
-							return
-						except KeyError:
+							return self.on_marker_activated(marker, event)
+						else:
 							self.__log.warning("No marker found for TextMark '%s'" % name)
 					else:
 						# FIXME: this is not safe - use another symbol for right boundaries!
