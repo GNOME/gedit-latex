@@ -82,6 +82,9 @@ class Preferences(object):
 		Special version of get() casting the string value to a boolean value
 		"""
 		return str_to_bool(self.get(key, default_value))
+	
+	def set(self, key, value):
+		self.preferences[key] = str(value)
 		
 		
 			

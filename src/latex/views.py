@@ -27,15 +27,67 @@ LaTeX-specific views
 import gtk
 from gtk.gdk import Pixbuf, pixbuf_new_from_file
 from logging import getLogger
+from xml.dom.minidom import parse
+from xml.parsers.expat import ExpatError
 
 from ..base import View
+from ..base.resources import find_resource, MODE_READWRITE
 from ..issues import Issue
+
+
+class SymbolCollection(object):
+	"""
+	A collection of symbols read from an XML file
+	"""
+	
+	_log = getLogger("SymbolCollection")
+	
+	
+	class Group(object):
+		def __init__(self, label):
+			self.label = label
+			self.symbols = []
 		
+		
+	class Symbol(object):
+		def __init__(self, source, icon):
+			self.source = source
+			self.icon = icon
+	
+	
+	def __init__(self):
+		filename = find_resource("symbols.xml", MODE_READWRITE)
+		self.groups = []
+		try:
+			dom = parse(filename)
+			
+			for groupEl in dom.getElementsByTagName("group"):
+				group = self.Group(groupEl.getAttribute("label"))
+				
+				counter = 0
+				
+				for symbolEl in groupEl.getElementsByTagName("symbol"):
+					source = symbolEl.getAttribute("source")
+					icon = symbolEl.getAttribute("icon")
+					
+					symbol = self.Symbol(source, find_resource("icons/%s" % icon))
+					
+					group.symbols.append(symbol)
+					
+					counter += 1
+				
+				self.groups.append(group)
+				
+		except IOError:
+			self._log.error("File not found: %s" % filename)
+		except ExpatError, s:
+			self._log.error("Parse error: %s" % s)
+
 		
 class LaTeXSymbolMapView(View):
 	"""
 	"""
-	_log = getLogger("LaTeXSymbolMapView")
+	__log = getLogger("LaTeXSymbolMapView")
 	
 	position = View.POSITION_SIDE
 	label = "Symbols"
@@ -43,7 +95,103 @@ class LaTeXSymbolMapView(View):
 	scope = View.SCOPE_WINDOW
 	
 	def init(self, context):
-		self._log.debug("init")
+		self.__log.debug("init")
+		
+		self.__context = context
+		self.__preferences = Preferences()
+		
+		scrolled = gtk.ScrolledWindow()
+		scrolled.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+		scrolled.set_shadow_type(gtk.SHADOW_NONE)
+		
+		self.__box = gtk.VBox()
+		scrolled.add_with_viewport(self.__box)
+		
+		self.add(scrolled)
+		self.show_all()
+		
+		self.__load_collection(SymbolCollection())
+	
+	def __load_collection(self, collection):
+		self.__expanded_groups = set(self.__preferences.get("ExpandedSymbolGroups", "").split(","))
+		
+		for group in collection.groups:
+			self.__add_group(group)
+	
+	def __add_group(self, group):
+		model = gtk.ListStore(gtk.gdk.Pixbuf, str)
+		
+		for symbol in group.symbols:
+			try:
+				model.append([gtk.gdk.pixbuf_new_from_file(symbol.icon), symbol.source])
+			except GError, s:
+				print s
+		
+		view = gtk.IconView(model)
+		view.set_pixbuf_column(0)
+		view.set_selection_mode(gtk.SELECTION_SINGLE)
+		view.connect("selection-changed", self.__on_symbol_selected)
+		view.set_item_width(-1)
+		view.set_spacing(0)
+		view.set_column_spacing(0)
+		view.set_row_spacing(0)
+		view.set_columns(-1)
+		view.set_text_column(-1)
+		
+		view.set_tooltip_column(1)		# this requires PyGTK 2.12
+		
+		view.show()
+		
+		if gtk.gtk_version >= (2, 10, 14):
+			expander = gtk.Expander(group.label)
+			expander.add(view)
+			expander.show_all()
+			
+			if group.label in self.__expanded_groups:
+				expander.set_expanded(True)
+			
+			expander.connect("notify::expanded", self.__on_group_expanded, group.label)
+			
+			# FIXME: Works with gtk+ 2.10.14 and pygtk 2.10.6. With gtk 2.10.11 and 
+			# pygtk 2.10.4 the expanders don't acquire any space on this way.
+			# It only works with self.__vbox.pack_start(expander, True) but that doesn't make
+			# sense...
+			self.__box.pack_start(expander, False)
+		else:
+			label = gtk.Label(group.label)
+			label.set_alignment(0, .5)
+			label.show()
+			
+			self.__box.pack_start(label, False)
+			self.__box.pack_start(view, True)
+			self.__box.set_spacing(3)
+	
+	def __on_group_expanded(self, expander, paramSpec, group_label):
+		"""
+		The Expander for a symbol group has been expanded
+		"""
+		if expander.get_expanded():
+			self.__expanded_groups.add(group_label)
+		else:
+			self.__expanded_groups.remove(group_label)
+		
+		self.__preferences.set("ExpandedSymbolGroups", ",".join(self.__expanded_groups))
+	
+	def __on_symbol_selected(self, icon_view):
+		"""
+		A symbol has been selected
+		
+		@param icon_view: the gtk.IconView 
+		"""
+		try: 
+			path = icon_view.get_selected_items()[0]
+			source = icon_view.get_model()[path][1]
+			
+			self.__context.active_editor.insert(source)
+			
+			icon_view.unselect_all()
+		except IndexError:
+			pass				# must be caught after unselect_all()
 
 
 from os import system
