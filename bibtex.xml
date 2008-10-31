@@ -1,0 +1,325 @@
+<bibtex>
+	<fields>
+		<field id="title" _label="Title" />
+		<field id="booktitle" _label="Book Title" />
+		<field id="author" _label="Author" />
+		<field id="editor" _label="Editor" />
+		<field id="pages" _label="Pages" />
+		<field id="journal" _label="Journal" />
+		<field id="volume" _label="Volume" />
+		<field id="number" _label="Number" />
+		<field id="month" _label="Month" />
+		<field id="year" _label="Year" />
+		<field id="issn" _label="ISSN" />
+		<field id="series" _label="Series" />
+		<field id="edition" _label="Edition" />
+		<field id="publisher" _label="Publisher" />
+		<field id="address" _label="Address" />
+		<field id="isbn" _label="ISBN" />
+		<field id="howpublished" _label="How Published" />
+		<field id="booktitle" _label="Book Title" />
+		<field id="organization" _label="Organization" />
+		<field id="location" _label="Location" />
+		<field id="url" _label="URL" />
+		<field id="note" _label="Note" />
+		<field id="type" _label="Type" />
+		<field id="chapter" _label="Chapter" />
+		<field id="key" _label="Key" />
+		<field id="school" _label="School" />
+		<field id="institution" _label="Institution" />
+		<field id="crossref" _label="Cross Reference" /><!-- this one must point to an existing entry -->
+	</fields>
+
+	<types>
+
+		<type id="Article">
+			<required>
+				<field id="title" />
+				<field id="author" />
+				<field id="journal" />
+				<field id="year" />
+			</required>
+			<optional>
+				<field id="editor" />
+				<field id="pages" />
+				<field id="volume" />
+				<field id="number" />
+				<field id="month" />
+				<field id="issn" />
+				<field id="url" />
+				<field id="key" />
+				<field id="note" />
+			</optional>
+		</type>
+
+		<type id="Book">
+			<required>
+				<field id="title" />
+				<field id="year" />
+				<field id="publisher" />
+			</required>
+			<optional>
+				<field id="author" />
+				<field id="editor" />
+				<field id="series" />
+				<field id="volume" />
+				<field id="edition" />
+				<field id="month" />
+				<field id="isbn" />
+				<field id="address" />
+				<field id="url" />
+				<field id="key" />
+				<field id="note" />
+			</optional>
+		</type>
+
+		<type id="Booklet">
+			<required>
+				<field id="title" />
+			</required>
+			<optional>
+				<field id="author" />
+				<field id="editor" />
+				<field id="year" />
+				<field id="month" />
+				<field id="series" />
+				<field id="isbn" />
+				<field id="howpublished" />
+				<field id="address" />
+				<field id="url" />
+				<field id="key" />
+				<field id="note" />
+			</optional>
+		</type>
+
+		<type id="Collection">
+			<required>
+				<field id="title" />
+				<field id="year" />
+			</required>
+			<optional>
+				<field id="author" />
+				<field id="editor" />
+				<field id="booktitle" />
+				<field id="series" />
+				<field id="organization" />
+				<field id="publisher" />
+				<field id="location" />
+				<field id="address" />
+				<field id="isbn" />
+				<field id="url" />
+				<field id="key" />
+				<field id="note" />
+			</optional>
+		</type>
+
+		<type id="Electronic">
+			<required>
+				<field id="title" />
+				<field id="url" />
+			</required>
+			<optional>
+				<field id="year" />
+				<field id="month" />
+				<field id="howpublished" />
+				<field id="key" />
+			</optional>
+		</type>
+
+		<type id="InBook">
+			<required>
+				<field id="title" />
+				<field id="author" />
+				<field id="publisher" />
+				<field id="chapter" />
+			</required>
+			<optional>
+				<field id="series" />
+				<field id="volume" />
+				<field id="year" />
+				<field id="month" />
+				<field id="pages" />
+				<field id="edition" />
+				<field id="editor" />
+				<field id="crossref" />
+				<field id="address" />
+				<field id="isbn" />
+				<field id="url" />
+				<field id="key" />
+				<field id="note" />
+			</optional>
+		</type>
+
+		<type id="InCollection">
+			<required>
+				<field id="title" />
+				<field id="author" />
+				<field id="booktitle" />
+				<field id="publisher" />
+			</required>
+			<optional>
+				<field id="editor" />
+				<field id="year" />
+				<field id="month" />
+				<field id="pages" />
+				<field id="crossref" />
+				<field id="organization" />
+				<field id="location" />
+				<field id="address" />
+				<field id="isbn" />
+				<field id="type" />
+				<field id="key" />
+				<field id="url" />
+				<field id="note" />
+			</optional>
+		</type>
+
+		<type id="InProceedings">
+			<required>
+				<field id="title" />
+				<field id="booktitle" />
+				<field id="author" />
+			</required>
+			<optional>
+				<field id="series" />
+				<field id="editor" />
+				<field id="volume" />
+				<field id="year" />
+				<field id="month" />
+				<field id="pages" />
+				<field id="edition" />
+				<field id="chapter" />
+				<field id="number" />
+				<field id="location" />
+				<field id="address" />
+				<field id="isbn" />
+				<field id="publisher" />
+				<field id="type" />
+				<field id="url" />
+				<field id="note" />
+			</optional>
+		</type>
+
+		<type id="Manual">
+			<required>
+				<field id="title" />
+			</required>
+			<optional>
+				<field id="author" />
+				<field id="editor" />
+				<field id="year" />
+				<field id="month" />
+				<field id="edition" />
+				<field id="organization" />
+				<field id="address" />
+				<field id="isbn" />
+				<field id="note" />
+				<field id="url" />
+			</optional>
+		</type>
+
+		<type id="MasterThesis">
+			<required>
+				<field id="title" />
+				<field id="author" />
+				<field id="school" />
+			</required>
+			<optional>
+				<field id="editor" />
+				<field id="year" />
+				<field id="month" />
+				<field id="address" />
+				<field id="key" />
+				<field id="url" />
+				<field id="note" />
+			</optional>
+		</type>
+
+		<type id="Misc">
+			<optional>
+				<field id="title" />
+				<field id="author" />
+				<field id="editor" />
+				<field id="year" />
+				<field id="month" />
+				<field id="howpublished" />
+				<field id="key" />
+				<field id="note" />
+				<field id="url" />
+			</optional>
+		</type>
+
+		<type id="PhDThesis">
+			<required>
+				<field id="title" />
+				<field id="author" />
+				<field id="school" />
+			</required>
+			<optional>
+				<field id="editor" />
+				<field id="year" />
+				<field id="month" />
+				<field id="address" />
+				<field id="note" />
+				<field id="key" />
+				<field id="url" />
+				<field id="isbn" />
+			</optional>
+		</type>
+
+		<type id="Proceedings">
+			<required>
+				<field id="title" />
+			</required>
+			<optional>
+				<field id="booktitle" />
+				<field id="series" />
+				<field id="author" />
+				<field id="editor" />
+				<field id="year" />
+				<field id="month" />
+				<field id="organization" />
+				<field id="publisher" />
+				<field id="address" />
+				<field id="isbn" />
+				<field id="location" />
+				<field id="note" />
+				<field id="key" />
+				<field id="url" />
+			</optional>
+		</type>
+
+		<type id="TechReport">
+			<required>
+				<field id="title" />
+				<field id="author" />
+				<field id="institution" />
+			</required>
+			<optional>
+				<field id="editor" />
+				<field id="year" />
+				<field id="month" />
+				<field id="number" />
+				<field id="address" />
+				<field id="note" />
+				<field id="key" />
+				<field id="url" />
+				<field id="type" />
+			</optional>
+		</type>
+		<type id="Unpublished">
+			<required>
+				<field id="title" />
+				<field id="author" />
+			</required>
+			<optional>
+				<field id="editor" />
+				<field id="year" />
+				<field id="month" />
+				<field id="note" />
+				<field id="key" />
+				<field id="url" />
+			</optional>
+		</type>
+	</types>
+</bibtex>

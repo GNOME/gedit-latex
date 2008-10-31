@@ -29,12 +29,18 @@ from ..preferences import Preferences
 from ..issues import Issue, IIssueHandler
 from ..util import caught
 
-from parser import BibTeXParser#, AsyncParserRunner
+from parser import BibTeXParser
+from completion import BibTeXCompletionHandler
 
 
 class BibTeXEditor(Editor, IIssueHandler):
 	
 	_log = getLogger("BibTeXEditor")
+	
+	@property
+	def completion_handlers(self):
+		self.__bibtex_completion_handler = BibTeXCompletionHandler()
+		return [ self.__bibtex_completion_handler ]
 	
 	def init(self, file, context):
 		self._log.debug("init(%s)" % file)
