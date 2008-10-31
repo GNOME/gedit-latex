@@ -99,7 +99,8 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		self._tab_signal_handlers = [
 				self._window.connect("tab_added", self._on_tab_added),
 				self._window.connect("tab_removed", self._on_tab_removed),
-				self._window.connect("active_tab_changed", self._on_active_tab_changed) ]
+				self._window.connect("active_tab_changed", self._on_active_tab_changed),
+				self._window.connect("destroy", self._on_window_destroyed) ]
 	
 	def _init_views(self):
 		"""
@@ -507,6 +508,14 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		decorator = GeditTabDecorator(self, tab, init)
 		self._tab_decorators[tab] = decorator
 		return decorator 
+	
+	def _on_window_destroyed(self, object):
+		"""
+		The gtk.Window received the 'destroy' signal as a gtk.Object
+		"""
+		self._log.debug("DESTROY")
+		
+		self._preferences.save()
 	
 	def destroy(self):
 		#

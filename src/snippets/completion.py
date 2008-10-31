@@ -69,12 +69,14 @@ class SnippetProposal(IProposal):
 		return self._overlap
 
 
-from . import Snippet
+#from . import Snippet
+#
+#
+#SNIPPETS = [
+#		Snippet("includegraphics", "\\includegraphics[${Attributes}]{${Filename}}"),
+#		Snippet("begin", "\\begin{${Environment}}\n\t$_\n\\end{${Environment}}") ]
 
-
-SNIPPETS = [
-		Snippet("includegraphics", "\\includegraphics[${Attributes}]{${Filename}}"),
-		Snippet("begin", "\\begin{${Environment}}\n\t$_\n\\end{${Environment}}") ]
+from ..preferences import Preferences
 
 
 class SnippetCompletionHandler(ICompletionHandler):
@@ -82,6 +84,9 @@ class SnippetCompletionHandler(ICompletionHandler):
 	"""
 	
 	_log = getLogger("SnippetCompletionHandler")
+	
+	def __init__(self):
+		self._snippets = Preferences().snippets
 	
 	@property
 	def trigger_keys(self):
@@ -100,7 +105,7 @@ class SnippetCompletionHandler(ICompletionHandler):
 		
 		overlap = len(prefix)
 		
-		matching_snippets = [snippet for snippet in SNIPPETS if snippet.label.startswith(prefix)]
+		matching_snippets = [snippet for snippet in self._snippets if snippet.label.startswith(prefix)]
 		proposals = [SnippetProposal(snippet, overlap) for snippet in matching_snippets]
 		
 		return proposals

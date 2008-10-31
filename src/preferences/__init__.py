@@ -24,8 +24,10 @@ preferences
 
 from logging import getLogger
 
+from ..base.resources import find_resource, MODE_READWRITE
 from ..tools import Tool, Job
-from ..tools.postprocess import GenericPostProcessor, RubberPostProcessor
+from ..tools.postprocess import GenericPostProcessor, RubberPostProcessor, LaTeXPostProcessor
+from ..snippets import Snippet
 
 
 def str_to_bool(x):
@@ -59,6 +61,11 @@ class IPreferencesMonitor(object):
 		"""
 
 
+# ElementTree is part of Python 2.5
+# TODO: see http://effbot.org/zone/element-index.htm
+import xml.etree.ElementTree as ElementTree
+
+
 class Preferences(object):
 	"""
 	A simple map storing preferences as key-value-pairs
@@ -66,7 +73,10 @@ class Preferences(object):
 	
 	_log = getLogger("Preferences")
 	
-	# TODO: use XML file
+	# maps names to classes
+	POST_PROCESSORS = {"GenericPostProcessor" : GenericPostProcessor, 
+					   "LaTeXPostProcessor" : LaTeXPostProcessor, 
+					   "RubberPostProcessor" : RubberPostProcessor}
 	
 	def __new__(type):
 		if not '_instance' in type.__dict__:
@@ -75,13 +85,26 @@ class Preferences(object):
 	
 	def __init__(self):
 		if not '_ready' in dir(self):
-			self.preferences = { "ConnectOutlineToEditor" : True,
-								 "ErrorBackgroundColor" : "#ffdddd",
-								 "WarningBackgroundColor" : "#ffffcf",
-								 "SpellingBackgroundColor" : "#ffeccf",
-								 "LightForeground" : "#957d47" }
+			#
+			# init Preferences singleton
+			#
 			
+#			self.preferences = { "ConnectOutlineToEditor" : True,
+#								 "ErrorBackgroundColor" : "#ffdddd",
+#								 "WarningBackgroundColor" : "#ffffcf",
+#								 "SpellingBackgroundColor" : "#ffeccf",
+#								 "LightForeground" : "#957d47" }
+
 			self.__monitors = []
+			
+			self.__preferences_changed = False
+			self.__tools_changed = False
+			self.__snippets_changed = False
+			
+			# parse
+			self.__preferences = ElementTree.parse(find_resource("preferences.xml", MODE_READWRITE)).getroot()
+			self.__tools = ElementTree.parse(find_resource("tools.xml", MODE_READWRITE)).getroot()
+			self.__snippets = ElementTree.parse(find_resource("snippets.xml", MODE_READWRITE)).getroot()
 			
 			self._ready = True
 	
@@ -102,17 +125,15 @@ class Preferences(object):
 		
 		@param key: a key string
 		@param default_value: a default value to be stored and returned if the key is not found
-		
-		@raise KeyError: if the key is not found and no default value is given
 		"""
-		try:
-			return self.preferences[key]
-		except KeyError:
-			if default_value != None:
-				self.preferences[key] = default_value
-				return default_value
-			else:
-				raise KeyError
+		value_element = self.__find_value_element(key)
+		if value_element == None:
+			return default_value
+		else:
+			return value_element.text
+		
+		# TODO: use this as soon as ElementTree 1.3 is part of Python
+		return self.__preferences.findtext(".//value[@key='%s']" % key, default_value)
 	
 	def get_bool(self, key, default_value=None):
 		"""
@@ -120,10 +141,28 @@ class Preferences(object):
 		"""
 		return str_to_bool(self.get(key, default_value))
 	
+	def __find_value_element(self, key):
+		# TODO: use this as soon as ElementTree 1.3 is part of Python
+		#value_element = self.__preferences.find(".//value[@key='%s']" % key)
+		
+		for element in self.__preferences.findall("value"):
+			if element.get("key") == key:
+				return element
+		self._log.error("<value key='%s'> not found" % key)
+		return None
+	
 	def set(self, key, value):
 		self._log.debug("set('%s', '%s')" % (key, value))
+
+		value_element = self.__find_value_element(key)
+		if value_element == None:
+			self._log.debug("Creating new <value key='%s'>" % key)
+			
+			value_element = ElementTree.SubElement(self.__preferences, "value")
+			value_element.set("key", str(key))
+		value_element.text = str(value)
 		
-		self.preferences[key] = str(value)
+		self.__preferences_changed = True
 		
 		# TODO: notify monitors
 	
@@ -136,11 +175,24 @@ class Preferences(object):
 	
 	@property
 	def tools(self):
-		TOOLS = [ Tool("LaTeX → PDF", [Job("rubber --inplace --maxerr -1 --pdf --short --force --warn all \"$filename\"", True, RubberPostProcessor), 
-									   Job("gnome-open $shortname.pdf", True, GenericPostProcessor)], "Create a PDF from LaTeX source" , [".tex"]),
-				  Tool("Cleanup LaTeX Build", [Job("rm -f $directory/*.aux $directory/*.log $directory/*.toc $directory/*.bbl $directory/*.blg", True, GenericPostProcessor)], "Remove LaTeX build files", [".tex"]),
-				  Tool("BibTeX → XML", [Job("bibtex2xml \"$filename\"", True, GenericPostProcessor)], "Convert BibTeX to XML", [".bib"])]
-		return TOOLS
+		"""
+		Return all Tools
+		"""
+		
+#		TOOLS = [ Tool("LaTeX → PDF", [Job("rubber --inplace --maxerr -1 --pdf --short --force --warn all \"$filename\"", True, RubberPostProcessor), 
+#									   Job("gnome-open $shortname.pdf", True, GenericPostProcessor)], "Create a PDF from LaTeX source" , [".tex"]),
+#				  Tool("Cleanup LaTeX Build", [Job("rm -f $directory/*.aux $directory/*.log $directory/*.toc $directory/*.bbl $directory/*.blg", True, GenericPostProcessor)], "Remove LaTeX build files", [".tex"]),
+#				  Tool("BibTeX → XML", [Job("bibtex2xml \"$filename\"", True, GenericPostProcessor)], "Convert BibTeX to XML", [".bib"])]
+#		return TOOLS
+		
+		tools = []
+		for tool_element in self.__tools.findall("tool"):
+			jobs = []
+			for job_element in tool_element.findall("job"):
+				jobs.append(Job(job_element.text, job_element.get("mustSucceed"), self.POST_PROCESSORS[job_element.get("postProcessor")]))
+			extensions = tool_element.get("extensions").split()
+			tools.append(Tool(tool_element.get("label"), jobs, tool_element.get("description"), extensions))
+		return tools
 	
 	def update_tool(self, tool):
 		# TODO:
@@ -157,6 +209,32 @@ class Preferences(object):
 		# TODO:
 		
 		self.__notify_tools_changed()
+	
+	@property
+	def snippets(self):
+		"""
+		Return all Snippets
+		"""
+		snippets = []
+		for snippet_element in self.__snippets.findall("snippet"):
+			snippets.append(Snippet(snippet_element.get("label"), snippet_element.text))
+		return snippets
+	
+	def save(self):
+		"""
+		Save the preferences to XML files
+		"""
+		if self.__preferences_changed:
+			self.__save_preferences()
+			
+	def __save_preferences(self):
+		self._log.debug("__save_preferences")
+		
+		tree = ElementTree.ElementTree(self.__preferences)
+		tree.write(find_resource("preferences.xml", MODE_READWRITE))
+		
+		
+		
 		
 		
 			
