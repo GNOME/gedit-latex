@@ -1,0 +1,173 @@
+<?xml version="1.0" ?>
+<symbols>
+	<group label="Operators">
+		<symbol icon="operators/approx.png" source="\approx" />
+		<symbol icon="operators/ast.png" source="\ast" />
+		<symbol icon="operators/bullet.png" source="\bullet" />
+		<symbol icon="operators/cap.png" source="\cap" />
+		<symbol icon="operators/cdot.png" source="\cdot" />
+		<symbol icon="operators/circ.png" source="\circ" />
+		<symbol icon="operators/cong.png" source="\cong" />
+		<symbol icon="operators/cup.png" source="\cup" />
+		<symbol icon="operators/div.png" source="\div" />
+		<symbol icon="operators/equiv.png" source="\equiv" />
+		<symbol icon="operators/eth.png" source="\eth" />
+		<symbol icon="operators/exists.png" source="\exists" />
+		<symbol icon="operators/forall.png" source="\forall" />
+		<symbol icon="operators/geq.png" source="\geq" />
+		<symbol icon="operators/gg.png" source="\gg" />
+		<symbol icon="operators/in.png" source="\in" />
+		<symbol icon="operators/land.png" source="\land" />
+		<symbol icon="operators/leq.png" source="\leq" />
+		<symbol icon="operators/ll.png" source="\ll" />
+		<symbol icon="operators/lor.png" source="\lor" />
+		<symbol icon="operators/mid.png" source="\mid" />
+		<symbol icon="operators/nabla.png" source="\nabla" />
+		<symbol icon="operators/neg.png" source="\neg" />
+		<symbol icon="operators/neq.png" source="\neq" />
+		<symbol icon="operators/nexists.png" source="\nexists" />
+		<symbol icon="operators/ni.png" source="\ni" />
+		<symbol icon="operators/oplus.png" source="\oplus" />
+		<symbol icon="operators/parallel.png" source="\parallel" />
+		<symbol icon="operators/perp.png" source="\perp" />
+		<symbol icon="operators/partial.png" source="\partial" />
+		<symbol icon="operators/pm.png" source="\pm" />
+		<symbol icon="operators/propto.png" source="\propto" />
+		<symbol icon="operators/setminus.png" source="\setminus" />
+		<symbol icon="operators/sim.png" source="\sim" />
+		<symbol icon="operators/simeq.png" source="\simeq" />
+		<symbol icon="operators/star.png" source="\star" />
+		<symbol icon="operators/subset.png" source="\subset" />
+		<symbol icon="operators/subseteq.png" source="\subseteq" />
+		<symbol icon="operators/supset.png" source="\supset" />
+		<symbol icon="operators/supseteq.png" source="\supseteq" />
+		<symbol icon="operators/times.png" source="\times" />
+		<symbol icon="operators/uplus.png" source="\uplus" />
+		<symbol icon="operators/varnothing.png" source="\varnothing" />
+	</group>
+	<group label="Arrows">
+		<symbol icon="arrows/Leftarrow.png" source="\Leftarrow" />
+		<symbol icon="arrows/Leftrightarrow.png"
+			source="\Leftrightarrow" />
+		<symbol icon="arrows/Longleftarrow.png" source="\Longleftarrow" />
+		<symbol icon="arrows/Longleftrightarrow.png"
+			source="\Longleftrightarrow" />
+		<symbol icon="arrows/Longrightarrow.png"
+			source="\Longrightarrow" />
+		<symbol icon="arrows/Rightarrow.png" source="\Rightarrow" />
+		<symbol icon="arrows/hookleftarrow.png" source="\hookleftarrow" />
+		<symbol icon="arrows/hookrightarrow.png"
+			source="\hookrightarrow" />
+		<symbol icon="arrows/leadsto.png" source="\leadsto" />
+		<symbol icon="arrows/leftarrow.png" source="\leftarrow" />
+		<symbol icon="arrows/leftharpoondown.png"
+			source="\leftharpoondown" />
+		<symbol icon="arrows/leftharpoonup.png" source="\leftharpoonup" />
+		<symbol icon="arrows/leftrightarrow.png"
+			source="\leftrightarrow" />
+		<symbol icon="arrows/leftrightarrows.png"
+			source="\leftrightarrows" />
+		<symbol icon="arrows/leftrightharpoons.png"
+			source="\leftrightharpoons" />
+		<symbol icon="arrows/longleftarrow.png" source="\longleftarrow" />
+		<symbol icon="arrows/longleftrightarrow.png"
+			source="\longleftrightarrow" />
+		<symbol icon="arrows/longmapsto.png" source="\longmapsto" />
+		<symbol icon="arrows/longrightarrow.png"
+			source="\longrightarrow" />
+		<symbol icon="arrows/mapsto.png" source="\mapsto" />
+		<symbol icon="arrows/rightarrow.png" source="\rightarrow" />
+		<symbol icon="arrows/rightharpoondown.png"
+			source="\rightharpoondown" />
+		<symbol icon="arrows/rightharpoonup.png"
+			source="\rightharpoonup" />
+		<symbol icon="arrows/rightleftarrows.png"
+			source="\rightleftarrows" />
+		<symbol icon="arrows/rightleftharpoons.png"
+			source="\rightleftharpoons" />
+	</group>
+	<group label="Delimiters">
+		<symbol icon="limiters/lbrace.png" source="\lbrace" />
+		<symbol icon="limiters/rbrace.png" source="\rbrace" />
+		<symbol icon="limiters/langle.png" source="\langle" />
+		<symbol icon="limiters/rangle.png" source="\rangle" />
+		<symbol icon="limiters/lfloor.png" source="\lfloor" />
+		<symbol icon="limiters/rfloor.png" source="\rfloor" />
+		<symbol icon="limiters/lceil.png" source="\lceil" />
+		<symbol icon="limiters/rceil.png" source="\rceil" />
+		<symbol icon="limiters/vert.png" source="\vert" />
+		<symbol icon="limiters/Vert.png" source="\Vert" />
+	</group>
+	<group label="Greek">
+		<symbol icon="greek/alpha.png" source="\alpha" />
+		<symbol icon="greek/beta.png" source="\beta" />
+		<symbol icon="greek/gamma.png" source="\gamma" />
+		<symbol icon="greek/delta.png" source="\delta" />
+		<symbol icon="greek/epsilon.png" source="\epsilon" />
+		<symbol icon="greek/varepsilon.png" source="\varepsilon" />
+		<symbol icon="greek/zeta.png" source="\zeta" />
+		<symbol icon="greek/eta.png" source="\eta" />
+		<symbol icon="greek/theta.png" source="\theta" />
+		<symbol icon="greek/vartheta.png" source="\vartheta" />
+		<symbol icon="greek/iota.png" source="\iota" />
+		<symbol icon="greek/kappa.png" source="\kappa" />
+		<symbol icon="greek/lambda.png" source="\lambda" />
+		<symbol icon="greek/mu.png" source="\mu" />
+		<symbol icon="greek/nu.png" source="\nu" />
+		<symbol icon="greek/xi.png" source="\xi" />
+		<symbol icon="greek/pi.png" source="\pi" />
+		<symbol icon="greek/varpi.png" source="\varpi" />
+		<symbol icon="greek/rho.png" source="\rho" />
+		<symbol icon="greek/varrho.png" source="\varrho" />
+		<symbol icon="greek/sigma.png" source="\sigma" />
+		<symbol icon="greek/varsigma.png" source="\varsigma" />
+		<symbol icon="greek/tau.png" source="\tau" />
+		<symbol icon="greek/upsilon.png" source="\upsilon" />
+		<symbol icon="greek/phi.png" source="\phi" />
+		<symbol icon="greek/varphi.png" source="\varphi" />
+		<symbol icon="greek/chi.png" source="\chi" />
+		<symbol icon="greek/psi.png" source="\psi" />
+		<symbol icon="greek/omega.png" source="\omega" />
+		<symbol icon="greek/Gamma.png" source="\Gamma" />
+		<symbol icon="greek/Delta.png" source="\Delta" />
+		<symbol icon="greek/Theta.png" source="\Theta" />
+		<symbol icon="greek/Lambda.png" source="\Lambda" />
+		<symbol icon="greek/Xi.png" source="\Xi" />
+		<symbol icon="greek/Pi.png" source="\Pi" />
+		<symbol icon="greek/Sigma.png" source="\Sigma" />
+		<symbol icon="greek/Upsilon.png" source="\Upsilon" />
+		<symbol icon="greek/Phi.png" source="\Phi" />
+		<symbol icon="greek/Psi.png" source="\Psi" />
+		<symbol icon="greek/Omega.png" source="\Omega" />
+	</group>
+	<group label="Special">
+		<symbol icon="special/ldots.png" source="\ldots" />
+		<symbol icon="special/cdots.png" source="\cdots" />
+		<symbol icon="special/vdots.png" source="\vdots" />
+		<symbol icon="special/ddots.png" source="\ddots" />
+		<symbol icon="special/Im.png" source="\Im" />
+		<symbol icon="special/Re.png" source="\Re" />
+		<symbol icon="special/complement.png" source="\complement" />
+		<symbol icon="special/hbar.png" source="\hbar" />
+		<symbol icon="special/infty.png" source="\infty" />
+		<symbol icon="special/S.png" source="\S" />
+		<symbol icon="special/textcopyright.png"
+			source="\textcopyright" />
+		<symbol icon="special/textregistered.png"
+			source="\textregistered" />
+		<symbol icon="special/texttrademark.png"
+			source="\texttrademark" />
+		<symbol icon="special/P.png" source="\P" />
+		<symbol icon="special/dagger.png" source="\dagger" />
+		<symbol icon="special/wp.png" source="\wp" />
+		<symbol icon="special/aleph.png" source="\aleph" />
+		<symbol icon="special/angle.png" source="\angle" />
+		<symbol icon="special/prime.png" source="\prime" />
+		<symbol icon="special/ell.png" source="\ell" />
+		<symbol icon="special/sum.png" source="\sum" />
+		<symbol icon="special/prod.png" source="\prod" />
+		<symbol icon="special/int.png" source="\int" />
+		<symbol icon="special/iint.png" source="\iint" />
+		<symbol icon="special/oint.png" source="\oint" />
+	</group>
+</symbols>

@@ -26,7 +26,7 @@ from logging import getLogger
 import gtk
 import gtk.gdk
 
-from preferences import Preferences
+from ..preferences import Preferences
 
 
 class ProposalPopup(gtk.Window):

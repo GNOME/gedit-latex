@@ -24,11 +24,49 @@ bibtex.parser
 BibTeX parser and object model
 """
 
+#
+##
+## async parser feature
+##
+#if __name__ == "__main__":
+#	#
+#	# The script has been started in a shell process
+#	#
+#	# Parse the file passed as first argument and write the model
+#	# as a pickled object to STDOUT
+#	#
+#	import sys
+#	
+#	# TODO: fetch issues and pass them together with the model in a special
+#	# transfer object
+#	
+#	plugin_path = sys.argv[1]
+#	filename = sys.argv[2]
+#	
+#	sys.path.append(plugin_path) 
+#	sys.path.append("/home/michael/.gnome2/gedit/plugins")
+#	
+#	from issues import MockIssueHandler
+#	from base import File
+#	
+#	model = BibTeXParser().parse_async(open(filename).read(), filename)
+#else:
+#	#
+#	# normal package code...
+#	#
+
+
 from logging import getLogger
 from os.path import getmtime
 from xml.sax.saxutils import escape
 
-from ..issues import Issue
+from ..issues import Issue, MockIssueHandler
+
+
+#	import sys
+#	import os
+#	
+#	print "======== sys.path=%s, cwd=%s" % (sys.path, os.getcwd())
 
 
 class Token(object):
@@ -132,6 +170,14 @@ class BibTeXParser(object):
 	_OUTSIDE, _TYPE, _AFTER_TYPE, _AFTER_STRING_TYPE, _KEY, _STRING_KEY, _AFTER_KEY, _AFTER_STRING_KEY, \
 			_STRING_VALUE, _QUOTED_STRING_VALUE, _FIELD_NAME, _AFTER_FIELD_NAME, _FIELD_VALUE, _EMBRACED_FIELD_VALUE, \
 			_QUOTED_FIELD_VALUE = range(15) 
+	
+	
+	def parse_async(self, string, filename):
+		"""
+		Method called by the AsyncParserRunner
+		"""
+		return self.parse(string, File(filename), MockIssueHandler())
+	
 	
 	def parse(self, string, file, issue_handler):
 		"""
@@ -458,4 +504,67 @@ class Document(object):
 			s += str(entry) + "\n"
 		s += "</Document>"
 		return s
-
+	
+	
+#	#
+#	# async parser feature
+#	#
+#	
+#	# TODO: put the __main__ part in another file
+#	
+#	import pickle
+#	import os
+#	
+#	from ..tools.util import Process
+#	from ..base.resources import PLUGIN_PATH
+#	
+#	# TODO: time pickle.loads() and pickle.dump()
+#	# TODO: support Process.abort()
+#	
+#	class AsyncParserRunner(Process):
+#		
+#		__log = getLogger("AsyncParserRunner")
+#		
+#		def parse(self, file):
+#			self.__pickled_object = None
+#			
+#			source_path = PLUGIN_PATH + "/src"
+#			self.__log.debug("chdir: %s" % source_path)
+#			os.chdir(source_path)
+#			
+#			self.execute("python %s/bibtex/parser.py %s %s" % (source_path, source_path, file.path))
+#		
+#		def _on_stdout(self, text):
+#			# Process._on_stdout
+#			self.__pickled_object = text
+#			
+#		def _on_stderr(self, text):
+#			# Process._on_stderr
+#			self.__log.debug("_on_stderr: %s" % text)
+#		
+#		def _on_abort(self):
+#			# Process._on_abort
+#			pass
+#		
+#		def _on_exit(self, condition):
+#			# Process._on_exit
+#			self.__log.debug("_on_exit")
+#			
+#			model = None
+#			
+#			if condition:
+#				self.__log.error("failed")
+#			else:
+#				model = pickle.loads(self.__pickled_object)
+#			
+#			self._on_parser_finished(model)
+#		
+#		def _on_parser_finished(self, model):
+#			"""
+#			To be overridden by the subclass
+#			"""
+	
+	
+		
+		
+		

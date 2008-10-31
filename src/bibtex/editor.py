@@ -25,11 +25,11 @@ bibtex.editor
 from logging import getLogger
 
 from ..base import Editor
-from ..base.preferences import Preferences
+from ..preferences import Preferences
 from ..issues import Issue, IIssueHandler
 from ..util import caught
 
-from parser import BibTeXParser
+from parser import BibTeXParser#, AsyncParserRunner
 
 
 class BibTeXEditor(Editor, IIssueHandler):
@@ -79,13 +79,21 @@ class BibTeXEditor(Editor, IIssueHandler):
 		# reset issues
 		self._issue_view.clear()
 		
+#		self.parse(self._file)
+		
 		# parse document
 		self._document = self._parser.parse(content, self._file, self)
 		
 		self._log.debug("Parsed %s bytes of content" % len(content))
 		
 		self._outline_view.set_outline(self._document)
-		
+	
+#	def _on_parser_finished(self, model):
+#		"""
+#		"""
+#		self._document = model
+#		self._outline_view.set_outline(self._document)
+	
 	def issue(self, issue):
 		# overriding IIssueHandler.issue
 		

@@ -165,6 +165,9 @@ class LaTeXBoldAction(IconAction):
 	icon = File(find_resource("icons/bf.png"))
 	
 	def activate(self, context):
+#		from ..preferences import Preferences
+#		Preferences().update_tool(None)
+		
 		pass
 	
 

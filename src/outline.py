@@ -28,7 +28,7 @@ from logging import getLogger
 import gtk
 
 from base import View
-from base.preferences import Preferences
+from preferences import Preferences
 from base.resources import find_resource
 
 

@@ -31,7 +31,7 @@ from logging import getLogger
 
 from ..outline import BaseOutlineView
 from ..base.resources import find_resource
-from ..base.preferences import Preferences
+from ..preferences import Preferences
 from parser import Entry
 
 

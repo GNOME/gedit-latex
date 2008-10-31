@@ -23,7 +23,7 @@ import enchant
 import enchant.checker
 import enchant.tokenize
 
-from ..base.preferences import Preferences
+from ..preferences import Preferences
 from parser import Node
 
 

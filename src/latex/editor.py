@@ -41,7 +41,7 @@ from validator import LaTeXValidator
 from dialogs import ChooseMasterDialog
 
 from . import LaTeXSource
-from ..base.preferences import Preferences
+from ..preferences import Preferences
 
 from spellcheck import SpellChecker, IMisspelledWordHandler
 
@@ -133,7 +133,6 @@ class LaTeXEditor(Editor, IIssueHandler, IMisspelledWordHandler):
 			return
 		
 		# TODO:
-		raise NotImplementedError
 	
 	def on_save(self):
 		"""

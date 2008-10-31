@@ -30,6 +30,7 @@ from logging import getLogger
 from xml.dom.minidom import parse
 from xml.parsers.expat import ExpatError
 
+from ..preferences import Preferences
 from ..base import View
 from ..base.resources import find_resource, MODE_READWRITE
 from ..issues import Issue
@@ -56,7 +57,7 @@ class SymbolCollection(object):
 	
 	
 	def __init__(self):
-		filename = find_resource("symbols.xml", MODE_READWRITE)
+		filename = find_resource("symbols.xml")
 		self.groups = []
 		try:
 			dom = parse(filename)
@@ -303,7 +304,6 @@ class LaTeXOutlineView(BaseOutlineView):
 	
 	
 
-from ..base.preferences import Preferences
 from ..base.resources import find_resource
 from outline import OutlineNode
 from os.path import basename

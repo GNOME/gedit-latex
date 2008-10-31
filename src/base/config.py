@@ -168,12 +168,12 @@ ACTION_EXTENSIONS = { None : ["LaTeXNewAction"],
 				   				"LaTeXUnEqnArrayAction",
 				   				"LaTeXEqnArrayAction"] }
 
-from ..tools import Tool, Job
-from ..tools.postprocess import GenericPostProcessor, RubberPostProcessor
-
-
-TOOLS = { ".tex" : [ Tool("LaTeX → PDF", [Job("rubber --inplace --maxerr -1 --pdf --short --force --warn all \"$filename\"", True, RubberPostProcessor), Job("gnome-open $shortname.pdf", True, GenericPostProcessor)], "Create a PDF from LaTeX source"),
-					 Tool("Cleanup LaTeX Build", [Job("rm -f $directory/*.aux $directory/*.log $directory/*.toc $directory/*.bbl $directory/*.blg", True, GenericPostProcessor)], "Remove LaTeX build files")] }
+#from ..tools import Tool, Job
+#from ..tools.postprocess import GenericPostProcessor, RubberPostProcessor
+#
+#
+#TOOLS = { ".tex" : [ Tool("LaTeX → PDF", [Job("rubber --inplace --maxerr -1 --pdf --short --force --warn all \"$filename\"", True, RubberPostProcessor), Job("gnome-open $shortname.pdf", True, GenericPostProcessor)], "Create a PDF from LaTeX source"),
+#					 Tool("Cleanup LaTeX Build", [Job("rm -f $directory/*.aux $directory/*.log $directory/*.toc $directory/*.bbl $directory/*.blg", True, GenericPostProcessor)], "Remove LaTeX build files")] }
 
 
 from ..views import IssueView

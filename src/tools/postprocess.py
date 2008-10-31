@@ -25,7 +25,7 @@ tools.postprocess
 from logging import getLogger
 import re
 
-from ..base import File
+#from ..base import File
 from ..issues import Issue
 from ..util import escape
 
@@ -175,6 +175,10 @@ class RubberPostProcessor(object):
 		return self._summary
 	
 	def process(self, file, stdout, stderr, condition):
+		
+		# this produces a circ dep on toplevel
+		from ..base import File
+		
 		self._issues = []
 		
 		self._log.debug("process(): stdout=\"%s\", stderr=\"%s\"" % (stdout, stderr))

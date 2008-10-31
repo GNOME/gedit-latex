@@ -57,7 +57,7 @@ class ChooseMasterDialog(GladeInterface):
 import gtk
 from time import strftime
 
-from ..base.preferences import Preferences
+from ..preferences import Preferences
 from environment import Environment
 
 

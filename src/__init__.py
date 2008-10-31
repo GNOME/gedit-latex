@@ -29,6 +29,7 @@ logging.basicConfig(level=logging.DEBUG)
 
 from base.decorators import GeditWindowDecorator
 from util import open_error
+from preferences.dialog import PreferencesDialog
 
 
 class GeditLaTeXPlugin(gedit.Plugin):
@@ -71,7 +72,6 @@ class GeditLaTeXPlugin(gedit.Plugin):
 		del self._window_decorators[window]
 	
 	def create_configure_dialog(self):
-		# TODO: 
-		return None
+		return PreferencesDialog().dialog
 	
 	

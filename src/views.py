@@ -26,7 +26,7 @@ import gtk
 from gtk.gdk import Pixbuf, pixbuf_new_from_file
 from logging import getLogger
 
-from base.preferences import Preferences
+from preferences import Preferences
 from base.resources import find_resource
 from base import View
 from issues import Issue

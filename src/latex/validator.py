@@ -54,6 +54,8 @@ class LaTeXValidator(object):
 		@param issue_handler: an object implementing IIssueHandler
 		"""
 		
+		self._log.debug("validate")
+		
 		# TODO: this is dangerous, the outline object could be outdated
 		
 		self._outline = outline

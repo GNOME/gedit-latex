@@ -131,6 +131,9 @@ class ToolView(View, IStructuredIssueHandler):
 			icon = self._ICON_SUCCESS
 		elif state == "failed":
 			icon = self._ICON_FAIL
+			
+		self._view.expand_all()
+		
 		return self._store.append(parent_partition_id, [icon, label, "", "", None])
 	
 	def set_partition_state(self, partition_id, state):

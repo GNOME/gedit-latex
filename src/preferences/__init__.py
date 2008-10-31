@@ -19,8 +19,13 @@
 # Street, Fifth Floor, Boston, MA  02110-1301, USA
 
 """
-base.preferences
+preferences
 """
+
+from logging import getLogger
+
+from ..tools import Tool, Job
+from ..tools.postprocess import GenericPostProcessor, RubberPostProcessor
 
 
 def str_to_bool(x):
@@ -37,10 +42,29 @@ def str_to_bool(x):
 	else:
 		print "str_to_bool: unsupported type %s" % str(type(x))
 
+
+class IPreferencesMonitor(object):
+	"""
+	This is not a real interface as classes don't have to implement all
+	methods
+	"""
+	def _on_value_changed(self, key, old_value, new_value):
+		"""
+		A simple key-value-pair has changed
+		"""
+
+	def _on_tools_changed(self):
+		"""
+		The Tools have changed
+		"""
+
+
 class Preferences(object):
 	"""
 	A simple map storing preferences as key-value-pairs
 	"""
+	
+	_log = getLogger("Preferences")
 	
 	# TODO: use XML file
 	
@@ -55,9 +79,22 @@ class Preferences(object):
 								 "ErrorBackgroundColor" : "#ffdddd",
 								 "WarningBackgroundColor" : "#ffffcf",
 								 "SpellingBackgroundColor" : "#ffeccf",
-#								 "LightForeground" : "#7f7f7f",
 								 "LightForeground" : "#957d47" }
+			
+			self.__monitors = []
+			
 			self._ready = True
+	
+	def register_monitor(self, monitor):
+		"""
+		Register an object monitoring the preferences
+		
+		@param monitor: an object implementing IPreferencesMonitor 
+		"""
+		
+		# TODO: support a flag indicating which parts are to be monitored
+		
+		self.__monitors.append(monitor)
 	
 	def get(self, key, default_value=None):
 		"""
@@ -84,7 +121,42 @@ class Preferences(object):
 		return str_to_bool(self.get(key, default_value))
 	
 	def set(self, key, value):
+		self._log.debug("set('%s', '%s')" % (key, value))
+		
 		self.preferences[key] = str(value)
+		
+		# TODO: notify monitors
+	
+	def __notify_tools_changed(self):
+		"""
+		Notify monitors that the Tools have changed
+		"""
+		for monitor in self.__monitors:
+			monitor._on_tools_changed()
+	
+	@property
+	def tools(self):
+		TOOLS = [ Tool("LaTeX → PDF", [Job("rubber --inplace --maxerr -1 --pdf --short --force --warn all \"$filename\"", True, RubberPostProcessor), 
+									   Job("gnome-open $shortname.pdf", True, GenericPostProcessor)], "Create a PDF from LaTeX source" , [".tex"]),
+				  Tool("Cleanup LaTeX Build", [Job("rm -f $directory/*.aux $directory/*.log $directory/*.toc $directory/*.bbl $directory/*.blg", True, GenericPostProcessor)], "Remove LaTeX build files", [".tex"]),
+				  Tool("BibTeX → XML", [Job("bibtex2xml \"$filename\"", True, GenericPostProcessor)], "Convert BibTeX to XML", [".bib"])]
+		return TOOLS
+	
+	def update_tool(self, tool):
+		# TODO:
+		
+		self.__notify_tools_changed()
+		
+	
+	def create_tool(self, tool):
+		# TODO:
+		
+		self.__notify_tools_changed()
+	
+	def delete_tool(self, tool):
+		# TODO:
+		
+		self.__notify_tools_changed()
 		
 		
 			

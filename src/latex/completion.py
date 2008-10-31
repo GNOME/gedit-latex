@@ -205,6 +205,7 @@ class LaTeXCompletionHandler(ICompletionHandler):
 		return []
 
 
+from ..preferences import Preferences
 from . import LaTeXSource
 
 
@@ -221,6 +222,7 @@ class PrefixModelParser(object):
 	
 	def __init__(self, language_model):
 		self.__language_model = language_model
+		self.__light_foreground = Preferences().get("LightForeground", "#957d47")
 	
 	def __create_proposals_from_commands(self, commands, overlap):
 		"""
@@ -234,10 +236,10 @@ class PrefixModelParser(object):
 			
 			for argument in command.children:
 				if type(argument) is MandatoryArgument:
-					label += "{<i>%s</i>}" % argument.label
+					label += "{<span color='%s'>%s</span>}" % (self.__light_foreground, argument.label)
 					templateSource += "{${%s}}" % argument.label
 				elif type(argument) is OptionalArgument:
-					label += "[<i>%s</i>]" % argument.label
+					label += "[<span color='%s'>%s</span>]" % (self.__light_foreground, argument.label)
 					templateSource += "[${%s}]" % argument.label
 			
 			if command.package:

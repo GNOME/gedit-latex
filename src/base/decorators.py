@@ -30,10 +30,11 @@ import gedit
 import gtk
 import gobject
 
-from config import UI, ACTION_OBJECTS, ACTION_EXTENSIONS, TOOLS, WINDOW_SCOPE_VIEWS, EDITOR_SCOPE_VIEWS, EDITORS
+from config import UI, ACTION_OBJECTS, ACTION_EXTENSIONS, WINDOW_SCOPE_VIEWS, EDITOR_SCOPE_VIEWS, EDITORS
 from views import ToolView
 from . import File, View, WindowContext
 from ..tools import ToolAction
+from ..preferences import Preferences, IPreferencesMonitor
 
 
 # FIXME: there is no 'active_tab_changed' after the last 'tab_removed'!
@@ -53,7 +54,7 @@ gobject.type_register(MenuToolAction)
 MenuToolAction.set_tool_item_type(gtk.MenuToolButton)
 		
 
-class GeditWindowDecorator(object):
+class GeditWindowDecorator(IPreferencesMonitor):
 	"""
 	This class
 	 - manages the GeditTabDecorators
@@ -65,6 +66,9 @@ class GeditWindowDecorator(object):
 	
 	def __init__(self, window):
 		self._window = window
+		
+		self._preferences = Preferences()
+		self._preferences.register_monitor(self)
 		
 		#
 		# initialize context object
@@ -206,35 +210,34 @@ class GeditWindowDecorator(object):
 			<menubar name="MenuBar">
 				<menu name="ToolsMenu" action="Tools">
 					<placeholder name="ToolsOps_1">"""
-		
+					
 		
 		i = 1
-		
-		for extension, tools in TOOLS.iteritems():
-			for tool in tools:
-				# hopefully unique action name
-				name = "Tool%sAction" % i
-				
-				# update mapping
+		for tool in self._preferences.tools:
+			# hopefully unique action name
+			name = "Tool%sAction" % i
+			
+			# update extension-tool mapping
+			for extension in tool.extensions:
 				try:
 					self._tool_action_extensions[extension].append(name)
 				except KeyError:
 					# extension not yet mapped
 					self._tool_action_extensions[extension] = [name]
-				
-				 # create action
-				action = ToolAction()
-				action.init(tool)
-				gtk_action = gtk.Action(name, action.label, action.tooltip, action.stock_id)
-				gtk_action.connect("activate", self._on_action_activated, action)
-				
-				# TODO: allow custom accelerator
-				self._tool_action_group.add_action_with_accel(gtk_action, "<Ctrl><Alt>%s" % i)
-				
-				# add UI definition
-				tool_ui += """<menuitem action="%s" />""" % name
-				
-				i += 1
+			
+			 # create action
+			action = ToolAction()
+			action.init(tool)
+			gtk_action = gtk.Action(name, action.label, action.tooltip, action.stock_id)
+			gtk_action.connect("activate", self._on_action_activated, action)
+			
+			# TODO: allow custom accelerator
+			self._tool_action_group.add_action_with_accel(gtk_action, "<Ctrl><Alt>%s" % i)
+			
+			# add UI definition
+			tool_ui += """<menuitem action="%s" />""" % name
+			
+			i += 1
 		
 		
 		tool_ui += """</placeholder>
@@ -244,7 +247,20 @@ class GeditWindowDecorator(object):
 		
 		self._ui_manager.insert_action_group(self._tool_action_group, -1)
 		self._tool_ui_id = self._ui_manager.add_ui_from_string(tool_ui)
+	
+	def _on_tools_changed(self):
+		# see IPreferencesMonitor._on_tools_changed
+		self._log.debug("_on_tools_changed")
 		
+		# remove actions and ui
+		self._ui_manager.remove_action_group(self._tool_action_group)
+		self._ui_manager.remove_ui(self._tool_ui_id)
+		
+		# re-init tool actions
+		self._init_tool_actions()
+		
+		# re-adjust action states
+		self.adjust(self._active_tab_decorator)
 	
 	def _on_action_activated(self, gtk_action, action):
 		"""
