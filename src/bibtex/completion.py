@@ -25,43 +25,63 @@ bibtex.completion
 from logging import getLogger
 from gtk import gdk
 
+from ..preferences import Preferences
 from ..base.resources import find_resource
 from ..base import ICompletionHandler, IProposal, Template
+from ..issues import MockIssueHandler
+from model import Definition, DefinitionParser
+from parser import BibTeXParser
 
 
-class BibTeXProposal(IProposal):
+class BibTeXEntryTypeProposal(IProposal):
 	"""
 	"""
 	icon = gdk.pixbuf_new_from_file(find_resource("icons/document.png"))
 	
-	def __init__(self, overlap, source, label, details):
-		self._source = source
+	_color = Preferences().get("LightForeground", "#957d47")
+	
+	def __init__(self, overlap, type):
+		"""
+		@param overlap: the number of overlapping characters
+		@param type: an EntryType
+		"""
 		self._overlap = overlap
-		self._label = label
-		self._details = details
+		self._type = type
+		self._details = None
+		self._source = None
+	
+	def _generate(self):
+		"""
+		Generate Template and details string
+		"""
+		template = "@%s{${Identifier}" % self._type.name
+		self._details = "@%s{<span color='%s'>Identifier</span>" % (self._type.name, self._color)
+		for field in self._type.requiredFields:
+			template += ",\n\t%s = {${%s}}" % (field.name, field.label)
+			self._details += ",\n\t%s = {<span color='%s'>%s</span>}" % (field.name, self._color, field.label)
+		template += "\n}"
+		self._details += "\n}"
+		self._source = Template(template)
 	
 	@property
 	def source(self):
+		if not self._source:
+			self._generate()
 		return self._source
 	
 	@property
 	def label(self):
-		return self._label
+		return self._type.name
 	
 	@property
 	def details(self):
+		if not self._details:
+			self._generate()
 		return self._details
 	
 	@property
 	def overlap(self):
 		return self._overlap
-
-
-from ..preferences import Preferences
-from model import Definition, DefinitionParser
-
-
-# TODO: put the __get_*_from_entry_type methods into BibTeXEntryTypeProposal
 
 
 class BibTeXCompletionHandler(ICompletionHandler):
@@ -75,10 +95,11 @@ class BibTeXCompletionHandler(ICompletionHandler):
 	strip_delimiter = False			# don't remove the '@' from the prefix
 	
 	def __init__(self):
-		self._color = Preferences().get("LightForeground", "#957d47")
-		
 		self._model = Definition()
 		DefinitionParser().parse(self._model, find_resource("bibtex.xml"))
+		
+		self._parser = BibTeXParser()
+		self._issue_handler = MockIssueHandler()
 	
 	def complete(self, prefix):
 		self._log.debug("complete: '%s'" % prefix)
@@ -88,38 +109,21 @@ class BibTeXCompletionHandler(ICompletionHandler):
 		if len(prefix) == 1:
 			# propose all entry types
 			types = self._model.types
-			proposals = self.__get_proposals_from_entry_types(types, 0)
+			proposals = [BibTeXEntryTypeProposal(1, type) for type in types]
 		else:
 			if prefix[1:].isalpha():
 				type_name_prefix = prefix[1:].lower()
 				overlap = len(type_name_prefix) + 1
-				# @[a-zA-Z]+
+				# prefix is @[a-zA-Z]+
 				types = [type for type in self._model.types if type.name.lower().startswith(type_name_prefix)]
-				proposals = self.__get_proposals_from_entry_types(types, overlap)
+				proposals = [BibTeXEntryTypeProposal(overlap, type) for type in types]
+			else:
+				# parse prefix
+#				document = self._parser.parse(prefix, None, self._issue_handler)
+#				
+#				print document
+				pass
 		
-		return proposals
-	
-	def __get_source_from_entry_type(self, type):
-		template = "@%s{${Identifier}" % type.name
-		for field in type.requiredFields:
-			template += ",\n\t%s = {${%s}}" % (field.name, field.label)
-		template += "\n}"
-		return Template(template)
-	
-	def __get_details_from_entry_type(self, type):
-		details = "@%s{<span color='%s'>Identifier</span>" % (type.name, self._color)
-		for field in type.requiredFields:
-			details += ",\n\t%s = {<span color='%s'>%s</span>}" % (field.name, self._color, field.label)
-		details += "\n}"
-		return details
-	
-	def __get_proposals_from_entry_types(self, types, overlap):
-		"""
-		@param types: a list of EntryTypes 
-		"""
-		proposals = []
-		for type in types:
-			proposals.append(BibTeXProposal(overlap, self.__get_source_from_entry_type(type), type.name, self.__get_details_from_entry_type(type)))
 		return proposals
 	
 	

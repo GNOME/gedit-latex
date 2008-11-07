@@ -513,7 +513,7 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		"""
 		The gtk.Window received the 'destroy' signal as a gtk.Object
 		"""
-		self._log.debug("DESTROY")
+		self._log.debug("received 'destroy'")
 		
 		self._preferences.save()
 	

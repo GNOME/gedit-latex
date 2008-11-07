@@ -1,21 +1,20 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <tools>
-	<tool id="1" label="LaTeX → PDF" description="Create a PDF from LaTeX source" extensions=".tex">
+	<tool description="Create a PDF from LaTeX source" extensions=".tex" id="1" label="LaTeX &#8594; PDF">
 		<job mustSucceed="true" postProcessor="RubberPostProcessor">
-			rubber --inplace --maxerr -1 --pdf --short --force --warn all &quot;$filename&quot;
+			rubber --inplace --maxerr -1 --pdf --short --force --warn all "$filename"
 		</job>
 		<job mustSucceed="true" postProcessor="GenericPostProcessor">
-			gnome-open &quot;$shortname.pdf&quot;
+			gnome-open "$shortname.pdf"
 		</job>
 	</tool>
-	<tool id="2" label="Cleanup LaTeX Build" description="Remove LaTeX build files" extensions=".tex">
+	<tool description="Remove LaTeX build files" extensions=".tex" id="2" label="Cleanup ABC LaTeX Build">
 		<job mustSucceed="true" postProcessor="GenericPostProcessor">
 			rm -f $directory/*.aux $directory/*.log $directory/*.toc $directory/*.bbl $directory/*.blg
 		</job>
 	</tool>
-	<tool id="3" label="BibTeX → XML" description="Convert BibTeX to XML" extensions=".bib">
+	<tool description="Convert BibTeX to XML" extensions=".bib" id="3" label="BibTeX &#8594; XML">
 		<job mustSucceed="true" postProcessor="GenericPostProcessor">
-			bibtex2xml &quot;$filename&quot;
+			bibtex2xml "$filename"
 		</job>
 	</tool>
 </tools>

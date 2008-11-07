@@ -101,6 +101,9 @@ class Preferences(object):
 			self.__tools_changed = False
 			self.__snippets_changed = False
 			
+			self.__tool_objects = None
+			self.__tool_ids = None
+						
 			# parse
 			self.__preferences = ElementTree.parse(find_resource("preferences.xml", MODE_READWRITE)).getroot()
 			self.__tools = ElementTree.parse(find_resource("tools.xml", MODE_READWRITE)).getroot()
@@ -127,13 +130,13 @@ class Preferences(object):
 		@param default_value: a default value to be stored and returned if the key is not found
 		"""
 		value_element = self.__find_value_element(key)
-		if value_element == None:
+		if value_element is None:
 			return default_value
 		else:
 			return value_element.text
 		
-		# TODO: use this as soon as ElementTree 1.3 is part of Python
-		return self.__preferences.findtext(".//value[@key='%s']" % key, default_value)
+		# TODO: use this as soon as ElementTree 1.3 is part of Python:
+		#return self.__preferences.findtext(".//value[@key='%s']" % key, default_value)
 	
 	def get_bool(self, key, default_value=None):
 		"""
@@ -142,20 +145,20 @@ class Preferences(object):
 		return str_to_bool(self.get(key, default_value))
 	
 	def __find_value_element(self, key):
-		# TODO: use this as soon as ElementTree 1.3 is part of Python
+		# TODO: use this as soon as ElementTree 1.3 is part of Python:
 		#value_element = self.__preferences.find(".//value[@key='%s']" % key)
 		
 		for element in self.__preferences.findall("value"):
 			if element.get("key") == key:
 				return element
-		self._log.error("<value key='%s'> not found" % key)
+		self._log.warning("<value key='%s'> not found" % key)
 		return None
 	
 	def set(self, key, value):
 		self._log.debug("set('%s', '%s')" % (key, value))
 
 		value_element = self.__find_value_element(key)
-		if value_element == None:
+		if value_element is None:
 			self._log.debug("Creating new <value key='%s'>" % key)
 			
 			value_element = ElementTree.SubElement(self.__preferences, "value")
@@ -185,28 +188,56 @@ class Preferences(object):
 #				  Tool("BibTeX → XML", [Job("bibtex2xml \"$filename\"", True, GenericPostProcessor)], "Convert BibTeX to XML", [".bib"])]
 #		return TOOLS
 		
-		tools = []
-		for tool_element in self.__tools.findall("tool"):
-			jobs = []
-			for job_element in tool_element.findall("job"):
-				jobs.append(Job(job_element.text, job_element.get("mustSucceed"), self.POST_PROCESSORS[job_element.get("postProcessor")]))
-			extensions = tool_element.get("extensions").split()
-			tools.append(Tool(tool_element.get("label"), jobs, tool_element.get("description"), extensions))
-		return tools
+		if self.__tool_objects is None:
+			self.__tool_ids = {}
+			self.__tool_objects = []
+			for tool_element in self.__tools.findall("tool"):
+				jobs = []
+				for job_element in tool_element.findall("job"):
+					jobs.append(Job(job_element.text.strip(), job_element.get("mustSucceed"), self.POST_PROCESSORS[job_element.get("postProcessor")]))
+				extensions = tool_element.get("extensions").split()
+				id = tool_element.get("id")
+				tool = Tool(tool_element.get("label"), jobs, tool_element.get("description"), extensions)
+				self.__tool_ids[tool] = id
+				self.__tool_objects.append(tool)
+		return self.__tool_objects
 	
-	def update_tool(self, tool):
-		# TODO:
+	def __find_tool_element(self, id):
+		"""
+		Find the tool element with the given id 
+		"""
+		for element in self.__tools.findall("tool"):
+			if element.get("id") == id:
+				return element
+		self._log.warning("<tool id='%s'> not found" % id)
+		return None
+	
+	def save_or_update_tool(self, tool):
+		"""
+		Save or update the given Tool
+		
+		@param tool: a Tool object
+		"""
+		if tool in self.__tool_ids:
+			# update tool
+			self._log.debug("Tool element found, updating...")
+			id = self.__tool_ids[tool]
+			tool_element = self.__find_tool_element(id)
+			tool_element.set("label", tool.label)
+		else:
+			# create tool
+			pass
+		
+		self.__tools_changed = True
 		
 		self.__notify_tools_changed()
 		
-	
-	def create_tool(self, tool):
-		# TODO:
-		
-		self.__notify_tools_changed()
-	
 	def delete_tool(self, tool):
-		# TODO:
+		"""
+		Delete the given Tool
+		
+		@param tool: a Tool object
+		"""
 		
 		self.__notify_tools_changed()
 	
@@ -225,14 +256,21 @@ class Preferences(object):
 		Save the preferences to XML files
 		"""
 		if self.__preferences_changed:
-			self.__save_preferences()
+			self._log.debug("saving preferences...")
+		
+			tree = ElementTree.ElementTree(self.__preferences)
+			tree.write(find_resource("preferences.xml", MODE_READWRITE))
 			
-	def __save_preferences(self):
-		self._log.debug("__save_preferences")
+			self.__preferences_changed = False
 		
-		tree = ElementTree.ElementTree(self.__preferences)
-		tree.write(find_resource("preferences.xml", MODE_READWRITE))
+		if self.__tools_changed:
+			self._log.debug("saving tools...")
 		
+			tree = ElementTree.ElementTree(self.__tools)
+			tree.write(find_resource("tools.xml", MODE_READWRITE))
+			
+			self.__tools_changed = False
+			
 		
 		
 		

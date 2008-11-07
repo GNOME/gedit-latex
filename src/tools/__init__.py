@@ -39,29 +39,13 @@ class Tool(object):
 		@param description: a descriptive string used as tooltip
 		@param extensions: a list of file extensions for which this Tool can be used
 		"""
-		self._label = label
-		self._jobs = jobs
-		self._description = description
-		self._extensions = extensions
-	
-	@property
-	def label(self):
-		return self._label
-	
-	@property
-	def description(self):
-		return self._description
-	
-	@property
-	def jobs(self):
-		return self._jobs
-	
-	@property
-	def extensions(self):
-		return self._extensions
+		self.label = label
+		self.jobs = jobs
+		self.description = description
+		self.extensions = extensions
 	
 	def __str__(self):
-		return "Tool{%s}" % self._label
+		return "Tool{%s}" % self.label
 	
 	
 class Job(object):

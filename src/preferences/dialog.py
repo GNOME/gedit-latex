@@ -32,7 +32,10 @@ from . import Preferences
 
 
 class PreferencesColorProxy(object):
-	
+	"""
+	This connects to a gtk.gdk.Color and gets/sets the value of a certain
+	preference
+	"""
 	def __init__(self, widget, key, default_value):
 		"""
 		@param widget: the gtk.Widget that serves as a proxy
@@ -66,6 +69,194 @@ class PreferencesColorProxy(object):
 		
 		return "#%02x%02x%02x" % (r, g, b)
 
+
+class ConfigureToolDialog(GladeInterface):
+	"""
+	Wraps the dialog for setting up a Tool
+	"""
+	
+	filename = find_resource("glade/configure_tool.glade")
+	
+	_dialog = None
+	
+	def run(self, tool):
+		"""
+		Runs the dialog and returns the updated Tool or None on abort
+		"""
+		dialog = self._get_dialog()
+		
+		self._tool = tool
+		
+		# load Tool
+		self._entry_label.set_text(tool.label)
+		self._entry_description.set_text(tool.description)
+		
+		self._store_job.clear()
+		for job in tool.jobs:
+			self._store_job.append([job.command_template, job.must_succeed, job.post_processor])
+		
+		
+		if dialog.run() == 1:
+			#
+			# okay clicked - update the Tool object
+			#
+			tool.label = self._entry_label.get_text()
+			
+			return tool
+		else:
+			return None
+	
+	def _get_dialog(self):
+		if not self._dialog:
+			# 
+			# build the dialog
+			#
+			self._preferences = Preferences()
+			
+			self._dialog = self.find_widget("dialogConfigureTool")
+			self._button_okay = self.find_widget("buttonOkay")
+			self._labelProfileValidate = self.find_widget("labelHint")
+			
+			#
+			# label
+			#
+			self._entry_label = self.find_widget("entryLabel")
+			
+			#
+			# jobs
+			#
+			self._entry_new_job = self.find_widget("entryNewJob")
+			self._button_add_job = self.find_widget("buttonAddJob")
+			self._button_remove_job = self.find_widget("buttonRemoveJob")
+			self._button_job_up = self.find_widget("buttonMoveUpJob")
+			self._view_job = self.find_widget("treeviewJob")
+			
+			self._store_job = gtk.ListStore(str, bool, str)   # command, mustSucceed, postProcessor
+			
+			self._view_job.set_model(self._store_job)
+			
+			mustSucceedRenderer = gtk.CellRendererToggle()
+			mustSucceedRenderer.connect("toggled", self._on_must_succeed_toggled)
+			
+			commandRenderer = gtk.CellRendererText()
+			commandRenderer.connect("edited", self._on_job_command_edited)
+
+			self._store_pp = gtk.ListStore(str)
+			for p in self._preferences.POST_PROCESSORS.iterkeys():
+				self._store_pp.append([p])
+			
+			ppRenderer = gtk.CellRendererCombo()
+			ppRenderer.set_property("editable", True)
+			ppRenderer.set_property("model", self._store_pp)
+			ppRenderer.set_property("text_column", 0)
+			ppRenderer.set_property("has_entry", False)
+			
+			ppRenderer.connect("edited", self._on_job_pp_edited)
+			
+			self._view_job.insert_column_with_attributes(-1, "Command", commandRenderer, text=0, editable=True)
+			self._view_job.insert_column_with_attributes(-1, "Must Succeed", mustSucceedRenderer, active=1)
+			self._view_job.insert_column_with_attributes(-1, "Post-Processor", ppRenderer, text=2)
+			
+			#
+			# description
+			#
+			self._entry_description = self.find_widget("entryDescription")
+			
+			#
+			# extensions
+			#
+			self._view_extension = self.find_widget("treeviewExtension")
+			self._button_add_extension = self.find_widget("buttonAddExtension")
+			self._button_remove_extension = self.find_widget("buttonRemoveExtension")
+			
+			self.connect_signals({ "on_entryNewJob_changed" : self._on_new_job_changed,
+								   "on_entryNewExtension_changed" : self._on_new_extension_changed,
+								   "on_buttonAddJob_clicked" : self._on_add_job_clicked,
+								   "on_treeviewJob_cursor_changed" : self._on_job_cursor_changed,
+								   "on_treeviewExtension_cursor_changed" : self._on_extension_cursor_changed,
+								   "on_buttonAbort_clicked" : self._on_abort_clicked,
+								   "on_buttonOkay_clicked" : self._on_okay_clicked })
+		
+		return self._dialog
+	
+	def _on_job_command_edited(self, renderer, path, text):
+		"""
+		The command template has been edited
+		"""
+		self._store_job.set(self._store_job.get_iter_from_string(path), 0, text)
+	
+	def _on_job_pp_edited(self, renderer, path, text):
+		"""
+		Another post processor has been selected
+		"""
+		self._store_job.set(self._store_job.get_iter_from_string(path), 2, text)
+	
+	def _on_must_succeed_toggled(self, renderer, path):
+		"""
+		The 'must succeed' flag has been toggled
+		"""
+		value = self._store_job.get(self._store_job.get_iter_from_string(path), 1)[0]
+		self._store_job.set(self._store_job.get_iter_from_string(path), 1, not value)
+	
+	def _on_add_job_clicked(self, button):
+		"""
+		Add a new job
+		"""
+		command = self._entry_new_job.get_text()
+		self._store_job.append([command, True, "Generic"])
+	
+	def _on_new_job_changed(self, widget):
+		"""
+		The entry for a new command template has changed
+		"""
+		self._button_add_job.set_sensitive(len(self._entry_new_job.get_text()) > 0)
+	
+	def _on_new_extension_changed(self, widget):
+		self._button_add_extension.set_sensitive(len(self._entry_new_extension.get_text()) > 0)
+	
+	def _on_job_cursor_changed(self, tree_view):
+		store, iter = tree_view.get_selection().get_selected()
+		if not iter: 
+			return
+		self._button_remove_job.set_sensitive(True)
+		
+		first_row_selected = (store.get_string_from_iter(iter) == "0")
+		self._button_job_up.set_sensitive(not first_row_selected)
+	
+	def _on_extension_cursor_changed(self, tree_view):
+		store, it = tree_view.get_selection().get_selected()
+		if not it: 
+			return
+		self._button_remove_extension.set_sensitive(True)
+	
+	def _on_abort_clicked(self, button):
+		self._dialog.hide()
+	
+	def _on_okay_clicked(self, button):
+		self._dialog.hide()
+	
+	def _validate_tool(self):
+		"""
+		Validate the dialog contents
+		"""
+		errors = []
+		
+		if len(self._store_job) == 0:
+			errors.append("You have not specified any jobs.")
+		
+		if len(errors):
+			self._buttonApply.set_sensitive(False)
+		else:
+			self._buttonApply.set_sensitive(True)
+		
+		if len(errors) == 1:
+			self._labelProfileValidate.set_markup(errors[0])
+		elif len(errors) > 1:
+			self._labelProfileValidate.set_markup("\n".join([" * %s" % e for e in errors]))
+		else:
+			self._labelProfileValidate.set_markup("Remember to run all commands in batch mode (e.g. append <tt>-interaction batchmode</tt> to <tt>latex</tt>)")
+	
+	
 
 class PreferencesDialog(GladeInterface):
 	"""
@@ -118,17 +309,11 @@ class PreferencesDialog(GladeInterface):
 			#
 			
 			# grab widgets
-			
-			self._labelProfileValidate = self.find_widget("labelProfileValidate")
 			self._entryProfileName = self.find_widget("entryProfileName")
-			self._entryNewJob = self.find_widget("entryNewJob")
-			self._buttonAddJob = self.find_widget("buttonAddJob")
-			self._view_job = self.find_widget("treeviewJobs")
-			self._buttonRemoveJob = self.find_widget("buttonRemoveJob")
-			self._buttonJobUp = self.find_widget("buttonJobUp")
-			self._buttonProfileSave = self.find_widget("buttonProfileSave")
-			self._entryViewCommand = self.find_widget("entryViewCommand")
-			self._entryOutputFile = self.find_widget("entryOutputFile")
+			
+			#self._buttonProfileSave = self.find_widget("buttonProfileSave")
+			#self._entryViewCommand = self.find_widget("entryViewCommand")
+			#self._entryOutputFile = self.find_widget("entryOutputFile")
 			
 			# tools
 			
@@ -142,33 +327,7 @@ class PreferencesDialog(GladeInterface):
 			self._view_tool.insert_column_with_attributes(-1, "Label", gtk.CellRendererText(), markup=0)
 			self._view_tool.insert_column_with_attributes(-1, "File Extensions", gtk.CellRendererText(), text=1)
 			
-			# jobs
 			
-			self._store_job = gtk.ListStore(str, bool, str)   # command, mustSucceed, postProcessor
-			
-			self._view_job.set_model(self._store_job)
-			
-			mustSucceedRenderer = gtk.CellRendererToggle()
-			mustSucceedRenderer.connect("toggled", self._on_must_succeed_toggled)
-			
-			commandRenderer = gtk.CellRendererText()
-			commandRenderer.connect("edited", self._on_job_command_edited)
-
-			self._storePp = gtk.ListStore(str)
-#			for pp in Builder.POST_PROCESSOR_CLASSES.iterkeys():
-#				self._storePp.append([pp])
-			
-			ppRenderer = gtk.CellRendererCombo()
-			ppRenderer.set_property("editable", True)
-			ppRenderer.set_property("model", self._storePp)
-			ppRenderer.set_property("text_column", 0)
-			ppRenderer.set_property("has_entry", False)
-			
-			ppRenderer.connect("edited", self._on_job_pp_edited)
-			
-			self._view_job.insert_column_with_attributes(-1, "Command", commandRenderer, text=0, editable=True)
-			self._view_job.insert_column_with_attributes(-1, "Must Succeed", mustSucceedRenderer, active=1)
-			self._view_job.insert_column_with_attributes(-1, "Post-Processor", ppRenderer, text=2)
 			
 			#
 			# spell check
@@ -213,14 +372,28 @@ class PreferencesDialog(GladeInterface):
 								   "on_treeviewTemplates_cursor_changed" : self._on_snippet_changed,
 								   "on_treeviewProfiles_cursor_changed" : self._on_tool_changed,
 								   "on_buttonProfileSave_clicked" : self._on_save_tool_clicked,
-								   "on_entryNewJob_changed" : self._on_new_job_changed,
-								   "on_buttonAddJob_clicked" : self._on_add_job_clicked,
 								   "on_buttonNewTemplate_clicked" : self._on_new_snippet_clicked,
 								   "on_buttonSaveTemplate_clicked" : self._on_save_snippet_clicked,
 								   "on_buttonNewProfile_clicked" : self._on_new_tool_clicked,
-								   "on_buttonMoveDownProfile_clicked" : self._on_tool_down_clicked })
+								   "on_buttonMoveDownProfile_clicked" : self._on_tool_down_clicked,
+								   "on_buttonConfigureJob_clicked" : self._on_configure_job_clicked })
 			
 		return self._dialog
+	
+	def _on_configure_job_clicked(self, button):
+		store, it = self._view_tool.get_selection().get_selected()
+		tool = store.get_value(it, 2)
+		
+		dialog = ConfigureToolDialog()
+		
+		if dialog.run(tool) is None:
+			self._log.debug("ABORT")
+		else:
+			self._log.debug("OKAY")
+		
+			self._preferences.save_or_update_tool(tool)
+		
+		# TODO:
 	
 	def _on_tool_down_clicked(self, button):
 		store, it = self._view_tool.get_selection().get_selected()
@@ -243,12 +416,6 @@ class PreferencesDialog(GladeInterface):
 	def _on_new_snippet_clicked(self, button):
 		self._store_snippets.append([True, "Unnamed", Template("")])
 	
-	def _on_add_job_clicked(self, button):
-		command = self._entryNewJob.get_text()
-		self._store_job.append([command, True, "Generic"])
-	
-	def _on_new_job_changed(self, comboBox):
-		self._buttonAddJob.set_sensitive(len(self._entryNewJob.get_text()) > 0)
 	
 	def _on_save_tool_clicked(self, button):
 		"""
@@ -291,46 +458,16 @@ class PreferencesDialog(GladeInterface):
 		
 		# load profile settings
 
-		self._entryProfileName.set_text(self._profile.name)
+#		self._entryProfileName.set_text(self._profile.name)
+#		
+#		self._store_job.clear()
+#		for job in self._profile.jobs:
+#			self._store_job.append([job.command, job.mustSucceed, job.postProcessor])
+#			
+#		self._entryViewCommand.set_text(self._profile.viewCommand)
+#		self._entryOutputFile.set_text(self._profile.outputFile)
 		
-		self._store_job.clear()
-		for job in self._profile.jobs:
-			self._store_job.append([job.command, job.mustSucceed, job.postProcessor])
 			
-		self._entryViewCommand.set_text(self._profile.viewCommand)
-		self._entryOutputFile.set_text(self._profile.outputFile)
-		
-			
-	def _on_job_command_edited(self, renderer, path, text):
-		self._store_job.set(self._store_job.get_iter_from_string(path), 0, text)
 	
-	def _on_job_pp_edited(self, renderer, path, text):
-		self._store_job.set(self._store_job.get_iter_from_string(path), 2, text)
 	
-	def _on_must_succeed_toggled(self, renderer, path):
-		value = self._store_job.get(self._store_job.get_iter_from_string(path), 1)[0]
-		self._store_job.set(self._store_job.get_iter_from_string(path), 1, not value)
-	
-	def _validate_tool(self):
-		"""
-		Validate the form
-		"""
-		errors = []
-		
-		# jobs
-
-		if len(self._store_job) == 0:
-			errors.append("You have not specified any jobs.")
-		
-		if len(errors):
-			self._buttonApply.set_sensitive(False)
-		else:
-			self._buttonApply.set_sensitive(True)
-		
-		if len(errors) == 1:
-			self._labelProfileValidate.set_markup(errors[0])
-		elif len(errors) > 1:
-			self._labelProfileValidate.set_markup("\n".join([" * %s" % e for e in errors]))
-		else:
-			self._labelProfileValidate.set_markup("Remember to run all commands in batch mode (e.g. append <tt>-interaction batchmode</tt> to <tt>latex</tt>)")
 	
