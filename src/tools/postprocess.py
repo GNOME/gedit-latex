@@ -73,6 +73,8 @@ class GenericPostProcessor(IPostProcessor):
 	
 	_log = getLogger("GenericPostProcessor")
 	
+	name = "GenericPostProcessor"
+	
 	def __init__(self):
 		self._issues = None
 		self._summary = None
@@ -102,6 +104,8 @@ class LaTeXPostProcessor(object):
 	"""
 	
 	_log = getLogger("LatexPostProcessor")
+	
+	name = "LaTeXPostProcessor"
 	
 	_PATTERN = pattern = re.compile(r"(^! (?P<text>.*?)$)|(^l\.(?P<line>[0-9]+))", re.MULTILINE)
 	
@@ -148,7 +152,7 @@ class LaTeXPostProcessor(object):
 		
 		except IOError:
 			return [Issue("No LaTeX log file found", None, None, self._file, Issue.SEVERITY_ERROR)]
-
+	
 
 class RubberPostProcessor(object):
 	"""
@@ -156,6 +160,8 @@ class RubberPostProcessor(object):
 	"""
 	
 	_log = getLogger("RubberPostProcessor")
+	
+	name = "RubberPostProcessor"
 	
 	def __init__(self):
 		self._issues = None
@@ -210,8 +216,6 @@ class RubberPostProcessor(object):
 			filename = "%s/%s" % (file.dirname, match.group("file"))
 			
 			self._issues.append(Issue(escape(text), lineFrom, lineTo, File(filename), Issue.SEVERITY_ERROR, Issue.POSITION_LINE))
-			
-			
 			
 	
 	

@@ -194,7 +194,7 @@ class Preferences(object):
 			for tool_element in self.__tools.findall("tool"):
 				jobs = []
 				for job_element in tool_element.findall("job"):
-					jobs.append(Job(job_element.text.strip(), job_element.get("mustSucceed"), self.POST_PROCESSORS[job_element.get("postProcessor")]))
+					jobs.append(Job(job_element.text.strip(), str_to_bool(job_element.get("mustSucceed")), self.POST_PROCESSORS[job_element.get("postProcessor")]))
 				extensions = tool_element.get("extensions").split()
 				id = tool_element.get("id")
 				tool = Tool(tool_element.get("label"), jobs, tool_element.get("description"), extensions)
@@ -214,16 +214,27 @@ class Preferences(object):
 	
 	def save_or_update_tool(self, tool):
 		"""
-		Save or update the given Tool
+		Save or update the XML subtree for the given Tool
 		
 		@param tool: a Tool object
 		"""
 		if tool in self.__tool_ids:
-			# update tool
+			# find tool
 			self._log.debug("Tool element found, updating...")
 			id = self.__tool_ids[tool]
 			tool_element = self.__find_tool_element(id)
+			# update tool
 			tool_element.set("label", tool.label)
+			tool_element.set("description", tool.description)
+			# remove all jobs
+			for job_element in tool_element.findall("job"):
+				tool_element.remove(job_element)
+			# append new jobs
+			for job in tool.jobs:
+				job_element = ElementTree.SubElement(tool_element, "job")
+				job_element.set("mustSucceed", str(job.must_succeed))
+				job_element.set("postProcessor", job.post_processor.name)
+				job_element.text = job.command_template
 		else:
 			# create tool
 			pass
@@ -238,6 +249,17 @@ class Preferences(object):
 		
 		@param tool: a Tool object
 		"""
+		try:
+			id = self.__tool_ids[tool]
+			tool_element = self.__find_tool_element(id)
+			self.__tools.remove(tool_element)
+			
+			del self.__tool_ids[tool]
+			self.__tool_objects.remove(tool)
+			
+			self.__tools_changed = True
+		except KeyError, e:
+			self._log.error("delete_tool: %s" % e)
 		
 		self.__notify_tools_changed()
 	
@@ -253,10 +275,10 @@ class Preferences(object):
 	
 	def save(self):
 		"""
-		Save the preferences to XML files
+		Save the preferences to XML
 		"""
 		if self.__preferences_changed:
-			self._log.debug("saving preferences...")
+			self._log.debug("Saving preferences...")
 		
 			tree = ElementTree.ElementTree(self.__preferences)
 			tree.write(find_resource("preferences.xml", MODE_READWRITE))
@@ -264,7 +286,7 @@ class Preferences(object):
 			self.__preferences_changed = False
 		
 		if self.__tools_changed:
-			self._log.debug("saving tools...")
+			self._log.debug("Saving tools...")
 		
 			tree = ElementTree.ElementTree(self.__tools)
 			tree.write(find_resource("tools.xml", MODE_READWRITE))

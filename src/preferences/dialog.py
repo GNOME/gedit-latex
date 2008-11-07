@@ -70,6 +70,9 @@ class PreferencesColorProxy(object):
 		return "#%02x%02x%02x" % (r, g, b)
 
 
+from ..tools import Tool, Job
+
+
 class ConfigureToolDialog(GladeInterface):
 	"""
 	Wraps the dialog for setting up a Tool
@@ -93,15 +96,28 @@ class ConfigureToolDialog(GladeInterface):
 		
 		self._store_job.clear()
 		for job in tool.jobs:
-			self._store_job.append([job.command_template, job.must_succeed, job.post_processor])
+			self._store_job.append([job.command_template, job.must_succeed, job.post_processor.name])
 		
+		self._store_extension.clear()
+		for ext in tool.extensions:
+			self._store_extension.append([ext])
 		
 		if dialog.run() == 1:
 			#
 			# okay clicked - update the Tool object
 			#
 			tool.label = self._entry_label.get_text()
+			tool.description = self._entry_description.get_text()
 			
+			tool.jobs = []
+			for row in self._store_job:
+				pp_class = self._preferences.POST_PROCESSORS[row[2]]
+				tool.jobs.append(Job(row[0], row[1], pp_class))
+				
+			tool.extensions = []
+			for row in self._store_extension:
+				tool.extensions.append(row[0])
+				
 			return tool
 		else:
 			return None
@@ -165,19 +181,46 @@ class ConfigureToolDialog(GladeInterface):
 			#
 			# extensions
 			#
+			self._entry_new_extension = self.find_widget("entryNewExtension")
+			
+			self._store_extension = gtk.ListStore(str)
+			
 			self._view_extension = self.find_widget("treeviewExtension")
+			self._view_extension.set_model(self._store_extension)
+			self._view_extension.insert_column_with_attributes(-1, "", gtk.CellRendererText(), text=0)
+			self._view_extension.set_headers_visible(False)
+			
 			self._button_add_extension = self.find_widget("buttonAddExtension")
 			self._button_remove_extension = self.find_widget("buttonRemoveExtension")
 			
 			self.connect_signals({ "on_entryNewJob_changed" : self._on_new_job_changed,
 								   "on_entryNewExtension_changed" : self._on_new_extension_changed,
 								   "on_buttonAddJob_clicked" : self._on_add_job_clicked,
+								   "on_buttonRemoveJob_clicked" : self._on_remove_job_clicked,
 								   "on_treeviewJob_cursor_changed" : self._on_job_cursor_changed,
 								   "on_treeviewExtension_cursor_changed" : self._on_extension_cursor_changed,
 								   "on_buttonAbort_clicked" : self._on_abort_clicked,
-								   "on_buttonOkay_clicked" : self._on_okay_clicked })
+								   "on_buttonOkay_clicked" : self._on_okay_clicked,
+								   "on_buttonRemoveExtension_clicked" : self._on_remove_extension_clicked,
+								   "on_buttonAddExtension_clicked" : self._on_add_extension_clicked,
+								   "on_buttonMoveUpJob_clicked" : self._on_move_up_job_clicked })
 		
 		return self._dialog
+	
+	def _on_move_up_job_clicked(self, button):
+		store, iter = self._view_job.get_selection().get_selected()
+		
+		s = store.get_string_from_iter(iter)		# e.g. "3"
+		
+		store.swap(iter)
+	
+	def _on_add_extension_clicked(self, button):
+		extension = self._entry_new_extension.get_text()
+		self._store_extension.append([extension])
+	
+	def _on_remove_extension_clicked(self, button):
+		store, it = self._view_extension.get_selection().get_selected()
+		store.remove(it)
 	
 	def _on_job_command_edited(self, renderer, path, text):
 		"""
@@ -203,7 +246,11 @@ class ConfigureToolDialog(GladeInterface):
 		Add a new job
 		"""
 		command = self._entry_new_job.get_text()
-		self._store_job.append([command, True, "Generic"])
+		self._store_job.append([command, True, "GenericPostProcessor"])
+	
+	def _on_remove_job_clicked(self, button):
+		store, it = self._view_job.get_selection().get_selected()
+		store.remove(it)
 	
 	def _on_new_job_changed(self, widget):
 		"""
@@ -319,8 +366,7 @@ class PreferencesDialog(GladeInterface):
 			
 			self._store_tool = gtk.ListStore(str, str, object)     # label markup, extensions, Tool instance
 			
-			for tool in self._preferences.tools:
-				self._store_tool.append(["<b>%s</b>" % tool.label, ", ".join(tool.extensions), tool])
+			self.__load_tools()
 				
 			self._view_tool = self.find_widget("treeviewProfiles")
 			self._view_tool.set_model(self._store_tool)
@@ -371,29 +417,39 @@ class PreferencesDialog(GladeInterface):
 								   "on_buttonAbort_clicked" : self._on_abort_clicked,
 								   "on_treeviewTemplates_cursor_changed" : self._on_snippet_changed,
 								   "on_treeviewProfiles_cursor_changed" : self._on_tool_changed,
-								   "on_buttonProfileSave_clicked" : self._on_save_tool_clicked,
+								   #"on_buttonProfileSave_clicked" : self._on_save_tool_clicked,
 								   "on_buttonNewTemplate_clicked" : self._on_new_snippet_clicked,
 								   "on_buttonSaveTemplate_clicked" : self._on_save_snippet_clicked,
 								   "on_buttonNewProfile_clicked" : self._on_new_tool_clicked,
 								   "on_buttonMoveDownProfile_clicked" : self._on_tool_down_clicked,
-								   "on_buttonConfigureJob_clicked" : self._on_configure_job_clicked })
+								   "on_buttonConfigureTool_clicked" : self._on_configure_tool_clicked,
+								   "on_buttonDeleteTool_clicked" : self._on_delete_tool_clicked })
 			
 		return self._dialog
 	
-	def _on_configure_job_clicked(self, button):
+	def __load_tools(self):
+		self._store_tool.clear()
+		for tool in self._preferences.tools:
+			self._store_tool.append(["<b>%s</b>" % tool.label, ", ".join(tool.extensions), tool])
+	
+	def _on_configure_tool_clicked(self, button):
 		store, it = self._view_tool.get_selection().get_selected()
 		tool = store.get_value(it, 2)
 		
 		dialog = ConfigureToolDialog()
 		
-		if dialog.run(tool) is None:
-			self._log.debug("ABORT")
-		else:
-			self._log.debug("OKAY")
-		
+		if not dialog.run(tool) is None:
 			self._preferences.save_or_update_tool(tool)
+	
+	def _on_delete_tool_clicked(self, button):
+		store, it = self._view_tool.get_selection().get_selected()
+		tool = store.get_value(it, 2)
 		
-		# TODO:
+		self._preferences.delete_tool(tool)
+		
+		# TODO: better: remove from store
+		
+		self.__load_tools()
 	
 	def _on_tool_down_clicked(self, button):
 		store, it = self._view_tool.get_selection().get_selected()
@@ -408,7 +464,12 @@ class PreferencesDialog(GladeInterface):
 			store.swap(it, nextIt)
 	
 	def _on_new_tool_clicked(self, button):
-		pass
+		dialog = ConfigureToolDialog()
+		
+		tool = Tool("New Tool", [], "", [".tex"])
+		
+		if not dialog.run(tool) is None:
+			self._preferences.save_or_update_tool(tool)
 	
 	def _on_save_snippet_clicked(self, button):
 		pass
@@ -417,19 +478,21 @@ class PreferencesDialog(GladeInterface):
 		self._store_snippets.append([True, "Unnamed", Template("")])
 	
 	
-	def _on_save_tool_clicked(self, button):
-		"""
-		Update the current profile
-		"""
-		self._profile.name = self._entryProfileName.get_text()
-		self._profile.viewCommand = self._entryViewCommand.get_text()
-		self._profile.outputFile = self._entryOutputFile.get_text()
 		
-		self._profile.jobs = []
-		for row in self._store_job:
-			self._profile.jobs.append(Job(row[0], row[1], row[2]))
-		
-		Settings().updateProfile(self._profile)
+	
+#	def _on_save_tool_clicked(self, button):
+#		"""
+#		Update the current profile
+#		"""
+#		self._profile.name = self._entryProfileName.get_text()
+#		self._profile.viewCommand = self._entryViewCommand.get_text()
+#		self._profile.outputFile = self._entryOutputFile.get_text()
+#		
+#		self._profile.jobs = []
+#		for row in self._store_job:
+#			self._profile.jobs.append(Job(row[0], row[1], row[2]))
+#		
+#		Settings().updateProfile(self._profile)
 	
 	def _on_apply_clicked(self, button):
 		self._dialog.hide()
