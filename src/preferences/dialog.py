@@ -376,6 +376,8 @@ class ConfigureSnippetDialog(GladeInterface):
 		store.remove(it)
 	
 
+from ..snippets import Snippet
+
 
 class PreferencesDialog(GladeInterface, IPreferencesMonitor):
 	"""
@@ -400,9 +402,7 @@ class PreferencesDialog(GladeInterface, IPreferencesMonitor):
 			# snippets
 			#
 			self._store_snippets = gtk.ListStore(bool, str, object) 	# active, name, Template instance
-			
-			self.__load_snippets()
-			
+
 			render_toggle = gtk.CellRendererToggle()
 			render_toggle.connect("toggled", self.__on_snippet_active_toggled)
 			
@@ -412,6 +412,8 @@ class PreferencesDialog(GladeInterface, IPreferencesMonitor):
 			self._view_snippets.insert_column_with_attributes(-1, "Name", gtk.CellRendererText(), text=1)
 			
 			self._entry_snippet = self.find_widget("textviewTemplate")
+			
+			self.__load_snippets()
 			
 			#
 			# recent bibliographies
@@ -491,13 +493,10 @@ class PreferencesDialog(GladeInterface, IPreferencesMonitor):
 			#
 			# signals
 			#
-			self.connect_signals({ "on_buttonApply_clicked" : self._on_apply_clicked,
-								   "on_buttonAbort_clicked" : self._on_abort_clicked,
+			self.connect_signals({ "on_buttonClose_clicked" : self._on_close_clicked,
 								   "on_treeviewTemplates_cursor_changed" : self._on_snippet_cursor_changed,
 								   "on_treeviewProfiles_cursor_changed" : self._on_tool_cursor_changed,
-								   #"on_buttonProfileSave_clicked" : self._on_save_tool_clicked,
 								   "on_buttonNewTemplate_clicked" : self._on_new_snippet_clicked,
-								   "on_buttonSaveTemplate_clicked" : self._on_save_snippet_clicked,
 								   "on_buttonNewProfile_clicked" : self._on_new_tool_clicked,
 								   "on_buttonMoveUpTool_clicked" : self._on_tool_up_clicked,
 								   "on_buttonConfigureTool_clicked" : self._on_configure_tool_clicked,
@@ -510,6 +509,8 @@ class PreferencesDialog(GladeInterface, IPreferencesMonitor):
 		self._store_snippets.clear()
 		for snippet in self._preferences.snippets:
 			self._store_snippets.append([snippet.active, snippet.label, snippet])
+		
+		self._entry_snippet.get_buffer().set_text("")
 	
 	def __on_snippet_active_toggled(self, renderer, path):
 		iter = self._store_snippets.get_iter_from_string(path)
@@ -591,16 +592,12 @@ class PreferencesDialog(GladeInterface, IPreferencesMonitor):
 		if not dialog.run(tool) is None:
 			self._preferences.save_or_update_tool(tool)
 	
-	def _on_save_snippet_clicked(self, button):
-		pass
-	
 	def _on_new_snippet_clicked(self, button):
-		self._store_snippets.append([True, "Unnamed", Snippet("Unnamed", "", True, [])])
+		snippet = ConfigureSnippetDialog().run(Snippet("Unnamed", "", True, []))
+		if not snippet is None:
+			self._preferences.save_or_update_snippet(snippet)
 	
-	def _on_apply_clicked(self, button):
-		self._dialog.hide()
-	
-	def _on_abort_clicked(self, button):
+	def _on_close_clicked(self, button):
 		self._dialog.hide()
 	
 	def _on_snippet_cursor_changed(self, treeView):

@@ -214,7 +214,8 @@ class Preferences(object):
 		"""
 		Notify monitors that the Tools have changed
 		"""
-		self.__notify_tools_changed()
+		for monitor in self.__monitors:
+			monitor._on_snippets_changed()
 	
 	@property
 	def tools(self):
