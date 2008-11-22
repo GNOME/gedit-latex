@@ -55,6 +55,11 @@ class IPreferencesMonitor(object):
 		A simple key-value-pair has changed
 		"""
 
+	def _on_snippets_changed(self):
+		"""
+		The snippets have changed
+		"""
+
 	def _on_tools_changed(self):
 		"""
 		The Tools have changed
@@ -64,6 +69,31 @@ class IPreferencesMonitor(object):
 # ElementTree is part of Python 2.5
 # TODO: see http://effbot.org/zone/element-index.htm
 import xml.etree.ElementTree as ElementTree
+
+import uuid
+
+
+class ObjectCache(object):
+	"""
+	"""
+	
+	# TODO:
+	
+	def __init__(self):
+		"""
+		"""
+		self.__objects = None
+		self.__ids = None
+	
+	def save(self, id, object):
+		self.__ids[object] = id
+		self.__objects.append(object)
+	
+	def find_id(self, object):
+		return self.__ids[object]
+	
+	def delete(self, id):
+		pass
 
 
 class Preferences(object):
@@ -101,8 +131,12 @@ class Preferences(object):
 			self.__tools_changed = False
 			self.__snippets_changed = False
 			
+			# TODO: use some object cache mechanism instead of those fields
 			self.__tool_objects = None
 			self.__tool_ids = None
+			
+			self.__snippet_objects = None
+			self.__snippet_ids = None
 						
 			# parse
 			self.__preferences = ElementTree.parse(find_resource("preferences.xml", MODE_READWRITE)).getroot()
@@ -176,6 +210,12 @@ class Preferences(object):
 		for monitor in self.__monitors:
 			monitor._on_tools_changed()
 	
+	def __notify_snippets_changed(self):
+		"""
+		Notify monitors that the Tools have changed
+		"""
+		self.__notify_tools_changed()
+	
 	@property
 	def tools(self):
 		"""
@@ -195,6 +235,9 @@ class Preferences(object):
 				jobs = []
 				for job_element in tool_element.findall("job"):
 					jobs.append(Job(job_element.text.strip(), str_to_bool(job_element.get("mustSucceed")), self.POST_PROCESSORS[job_element.get("postProcessor")]))
+				
+				assert not tool_element.get("extensions") is None
+				
 				extensions = tool_element.get("extensions").split()
 				id = tool_element.get("id")
 				tool = Tool(tool_element.get("label"), jobs, tool_element.get("description"), extensions)
@@ -218,31 +261,87 @@ class Preferences(object):
 		
 		@param tool: a Tool object
 		"""
+		tool_element = None
 		if tool in self.__tool_ids:
 			# find tool
 			self._log.debug("Tool element found, updating...")
+			
 			id = self.__tool_ids[tool]
 			tool_element = self.__find_tool_element(id)
-			# update tool
-			tool_element.set("label", tool.label)
-			tool_element.set("description", tool.description)
-			# remove all jobs
-			for job_element in tool_element.findall("job"):
-				tool_element.remove(job_element)
-			# append new jobs
-			for job in tool.jobs:
-				job_element = ElementTree.SubElement(tool_element, "job")
-				job_element.set("mustSucceed", str(job.must_succeed))
-				job_element.set("postProcessor", job.post_processor.name)
-				job_element.text = job.command_template
 		else:
 			# create tool
-			pass
+			self._log.debug("Creating new Tool...")
+			
+			id = str(uuid.uuid4())		# random UUID
+			self.__tool_ids[tool] = id
+			self.__tool_objects.append(tool)
+			
+			tool_element = ElementTree.SubElement(self.__tools, "tool")
+			tool_element.set("id", id)
+		
+		tool_element.set("label", tool.label)
+		tool_element.set("description", tool.description)
+		tool_element.set("extensions", " ".join(tool.extensions))
+		
+		# remove all jobs
+		for job_element in tool_element.findall("job"):
+			tool_element.remove(job_element)
+			
+		# append new jobs
+		for job in tool.jobs:
+			job_element = ElementTree.SubElement(tool_element, "job")
+			job_element.set("mustSucceed", str(job.must_succeed))
+			job_element.set("postProcessor", job.post_processor.name)
+			job_element.text = job.command_template
 		
 		self.__tools_changed = True
 		
 		self.__notify_tools_changed()
+	
+	def swap_tools(self, tool_1, tool_2):
+		"""
+		Swap the order of two Tools
+		"""
+		id_1 = self.__tool_ids[tool_1]
+		id_2 = self.__tool_ids[tool_2]
 		
+		tool_element_1 = None
+		tool_element_2 = None
+		
+		# find the XML elements and index of the tools
+		
+		i = 0
+		for tool_element in self.__tools:
+			if tool_element.get("id") == id_1:
+				tool_element_1 = tool_element
+				index_1 = i
+			elif tool_element.get("id") == id_2:
+				tool_element_2 = tool_element
+				index_2 = i
+			
+			if not (tool_element_1 is None or tool_element_2 is None):
+				break
+			
+			i += 1
+		
+		# remove them and insert them again in swapped order
+		
+		self.__tools.remove(tool_element_1)
+		self.__tools.remove(tool_element_2)
+		
+		self.__tools.insert(index_1, tool_element_2)
+		self.__tools.insert(index_2, tool_element_1)
+		
+		# swap objects in cache
+		
+		self.__tool_objects[index_1], self.__tool_objects[index_2] = self.__tool_objects[index_2], self.__tool_objects[index_1]
+		
+		# notify changes
+		
+		self.__tools_changed = True
+
+		self.__notify_tools_changed()
+	
 	def delete_tool(self, tool):
 		"""
 		Delete the given Tool
@@ -263,15 +362,66 @@ class Preferences(object):
 		
 		self.__notify_tools_changed()
 	
+	def __find_snippet_element(self, id):
+		for element in self.__snippets.findall("snippet"):
+			if element.get("id") == id:
+				return element
+		self._log.warning("<snippet id='%s'> not found" % id)
+		return None
+	
 	@property
 	def snippets(self):
 		"""
-		Return all Snippets
+		Return and cache all Snippets
 		"""
-		snippets = []
-		for snippet_element in self.__snippets.findall("snippet"):
-			snippets.append(Snippet(snippet_element.get("label"), snippet_element.text))
-		return snippets
+		if self.__snippet_objects is None:
+			self.__snippet_ids = {}
+			self.__snippet_objects = []
+			for snippet_element in self.__snippets.findall("snippet"):
+				id = snippet_element.get("id")
+				label = snippet_element.get("label")
+				packages = snippet_element.get("packages")
+				if packages is None:
+					packages = []
+				else:
+					packages = packages.split()
+				expression = snippet_element.text
+				active = str_to_bool(snippet_element.get("active"))
+				snippet = Snippet(label, expression, active, packages)
+				self.__snippet_ids[snippet] = id
+				self.__snippet_objects.append(snippet)
+		return self.__snippet_objects
+	
+	def save_or_update_snippet(self, snippet):
+		"""
+		@param snippet: a snippets.Snippet object
+		"""
+		snippet_element = None
+		if snippet in self.__snippet_ids:
+			# find snippet
+			self._log.debug("Snippet element found, updating...")
+			
+			id = self.__snippet_ids[snippet]
+			snippet_element = self.__find_snippet_element(id)
+		else:
+			# create snippet
+			self._log.debug("Creating new Snippet...")
+			
+			id = str(uuid.uuid4())		# random UUID
+			self.__snippet_ids[snippet] = id
+			self.__snippet_objects.append(snippet)
+			
+			snippet_element = ElementTree.SubElement(self.__snippets, "snippet")
+			snippet_element.set("id", id)
+		
+		snippet_element.set("label", snippet.label)
+		snippet_element.set("packages", " ".join(snippet.packages))
+		snippet_element.set("active", str(snippet.active))
+		snippet_element.text = snippet.expression
+		
+		self.__snippets_changed = True
+		
+		self.__notify_snippets_changed()
 	
 	def save(self):
 		"""
@@ -292,6 +442,14 @@ class Preferences(object):
 			tree.write(find_resource("tools.xml", MODE_READWRITE))
 			
 			self.__tools_changed = False
+		
+		if self.__snippets_changed:
+			self._log.debug("Saving snippets...")
+		
+			tree = ElementTree.ElementTree(self.__snippets)
+			tree.write(find_resource("snippets.xml", MODE_READWRITE))
+			
+			self.__snippets_changed = False
 			
 		
 		

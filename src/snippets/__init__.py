@@ -23,7 +23,18 @@ snippets
 """
 
 class Snippet(object):
-	def __init__(self, label, template_expression):
+	def __init__(self, label, expression, active, packages):
+		"""
+		@param label: a str label for this Snippet
+		@param expression: a str expression in the template format
+		@param active: True if this Snippet is active and should be proposed by completion
+		@param packages: a list of package names required by this Snippet
+		"""
 		self.label = label
-		self.template_expression = template_expression
+		self.expression = expression
+		self.active = active
+		self.packages = packages
+	
+	def __str__(self):
+		return "Snippet{label=%s, active=%s, packages=%s}" % (self.label, self.active, self.packages)
 	

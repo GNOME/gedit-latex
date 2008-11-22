@@ -7,11 +7,8 @@
 			gnome-open "$shortname.pdf"
 		</job>
 	</tool>
-	<tool description="Remove LaTeX build files" extensions=".tex" id="2" label="Cleanup X LaTeX Build">
-		<job mustSucceed="False" postProcessor="LaTeXPostProcessor">
-			rm -f $directory/*.aux $directory/*.log $directory/*.toc $directory/*.bbl $directory/*.blg
-		</job>
-	</tool>
+	<tool description="Remove LaTeX build files" extensions=".tex" id="2" label="Cleanup abc LaTeX Build">
+		<job mustSucceed="False" postProcessor="LaTeXPostProcessor">rm -f $directory/*.aux $directory/*.log $directory/*.toc $directory/*.bbl $directory/*.blg</job></tool>
 	<tool description="Convert BibTeX to XML" extensions=".bib" id="3" label="BibTeX &#8594; XML">
 		<job mustSucceed="true" postProcessor="GenericPostProcessor">
 			bibtex2xml "$filename"

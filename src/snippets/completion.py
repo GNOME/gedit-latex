@@ -44,7 +44,7 @@ class SnippetProposal(IProposal):
 		"""
 		@return: a subclass of Source to be inserted on activation
 		"""
-		return Template(self._snippet.template_expression)
+		return Template(self._snippet.expression)
 	
 	@property
 	def label(self):
@@ -58,7 +58,7 @@ class SnippetProposal(IProposal):
 		"""
 		@return: a widget to be shown in details popup
 		"""
-		self._snippet.template_expression
+		return self._snippet.expression
 	
 	@property
 	def overlap(self):
@@ -105,7 +105,7 @@ class SnippetCompletionHandler(ICompletionHandler):
 		
 		overlap = len(prefix)
 		
-		matching_snippets = [snippet for snippet in self._snippets if snippet.label.startswith(prefix)]
+		matching_snippets = [snippet for snippet in self._snippets if snippet.active and snippet.label.startswith(prefix)]
 		proposals = [SnippetProposal(snippet, overlap) for snippet in matching_snippets]
 		
 		return proposals

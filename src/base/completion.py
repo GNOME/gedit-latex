@@ -175,7 +175,7 @@ class ProposalPopup(gtk.Window):
 			
 #			self._log.debug("proposal.details: " + str(proposal.details))
 			
-			if not proposal.details:
+			if proposal.details is None:
 				self._details_popup.hide()
 				return
 			

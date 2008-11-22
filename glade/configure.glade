@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--Generated with glade3 3.4.5 on Fri Nov  7 13:59:22 2008 -->
+<!--Generated with glade3 3.4.5 on Sat Nov 22 10:31:25 2008 -->
 <glade-interface>
   <widget class="GtkDialog" id="dialogConfigure">
     <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
@@ -25,7 +25,7 @@
                 <property name="visible">True</property>
                 <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                 <property name="border_width">10</property>
-                <property name="n_rows">3</property>
+                <property name="n_rows">2</property>
                 <property name="n_columns">2</property>
                 <property name="column_spacing">5</property>
                 <property name="row_spacing">5</property>
@@ -48,6 +48,20 @@
                       </widget>
                     </child>
                     <child>
+                      <widget class="GtkButton" id="buttonEditSnippet">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">True</property>
+                        <property name="label" translatable="yes">gtk-edit</property>
+                        <property name="use_stock">True</property>
+                        <property name="response_id">0</property>
+                        <signal name="clicked" handler="on_buttonEditSnippet_clicked"/>
+                      </widget>
+                      <packing>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                    <child>
                       <widget class="GtkButton" id="buttonDeleteTemplate">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
@@ -59,7 +73,7 @@
                         <signal name="clicked" handler="on_buttonDeleteTemplate_clicked"/>
                       </widget>
                       <packing>
-                        <property name="position">1</property>
+                        <property name="position">2</property>
                       </packing>
                     </child>
                   </widget>
@@ -101,28 +115,14 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                        <property name="editable">False</property>
                       </widget>
                     </child>
                   </widget>
                   <packing>
                     <property name="right_attach">2</property>
-                    <property name="top_attach">2</property>
-                    <property name="bottom_attach">3</property>
-                  </packing>
-                </child>
-                <child>
-                  <widget class="GtkLabel" id="label13">
-                    <property name="visible">True</property>
-                    <property name="xalign">0</property>
-                    <property name="label" translatable="yes">&lt;b&gt;Syntax:&lt;/b&gt; The expression &lt;tt&gt;${Some}&lt;/tt&gt; marks a placeholder named &lt;i&gt;Some&lt;/i&gt; and &lt;tt&gt;$_&lt;/tt&gt; marks the position of the cursor after the template has been left.</property>
-                    <property name="use_markup">True</property>
-                    <property name="wrap">True</property>
-                  </widget>
-                  <packing>
-                    <property name="right_attach">2</property>
                     <property name="top_attach">1</property>
                     <property name="bottom_attach">2</property>
-                    <property name="y_options">GTK_FILL</property>
                   </packing>
                 </child>
               </widget>
@@ -337,6 +337,7 @@
                     <child>
                       <widget class="GtkButton" id="buttonDeleteTool">
                         <property name="visible">True</property>
+                        <property name="sensitive">False</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
                         <property name="label" translatable="yes">gtk-delete</property>
@@ -349,14 +350,15 @@
                       </packing>
                     </child>
                     <child>
-                      <widget class="GtkButton" id="buttonMoveDownProfile">
+                      <widget class="GtkButton" id="buttonMoveUpTool">
                         <property name="visible">True</property>
+                        <property name="sensitive">False</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
-                        <property name="label" translatable="yes">gtk-go-down</property>
+                        <property name="label" translatable="yes">gtk-go-up</property>
                         <property name="use_stock">True</property>
                         <property name="response_id">0</property>
-                        <signal name="clicked" handler="on_buttonMoveDownProfile_clicked"/>
+                        <signal name="clicked" handler="on_buttonMoveUpTool_clicked"/>
                       </widget>
                       <packing>
                         <property name="position">2</property>
@@ -365,6 +367,7 @@
                     <child>
                       <widget class="GtkButton" id="buttonConfigureTool">
                         <property name="visible">True</property>
+                        <property name="sensitive">False</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
                         <property name="label" translatable="yes">gtk-properties</property>

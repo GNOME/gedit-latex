@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <snippets>
-	<snippet label="figure" packages="graphicx">\begin{figure}
+	<snippet active="True" id="1" label="figure" packages="graphicx">\begin{figure}
 	\includegraphics{${File}}
 	\label{${Label}}
 \end{figure}</snippet>
