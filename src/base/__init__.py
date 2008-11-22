@@ -499,6 +499,13 @@ class Editor(object):
 		else:
 			self._text_buffer.insert_at_cursor(str(source))
 	
+	def append(self, source):
+		"""
+		Append some source (only makes sense with simple string) and scroll to it
+		"""
+		self._text_buffer.insert(self._text_buffer.get_end_iter(), str(source))
+		self._text_view.scroll_to_iter(self._text_buffer.get_end_iter(), .25)
+	
 	@property
 	def indentation(self):
 		"""

@@ -41,6 +41,9 @@ UI = """
 					<menuitem action="LaTeXListingAction" />
 					<menuitem action="LaTeXUseBibliographyAction" />
 				</menu>
+				<menu action="BibTeXMenuAction">
+					<menuitem action="BibTeXNewEntryAction" />
+				</menu>
 			</placeholder>
 		</menubar>
 		<toolbar name="LaTeXToolbar">
@@ -96,6 +99,8 @@ from ..latex.actions import LaTeXMenuAction, LaTeXNewAction, LaTeXCommentAction,
 		LaTeXJustifyCenterAction, LaTeXJustifyRightAction, LaTeXMathMenuAction, LaTeXMathAction, LaTeXDisplayMathAction, \
 		LaTeXEquationAction, LaTeXUnEqnArrayAction, LaTeXEqnArrayAction
 
+from ..bibtex.actions import BibTeXMenuAction, BibTeXNewEntryAction
+
 
 # TODO: extensions and UI path should be asked from Action objects (build UI like for tool actions)
 
@@ -132,7 +137,9 @@ ACTION_OBJECTS = { "LaTeXMenuAction" : LaTeXMenuAction(),
 				   "LaTeXDisplayMathAction" : LaTeXDisplayMathAction(),
 				   "LaTeXEquationAction" : LaTeXEquationAction(),
 				   "LaTeXUnEqnArrayAction" : LaTeXUnEqnArrayAction(),
-				   "LaTeXEqnArrayAction" : LaTeXEqnArrayAction() }
+				   "LaTeXEqnArrayAction" : LaTeXEqnArrayAction(),
+				   "BibTeXMenuAction" : BibTeXMenuAction(),
+				   "BibTeXNewEntryAction" : BibTeXNewEntryAction() }
 
 ACTION_EXTENSIONS = { None : ["LaTeXNewAction"],
 					  ".tex" : ["LaTeXMenuAction", 
@@ -166,7 +173,8 @@ ACTION_EXTENSIONS = { None : ["LaTeXNewAction"],
 				   				"LaTeXDisplayMathAction",
 				   				"LaTeXEquationAction",
 				   				"LaTeXUnEqnArrayAction",
-				   				"LaTeXEqnArrayAction"] }
+				   				"LaTeXEqnArrayAction"],
+				   		".bib" : ["BibTeXMenuAction", "BibTeXNewEntryAction"] }
 
 #from ..tools import Tool, Job
 #from ..tools.postprocess import GenericPostProcessor, RubberPostProcessor

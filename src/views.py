@@ -123,7 +123,9 @@ class IssueView(BottomView, IPreferencesMonitor):
 		
 		self._context.activate_editor(issue.file)
 		
-		# TODO:
+		# FIXME: this doesn't work correctly
+		if not self._context.active_editor is None:
+			self._context.active_editor.select(issue.start, issue.end)
 	
 	def _on_value_changed(self, key, value):
 		if key == "IssuesShowWarnings" or key == "IssuesShowTasks":
