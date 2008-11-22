@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <preferences>
 	<value key="LightForeground">#957d47</value>
 	<value key="ErrorBackgroundColor">#ffdddd</value>
 	<value key="WarningBackgroundColor">#ffffcf</value>
 	<value key="SpellingBackgroundColor">#ffeccf</value>
 	<value key="ConnectOutlineToEditor">True</value>
-</preferences>
+<value key="SpellCheckDictionary">de</value></preferences>

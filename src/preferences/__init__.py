@@ -50,7 +50,7 @@ class IPreferencesMonitor(object):
 	This is not a real interface as classes don't have to implement all
 	methods
 	"""
-	def _on_value_changed(self, key, old_value, new_value):
+	def _on_value_changed(self, key, new_value):
 		"""
 		A simple key-value-pair has changed
 		"""
@@ -201,7 +201,9 @@ class Preferences(object):
 		
 		self.__preferences_changed = True
 		
-		# TODO: notify monitors
+		# notify monitors
+		for monitor in self.__monitors:
+			monitor._on_value_changed(key, value)
 	
 	def __notify_tools_changed(self):
 		"""

@@ -460,21 +460,28 @@ class PreferencesDialog(GladeInterface, IPreferencesMonitor):
 			#
 			try:
 				# the import may fail if enchant is not installed
-				from spellcheck import EnchantFacade
+				from ..latex.spellcheck import SpellCheckerBackend
 				
 				
 				self._storeLanguages = gtk.ListStore(str)
 				
-				enchant = EnchantFacade()
-				for l in enchant.getLanguages():
+				backend = SpellCheckerBackend()
+				active_language = self._preferences.get("SpellCheckDictionary")
+				active_index = 0
+				i = 0
+				for l in backend.languages:
 					self._storeLanguages.append([l])
+					if l == active_language:
+						active_index = i
+					else:
+						i += 1
 				
 				self._comboLanguages = self.find_widget("comboLanguages")
 				self._comboLanguages.set_model(self._storeLanguages)
 				cell = gtk.CellRendererText()
 				self._comboLanguages.pack_start(cell, True)
 				self._comboLanguages.add_attribute(cell, "text", 0)
-				self._comboLanguages.set_active(0)
+				self._comboLanguages.set_active(active_index)
 			except ImportError:
 				
 				self._log.error("Enchant library could not be imported. Spell checking will be disabled.")
@@ -501,9 +508,14 @@ class PreferencesDialog(GladeInterface, IPreferencesMonitor):
 								   "on_buttonMoveUpTool_clicked" : self._on_tool_up_clicked,
 								   "on_buttonConfigureTool_clicked" : self._on_configure_tool_clicked,
 								   "on_buttonDeleteTool_clicked" : self._on_delete_tool_clicked,
-								   "on_buttonEditSnippet_clicked" : self._on_edit_snippet_clicked })
+								   "on_buttonEditSnippet_clicked" : self._on_edit_snippet_clicked,
+								   "on_comboLanguages_changed" : self._on_language_changed })
 			
 		return self._dialog
+	
+	def _on_language_changed(self, combobox):
+		language = combobox.get_model().get_value(combobox.get_active_iter(), 0)
+		self._preferences.set("SpellCheckDictionary", language)
 	
 	def __load_snippets(self):
 		self._store_snippets.clear()

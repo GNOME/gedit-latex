@@ -23,7 +23,7 @@ import enchant
 import enchant.checker
 import enchant.tokenize
 
-from ..preferences import Preferences
+from ..preferences import Preferences, IPreferencesMonitor
 from parser import Node
 
 
@@ -40,15 +40,25 @@ class IMisspelledWordHandler(object):
 		"""
 
 
-class SpellCheckerBackend(object):
+class SpellCheckerBackend(IPreferencesMonitor):
 	
 	_log = getLogger("SpellCheckerBackend")
 	
 	def __init__(self):
+		self._initialized = False
+		self._preferences = Preferences()
+		self._preferences.register_monitor(self)
+	
+	def _on_value_changed(self, key, new_value):
+		# reset if the dictionary has changed
+		if key == "SpellCheckDictionary":
+			self._initialized = False
+	
+	def _initialize(self):
 		"""
 		@raise enchant.Error: if no default dictionary exists
 		"""
-		language = str(Preferences().get("SpellCheckDictionary", ""))
+		language = str(self._preferences.get("SpellCheckDictionary", ""))
 		if len(language) > 0 and enchant.dict_exists(language):
 			self._dictionary = enchant.Dict(language)
 		else:
@@ -61,11 +71,15 @@ class SpellCheckerBackend(object):
 		self._log.debug("Using dictionary '%s'" % language)
 		self._checker = enchant.checker.SpellChecker(language, filters=[enchant.tokenize.EmailFilter, enchant.tokenize.URLFilter])
 	
+		self._initialized = True
+	
 	def check(self, text, handler):
 		"""
 		@param text: the text to be checked
 		@param handler: an IErrorHandler
 		"""
+		if not self._initialized: self._initialize()
+		
 		self._checker.set_text(text)
 		for error in self._checker:
 			handler.on_error(error.word, error.wordpos)
@@ -75,11 +89,13 @@ class SpellCheckerBackend(object):
 		@param word: 
 		@return: a list of suggested words
 		"""
+		if not self._initialized: self._initialize()
+		
 		return self._dictionary.suggest(word)
 	
 	@property
 	def languages(self):
-		raise NotImplementedError
+		return enchant.Broker().list_languages()
 	
 	def add_word(self, word):
 		raise NotImplementedError
