@@ -31,8 +31,8 @@ import gtk
 import gobject
 
 from config import UI, ACTION_OBJECTS, ACTION_EXTENSIONS, WINDOW_SCOPE_VIEWS, EDITOR_SCOPE_VIEWS, EDITORS
-from views import ToolView
-from . import File, View, WindowContext
+from ..tools.views import ToolView
+from . import File, SideView, BottomView, WindowContext
 from ..tools import ToolAction
 from ..preferences import Preferences, IPreferencesMonitor
 
@@ -377,15 +377,14 @@ class GeditWindowDecorator(IPreferencesMonitor):
 			editor_views = self._window_context.get_editor_views(tab_decorator.editor)
 			for id, view in editor_views.iteritems():
 				panel = None
-				if view.position == View.POSITION_BOTTOM:
+				if isinstance(view, BottomView):
 					self._window.get_bottom_panel().add_item(view, view.label, view.icon)
 					self._bottom_views.append(view)
-				elif view.position == View.POSITION_SIDE:
+				elif isinstance(view, SideView):
 					self._window.get_side_panel().add_item(view, view.label, view.icon)
 					self._side_views.append(view)
-					
 				else:
-					raise RuntimeError("Invalid position: %s" % view.position)
+					raise RuntimeError("Invalid view type: %s" % view)
 		
 		#
 		# adjust window-scope views
@@ -414,15 +413,14 @@ class GeditWindowDecorator(IPreferencesMonitor):
 					self._views[id] = view
 				
 				panel = None
-				if view.position == View.POSITION_BOTTOM:
+				if isinstance(view, BottomView):
 					self._window.get_bottom_panel().add_item(view, view.label, view.icon)
 					self._window_bottom_views.append(view)
-				elif view.position == View.POSITION_SIDE:
+				elif isinstance(view, SideView):
 					self._window.get_side_panel().add_item(view, view.label, view.icon)
 					self._window_side_views.append(view)
-					
 				else:
-					raise RuntimeError("Invalid position: %s" % view.position)
+					raise RuntimeError("Invalid position: %s" % view)
 		except KeyError:
 			self._log.debug("No window-scope views for this extension")
 		

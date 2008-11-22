@@ -31,7 +31,7 @@ from xml.dom.minidom import parse
 from xml.parsers.expat import ExpatError
 
 from ..preferences import Preferences
-from ..base import View
+from ..base import View, SideView
 from ..base.resources import find_resource, MODE_READWRITE
 from ..issues import Issue
 
@@ -85,12 +85,11 @@ class SymbolCollection(object):
 			self._log.error("Parse error: %s" % s)
 
 		
-class LaTeXSymbolMapView(View):
+class LaTeXSymbolMapView(SideView):
 	"""
 	"""
 	__log = getLogger("LaTeXSymbolMapView")
 	
-	position = View.POSITION_SIDE
 	label = "Symbols"
 	icon = gtk.STOCK_INDEX
 	scope = View.SCOPE_WINDOW
@@ -209,7 +208,6 @@ class LaTeXOutlineView(BaseOutlineView):
 	
 	_log = getLogger("LaTeXOutlineView")
 	
-	position = View.POSITION_SIDE
 	label = "Outline"
 	scope = View.SCOPE_EDITOR
 	

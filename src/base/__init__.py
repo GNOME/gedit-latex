@@ -28,14 +28,13 @@ from logging import getLogger
 import gtk
 
 
-class View(gtk.VBox):
+class View(object):
 	"""
 	Base class for a view
 	"""
 	
+	# TODO: this doesn't belong to the interface of base
 	# TODO: call destroy()
-	
-	POSITION_SIDE, POSITION_BOTTOM = 0, 1
 	
 	SCOPE_WINDOW, SCOPE_EDITOR = 0, 1
 	
@@ -49,15 +48,25 @@ class View(gtk.VBox):
 	# an icon for this view (gtk.Image or a stock_id string)
 	icon = None
 	
-	# position: POSITION_SIDE | POSITION_BOTTOM
-	position = POSITION_SIDE
-	
 	# the scope of this View:
 	# 	SCOPE_WINDOW: the View is created with the window and the same instance is passed to every Editor
 	#	SCOPE_EDITOR: the View is created with the Editor and destroyed with it
 	scope = SCOPE_WINDOW
 	
+	def init(self, context):
+		"""
+		To be overridden
+		"""
 	
+	def destroy(self):
+		"""
+		To be overridden
+		"""
+
+
+class SideView(View, gtk.VBox):
+	"""
+	"""
 	def __init__(self, context):
 		gtk.VBox.__init__(self)
 		
@@ -89,17 +98,43 @@ class View(gtk.VBox):
 		"""
 		if not self._initialized:
 			self._do_init()
-	
-	def init(self, context):
-		"""
-		To be overridden
-		"""
-	
-	def destroy(self):
-		"""
-		To be overridden
-		"""
+
+
+class BottomView(View, gtk.HBox):
+	"""
+	"""
+	def __init__(self, context):
+		gtk.HBox.__init__(self)
 		
+		self._context = context
+		self._initialized = False
+		
+		# connect to expose event and init() on first expose
+		self._expose_handler = self.connect("expose-event", self._on_expose_event)
+		
+	def _on_expose_event(self, *args):
+		"""
+		The View has been exposed for the first time
+		"""
+		self._do_init()
+	
+	def _do_init(self):
+		self.disconnect(self._expose_handler)
+		self.init(self._context)
+		self.show_all()
+		self._initialized = True
+	
+	def assure_init(self):
+		"""
+		This may be called by the subclassing instance to assure that the View
+		has been initialized. 
+		
+		This is necessary because methods of the instance may be called before 
+		init() as the View is initialized on the first exposure.
+		"""
+		if not self._initialized:
+			self._do_init()
+
 
 class Template(object):
 	"""

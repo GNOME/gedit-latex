@@ -27,19 +27,18 @@ Classes used for creating an outline view of LaTeX and BibTeX files
 from logging import getLogger
 import gtk
 
-from base import View
+from base import View, SideView
 from preferences import Preferences
 from base.resources import find_resource
 
 
-class BaseOutlineView(View):
+class BaseOutlineView(SideView):
 	"""
 	Base class for the BibTeX and LaTeX outline views
 	"""
 	
 	__log = getLogger("BaseOutlineView")
 	
-	position = View.POSITION_SIDE
 	label = "Outline"
 	scope = View.SCOPE_EDITOR
 	

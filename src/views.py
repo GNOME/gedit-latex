@@ -26,20 +26,19 @@ import gtk
 from gtk.gdk import Pixbuf, pixbuf_new_from_file
 from logging import getLogger
 
-from preferences import Preferences
+from preferences import Preferences, IPreferencesMonitor
 from base.resources import find_resource
-from base import View
+from base import View, BottomView
 from issues import Issue
 from util import escape
 
 
-class IssueView(View):
+class IssueView(BottomView, IPreferencesMonitor):
 	"""
 	"""
 	
 	_log = getLogger("IssueView")
 	
-	position = View.POSITION_BOTTOM
 	label = "Issues"
 	icon = gtk.STOCK_DIALOG_INFO
 	scope = View.SCOPE_EDITOR
@@ -48,6 +47,8 @@ class IssueView(View):
 		self._log.debug("init")
 		
 		self._preferences = Preferences()
+		self._show_tasks = self._preferences.get_bool("IssuesShowTasks", True)
+		self._show_warnings = self._preferences.get_bool("IssuesShowWarnings", True)
 		
 		self._context = context
 		
@@ -82,6 +83,36 @@ class IssueView(View):
 		self._scr.set_shadow_type(gtk.SHADOW_IN)
 		
 		self.pack_start(self._scr, True)
+		
+		# toolbar
+		
+		self._button_warnings = gtk.ToggleToolButton()
+		self._button_warnings.set_tooltip_text("Show/Hide Warnings")
+		image = gtk.Image()
+		image.set_from_file(find_resource("icons/warning.png"))
+		self._button_warnings.set_icon_widget(image)
+		self._button_warnings.set_active(self._show_warnings)
+		self._button_warnings.connect("toggled", self.__on_warnings_toggled)
+		
+		self._button_tasks = gtk.ToggleToolButton()
+		self._button_tasks.set_tooltip_text("Show/Hide Tasks")
+		imageTask = gtk.Image()
+		imageTask.set_from_file(find_resource("icons/task.png"))
+		self._button_tasks.set_icon_widget(imageTask)
+		self._button_tasks.set_active(self._show_tasks)
+		self._button_tasks.connect("toggled", self.__on_tasks_toggled)
+		
+		toolbar = gtk.Toolbar()
+		toolbar.set_orientation(gtk.ORIENTATION_VERTICAL)
+		toolbar.set_style(gtk.TOOLBAR_ICONS)
+		toolbar.set_icon_size(gtk.ICON_SIZE_MENU)
+		toolbar.insert(self._button_warnings, -1)
+		toolbar.insert(self._button_tasks, -1)
+		
+		self.pack_start(toolbar, False)
+		
+		self._issues = []
+		self._preferences.register_monitor(self)
 	
 	def _on_row_activated(self, view, path, column):
 		"""
@@ -94,12 +125,28 @@ class IssueView(View):
 		
 		# TODO:
 	
+	def _on_value_changed(self, key, value):
+		if key == "IssuesShowWarnings" or key == "IssuesShowTasks":
+			# update filter
+			self._store.clear()
+			for issue, local in self._issues:
+				self.__append_issue_filtered(issue, local)
+	
+	def __on_tasks_toggled(self, togglebutton):
+		self._show_tasks = togglebutton.get_active()
+		self._preferences.set("IssuesShowTasks", self._show_tasks)
+		
+	def __on_warnings_toggled(self, togglebutton):
+		self._show_warnings = togglebutton.get_active()
+		self._preferences.set("IssuesShowWarnings", self._show_warnings)
+	
 	def clear(self):
 		"""
 		Remove all issues from the view
 		"""
 		self.assure_init()
 		self._store.clear()
+		self._issues = []
 	
 	def append_issue(self, issue, local=True):
 		"""
@@ -109,15 +156,28 @@ class IssueView(View):
 		@param local: indicates whether the Issue occured in the edited file or not
 		"""
 		self.assure_init()
-		
+		self._issues.append((issue, local))
+		self.__append_issue_filtered(issue, local)
+	
+	def __append_issue_filtered(self, issue, local):
+		if issue.severity == Issue.SEVERITY_WARNING:
+			if self._show_warnings:
+				self.__do_append_issue(issue, local)
+		elif issue.severity == Issue.SEVERITY_TASK:
+			if self._show_tasks:
+				self.__do_append_issue(issue, local)
+		else:
+			self.__do_append_issue(issue, local)
+	
+	def __do_append_issue(self, issue, local):
 		if local:
 			message = issue.message
 			filename = escape(issue.file.basename)
 		else:
 			message = "<span color='%s'>%s</span>" % (self._preferences.get("LightForeground", "#7f7f7f"), issue.message)
 			filename = "<span color='%s'>%s</span>" % (self._preferences.get("LightForeground", "#7f7f7f"), issue.file.basename)
-		
 		self._store.append([self._icons[issue.severity], message, filename, issue])
+		
 		
 		
 		

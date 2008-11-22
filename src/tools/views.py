@@ -27,18 +27,17 @@ from gtk.gdk import Pixbuf, pixbuf_new_from_file
 import gtk
 
 
-from resources import find_resource
-from . import View
+from ..base.resources import find_resource
+from ..base import View, BottomView
 from ..issues import Issue, IStructuredIssueHandler
 
 
-class ToolView(View, IStructuredIssueHandler):
+class ToolView(BottomView, IStructuredIssueHandler):
 	"""
 	"""
 	
 	_log = getLogger("ToolView")
 	
-	position = View.POSITION_BOTTOM
 	label = "Tools"
 	icon = gtk.STOCK_CONVERT
 	scope = View.SCOPE_WINDOW
