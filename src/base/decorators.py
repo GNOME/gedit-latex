@@ -356,82 +356,119 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		#
 		# save selection state
 		#
-		self._selected_bottom_views[tab_decorator] = self._get_selected_bottom_view()
-		self._selected_side_views[tab_decorator] = self._get_selected_side_view()
+#		self._selected_bottom_views[tab_decorator] = self._get_selected_bottom_view()
+#		self._selected_side_views[tab_decorator] = self._get_selected_side_view()
 		
 		#
 		# adjust editor-scope views
 		#
 		
-		# hide all
-		for view in self._side_views:
-			self._window.get_side_panel().remove_item(view)
-			self._side_views.remove(view)
+		# determine set of side/bottom views BEFORE
 		
-		for view in self._bottom_views:
-			self._window.get_bottom_panel().remove_item(view)
-			self._bottom_views.remove(view)
-			
-		# show editor scope views
+		before_side_views = set(self._side_views)
+		before_bottom_views = set(self._bottom_views)
+		
+		# determine set of side/bottom views AFTER
+		
+		after_side_views = set()
+		after_bottom_views = set()
+		
 		if tab_decorator.editor:
 			editor_views = self._window_context.get_editor_views(tab_decorator.editor)
 			for id, view in editor_views.iteritems():
-				panel = None
 				if isinstance(view, BottomView):
-					self._window.get_bottom_panel().add_item(view, view.label, view.icon)
-					self._bottom_views.append(view)
+					after_bottom_views.add(view)
 				elif isinstance(view, SideView):
-					self._window.get_side_panel().add_item(view, view.label, view.icon)
-					self._side_views.append(view)
+					after_side_views.add(view)
 				else:
 					raise RuntimeError("Invalid view type: %s" % view)
+		
+		# remove BEFORE.difference(AFTER)
+		for view in before_side_views.difference(after_side_views):
+			self._window.get_side_panel().remove_item(view)
+			self._side_views.remove(view)
+		
+		for view in before_bottom_views.difference(after_bottom_views):
+			self._window.get_bottom_panel().remove_item(view)
+			self._bottom_views.remove(view)
+		
+		# add AFTER.difference(BEFORE)
+		for view in after_side_views.difference(before_side_views):
+			self._window.get_side_panel().add_item(view, view.label, view.icon)
+			self._side_views.append(view)
+			
+		for view in after_bottom_views.difference(before_bottom_views):
+			self._window.get_bottom_panel().add_item(view, view.label, view.icon)
+			self._bottom_views.append(view)
+			
 		
 		#
 		# adjust window-scope views
 		#
 		
-		# hide all
-		for view in self._window_side_views:
-			self._window.get_side_panel().remove_item(view)
-			self._window_side_views.remove(view)
+		# determine set of side/bottom views BEFORE
 		
-		for view in self._window_bottom_views:
-			self._window.get_bottom_panel().remove_item(view)
-			self._window_bottom_views.remove(view)
-			
-		# show given views
+		before_window_side_views = set(self._window_side_views)
+		before_window_bottom_views = set(self._window_bottom_views)
+		
+		# determine set of side/bottom views AFTER
+		
+		after_window_side_views = set()
+		after_window_bottom_views = set()
+		
 		try:
 			for id, clazz in WINDOW_SCOPE_VIEWS[extension].iteritems():
 				
+				# find or create View instance
 				view = None
 				try:
 					view = self._views[id]
 				except KeyError:
-					# create instance
 					view = clazz.__new__(clazz)
 					clazz.__init__(view, self._window_context)
 					self._views[id] = view
 				
-				panel = None
 				if isinstance(view, BottomView):
-					self._window.get_bottom_panel().add_item(view, view.label, view.icon)
-					self._window_bottom_views.append(view)
+					#self._window.get_bottom_panel().add_item(view, view.label, view.icon)
+					#self._window_bottom_views.append(view)
+					after_window_bottom_views.add(view)
 				elif isinstance(view, SideView):
-					self._window.get_side_panel().add_item(view, view.label, view.icon)
-					self._window_side_views.append(view)
+					#self._window.get_side_panel().add_item(view, view.label, view.icon)
+					#self._window_side_views.append(view)
+					after_window_side_views.add(view)
 				else:
 					raise RuntimeError("Invalid position: %s" % view)
 		except KeyError:
 			self._log.debug("No window-scope views for this extension")
+			
+		# remove BEFORE.difference(AFTER)
+		for view in before_window_side_views.difference(after_window_side_views):
+			self._window.get_side_panel().remove_item(view)
+			self._window_side_views.remove(view)
 		
+		for view in before_window_bottom_views.difference(after_window_bottom_views):
+			self._window.get_bottom_panel().remove_item(view)
+			self._window_bottom_views.remove(view)
+			
+		# add AFTER.difference(BEFORE)
+		for view in after_window_side_views.difference(before_window_side_views):
+			self._window.get_side_panel().add_item(view, view.label, view.icon)
+			self._window_side_views.append(view)
+			
+		for view in after_window_bottom_views.difference(before_window_bottom_views):
+			self._window.get_bottom_panel().add_item(view, view.label, view.icon)
+			self._window_bottom_views.append(view)
+		
+		#
 		# update window context
+		#
 		self._window_context.set_window_views(self._views)
 		
 		#
 		# restore selection state
 		#
-		self._set_selected_bottom_view(self._selected_bottom_views[tab_decorator])
-		self._set_selected_side_view(self._selected_side_views[tab_decorator])
+#		self._set_selected_bottom_view(self._selected_bottom_views[tab_decorator])
+#		self._set_selected_side_view(self._selected_side_views[tab_decorator])
 	
 	def _get_selected_bottom_view(self):
 		notebook = self._window.get_bottom_panel().get_children()[0].get_children()[0]
