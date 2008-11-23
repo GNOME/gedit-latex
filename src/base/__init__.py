@@ -1127,11 +1127,16 @@ class File(object):
 		"""
 		remove(self.path)
 	
+	# FIXME: why isn't this called on '!=' ?
+	
 	def __eq__(self, file):
 		"""
 		Override equality operator
 		"""
-		return self.uri == file.uri
+		try:
+			return self.uri == file.uri
+		except AttributeError:		# no File object passed or None
+			return False
 	
 	def __str__(self):
 		return self.uri

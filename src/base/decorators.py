@@ -302,7 +302,7 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		
 		extension = tab_decorator.extension
 		
-		self._log.debug("adjust: %s" % (extension))
+		self._log.debug("---------- ADJUST: %s" % (extension))
 		
 		# FIXME: a hack again...
 		# the toolbar should hide when it doesn't contain any visible items
@@ -316,6 +316,9 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		#
 		# FIXME: we always get the state of the new decorator after tab change
 		# but we need to save the one of the old decorator
+		#
+		# FIXME: we are dealing with sets so saving the index as selection state
+		# is nonsense
 		#
 		
 		# disable all actions
@@ -356,8 +359,8 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		#
 		# save selection state
 		#
-#		self._selected_bottom_views[tab_decorator] = self._get_selected_bottom_view()
-#		self._selected_side_views[tab_decorator] = self._get_selected_side_view()
+		self._selected_bottom_views[tab_decorator] = self._get_selected_bottom_view()
+		self._selected_side_views[tab_decorator] = self._get_selected_side_view()
 		
 		#
 		# adjust editor-scope views
@@ -437,7 +440,7 @@ class GeditWindowDecorator(IPreferencesMonitor):
 					#self._window_side_views.append(view)
 					after_window_side_views.add(view)
 				else:
-					raise RuntimeError("Invalid position: %s" % view)
+					raise RuntimeError("Invalid view type: %s" % view)
 		except KeyError:
 			self._log.debug("No window-scope views for this extension")
 			
@@ -467,8 +470,8 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		#
 		# restore selection state
 		#
-#		self._set_selected_bottom_view(self._selected_bottom_views[tab_decorator])
-#		self._set_selected_side_view(self._selected_side_views[tab_decorator])
+		self._set_selected_bottom_view(self._selected_bottom_views[tab_decorator])
+		self._set_selected_side_view(self._selected_side_views[tab_decorator])
 	
 	def _get_selected_bottom_view(self):
 		notebook = self._window.get_bottom_panel().get_children()[0].get_children()[0]
@@ -632,7 +635,12 @@ class GeditTabDecorator(object):
 		@return: True if the editor has changed
 		"""
 		file = File(self._text_buffer.get_uri())
-		if file != self._file:
+		
+		if file == self._file:		# != doesn't work for File...
+			return False
+		else:
+			self._log.debug("---------- _adjust_editor: URI has changed")
+			
 			self._file = file
 			
 			# URI has changed - manage the editor instance
@@ -653,10 +661,8 @@ class GeditTabDecorator(object):
 			# tell WindowDecorator to adjust actions
 			self._window_decorator.adjust(self)
 
-			# URI has changed
+			# notify that URI has changed
 			return True
-		else:
-			return False
 	
 	@property
 	def file(self):
