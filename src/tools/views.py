@@ -83,23 +83,23 @@ class ToolView(BottomView, IStructuredIssueHandler):
 		
 		# toolbar
 		
-#		self._buttonCancel = gtk.ToolButton(gtk.STOCK_STOP)
-#		self._buttonCancel.set_sensitive(False)
-#		self._buttonCancel.set_tooltip_text("Abort job")
+		self._buttonCancel = gtk.ToolButton(gtk.STOCK_STOP)
+		self._buttonCancel.set_sensitive(False)
+		self._buttonCancel.set_tooltip_text("Abort job")
 #		self._buttonCancel.connect("clicked", lambda x: self.trigger("abortClicked"))
 #		
 #		self._buttonClear = gtk.ToolButton(gtk.STOCK_CLEAR)
 #		self._buttonClear.set_tooltip_text("Cleanup LaTeX build files")
 #		self._buttonClear.connect("clicked", lambda x: self.trigger("cleanupClicked"))
 #		
-#		self._toolbar = gtk.Toolbar()
-#		self._toolbar.set_style(gtk.TOOLBAR_ICONS)
-#		self._toolbar.set_icon_size(gtk.ICON_SIZE_SMALL_TOOLBAR)		# FIXME: deprecated???
-#		self._toolbar.set_orientation(gtk.ORIENTATION_VERTICAL)
-#		self._toolbar.insert(self._buttonCancel, -1)
+		self._toolbar = gtk.Toolbar()
+		self._toolbar.set_style(gtk.TOOLBAR_ICONS)
+		self._toolbar.set_icon_size(gtk.ICON_SIZE_SMALL_TOOLBAR)		# FIXME: deprecated???
+		self._toolbar.set_orientation(gtk.ORIENTATION_VERTICAL)
+		self._toolbar.insert(self._buttonCancel, -1)
 #		self._toolbar.insert(self._buttonClear, -1)
 #		
-#		self.pack_start(self._toolbar, False)
+		self.pack_start(self._toolbar, False)
 	
 	def _on_row_activated(self, view, path, column):
 		it = self._store.get_iter(path)

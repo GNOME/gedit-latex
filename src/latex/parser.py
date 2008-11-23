@@ -174,11 +174,16 @@ class Document(Node):
 	An extended Node with special methods for a LaTeX document
 	"""
 	
+	# TODO: implement a generic interface for searching the document model
+	
 	def __init__(self, file):
 		Node.__init__(self, Node.DOCUMENT, file)
 		
 		self._is_master_called = False
 		self._is_master = False
+		
+		self._end_of_document = None
+		self._end_of_packages = None
 	
 	def _do_is_master(self):
 		# TODO: this should be recursive
@@ -201,7 +206,47 @@ class Document(Node):
 			self._is_master = self._do_is_master()
 			self._is_master_called = True
 		return self._is_master
-
+	
+	def _find_end_of_document(self):
+		# TODO: this should be recursive
+		
+		for node in self:
+			if node.type == Node.COMMAND and node.value == "end":
+				if node.firstOfType(Node.MANDATORY_ARGUMENT).innerText == "document":
+					return node.start
+		return 0
+	
+	@property
+	def end_of_document(self):
+		"""
+		Return the offset right before \end{document}
+		
+		used by LaTeXEditor.insert_at_position
+		"""
+		if self._end_of_document is None:
+			self._end_of_document = self._find_end_of_document()
+		return self._end_of_document
+	
+	def _find_end_of_packages(self):
+		# TODO: this should be recursive
+		
+		offset = 0
+		for node in self:
+			if node.type == Node.COMMAND and node.value == "usepackage":
+				offset = node.end
+		return offset
+	
+	@property
+	def end_of_packages(self):
+		"""
+		Return the offset right after the last \usepackage
+		
+		used by LaTeXEditor.insert_at_position
+		"""
+		if self._end_of_packages is None:
+			self._end_of_packages = self._find_end_of_packages()
+		return self._end_of_packages
+		
 
 class LocalizedNode(Node):
 	"""

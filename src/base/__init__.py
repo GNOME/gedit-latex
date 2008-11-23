@@ -498,13 +498,38 @@ class Editor(object):
 			self._template_delegate.insert(source)
 		else:
 			self._text_buffer.insert_at_cursor(str(source))
+		
+		# grab the focus again (necessary e.g. after symbol insert)
+		self._text_view.grab_focus()
 	
-	def append(self, source):
+	def insert_at_offset(self, offset, string, scroll=False):
+		"""
+		Insert a string at a certain offset
+		
+		@param offset: a positive int
+		@param string: a str
+		@param scroll: if True the view is scrolled to the insert position
+		"""
+		iter = self._text_buffer.get_iter_at_offset(offset)
+		self._text_buffer.insert(iter, str(string))
+		
+		if scroll:
+			self._text_view.scroll_to_iter(iter, .25)
+		
+		# grab the focus again (necessary e.g. after symbol insert)
+		self._text_view.grab_focus()
+	
+	def append(self, string):
 		"""
 		Append some source (only makes sense with simple string) and scroll to it
+		
+		@param string: a str
 		"""
-		self._text_buffer.insert(self._text_buffer.get_end_iter(), str(source))
+		self._text_buffer.insert(self._text_buffer.get_end_iter(), str(string))
 		self._text_view.scroll_to_iter(self._text_buffer.get_end_iter(), .25)
+		
+		# grab the focus again (necessary e.g. after symbol insert)
+		self._text_view.grab_focus()
 	
 	@property
 	def indentation(self):

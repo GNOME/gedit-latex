@@ -144,6 +144,11 @@ _DOCUMENT_CLASSES = {
 
 class TeXResource(object):
 	def __init__(self, file, name, label):
+		"""
+		@param file: a File object
+		@param name: the identifier of this resource (e.g. 'ams' for 'ams.bib')
+		@param label: a descriptive label
+		"""
 		self.file = file
 		self.name = name
 		self.label = label

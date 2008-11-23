@@ -114,9 +114,14 @@ class LaTeXUseBibliographyAction(IconAction):
 		if not self._dialog:
 			from dialogs import UseBibliographyDialog
 			self._dialog = UseBibliographyDialog()
+			
 		source = self._dialog.run_dialog(context.active_editor.edited_file)
 		if source:
-			context.active_editor.insert(source)
+			editor = context.active_editor
+			
+			assert type(editor) is LaTeXEditor
+			
+			editor.insert_at_position(source + "\n\n", LaTeXEditor.POSITION_BIBLIOGRAPHY)
 	
 
 class LaTeXCommentAction(IAction):

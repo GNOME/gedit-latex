@@ -110,17 +110,27 @@ class LaTeXEditor(Editor, IIssueHandler, IMisspelledWordHandler):
 		else:
 			Editor.insert(self, source)
 	
-	POSITION_PACKAGES, POSITION_PREAMBLE = 1, 2
+	POSITION_PACKAGES, POSITION_BIBLIOGRAPHY = 1, 2
 	
-	def _insert_at_position(self, source, position):
+	def insert_at_position(self, source, position):
 		"""
-		Insert source at a certain position in the document
+		Insert source at a certain position in the LaTeX document:
+		
+		 * POSITION_PACKAGES: after the last \usepackage statement
+		 * POSITION_BIBLIOGRAPHY: before \end{document}
 		
 		@param source: a LaTeXSource object
-		@param position: POSITION_PACKAGES | POSITION_PREAMBLE 
+		@param position: POSITION_PACKAGES | POSITION_BIBLIOGRAPHY
 		"""
 		
-		# TODO:
+		if position == self.POSITION_BIBLIOGRAPHY:
+			offset = self._document.end_of_document
+			Editor.insert_at_offset(self, offset, source, True)
+		elif position == self.POSITION_PACKAGES:
+			offset = self._document.end_of_packages
+			Editor.insert_at_offset(self, offset, source, False)
+		else:
+			raise NotImplementedError
 	
 	def ensure_packages(self, packages):
 		"""

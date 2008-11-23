@@ -397,7 +397,7 @@ class UseBibliographyDialog(GladeInterface, PreviewRenderer):
 			
 			styles = Environment().bibtex_styles
 			for style in styles:
-				self._storeStyle.append([style])
+				self._storeStyle.append([style.name])
 			
 			self._comboStyle = self.find_widget("comboboxStyle")
 			self._comboStyle.set_model(self._storeStyle)
@@ -471,7 +471,7 @@ class UseBibliographyDialog(GladeInterface, PreviewRenderer):
 					self._storeFiles.append([True, filename])
 					
 					# store in settings
-					Settings().addBibliography(filename)
+					#Settings().addBibliography(filename)
 			
 		fileChooser.hide()
 

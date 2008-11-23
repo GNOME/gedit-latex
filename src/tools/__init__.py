@@ -32,7 +32,7 @@ class Tool(object):
 	"""
 	The model of a tool. This is to be stored in preferences.
 	"""
-	def __init__(self, label, jobs, description, extensions):
+	def __init__(self, label, jobs, description, extensions=[]):
 		"""
 		@param label: a label used when displaying the Tool in the UI
 		@param jobs: a list of Job objects
