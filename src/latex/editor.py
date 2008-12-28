@@ -139,10 +139,18 @@ class LaTeXEditor(Editor, IIssueHandler, IMisspelledWordHandler):
 		@param packages: a list of package names
 		"""
 		if not self._document_is_master:
+			# document is not a master
+			# TODO: show popup message 'You should include ...'
 			self._log.debug("ensure_packages: document is not a master")
 			return
 		
-		# TODO:
+		# insert the necessary \usepackage commands
+		present_package_names = [p.value for p in self._outline.packages]
+		package_names = [p for p in packages if not p in present_package_names]
+		
+		source = "\n" + "\n".join(["\\usepackage{%s}" % n for n in package_names])
+		
+		self.insert_at_position(source, self.POSITION_PACKAGES)
 	
 	def on_save(self):
 		"""
@@ -245,6 +253,9 @@ class LaTeXEditor(Editor, IIssueHandler, IMisspelledWordHandler):
 				
 			# pass outline to completion
 			self.__latex_completion_handler.set_outline(self._outline)
+			
+			# pass neighbor files to completion
+			self.__update_neighbors()
 	
 	@property
 	def __master_file(self):

@@ -56,6 +56,7 @@ class OutlineNode(list):
 		elif self.type == self.STRUCTURE:
 			return "<structure level=\"%s\" headline=\"%s\">%s</structure>" % (self.level, self.value, 
 																				"".join([child.xml for child in self]))
+			
 
 class Outline(object):
 	def __init__(self):
@@ -181,7 +182,7 @@ class LaTeXOutlineGenerator(object):
 					environ = node.firstOfType(Node.MANDATORY_ARGUMENT).innerText
 					
 					if environ == "tabular":
-						tableNode = OutlineNode(OutlineNode.TABLE, node.start, node.lastEnd, "<i>Table</i>", foreign=foreign, file=node.file)
+						tableNode = OutlineNode(OutlineNode.TABLE, node.start, node.lastEnd, "", foreign=foreign, file=node.file)
 						self._stack[-1].append(tableNode)
 				
 				elif self.cfgGraphicsInTree and node.value == "includegraphics":

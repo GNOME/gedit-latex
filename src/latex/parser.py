@@ -233,7 +233,7 @@ class Document(Node):
 		offset = 0
 		for node in self:
 			if node.type == Node.COMMAND and node.value == "usepackage":
-				offset = node.end
+				offset = node.lastEnd
 		return offset
 	
 	@property

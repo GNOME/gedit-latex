@@ -495,7 +495,10 @@ class PreferencesDialog(GladeInterface, IPreferencesMonitor):
 			self._color_proxies = [ PreferencesColorProxy(self.find_widget("colorLight"), "LightForeground", "#957d47"),
 									PreferencesColorProxy(self.find_widget("colorSpelling"), "SpellingBackgroundColor", "#ffeccf"),
 									PreferencesColorProxy(self.find_widget("colorWarning"), "WarningBackgroundColor", "#ffffcf"),
-									PreferencesColorProxy(self.find_widget("colorError"), "ErrorBackgroundColor", "#ffdddd") ]
+									PreferencesColorProxy(self.find_widget("colorError"), "ErrorBackgroundColor", "#ffdddd"),
+									PreferencesColorProxy(self.find_widget("colorTemplateBackground"), "TemplateBackgroundColor", "#f2f7ff"),
+									PreferencesColorProxy(self.find_widget("colorPlaceholderBackground"), "PlaceholderBackgroundColor", "#d6e4ff"),
+									PreferencesColorProxy(self.find_widget("colorPlaceholderForeground"), "PlaceholderForegroundColor", "#2a66e1") ]
 			
 			#
 			# signals

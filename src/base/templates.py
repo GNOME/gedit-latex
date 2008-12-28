@@ -144,6 +144,7 @@ class TemplateCompiler(object):
 import gtk.gdk
 
 from . import Template
+from ..preferences import Preferences
 
 	
 class TemplateDelegate(object):
@@ -162,8 +163,11 @@ class TemplateDelegate(object):
 		self._compiler = TemplateCompiler()
 		
 		# create tags
-		self._tag_template = self._text_buffer.create_tag("template", background="#f2f7ff")
-		self._tag_placeholder = self._text_buffer.create_tag("placeholder", background="#d6e4ff", foreground="#2a66e1")
+		self._tag_template = self._text_buffer.create_tag("template", 
+						background=Preferences().get("TemplateBackgroundColor", "#f2f7ff"))
+		self._tag_placeholder = self._text_buffer.create_tag("placeholder", 
+						background=Preferences().get("PlaceholderBackgroundColor", "#d6e4ff"), 
+						foreground=Preferences().get("PlaceholderForegroundColor", "#2a66e1"))
 		
 		self._active = False
 	
