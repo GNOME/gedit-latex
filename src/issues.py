@@ -83,6 +83,13 @@ class IStructuredIssueHandler(object):
 		"""
 		raise NotImplementedError
 	
+	def set_abort_enabled(self, enabled, method):
+		"""
+		@param enabled: if True a job may be aborted
+		@param method: a method that is may be called to abort a running job
+		"""
+		raise NotImplementedError
+	
 	def append_issues(self, partition_id, issues):
 		"""
 		An issue occured

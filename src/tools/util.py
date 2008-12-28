@@ -60,7 +60,7 @@ class Process(object):
 		"""
 		Abort the running process
 		"""
-		if self._process:
+		if self.__process:
 			for handler in self.__handlers:
 				gobject.source_remove(handler)
 			
@@ -69,7 +69,7 @@ class Process(object):
 				
 				self._on_abort()
 			except OSError, e:
-				self.__log.error("Failed to abort job: %s" % e)
+				self.__log.error("Failed to abort process: %s" % e)
 			
 	def __on_stdout(self):
 		try:

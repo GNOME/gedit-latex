@@ -161,6 +161,9 @@ class ToolRunner(Process):
 		# change working directory to prevent issues with relative paths
 		chdir(file.dirname)
 		
+		# enable abort
+		self._issue_handler.set_abort_enabled(True, self.abort)
+		
 		# run
 		self.__proceed()
 	
@@ -180,6 +183,9 @@ class ToolRunner(Process):
 		except StopIteration:
 			# Tool finished successfully
 			self._issue_handler.set_partition_state(self._root_issue_partition, "succeeded")
+			# disable abort
+			self._issue_handler.set_abort_enabled(False, None)
+			
 			self._on_tool_succeeded()
 	
 	def _on_stdout(self, text):
@@ -198,6 +204,13 @@ class ToolRunner(Process):
 		"""
 		"""
 		self._log.debug("_abort")
+		# disable abort
+		self._issue_handler.set_abort_enabled(False, None)
+		# mark Tool and all Jobs as aborted
+		self._issue_handler.set_partition_state(self._root_issue_partition, "aborted")
+		self._issue_handler.set_partition_state(self._issue_partitions[self._job], "aborted")
+		for job in self._job_iter:
+			self._issue_handler.set_partition_state(self._issue_partitions[job], "aborted")
 	
 	def _on_exit(self, condition):
 		"""
@@ -228,6 +241,9 @@ class ToolRunner(Process):
 			if self._job.must_succeed:
 				# whole Tool failed
 				self._issue_handler.set_partition_state(self._root_issue_partition, "failed")
+				# disable abort
+				self._issue_handler.set_abort_enabled(False, None)
+				
 				self._on_tool_failed()
 			else:
 				self.__proceed()

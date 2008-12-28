@@ -47,6 +47,7 @@ class ToolView(BottomView, IStructuredIssueHandler):
 	_ICON_SUCCESS = gtk.gdk.pixbuf_new_from_file(find_resource("icons/okay.png"))
 	_ICON_ERROR = gtk.gdk.pixbuf_new_from_file(find_resource("icons/error.png"))
 	_ICON_WARNING = gtk.gdk.pixbuf_new_from_file(find_resource("icons/warning.png"))
+	_ICON_ABORT = gtk.gdk.pixbuf_new_from_file(find_resource("icons/abort.png"))
 	
 	def init(self, context):
 		self._log.debug("init")
@@ -86,7 +87,7 @@ class ToolView(BottomView, IStructuredIssueHandler):
 		self._buttonCancel = gtk.ToolButton(gtk.STOCK_STOP)
 		self._buttonCancel.set_sensitive(False)
 		self._buttonCancel.set_tooltip_text("Abort job")
-#		self._buttonCancel.connect("clicked", lambda x: self.trigger("abortClicked"))
+		self._buttonCancel.connect("clicked", self._on_abort_clicked)
 #		
 #		self._buttonClear = gtk.ToolButton(gtk.STOCK_CLEAR)
 #		self._buttonClear.set_tooltip_text("Cleanup LaTeX build files")
@@ -100,6 +101,9 @@ class ToolView(BottomView, IStructuredIssueHandler):
 #		self._toolbar.insert(self._buttonClear, -1)
 #		
 		self.pack_start(self._toolbar, False)
+	
+	def _on_abort_clicked(self, button):
+		self._abort_method.__call__()
 	
 	def _on_row_activated(self, view, path, column):
 		it = self._store.get_iter(path)
@@ -115,12 +119,17 @@ class ToolView(BottomView, IStructuredIssueHandler):
 		self.assure_init()
 		self._store.clear()
 	
+	def set_abort_enabled(self, enabled, method):
+		# see issues.IStructuredIssueHandler.set_abort_enabled
+		
+		self._abort_method = method
+		self._buttonCancel.set_sensitive(enabled)
+	
 	def add_partition(self, label, state, parent_partition_id=None):
 		"""
 		Add a new partition
 		
 		@param label: a label used in the UI
-		
 		@return: a unique id for the partition (here a gtk.TreeIter)
 		"""
 		icon = None
@@ -130,6 +139,8 @@ class ToolView(BottomView, IStructuredIssueHandler):
 			icon = self._ICON_SUCCESS
 		elif state == "failed":
 			icon = self._ICON_FAIL
+		elif state == "aborted":
+			icon = self._ICON_ABORT
 			
 		self._view.expand_all()
 		
@@ -147,6 +158,9 @@ class ToolView(BottomView, IStructuredIssueHandler):
 			icon = self._ICON_SUCCESS
 		elif state == "failed":
 			icon = self._ICON_FAIL
+		elif state == "aborted":
+			icon = self._ICON_ABORT
+			
 		self._store.set(partition_id, 0, icon)
 	
 	def append_issues(self, partition_id, issues):
