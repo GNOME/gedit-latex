@@ -264,7 +264,7 @@ class LaTeXEditor(Editor, IIssueHandler, IMisspelledWordHandler, IPreferencesMon
 
 				# validate
 				self._validator.validate(self._document, self._outline, self)
-				
+			
 			# pass outline to completion
 			self.__latex_completion_handler.set_outline(self._outline)
 			

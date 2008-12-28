@@ -295,9 +295,6 @@ class LaTeXParser(object):
 		self._file = file
 		self._issue_handler = issue_handler
 		
-		# TODO: include comments into the model
-		self.comments = []
-		
 		self._stack = [documentNode]
 		
 		callables = {
@@ -477,10 +474,17 @@ class LaTeXParser(object):
 			else:
 				self._issue_handler.issue(Issue("Unexpected END_SQUARE token with %s on stack and no optional argument" % top.type, offset, offset + 1, self._file, Issue.SEVERITY_ERROR))
 	
+	_PATTERN = compile("(TODO|FIXME)\w?\:?(?P<text>.*)")
+	
 	def comment(self, value, offset):
-		# TODO: this should go to the model
-		
-		self.comments.append([value, offset])
+		"""
+		Extract TODOs and FIXMEs
+		"""
+		match = self._PATTERN.search(value)
+		if match:
+			text = match.group("text").strip()
+			# TODO: escape
+			self._issue_handler.issue(Issue(text, offset + match.start(), offset + match.end() + 1, self._file, Issue.SEVERITY_TASK))
 		
 	def verbatim(self, value, offset):
 		pass
@@ -665,33 +669,5 @@ class PrefixParser(object):
 		
 	def verbatim(self, value):
 		pass
-
-
-# TODO: we should extract tasks when calling comment() and add them as an Issue
-
-
-class TaskExtractor(object):
-	"""
-	This extracts TODO and FIXME comments and creates Issue objects of
-	type TASK
-	"""
-	
-	# TODO: this should walk through a document model
-	
-	_PATTERN = compile("(TODO|FIXME)\w?\:?(?P<text>.*)")
-	
-	def extract(self, comments):
-		issues = []
-		
-		for value, offset in comments:
-			match = self._PATTERN.search(value)
-			if match:
-				text = match.group("text").strip()
-				
-				# TODO: +1 ?
-				issues.append(Issue("<i>%s</i>" % text, Issue.TASK, offset + match.start(), offset + match.end() + 1))
-		
-		return issues
-
 
 		
