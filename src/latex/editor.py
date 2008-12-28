@@ -41,12 +41,12 @@ from validator import LaTeXValidator
 from dialogs import ChooseMasterDialog
 
 from . import LaTeXSource
-from ..preferences import Preferences
+from ..preferences import Preferences, IPreferencesMonitor
 
 from spellcheck import SpellChecker, IMisspelledWordHandler
 
 
-class LaTeXEditor(Editor, IIssueHandler, IMisspelledWordHandler):
+class LaTeXEditor(Editor, IIssueHandler, IMisspelledWordHandler, IPreferencesMonitor):
 	
 	# TODO: use _document_dirty
 	
@@ -68,6 +68,7 @@ class LaTeXEditor(Editor, IIssueHandler, IMisspelledWordHandler):
 		self._context = context
 		
 		self._preferences = Preferences()
+		self._preferences.register_monitor(self)	# listen to 'Show...InOutline' settings
 		
 		self.register_marker_type("latex-spell", self._preferences.get("SpellingBackgroundColor"), anonymous=False)
 		self.register_marker_type("latex-error", self._preferences.get("ErrorBackgroundColor"))
@@ -93,6 +94,19 @@ class LaTeXEditor(Editor, IIssueHandler, IMisspelledWordHandler):
 		#
 		self.__parse()
 		self.__update_neighbors()
+	
+	def _on_value_changed(self, key, new_value):
+		# see preferences.IPreferencesMonitor._on_value_changed
+		
+		if key in ["ShowLabelsInOutline", "ShowTablesInOutline", "ShowGraphicsInOutline"]:
+			# regenerate outline model
+			if self._document_is_master:
+				self._outline = self._outline_generator.generate(self._document, self)
+				self._outline_view.set_outline(self._outline)
+			else:
+				# FIXME: self._document contains the full model of child and master
+				# so we may not use it for regenerating the outline here
+				self.__parse()
 	
 	def drag_drop_received(self, files):
 		# see base.Editor.drag_drop_received

@@ -69,6 +69,7 @@ class Outline(object):
 
 
 from ..base import File
+from ..preferences import Preferences
 
 
 class LaTeXOutlineGenerator(object):
@@ -85,17 +86,22 @@ class LaTeXOutlineGenerator(object):
 						  "paragraph" : 6, 
 						  "subparagraph" : 7 }
 	
-	def __init__(self):
-		# TODO: read config
-		self.cfgLabelsInTree = True
-		self.cfgTablesInTree = True
-		self.cfgGraphicsInTree = True
+#	def __init__(self):
+#		# TODO: read config
+#		self.cfgLabelsInTree = True
+#		self.cfgTablesInTree = True
+#		self.cfgGraphicsInTree = True
 	
 	def generate(self, documentNode, issue_handler):
 		"""
 		Generates an outline model from a document model and returns a list
 		of list of issues if some occured.
 		"""
+		
+		# setup
+		self.cfgLabelsInTree = Preferences().get_bool("ShowLabelsInOutline", False)
+		self.cfgTablesInTree = Preferences().get_bool("ShowTablesInOutline", True)
+		self.cfgGraphicsInTree = Preferences().get_bool("ShowGraphicsInOutline", True)
 		
 		self._issue_handler = issue_handler
 		self._outline = Outline()

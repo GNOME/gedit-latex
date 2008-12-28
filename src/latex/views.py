@@ -231,8 +231,8 @@ class LaTeXOutlineView(BaseOutlineView):
 		btn_tables.set_icon_widget(gtk.image_new_from_file(find_resource("icons/tree_table.png")))
 		self._toolbar.insert(btn_tables, -1)
 		
-#		btn_graphics.set_active(Settings().get("LatexOutlineGraphics", True, True))
-#		btn_tables.set_active(Settings().get("LatexOutlineTables", True, True))
+		btn_graphics.set_active(Preferences().get_bool("ShowGraphicsInOutline", True))
+		btn_tables.set_active(Preferences().get_bool("ShowTablesInOutline", True))
 		
 		btn_graphics.connect("toggled", self._on_graphics_toggled)
 		btn_tables.connect("toggled", self._on_tables_toggled)
@@ -294,11 +294,13 @@ class LaTeXOutlineView(BaseOutlineView):
 		value = toggle_button.get_active()
 #		Settings().set("LatexOutlineTables", value)
 #		self.trigger("tablesToggled", value)
+		Preferences().set("ShowTablesInOutline", value)
 	
 	def _on_graphics_toggled(self, toggle_button):
 		value = toggle_button.get_active()
 #		Settings().set("LatexOutlineGraphics", value)
 #		self.trigger("graphicsToggled", value)
+		Preferences().set("ShowGraphicsInOutline", value)
 	
 	
 
