@@ -254,8 +254,9 @@ class LaTeXOutlineView(BaseOutlineView):
 		"""
 		An outline node has been selected
 		"""
-		if node.file == self._context.active_editor.edited_file:
-			self._context.active_editor.select(node.start, node.end)
+		if Preferences().get_bool("ConnectOutlineToEditor", True):
+			if node.file == self._context.active_editor.edited_file:
+				self._context.active_editor.select(node.start, node.end)
 	
 	def _on_node_activated(self, node):
 		"""

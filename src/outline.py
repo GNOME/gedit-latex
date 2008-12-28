@@ -117,9 +117,7 @@ class BaseOutlineView(SideView):
 	
 	def _on_follow_toggled(self, toggle_button):
 		value = toggle_button.get_active()
-		#Settings().set("LinkOutlineToEditor", value)
-		
-		#self.trigger("connectToggled", value)
+		self._preferences.set("ConnectOutlineToEditor", value)
 	
 	def _on_expand_clicked(self, button):
 		self._view.expand_all()
