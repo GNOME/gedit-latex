@@ -158,13 +158,14 @@ class LaTeXEditor(Editor, IIssueHandler, IMisspelledWordHandler, IPreferencesMon
 			self._log.debug("ensure_packages: document is not a master")
 			return
 		
-		# insert the necessary \usepackage commands
+		# find missing packages
 		present_package_names = [p.value for p in self._outline.packages]
 		package_names = [p for p in packages if not p in present_package_names]
 		
-		source = "\n" + "\n".join(["\\usepackage{%s}" % n for n in package_names])
-		
-		self.insert_at_position(source, self.POSITION_PACKAGES)
+		# insert the necessary \usepackage commands
+		if len(package_names) > 0:
+			source = "\n" + "\n".join(["\\usepackage{%s}" % n for n in package_names])
+			self.insert_at_position(source, self.POSITION_PACKAGES)
 	
 	def on_save(self):
 		"""

@@ -426,8 +426,8 @@ class UseBibliographyDialog(GladeInterface, PreviewRenderer):
 			scrollPreview.add_with_viewport(self._imagePreview)
 			
 			
-			self.connect_signals({ "on_buttonAddFile_clicked" : self._on_add_clicked,
-									"on_buttonRemoveFile_clicked" : self._on_remove_clicked,
+			self.connect_signals({ #"on_buttonAddFile_clicked" : self._on_add_clicked,
+									#"on_buttonRemoveFile_clicked" : self._on_remove_clicked,
 									"on_buttonRefresh_clicked" : self._on_refresh_clicked })
 			
 		return self.dialog

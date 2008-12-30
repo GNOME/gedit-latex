@@ -1026,7 +1026,17 @@
 	<command name="text" package="amsmath">
 		<argument label="Text" />
 	</command>
-
+	
+	<command name="underset" package="amsmath">
+		<argument label="Under" />
+		<argument label="Formula" />
+	</command>
+	
+	<command name="overset" package="amsmath">
+		<argument label="Over" />
+		<argument label="Formula" />
+	</command>
+	
 	<!-- picture environment -->
 
 	<command name="line" environment="picture">

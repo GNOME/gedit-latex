@@ -246,7 +246,13 @@ class PrefixModelParser(object):
 			if command.package:
 				label += " <small><b>%s</b></small>" % command.package
 			
-			proposal = LaTeXCommandProposal(overlap, LaTeXSource(Template(templateSource), [command.package]), label)
+			# workaround for latex.model.Element.package may be None
+			# TODO: latex.model.Element.package should be a list of packages
+			if command.package is None:
+				packages = []
+			else:
+				packages = [command.package]
+			proposal = LaTeXCommandProposal(overlap, LaTeXSource(Template(templateSource), packages), label)
 			proposals.append(proposal)
 		
 		return proposals
@@ -261,8 +267,13 @@ class PrefixModelParser(object):
 			label = choice.value
 			if choice.package:
 				label += " <small><b>%s</b></small>" % choice.package
-				
-			proposal = LaTeXChoiceProposal(overlap, LaTeXSource(choice.value, [choice.package]), label, choice.details)
+			
+			# see above
+			if choice.package is None:
+				packages = []
+			else:
+				packages = [choice.package]
+			proposal = LaTeXChoiceProposal(overlap, LaTeXSource(choice.value, packages), label, choice.details)
 			proposals.append(proposal)
 		
 		return proposals

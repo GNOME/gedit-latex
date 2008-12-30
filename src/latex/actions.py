@@ -106,7 +106,7 @@ class LaTeXUseBibliographyAction(IconAction):
 	label = "Use Bibliography..."
 	icon = File(find_resource("icons/bib.png"))
 	accelerator = None
-	tooltip = None
+	tooltip = "Use Bibliography"
 	
 	_dialog = None
 	
@@ -153,6 +153,7 @@ class LaTeXFontFamilyAction(IconAction):
 	def activate(self, context):
 		pass
 
+
 class LaTeXFontFamilyMenuAction(IAction):
 	label = "Font Family"
 	accelerator = None
@@ -163,28 +164,55 @@ class LaTeXFontFamilyMenuAction(IAction):
 		pass
 
 
-class LaTeXBoldAction(IconAction):
+class LaTeXBoldAction(LaTeXTemplateAction):
 	label = "Bold"
-	accelerator = None
 	tooltip = "Bold"
-	icon = File(find_resource("icons/bf.png"))
-	
-	def activate(self, context):
-#		from ..preferences import Preferences
-#		Preferences().update_tool(None)
-		
-		pass
-	
+	icon_name = "bf"
+	template_source = "\\textbf{$_}"
 
-class LaTeXItalicAction(IconAction):
+
+class LaTeXItalicAction(LaTeXTemplateAction):
 	label = "Italic"
-	accelerator = None
 	tooltip = "Italic"
-	icon = File(find_resource("icons/it.png"))
+	icon_name = "it"
+	template_source = "\\textit{$_}"
 	
-	def activate(self, context):
-		pass
+	
+class LaTeXUnderlineAction(LaTeXTemplateAction):
+	label = "Underline"
+	tooltip = "Underline"
+	icon_name = "underline"
+	template_source = "\\underline{$_}"
+	
+	
+class LaTeXSmallCapitalsAction(LaTeXTemplateAction):
+	label = "Small Capitals"
+	tooltip = "Small Capitals"
+	icon_name = "sc"
+	template_source = "\\textsc{$_}"
+	
+	
+class LaTeXRomanAction(LaTeXTemplateAction):
+	label = "Roman"
+	tooltip = "Roman"
+	icon_name = "rm"
+	template_source = "\\textrm{$_}"
+	
+	
+class LaTeXSansSerifAction(LaTeXTemplateAction):
+	label = "Sans Serif"
+	tooltip = "Sans Serif"
+	icon_name = "sf"
+	template_source = "\\textsf{$_}"
+	
+	
+class LaTeXTypewriterAction(LaTeXTemplateAction):
+	label = "Typewriter"
+	tooltip = "Typewriter"
+	icon_name = "tt"
+	template_source = "\\texttt{$_}"
 
+# TODO: Blackboard Bold, Caligraphy, Fraktur
 
 class LaTeXItemizeAction(LaTeXTemplateAction):
 	label = "Itemize"

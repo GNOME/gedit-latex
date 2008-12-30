@@ -51,6 +51,11 @@ UI = """
 				<menu action="LaTeXFontFamilyMenuAction">
 					<menuitem action="LaTeXBoldAction" />
 					<menuitem action="LaTeXItalicAction" />
+					<menuitem action="LaTeXUnderlineAction" />
+					<menuitem action="LaTeXSmallCapitalsAction" />
+					<menuitem action="LaTeXRomanAction" />
+					<menuitem action="LaTeXSansSerifAction" />
+					<menuitem action="LaTeXTypewriterAction" />
 				</menu>
 			</toolitem>
 			<toolitem action="LaTeXJustifyLeftAction" />
@@ -97,7 +102,8 @@ from ..latex.actions import LaTeXMenuAction, LaTeXNewAction, LaTeXCommentAction,
 		LaTeXSectionAction, LaTeXSubsectionAction, LaTeXParagraphAction,LaTeXSubparagraphAction, LaTeXStructureAction, \
 		LaTeXGraphicsAction, LaTeXUseBibliographyAction, LaTeXTableAction, LaTeXListingAction, LaTeXJustifyLeftAction, \
 		LaTeXJustifyCenterAction, LaTeXJustifyRightAction, LaTeXMathMenuAction, LaTeXMathAction, LaTeXDisplayMathAction, \
-		LaTeXEquationAction, LaTeXUnEqnArrayAction, LaTeXEqnArrayAction
+		LaTeXEquationAction, LaTeXUnEqnArrayAction, LaTeXEqnArrayAction, LaTeXUnderlineAction, LaTeXSmallCapitalsAction, \
+		LaTeXRomanAction, LaTeXSansSerifAction, LaTeXTypewriterAction
 
 from ..bibtex.actions import BibTeXMenuAction, BibTeXNewEntryAction
 
@@ -116,6 +122,11 @@ ACTION_OBJECTS = { "LaTeXMenuAction" : LaTeXMenuAction(),
 				   "LaTeXFontFamilyMenuAction" : LaTeXFontFamilyMenuAction(),
 				   "LaTeXBoldAction" : LaTeXBoldAction(),
 				   "LaTeXItalicAction" : LaTeXItalicAction(),
+				   "LaTeXUnderlineAction" : LaTeXUnderlineAction(),
+				   "LaTeXSmallCapitalsAction" : LaTeXSmallCapitalsAction(),
+				   "LaTeXRomanAction" : LaTeXRomanAction(),
+				   "LaTeXSansSerifAction" : LaTeXSansSerifAction(),
+				   "LaTeXTypewriterAction" : LaTeXTypewriterAction(),
 				   "LaTeXDescriptionAction" : LaTeXDescriptionAction(),
 				   "LaTeXStructureAction" : LaTeXStructureAction(),
 				   "LaTeXStructureMenuAction" : LaTeXStructureMenuAction(),
@@ -152,6 +163,11 @@ ACTION_EXTENSIONS = { None : ["LaTeXNewAction"],
 								"LaTeXFontFamilyMenuAction",
 								"LaTeXBoldAction",
 								"LaTeXItalicAction",
+								"LaTeXUnderlineAction",
+				   				"LaTeXSmallCapitalsAction",
+				   				"LaTeXRomanAction",
+				   				"LaTeXSansSerifAction",
+				   				"LaTeXTypewriterAction",
 								"LaTeXDescriptionAction",
 								"LaTeXStructureAction",
 								"LaTeXStructureMenuAction",

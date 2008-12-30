@@ -1,6 +1,8 @@
 <snippets>
-	<snippet active="True" id="1" label="figure" packages="graphicx">\begin{figure}
+	<snippet active="True" id="1" label="somefigure" packages="graphicx">\begin{figure}
 	\includegraphics{${File}}
 	\label{${Label}}
-\end{figure}</snippet>
-</snippets>
+\end{figure}ABC</snippet>
+<snippet active="True" id="44a2eb07-a9ab-469f-9815-83d31dc58140" label="environment" packages="">\begin{${Environment}}
+	$_
+\end{${Environment}}</snippet></snippets>
