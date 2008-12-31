@@ -30,19 +30,24 @@ from ..base.resources import find_resource
 from ..base import Template, File
 
 
-class IProxy(object):
+class AbstractProxy(object):
 	def __init__(self, widget, key):
-		raise NotImplementedError
+		self._widget = widget
+		self._key = key
+		self._preferences = Preferences()
 	
 	def restore(self, default):
 		raise NotImplementedError
+	
+	def save(self):
+		self._preferences.set(self._key, self.value)
 	
 	@property
 	def value(self):
 		raise NotImplementedError
 
 
-class ComboBoxProxy(IProxy):
+class ComboBoxProxy(AbstractProxy):
 	"""
 	This proxies a ComboBox widget:
 	
@@ -58,24 +63,23 @@ class ComboBoxProxy(IProxy):
 		@param widget: a ComboBox widget
 		@param key: a key in preferences
 		"""
+		AbstractProxy.__init__(self, widget, key)
+		
 		self._store = gtk.ListStore(str, str)			# value, label
-		self._widget = widget
 		self._widget.set_model(self._store)
 		cell = gtk.CellRendererText()
 		self._widget.pack_start(cell, True)
 		self._widget.add_attribute(cell, "markup", 1)
 		
-		self._key = key
-		self._preferences = Preferences()
 		self._options = []
 	
 	# TODO: save on select signal
 	
-	def restore(self, default_value):
+	def restore(self, default):
 		"""
 		Restore the state of the widget from preferences
 		"""
-		restored_value = self._preferences.get(self._key, default_value)
+		restored_value = self._preferences.get(self._key, default)
 		i = 0
 		for value, label in self._options:
 			if value == restored_value:
@@ -88,12 +92,6 @@ class ComboBoxProxy(IProxy):
 	
 	def _on_changed(self, combobox):
 		self.save()
-	
-	def save(self):
-		"""
-		Save the state of the widget to preferences
-		"""
-		self._preferences.set(self._key, self.value)
 	
 	def add_option(self, value, label):
 		"""
@@ -114,16 +112,16 @@ class ComboBoxProxy(IProxy):
 		return self._options[index][0]
 	
 	
-class EntryProxy(IProxy):
+class EntryProxy(AbstractProxy):
 	def __init__(self, widget, key):
-		pass
+		AbstractProxy.__init__(self, widget, key)
 	
 	def restore(self, default):
-		pass
+		self._widget.set_text(self._preferences.get(self._key, default))
 	
 	@property
 	def value(self):
-		pass
+		return self._widget.get_text()
 	
 
 class ChooseMasterDialog(GladeInterface):
@@ -290,24 +288,30 @@ class NewDocumentDialog(GladeInterface):
 			#
 			# font family
 			#
-			self._store_font_family = gtk.ListStore(str, str)
-			
-			recent_font_family = preferences.get("RecentDefaultFontFamily", "\\rmdefault")
+#			self._store_font_family = gtk.ListStore(str, str)
+#			
+#			recent_font_family = preferences.get("RecentDefaultFontFamily", "\\rmdefault")
+#
+#			recent_font_family_i = 0
+#			i = 0
+#			for command, label in self._DEFAULT_FONT_FAMILIES:
+#				self._store_font_family.append([command, label])
+#				if recent_font_family == command:
+#					recent_font_family_i = i
+#				i += 1
+#				
+#			self._combo_font_family = self.find_widget("comboFontFamily")
+#			self._combo_font_family.set_model(self._store_font_family)
+#			cell = gtk.CellRendererText()
+#			self._combo_font_family.pack_start(cell, True)
+#			self._combo_font_family.add_attribute(cell, "markup", 1)
+#			self._combo_font_family.set_active(recent_font_family_i)
 
-			recent_font_family_i = 0
-			i = 0
+			self._proxy_font_family = ComboBoxProxy(self.find_widget("comboFontFamily"), "RecentDefaultFontFamily")
 			for command, label in self._DEFAULT_FONT_FAMILIES:
-				self._store_font_family.append([command, label])
-				if recent_font_family == command:
-					recent_font_family_i = i
-				i += 1
-				
-			self._combo_font_family = self.find_widget("comboFontFamily")
-			self._combo_font_family.set_model(self._store_font_family)
-			cell = gtk.CellRendererText()
-			self._combo_font_family.pack_start(cell, True)
-			self._combo_font_family.add_attribute(cell, "markup", 1)
-			self._combo_font_family.set_active(recent_font_family_i)
+				self._proxy_font_family.add_option(command, label)
+			self._proxy_font_family.restore("\\rmdefault")
+			
 			
 			# TODO: save state
 			# TODO: use in source
@@ -315,52 +319,66 @@ class NewDocumentDialog(GladeInterface):
 			#
 			# input encodings
 			#
-			self._store_encoding = gtk.ListStore(str, str)	# encoding, label
-			
-			recent_encoding = preferences.get("RecentInputEncoding", "utf8")
-			
-			i = 0
-			recent_encoding_i = 0
+#			self._store_encoding = gtk.ListStore(str, str)	# encoding, label
+#			
+#			recent_encoding = preferences.get("RecentInputEncoding", "utf8")
+#			
+#			i = 0
+#			recent_encoding_i = 0
+#			for e in environment.input_encodings:
+#				self._store_encoding.append([e.name, "%s <span color='%s'>%s</span>" % (e.name, lightForeground, e.label)])
+#				if e.name == recent_encoding:
+#					recent_encoding_i = i
+#				i += 1
+#			
+#			self._combo_encoding = self.find_widget("comboEncoding")
+#			self._combo_encoding.set_model(self._store_encoding)
+#			cell = gtk.CellRendererText()
+#			self._combo_encoding.pack_start(cell, True)
+#			self._combo_encoding.add_attribute(cell, "markup", 1)
+#			self._combo_encoding.set_active(recent_encoding_i)
+
+			self._proxy_encoding = ComboBoxProxy(self.find_widget("comboEncoding"), "RecentInputEncoding")
 			for e in environment.input_encodings:
-				self._store_encoding.append([e.name, "%s <span color='%s'>%s</span>" % (e.name, lightForeground, e.label)])
-				if e.name == recent_encoding:
-					recent_encoding_i = i
-				i += 1
-			
-			self._combo_encoding = self.find_widget("comboEncoding")
-			self._combo_encoding.set_model(self._store_encoding)
-			cell = gtk.CellRendererText()
-			self._combo_encoding.pack_start(cell, True)
-			self._combo_encoding.add_attribute(cell, "markup", 1)
-			self._combo_encoding.set_active(recent_encoding_i)
+				self._proxy_encoding.add_option(e.name, e.label)
+			self._proxy_encoding.restore("utf8")
 			
 			#
 			# babel packages
 			#
-			self._store_babel = gtk.ListStore(str, str) # package, label
-			
+#			self._store_babel = gtk.ListStore(str, str) # package, label
+#			
+#			try:
+#				default_babel = self._LOCALE_MAPPINGS[environment.language_code]
+#			except Exception, e:
+#				self._log.error("Failed to guess babel package: %s" % e)
+#				default_babel = "english"
+#			
+#			recent_babel = preferences.get("RecentBabelPackage", default_babel)
+#			
+#			i = 0
+#			recent_babel_i = 0
+#			for l in environment.language_definitions:
+#				self._store_babel.append([l.name, "%s <span color='%s'>%s</span>" % (l.name, lightForeground, l.label)])
+#				if l.name == recent_babel:
+#					recent_babel_i = i
+#				i += 1
+#			
+#			self._combo_babel = self.find_widget("comboBabel")
+#			self._combo_babel.set_model(self._store_babel)
+#			cell = gtk.CellRendererText()
+#			self._combo_babel.pack_start(cell, True)
+#			self._combo_babel.add_attribute(cell, "markup", 1)
+#			self._combo_babel.set_active(recent_babel_i)
+
+			self._proxy_babel = ComboBoxProxy(self.find_widget("comboBabel"), "RecentBabelPackage")
+			for l in environment.language_definitions:
+				self._proxy_babel.add_option(l.name, l.label)
 			try:
-				default_babel = self._LOCALE_MAPPINGS[environment.language_code]
+				self._proxy_babel.restore(self._LOCALE_MAPPINGS[environment.language_code])
 			except Exception, e:
 				self._log.error("Failed to guess babel package: %s" % e)
-				default_babel = "english"
-			
-			recent_babel = preferences.get("RecentBabelPackage", default_babel)
-			
-			i = 0
-			recent_babel_i = 0
-			for l in environment.language_definitions:
-				self._store_babel.append([l.name, "%s <span color='%s'>%s</span>" % (l.name, lightForeground, l.label)])
-				if l.name == recent_babel:
-					recent_babel_i = i
-				i += 1
-			
-			self._combo_babel = self.find_widget("comboBabel")
-			self._combo_babel.set_model(self._store_babel)
-			cell = gtk.CellRendererText()
-			self._combo_babel.pack_start(cell, True)
-			self._combo_babel.add_attribute(cell, "markup", 1)
-			self._combo_babel.set_active(recent_babel_i)
+				self._proxy_babel.restore("english")
 			
 			#
 			# connect signals
@@ -409,8 +427,10 @@ class NewDocumentDialog(GladeInterface):
 
 		title = self._entry_title.get_text()
 		author = self._entry_author.get_text()
-		babelPackage = self._store_babel[self._combo_babel.get_active()][0]
-		inputEncoding = self._store_encoding[self._combo_encoding.get_active()][0]
+#		babelPackage = self._store_babel[self._combo_babel.get_active()][0]
+#		inputEncoding = self._store_encoding[self._combo_encoding.get_active()][0]
+		babelPackage = self._proxy_babel.value
+		inputEncoding = self._proxy_encoding.value
 		
 		if self._radio_date_custom.get_active():
 			date = self._entry_date.get_text()
