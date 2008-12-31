@@ -30,7 +30,19 @@ from ..base.resources import find_resource
 from ..base import Template, File
 
 
-class SelectionProxy(object):
+class IProxy(object):
+	def __init__(self, widget, key):
+		raise NotImplementedError
+	
+	def restore(self, default):
+		raise NotImplementedError
+	
+	@property
+	def value(self):
+		raise NotImplementedError
+
+
+class ComboBoxProxy(IProxy):
 	"""
 	This proxies a ComboBox widget:
 	
@@ -41,10 +53,10 @@ class SelectionProxy(object):
 	...
 	p.save()
 	"""
-	def __init__(self, widget, preferences_key):
+	def __init__(self, widget, key):
 		"""
 		@param widget: a ComboBox widget
-		@param preferences_key: a key in preferences
+		@param key: a key in preferences
 		"""
 		self._store = gtk.ListStore(str, str)			# value, label
 		self._widget = widget
@@ -53,11 +65,11 @@ class SelectionProxy(object):
 		self._widget.pack_start(cell, True)
 		self._widget.add_attribute(cell, "markup", 1)
 		
-		self._key = preferences_key
+		self._key = key
 		self._preferences = Preferences()
 		self._options = []
 	
-	# TODO: restore on __init__ and save on select signal
+	# TODO: save on select signal
 	
 	def restore(self, default_value):
 		"""
@@ -72,13 +84,16 @@ class SelectionProxy(object):
 			i += 1
 		self._widget.set_active(restored_index)
 		
+		self._widget.connect("changed", self._on_changed)
+	
+	def _on_changed(self, combobox):
+		self.save()
+	
 	def save(self):
 		"""
 		Save the state of the widget to preferences
 		"""
-		index = self._widget.get_active()
-		value = self._options[index][0]
-		self._preferences.set(self._key, value)
+		self._preferences.set(self._key, self.value)
 	
 	def add_option(self, value, label):
 		"""
@@ -88,8 +103,28 @@ class SelectionProxy(object):
 		@param label: a label text that may contain markup
 		"""
 		self._options.append((value, label))
-		self._store.append([value, "%s <span color='%s'>%s</span>" % (value, self._preferences.get("LightForeground"), label)])
-		
+		if not value is None and len(value) > 0:
+			self._store.append([value, "%s <span color='%s'>%s</span>" % (value, self._preferences.get("LightForeground"), label)])
+		else:
+			self._store.append([value, "<span color='%s'>%s</span>" % (self._preferences.get("LightForeground"), label)])
+	
+	@property
+	def value(self):
+		index = self._widget.get_active()
+		return self._options[index][0]
+	
+	
+class EntryProxy(IProxy):
+	def __init__(self, widget, key):
+		pass
+	
+	def restore(self, default):
+		pass
+	
+	@property
+	def value(self):
+		pass
+	
 
 class ChooseMasterDialog(GladeInterface):
 	"""
@@ -206,10 +241,10 @@ class NewDocumentDialog(GladeInterface):
 #			self._combo_class.add_attribute(cell, "markup", 1)
 #			self._combo_class.set_active(recent_document_class_i)
 
-			proxy_classes = SelectionProxy(self.find_widget("comboClass"), "RecentDocumentClass")
+			self._proxy_document_class = ComboBoxProxy(self.find_widget("comboClass"), "RecentDocumentClass")
 			for c in environment.document_classes:
-				proxy_classes.add_option(c.name, c.label)
-			proxy_classes.restore("article")
+				self._proxy_document_class.add_option(c.name, c.label)
+			self._proxy_document_class.restore("article")
 				
 			#
 			# paper
@@ -235,11 +270,11 @@ class NewDocumentDialog(GladeInterface):
 #			self._combo_paper_size.add_attribute(cell, "markup", 1)
 #			self._combo_paper_size.set_active(recent_paper_size_i)
 
-			proxy_paper_size = SelectionProxy(self.find_widget("comboPaperSize"), "RecentPaperSize")
-			proxy_paper_size.add_option("", "Default")
+			self._proxy_paper_size = ComboBoxProxy(self.find_widget("comboPaperSize"), "RecentPaperSize")
+			self._proxy_paper_size.add_option("", "Default")
 			for size, label in self._PAPER_SIZES:
-				proxy_paper_size.add_option(size, label)
-			proxy_paper_size.restore("")
+				self._proxy_paper_size.add_option(size, label)
+			self._proxy_paper_size.restore("")
 			
 			
 			self._check_landscape = self.find_widget("checkLandscape")
@@ -353,8 +388,11 @@ class NewDocumentDialog(GladeInterface):
 		if self._radio_font_user.get_active():
 			documentOptions.append("%spt" % self._spin_font_size.get_value_as_int())
 		
-		paperSize = self._store_paper_size[self._combo_paper_size.get_active()][0]
-		if len(paperSize) > 0:
+#		paperSize = self._store_paper_size[self._combo_paper_size.get_active()][0]
+#		if len(paperSize) > 0:
+#			documentOptions.append(paperSize)
+		paperSize = self._proxy_paper_size.value
+		if paperSize != "":
 			documentOptions.append(paperSize)
 		
 		if self._check_landscape.get_active():
@@ -366,7 +404,9 @@ class NewDocumentDialog(GladeInterface):
 			documentOptions = ""
 		
 		
-		documentClass = self._store_class[self._combo_class.get_active()][0]
+#		documentClass = self._store_class[self._combo_class.get_active()][0]
+		documentClass = self._proxy_document_class.value
+
 		title = self._entry_title.get_text()
 		author = self._entry_author.get_text()
 		babelPackage = self._store_babel[self._combo_babel.get_active()][0]
@@ -879,7 +919,7 @@ class InsertListingDialog(GladeInterface):
 				# we need the lstset command
 				lstset = "\\lstset{language=[%s]%s}\n" % (dialect, language)
 			else:
-			    options = "[language=%s]" % language
+				options = "[language=%s]" % language
 			
 			
 			if self._checkFile.get_active():
@@ -982,4 +1022,3 @@ class InsertListingDialog(GladeInterface):
 		self._comboLanguage.set_sensitive(toggleButton.get_active())
 		self._labelDialect.set_sensitive(toggleButton.get_active() and self._dialectsEnabled)
 		self._comboDialect.set_sensitive(toggleButton.get_active() and self._dialectsEnabled)
-

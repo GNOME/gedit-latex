@@ -1005,6 +1005,9 @@ class File(object):
 		"""
 		@param uri: any URI, URL or local filename
 		"""
+		if uri is None:
+			raise ValueError("URI must not be None")
+		
 		self._uri = urlparse(uri)
 		if len(self._uri.scheme) == 0:
 			self._uri = urlparse("%s%s" % (self._DEFAULT_SCHEME, uri))

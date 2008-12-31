@@ -19,9 +19,6 @@
 # Street, Fifth Floor, Boston, MA  02110-1301, USA
 
 from logging import getLogger
-import enchant
-import enchant.checker
-import enchant.tokenize
 
 from ..preferences import Preferences, IPreferencesMonitor
 from parser import Node
@@ -56,8 +53,13 @@ class SpellCheckerBackend(IPreferencesMonitor):
 	
 	def _initialize(self):
 		"""
+		@raise ImportError: if pyenchant is not installed
 		@raise enchant.Error: if no default dictionary exists
 		"""
+		import enchant
+		import enchant.checker
+		import enchant.tokenize
+	
 		language = str(self._preferences.get("SpellCheckDictionary", ""))
 		if len(language) > 0 and enchant.dict_exists(language):
 			self._dictionary = enchant.Dict(language)
@@ -95,6 +97,11 @@ class SpellCheckerBackend(IPreferencesMonitor):
 	
 	@property
 	def languages(self):
+		"""
+		@raise ImportError: if pyenchant is not installed
+		"""
+		import enchant
+		
 		return enchant.Broker().list_languages()
 	
 	def add_word(self, word):

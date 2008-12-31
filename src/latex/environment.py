@@ -36,6 +36,9 @@ class CnfFile(dict):
 	This parses a .cnf file and provides its contents as a dictionary
 	"""
 	def __init__(self, filename):
+		"""
+		@raise IOError: if file is not found
+		"""
 		for line in open(filename).readlines():
 			if not line.startswith("%"):
 				try:
@@ -160,6 +163,7 @@ from ..base import File
 class Environment(object):
 	
 	_CONFIG_FILENAME = "/etc/texmf/texmf.cnf"
+	_DEFAULT_TEXMF_DIR = "/usr/share/texmf-texlive"
 	
 	"""
 	This encapsulates the user's LaTeX distribution and provides methods
@@ -187,8 +191,13 @@ class Environment(object):
 			self._kpsewhich_installed = None
 			self._file_exists_cache = {}
 			
-			cnf_file = CnfFile(self._CONFIG_FILENAME)
-			self._TEXMFMAIN = cnf_file["TEXMFDIST"]
+			try:
+				cnf_file = CnfFile(self._CONFIG_FILENAME)
+				self._TEXMFMAIN = cnf_file["TEXMFDIST"]
+			except IOError:
+				# _CONFIG_FILENAME not found - use default path
+				self._log.error("%s not found, using default value for TEXMFDIST (%s)" % (self._CONFIG_FILENAME, self._DEFAULT_TEXMF_DIR))
+				self._TEXMFMAIN = self._DEFAULT_TEXMF_DIR
 			
 			self._ready = True
 	
