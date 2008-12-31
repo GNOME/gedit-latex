@@ -84,6 +84,11 @@ class LaTeXEditor(Editor, IIssueHandler, IMisspelledWordHandler, IPreferencesMon
 		self._connect_outline_to_editor = True	# TODO: read from config
 		self._document_dirty = True
 		
+		# if the document is no master we display an info message on the packages to
+		# include - _ensured_packages holds the already mentioned packages to not
+		# annoy the user
+		self._ensured_packages = []
+		
 		# spell checking
 		self.__spell_checker = SpellChecker()
 		self.__suggestions_menu = None
@@ -153,9 +158,22 @@ class LaTeXEditor(Editor, IIssueHandler, IMisspelledWordHandler, IPreferencesMon
 		@param packages: a list of package names
 		"""
 		if not self._document_is_master:
-			# document is not a master
-			# TODO: show popup message 'You should include ...'
 			self._log.debug("ensure_packages: document is not a master")
+			
+			# find the packages that haven't already been mentioned
+			info_packages = [p for p in packages if not p in self._ensured_packages]
+			
+			if len(info_packages) > 0:
+				# generate markup
+				li_tags = "\n".join([" • <tt>%s</tt>" % p for p in info_packages])
+				
+				from ..util import open_info
+				open_info("LaTeX Package Required", 
+						"Please make sure that the following packages are included in the master document per <tt>\\usepackage</tt>: \n\n%s" % li_tags)
+				
+				# extend the already mentioned packages
+				self._ensured_packages.extend(info_packages)
+			
 			return
 		
 		# find missing packages

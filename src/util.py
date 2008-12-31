@@ -122,10 +122,23 @@ def open_error(message, secondary_message=None):
 	dialog = gtk.MessageDialog(None, gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT, 
 							gtk.MESSAGE_ERROR, gtk.BUTTONS_OK, message)
 	if secondary_message:
+		# TODO: why not use markup?
 		dialog.format_secondary_text(secondary_message)
 	dialog.run()
 	dialog.destroy()
 
+
+def open_info(message, secondary_message=None):
+	"""
+	Popup an info dialog window
+	"""
+	dialog = gtk.MessageDialog(None, gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT, 
+							gtk.MESSAGE_INFO, gtk.BUTTONS_OK, message)
+	if secondary_message:
+		dialog.format_secondary_markup(secondary_message)
+	dialog.run()
+	dialog.destroy()
+	
 
 def caught(f):
 	"""

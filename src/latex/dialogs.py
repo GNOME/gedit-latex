@@ -24,10 +24,72 @@ latex.dialogs
 
 from logging import getLogger
 
+from ..preferences import Preferences
 from ..util import GladeInterface
 from ..base.resources import find_resource
 from ..base import Template, File
 
+
+class SelectionProxy(object):
+	"""
+	This proxies a ComboBox widget:
+	
+	p = SelectionProxy(self.find_widget("myCombo"), "SomeSetting")
+	p.add_option("thing_1", "First Thing")
+	p.add_option("thing_2", "Second Thing")
+	p.restore("thing_1")
+	...
+	p.save()
+	"""
+	def __init__(self, widget, preferences_key):
+		"""
+		@param widget: a ComboBox widget
+		@param preferences_key: a key in preferences
+		"""
+		self._store = gtk.ListStore(str, str)			# value, label
+		self._widget = widget
+		self._widget.set_model(self._store)
+		cell = gtk.CellRendererText()
+		self._widget.pack_start(cell, True)
+		self._widget.add_attribute(cell, "markup", 1)
+		
+		self._key = preferences_key
+		self._preferences = Preferences()
+		self._options = []
+	
+	# TODO: restore on __init__ and save on select signal
+	
+	def restore(self, default_value):
+		"""
+		Restore the state of the widget from preferences
+		"""
+		restored_value = self._preferences.get(self._key, default_value)
+		i = 0
+		for value, label in self._options:
+			if value == restored_value:
+				restored_index = i
+				break
+			i += 1
+		self._widget.set_active(restored_index)
+		
+	def save(self):
+		"""
+		Save the state of the widget to preferences
+		"""
+		index = self._widget.get_active()
+		value = self._options[index][0]
+		self._preferences.set(self._key, value)
+	
+	def add_option(self, value, label):
+		"""
+		Add an option to the widget
+		
+		@param value: a unique value
+		@param label: a label text that may contain markup
+		"""
+		self._options.append((value, label))
+		self._store.append([value, "%s <span color='%s'>%s</span>" % (value, self._preferences.get("LightForeground"), label)])
+		
 
 class ChooseMasterDialog(GladeInterface):
 	"""
@@ -57,7 +119,6 @@ class ChooseMasterDialog(GladeInterface):
 import gtk
 from time import strftime
 
-from ..preferences import Preferences
 from environment import Environment
 
 
@@ -76,6 +137,11 @@ class NewDocumentDialog(GladeInterface):
 		("executivepaper", "US-Executive"),
 		("legalbl_paper", "US-Legal"),
 		("letterpaper", "US-Letter") )
+	
+	_DEFAULT_FONT_FAMILIES =  (
+		("\\rmdefault", "Default Roman"),
+		("\\sfdefault", "Default Sans Serif"),
+		("\\ttdefault", "Default Typewrite") )
 	
 	# TODO: extend this
 	_LOCALE_MAPPINGS = {
@@ -121,48 +187,60 @@ class NewDocumentDialog(GladeInterface):
 			#
 			# document classes
 			#
-			self._store_class = gtk.ListStore(str, str)	# document class name, markup label
-			
-			recent_document_class = preferences.get("RecentDocumentClass", "article")
-			
-			i = 0
-			recent_document_class_i = 0
+#			self._store_class = gtk.ListStore(str, str)	# document class name, markup label
+#			
+#			recent_document_class = preferences.get("RecentDocumentClass", "article")
+#			
+#			i = 0
+#			recent_document_class_i = 0
+#			for c in environment.document_classes:
+#				self._store_class.append([c.name, "%s <span color='%s'>%s</span>" % (c.name, lightForeground, c.label)])
+#				if c.name == recent_document_class:
+#					recent_document_class_i = i
+#				i += 1
+#			
+#			self._combo_class = self.find_widget("comboClass")
+#			self._combo_class.set_model(self._store_class)
+#			cell = gtk.CellRendererText()
+#			self._combo_class.pack_start(cell, True)
+#			self._combo_class.add_attribute(cell, "markup", 1)
+#			self._combo_class.set_active(recent_document_class_i)
+
+			proxy_classes = SelectionProxy(self.find_widget("comboClass"), "RecentDocumentClass")
 			for c in environment.document_classes:
-				self._store_class.append([c.name, "%s <span color='%s'>%s</span>" % (c.name, lightForeground, c.label)])
-				if c.name == recent_document_class:
-					recent_document_class_i = i
-				i += 1
-			
-			self._combo_class = self.find_widget("comboClass")
-			self._combo_class.set_model(self._store_class)
-			cell = gtk.CellRendererText()
-			self._combo_class.pack_start(cell, True)
-			self._combo_class.add_attribute(cell, "markup", 1)
-			self._combo_class.set_active(recent_document_class_i)
-			
+				proxy_classes.add_option(c.name, c.label)
+			proxy_classes.restore("article")
+				
 			#
 			# paper
 			#
-			recent_paper_size = preferences.get("RecentPaperSize", "")
-			if len(recent_paper_size) == 0:
-				recent_paper_size_i = 0
-			
-			self._store_paper_size = gtk.ListStore(str, str)  # size, label
-			
-			self._store_paper_size.append(["", "<span color='%s'>Default</span>" % lightForeground])
-			i = 1
+#			recent_paper_size = preferences.get("RecentPaperSize", "")
+#			if len(recent_paper_size) == 0:
+#				recent_paper_size_i = 0
+#			
+#			self._store_paper_size = gtk.ListStore(str, str)  # size, label
+#			
+#			self._store_paper_size.append(["", "<span color='%s'>Default</span>" % lightForeground])
+#			i = 1
+#			for size, label in self._PAPER_SIZES:
+#				self._store_paper_size.append([size, "%s <span color='%s'>%s</span>" % (size, lightForeground, label)])
+#				if recent_paper_size == size:
+#					recent_paper_size_i = i
+#				i += 1
+#			
+#			self._combo_paper_size = self.find_widget("comboPaperSize")
+#			self._combo_paper_size.set_model(self._store_paper_size)
+#			cell = gtk.CellRendererText()
+#			self._combo_paper_size.pack_start(cell, True)
+#			self._combo_paper_size.add_attribute(cell, "markup", 1)
+#			self._combo_paper_size.set_active(recent_paper_size_i)
+
+			proxy_paper_size = SelectionProxy(self.find_widget("comboPaperSize"), "RecentPaperSize")
+			proxy_paper_size.add_option("", "Default")
 			for size, label in self._PAPER_SIZES:
-				self._store_paper_size.append([size, "%s <span color='%s'>%s</span>" % (size, lightForeground, label)])
-				if recent_paper_size == size:
-					recent_paper_size_i = i
-				i += 1
+				proxy_paper_size.add_option(size, label)
+			proxy_paper_size.restore("")
 			
-			self._combo_paper_size = self.find_widget("comboPaperSize")
-			self._combo_paper_size.set_model(self._store_paper_size)
-			cell = gtk.CellRendererText()
-			self._combo_paper_size.pack_start(cell, True)
-			self._combo_paper_size.add_attribute(cell, "markup", 1)
-			self._combo_paper_size.set_active(recent_paper_size_i)
 			
 			self._check_landscape = self.find_widget("checkLandscape")
 			self._check_landscape.set_active(preferences.get_bool("RecentPaperLandscape", False))
@@ -173,6 +251,31 @@ class NewDocumentDialog(GladeInterface):
 			self._radio_font_user = self.find_widget("radioFontUser")
 			self._spin_font_size = self.find_widget("spinFontSize")
 			self._labelFontSize = self.find_widget("labelFontSize")
+			
+			#
+			# font family
+			#
+			self._store_font_family = gtk.ListStore(str, str)
+			
+			recent_font_family = preferences.get("RecentDefaultFontFamily", "\\rmdefault")
+
+			recent_font_family_i = 0
+			i = 0
+			for command, label in self._DEFAULT_FONT_FAMILIES:
+				self._store_font_family.append([command, label])
+				if recent_font_family == command:
+					recent_font_family_i = i
+				i += 1
+				
+			self._combo_font_family = self.find_widget("comboFontFamily")
+			self._combo_font_family.set_model(self._store_font_family)
+			cell = gtk.CellRendererText()
+			self._combo_font_family.pack_start(cell, True)
+			self._combo_font_family.add_attribute(cell, "markup", 1)
+			self._combo_font_family.set_active(recent_font_family_i)
+			
+			# TODO: save state
+			# TODO: use in source
 			
 			#
 			# input encodings
