@@ -167,10 +167,7 @@ class Environment(object):
 	
 	"""
 	This encapsulates the user's LaTeX distribution and provides methods
-	for searching it.
-	
-	/usr/share/texmf-texlive/tex/latex/base/*.def		input encodings
-	/usr/share/texmf-texlive/bibtex/bst/*.bst			bibtex styles
+	for searching it
 	"""
 	
 	_log = getLogger("Environment")

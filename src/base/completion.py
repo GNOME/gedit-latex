@@ -329,7 +329,7 @@ class CompletionDistributor(object):
 	def __init__(self, editor, handlers):
 		"""
 		@param editor: the instance of Editor this CompletionDistributor should observe
-		@param handlers: a list of classes implementing ICompletionHandler
+		@param handlers: a list of ICompletionHandler instances
 		"""
 		
 		self._log.debug("init")

@@ -113,6 +113,8 @@ class LaTeXCompletionHandler(ICompletionHandler):
 	def set_outline(self, outline):
 		"""
 		Process a LaTeX outline model
+		
+		@param outline: a latex.outline.Outline instance
 		"""
 		self._outline = outline
 		
@@ -169,6 +171,10 @@ class LaTeXCompletionHandler(ICompletionHandler):
 	def set_neighbors(self, tex_files, bib_files, graphic_files):
 		"""
 		Populate the lists of neighbor files
+		
+		@param tex_files: list of neighbor TeX files
+		@param bib_files: list of neighbor BibTeX files
+		@param graphic_files: list of neighbor graphics
 		"""
 		tex_choices = [Choice(None, file.shortbasename) for file in tex_files]
 		self._language_model.fill_placeholder("TexFiles", tex_choices)
