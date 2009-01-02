@@ -40,6 +40,8 @@ UI = """
 					<menuitem action="LaTeXTableAction" />
 					<menuitem action="LaTeXListingAction" />
 					<menuitem action="LaTeXUseBibliographyAction" />
+					<separator />
+					<menuitem action="LaTeXCloseEnvironmentAction" />
 				</menu>
 				<menu action="BibTeXMenuAction">
 					<menuitem action="BibTeXNewEntryAction" />
@@ -103,7 +105,7 @@ from ..latex.actions import LaTeXMenuAction, LaTeXNewAction, LaTeXCommentAction,
 		LaTeXGraphicsAction, LaTeXUseBibliographyAction, LaTeXTableAction, LaTeXListingAction, LaTeXJustifyLeftAction, \
 		LaTeXJustifyCenterAction, LaTeXJustifyRightAction, LaTeXMathMenuAction, LaTeXMathAction, LaTeXDisplayMathAction, \
 		LaTeXEquationAction, LaTeXUnEqnArrayAction, LaTeXEqnArrayAction, LaTeXUnderlineAction, LaTeXSmallCapitalsAction, \
-		LaTeXRomanAction, LaTeXSansSerifAction, LaTeXTypewriterAction
+		LaTeXRomanAction, LaTeXSansSerifAction, LaTeXTypewriterAction, LaTeXCloseEnvironmentAction
 
 from ..bibtex.actions import BibTeXMenuAction, BibTeXNewEntryAction
 
@@ -149,6 +151,7 @@ ACTION_OBJECTS = { "LaTeXMenuAction" : LaTeXMenuAction(),
 				   "LaTeXEquationAction" : LaTeXEquationAction(),
 				   "LaTeXUnEqnArrayAction" : LaTeXUnEqnArrayAction(),
 				   "LaTeXEqnArrayAction" : LaTeXEqnArrayAction(),
+				   "LaTeXCloseEnvironmentAction" : LaTeXCloseEnvironmentAction(),
 				   "BibTeXMenuAction" : BibTeXMenuAction(),
 				   "BibTeXNewEntryAction" : BibTeXNewEntryAction() }
 
@@ -189,7 +192,8 @@ ACTION_EXTENSIONS = { None : ["LaTeXNewAction"],
 				   				"LaTeXDisplayMathAction",
 				   				"LaTeXEquationAction",
 				   				"LaTeXUnEqnArrayAction",
-				   				"LaTeXEqnArrayAction"],
+				   				"LaTeXEqnArrayAction",
+				   				"LaTeXCloseEnvironmentAction"],
 				   		".bib" : ["BibTeXMenuAction", "BibTeXNewEntryAction"] }
 
 #from ..tools import Tool, Job

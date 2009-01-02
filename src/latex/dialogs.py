@@ -185,9 +185,9 @@ class NewDocumentDialog(GladeInterface):
 		("letterpaper", "US-Letter") )
 	
 	_DEFAULT_FONT_FAMILIES =  (
-		("\\rmdefault", "Default Roman"),
-		("\\sfdefault", "Default Sans Serif"),
-		("\\ttdefault", "Default Typewrite") )
+		("\\rmdefault", "<span font_family=\"serif\">Roman</span>"),
+		("\\sfdefault", "<span font_family=\"sans\">Sans Serif</span>"),
+		("\\ttdefault", "<span font_family=\"monospace\">Typerwriter</span>") )
 	
 	# TODO: extend this
 	_LOCALE_MAPPINGS = {
@@ -360,15 +360,20 @@ class NewDocumentDialog(GladeInterface):
 			ifpdf = ""
 			pdfinfo = ""
 		
+		if self._proxy_font_family.value == "\\rmdefault":
+			default_font_family = ""	# \rmdefault is the default value of \familydefault
+		else:
+			default_font_family = "\n\\renewcommand{\\familydefault}{%s}" % self._proxy_font_family.value
+		
 		s = """\\documentclass%s{%s}
 \\usepackage[%s]{inputenc}
-\\usepackage[%s]{babel}%s
+\\usepackage[%s]{babel}%s%s
 \\title{%s}
 \\author{%s}
 \\date{%s}%s
 \\begin{document}
 	
-\\end{document}""" % (documentOptions, documentClass, inputEncoding, babelPackage, ifpdf, title, author, date, pdfinfo)
+\\end{document}""" % (documentOptions, documentClass, inputEncoding, babelPackage, default_font_family, ifpdf, title, author, date, pdfinfo)
 		
 		return s
 	

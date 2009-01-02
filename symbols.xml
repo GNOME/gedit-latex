@@ -170,4 +170,16 @@
 		<symbol icon="special/iint.png" source="\iint" />
 		<symbol icon="special/oint.png" source="\oint" />
 	</group>
+	<group label="Accents">
+		<symbol icon="accents/dot.png" source="\dot{$_}" />
+		<symbol icon="accents/ddot.png" source="\ddot{$_}" />
+		<symbol icon="accents/bar.png" source="\bar{$_}" />
+		<symbol icon="accents/tilde.png" source="\tilde{$_}" />
+		<symbol icon="accents/vec.png" source="\vec{$_}" />
+		<symbol icon="accents/hat.png" source="\hat{$_}" />
+		<symbol icon="accents/acute.png" source="\acute{$_}" />
+		<symbol icon="accents/grave.png" source="\grave{$_}" />
+		<symbol icon="accents/breve.png" source="\breve{$_}" />
+		<symbol icon="accents/check.png" source="\check{$_}" />
+	</group>
 </symbols>

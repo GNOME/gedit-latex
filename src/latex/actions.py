@@ -98,7 +98,59 @@ class LaTeXChooseMasterAction(IAction):
 	def activate(self, context):
 		# TODO:
 		self._log.debug("activate")
+
+
+from parser import LaTeXParser, Node
+from ..issues import MockIssueHandler
+
+
+class LaTeXCloseEnvironmentAction(IconAction):
+	_log = getLogger("LaTeXCloseEnvironmentAction")
+	
+	label = "Close Nearest Environment"
+	icon = File(find_resource("icons/close_env.png"))
+	accelerator = "<Ctrl><Alt>E"
+	tooltip = "Close the nearest TeX environment at left of the cursor"
+	
+	_stack = []
+	
+	def activate(self, context):
+		editor = context.active_editor
+			
+		assert type(editor) is LaTeXEditor
 		
+		# push environments on stack and find nearest one to close
+		
+		try:
+			self._find_open_environments(LaTeXParser().parse(editor.content_at_left_of_cursor, None, MockIssueHandler()))
+			
+			if len(self._stack) > 0:
+				editor.insert("\\end{%s}" % self._stack[-1])
+			else:
+				self._log.debug("No environment to close")
+		except ValueError:
+			self._log.debug("Environments are malformed")
+		
+	def _find_open_environments(self, parent_node):
+		for node in parent_node:
+			if node.type == Node.COMMAND:
+				if node.value == "begin":
+					# push environment on stack
+					environ = node.firstOfType(Node.MANDATORY_ARGUMENT).innerText
+					self._stack.append(environ)
+					
+				elif node.value == "end":
+					# pop from stack
+					environ = node.firstOfType(Node.MANDATORY_ARGUMENT).innerText
+					try:
+						top_environ = self._stack.pop()
+						if top_environ != environ:
+							raise ValueError()
+					except IndexError:
+						raise ValueError()
+				
+			self._find_open_environments(node)
+
 		
 class LaTeXUseBibliographyAction(IconAction):
 	_log = getLogger("LaTeXUseBibliographyAction")

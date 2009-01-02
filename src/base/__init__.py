@@ -481,6 +481,15 @@ class Editor(object):
 		return self._text_buffer.get_text(self._text_buffer.get_start_iter(), 
 									self._text_buffer.get_end_iter(), False).decode(self.charset)
 	
+	@property
+	def content_at_left_of_cursor(self):
+		"""
+		Only return the content at left of the cursor
+		"""
+		end_iter = self._text_buffer.get_iter_at_mark(self._text_buffer.get_insert())
+		return self._text_buffer.get_text(self._text_buffer.get_start_iter(), 
+									end_iter, False).decode(self.charset)
+	
 	def content_changed(self, reference_timestamp):
 		"""
 		Return True if the content of this Editor has changed since a given
