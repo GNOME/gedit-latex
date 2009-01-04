@@ -2,8 +2,8 @@
 Module=GeditLaTeXPlugin/src
 IAge=2
 Loader=python
-Name=Gedit LaTeX Plugin 0.3
-Description=A plugin that assists you in handling LaTeX documents
+Name=Gedit LaTeX Plugin 0.2 rc1
+Description=A plugin that assists you in handling LaTeX documents and BibTeX bibliographies
 Authors=Michael Zeising <michael@michaels-website.de>
-Copyright=Copyright (c) 2008 Michael Zeising
+Copyright=Copyright (c) 2009 Michael Zeising
 Website=http://live.gnome.org/Gedit/LaTeXPlugin

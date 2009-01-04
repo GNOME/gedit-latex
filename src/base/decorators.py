@@ -85,12 +85,11 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		
 		
 		# create the DBUS service for inverse search
-		# FIXME: there should be some interface for decoupling this from the base layer
-		try:
-			from ..latex.inversesearch import InverseSearchService
-			self._inverse_search_service = InverseSearchService(self._window_context)
-		except Exception, e:
-			self._log.error("Failed to create InverseSearchService: %s" % e)
+#		try:
+#			from ..latex.inversesearch import InverseSearchService
+#			self._inverse_search_service = InverseSearchService(self._window_context)
+#		except Exception, e:
+#			self._log.error("Failed to create InverseSearchService: %s" % e)
 		
 		
 		#

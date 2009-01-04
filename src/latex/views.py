@@ -27,12 +27,14 @@ LaTeX-specific views
 import gtk
 from gtk.gdk import Pixbuf, pixbuf_new_from_file
 from logging import getLogger
-from xml.dom.minidom import parse
-from xml.parsers.expat import ExpatError
+#from xml.dom.minidom import parse
+#from xml.parsers.expat import ExpatError
+import xml.etree.ElementTree as ElementTree
 
 from ..preferences import Preferences
 from ..base import View, SideView
 from ..base.resources import find_resource, MODE_READWRITE
+from ..base.templates import Template
 from ..issues import Issue
 
 
@@ -46,43 +48,60 @@ class SymbolCollection(object):
 	
 	class Group(object):
 		def __init__(self, label):
+			"""
+			@param label: a label for this Group
+			"""
 			self.label = label
 			self.symbols = []
 		
 		
 	class Symbol(object):
-		def __init__(self, source, icon):
-			self.source = source
+		def __init__(self, template, icon):
+			"""
+			@param template: a Template instance
+			@param icon: an icon filename
+			"""
+			self.template = template
 			self.icon = icon
 	
 	
 	def __init__(self):
 		filename = find_resource("symbols.xml")
+		
 		self.groups = []
-		try:
-			dom = parse(filename)
-			
-			for groupEl in dom.getElementsByTagName("group"):
-				group = self.Group(groupEl.getAttribute("label"))
-				
-				counter = 0
-				
-				for symbolEl in groupEl.getElementsByTagName("symbol"):
-					source = symbolEl.getAttribute("source")
-					icon = symbolEl.getAttribute("icon")
-					
-					symbol = self.Symbol(source, find_resource("icons/%s" % icon))
-					
-					group.symbols.append(symbol)
-					
-					counter += 1
-				
-				self.groups.append(group)
-				
-		except IOError:
-			self._log.error("File not found: %s" % filename)
-		except ExpatError, s:
-			self._log.error("Parse error: %s" % s)
+		
+		symbols_el = ElementTree.parse(filename).getroot()
+		for group_el in symbols_el.findall("group"):
+			group = self.Group(group_el.get("label"))
+			for symbol_el in group_el.findall("symbol"):
+				symbol = self.Symbol(Template(symbol_el.text.strip()), find_resource("icons/%s" % symbol_el.get("icon")))
+				group.symbols.append(symbol)
+			self.groups.append(group)
+		
+#		try:
+#			dom = parse(filename)
+#			
+#			for groupEl in dom.getElementsByTagName("group"):
+#				group = self.Group(groupEl.getAttribute("label"))
+#				
+#				counter = 0
+#				
+#				for symbolEl in groupEl.getElementsByTagName("symbol"):
+#					source = symbolEl.getAttribute("source")
+#					icon = symbolEl.getAttribute("icon")
+#					
+#					symbol = self.Symbol(source, find_resource("icons/%s" % icon))
+#					
+#					group.symbols.append(symbol)
+#					
+#					counter += 1
+#				
+#				self.groups.append(group)
+#				
+#		except IOError:
+#			self._log.error("File not found: %s" % filename)
+#		except ExpatError, s:
+#			self._log.error("Parse error: %s" % s)
 
 		
 class LaTeXSymbolMapView(SideView):
@@ -119,11 +138,11 @@ class LaTeXSymbolMapView(SideView):
 			self.__add_group(group)
 	
 	def __add_group(self, group):
-		model = gtk.ListStore(gtk.gdk.Pixbuf, str)
+		model = gtk.ListStore(gtk.gdk.Pixbuf, str, object)		# icon, tooltip, Template
 		
 		for symbol in group.symbols:
 			try:
-				model.append([gtk.gdk.pixbuf_new_from_file(symbol.icon), symbol.source])
+				model.append([gtk.gdk.pixbuf_new_from_file(symbol.icon), str(symbol.template), symbol.template])
 			except GError, s:
 				print s
 		
@@ -142,29 +161,16 @@ class LaTeXSymbolMapView(SideView):
 		
 		view.show()
 		
-		if gtk.gtk_version >= (2, 10, 14):
-			expander = gtk.Expander(group.label)
-			expander.add(view)
-			expander.show_all()
-			
-			if group.label in self.__expanded_groups:
-				expander.set_expanded(True)
-			
-			expander.connect("notify::expanded", self.__on_group_expanded, group.label)
-			
-			# FIXME: Works with gtk+ 2.10.14 and pygtk 2.10.6. With gtk 2.10.11 and 
-			# pygtk 2.10.4 the expanders don't acquire any space on this way.
-			# It only works with self.__vbox.pack_start(expander, True) but that doesn't make
-			# sense...
-			self.__box.pack_start(expander, False)
-		else:
-			label = gtk.Label(group.label)
-			label.set_alignment(0, .5)
-			label.show()
-			
-			self.__box.pack_start(label, False)
-			self.__box.pack_start(view, True)
-			self.__box.set_spacing(3)
+		expander = gtk.Expander(group.label)
+		expander.add(view)
+		expander.show_all()
+		
+		if group.label in self.__expanded_groups:
+			expander.set_expanded(True)
+		
+		expander.connect("notify::expanded", self.__on_group_expanded, group.label)
+		
+		self.__box.pack_start(expander, False)
 	
 	def __on_group_expanded(self, expander, paramSpec, group_label):
 		"""
@@ -185,9 +191,9 @@ class LaTeXSymbolMapView(SideView):
 		"""
 		try: 
 			path = icon_view.get_selected_items()[0]
-			source = icon_view.get_model()[path][1]
+			template = icon_view.get_model()[path][2]
 			
-			self.__context.active_editor.insert(source)
+			self.__context.active_editor.insert(template)
 			
 			icon_view.unselect_all()
 		except IndexError:

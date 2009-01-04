@@ -22,6 +22,12 @@
 latex.inversesearch
 
 DBUS code for managing inverse search from DVI viewer
+
+
+This is DEPRECATED as xdvi may connect to gedit directly. The following command line was
+used to connect xdvi with gedit:
+
+xdvi -unique -s 6 -bg white -editor "dbus-send --type=method_call --dest=org.gedit.LaTeXPlugin /org/gedit/LaTeXPlugin/InverseSearchService org.gedit.LaTeXPlugin.InverseSearchService.inverse_search string:%f int32:%l" "$shortname.dvi"
 """
 
 from logging import getLogger
@@ -33,8 +39,7 @@ from editor import LaTeXEditor
 
 
 BUS_NAME = 'org.gedit.LaTeXPlugin'
-OBJECT_PATH = '/org/gedit/LaTeXPlugin/InverseSearchObject'
-
+OBJECT_PATH = '/org/gedit/LaTeXPlugin/InverseSearchService'
 
 try:
 	import dbus
@@ -45,6 +50,8 @@ try:
 		"""
 		A D-Bus object listening for commands from xdvi. This is a delegate object
 		for GeditWindowDecorator.
+		
+		@deprecated: 
 		"""
 		
 		def __init__(self, context):
@@ -60,7 +67,7 @@ try:
 			
 			_log.debug("Created service object %s" % OBJECT_PATH)
 
-		@dbus.service.method('org.gedit.LaTeXPlugin.InverseSearchObject')
+		@dbus.service.method('org.gedit.LaTeXPlugin.InverseSearchService')
 		def inverse_search(self, filename, line):
 			"""
 			A service call has been received
@@ -68,7 +75,7 @@ try:
 			@param filename: the filename
 			@param line: a line number counting from 1 (!)
 			"""
-			_log.debug("Received inverse DVI search: %s %s" % (filename, line))
+			_log.debug("Received inverse DVI search call: %s %s" % (filename, line))
 			
 			file = File(filename)
 			

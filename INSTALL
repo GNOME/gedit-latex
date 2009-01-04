@@ -1,0 +1,13 @@
+REQUIREMENTS
+
+ - gedit >=2.15.2
+ - Python >=2.5
+ - PyGTK >=2.12
+ - GTK+ >=2.10.14
+
+INSTALLATION
+
+Just copy the contents of the 'plugins' folder to '~/.gnome2/gedit/plugins' 
+where '~' is your home directory. You may have to create this folder.
+
+Restart gedit and activate the plugin in the plugins configuration.

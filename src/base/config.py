@@ -42,6 +42,8 @@ UI = """
 					<menuitem action="LaTeXUseBibliographyAction" />
 					<separator />
 					<menuitem action="LaTeXCloseEnvironmentAction" />
+					<separator />
+					<menuitem action="LaTeXForwardSearchAction" />
 				</menu>
 				<menu action="BibTeXMenuAction">
 					<menuitem action="BibTeXNewEntryAction" />
@@ -58,6 +60,10 @@ UI = """
 					<menuitem action="LaTeXRomanAction" />
 					<menuitem action="LaTeXSansSerifAction" />
 					<menuitem action="LaTeXTypewriterAction" />
+					<separator />
+					<menuitem action="LaTeXBlackboardBoldAction" />
+					<menuitem action="LaTeXCaligraphyAction" />
+					<menuitem action="LaTeXFrakturAction" />
 				</menu>
 			</toolitem>
 			<toolitem action="LaTeXJustifyLeftAction" />
@@ -105,7 +111,8 @@ from ..latex.actions import LaTeXMenuAction, LaTeXNewAction, LaTeXCommentAction,
 		LaTeXGraphicsAction, LaTeXUseBibliographyAction, LaTeXTableAction, LaTeXListingAction, LaTeXJustifyLeftAction, \
 		LaTeXJustifyCenterAction, LaTeXJustifyRightAction, LaTeXMathMenuAction, LaTeXMathAction, LaTeXDisplayMathAction, \
 		LaTeXEquationAction, LaTeXUnEqnArrayAction, LaTeXEqnArrayAction, LaTeXUnderlineAction, LaTeXSmallCapitalsAction, \
-		LaTeXRomanAction, LaTeXSansSerifAction, LaTeXTypewriterAction, LaTeXCloseEnvironmentAction
+		LaTeXRomanAction, LaTeXSansSerifAction, LaTeXTypewriterAction, LaTeXCloseEnvironmentAction, LaTeXBlackboardBoldAction, \
+		LaTeXCaligraphyAction, LaTeXFrakturAction, LaTeXForwardSearchAction
 
 from ..bibtex.actions import BibTeXMenuAction, BibTeXNewEntryAction
 
@@ -129,6 +136,9 @@ ACTION_OBJECTS = { "LaTeXMenuAction" : LaTeXMenuAction(),
 				   "LaTeXRomanAction" : LaTeXRomanAction(),
 				   "LaTeXSansSerifAction" : LaTeXSansSerifAction(),
 				   "LaTeXTypewriterAction" : LaTeXTypewriterAction(),
+				   "LaTeXBlackboardBoldAction" : LaTeXBlackboardBoldAction(),
+				   "LaTeXCaligraphyAction" : LaTeXCaligraphyAction(),
+				   "LaTeXFrakturAction" : LaTeXFrakturAction(),
 				   "LaTeXDescriptionAction" : LaTeXDescriptionAction(),
 				   "LaTeXStructureAction" : LaTeXStructureAction(),
 				   "LaTeXStructureMenuAction" : LaTeXStructureMenuAction(),
@@ -152,6 +162,7 @@ ACTION_OBJECTS = { "LaTeXMenuAction" : LaTeXMenuAction(),
 				   "LaTeXUnEqnArrayAction" : LaTeXUnEqnArrayAction(),
 				   "LaTeXEqnArrayAction" : LaTeXEqnArrayAction(),
 				   "LaTeXCloseEnvironmentAction" : LaTeXCloseEnvironmentAction(),
+				   "LaTeXForwardSearchAction" : LaTeXForwardSearchAction(),
 				   "BibTeXMenuAction" : BibTeXMenuAction(),
 				   "BibTeXNewEntryAction" : BibTeXNewEntryAction() }
 
@@ -171,6 +182,9 @@ ACTION_EXTENSIONS = { None : ["LaTeXNewAction"],
 				   				"LaTeXRomanAction",
 				   				"LaTeXSansSerifAction",
 				   				"LaTeXTypewriterAction",
+				   				"LaTeXBlackboardBoldAction",
+				   				"LaTeXCaligraphyAction",
+				   				"LaTeXFrakturAction",
 								"LaTeXDescriptionAction",
 								"LaTeXStructureAction",
 								"LaTeXStructureMenuAction",
@@ -193,7 +207,8 @@ ACTION_EXTENSIONS = { None : ["LaTeXNewAction"],
 				   				"LaTeXEquationAction",
 				   				"LaTeXUnEqnArrayAction",
 				   				"LaTeXEqnArrayAction",
-				   				"LaTeXCloseEnvironmentAction"],
+				   				"LaTeXCloseEnvironmentAction",
+				   				"LaTeXForwardSearchAction"],
 				   		".bib" : ["BibTeXMenuAction", "BibTeXNewEntryAction"] }
 
 #from ..tools import Tool, Job

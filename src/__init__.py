@@ -23,7 +23,9 @@ This is searched by gedit for a class extending gedit.Plugin
 """
 
 import gedit
+import gtk
 import logging
+import platform
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -37,21 +39,44 @@ class GeditLaTeXPlugin(gedit.Plugin):
 	This controls the plugin life-cycle
 	"""
 	
+	# we need Python 2.5 because it contains the ElementTree XML library
+	_REQUIRED_PYTHON_VERSION = (2, 5, 0)
+	
+	# be sure that we're running on a gedit with the new binding API
+	# see http://ftp.acc.umu.se/pub/GNOME/sources/gedit/2.15/gedit-2.15.2.changes
+	#
+	# TODO: we should support earlier versions because e.g. Debian Etch still offers 2.14
+	_REQUIRED_GEDIT_VERSION = (2, 15, 2)
+	
+	# we need gtk.IconView.set_tooltip_column
+	_REQUIRED_PYGTK_VERSION = (2, 12, 0)
+	
+	# we need to pack a gtk.Expander into a gtk.VBox which fails before GTK+ 2.10.14
+	_REQUIRED_GTK_VERSION = (2, 10, 14)
+	
 	_log = logging.getLogger("GeditLaTeXPlugin")
+	
+	_platform_okay = True
 	
 	def __init__(self):
 		gedit.Plugin.__init__(self)
 		self._window_decorators = {}
 		
-		# be sure that we're running on a gedit with the new binding API
-		# see http://ftp.acc.umu.se/pub/GNOME/sources/gedit/2.15/gedit-2.15.2.changes
-		#
-		# TODO: we should support earlier versions because e.g. Debian Etch still offers 2.14
-		#
-		# TODO: also check PyGTK version
+		if tuple(platform.python_version_tuple()) < self._REQUIRED_PYTHON_VERSION:
+			self._platform_okay = False
+			open_error("LaTeX Plugin requires Python %s or newer" % ".".join(map(str, self._REQUIRED_PYTHON_VERSION)))
 		
-		if gedit.version < (2, 15, 2):
-			open_error("LaTeX Plugin requires gedit 2.15.2 or newer")
+		if gedit.version < self._REQUIRED_GEDIT_VERSION:
+			self._platform_okay = False
+			open_error("LaTeX Plugin requires gedit %s or newer" % ".".join(map(str, self._REQUIRED_GEDIT_VERSION)))
+		
+		if gtk.pygtk_version < self._REQUIRED_PYGTK_VERSION:
+			self._platform_okay = False
+			open_error("LaTeX Plugin requires PyGTK %s or newer" % ".".join(map(str, self._REQUIRED_PYGTK_VERSION)))
+		
+		if gtk.ver < self._REQUIRED_GTK_VERSION:
+			self._platform_okay = False
+			open_error("LaTeX Plugin requires GTK+ %s or newer" % ".".join(map(str, self._REQUIRED_GTK_VERSION)))
 		
 	def activate(self, window):
 		"""
@@ -60,7 +85,8 @@ class GeditLaTeXPlugin(gedit.Plugin):
 		
 		@param window: GeditWindow
 		"""
-		self._window_decorators[window] = GeditWindowDecorator(window)
+		if self._platform_okay:
+			self._window_decorators[window] = GeditWindowDecorator(window)
 	
 	def deactivate(self, window):
 		"""
@@ -68,10 +94,12 @@ class GeditLaTeXPlugin(gedit.Plugin):
 		
 		@param window: GeditWindow
 		"""
-		self._window_decorators[window].destroy()
-		del self._window_decorators[window]
+		if self._platform_okay:
+			self._window_decorators[window].destroy()
+			del self._window_decorators[window]
 	
 	def create_configure_dialog(self):
-		return PreferencesDialog().dialog
+		if self._platform_okay:
+			return PreferencesDialog().dialog
 	
 	

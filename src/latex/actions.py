@@ -98,6 +98,29 @@ class LaTeXChooseMasterAction(IAction):
 	def activate(self, context):
 		# TODO:
 		self._log.debug("activate")
+		
+		
+class LaTeXForwardSearchAction(IAction):
+	_log = getLogger("LaTeXForwardSearchAction")
+	
+	label = "Find In DVI"
+	stock_id = gtk.STOCK_FIND
+	accelerator = None
+	tooltip = None
+	
+	def activate(self, context):
+		editor = context.active_editor
+		assert type(editor) is LaTeXEditor
+		
+		tex_filename = "%s.tex" % editor.file.shortname
+		dvi_filename = "%s.dvi" % editor.file.shortname
+		line, column = editor.cursor_position
+		
+		command = "xdvi -sourceposition \"%s:%s %s\" \"%s\"" % (line, column, tex_filename, dvi_filename)
+		self._log.debug(command)
+		
+		import os
+		os.system(command)
 
 
 from parser import LaTeXParser, Node
@@ -112,8 +135,6 @@ class LaTeXCloseEnvironmentAction(IconAction):
 	accelerator = "<Ctrl><Alt>E"
 	tooltip = "Close the nearest TeX environment at left of the cursor"
 	
-	_stack = []
-	
 	def activate(self, context):
 		editor = context.active_editor
 			
@@ -122,6 +143,7 @@ class LaTeXCloseEnvironmentAction(IconAction):
 		# push environments on stack and find nearest one to close
 		
 		try:
+			self._stack = []
 			self._find_open_environments(LaTeXParser().parse(editor.content_at_left_of_cursor, None, MockIssueHandler()))
 			
 			if len(self._stack) > 0:
@@ -133,6 +155,7 @@ class LaTeXCloseEnvironmentAction(IconAction):
 		
 	def _find_open_environments(self, parent_node):
 		for node in parent_node:
+			recurse = True
 			if node.type == Node.COMMAND:
 				if node.value == "begin":
 					# push environment on stack
@@ -149,7 +172,11 @@ class LaTeXCloseEnvironmentAction(IconAction):
 					except IndexError:
 						raise ValueError()
 				
-			self._find_open_environments(node)
+				elif node.value == "newcommand":
+					recurse = False
+					
+			if recurse:
+				self._find_open_environments(node)
 
 		
 class LaTeXUseBibliographyAction(IconAction):
@@ -264,7 +291,29 @@ class LaTeXTypewriterAction(LaTeXTemplateAction):
 	icon_name = "tt"
 	template_source = "\\texttt{$_}"
 
-# TODO: Blackboard Bold, Caligraphy, Fraktur
+
+class LaTeXBlackboardBoldAction(LaTeXTemplateAction):
+	label = "Blackboard Bold"
+	tooltip = "Blackboard Bold"
+	icon_name = "bb"
+	packages = ["amsmath"]
+	template_source = "\ensuremath{\mathbb{$_}}"
+	
+	
+class LaTeXCaligraphyAction(LaTeXTemplateAction):
+	label = "Caligraphy"
+	tooltip = "Caligraphy"
+	icon_name = "cal"
+	template_source = "\ensuremath{\mathcal{$_}}"
+
+
+class LaTeXFrakturAction(LaTeXTemplateAction):
+	label = "Fraktur"
+	tooltip = "Fraktur"
+	icon_name = "frak"
+	packages = ["amsmath"]
+	template_source = "\ensuremath{\mathfrak{$_}}"
+
 
 class LaTeXItemizeAction(LaTeXTemplateAction):
 	label = "Itemize"
