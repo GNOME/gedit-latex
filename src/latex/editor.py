@@ -116,7 +116,17 @@ class LaTeXEditor(Editor, IIssueHandler, IMisspelledWordHandler, IPreferencesMon
 	def drag_drop_received(self, files):
 		# see base.Editor.drag_drop_received
 		
+		# TODO: we need to insert the source at the drop location - so pass it here
+		
 		self._log.debug("drag_drop: %s" % files)
+		
+#		if len(files) == 1:
+#			file = files[0]
+#			self._log.debug("Got one file: %s, extension: %s" % (file.path, file.extension))
+#			if file.extension == ".png":
+#				self._log.debug("PNG image - including...")
+#				source = "\\includegraphics{%s}" % file.path
+#				self.insert(source)
 	
 	def insert(self, source):
 		# see base.Editor.insert

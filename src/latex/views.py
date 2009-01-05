@@ -27,8 +27,6 @@ LaTeX-specific views
 import gtk
 from gtk.gdk import Pixbuf, pixbuf_new_from_file
 from logging import getLogger
-#from xml.dom.minidom import parse
-#from xml.parsers.expat import ExpatError
 import xml.etree.ElementTree as ElementTree
 
 from ..preferences import Preferences
@@ -77,31 +75,6 @@ class SymbolCollection(object):
 				symbol = self.Symbol(Template(symbol_el.text.strip()), find_resource("icons/%s" % symbol_el.get("icon")))
 				group.symbols.append(symbol)
 			self.groups.append(group)
-		
-#		try:
-#			dom = parse(filename)
-#			
-#			for groupEl in dom.getElementsByTagName("group"):
-#				group = self.Group(groupEl.getAttribute("label"))
-#				
-#				counter = 0
-#				
-#				for symbolEl in groupEl.getElementsByTagName("symbol"):
-#					source = symbolEl.getAttribute("source")
-#					icon = symbolEl.getAttribute("icon")
-#					
-#					symbol = self.Symbol(source, find_resource("icons/%s" % icon))
-#					
-#					group.symbols.append(symbol)
-#					
-#					counter += 1
-#				
-#				self.groups.append(group)
-#				
-#		except IOError:
-#			self._log.error("File not found: %s" % filename)
-#		except ExpatError, s:
-#			self._log.error("Parse error: %s" % s)
 
 		
 class LaTeXSymbolMapView(SideView):

@@ -19,7 +19,7 @@
 			xdvi -unique -s 6 -bg white -editor gedit "$shortname.dvi"
 		</job>
 	</tool>
-	<tool description="Remove LaTeX build files" extensions=".tex" id="3" label="Cleanup LaTeX Build">
+	<tool description="Remove LaTeX build files" extensions=".tex" id="3" label="Cleanup LaTeX Build Files">
 		<job mustSucceed="False" postProcessor="GenericPostProcessor">
 			rm -f $directory/*.aux $directory/*.log $directory/*.toc $directory/*.bbl $directory/*.blg
 		</job>

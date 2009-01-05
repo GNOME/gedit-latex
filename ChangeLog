@@ -1,8 +1,12 @@
 0.2 rc1
- * better handling of 
- * fixed spell checking
- * delayed configurable toolbar (waiting for GTK+ support)
- 
+ * improved support for multi-file documents (fixes [ 2039930 ], [ 2011830 ], [ 2003370 ], [ 1885775 ], [ 1801142 ])
+ * improved support for remote files (fixes [ 1875238 ])
+ * fixed spell check (fixes [ 2120842 ], [ 2039933 ])
+ * brought back forward search in DVI files (fixes [ 2367015 ])
+ * configurable highlight colors (fixes [ 2131473 ], [ 2018556 ])
+ * rudimentary support for drag'n'drop (fixes [ 1784634 ])
+ * rudimentary BibTeX completion
+ * minor fixes ([ 2238342 ], [ 2031271 ], [ 2002630 ], [ 1913496 ], [ 1911116 ], [ 1880327 ], [ 1818707 ])
 
 0.1.3.2
  * fixed licenses so that the plugin can be included into debian etc.

@@ -1049,7 +1049,7 @@ class File(object):
 	@property
 	def extension(self):
 		"""
-		Returns 'jpg' for 'file:///home/user/image.jpg'
+		Returns '.jpg' for 'file:///home/user/image.jpg'
 		"""
 		return splitext(self.path)[1]
 	

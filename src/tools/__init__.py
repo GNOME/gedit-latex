@@ -105,7 +105,7 @@ class ToolAction(IAction):
 	
 	@property
 	def stock_id(self):
-		return gtk.STOCK_CONVERT
+		return gtk.STOCK_EXECUTE
 	
 	@property
 	def accelerator(self):

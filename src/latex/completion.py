@@ -289,8 +289,7 @@ class PrefixModelParser(object):
 		Returns choices
 		"""
 		
-		# we suppose that the last node must be the command
-		
+		# root node of the prefix model must be COMMAND
 		commandNode = prefixFragment[-1]
 		if commandNode.type != Node.COMMAND:
 			return []
@@ -298,7 +297,7 @@ class PrefixModelParser(object):
 		commandName = commandNode.value
 		
 		if len(commandNode) == 0:
-			# command has no arguments
+			# command has no arguments...
 			
 			if len(commandName) == 0:
 				# no name, so propose all commands
@@ -316,58 +315,75 @@ class PrefixModelParser(object):
 				
 			return self.__create_proposals_from_commands(commands, overlap)
 		
+		# ...command has arguments
 		
 		try:
-			# get the model of the command
+			self._log.debug(commandNode.xml)
+			
+			# find the language model of the command
 			storedCommand = self.__language_model.commands[commandName]
 		
-			# push arguments of the command model on a stack
-			stack = []
-			stack.extend(storedCommand.children)
-			stack.reverse()
+		
+			try:
+				argumentNode, storedArgument = self.__match_argument(commandNode, storedCommand)
+			except Exception, e:
+				self._log.error(e)
+				return []
+
+				
+			choices = storedArgument.children
 			
-			# walk the arguments of the prefix model
-			for argumentNode in commandNode:
-				
-				storedArgument = None
-				
-				if argumentNode.type == Node.MANDATORY_ARGUMENT:
-					
-					# skip all arguments on stack until {}
-					try:
-						while True:
-							storedArgument = stack.pop()
-							if type(storedArgument) is MandatoryArgument:
-								break
-					except IndexError:
-						self._log.debug("Signatures don't match")
-						return []
-				
-				elif argumentNode.type == Node.OPTIONAL_ARGUMENT:
-					
-					storedArgument = stack.pop()
-					
-					if not type(storedArgument) is OptionalArgument:
-						self._log.debug("Signatures don't match")
-						return []
-					
-				# now we should have the right argument in {storedArgument}
-				
-				choices = storedArgument.children
-				
-				# filter argument matching the already typed argument text
-				
-				argumentValue = argumentNode.innerText
-				
-				if len(argumentValue):
-					choices = [choice for choice in choices if choice.value.startswith(argumentValue)]
-					overlap = len(argumentValue)
-				else:
-					overlap = 0
-				
-				return self.__create_proposals_from_choices(choices, overlap)
+			# filter argument matching the already typed argument text
+			
+			argumentValue = argumentNode.innerText
+			
+			if len(argumentValue):
+				choices = [choice for choice in choices if choice.value.startswith(argumentValue)]
+				overlap = len(argumentValue)
+			else:
+				overlap = 0
+			
+			return self.__create_proposals_from_choices(choices, overlap)
 			
 		except KeyError:
 			self._log.debug("Command not found: %s" % commandName)
 			return []
+	
+	def __match_argument(self, command, model_command):
+		"""
+		@param command: the parsed command Node
+		@param model_command: the according model command
+		@return: (matched argument, model argument)
+		"""
+		# push the arguments of the model command on a stack
+		model_argument_stack = []
+		model_argument_stack.extend(model_command.children)
+		model_argument_stack.reverse()
+		
+		for argument in command:
+			if argument.type == Node.MANDATORY_ARGUMENT:
 				
+				# optional arguments in the model may be skipped
+				while True:
+					try:
+						model_argument = model_argument_stack.pop()
+						if model_argument.type != Node.OPTIONAL_ARGUMENT:
+							break
+					except IndexError:
+						# no more optional arguments to skip - signatures can't match
+						raise Exception("Signatures don't match")
+				
+				if not argument.closed:
+					return (argument, model_argument)
+			
+			elif argument.type == Node.OPTIONAL_ARGUMENT:
+				model_argument = model_argument_stack.pop()
+				
+				if model_argument.type != Node.OPTIONAL_ARGUMENT:
+					raise Exception("Signatures don't match")
+				
+				if not argument.closed:
+					return (argument, model_argument)
+				
+		raise Exception("No matching model argument found")
+

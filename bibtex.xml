@@ -29,9 +29,7 @@
 		<field id="institution" _label="Institution" />
 		<field id="crossref" _label="Cross Reference" /><!-- this one must point to an existing entry -->
 	</fields>
-
 	<types>
-
 		<type id="Article">
 			<required>
 				<field id="title" />
@@ -51,7 +49,6 @@
 				<field id="note" />
 			</optional>
 		</type>
-
 		<type id="Book">
 			<required>
 				<field id="title" />
@@ -72,7 +69,6 @@
 				<field id="note" />
 			</optional>
 		</type>
-
 		<type id="Booklet">
 			<required>
 				<field id="title" />
@@ -91,7 +87,6 @@
 				<field id="note" />
 			</optional>
 		</type>
-
 		<type id="Collection">
 			<required>
 				<field id="title" />
@@ -112,7 +107,6 @@
 				<field id="note" />
 			</optional>
 		</type>
-
 		<type id="Electronic">
 			<required>
 				<field id="title" />
@@ -125,7 +119,6 @@
 				<field id="key" />
 			</optional>
 		</type>
-
 		<type id="InBook">
 			<required>
 				<field id="title" />
@@ -149,7 +142,6 @@
 				<field id="note" />
 			</optional>
 		</type>
-
 		<type id="InCollection">
 			<required>
 				<field id="title" />
@@ -173,7 +165,6 @@
 				<field id="note" />
 			</optional>
 		</type>
-
 		<type id="InProceedings">
 			<required>
 				<field id="title" />
@@ -199,7 +190,6 @@
 				<field id="note" />
 			</optional>
 		</type>
-
 		<type id="Manual">
 			<required>
 				<field id="title" />
@@ -217,7 +207,6 @@
 				<field id="url" />
 			</optional>
 		</type>
-
 		<type id="MasterThesis">
 			<required>
 				<field id="title" />
@@ -234,7 +223,6 @@
 				<field id="note" />
 			</optional>
 		</type>
-
 		<type id="Misc">
 			<optional>
 				<field id="title" />
@@ -248,7 +236,6 @@
 				<field id="url" />
 			</optional>
 		</type>
-
 		<type id="PhDThesis">
 			<required>
 				<field id="title" />
@@ -266,7 +253,6 @@
 				<field id="isbn" />
 			</optional>
 		</type>
-
 		<type id="Proceedings">
 			<required>
 				<field id="title" />
@@ -288,7 +274,6 @@
 				<field id="url" />
 			</optional>
 		</type>
-
 		<type id="TechReport">
 			<required>
 				<field id="title" />

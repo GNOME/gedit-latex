@@ -388,7 +388,7 @@ class Preferences(object):
 					packages = []
 				else:
 					packages = packages.split()
-				expression = snippet_element.text
+				expression = snippet_element.text.strip()
 				active = str_to_bool(snippet_element.get("active"))
 				snippet = Snippet(label, expression, active, packages)
 				self.__snippet_ids[snippet] = id
