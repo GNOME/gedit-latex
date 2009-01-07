@@ -2,7 +2,7 @@
 
 # This file is part of the Gedit LaTeX Plugin
 #
-# Copyright (C) 2008 Michael Zeising
+# Copyright (C) 2009 Michael Zeising
 #
 # This program is free software; you can redistribute it and/or modify it under
 # the terms of the GNU General Public Licence as published by the Free Software
@@ -311,7 +311,7 @@ class LaTeXEditor(Editor, IIssueHandler, IMisspelledWordHandler, IPreferencesMon
 		except KeyError:
 			master_filename = ChooseMasterDialog().run(self._file.dirname)
 			if master_filename:
-				property_file["MasterFilename"] = master_filename
+				property_file["MasterFilename"] = master_filename	# TODO: store relative filename
 				property_file.save()
 				return File(master_filename)
 			else:
@@ -465,6 +465,7 @@ class LaTeXEditor(Editor, IIssueHandler, IMisspelledWordHandler, IPreferencesMon
 		return self._file
 
 
+# TODO: use ElementTree
 from xml.dom import minidom
 from xml.parsers.expat import ExpatError
 

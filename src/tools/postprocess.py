@@ -2,7 +2,7 @@
 
 # This file is part of the Gedit LaTeX Plugin
 #
-# Copyright (C) 2008 Michael Zeising
+# Copyright (C) 2009 Michael Zeising
 #
 # This program is free software; you can redistribute it and/or modify it under
 # the terms of the GNU General Public Licence as published by the Free Software
@@ -163,6 +163,8 @@ class RubberPostProcessor(object):
 	
 	name = "RubberPostProcessor"
 	
+	_pattern = re.compile(r"(?P<file>[a-zA-Z0-9./_-]+)(:(?P<line>[0-9\-]+))?:(?P<text>.*?)$", re.MULTILINE)
+	
 	def __init__(self):
 		self._issues = None
 		self._summary = None
@@ -181,9 +183,7 @@ class RubberPostProcessor(object):
 		return self._summary
 	
 	def process(self, file, stdout, stderr, condition):
-		
-		# this produces a circ dep on toplevel
-		from ..base import File
+		from ..base import File		# FIXME: this produces a circ dep on toplevel
 		
 		self._issues = []
 		
@@ -191,9 +191,7 @@ class RubberPostProcessor(object):
 		
 		self._successful = not bool(condition)
 		
-		pattern = re.compile(r"(?P<file>[a-zA-Z0-9./_-]+)(:(?P<line>[0-9\-]+))?:(?P<text>.*?)$", re.MULTILINE)
-		
-		for match in pattern.finditer(stderr):
+		for match in self._pattern.finditer(stderr):
 			# text
 			text = match.group("text")
 			
