@@ -19,6 +19,13 @@ this program; if not, write to the Free Software Foundation, Inc., 51 Franklin
 Street, Fifth Floor, Boston, MA  02110-1301, USA
 -->
 <commands>
+	<command name="newtheorem">
+		<argument label="Name" />
+		<argument label="TheoremCounter" type="optional" />
+		<argument label="Caption" />
+		<argument label="Counter" type="optional" />
+	</command>
+	
 	<command name="parindent" />
 	<command name="indent" />
 	<command name="noindent" />

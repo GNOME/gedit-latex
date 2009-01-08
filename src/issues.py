@@ -115,6 +115,9 @@ class MockStructuredIssueHandler(IStructuredIssueHandler):
 	
 	def append_issues(self, partition_id, issues):
 		pass
+	
+	def set_abort_enabled(self, enabled, method):
+		pass
 
 
 class Issue(object):

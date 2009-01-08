@@ -447,7 +447,31 @@ class LaTeXListingAction(IconAction):
 		source = self.dialog.run(context.active_editor.edited_file)
 		if source:
 			context.active_editor.insert(source)
+
+
+from ..tools import ToolRunner
+
+
+class LaTeXBuildImageAction(IconAction):
+	label = "Build Image"
+	accelerator = None
+	tooltip = "Build an image from the LaTeX document"
+	icon = File(find_resource("icons/build-image.png"))
+	
+	dialog = None
+	
+	def activate(self, context):
+		if not self.dialog:
+			from dialogs import BuildImageDialog
+			self.dialog = BuildImageDialog()
 			
+		tool = self.dialog.run()
+		if tool is not None:
+			tool_view = context.find_view(None, "ToolView")
+			
+			if context.active_editor:
+				ToolRunner().run(context.active_editor.file, tool, tool_view)
+
 			
 class LaTeXJustifyLeftAction(LaTeXTemplateAction):
 	label = "Justify Left"

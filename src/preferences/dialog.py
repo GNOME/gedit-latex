@@ -31,6 +31,25 @@ from ..util import GladeInterface
 from . import Preferences, IPreferencesMonitor
 
 
+class PreferencesSpinButtonProxy(object):
+	def __init__(self, widget, key, default_value):
+		"""
+		@param widget: a SpinButton widget
+		@param key: 
+		@param default_value: 
+		"""
+		self._widget = widget
+		self._key = key
+		self._preferences = Preferences()
+		
+		self._widget.set_value(int(self._preferences.get(key, default_value)))
+		
+		self._widget.connect("value-changed", self._on_value_changed)
+	
+	def _on_value_changed(self, spin_button):
+		self._preferences.set(self._key, spin_button.get_value_as_int())
+		
+
 class PreferencesColorProxy(object):
 	"""
 	This connects to a gtk.gdk.Color and gets/sets the value of a certain
@@ -490,15 +509,16 @@ class PreferencesDialog(GladeInterface, IPreferencesMonitor):
 				pass
 			
 			#
-			# colors
+			# proxies for ColorButtons and SpinButtons
 			#
-			self._color_proxies = [ PreferencesColorProxy(self.find_widget("colorLight"), "LightForeground", "#957d47"),
+			self._proxies = [ PreferencesColorProxy(self.find_widget("colorLight"), "LightForeground", "#957d47"),
 									PreferencesColorProxy(self.find_widget("colorSpelling"), "SpellingBackgroundColor", "#ffeccf"),
 									PreferencesColorProxy(self.find_widget("colorWarning"), "WarningBackgroundColor", "#ffffcf"),
 									PreferencesColorProxy(self.find_widget("colorError"), "ErrorBackgroundColor", "#ffdddd"),
 									PreferencesColorProxy(self.find_widget("colorTemplateBackground"), "TemplateBackgroundColor", "#f2f7ff"),
 									PreferencesColorProxy(self.find_widget("colorPlaceholderBackground"), "PlaceholderBackgroundColor", "#d6e4ff"),
-									PreferencesColorProxy(self.find_widget("colorPlaceholderForeground"), "PlaceholderForegroundColor", "#2a66e1") ]
+									PreferencesColorProxy(self.find_widget("colorPlaceholderForeground"), "PlaceholderForegroundColor", "#2a66e1"),
+									PreferencesSpinButtonProxy(self.find_widget("spinMaxBibSize"), "MaximumBibTeXSize", 500) ]
 			
 			#
 			# signals
@@ -509,6 +529,7 @@ class PreferencesDialog(GladeInterface, IPreferencesMonitor):
 								   "on_buttonNewTemplate_clicked" : self._on_new_snippet_clicked,
 								   "on_buttonNewProfile_clicked" : self._on_new_tool_clicked,
 								   "on_buttonMoveUpTool_clicked" : self._on_tool_up_clicked,
+								   "on_buttonMoveDownTool_clicked" : self._on_tool_down_clicked,
 								   "on_buttonConfigureTool_clicked" : self._on_configure_tool_clicked,
 								   "on_buttonDeleteTool_clicked" : self._on_delete_tool_clicked,
 								   "on_buttonEditSnippet_clicked" : self._on_edit_snippet_clicked,
@@ -592,13 +613,35 @@ class PreferencesDialog(GladeInterface, IPreferencesMonitor):
 		tool_1 = store.get_value(iter, 2)
 		
 		index_previous = int(store.get_string_from_iter(iter)) - 1
-		assert index_previous > 0
+		assert index_previous >= 0
 		
 		iter_previous = store.get_iter_from_string(str(index_previous))
 		tool_2 = store.get_value(iter_previous, 2)
 		
 		self._preferences.swap_tools(tool_1, tool_2)
+	
+		# adjust selection
+		self._view_tool.get_selection().select_path(str(index_previous))
+	
+	def _on_tool_down_clicked(self, button):
+		"""
+		Move down the selected tool
+		"""
+		store, iter = self._view_tool.get_selection().get_selected()
+		tool_1 = store.get_value(iter, 2)
+	
+		index_next = int(store.get_string_from_iter(iter)) + 1
+		assert index_next < len(store)
 		
+		iter_next = store.get_iter_from_string(str(index_next))
+		tool_2 = store.get_value(iter_next, 2)
+		
+		# swap tools in preferences
+		self._preferences.swap_tools(tool_1, tool_2)
+		
+		# adjust selection
+		self._view_tool.get_selection().select_path(str(index_next))
+	
 	def _on_new_tool_clicked(self, button):
 		dialog = ConfigureToolDialog()
 		

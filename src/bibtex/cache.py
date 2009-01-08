@@ -50,7 +50,7 @@ class BibTeXDocumentCache(object):
 		
 		def __init__(self, file):
 			self.__file = file
-			self.__parser = BibTeXParser()
+			self.__parser = BibTeXParser(quiet=True)
 			self.__issue_handler = MockIssueHandler()
 			self.__mtime = 0
 			self.__document = None

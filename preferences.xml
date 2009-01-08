@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <preferences>
+	<value key="MaximumBibTeXSize">500</value>
 	<value key="LightForeground">#957d47</value>
 	<value key="ErrorBackgroundColor">#ffdddd</value>
 	<value key="WarningBackgroundColor">#ffffcf</value>

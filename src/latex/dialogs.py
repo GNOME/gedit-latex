@@ -954,3 +954,92 @@ class InsertListingDialog(GladeInterface):
 		self._comboLanguage.set_sensitive(toggleButton.get_active())
 		self._labelDialect.set_sensitive(toggleButton.get_active() and self._dialectsEnabled)
 		self._comboDialect.set_sensitive(toggleButton.get_active() and self._dialectsEnabled)
+
+
+from preview import ImageToolGenerator
+from environment import Environment
+
+
+class BuildImageDialog(GladeInterface):
+	"""
+	Render the document to an image
+	"""
+	
+	filename = find_resource("glade/build_image_dialog.glade")
+	_dialog = None
+	_generator = ImageToolGenerator()
+	
+	def run(self):
+		dialog = self._getDialog()
+		
+		if dialog.run() == 1:
+
+			if self.find_widget("radioPNG").get_active():
+				self._generator.format = ImageToolGenerator.FORMAT_PNG
+				self._generator.pngMode = self._storeMode[self._comboMode.get_active()][1]
+			elif self.find_widget("radioJPEG").get_active():
+				self._generator.format = ImageToolGenerator.FORMAT_JPEG
+			elif self.find_widget("radioGIF").get_active():
+				self._generator.format = ImageToolGenerator.FORMAT_GIF
+			
+			self._generator.open = True
+			self._generator.resolution = self._spinResolution.get_value_as_int()
+			self._generator.antialiasFactor = self._storeAntialias[self._comboAntialias.get_active()][1]
+			self._generator.render_box = self.find_widget("radioBox").get_active()
+			
+			generate = True
+		else:
+			generate = False
+			
+		dialog.hide()
+		
+		if generate:
+			return self._generator.generate()
+		else:
+			return None
+	
+	def _getDialog(self):
+		if not self._dialog:
+			self._dialog = self.find_widget("dialogRenderImage")
+			self.find_widget("table").set_col_spacing(0, 20)
+			
+			# PNG mode
+			
+			self._storeMode = gtk.ListStore(str, int)	# label, mode constant
+			self._storeMode.append(["Monochrome", ImageToolGenerator.PNG_MODE_MONOCHROME])
+			self._storeMode.append(["Grayscale", ImageToolGenerator.PNG_MODE_GRAYSCALE])
+			self._storeMode.append(["RGB", ImageToolGenerator.PNG_MODE_RGB])
+			self._storeMode.append(["RGBA", ImageToolGenerator.PNG_MODE_RGBA])
+			
+			self._comboMode = self.find_widget("comboMode")
+			self._comboMode.set_model(self._storeMode)
+			cell = gtk.CellRendererText()
+			self._comboMode.pack_start(cell, True)
+			self._comboMode.add_attribute(cell, "text", 0)
+			self._comboMode.set_active(3)
+			
+			# anti-alias
+			
+			self._storeAntialias = gtk.ListStore(str, int)	# label, factor
+			self._storeAntialias.append(["Off", 0])
+			self._storeAntialias.append(["1x", 1])
+			self._storeAntialias.append(["2x", 2])
+			self._storeAntialias.append(["4x", 4])
+			self._storeAntialias.append(["8x", 8])
+			
+			self._comboAntialias = self.find_widget("comboAntialias")
+			self._comboAntialias.set_model(self._storeAntialias)
+			cell = gtk.CellRendererText()
+			self._comboAntialias.pack_start(cell, True)
+			self._comboAntialias.add_attribute(cell, "text", 0)
+			self._comboAntialias.set_active(3)
+			
+			# resolution
+			
+			self._spinResolution = self.find_widget("spinResolution")
+			self._spinResolution.set_value(Environment().screen_dpi)
+			
+		return self._dialog
+	
+	
+	

@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <snippets>
 	<snippet active="True" id="1" label="figure" packages="graphicx">
 \begin{figure}
@@ -11,4 +10,4 @@
 	$_
 \end{${Environment}}
 	</snippet>
-</snippets>
+<snippet active="True" id="bf4f9d1f-03f3-4cda-8e1f-3740021716f0" label="some" packages="amsmath">Here it is: $E=mc^2$</snippet></snippets>

@@ -65,7 +65,9 @@ class Outline(object):
 		self.bibliographies = []	# File objects
 		self.colors = []
 		self.packages = []			# OutlineNode objects
-		self.newcommands = []		# OutlineNode objects, TODO: only the name can be stored
+		self.newcommands = []		# OutlineNode objects
+		
+		self.newtheorems = []		# TODO
 
 
 from ..base import File

@@ -22,6 +22,8 @@
 snippets
 """
 
+# TODO: in fact this is a LaTeXSnippet as it contains necessary packages
+
 class Snippet(object):
 	def __init__(self, label, expression, active, packages):
 		"""

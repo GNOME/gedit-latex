@@ -61,6 +61,7 @@ from os.path import getmtime
 from xml.sax.saxutils import escape
 
 from ..issues import Issue, MockIssueHandler
+from ..preferences import Preferences
 
 
 #	import sys
@@ -111,6 +112,7 @@ class StringBuilder(list):
 
 
 from ..util import StringReader
+from ..util import open_info
 
 
 class Lexer(object):
@@ -172,11 +174,16 @@ class BibTeXParser(object):
 			_QUOTED_FIELD_VALUE = range(15) 
 	
 	
-	def parse_async(self, string, filename):
-		"""
-		Method called by the AsyncParserRunner
-		"""
-		return self.parse(string, File(filename), MockIssueHandler())
+	def __init__(self, quiet=False):
+		self._quiet = quiet
+		self._max_size_info_shown = False
+	
+	
+#	def parse_async(self, string, filename):
+#		"""
+#		Method called by the AsyncParserRunner
+#		"""
+#		return self.parse(string, File(filename), MockIssueHandler())
 	
 	
 	def parse(self, string, file, issue_handler):
@@ -188,6 +195,18 @@ class BibTeXParser(object):
 		"""
 		
 		document = Document()
+		
+		# respect maximum BibTeX file size
+		max_size_kb = int(Preferences().get("MaximumBibTeXSize", 500))
+		length = len(string)
+
+		if length > max_size_kb * 1024:
+			if not self._quiet and not self._max_size_info_shown:
+				open_info("BibTeX file will not be parsed", "The maximum size of BibTeX files to parse is set to %s KB." % max_size_kb)
+				self._max_size_info_shown = True
+			return document
+		
+		# parse
 		state = self._OUTSIDE
 		
 		for token in Lexer(string):

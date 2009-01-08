@@ -224,29 +224,25 @@ class Preferences(object):
 		"""
 		Return all Tools
 		"""
+		self.__tool_ids = {}
 		
-#		TOOLS = [ Tool("LaTeX → PDF", [Job("rubber --inplace --maxerr -1 --pdf --short --force --warn all \"$filename\"", True, RubberPostProcessor), 
-#									   Job("gnome-open $shortname.pdf", True, GenericPostProcessor)], "Create a PDF from LaTeX source" , [".tex"]),
-#				  Tool("Cleanup LaTeX Build", [Job("rm -f $directory/*.aux $directory/*.log $directory/*.toc $directory/*.bbl $directory/*.blg", True, GenericPostProcessor)], "Remove LaTeX build files", [".tex"]),
-#				  Tool("BibTeX → XML", [Job("bibtex2xml \"$filename\"", True, GenericPostProcessor)], "Convert BibTeX to XML", [".bib"])]
-#		return TOOLS
+		tools = []
 		
-		if self.__tool_objects is None:
-			self.__tool_ids = {}
-			self.__tool_objects = []
-			for tool_element in self.__tools.findall("tool"):
-				jobs = []
-				for job_element in tool_element.findall("job"):
-					jobs.append(Job(job_element.text.strip(), str_to_bool(job_element.get("mustSucceed")), self.POST_PROCESSORS[job_element.get("postProcessor")]))
-				
-				assert not tool_element.get("extensions") is None
-				
-				extensions = tool_element.get("extensions").split()
-				id = tool_element.get("id")
-				tool = Tool(tool_element.get("label"), jobs, tool_element.get("description"), extensions)
-				self.__tool_ids[tool] = id
-				self.__tool_objects.append(tool)
-		return self.__tool_objects
+		for tool_element in self.__tools.findall("tool"):
+			jobs = []
+			for job_element in tool_element.findall("job"):
+				jobs.append(Job(job_element.text.strip(), str_to_bool(job_element.get("mustSucceed")), self.POST_PROCESSORS[job_element.get("postProcessor")]))
+			
+			assert not tool_element.get("extensions") is None
+			
+			extensions = tool_element.get("extensions").split()
+			id = tool_element.get("id")
+			tool = Tool(tool_element.get("label"), jobs, tool_element.get("description"), extensions)
+			self.__tool_ids[tool] = id
+			
+			tools.append(tool)
+			
+		return tools
 	
 	def __find_tool_element(self, id):
 		"""
@@ -277,7 +273,6 @@ class Preferences(object):
 			
 			id = str(uuid.uuid4())		# random UUID
 			self.__tool_ids[tool] = id
-			self.__tool_objects.append(tool)
 			
 			tool_element = ElementTree.SubElement(self.__tools, "tool")
 			tool_element.set("id", id)
@@ -305,14 +300,16 @@ class Preferences(object):
 		"""
 		Swap the order of two Tools
 		"""
+		# grab their ids
 		id_1 = self.__tool_ids[tool_1]
 		id_2 = self.__tool_ids[tool_2]
+		
+		self._log.debug("Tool IDs are {%s: %s, %s, %s}" % (tool_1.label, id_1, tool_2.label, id_2))
 		
 		tool_element_1 = None
 		tool_element_2 = None
 		
-		# find the XML elements and index of the tools
-		
+		# find the XML elements and current indexes of the tools
 		i = 0
 		for tool_element in self.__tools:
 			if tool_element.get("id") == id_1:
@@ -327,22 +324,21 @@ class Preferences(object):
 			
 			i += 1
 		
-		# remove them and insert them again in swapped order
+		self._log.debug("Found XML elements, indexes are {%s: %s, %s, %s}" % (tool_1.label, index_1, tool_2.label, index_2))
 		
+		# remove them from the XML model and insert them again in swapped order
 		self.__tools.remove(tool_element_1)
 		self.__tools.remove(tool_element_2)
+		
+		self._log.debug("Removed elements from XML model")
 		
 		self.__tools.insert(index_1, tool_element_2)
 		self.__tools.insert(index_2, tool_element_1)
 		
-		# swap objects in cache
-		
-		self.__tool_objects[index_1], self.__tool_objects[index_2] = self.__tool_objects[index_2], self.__tool_objects[index_1]
+		self._log.debug("Inserted them in swapped order")
 		
 		# notify changes
-		
 		self.__tools_changed = True
-
 		self.__notify_tools_changed()
 	
 	def delete_tool(self, tool):
@@ -357,7 +353,6 @@ class Preferences(object):
 			self.__tools.remove(tool_element)
 			
 			del self.__tool_ids[tool]
-			self.__tool_objects.remove(tool)
 			
 			self.__tools_changed = True
 		except KeyError, e:

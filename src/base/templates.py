@@ -116,7 +116,7 @@ class TemplateCompiler(object):
 					else:
 						# false alarm, the magic sign was just a dollar sign, so append
 						# the "$" and the current char to plain text
-						plain += "$" + c
+						self._plain += "$" + c
 						offset += 2
 						# and change to default state
 						state = self._S_DEFAULT
@@ -136,9 +136,14 @@ class TemplateCompiler(object):
 		except Exception, e:
 			raise MalformedTemplateException(e)
 		
-		# if everything went fine we should end up in default state
-		if state != self._S_DEFAULT:
-			raise MalformedTemplateException
+		if state == self._S_IDENT:
+			# we ended in INDENT state so '$' was the last character - it can't be 
+			# the magic sign
+			self._plain += "$"
+		elif state == self._S_PLACEHOLDER:
+			# if everything went fine we should end up in DEFAULT state
+			# or in INDENT  - but never in PLACEHOLDER
+			raise MalformedTemplateException("Illegal state: %s" % state)
 	
 
 import gtk.gdk
@@ -171,20 +176,19 @@ class TemplateDelegate(object):
 		
 		self._active = False
 	
+	@caught
 	def insert(self, template):
 		"""
 		@param template: a Template instance
+		@raise MalformedTemplateException: from TemplateCompiler.compile 
 		"""
 		assert type(template) is Template
 		
 		# apply indentation
 		expression = template.expression.replace("\n", "\n%s" % self._editor.indentation)
 		
-		try:
-			self._compiler.compile(expression)
-			self._do_insert()
-		except MalformedTemplateException, e:
-			self._log.error(e)
+		self._compiler.compile(expression)
+		self._do_insert()
 	
 	def _do_insert(self):
 		if len(self._compiler.placeholders) == 0:

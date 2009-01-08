@@ -49,8 +49,7 @@ class ImageToolGenerator(object):
 		self.render_box = True
 		self.resolution = int(round(Environment().screen_dpi))
 		self.antialias_factor = 4
-		self.view_command = ""
-		self.output_filename = ""
+		self.open = False
 	
 	def generate(self):
 		"""
@@ -59,7 +58,7 @@ class ImageToolGenerator(object):
 		tool = Tool(label=self._names[self.format], jobs=[], description="")
 		
 		# use rubber to render a DVI
-		tool.jobs.append(Job("rubber --force --short --inplace $filename", True, RubberPostProcessor))
+		tool.jobs.append(Job("rubber --force --short --inplace \"$filename\"", True, RubberPostProcessor))
 		
 		if self.render_box:
 			# DVI -> PS
@@ -67,21 +66,37 @@ class ImageToolGenerator(object):
 			# -D num	resolution in DPI
 			# -q		quiet mode
 			# -E		generate an EPSF file with a tight bounding box
-			tool.jobs.append(Job("dvips -D %s -q -E -o $shortname.eps $shortname.dvi" % self.resolution, True, GenericPostProcessor))
+			tool.jobs.append(Job("dvips -D %s -q -E -o \"$shortname.eps\" \"$shortname.dvi\"" % self.resolution, True, GenericPostProcessor))
 			
 			# EPS -> PNG|JPG|GIF
 			if self.format == self.FORMAT_PNG:
-				command = "$plugin_path/util/eps2png.pl -png%s -resolution=%s -antialias=%s $shortname.eps" % (self._png_modes[self.png_mode], 
+				command = "$plugin_path/util/eps2png.pl -png%s -resolution=%s -antialias=%s \"$shortname.eps\"" % (self._png_modes[self.png_mode], 
 																				self.resolution, self.antialias_factor)
 			elif self.format == self.FORMAT_JPEG:
-				command = "$plugin_path/util/eps2png.pl -jpeg -resolution=%s -antialias=%s $shortname.eps" % (self.resolution, self.antialias_factor)
+				command = "$plugin_path/util/eps2png.pl -jpeg -resolution=%s -antialias=%s \"$shortname.eps\"" % (self.resolution, self.antialias_factor)
 			elif self.format == self.FORMAT_GIF:
-				command = "$plugin_path/util/eps2png.pl -gif -resolution=%s -antialias=%s $shortname.eps" % (self.resolution, self.antialias_factor)
+				command = "$plugin_path/util/eps2png.pl -gif -resolution=%s -antialias=%s \"$shortname.eps\"" % (self.resolution, self.antialias_factor)
 			
 			tool.jobs.append(Job(command, True, GenericPostProcessor))
 		else:
-			# TODO:
-			raise NotImplementedError
+			# dvips
+			tool.jobs.append(Job("dvips -D %s -q -o \"$shortname.ps\" \"$shortname.dvi\"" % self.resolution, True, GenericPostProcessor))
+			
+			if self.format == self.FORMAT_PNG:
+				tool.jobs.append(Job("gs -q -dNOPAUSE -r%s -dTextAlphaBits=%s -dGraphicsAlphaBits=%s -sDEVICE=png%s -sOutputFile=$shortname.png $shortname.ps quit.ps" 
+									% (self.resolution, self.antialias_factor, self.antialias_factor, self._png_modes[self.png_mode]), True, GenericPostProcessor))
+			elif self.format == self.FORMAT_JPEG:
+				tool.jobs.append(Job("gs -q -dNOPAUSE -r%s -dTextAlphaBits=%s -dGraphicsAlphaBits=%s -sDEVICE=jpeg -sOutputFile=$shortname.jpg $shortname.ps quit.ps" 
+									% (self.resolution, self.antialias_factor, self.antialias_factor), True, GenericPostProcessor))
+			elif self.format == self.FORMAT_GIF:
+				tool.jobs.append(Job("gs -q -dNOPAUSE -r%s -dTextAlphaBits=%s -dGraphicsAlphaBits=%s -sDEVICE=ppm -sOutputFile=$shortname.ppm $shortname.ps quit.ps" 
+									% (self.resolution, self.antialias_factor, self.antialias_factor), True, GenericPostProcessor))
+				# ppmtogif
+				tool.jobs.append(Job("ppmtogif $shortname.ppm > $shortname.gif", True, GenericPostProcessor))
+		
+		if self.open:
+			extension = {self.FORMAT_PNG : "png", self.FORMAT_JPEG: "jpg", self.FORMAT_GIF : "gif"}[self.format] 
+			tool.jobs.append(Job("gnome-open \"$shortname.%s\"" % extension, True, GenericPostProcessor))
 		
 		return tool
 

@@ -30,6 +30,7 @@ from gtk import gdk
 from ..base import ICompletionHandler, IProposal, Template
 from ..base.resources import find_resource
 
+from ..latex import LaTeXSource
 
 class SnippetProposal(IProposal):
 	
@@ -44,7 +45,11 @@ class SnippetProposal(IProposal):
 		"""
 		@return: a subclass of Source to be inserted on activation
 		"""
-		return Template(self._snippet.expression)
+		# FIXME: separate between Snippet and LaTeXSnippet
+		if self._snippet.packages is not None and len(self._snippet.packages) > 0:
+			return LaTeXSource(Template(self._snippet.expression), self._snippet.packages)
+		else:
+			return Template(self._snippet.expression)
 	
 	@property
 	def label(self):

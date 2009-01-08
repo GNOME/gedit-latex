@@ -44,6 +44,7 @@ UI = """
 					<menuitem action="LaTeXCloseEnvironmentAction" />
 					<separator />
 					<menuitem action="LaTeXForwardSearchAction" />
+					<menuitem action="LaTeXBuildImageAction" />
 				</menu>
 				<menu action="BibTeXMenuAction">
 					<menuitem action="BibTeXNewEntryAction" />
@@ -100,6 +101,8 @@ UI = """
 			<toolitem action="LaTeXTableAction" />
 			<toolitem action="LaTeXListingAction" />
 			<toolitem action="LaTeXUseBibliographyAction" />
+			<separator />
+			<toolitem action="LaTeXBuildImageAction" />
 		</toolbar>
 	</ui>"""
 		
@@ -112,7 +115,7 @@ from ..latex.actions import LaTeXMenuAction, LaTeXNewAction, LaTeXCommentAction,
 		LaTeXJustifyCenterAction, LaTeXJustifyRightAction, LaTeXMathMenuAction, LaTeXMathAction, LaTeXDisplayMathAction, \
 		LaTeXEquationAction, LaTeXUnEqnArrayAction, LaTeXEqnArrayAction, LaTeXUnderlineAction, LaTeXSmallCapitalsAction, \
 		LaTeXRomanAction, LaTeXSansSerifAction, LaTeXTypewriterAction, LaTeXCloseEnvironmentAction, LaTeXBlackboardBoldAction, \
-		LaTeXCaligraphyAction, LaTeXFrakturAction, LaTeXForwardSearchAction
+		LaTeXCaligraphyAction, LaTeXFrakturAction, LaTeXForwardSearchAction, LaTeXBuildImageAction
 
 from ..bibtex.actions import BibTeXMenuAction, BibTeXNewEntryAction
 
@@ -164,7 +167,8 @@ ACTION_OBJECTS = { "LaTeXMenuAction" : LaTeXMenuAction(),
 				   "LaTeXCloseEnvironmentAction" : LaTeXCloseEnvironmentAction(),
 				   "LaTeXForwardSearchAction" : LaTeXForwardSearchAction(),
 				   "BibTeXMenuAction" : BibTeXMenuAction(),
-				   "BibTeXNewEntryAction" : BibTeXNewEntryAction() }
+				   "BibTeXNewEntryAction" : BibTeXNewEntryAction(),
+				   "LaTeXBuildImageAction" : LaTeXBuildImageAction() }
 
 ACTION_EXTENSIONS = { None : ["LaTeXNewAction"],
 					  ".tex" : ["LaTeXMenuAction", 
@@ -208,7 +212,8 @@ ACTION_EXTENSIONS = { None : ["LaTeXNewAction"],
 				   				"LaTeXUnEqnArrayAction",
 				   				"LaTeXEqnArrayAction",
 				   				"LaTeXCloseEnvironmentAction",
-				   				"LaTeXForwardSearchAction"],
+				   				"LaTeXForwardSearchAction",
+				   				"LaTeXBuildImageAction"],
 				   		".bib" : ["BibTeXMenuAction", "BibTeXNewEntryAction"] }
 
 #from ..tools import Tool, Job
