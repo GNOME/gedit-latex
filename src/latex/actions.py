@@ -103,7 +103,7 @@ class LaTeXChooseMasterAction(IAction):
 class LaTeXForwardSearchAction(IAction):
 	_log = getLogger("LaTeXForwardSearchAction")
 	
-	label = "Find In DVI"
+	label = "Find Position In DVI"
 	stock_id = gtk.STOCK_FIND
 	accelerator = None
 	tooltip = None

@@ -75,13 +75,11 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		#
 		self._window_context = WindowContext(self, EDITOR_SCOPE_VIEWS)
 		
-		
+		# the order is important!
 		self._init_actions()
 		self._init_tool_actions()
-		
-		self._init_tab_decorators()
-		
 		self._init_views()
+		self._init_tab_decorators()
 		
 		
 		# create the DBUS service for inverse search
@@ -168,7 +166,8 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		self._main_box.pack_start(self._toolbar, False)
 		self._main_box.reorder_child(self._toolbar, 2)
 		
-		self._toolbar.show()
+		#self._toolbar.show()
+		self._toolbar.hide()
 	
 	def _init_tab_decorators(self):
 		"""
@@ -565,6 +564,12 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		#
 		for decorator in self._tab_decorators:
 			decorator.destroy()
+		#
+		# remove views
+		#
+		self._window.get_bottom_panel().remove_item(self._views["ToolView"])
+		
+		self._toolbar.destroy()
 
 
 class GeditTabDecorator(object):
@@ -633,35 +638,45 @@ class GeditTabDecorator(object):
 		
 		@return: True if the editor has changed
 		"""
-		file = File(self._text_buffer.get_uri())
-		
-		if file == self._file:		# != doesn't work for File...
-			return False
-		else:
-			self._log.debug("---------- _adjust_editor: URI has changed")
+		uri = self._text_buffer.get_uri()
+		if uri is None:
+			# this happends when the plugin is activated in a running gedit
+			# and this decorator is created for the empty file
 			
-			self._file = file
+			self._log.debug("No file loaded")
 			
-			# URI has changed - manage the editor instance
-			if self._editor:
-				# editor is present - destroy it
-				self._editor.destroy()
-				self._editor = None
-
-			extension = file.extension.lower()
-
-			# create new editor instance
-			if extension in EDITORS.keys():
-				editor_class = EDITORS[extension]
-				
-				self._editor = editor_class.__new__(editor_class)
-				editor_class.__init__(self._editor, self, file)
-			
-			# tell WindowDecorator to adjust actions
 			self._window_decorator.adjust(self)
-
-			# notify that URI has changed
-			return True
+			
+		else:
+			file = File(uri)
+			
+			if file == self._file:		# != doesn't work for File...
+				return False
+			else:
+				self._log.debug("---------- _adjust_editor: URI has changed")
+				
+				self._file = file
+				
+				# URI has changed - manage the editor instance
+				if self._editor:
+					# editor is present - destroy it
+					self._editor.destroy()
+					self._editor = None
+	
+				extension = file.extension.lower()
+	
+				# create new editor instance
+				if extension in EDITORS.keys():
+					editor_class = EDITORS[extension]
+					
+					self._editor = editor_class.__new__(editor_class)
+					editor_class.__init__(self._editor, self, file)
+				
+				# tell WindowDecorator to adjust actions
+				self._window_decorator.adjust(self)
+	
+				# notify that URI has changed
+				return True
 	
 	@property
 	def file(self):
