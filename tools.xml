@@ -1,14 +1,29 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <tools>
 	<tool description="Create a PDF from LaTeX source" extensions=".tex" id="1" label="LaTeX &#8594; PDF">
 		<job mustSucceed="true" postProcessor="RubberPostProcessor">
-			rubber --inplace --maxerr -1 --pdf --short --force --warn all "$filename"
+			rubber --inplace --maxerr -1 --short --force --warn all --pdf "$filename"
 		</job>
 		<job mustSucceed="true" postProcessor="GenericPostProcessor">
 			gnome-open "$shortname.pdf"
 		</job>
 	</tool>
-	<tool description="Create a DVI with source specials from LaTeX source" extensions=".tex" id="2" label="LaTeX &#8594; DVI (Source Specials)">
+	<tool description="Create a PostScript from LaTeX source" extensions=".tex" id="2" label="LaTeX &#8594; PS">
+		<job mustSucceed="true" postProcessor="RubberPostProcessor">
+			rubber --inplace --maxerr -1 --short --force --warn all --ps "$filename"
+		</job>
+		<job mustSucceed="true" postProcessor="GenericPostProcessor">
+			gnome-open "$shortname.ps"
+		</job>
+	</tool>
+	<tool description="Create a DVI from LaTeX source" extensions=".tex" id="3" label="LaTeX &#8594; DVI">
+		<job mustSucceed="true" postProcessor="RubberPostProcessor">
+			rubber --inplace --maxerr -1 --short --force --warn all "$filename"
+		</job>
+		<job mustSucceed="true" postProcessor="GenericPostProcessor">
+			gnome-open "$shortname.dvi"
+		</job>
+	</tool>
+	<tool description="Create a DVI with source specials from LaTeX source" extensions=".tex" id="4" label="LaTeX &#8594; DVI (Source Specials)">
 		<job mustSucceed="true" postProcessor="LaTeXPostProcessor">
 			latex -interaction batchmode -src "$filename"
 		</job>
@@ -19,12 +34,12 @@
 			xdvi -unique -s 6 -bg white -editor gedit "$shortname.dvi"
 		</job>
 	</tool>
-	<tool description="Remove LaTeX build files" extensions=".tex" id="3" label="Cleanup LaTeX Build Files">
+	<tool description="Remove LaTeX build files" extensions=".tex" id="5" label="Cleanup LaTeX Build Files">
 		<job mustSucceed="False" postProcessor="GenericPostProcessor">
 			rm -f $directory/*.aux $directory/*.log $directory/*.toc $directory/*.bbl $directory/*.blg
 		</job>
 	</tool>
-	<tool description="Convert BibTeX to XML" extensions=".bib" id="4" label="BibTeX &#8594; XML">
+	<tool description="Convert BibTeX to XML" extensions=".bib" id="6" label="BibTeX &#8594; XML">
 		<job mustSucceed="true" postProcessor="GenericPostProcessor">
 			bibtex2xml "$filename"
 		</job>

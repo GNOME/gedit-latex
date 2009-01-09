@@ -9,6 +9,12 @@
 	<value key="PlaceholderForegroundColor">#2a66e1</value>
 	<value key="ConnectOutlineToEditor">True</value>
 	<value key="ShowLabelsInOutline">False</value>
-	<value key="ShowTablesInOutline">False</value>
-	<value key="ShowGraphicsInOutline">False</value>
-<value key="SpellCheckDictionary">de</value><value key="IssuesShowWarnings">True</value><value key="IssuesShowTasks">True</value><value key="ExpandedSymbolGroups">,Delimiters,Operators,Arrows,Greek,Accents,Special</value><value key="RecentDocumentClass">scrartcl</value><value key="RecentPaperSize">a4paper</value><value key="RecentDefaultFontFamily">\sfdefault</value></preferences>
+	<value key="ShowTablesInOutline">True</value>
+	<value key="ShowGraphicsInOutline">True</value>
+	<value key="IssuesShowWarnings">True</value>
+	<value key="IssuesShowTasks">True</value>
+	<value key="ExpandedSymbolGroups">Delimiters,Operators,Arrows,Greek,Accents,Special</value>
+	<value key="RecentDocumentClass">scrartcl</value>
+	<value key="RecentPaperSize">a4paper</value>
+	<value key="RecentDefaultFontFamily">\sfdefault</value>
+</preferences>

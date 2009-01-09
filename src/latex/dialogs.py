@@ -435,15 +435,7 @@ class UseBibliographyDialog(GladeInterface, PreviewRenderer):
 		self._file_chooser_button.set_current_folder(edited_file.dirname)
 		
 		if dialog.run() == 1:		# TODO: use gtk constant
-			# get selected filenames
-			#files = [File(row[1]) for row in self._storeFiles if row[0]]
-			
-			# relativize them
 			base_dir = edited_file.dirname
-#			relative_shortnames = [file.relativize_shortname(base_dir) for file in files]
-#			
-#			source = "\\bibliography{%s}\n\\bibliographystyle{%s}" % (",".join(relative_shortnames), 
-#																	self._storeStyle[self._comboStyle.get_active()][0])
 
 			file = File(self._file_chooser_button.get_filename())
 			source = "\\bibliography{%s}\n\\bibliographystyle{%s}" % (file.relativize_shortname(base_dir), 
@@ -461,19 +453,6 @@ class UseBibliographyDialog(GladeInterface, PreviewRenderer):
 			# bib file
 			
 			self._file_chooser_button = self.find_widget("filechooserbutton")
-			
-			
-#			self._storeFiles = gtk.ListStore(bool, str)	 # checked, filename
-#			
-##			for b in Settings().bibliographies:
-##				self._storeFiles.append([False, b.filename])
-#				
-#			self._viewFiles = self.find_widget("TreeViewFiles")
-#			self._viewFiles.set_model(self._storeFiles)
-#			rendererToggle = gtk.CellRendererToggle()
-#			rendererToggle.connect("toggled", self._on_use_toggled)
-#			self._viewFiles.insert_column_with_attributes(-1, "Use", rendererToggle, active=0)
-#			self._viewFiles.insert_column_with_attributes(-1, "Filename", gtk.CellRendererText(), text=1)
 			
 			# styles
 			
@@ -501,18 +480,9 @@ class UseBibliographyDialog(GladeInterface, PreviewRenderer):
 			scrollPreview.add_with_viewport(self._imagePreview)
 			
 			
-			self.connect_signals({ #"on_buttonAddFile_clicked" : self._on_add_clicked,
-									#"on_buttonRemoveFile_clicked" : self._on_remove_clicked,
-									"on_buttonRefresh_clicked" : self._on_refresh_clicked })
+			self.connect_signals({ "on_buttonRefresh_clicked" : self._on_refresh_clicked })
 			
 		return self.dialog
-	
-#	def _on_use_toggled(self, renderer, path):
-#		"""
-#		Toggle "Use" cell
-#		"""
-#		value = self._storeFiles.get(self._storeFiles.get_iter_from_string(path), 0)[0]
-#		self._storeFiles.set(self._storeFiles.get_iter_from_string(path), 0, not value)
 	
 	def _on_refresh_clicked(self, widget):
 		"""
@@ -533,47 +503,6 @@ class UseBibliographyDialog(GladeInterface, PreviewRenderer):
 		
 		self.render("Book \\cite{dijkstra76} Article \\cite{dijkstra68} \\bibliography{%s}\\bibliographystyle{%s}" % (self._filenameBase, 
 																													style))
-	
-#	def _on_add_clicked(self, button):
-#		"""
-#		Add BibTeX files
-#		"""
-#		filter = gtk.FileFilter()
-#		filter.set_name("BibTeX Bibliography")
-#		filter.add_pattern("*.bib")
-#		
-#		fileChooser = gtk.FileChooserDialog("Add Bibliography", buttons=(gtk.STOCK_CANCEL, gtk.RESPONSE_REJECT, 
-#																		gtk.STOCK_OK, gtk.RESPONSE_ACCEPT))
-#		fileChooser.set_filter(filter)
-#		fileChooser.set_select_multiple(True)
-#		
-#		if fileChooser.run() == gtk.RESPONSE_ACCEPT:
-#			filenames = [row[1] for row in self._storeFiles]
-#			
-#			for filename in fileChooser.get_filenames():
-#				if not filename in filenames:
-#					self._storeFiles.append([True, filename])
-#					
-#					# store in settings
-#					#Settings().addBibliography(filename)
-#			
-#		fileChooser.hide()
-#
-#	def _on_remove_clicked(self, button):
-#		"""
-#		Remove selected file
-#		"""
-#		
-#		# TODO: remove from settings
-#		
-#		model, iter = self._viewFiles.get_selection().get_selected()
-#		if iter:
-#			# remove from settings
-#			filename = model.get_value(iter, 1)
-#			Settings().deleteBibliography(filename)
-#			
-#			model.remove(iter)
-			
 	def _on_render_succeeded(self, pixbuf):
 		# PreviewRenderer._on_render_succeeded
 		
