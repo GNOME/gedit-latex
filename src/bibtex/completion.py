@@ -90,9 +90,8 @@ class BibTeXCompletionHandler(ICompletionHandler):
 	"""
 	_log = getLogger("BibTeXCompletionHandler")
 	
-	trigger_keys = []
+	trigger_keys = ["@"]
 	prefix_delimiters = ["@"]
-	strip_delimiter = False			# don't remove the '@' from the prefix
 	
 	def __init__(self):
 		self._model = Definition()

@@ -146,19 +146,22 @@ class LaTeXOutlineGenerator(object):
 						self._issue_handler.issue(Issue("Malformed structure command", node.start, node.end, node.file, Issue.SEVERITY_ERROR))
 				
 				elif node.value == "label":
-					value = node.firstOfType(Node.MANDATORY_ARGUMENT).innerText
-
-					if value in self._labelCache.keys():
-						start, end = self._labelCache[value]
-						self._issue_handler.issue(Issue("Label <b>%s</b> has already been defined" % value, start, end, node.file, Issue.SEVERITY_ERROR))
-					else:
-						self._labelCache[value] = (node.start, node.lastEnd)
-					
-						labelNode = OutlineNode(OutlineNode.LABEL, node.start, node.lastEnd, value, foreign=foreign, file=node.file)
-
-						self._outline.labels.append(labelNode)
-						if self.cfgLabelsInTree:
-							self._stack[-1].append(labelNode)
+					try:
+						value = node.firstOfType(Node.MANDATORY_ARGUMENT).innerText
+	
+						if value in self._labelCache.keys():
+							start, end = self._labelCache[value]
+							self._issue_handler.issue(Issue("Label <b>%s</b> has already been defined" % value, start, end, node.file, Issue.SEVERITY_ERROR))
+						else:
+							self._labelCache[value] = (node.start, node.lastEnd)
+						
+							labelNode = OutlineNode(OutlineNode.LABEL, node.start, node.lastEnd, value, foreign=foreign, file=node.file)
+	
+							self._outline.labels.append(labelNode)
+							if self.cfgLabelsInTree:
+								self._stack[-1].append(labelNode)
+					except IndexError:
+						self._issue_handler.issue(Issue("Malformed command", node.start, node.lastEnd, node.file, Issue.SEVERITY_ERROR))
 				
 #				elif node.value == "begin":
 #					environment = str(node.filter(Node.MANDATORY_ARGUMENT)[0][0])
@@ -183,42 +186,55 @@ class LaTeXOutlineGenerator(object):
 						package = node.firstOfType(Node.MANDATORY_ARGUMENT).innerText
 						packageNode = OutlineNode(OutlineNode.PACKAGE, node.start, node.lastEnd, package, file=node.file)
 						self._outline.packages.append(packageNode)
-					except Exception, e:
-						self._issue_handler.issue(Issue("Malformed usepackage command", node.start, node.end, node.file, Issue.SEVERITY_ERROR))
+					except IndexError:
+						self._issue_handler.issue(Issue("Malformed command", node.start, node.end, node.file, Issue.SEVERITY_ERROR))
 				
 				elif self.cfgTablesInTree and node.value == "begin":
-					environ = node.firstOfType(Node.MANDATORY_ARGUMENT).innerText
-					
-					if environ == "tabular":
-						tableNode = OutlineNode(OutlineNode.TABLE, node.start, node.lastEnd, "", foreign=foreign, file=node.file)
-						self._stack[-1].append(tableNode)
+					try:
+						environ = node.firstOfType(Node.MANDATORY_ARGUMENT).innerText
+						if environ == "tabular":
+							tableNode = OutlineNode(OutlineNode.TABLE, node.start, node.lastEnd, "", foreign=foreign, file=node.file)
+							self._stack[-1].append(tableNode)
+					except IndexError:
+						self._issue_handler.issue(Issue("Malformed command", node.start, node.lastEnd, node.file, Issue.SEVERITY_ERROR))
 				
 				elif self.cfgGraphicsInTree and node.value == "includegraphics":
-					target = node.firstOfType(Node.MANDATORY_ARGUMENT).innerText
-					graphicsNode = OutlineNode(OutlineNode.GRAPHICS, node.start, node.lastEnd, target, foreign=foreign, file=node.file)
-					self._stack[-1].append(graphicsNode)
+					try:
+						target = node.firstOfType(Node.MANDATORY_ARGUMENT).innerText
+						graphicsNode = OutlineNode(OutlineNode.GRAPHICS, node.start, node.lastEnd, target, foreign=foreign, file=node.file)
+						self._stack[-1].append(graphicsNode)
+					except IndexError:
+						self._issue_handler.issue(Issue("Malformed command", node.start, node.lastEnd, node.file, Issue.SEVERITY_ERROR))
 				
 				elif node.value == "bibliography":
-					value = node.firstOfType(Node.MANDATORY_ARGUMENT).innerText
-					
-					for bib in value.split(","):
-						self._outline.bibliographies.append(File("%s/%s.bib" % (node.file.dirname, bib)))
-				
-				elif node.value == "definecolor" or node.value == "xdefinecolor":
-					name = str(node.firstOfType(Node.MANDATORY_ARGUMENT)[0])
-					self._outline.colors.append(name)
-				
-				elif node.value == "newcommand":
-					name = str(node.firstOfType(Node.MANDATORY_ARGUMENT)[0])[1:]	# remove "\"
 					try:
-						nArgs = int(node.filter(Node.OPTIONAL_ARGUMENT)[0].innerText)
+						value = node.firstOfType(Node.MANDATORY_ARGUMENT).innerText
+						for bib in value.split(","):
+							self._outline.bibliographies.append(File("%s/%s.bib" % (node.file.dirname, bib)))
 					except IndexError:
-						nArgs = 0
-					except Exception, e:
-						self._issue_handler.issue(Issue("Malformed newcommand", node.start, node.end, node.file, Issue.SEVERITY_ERROR))
-						nArgs = 0
-					ncNode = OutlineNode(OutlineNode.NEWCOMMAND, node.start, node.lastEnd, name, numOfArgs=nArgs, file=node.file)
-					self._outline.newcommands.append(ncNode)
+						self._issue_handler.issue(Issue("Malformed command", node.start, node.lastEnd, node.file, Issue.SEVERITY_ERROR))
+						
+				elif node.value == "definecolor" or node.value == "xdefinecolor":
+					try:
+						name = str(node.firstOfType(Node.MANDATORY_ARGUMENT)[0])
+						self._outline.colors.append(name)
+					except IndexError:
+						self._issue_handler.issue(Issue("Malformed command", node.start, node.lastEnd, node.file, Issue.SEVERITY_ERROR))
+						
+				elif node.value == "newcommand":
+					try:
+						name = str(node.firstOfType(Node.MANDATORY_ARGUMENT)[0])[1:]	# remove "\"
+						try:
+							nArgs = int(node.filter(Node.OPTIONAL_ARGUMENT)[0].innerText)
+						except IndexError:
+							nArgs = 0
+						except Exception, e:
+							self._issue_handler.issue(Issue("Malformed newcommand", node.start, node.end, node.file, Issue.SEVERITY_ERROR))
+							nArgs = 0
+						ncNode = OutlineNode(OutlineNode.NEWCOMMAND, node.start, node.lastEnd, name, numOfArgs=nArgs, file=node.file)
+						self._outline.newcommands.append(ncNode)
+					except IndexError:
+						self._issue_handler.issue(Issue("Malformed command", node.start, node.lastEnd, node.file, Issue.SEVERITY_ERROR))
 					
 					# don't walk through \newcommand
 					continue

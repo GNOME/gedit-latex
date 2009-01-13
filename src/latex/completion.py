@@ -102,7 +102,6 @@ class LaTeXCompletionHandler(ICompletionHandler):
 	
 	trigger_keys = ["backslash", "braceleft"]
 	prefix_delimiters = ["\\"]
-	strip_delimiter = False			# don't remove the '\' from the prefix
 	
 	def __init__(self):
 		self._log.debug("init")

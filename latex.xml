@@ -19,6 +19,20 @@ this program; if not, write to the Free Software Foundation, Inc., 51 Franklin
 Street, Fifth Floor, Boston, MA  02110-1301, USA
 -->
 <commands>
+	<!-- pdfpages -->
+	<command name="includepdf" package="pdfpages">
+		<argument label="LocalOptions" type="optional" />
+		<argument label="Filename" />
+	</command>
+	<command name="includepdfmerge" package="pdfpages">
+		<argument label="LocalOptions" type="optional" />
+		<argument label="Filenames" />
+	</command>
+	<command name="includepdfset" package="pdfpages">
+		<argument label="GlobalOptions" />
+	</command>
+	<command name="threadinfodict" package="pdfpages" />
+
 	<command name="newtheorem">
 		<argument label="Name" />
 		<argument label="TheoremCounter" type="optional" />

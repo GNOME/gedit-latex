@@ -25,6 +25,7 @@ base.completion
 from logging import getLogger
 import gtk
 import gtk.gdk
+import gobject
 
 from ..preferences import Preferences
 
@@ -307,8 +308,7 @@ class CompletionDistributor(object):
 	
 	
 	# TODO: clearify and simplify states here!
-	# TODO: timer
-	# TODO: auto-close
+	# TODO: auto-close (maybe...)
 	
 	
 	_log = getLogger("CompletionDistributor")
@@ -362,14 +362,12 @@ class CompletionDistributor(object):
 		"""
 		key = gtk.gdk.keyval_name(event.keyval)
 		
-		#self._log.debug("_on_key_pressed: %s" % key)
-
 		if self._state == self._STATE_IDLE:
 			if key == "Control_L" or key == "Control_R":
 				self._state = self._STATE_CTRL_PRESSED
 				
 			elif key in self._trigger_keys:
-				#self._start_timer()
+				self._start_timer()
 				return False
 
 		elif self._state == self._STATE_ACTIVE:
@@ -403,14 +401,12 @@ class CompletionDistributor(object):
 			else:
 				self._state = self._STATE_IDLE
 		
-		# TODO: self._stop_timer()
+		self._stop_timer()
 	
 	def _on_key_released(self, view, event):
 		"""
 		"""
 		key = gtk.gdk.keyval_name(event.keyval)
-		
-		#self._log.debug("_on_key_released(%s)" % key)
 		
 		# trigger auto close on "}"
 		if key == "braceright":
@@ -436,25 +432,47 @@ class CompletionDistributor(object):
 	def _on_focus_out(self, view, event):
 		self._abort()
 	
+	def _start_timer(self):
+		"""
+		Start a timer for completion
+		"""
+		# stop eventually running timer
+		self._stop_timer()
+		# start timer
+		self._timer = gobject.timeout_add(self._DELAY, self._timer_callback)
+	
+	def _stop_timer(self):
+		"""
+		Stop the timer if it has been started
+		"""
+		if self._timer is not None:
+			gobject.source_remove(self._timer)
+			self._timer = None
+		
+	def _timer_callback(self):
+		"""
+		Timeout
+		"""
+		self._complete()
+		
+		return False	# do not call again
+	
 	def _complete(self):
 		all_proposals = []
 		
 		for handler in self._handlers:
 			delimiters = handler.prefix_delimiters
-			#self._log.debug("_complete: delims are %s" % delimiters)
 			
 			prefix = self._find_prefix(delimiters)
 			if prefix:
-				if handler.strip_delimiter:
-					prefix = prefix[1:]
+#				if handler.strip_delimiter:
+#					prefix = prefix[1:]
 				
 				proposals = handler.complete(prefix)
 				assert type(proposals) is list
 				
 				all_proposals.extend(proposals)
-			#else:
-			#	self._log.debug("_complete: no prefix for %s" % handler)
-		
+			
 		if len(all_proposals):
 			self._popup.activate(all_proposals, self._text_view)
 			self._state = self._STATE_ACTIVE
@@ -502,7 +520,6 @@ class CompletionDistributor(object):
 		#		return None
 		
 		prefix = self._text_buffer.get_text(it_left, it_right, False)
-		#self._log.debug("_find_prefix: '%s'" % prefix)
 		
 		return prefix
 	
@@ -518,8 +535,6 @@ class CompletionDistributor(object):
 		Abort completion
 		"""
 		if self._state == self._STATE_ACTIVE:
-			#self._log.debug("_abort")
-			
 			self._popup.deactivate()
 			self._state = self._STATE_IDLE
 	

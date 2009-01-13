@@ -78,44 +78,19 @@ class Token(object):
 	AT, TEXT, COMMA, EQUALS, QUOTE, HASH, CURLY_OPEN, CURLY_CLOSE, ROUND_OPEN, ROUND_CLOSE = range(10)
 	
 	def __init__(self, type, offset, value):
-		self._type = type
-		self._offset = offset
-		self._value = value
-	
-	@property
-	def type(self):
-		return self._type
-	
-	@property
-	def offset(self):
-		return self._offset
-	
-	@property
-	def value(self):
-		return self._value
+		self.type = type
+		self.offset = offset
+		self.value = value
 	
 	def __str__(self):
-		return "<Token type='%s' value='%s' @%s>" % (self._type, self._value, self._offset)
-
-
-class StringBuilder(list):
-	"""
-	One of the fastest ways to build strings in Python is to use a list
-	and join it
-	
-	@deprecated: use "".join() directly
-	"""
-	_EMPTY = ""
-	
-	def __str__(self):
-		return self._EMPTY.join(self)
+		return "<Token type='%s' value='%s' @%s>" % (self.type, self.value, self.offset)
 
 
 from ..util import StringReader
 from ..util import open_info
 
 
-class Lexer(object):
+class BibTeXLexer(object):
 	"""
 	BibTeX lexer. We only separate text from special tokens here and
 	apply escaping.
@@ -146,18 +121,18 @@ class Lexer(object):
 			c = self._reader.read()
 			
 			if not escaping and c in self._TERMINALS:
-				if textBuilder:
+				if textBuilder is not None:
 					self._reader.unread(c)
-					text = str(textBuilder)
+					text = "".join(textBuilder)
 					textBuilder = None
 					return Token(Token.TEXT, textStart, text)
 				
 				return Token(self._TERMINALS_TOKENS[c], self._reader.offset, c)
 				
 			else:
-				if not textBuilder:
+				if textBuilder is None:
 					textStart = self._reader.offset
-					textBuilder = StringBuilder(c)
+					textBuilder = [c]
 				else:
 					textBuilder.append(c)
 				
@@ -177,13 +152,221 @@ class BibTeXParser(object):
 	def __init__(self, quiet=False):
 		self._quiet = quiet
 		self._max_size_info_shown = False
+		
+		
+		self._state = None
+		self._type = None
+		self._constant = None
+		self._entry = None
+		self._file = None
+		self._closingDelimiter = None
+		self._document = None
+		self._field = None
+		self._value = None
+		self._stack = None
+	
+	#
+	# callables for each state of the parser
+	#
+	
+	def _on_outside(self, token):
+		if token.type == Token.AT:
+			self._state = self._TYPE
+	
+	def _on_type(self, token):
+		if token.type == Token.TEXT:
+			self._type = token.value.strip()
+			
+			if self._type.lower() == "string" :
+				self._constant = Constant()
+				self._state = self._AFTER_STRING_TYPE
+			elif self._type.lower() == "preamble":	# skip
+				self._state = self._OUTSIDE
+			else:
+				self._entry = Entry()
+				self._entry.type = self._type
+				self._entry.start = token.offset - 1
+				self._state = self._AFTER_TYPE
+		else:
+			self._issue_handler.issue(Issue("Unexpected token <b>%s</b> in entry type" % escape(token.value), 
+									token.offset, token.offset + 1, self._file, Issue.SEVERITY_ERROR))
+			self._entry = None
+			self._state = self._OUTSIDE
+	
+	def _on_after_type(self, token):
+		if token.type == Token.CURLY_OPEN:
+			self._closingDelimiter = Token.CURLY_CLOSE
+			self._state = self._KEY
+		elif token.type == Token.ROUND_OPEN:
+			self._closingDelimiter = Token.ROUND_CLOSE
+			self._state = self._KEY
+		else:
+			self._issue_handler.issue(Issue("Unexpected token <b>%s</b> after entry type" % escape(token.value), 
+									token.offset, token.offset + 1, self._file, Issue.SEVERITY_ERROR))
+			self._entry = None
+			self._state = self._OUTSIDE
+	
+	def _on_after_string_type(self, token):
+		if token.type == Token.CURLY_OPEN:
+			self._closingDelimiter = Token.CURLY_CLOSE
+			self._state = self._STRING_KEY
+		elif token.type == Token.ROUND_OPEN:
+			self._closingDelimiter = Token.ROUND_CLOSE
+			self._state = self._STRING_KEY
+		else:
+			self._issue_handler.issue(Issue("Unexpected token <b>%s</b> after string type" % escape(token.value), 
+									token.offset, token.offset + 1, self._file, Issue.SEVERITY_ERROR))
+			self._constant = None
+			self._state = self._OUTSIDE
+	
+	def _on_key(self, token):
+		if token.type == Token.TEXT:
+			self._entry.key = token.value.strip()
+			self._state = self._AFTER_KEY
+		else:
+			self._issue_handler.issue(Issue("Unexpected token <b>%s</b> in entry key" % escape(token.value), 
+									token.offset, token.offset + 1, self._file, Issue.SEVERITY_ERROR))
+			self._entry = None
+			self._state = self._OUTSIDE
+	
+	def _on_string_key(self, token):
+		if token.type == Token.TEXT:
+			self._constant.name = token.value.strip()
+			self._state = self._AFTER_STRING_KEY
+		else:
+			self._issue_handler.issue(Issue("Unexpected token <b>%s</b> in string key" % escape(token.value), 
+									token.offset, token.offset + 1, self._file, Issue.SEVERITY_ERROR))
+			self._constant = None
+			self._state = self._OUTSIDE
+	
+	def _on_after_key(self, token):
+		if token.type == Token.COMMA:
+			self._state = self._FIELD_NAME
+		elif token.type == self._closingDelimiter:
+			self._entry.end = token.offset + 1
+			self._document.entries.append(self._entry)
+			self._state = self._OUTSIDE
+		else:
+			self._issue_handler.issue(Issue("Unexpected token <b>%s</b> after entry key" % escape(token.value), 
+									token.offset, token.offset + 1, self._file, Issue.SEVERITY_ERROR))
+			self._entry = None
+			self._state = self._OUTSIDE
+	
+	def _on_after_string_key(self, token):
+		if token.type == Token.EQUALS:
+			self._state = self._STRING_VALUE
+		else:
+			self._issue_handler.issue(Issue("Unexpected token <b>%s</b> after string key" % escape(token.value), 
+									token.offset, token.offset + 1, self._file, Issue.SEVERITY_ERROR))
+			self._constant = None
+			self._state = self._OUTSIDE
+	
+	def _on_string_value(self, token):
+		if token.type == Token.QUOTE:
+			self._state = self._QUOTED_STRING_VALUE
+	
+	def _on_quoted_string_value(self, token):
+		if token.type == Token.TEXT:
+			self._constant.value = token.value
+			self._document.constants.append(self._constant)
+			self._state = self._OUTSIDE
+	
+	def _on_field_name(self, token):
+		if token.type == Token.TEXT:
+			
+			if token.value.isspace():
+				return
+			
+			self._field = Field()
+			self._field.name = token.value.strip()
+			self._state = self._AFTER_FIELD_NAME
+		elif token.type == self._closingDelimiter:
+			self._entry.end = token.offset + 1
+			self._document.entries.append(self._entry)
+			self._state = self._OUTSIDE
+		else:
+			self._issue_handler.issue(Issue("Unexpected token <b>%s</b> in field name" % escape(token.value), 
+									token.offset, token.offset + 1, self._file, Issue.SEVERITY_ERROR))
+			self._entry = None
+			self._state = self._OUTSIDE
+	
+	def _on_after_field_name(self, token):
+		if token.type == Token.EQUALS:
+			self._state = self._FIELD_VALUE
+		else:
+			self._issue_handler.issue(Issue("Unexpected token <b>%s</b> after field name" % escape(token.value), 
+									token.offset, token.offset + 1, self._file, Issue.SEVERITY_ERROR))
+			self._entry = None
+			self._state = self._OUTSIDE
+	
+	def _on_field_value(self, token):
+		# TODO: we may not recognize something like "author = ," as an error
+				
+		if token.value.isspace():
+			return
+		
+		if token.type == Token.TEXT:
+			self._value = token.value.strip()
+			if self._value.isdigit():
+				self._field.value.append(NumberValue(self._value))
+			else:
+				self._field.value.append(ConstantReferenceValue(value))
+		elif token.type == Token.CURLY_OPEN:
+			self._value = ""
+			self._stack = [Token.CURLY_OPEN]
+			self._state = self._EMBRACED_FIELD_VALUE
+		elif token.type == Token.QUOTE:
+			self._value = ""
+			#stack = [Token.QUOTE]
+			self._state = self._QUOTED_FIELD_VALUE
+		elif token.type == Token.COMMA:
+			self._entry.fields.append(self._field)
+			self._state = self._FIELD_NAME
+		elif token.type == self._closingDelimiter:
+			self._entry.fields.append(self._field)
+			self._entry.end = token.offset + 1
+			self._document.entries.append(self._entry)
+			self._state = self._OUTSIDE
+		elif token.type == Token.HASH:
+			pass
+		else:
+			self._issue_handler.issue(Issue("Unexpected token <b>%s</b> in field value" % escape(token.value), 
+									token.offset, token.offset + 1, self._file, Issue.SEVERITY_ERROR))
+			self._entry = None
+			self._state = self._OUTSIDE
+	
+	def _on_embraced_field_value(self, token):
+		if token.type == Token.CURLY_OPEN:
+			self._stack.append(Token.CURLY_OPEN)
+			self._value += token.value
+		elif token.type == Token.CURLY_CLOSE:
+			try:
+				while self._stack[-1] != Token.CURLY_OPEN:
+					self._stack.pop()
+				self._stack.pop()
+				
+				if len(self._stack) == 0:
+					self._field.value.append(StringValue(self._value))
+					self._state = self._FIELD_VALUE
+				else:
+					self._value += token.value
+				
+			except IndexError:
+				self._issue_handler.issue(Issue("Unexpected token <b>%s</b> in field value" % escape(token.value), 
+									token.offset, token.offset + 1, self._file, Issue.SEVERITY_ERROR))
+				self._entry = None
+				self._state = self._OUTSIDE
+		else:
+			self._value += token.value
+	
+	def _on_quoted_field_value(self, token):
+		if token.type == Token.QUOTE:
+			self._field.value.append(StringValue(self._value))
+			self._state = self._FIELD_VALUE
+		else:
+			self._value += token.value
 	
 	
-#	def parse_async(self, string, filename):
-#		"""
-#		Method called by the AsyncParserRunner
-#		"""
-#		return self.parse(string, File(filename), MockIssueHandler())
 	
 	
 	def parse(self, string, file, issue_handler):
@@ -194,7 +377,7 @@ class BibTeXParser(object):
 		@param issue_handler: an object implementing IIssueHandler
 		"""
 		
-		document = Document()
+		self._document = Document()
 		
 		# respect maximum BibTeX file size
 		max_size_kb = int(Preferences().get("MaximumBibTeXSize", 500))
@@ -204,211 +387,36 @@ class BibTeXParser(object):
 			if not self._quiet and not self._max_size_info_shown:
 				open_info("BibTeX file will not be parsed", "The maximum size of BibTeX files to parse is set to %s KB." % max_size_kb)
 				self._max_size_info_shown = True
-			return document
+			return self._document
 		
 		# parse
-		state = self._OUTSIDE
+		self._state = self._OUTSIDE
 		
-		for token in Lexer(string):
-			
-			if state == self._OUTSIDE:
-				if token.type == Token.AT:
-					state = self._TYPE
-					
-			elif state == self._TYPE:
-				if token.type == Token.TEXT:
-					type = token.value.strip()
-					
-					if type.lower() == "string" :
-						constant = Constant()
-						state = self._AFTER_STRING_TYPE
-					elif type.lower() == "preamble":	# skip
-						state = self._OUTSIDE
-					else:
-						entry = Entry()
-						entry.type = type
-						entry.start = token.offset - 1
-						state = self._AFTER_TYPE
-				else:
-					issue_handler.issue(Issue("Unexpected token <b>%s</b> in entry type" % escape(token.value), 
-											token.offset, token.offset + 1, file, Issue.SEVERITY_ERROR))
-					entry = None
-					state = self._OUTSIDE
-					
-			elif state == self._AFTER_TYPE:
-				if token.type == Token.CURLY_OPEN:
-					closingDelimiter = Token.CURLY_CLOSE
-					state = self._KEY
-				elif token.type == Token.ROUND_OPEN:
-					closingDelimiter = Token.ROUND_CLOSE
-					state = self._KEY
-				else:
-					issue_handler.issue(Issue("Unexpected token <b>%s</b> after entry type" % escape(token.value), 
-											token.offset, token.offset + 1, file, Issue.SEVERITY_ERROR))
-					entry = None
-					state = self._OUTSIDE
-			
-			elif state == self._AFTER_STRING_TYPE:
-				if token.type == Token.CURLY_OPEN:
-					closingDelimiter = Token.CURLY_CLOSE
-					state = self._STRING_KEY
-				elif token.type == Token.ROUND_OPEN:
-					closingDelimiter = Token.ROUND_CLOSE
-					state = self._STRING_KEY
-				else:
-					issue_handler.issue(Issue("Unexpected token <b>%s</b> after string type" % escape(token.value), 
-											token.offset, token.offset + 1, file, Issue.SEVERITY_ERROR))
-					constant = None
-					state = self._OUTSIDE
-			
-			elif state == self._KEY:
-				if token.type == Token.TEXT:
-					entry.key = token.value.strip()
-					state = self._AFTER_KEY
-				else:
-					issue_handler.issue(Issue("Unexpected token <b>%s</b> in entry key" % escape(token.value), 
-											token.offset, token.offset + 1, file, Issue.SEVERITY_ERROR))
-					entry = None
-					state = self._OUTSIDE
-			
-			elif state == self._STRING_KEY:
-				if token.type == Token.TEXT:
-					constant.name = token.value.strip()
-					state = self._AFTER_STRING_KEY
-				else:
-					issue_handler.issue(Issue("Unexpected token <b>%s</b> in string key" % escape(token.value), 
-											token.offset, token.offset + 1, file, Issue.SEVERITY_ERROR))
-					constant = None
-					state = self._OUTSIDE
+		#
+		# use this hash table instead of endless if...elif statements
+		#
+		callables = {
+				self._OUTSIDE : self._on_outside,
+				self._TYPE : self._on_type,
+				self._AFTER_TYPE : self._on_after_type,
+				self._AFTER_STRING_TYPE : self._on_after_string_type,
+				self._KEY : self._on_key,
+				self._STRING_KEY : self._on_string_key,
+				self._AFTER_KEY : self._on_after_key,
+				self._AFTER_STRING_KEY : self._on_after_string_key,
+				self._STRING_VALUE : self._on_string_value,
+				self._QUOTED_STRING_VALUE : self._on_quoted_string_value,
+				self._FIELD_NAME : self._on_field_name,
+				self._AFTER_FIELD_NAME : self._on_after_field_name,
+				self._FIELD_VALUE : self._on_field_value,
+				self._EMBRACED_FIELD_VALUE : self._on_embraced_field_value,
+				self._QUOTED_FIELD_VALUE : self._on_quoted_field_value
+		}
+		
+		for token in BibTeXLexer(string):
+			callables[self._state].__call__(token)
 
-			elif state == self._AFTER_KEY:
-				if token.type == Token.COMMA:
-					state = self._FIELD_NAME
-				elif token.type == closingDelimiter:
-					entry.end = token.offset + 1
-					document.entries.append(entry)
-					state = self._OUTSIDE
-				else:
-					issue_handler.issue(Issue("Unexpected token <b>%s</b> after entry key" % escape(token.value), 
-											token.offset, token.offset + 1, file, Issue.SEVERITY_ERROR))
-					entry = None
-					state = self._OUTSIDE
-			
-			elif state == self._AFTER_STRING_KEY:
-				if token.type == Token.EQUALS:
-					state = self._STRING_VALUE
-				else:
-					issue_handler.issue(Issue("Unexpected token <b>%s</b> after string key" % escape(token.value), 
-											token.offset, token.offset + 1, file, Issue.SEVERITY_ERROR))
-					constant = None
-					state = self._OUTSIDE
-			
-			elif state == self._STRING_VALUE:
-				if token.type == Token.QUOTE:
-					state = self._QUOTED_STRING_VALUE
-			
-			elif state == self._QUOTED_STRING_VALUE:
-				if token.type == Token.TEXT:
-					constant.value = token.value
-					document.constants.append(constant)
-					state = self._OUTSIDE
-			
-			elif state == self._FIELD_NAME:
-				if token.type == Token.TEXT:
-					
-					if token.value.isspace():
-						continue
-					
-					field = Field()
-					field.name = token.value.strip()
-					state = self._AFTER_FIELD_NAME
-				elif token.type == closingDelimiter:
-					entry.end = token.offset + 1
-					document.entries.append(entry)
-					state = self._OUTSIDE
-				else:
-					issue_handler.issue(Issue("Unexpected token <b>%s</b> in field name" % escape(token.value), 
-											token.offset, token.offset + 1, file, Issue.SEVERITY_ERROR))
-					entry = None
-					state = self._OUTSIDE
-			
-			elif state == self._AFTER_FIELD_NAME:
-				if token.type == Token.EQUALS:
-					state = self._FIELD_VALUE
-				else:
-					issue_handler.issue(Issue("Unexpected token <b>%s</b> after field name" % escape(token.value), 
-											token.offset, token.offset + 1, file, Issue.SEVERITY_ERROR))
-					entry = None
-					state = self._OUTSIDE
-			
-			elif state == self._FIELD_VALUE:
-				# TODO: we may not recognize something like "author = ," as an error
-				
-				if token.value.isspace():
-					continue
-				
-				if token.type == Token.TEXT:
-					value = token.value.strip()
-					if value.isdigit():
-						field.value.append(NumberValue(value))
-					else:
-						field.value.append(ConstantReferenceValue(value))
-				elif token.type == Token.CURLY_OPEN:
-					value = ""
-					stack = [Token.CURLY_OPEN]
-					state = self._EMBRACED_FIELD_VALUE
-				elif token.type == Token.QUOTE:
-					value = ""
-					#stack = [Token.QUOTE]
-					state = self._QUOTED_FIELD_VALUE
-				elif token.type == Token.COMMA:
-					entry.fields.append(field)
-					state = self._FIELD_NAME
-				elif token.type == closingDelimiter:
-					entry.fields.append(field)
-					entry.end = token.offset + 1
-					document.entries.append(entry)
-					state = self._OUTSIDE
-				elif token.type == Token.HASH:
-					pass
-				else:
-					issue_handler.issue(Issue("Unexpected token <b>%s</b> in field value" % escape(token.value), 
-											token.offset, token.offset + 1, file, Issue.SEVERITY_ERROR))
-					entry = None
-					state = self._OUTSIDE
-			
-			elif state == self._EMBRACED_FIELD_VALUE:
-				if token.type == Token.CURLY_OPEN:
-					stack.append(Token.CURLY_OPEN)
-					value += token.value
-				elif token.type == Token.CURLY_CLOSE:
-					try:
-						while stack[-1] != Token.CURLY_OPEN:
-							stack.pop()
-						stack.pop()
-						
-						if len(stack) == 0:
-							field.value.append(StringValue(value))
-							state = self._FIELD_VALUE
-						else:
-							value += token.value
-						
-					except IndexError:
-						issue_handler.issue(Issue("Unexpected token <b>%s</b> in field value" % escape(token.value), 
-											token.offset, token.offset + 1, file, Issue.SEVERITY_ERROR))
-						entry = None
-						state = self._OUTSIDE
-				else:
-					value += token.value
-			
-			elif state == self._QUOTED_FIELD_VALUE:
-				if token.type == Token.QUOTE:
-					field.value.append(StringValue(value))
-					state = self._FIELD_VALUE
-				else:
-					value += token.value
-			
-		return document
+		return self._document
 
 
 class Value(object):
