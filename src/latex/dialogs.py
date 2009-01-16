@@ -172,7 +172,7 @@ class NewDocumentDialog(GladeInterface):
 	"""
 	Dialog for creating the body of a new LaTeX document
 	"""
-	filename = find_resource("glade/new_document_dialog.glade")
+	filename = find_resource("glade/new_document_template_dialog.glade")
 	
 	_log = getLogger("NewDocumentWizard")
 	
@@ -234,7 +234,9 @@ class NewDocumentDialog(GladeInterface):
 			# document classes
 			#
 			self._proxy_document_class = ComboBoxProxy(self.find_widget("comboClass"), "RecentDocumentClass")
-			for c in environment.document_classes:
+			document_classes = environment.document_classes
+			document_classes.sort(key=lambda x: x.name.lower())
+			for c in document_classes:
 				self._proxy_document_class.add_option(c.name, c.label)
 			self._proxy_document_class.restore("article")
 				
@@ -271,7 +273,9 @@ class NewDocumentDialog(GladeInterface):
 			# input encodings
 			#
 			self._proxy_encoding = ComboBoxProxy(self.find_widget("comboEncoding"), "RecentInputEncoding")
-			for e in environment.input_encodings:
+			input_encodings = environment.input_encodings
+			input_encodings.sort(key=lambda x: x.name.lower())
+			for e in input_encodings:
 				self._proxy_encoding.add_option(e.name, e.label)
 			self._proxy_encoding.restore("utf8")
 			
@@ -279,8 +283,11 @@ class NewDocumentDialog(GladeInterface):
 			# babel packages
 			#
 			self._proxy_babel = ComboBoxProxy(self.find_widget("comboBabel"), "RecentBabelPackage")
-			for l in environment.language_definitions:
+			language_definitions = environment.language_definitions
+			language_definitions.sort(key=lambda x: x.name.lower())
+			for l in language_definitions:
 				self._proxy_babel.add_option(l.name, l.label)
+				
 			try:
 				self._proxy_babel.restore(self._LOCALE_MAPPINGS[environment.language_code])
 			except Exception, e:
