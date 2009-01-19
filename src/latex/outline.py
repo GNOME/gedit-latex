@@ -34,7 +34,7 @@ from ..issues import Issue
 
 class OutlineNode(list):
 	
-	ROOT, STRUCTURE, LABEL, NEWCOMMAND, REFERENCE, GRAPHICS, PACKAGE, TABLE = range(8)
+	ROOT, STRUCTURE, LABEL, NEWCOMMAND, REFERENCE, GRAPHICS, PACKAGE, TABLE, NEWENVIRONMENT = range(9)
 	
 	def __init__(self, type, start=None, end=None, value=None, level=None, foreign=False, numOfArgs=None, file=None):
 		"""
@@ -66,8 +66,7 @@ class Outline(object):
 		self.colors = []
 		self.packages = []			# OutlineNode objects
 		self.newcommands = []		# OutlineNode objects
-		
-		self.newtheorems = []		# TODO
+		self.newenvironments = []	# OutlineNode objects
 
 
 from ..base import File
@@ -238,6 +237,18 @@ class LaTeXOutlineGenerator(object):
 					
 					# don't walk through \newcommand
 					continue
+				
+				elif node.value in ["newenvironment", "newtheorem"]:
+					try:
+						name = node.firstOfType(Node.MANDATORY_ARGUMENT).innerText
+						#try:
+						#	n_args = int(node.firstOfType(Node.OPTIONAL_ARGUMENT).innerText)
+						#except IndexError:
+						#	n_args = 0
+						ne_node = OutlineNode(OutlineNode.NEWENVIRONMENT, node.start, node.lastEnd, name, numOfArgs=0, file=node.file)
+						self._outline.newenvironments.append(ne_node)
+					except IndexError:
+						self._issue_handler.issue(Issue("Malformed command", node.start, node.lastEnd, node.file, Issue.SEVERITY_ERROR))
 				
 				elif node.value == "include" or node.value == "input":
 					childForeign = True

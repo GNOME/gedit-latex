@@ -316,7 +316,7 @@ class CompletionDistributor(object):
 	_MAX_PREFIX_LENGTH = 100
 	
 	# completion delay in ms
-	_DELAY = 250
+	_DELAY = 500
 	
 	_STATE_IDLE, _STATE_CTRL_PRESSED, _STATE_ACTIVE = 0, 1, 2
 	

@@ -587,6 +587,8 @@ Street, Fifth Floor, Boston, MA  02110-1301, USA
 			<choice name="scriptsize" />
 			<choice name="small" />
 			<choice name="normalsize" />
+			
+			<placeholder key="Newenvironments" />
 		</argument>
 	</command>
 

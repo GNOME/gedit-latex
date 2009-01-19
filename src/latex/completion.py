@@ -134,6 +134,13 @@ class LaTeXCompletionHandler(ICompletionHandler):
 			newcommands.append(command)
 		self._language_model.set_newcommands(newcommands)
 		
+		# newenvironments
+		newenvironments = []
+		for n in outline.newenvironments:
+			choice = Choice(None, n.value)
+			newenvironments.append(choice)
+		self._language_model.fill_placeholder("Newenvironments", newenvironments)
+		
 		#
 		# bibtex entries
 		#
