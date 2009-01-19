@@ -490,18 +490,32 @@ class CompletionDistributor(object):
 		it_left = it_right.copy()
 		
 		# go back by one character (insert iter points to the char at the right of
-		# the cursor)
+		# the cursor!)
 		if not it_left.backward_char():
 			self._log.debug("_find_prefix: start of buffer reached")
 			return None
+		
+		# move left until 'the left-most of a sequence of delimiters'
+		#
+		# e.g. if 'x' is a delimiter and 'abcxxx' is at left of the cursor, we 
+		# recognize 'xxx' as the prefix instead of only 'x'
+		delim_found = False
+		delim_char = None
 		
 		i = 0
 		while i < self._MAX_PREFIX_LENGTH:
 			c = it_left.get_char()
 			
-			if c in delimiters:
-				#self._log.debug("_find_prefix: got delimiter at %s" % i)
-				break
+			if delim_found:
+				if c != delim_char:
+					# a delimiter has been found and the preceding character 
+					# is different from it
+					break
+			else:
+				if c in delimiters:
+					# a delimiter has been found
+					delim_found = True
+					delim_char = c
 			
 			if not it_left.backward_char():
 				self._log.debug("_find_prefix: start of buffer reached")
@@ -512,12 +526,6 @@ class CompletionDistributor(object):
 		if i == self._MAX_PREFIX_LENGTH:
 			self._log.debug("_find_prefix: prefix too long")
 			return None
-		
-		# TODO: check for \\ and don't complete there
-		#it = itSearch.copy()
-		#if it.backward_char():
-		#	if it.get_char() == "\\":
-		#		return None
 		
 		prefix = self._text_buffer.get_text(it_left, it_right, False)
 		
