@@ -172,7 +172,7 @@ class NewDocumentDialog(GladeInterface):
 	"""
 	Dialog for creating the body of a new LaTeX document
 	"""
-	filename = find_resource("glade/new_document_template_dialog.glade")
+	filename = find_resource("glade/new_document_dialog.glade")
 	
 	_log = getLogger("NewDocumentWizard")
 	
