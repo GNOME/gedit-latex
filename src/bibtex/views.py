@@ -29,7 +29,9 @@ from gtk.gdk import Pixbuf, pixbuf_new_from_file
 from xml.sax.saxutils import escape
 from logging import getLogger
 
-from ..outline import BaseOutlineView
+import time
+
+from ..outline import OutlineOffsetMap, BaseOutlineView
 from ..base.resources import find_resource
 from ..preferences import Preferences
 from parser import Entry
@@ -101,7 +103,11 @@ class BibTeXOutlineView(BaseOutlineView):
 			self._update()
 	
 	def _update(self):
-		OutlineConverter().convert(self._store, self._outline, self._grouping)
+		#t = time.clock()
+		self._offset_map = OutlineOffsetMap()
+		OutlineConverter().convert(self._store, self._outline, self._offset_map, self._grouping)
+		#dt = time.clock() - t
+		#self._log.debug("OutlineConverter.convert: %fs" % dt)
 	
 	def set_outline(self, outline):
 		"""
@@ -134,12 +140,13 @@ class OutlineConverter(object):
 	_ICON_YEAR = pixbuf_new_from_file(find_resource("icons/calendar.png"))
 	_ICON_TYPE = pixbuf_new_from_file(find_resource("icons/documents.png"))
 	
-	def convert(self, tree_store, document, grouping=GROUP_NONE):
+	def convert(self, tree_store, document, offset_map, grouping=GROUP_NONE):
 		"""
 		Convert a BibTeX document model into a gtk.TreeStore
 		
 		@param tree_store: the gtk.TreeStore to fill
 		@param document: the BibTeX document model (bibtex.parser.Document object)
+		@param offset_map: the OutlineOffsetMap object to be filled 
 		@param grouping: the grouping to use: GROUP_NONE|GROUP_TYPE|GROUP_AUTHOR|GROUP_YEAR
 		"""
 		
@@ -172,6 +179,8 @@ class OutlineConverter(object):
 				
 				for entry in entries:
 					parentEntry = tree_store.append(parentType, [escape(entry.key), self._ICON_ENTRY, entry])
+					
+					offset_map.put(entry.start, tree_store.get_path(parentEntry))
 					
 					for field in entry.fields:
 						tree_store.append(parentEntry, ["<span color='%s'>%s</span> %s" % (color, escape(field.name), field.valueMarkup),
@@ -211,6 +220,8 @@ class OutlineConverter(object):
 				for entry in entries:
 					parentEntry = tree_store.append(parentYear, ["%s <span color='%s'>%s</span>" % (escape(entry.key), color, escape(entry.type)),
 															 self._ICON_ENTRY, entry])
+					
+					offset_map.put(entry.start, tree_store.get_path(parentEntry))
 					
 					for field in entry.fields:
 						tree_store.append(parentEntry, ["<span color='%s'>%s</span> %s" % (color, escape(field.name), field.valueMarkup),
@@ -254,6 +265,8 @@ class OutlineConverter(object):
 					parentEntry = tree_store.append(parent, ["%s <span color='%s'>%s</span>" % (escape(entry.key), color, escape(entry.type)),
 															 self._ICON_ENTRY, entry])
 					
+					offset_map.put(entry.start, tree_store.get_path(parentEntry))
+					
 					for field in entry.fields:
 						tree_store.append(parentEntry, ["<span color='%s'>%s</span> %s" % (color, escape(field.name), field.valueMarkup),
 											self._ICON_FIELD, field])
@@ -263,6 +276,9 @@ class OutlineConverter(object):
 			
 			for entry in document.entries:
 				parent = tree_store.append(None, ["%s <span color='%s'>%s</span>" % (escape(entry.key), color, escape(entry.type)), self._ICON_ENTRY, entry])
+				
+				offset_map.put(entry.start, tree_store.get_path(parent))
+				
 				for field in entry.fields:
 					tree_store.append(parent, ["<span color='%s'>%s</span> %s" % (color, escape(field.name), field.valueMarkup), self._ICON_FIELD, field])
 				

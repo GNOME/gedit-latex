@@ -93,7 +93,9 @@ class LaTeXDocumentCache(object):
 			self.__mtime = self.__file.mtime
 			
 			# read file
-			content = open(self.__file.path, "r").read().decode(self.__charset)
+			content = open(self.__file.path, "r").read()
+			if self.__charset is not None:
+				content = content.decode(self.__charset)
 			
 			# parse
 			self.__issue_handler.clear()

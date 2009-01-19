@@ -196,14 +196,6 @@ class ICompletionHandler(object):
 		"""
 		raise NotImplementedError
 	
-	@property
-	def strip_delimiter(self):
-		"""
-		@return: return whether to cut off the delimiter from the prefix
-		or not
-		"""
-		raise NotImplementedError
-	
 	def complete(self, prefix):
 		"""
 		@return: a list of objects implementing IProposal
@@ -1015,6 +1007,29 @@ class File(object):
 	Abstracts from filename
 	"""
 	
+	@staticmethod
+	def create_from_uri(uri):
+		"""
+		Create a File from a URI
+		
+		@param uri: a URI, e.g. 'file:///home/michael/file.txt'
+		"""
+		# TODO
+		pass
+	
+	@staticmethod
+	def create_from_relative_path(relative_path, working_directory):
+		"""
+		Create a File from a path relative to some working directory. 
+		
+		File.create_from_relative_path('../sub/file.txt', '/home/michael/base') == File('/home/michael/sub/file.txt')
+		
+		@param relative_path: a relative path, e.g. '../../dir/myfile.txt'
+		@param working_directory: an absolute directory to be used as the starting point for the relative path
+		"""
+		# TODO
+		pass
+	
 	__log = getLogger("File")
 	
 	_DEFAULT_SCHEME = "file://"
@@ -1035,7 +1050,7 @@ class File(object):
 		Create a the File in the file system
 		"""
 		f = open(self.path, "w")
-		if content:
+		if content is not None:
 			f.write(content)
 		f.close()
 	
@@ -1186,4 +1201,5 @@ class File(object):
 	
 	def __str__(self):
 		return self.uri
+
 
