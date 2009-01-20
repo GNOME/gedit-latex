@@ -305,13 +305,29 @@ class LaTeXEditor(Editor, IIssueHandler, IMisspelledWordHandler, IPreferencesMon
 		"""
 		Find the LaTeX master of this child
 		"""
+		# TODO: cache result
+		
 		property_file = PropertyFile(self._file)
 		try:
-			return File(property_file["MasterFilename"])
-		except KeyError:
+			#return File(property_file["MasterFilename"])
+			
+			path = property_file["MasterFilename"]
+			# the property file may contain absolute and relative paths
+			# because we switched in 0.2rc2
+			if File.is_absolute(path):
+				self._log.debug("Path is absolute")
+				return File(path)
+			else:
+				self._log.debug("Path is relative")
+				return File.create_from_relative_path(path, self._file.dirname)
+		except KeyError:		# master filename not found
+			# ask user
 			master_filename = ChooseMasterDialog().run(self._file.dirname)
 			if master_filename:
-				property_file["MasterFilename"] = master_filename	# TODO: store relative filename
+				# relativize the master filename
+				master_filename = File(master_filename).relativize(self._file.dirname, True)
+				
+				property_file["MasterFilename"] = master_filename
 				property_file.save()
 				return File(master_filename)
 			else:

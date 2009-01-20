@@ -998,24 +998,17 @@ class WindowContext(object):
 
 from urlparse import urlparse
 from os import remove
-from os.path import splitext, basename, dirname, exists, getmtime
+import os.path
 from glob import glob
+
+from ..relpath import relpath
 
 
 class File(object):
 	"""
-	Abstracts from filename
+	This is an object-oriented wrapper for all the os.* stuff. A File object
+	represents the reference to a file.
 	"""
-	
-	@staticmethod
-	def create_from_uri(uri):
-		"""
-		Create a File from a URI
-		
-		@param uri: a URI, e.g. 'file:///home/michael/file.txt'
-		"""
-		# TODO
-		pass
 	
 	@staticmethod
 	def create_from_relative_path(relative_path, working_directory):
@@ -1027,8 +1020,12 @@ class File(object):
 		@param relative_path: a relative path, e.g. '../../dir/myfile.txt'
 		@param working_directory: an absolute directory to be used as the starting point for the relative path
 		"""
-		# TODO
-		pass
+		absolute_path = os.path.abspath(os.path.join(working_directory, relative_path))
+		return File(absolute_path)
+	
+	@staticmethod
+	def is_absolute(path):
+		return os.path.isabs(path)
 	
 	__log = getLogger("File")
 	
@@ -1043,6 +1040,7 @@ class File(object):
 		
 		self._uri = urlparse(uri)
 		if len(self._uri.scheme) == 0:
+			# prepend default scheme if missing
 			self._uri = urlparse("%s%s" % (self._DEFAULT_SCHEME, uri))
 	
 	def create(self, content=None):
@@ -1066,35 +1064,35 @@ class File(object):
 		"""
 		Returns '.jpg' for 'file:///home/user/image.jpg'
 		"""
-		return splitext(self.path)[1]
+		return os.path.splitext(self.path)[1]
 	
 	@property
 	def shortname(self):
 		"""
 		Returns '/home/user/image' for 'file:///home/user/image.jpg'
 		"""
-		return splitext(self.path)[0]
+		return os.path.splitext(self.path)[0]
 	
 	@property
 	def basename(self):
 		"""
 		Returns 'image.jpg' for 'file:///home/user/image.jpg'
 		"""
-		return basename(self.path)
+		return os.path.basename(self.path)
 	
 	@property
 	def shortbasename(self):
 		"""
 		Returns 'image' for 'file:///home/user/image.jpg'
 		"""
-		return splitext(basename(self.path))[0]
+		return os.path.splitext(os.path.basename(self.path))[0]
 	
 	@property
 	def dirname(self):
 		"""
 		Returns '/home/user' for 'file:///home/user/image.jpg'
 		"""
-		return dirname(self.path)
+		return os.path.dirname(self.path)
 	
 	@property
 	def uri(self):
@@ -1102,11 +1100,11 @@ class File(object):
 	
 	@property
 	def exists(self):
-		return exists(self.path)
+		return os.path.exists(self.path)
 	
 	@property
 	def mtime(self):
-		return getmtime(self.path)
+		return os.path.getmtime(self.path)
 	
 	def find_neighbors(self, extension):
 		"""
@@ -1153,19 +1151,31 @@ class File(object):
 			self.__log.debug("find_siblings: %s" % e)
 		return siblings
 	
-	def relativize(self, base):
+	def relativize(self, base, allow_up_level=False):
 		"""
 		Relativize the path of this File against a base directory. That means that e.g.
 		File("/home/user/doc.tex").relativize("/home") == "user/doc.tex"
 		
+		If up-level references are NOT allowed but necessary (e.g. base='/a/b/c', path='/a/b/d') 
+		then the absolute path is returned.
+		
 		@param base: the base directory to relativize against
+		@param allow_up_level: allow up-level references (../../) or not
 		"""
-		if len(base) >= len(self.path):
+		if allow_up_level:
+			# TODO: os.path.relpath from Python 2.6 does the job
+			
+			return relpath(base, self.path)
+		else:
+			# TODO: why do we need this?
+			
+			# relative path must be 'below' base path
+			if len(base) >= len(self.path):
+				return self.path
+			if self.path[:len(base)] == base:
+				# bases match, return relative part
+				return self.path[len(base)+1:]
 			return self.path
-		if self.path[:len(base)] == base:
-			# bases match, return relative part
-			return self.path[len(base)+1:]
-		return self.path
 	
 	def relativize_shortname(self, base):
 		"""
@@ -1178,7 +1188,7 @@ class File(object):
 		@param base: the base directory to relativize against
 		"""
 		relative_path = self.relativize(base)
-		return splitext(relative_path)[0]
+		return os.path.splitext(relative_path)[0]
 	
 	def delete(self):
 		"""
@@ -1188,16 +1198,22 @@ class File(object):
 		"""
 		remove(self.path)
 	
-	# FIXME: why isn't this called on '!=' ?
-	
-	def __eq__(self, file):
+	def __eq__(self, other):
 		"""
-		Override equality operator
+		Override == operator
 		"""
 		try:
-			return self.uri == file.uri
+			return self.uri == other.uri
 		except AttributeError:		# no File object passed or None
+			# returning NotImplemented is bad because we have to
+			# compare None with File
 			return False
+	
+	def __ne__(self, other):
+		"""
+		Override != operator
+		"""
+		return not self.__eq__(other)
 	
 	def __str__(self):
 		return self.uri
