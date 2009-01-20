@@ -143,16 +143,19 @@ class BibTeXLexer(object):
 
 
 class BibTeXParser(object):
+	"""
+	A fast and safe BibTeX parser that generates a handy model on the fly.
+	
+	Instead of raising exceptions this parser uses an IIssueHandler.
+	"""
 	
 	_OUTSIDE, _TYPE, _AFTER_TYPE, _AFTER_STRING_TYPE, _KEY, _STRING_KEY, _AFTER_KEY, _AFTER_STRING_KEY, \
 			_STRING_VALUE, _QUOTED_STRING_VALUE, _FIELD_NAME, _AFTER_FIELD_NAME, _FIELD_VALUE, _EMBRACED_FIELD_VALUE, \
 			_QUOTED_FIELD_VALUE = range(15) 
 	
-	
 	def __init__(self, quiet=False):
 		self._quiet = quiet
 		self._max_size_info_shown = False
-		
 		
 		self._state = None
 		self._type = None
@@ -180,7 +183,7 @@ class BibTeXParser(object):
 			if self._type.lower() == "string" :
 				self._constant = Constant()
 				self._state = self._AFTER_STRING_TYPE
-			elif self._type.lower() == "preamble":	# skip
+			elif self._type.lower() in ["preamble", "comment"]:		# simply skip PREAMBLE and COMMENT entries
 				self._state = self._OUTSIDE
 			else:
 				self._entry = Entry()
@@ -366,9 +369,6 @@ class BibTeXParser(object):
 		else:
 			self._value += token.value
 	
-	
-	
-	
 	def parse(self, string, file, issue_handler):
 		"""
 		Parse a BibTeX content
@@ -418,6 +418,9 @@ class BibTeXParser(object):
 
 		return self._document
 
+#
+# BibTeX object model
+#
 
 class Value(object):
 	def __init__(self, text):
