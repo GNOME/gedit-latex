@@ -17,4 +17,5 @@
 	<value key="RecentDocumentClass">scrartcl</value>
 	<value key="RecentPaperSize">a4paper</value>
 	<value key="RecentDefaultFontFamily">\sfdefault</value>
+	<value key="SaveBeforeTool">True</value>
 </preferences>

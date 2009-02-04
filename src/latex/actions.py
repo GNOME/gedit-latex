@@ -136,6 +136,8 @@ class LaTeXCloseEnvironmentAction(IconAction):
 	tooltip = "Close the nearest TeX environment at left of the cursor"
 	
 	def activate(self, context):
+		# FIXME: use the document model of the Editor
+		
 		editor = context.active_editor
 			
 		assert type(editor) is LaTeXEditor

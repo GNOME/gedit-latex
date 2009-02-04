@@ -19,7 +19,7 @@
 # Street, Fifth Floor, Boston, MA  02110-1301, USA
 
 """
-latex.commandmodel
+latex.model
 
 The LaTeX language model used for code completion.
 """

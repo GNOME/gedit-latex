@@ -127,7 +127,7 @@ class BibTeXLexer(object):
 					textBuilder = None
 					return Token(Token.TEXT, textStart, text)
 				
-				return Token(self._TERMINALS_TOKENS[c], self._reader.offset, c)
+				return Token(self._TERMINALS_TOKENS[c], self._reader.offset - 1, c)
 				
 			else:
 				if textBuilder is None:
@@ -188,7 +188,7 @@ class BibTeXParser(object):
 			else:
 				self._entry = Entry()
 				self._entry.type = self._type
-				self._entry.start = token.offset - 1
+				self._entry.start = token.offset - 2
 				self._state = self._AFTER_TYPE
 		else:
 			self._issue_handler.issue(Issue("Unexpected token <b>%s</b> in entry type" % escape(token.value), 
@@ -313,7 +313,7 @@ class BibTeXParser(object):
 			if self._value.isdigit():
 				self._field.value.append(NumberValue(self._value))
 			else:
-				self._field.value.append(ConstantReferenceValue(value))
+				self._field.value.append(ConstantReferenceValue(self._value))
 		elif token.type == Token.CURLY_OPEN:
 			self._value = ""
 			self._stack = [Token.CURLY_OPEN]
@@ -376,7 +376,8 @@ class BibTeXParser(object):
 		@param file: the File object containing the BibTeX
 		@param issue_handler: an object implementing IIssueHandler
 		"""
-		
+		self._issue_handler = issue_handler
+		self._file = file
 		self._document = Document()
 		
 		# respect maximum BibTeX file size

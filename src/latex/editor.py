@@ -30,7 +30,7 @@ from ..base import Editor
 from completion import LaTeXCompletionHandler
 from ..snippets.completion import SnippetCompletionHandler
 from ..issues import Issue, IIssueHandler
-from ..util import caught
+from ..util import verbose
 from copy import deepcopy
 
 from parser import LaTeXParser
@@ -97,6 +97,8 @@ class LaTeXEditor(Editor, IIssueHandler, IMisspelledWordHandler, IPreferencesMon
 		#
 		# initially parse
 		#
+		self._change_reference = self.init_timestamp
+		
 		self.__parse()
 		self.__update_neighbors()
 	
@@ -167,6 +169,8 @@ class LaTeXEditor(Editor, IIssueHandler, IMisspelledWordHandler, IPreferencesMon
 		
 		@param packages: a list of package names
 		"""
+		self.__parse()	# ensure up-to-date document model
+		
 		if not self._document_is_master:
 			self._log.debug("ensure_packages: document is not a master")
 			
@@ -223,14 +227,17 @@ class LaTeXEditor(Editor, IIssueHandler, IMisspelledWordHandler, IPreferencesMon
 		
 		self.__latex_completion_handler.set_neighbors(tex_files, bib_files, graphic_files)
 	
-	#@caught
+	#@verbose
 	def __parse(self):
 		"""
+		Ensure that the document model is up-to-date
 		"""
-		
-		self._log.debug("__parse")
-		
-		if self._document_dirty:
+		if self.content_changed(self._change_reference):
+			# content has changed so document model may be dirty
+			self._change_reference = self.current_timestamp
+			
+			self._log.debug("Parsing document...")
+			
 			content = self.content
 			
 			# reset highlight

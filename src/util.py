@@ -140,18 +140,18 @@ def open_info(message, secondary_message=None):
 	dialog.destroy()
 	
 
-def caught(f):
+def verbose(function):
 	"""
-	'caught'-decorator. This runs the decorated method in a try-except-block
+	'verbose'-decorator. This runs the decorated method in a try-except-block
 	and shows an error dialog on exception.
 	"""
-	def new_function(*args, **kw):
+	def decorated_function(*args, **kw):
 		try:
-			return f(*args, **kw)
+			return function(*args, **kw)
 		except Exception, e:
 			stack = traceback.format_exc(limit=10)
 			open_error(str(e), stack)
-	return new_function
+	return decorated_function
 
 
 from gtk import glade

@@ -21,112 +21,87 @@
 """
 bibtex.model
 
-The model of BibTeX read from an XML file. This is used for 
-the 'New Entry' dialog.
+The model of BibTeX read from an XML file.
 """
+import xml.etree.ElementTree as ElementTree
 
-from xml.sax import ContentHandler, parse
+from ..base.resources import find_resource
 
 
-class EntryType(object):
+class Type(object):
 	def __init__(self, name):
-		self._name = name
-		self._required_fields = []
-		self._optional_fields = []
-	
-	@property
-	def name(self):
-		return self._name
-
-	@property
-	def requiredFields(self):
-		return self._required_fields
-	
-	@property
-	def optionalFields(self):
-		return self._optional_fields
+		self.name = name
+		self.required_fields = []
+		self.optional_fields = []
+		
+	def __cmp__(self, other):
+		# FIXME: there must be something simpler...
+		if self.name < other.name:
+			return -1
+		elif self.name > other.name:
+			return 1
+		else:
+			return 0
+		
+		#return self.name.__cmp__(other.name)	str has no __cmp__
 
 
 class Field(object):
 	def __init__(self, name, label):
-		self._name = name
-		self._label = label
-	
-	@property
-	def name(self):
-		return self._name
-	
-	@property
-	def label(self):
-		return self._label
+		self.name = name
+		self.label = label
 
 
-class Definition(object):
-	"""
-	Holds a definition for BibTeX
-	"""
+class BibTeXModel(object):
+	def __new__(type):
+		if not '_instance' in type.__dict__:
+			type._instance = object.__new__(type)
+		return type._instance
+	
 	def __init__(self):
-		self._fields = {}
-		self._types = []
+		if not '_ready' in dir(self):
+			# init object
+			self._fields = {}
+			self._types = {}
+			
+			# parse bibtex.xml
+			self._bibtex = ElementTree.parse(find_resource("bibtex.xml")).getroot()
+			
+			for field_e in self._bibtex.findall("fields/field"):
+				id = field_e.get("id")
+				self._fields[id] = Field(id, field_e.get("_label"))
+			
+			for type_e in self._bibtex.findall("types/type"):
+				id = type_e.get("id")
+				type = Type(id)
+				
+				for required_field_e in type_e.findall("required/field"):
+					field_id = required_field_e.get("id")
+					type.required_fields.append(self._fields[field_id])
+				
+				for optional_field_e in type_e.findall("optional/field"):
+					field_id = optional_field_e.get("id")
+					type.optional_fields.append(self._fields[field_id])
+				
+				self._types[id.lower()] = type
+			
+			self._types_list = None
+			self._ready = True
 	
-	@property
-	def fields(self):
-		return self._fields
+	def find_type(self, name):
+		"""
+		Find an entry type by its name
+		"""
+		return self._types[name.lower()]
 	
 	@property
 	def types(self):
-		return self._types
-
-
-class DefinitionParser(ContentHandler):
-	"""
-	This parses the bibtex.xml and builds up an object model of the
-	above classes.
-	"""
-	
-	S_IDLE, S_FIELDS, S_REQUIRED, S_OPTIONAL = range(4)
-	
-	def __init__(self):
-		self._state = self.S_IDLE
-		self._type = None
-	
-	def startElement(self, name, attributes):
-		if name == "fields":
-			self._state = self.S_FIELDS		# we are now parsing the known fields
-		elif name == "required":
-			self._state = self.S_REQUIRED
-		elif name == "optional":
-			self._state = self.S_OPTIONAL
-		elif name == "field":
-			if self._state == self.S_FIELDS:
-				# we are in <fields>
-				id = attributes["id"]
-				self._definition.fields[id] = Field(id, attributes["_label"])
-			elif self._state == self.S_REQUIRED:
-				# we are in <types><type><required>
-				id = attributes["id"]
-				try:
-					f = self._definition.fields[id]
-					self._type.requiredFields.append(f)
-				except KeyError:
-					raise Exception("Field '%s' not declared in <fields>" % id)
-			elif self._state == self.S_OPTIONAL:
-				# we are in <types><type><optional>
-				id = attributes["id"]
-				try:
-					f = self._definition.fields[id]
-					self._type.optionalFields.append(f)
-				except KeyError:
-					raise Exception("Field '%s' not declared in <fields>" % id)
-			else:
-				raise Exception("<field> is not allowed here")
-		elif name == "type":
-			t = EntryType(attributes["id"])
-			self._definition.types.append(t)
-			self._type = t
-			
-	def parse(self, definition, filename):
-		self._definition = definition
-		parse(filename, self)
+		"""
+		List all entry types in sorted order
+		"""
+		if self._types_list is None:
+			self._types_list = self._types.values()
+			self._types_list.sort()
+		return self._types_list
 		
 		

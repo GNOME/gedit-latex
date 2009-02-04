@@ -27,11 +27,16 @@ from logging import getLogger
 from ..base import Editor
 from ..preferences import Preferences
 from ..issues import Issue, IIssueHandler
-from ..util import caught
+from ..util import verbose
 
 from parser import BibTeXParser
 from completion import BibTeXCompletionHandler
+from validator import BibTeXValidator
 
+BENCHMARK = True
+
+if BENCHMARK:
+	import time
 
 class BibTeXEditor(Editor, IIssueHandler):
 	
@@ -55,6 +60,7 @@ class BibTeXEditor(Editor, IIssueHandler):
 		
 		self._issue_view = context.find_view(self, "IssueView")
 		self._parser = BibTeXParser()
+		self._validator = BibTeXValidator()
 		self._outline_view = context.find_view(self, "BibTeXOutlineView")
 		
 		self._connect_outline_to_editor = True	# TODO: read from config
@@ -70,7 +76,7 @@ class BibTeXEditor(Editor, IIssueHandler):
 		"""
 		self.__parse()
 	
-	@caught
+	@verbose
 	def __parse(self):
 		"""
 		"""
@@ -87,10 +93,22 @@ class BibTeXEditor(Editor, IIssueHandler):
 		
 #		self.parse(self._file)
 		
+		if BENCHMARK: t = time.clock()
+		
 		# parse document
 		self._document = self._parser.parse(content, self._file, self)
 		
+		if BENCHMARK: self._log.info("BibTeXParser.parse: %f" % (time.clock() - t))
+		
 		self._log.debug("Parsed %s bytes of content" % len(content))
+		
+		# validate
+		if BENCHMARK: t = time.clock()
+		
+		self._validator.validate(self._document, self._file, self)
+		
+		# 0.11
+		if BENCHMARK: self._log.info("BibTeXValidator.validate: %f" % (time.clock() - t))
 		
 		self._outline_view.set_outline(self._document)
 	

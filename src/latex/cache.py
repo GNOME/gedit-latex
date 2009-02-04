@@ -20,6 +20,8 @@
 
 """
 latex.cache
+
+Cache for LaTeX document models for speeding up reference expanding
 """
 
 from logging import getLogger

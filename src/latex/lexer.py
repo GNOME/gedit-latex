@@ -109,7 +109,7 @@ class Lexer(object):
 	
 	
 	# additional states for recognizing "\begin{verbatim}"
-	_VERBATIM_BEGIN, _VERBATIM_BEGIN_CURLY, _VERBATIM_BEGIN_CURLY_ENVIRON = range(3)
+	_VERBATIM_DEFAULT, _VERBATIM_BEGIN, _VERBATIM_BEGIN_CURLY, _VERBATIM_BEGIN_CURLY_ENVIRON = range(4)
 	
 	
 	def __init__(self, string, skipWs=True, skipComment=False):
@@ -119,7 +119,7 @@ class Lexer(object):
 		self._skipComment = skipComment
 		
 		self._state = self._DEFAULT
-		self._verbatimState = self._DEFAULT
+		self._verbatimState = self._VERBATIM_DEFAULT
 		
 		self._eof = False
 		self._tokenStack = []	# used to return a sequence of tokens after a verbatim ended
@@ -142,12 +142,12 @@ class Lexer(object):
 				if self._state == self._DEFAULT:
 					if char == "\\":
 						self._state = self._BACKSLASH
-						self._verbatimState = self._DEFAULT
+						self._verbatimState = self._VERBATIM_DEFAULT
 						self._startOffset = self._reader.offset - 1
 					
 					elif char == "%":
 						self._state = self._COMMENT
-						self._verbatimState = self._DEFAULT
+						self._verbatimState = self._VERBATIM_DEFAULT
 						self._startOffset = self._reader.offset - 1
 						if not self._skipComment:
 							self._text = []
@@ -158,14 +158,14 @@ class Lexer(object):
 							
 						elif self._verbatimState == self._VERBATIM_BEGIN_CURLY_ENVIRON and char == "}":
 							# we have "\begin{verbatim}"
-							self._verbatimState = self._DEFAULT
+							self._verbatimState = self._VERBATIM_DEFAULT
 							self._state = self._VERBATIM
 							self._text = []
 							self._startOffset = self._reader.offset
 							self._verbatimSequenceListener = StringListener("\\end{%s}" % self._verbatimEnviron)
 							
 						else:
-							self._verbatimState = self._DEFAULT
+							self._verbatimState = self._VERBATIM_DEFAULT
 							
 						return Token(self._TERMINALS_MAP[char], self._reader.offset - 1)
 					
@@ -247,7 +247,7 @@ class Lexer(object):
 									self._verbatimState = self._VERBATIM_BEGIN_CURLY_ENVIRON
 								
 								else:
-									self._verbatimState = self._DEFAULT
+									self._verbatimState = self._VERBATIM_DEFAULT
 							
 							return Token(Token.TEXT, self._startOffset, text)
 					

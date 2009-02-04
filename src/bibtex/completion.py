@@ -29,7 +29,7 @@ from ..preferences import Preferences
 from ..base.resources import find_resource
 from ..base import ICompletionHandler, IProposal, Template
 from ..issues import MockIssueHandler
-from model import Definition, DefinitionParser
+from model import BibTeXModel
 from parser import BibTeXParser
 
 
@@ -56,7 +56,7 @@ class BibTeXEntryTypeProposal(IProposal):
 		"""
 		template = "@%s{${Identifier}" % self._type.name
 		self._details = "@%s{<span color='%s'>Identifier</span>" % (self._type.name, self._color)
-		for field in self._type.requiredFields:
+		for field in self._type.required_fields:
 			template += ",\n\t%s = {${%s}}" % (field.name, field.label)
 			self._details += ",\n\t%s = {<span color='%s'>%s</span>}" % (field.name, self._color, field.label)
 		template += "\n}"
@@ -94,9 +94,7 @@ class BibTeXCompletionHandler(ICompletionHandler):
 	prefix_delimiters = ["@"]
 	
 	def __init__(self):
-		self._model = Definition()
-		DefinitionParser().parse(self._model, find_resource("bibtex.xml"))
-		
+		self._model = BibTeXModel()
 		self._parser = BibTeXParser()
 		self._issue_handler = MockIssueHandler()
 	

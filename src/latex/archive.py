@@ -20,12 +20,6 @@
 
 """
 latex.archive
-
-LaTeX document archiver:
- - find dependencies
- - copy to sandbox
- - relativize filenames
- - create archive
 """
 
 from parser import LaTeXParser, Node
@@ -33,15 +27,58 @@ from expander import LaTeXReferenceExpander
 from ..issues import MockIssueHandler
 
 
-class LaTeXDependencyResolver(object):
+class Dependency:
+	def __init__(self, original_filename):
+		self.original_filename = original_filename
+
+
+class LaTeXArchiver:
+	def archive(self, file):
+		"""
+		@param file: the master document File object 
+		"""
+		self._file = file
+		self._scan()
+	
+	def _scan(self):
+		"""
+		Scan the document for dependencies
+		"""
+		self._dependencies = []
+		scanner = LaTeXDependencyScanner()
+		for filename in scanner.scan(self._file):
+			self._dependencies.append(Dependency(filename))
+	
+	def _copy_to_sandbox(self):
+		"""
+		Copy the document and its dependencies to a sandbox folder
+		"""
+		pass
+	
+	def _repair_references(self):
+		"""
+		Repair eventually broken absolute paths
+		"""
+		pass
+	
+	def _pack(self):
+		"""
+		Pack the document and its deps into an archive
+		"""
+		pass
+
+
+class LaTeXDependencyScanner:
 	"""
 	This analyzes a document and recognizes its dependent files
+	
+	@deprecated: 
 	"""
 	def __init__(self):
 		self._parser = LaTeXParser()
 		self._expander = LaTeXReferenceExpander()
 	
-	def resolve(self, file):
+	def scan(self, file):
 		# parse
 		content = open(file.path, "r").read()
 		self._document = self._parser.parse(content, file, MockIssueHandler())

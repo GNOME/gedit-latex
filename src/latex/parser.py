@@ -29,7 +29,7 @@ from os.path import exists
 from os import popen, system
 from re import compile
 
-from ..util import caught, escape
+from ..util import verbose, escape
 from ..issues import Issue
 
 
@@ -228,11 +228,25 @@ class Document(Node):
 		return self._end_of_document
 	
 	def _find_end_of_packages(self):
+		"""
+		@raise IndexError: if not found
+		"""
+		# TODO: this should be recursive
+		
+		offset = None
+		for node in self:
+			if node.type == Node.COMMAND and node.value == "usepackage":
+				offset = node.lastEnd
+		if offset is None:
+			raise IndexError
+		return offset
+	
+	def _find_begin_of_preamble(self):
 		# TODO: this should be recursive
 		
 		offset = 0
 		for node in self:
-			if node.type == Node.COMMAND and node.value == "usepackage":
+			if node.type == Node.COMMAND and node.value == "documentclass":
 				offset = node.lastEnd
 		return offset
 	
@@ -244,7 +258,11 @@ class Document(Node):
 		used by LaTeXEditor.insert_at_position
 		"""
 		if self._end_of_packages is None:
-			self._end_of_packages = self._find_end_of_packages()
+			try:
+				self._end_of_packages = self._find_end_of_packages()
+			except IndexError:
+				self._end_of_packages = self._find_begin_of_preamble()
+			
 		return self._end_of_packages
 		
 
@@ -287,7 +305,7 @@ class LaTeXParser(object):
 	
 	# TODO: remove second parse method
 	
-	@caught
+	@verbose
 	def _parse(self, string, documentNode, file, issue_handler):
 		"""
 		@deprecated: use parse_string() and issues() instead

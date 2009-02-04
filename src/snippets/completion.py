@@ -29,6 +29,8 @@ from gtk import gdk
 
 from ..base import ICompletionHandler, IProposal, Template
 from ..base.resources import find_resource
+from ..base.templates import TemplateTokenizer, TemplateToken
+from ..preferences import Preferences
 
 from ..latex import LaTeXSource
 
@@ -36,9 +38,12 @@ class SnippetProposal(IProposal):
 	
 	icon = gdk.pixbuf_new_from_file(find_resource("icons/snippet.png"))
 	
+	_color = Preferences().get("LightForeground", "#957d47")
+	
 	def __init__(self, snippet, overlap):
 		self._snippet = snippet
 		self._overlap = overlap
+		self._details = None
 	
 	@property
 	def source(self):
@@ -63,7 +68,16 @@ class SnippetProposal(IProposal):
 		"""
 		@return: a widget to be shown in details popup
 		"""
-		return self._snippet.expression
+		if self._details is None:
+			self._details = ""
+			for token in TemplateTokenizer(self._snippet.expression):
+				if token.type == TemplateToken.LITERAL:
+					self._details += token.value
+				elif token.type == TemplateToken.PLACEHOLDER:
+					self._details += "<span color='%s'>%s</span>" % (self._color, token.value)
+				elif token.type == TemplateToken.CURSOR:
+					self._details += "<span color='%s'>→</span>" % self._color
+		return self._details
 	
 	@property
 	def overlap(self):
@@ -106,6 +120,8 @@ class SnippetCompletionHandler(ICompletionHandler):
 		return True
 	
 	def complete(self, prefix):
+		prefix = prefix.strip()
+		
 		self._log.debug("complete(%s)" % prefix)
 		
 		overlap = len(prefix)

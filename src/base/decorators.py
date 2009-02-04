@@ -37,8 +37,6 @@ from ..tools import ToolAction
 from ..preferences import Preferences, IPreferencesMonitor
 
 
-# FIXME: there is no 'active_tab_changed' after the last 'tab_removed'!
-
 # TODO: maybe create ActionDelegate for GeditWindowDecorator
 
 
@@ -89,6 +87,8 @@ class GeditWindowDecorator(IPreferencesMonitor):
 #		except Exception, e:
 #			self._log.error("Failed to create InverseSearchService: %s" % e)
 		
+		# FIXME: find another way to save a document
+		self._save_action = self._ui_manager.get_action("/MenuBar/FileMenu/FileSaveMenu")
 		
 		#
 		# listen to tab signals
@@ -196,8 +196,6 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		 - create a map from extensions to lists of ToolActions
 		"""
 		
-		# TODO: unload first, for now this may just init
-		
 		# this is used for enable/disable actions by name
 		# None stands for every extension
 		self._tool_action_extensions = { None : [] }
@@ -247,6 +245,14 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		self._ui_manager.insert_action_group(self._tool_action_group, -1)
 		self._tool_ui_id = self._ui_manager.add_ui_from_string(tool_ui)
 	
+	def save_file(self):
+		"""
+		Trigger the 'Save' action
+		
+		(used by ToolAction before tool run)
+		"""
+		self._save_action.activate()
+	
 	def _on_tools_changed(self):
 		# see IPreferencesMonitor._on_tools_changed
 		self._log.debug("_on_tools_changed")
@@ -284,7 +290,38 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		
 		# not found, open file in a new tab...
 		
+		self._log.debug("GeditWindow.create_tab_from_uri(%s)" % file.uri)
+		
 		self._window.create_tab_from_uri(file.uri, gedit.encoding_get_current(), 1, False, True)
+	
+	def disable(self):
+		"""
+		Called if there are no more tabs after tab_removed
+		"""
+		self._toolbar.hide()
+		
+		# disable all actions
+		for name in ACTION_OBJECTS.keys():
+			self._action_group.get_action(name).set_visible(False)
+			
+		# disable all tool actions
+		for l in self._tool_action_extensions.values():
+			for name in l:
+				self._tool_action_group.get_action(name).set_sensitive(False)
+				
+		# remove all side views
+		side_views = self._window_side_views + self._side_views
+		for view in side_views:
+			self._window.get_side_panel().remove_item(view)
+			if view in self._side_views: self._side_views.remove(view)
+			if view in self._window_side_views: self._window_side_views.remove(view)
+			
+		# remove all bottom views
+		bottom_views = self._window_bottom_views + self._bottom_views
+		for view in bottom_views:
+			self._window.get_bottom_panel().remove_item(view)
+			if view in self._bottom_views: self._bottom_views.remove(view)
+			if view in self._window_bottom_views: self._window_bottom_views.remove(view)
 	
 	def adjust(self, tab_decorator):
 		"""
@@ -516,6 +553,10 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		
 		self._tab_decorators[tab].destroy()
 		del self._tab_decorators[tab]
+		
+		if len(self._tab_decorators) == 0:
+			# no more tabs
+			self.disable()
 	
 	def _on_active_tab_changed(self, window, tab):
 		"""

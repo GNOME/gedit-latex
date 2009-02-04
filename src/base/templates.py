@@ -25,7 +25,121 @@ base.templates
 from logging import getLogger
 
 
+class TemplateToken:
+	"""
+	A token of a template expression
+	"""
+	LITERAL, PLACEHOLDER, CURSOR = 1,2,3
+	
+	def __init__(self, type, value=None):
+		self.type = type
+		self.value = value
+
+
+class TemplateTokenizer:
+	"""
+	A simple state machine for tokenizing a template expression
+	"""
+	_INIT, _LITERAL, _LITERAL_DOLLAR, _DOLLAR, _PLACEHOLDER = 1,2,3,4,5
+	
+	def __init__(self, expression):
+		self._character_iter = iter(expression)
+		self._buffer = []
+		self._end_of_expression = False
+	
+	def __iter__(self):
+		return self
+	
+	@property
+	def _next(self):
+		"""
+		Return the next character from the push back stack or the
+		source and return (not raise) StopIteration on end of string
+		"""
+		try:
+			return self._buffer.pop()
+		except IndexError:
+			try:
+				return self._character_iter.next()
+			except StopIteration:
+				return StopIteration
+	
+	def _push(self, character):
+		"""
+		Push one character of the push back stack
+		"""
+		self._buffer.append(character)
+	
+	def next(self):
+		"""
+		Return the next token
+		"""
+		state = self._INIT
+		while True:
+			if self._end_of_expression:
+				# end of expression reached in last iteration
+				raise StopIteration
+			
+			char = self._next
+			
+			if state == self._INIT:
+				if char == "$":
+					state = self._DOLLAR
+				elif char == StopIteration:
+					raise StopIteration
+				else:
+					literal_value = char
+					state = self._LITERAL
+			elif state == self._LITERAL:
+				if char == "$":
+					state = self._LITERAL_DOLLAR
+				elif char == StopIteration:
+					self._end_of_expression = True
+					return TemplateToken(TemplateToken.LITERAL, literal_value)
+				else:
+					literal_value += char
+			elif state == self._LITERAL_DOLLAR:
+				if char == "{":
+					self._push("{")
+					self._push("$")
+					return TemplateToken(TemplateToken.LITERAL, literal_value)
+				elif char == "_":
+					self._push("_")
+					self._push("$")
+					return TemplateToken(TemplateToken.LITERAL, literal_value)
+				elif char == StopIteration:
+					self._end_of_expression = True
+					literal_value += "$"
+					return TemplateToken(TemplateToken.LITERAL, literal_value)
+				else:
+					literal_value += "$"
+					state = self._LITERAL
+			elif state == self._DOLLAR:
+				if char == "_":
+					return TemplateToken(TemplateToken.CURSOR)
+				elif char == "{":
+					placeholder_value = ""
+					state = self._PLACEHOLDER
+				elif char == StopIteration:
+					self._end_of_expression = True
+					return TemplateToken(TemplateToken.LITERAL, "$")
+				else:
+					literal_value = "$"
+					state = self._LITERAL
+			elif state == self._PLACEHOLDER:
+				if char == "}":
+					return TemplateToken(TemplateToken.PLACEHOLDER, placeholder_value)
+				elif char == StopIteration:
+					self._end_of_expression = True
+					return TemplateToken(TemplateToken.LITERAL, "${" + placeholder_value)
+				else:
+					placeholder_value += char
+
+
 class Placeholder(object):
+	"""
+	@deprecated: use TemplateToken
+	"""
 	def __init__(self, label, offset):
 		"""
 		@param label: label of this placeholder
@@ -49,10 +163,13 @@ class MalformedTemplateException(Exception):
 	"""
 
 
-from ..util import caught
+from ..util import verbose
 
 
 class TemplateCompiler(object):
+	"""
+	@deprecated: use TemplateTokenizer
+	"""
 	
 	_S_DEFAULT, _S_IDENT, _S_PLACEHOLDER = 0, 1, 2
 	
@@ -159,6 +276,10 @@ class TemplateDelegate(object):
 	
 	_log = getLogger("TemplateDelegate")
 	
+	_KEY_TAB = "Tab"
+	_KEY_LEFT_SHIFT_TAB = "ISO_Left_Tab"
+	_KEY_ESCAPE = "Escape"
+	_KEY_RETURN = "Return"
 	
 	def __init__(self, editor):
 		self._editor = editor
@@ -176,7 +297,7 @@ class TemplateDelegate(object):
 		
 		self._active = False
 	
-	@caught
+	@verbose
 	def insert(self, template):
 		"""
 		@param template: a Template instance
@@ -294,7 +415,7 @@ class TemplateDelegate(object):
 			
 			self._activate()
 			
-			self._select_placeholder(0)
+			self._select_next_placeholder()
 	
 	def _activate(self):
 		"""
@@ -302,9 +423,10 @@ class TemplateDelegate(object):
 		"""
 		assert not self._active
 		
-		self._handlers = [ self._text_view.connect("key-press-event", self._on_key_pressed),
-							self._text_view.connect_after("key-release-event", self._on_key_released),
-							self._text_view.connect("button-press-event", self._on_button_pressed) ]
+		self._handlers = [ 
+				self._text_view.connect("key-press-event", self._on_key_pressed),
+				self._text_view.connect_after("key-release-event", self._on_key_released),
+				self._text_view.connect("button-press-event", self._on_button_pressed) ]
 		self._active = True
 	
 	def _deactivate(self):
@@ -315,6 +437,9 @@ class TemplateDelegate(object):
 		
 		for handler in self._handlers:
 			self._text_view.disconnect(handler)
+		
+		# TODO: delete TextMarks
+			
 		self._active = False
 	
 	def _on_key_pressed(self, text_view, event):
@@ -325,12 +450,12 @@ class TemplateDelegate(object):
 		
 		key = gtk.gdk.keyval_name(event.keyval)
 		
-		if key == "Tab":
+		if key == self._KEY_TAB:
 			# select next placeholder
 			self._selected_placeholder += 1
 			
 			try:
-				self._select_placeholder(self._selected_placeholder)
+				self._select_next_placeholder()
 			except IndexError:
 				# last reached
 				self._leave_template()
@@ -338,12 +463,12 @@ class TemplateDelegate(object):
 			# swallow event
 			return True
 		
-		elif key == "ISO_Left_Tab":
+		elif key == self._KEY_LEFT_SHIFT_TAB:
 			# select previous placeholder
 			self._selected_placeholder -= 1
 			
 			try:
-				self._select_placeholder(self._selected_placeholder)
+				self._select_next_placeholder()
 			except IndexError:
 				# first reached
 				self._selected_placeholder = 0
@@ -351,10 +476,42 @@ class TemplateDelegate(object):
 			# swallow event
 			return True
 		
-		elif key == "Escape":
+		elif key == self._KEY_ESCAPE:
 			# abort
 			self._leave_template()
+	
+	def _update_duplicates(self):
+		"""
+		Copy the text from the current placeholder to its duplicates
+		if present
+		"""
 		
+		placeholders = self._compiler.placeholders
+		selected_i = self._selected_placeholder
+		selected_placeholder = placeholders[selected_i]
+		
+		# find duplicates
+		duplicates = []
+		for i in range(len(self._compiler.placeholders)):
+			if i != selected_i and placeholders[i].label == placeholders[selected_i].label:
+				duplicates.append(i)
+				
+		# get current text in placeholder
+		l, r = self._placeholder_marks[selected_i]
+		li = self._text_buffer.get_iter_at_mark(l)
+		ri = self._text_buffer.get_iter_at_mark(r)
+		
+		text = self._text_buffer.get_text(li, ri, False)
+		
+		# copy text to duplicates
+		for i in duplicates:
+			l, r = self._placeholder_marks[i]
+			
+			li = self._text_buffer.get_iter_at_mark(l)
+			ri = self._text_buffer.get_iter_at_mark(r)
+			
+			self._text_buffer.delete(li, ri)
+			self._text_buffer.insert(ri, text)
 	
 	def _on_key_released(self, text_view, event):
 		"""
@@ -364,13 +521,16 @@ class TemplateDelegate(object):
 		
 		key = gtk.gdk.keyval_name(event.keyval)
 		
-		if key == "Tab" or key == "ISO_Left_Tab":
+		if key == self._KEY_TAB or key == self._KEY_LEFT_SHIFT_TAB:
 			# swallow event
 			return True
-		
 		else:
 			# check if the cursor has left the template
-			if not self._cursor_in_template:
+			if self._cursor_in_template:
+				if not key == self._KEY_RETURN:  # don't update dupl after Return to keep 
+										 # the placeholder highlightings
+					self._update_duplicates()
+			else:
 				self._leave_template(place_cursor=False)
 			
 	
@@ -382,15 +542,10 @@ class TemplateDelegate(object):
 		
 		self._leave_template()
 		
-	def _select_placeholder(self, placeholder_index):
+	def _select_next_placeholder(self):
 		"""
-		Select a given placeholder
+		Select the next placeholder
 		"""
-		# TODO: replace by _next_placeholder() and _prior_placeholder() or anything
-		# more robust
-		
-		#self._log.debug("_select_placeholder(%s)" % placeholder_index)
-		
 		# get stored marks
 		markLeft, markRight = self._placeholder_marks[self._selected_placeholder]
 		
@@ -445,6 +600,7 @@ class TemplateDelegate(object):
 		table.remove(self._tag_template)
 		table.remove(self._tag_placeholder)
 		
-		# disconnect from key signals
-		
+		# deactivate
+		if self._active:
+			self._deactivate()
 	

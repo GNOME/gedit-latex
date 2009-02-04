@@ -62,21 +62,21 @@ class GeditLaTeXPlugin(gedit.Plugin):
 		gedit.Plugin.__init__(self)
 		self._window_decorators = {}
 		
-		if tuple(platform.python_version_tuple()) < self._REQUIRED_PYTHON_VERSION:
-			self._platform_okay = False
-			open_error("LaTeX Plugin requires Python %s or newer" % ".".join(map(str, self._REQUIRED_PYTHON_VERSION)))
+		import sys
+		print "PATH: " + str(sys.path)
 		
-		if gedit.version < self._REQUIRED_GEDIT_VERSION:
-			self._platform_okay = False
-			open_error("LaTeX Plugin requires gedit %s or newer" % ".".join(map(str, self._REQUIRED_GEDIT_VERSION)))
+		# check requirements
+		requirements = [
+				(tuple(platform.python_version_tuple()), self._REQUIRED_PYTHON_VERSION, "Python"),
+				(gedit.version, self._REQUIRED_GEDIT_VERSION, "gedit"),
+				(gtk.pygtk_version, self._REQUIRED_PYGTK_VERSION, "PyGTK"),
+				(gtk.ver, self._REQUIRED_GTK_VERSION, "GTK+")]
 		
-		if gtk.pygtk_version < self._REQUIRED_PYGTK_VERSION:
-			self._platform_okay = False
-			open_error("LaTeX Plugin requires PyGTK %s or newer" % ".".join(map(str, self._REQUIRED_PYGTK_VERSION)))
-		
-		if gtk.ver < self._REQUIRED_GTK_VERSION:
-			self._platform_okay = False
-			open_error("LaTeX Plugin requires GTK+ %s or newer" % ".".join(map(str, self._REQUIRED_GTK_VERSION)))
+		for version, required_version, label in requirements:
+			if version < required_version:
+				self._platform_okay = False
+				version_s = ".".join(map(str, required_version))
+				open_error("LaTeX Plugin requires %s %s or newer" % (label, version_s))
 		
 	def activate(self, window):
 		"""

@@ -7,7 +7,8 @@ REQUIREMENTS
 
 INSTALLATION
 
-Just copy the contents of the 'plugins' folder to '~/.gnome2/gedit/plugins' 
-where '~' is your home directory. You may have to create this folder.
+Just copy the contents of the archive (folder 'GeditLaTeXPlugin' and file 
+'GeditLaTeXPlugin.gedit-plugin') to '~/.gnome2/gedit/plugins' where '~' 
+is your home directory. You may have to create the folder 'plugins'.
 
 Restart gedit and activate the plugin in the plugins configuration.

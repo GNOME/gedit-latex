@@ -27,7 +27,7 @@ import gtk
 
 from ..util import GladeInterface
 from ..base.resources import find_resource
-from model import Definition, DefinitionParser
+from model import BibTeXModel
 
 
 class InsertBibTeXEntryDialog(GladeInterface):
@@ -73,10 +73,8 @@ class InsertBibTeXEntryDialog(GladeInterface):
 		if not self._dialog:
 			self._dialog = self.find_widget("dialogInsertBibtexEntry")
 			
-			# get BibTeX definition
-			self._definition = Definition()
-			parser = DefinitionParser()
-			parser.parse(self._definition, find_resource("bibtex.xml"))
+			# get BibTeX model
+			self._model = BibTeXModel()
 			
 			# setup types combobox
 			
@@ -85,7 +83,7 @@ class InsertBibTeXEntryDialog(GladeInterface):
 			self._fieldCache = {}	# this is used to restore field values after the type has changed
 			
 			self._storeTypes = gtk.ListStore(str)
-			for t in self._definition.types:
+			for t in self._model.types:
 				self._storeTypes.append([t.name])
 			
 			comboTypes = self.find_widget("comboTypes")
@@ -114,7 +112,7 @@ class InsertBibTeXEntryDialog(GladeInterface):
 	
 	def _comboTypesChanged(self, combo):
 		i = combo.get_active()
-		self._activeType = self._definition.types[i]
+		self._activeType = self._model.types[i]
 		
 		# cache values
 		
@@ -135,7 +133,7 @@ class InsertBibTeXEntryDialog(GladeInterface):
 		tbl_required.set_col_spacings(5)
 		i = 0
 		
-		for field in self._activeType.requiredFields:
+		for field in self._activeType.required_fields:
 			label = gtk.Label(field.label + ":")
 			label.set_alignment(0, .5)
 			
@@ -168,7 +166,7 @@ class InsertBibTeXEntryDialog(GladeInterface):
 		tbl_optional.set_col_spacings(5)
 		i = 0
 		
-		for field in self._activeType.optionalFields:
+		for field in self._activeType.optional_fields:
 			label = gtk.Label(field.label + ":")
 			label.set_alignment(0, .5)
 			

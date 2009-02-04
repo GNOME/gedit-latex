@@ -215,6 +215,51 @@ class BaseOutlineView(SideView):
 		"""
 
 
+class Item(object):
+	def __init__(self, key, value):
+		self.key = key
+		self.value = value
+		
+	def __cmp__(self, item):
+		return self.key.__cmp__(item.key)
+
+
+class OffsetLookupTree(object):
+	def __init__(self):
+		self.items = []
+	
+	def insert(self, key, value):
+		"""
+		Insert a value
+		"""
+		self.items.append(Item(key, value))
+	
+	def prepare(self):
+		"""
+		Prepare the structure for being searched
+		"""
+		self.items.sort()
+	
+	def find(self, key):
+		"""
+		Find a value by its key
+		"""
+		return self._find(key, 0, len(self.items) - 1)
+	
+	def _find(self, key, lo, hi):
+		if hi - lo == 0:
+			raise KeyError
+		
+		i = (hi - lo)/2
+		item = self.items[i]
+		if item.key == key:
+			return item.value
+		elif item.key > key:
+			return self._find(key, lo, i - 1)
+		elif item.key < key:
+			return self._find(key, i + 1, hi)
+
+
 class OutlineOffsetMap(object):
 	"""
 	This stores a mapping from the start offsets of outline elements 
@@ -226,7 +271,8 @@ class OutlineOffsetMap(object):
 	kind of neighborhood lookup as we never get the exact offsets.
 	"""
 	
-	# TODO: find a faster structure for this - but what is this?
+	# TODO: find a faster structure for this - this is a tree with a special
+	# find method
 	
 	def __init__(self):
 		self._map = {}

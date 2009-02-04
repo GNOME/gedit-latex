@@ -246,10 +246,10 @@ class IProposal(object):
 
 import re
 from uuid import uuid1
+import time
 
 from .completion import CompletionDistributor
 from .templates import TemplateDelegate
-from util import RangeMap
 
 
 class Editor(object):
@@ -329,25 +329,34 @@ class Editor(object):
 		self._markers = {}		# { marker id -> marker object }
 		
 		
-		# TODO: pass window_context to Editor?
-		
 		self._window_context = self._tab_decorator._window_decorator._window_context
 		self._window_context.create_editor_views(self, file)
 		
 		
-		self._offset = None
+		self._offset = None		# used by move_cursor
 
-		# TODO: disconnect on destroy
-		self._button_press_handler = self._text_view.connect("button-press-event", self.__on_button_pressed)
-		self._text_view.connect("key-release-event", self.__on_key_released)
-		self._text_view.connect("button-release-event", self.__on_button_released)
+		self.__view_signal_handlers = [
+				self._text_view.connect("button-press-event", self.__on_button_pressed),
+				self._text_view.connect("key-release-event", self.__on_key_released),
+				self._text_view.connect("button-release-event", self.__on_button_released) ]
+		
+		self.__buffer_change_timestamp = time.time()
+		self.__buffer_signal_handlers = [
+				self._text_buffer.connect("changed", self.__on_buffer_changed) ]
 		
 		# dnd support
 		if len(self.dnd_extensions) > 0:
-			self._text_view.connect("drag-data-received", self.__on_drag_data_received)
+			self.__view_signal_handlers.append(
+					self._text_view.connect("drag-data-received", self.__on_drag_data_received))
 		
 		# start life-cycle for subclass
 		self.init(file, self._window_context)
+	
+	def __on_buffer_changed(self, text_buffer):
+		"""
+		Store the timestamp of the last buffer change
+		"""
+		self.__buffer_change_timestamp = time.time()
 	
 	def __on_drag_data_received(self, widget, context, x, y, data, info, timestamp):
 		"""
@@ -374,14 +383,6 @@ class Editor(object):
 		
 		if match:
 			self.drag_drop_received(files)
-
-	def drag_drop_received(self, files):
-		"""
-		To be overridden
-		
-		@param files: a list of File objects dropped on the Editor
-		"""
-		pass
 
 	def __on_key_released(self, *args):
 		"""
@@ -458,6 +459,36 @@ class Editor(object):
 	
 	# methods/properties to be used/overridden by the subclass
 	
+	def drag_drop_received(self, files):
+		"""
+		To be overridden
+		
+		@param files: a list of File objects dropped on the Editor
+		"""
+		pass
+	
+	@property
+	def init_timestamp(self):
+		"""
+		Return an initial reference timestamp (this just has to be smaller than
+		every value returned by current_timestamp)
+		"""
+		return 0
+	
+	@property
+	def current_timestamp(self):
+		"""
+		Return the current timestamp for buffer change recognition
+		"""
+		return time.time()
+	
+	def content_changed(self, reference_timestamp):
+		"""
+		Return True if the content of this Editor has changed since a given
+		reference timestamp (this must be a timestamp as returned by current_timestamp)
+		"""
+		return self.__buffer_change_timestamp > reference_timestamp
+	
 	@property
 	def charset(self):
 		"""
@@ -490,13 +521,6 @@ class Editor(object):
 		end_iter = self._text_buffer.get_iter_at_mark(self._text_buffer.get_insert())
 		return self._text_buffer.get_text(self._text_buffer.get_start_iter(), 
 									end_iter, False).decode(self.charset)
-	
-	def content_changed(self, reference_timestamp):
-		"""
-		Return True if the content of this Editor has changed since a given
-		reference
-		"""
-		# TODO:
 	
 	def insert(self, source):
 		"""
@@ -894,6 +918,13 @@ class Editor(object):
 		"""
 		self.__log.debug("destroy")
 		
+		# disconnect signal handlers
+		for handler in self.__view_signal_handlers:
+			self._text_view.disconnect(handler)
+		
+		for handler in self.__buffer_signal_handlers:
+			self._text_buffer.disconnect(handler)
+		
 		# delete the tags that were created for markers
 		table = self._text_buffer.get_tag_table()
 		for tag in self._tags:
@@ -997,6 +1028,7 @@ class WindowContext(object):
 	
 
 from urlparse import urlparse
+import urllib
 from os import remove
 import os.path
 from glob import glob
@@ -1057,7 +1089,7 @@ class File(object):
 		"""
 		Returns '/home/user/image.jpg' for 'file:///home/user/image.jpg'
 		"""
-		return self._uri.path
+		return urllib.url2pathname(self._uri.path)
 	
 	@property
 	def extension(self):
@@ -1096,7 +1128,9 @@ class File(object):
 	
 	@property
 	def uri(self):
-		return self._uri.geturl()
+		# FIXME: urlparse.ParseResult.geturl should return a safe URL ('%20' instead of ' ')
+		# FIXME: why is ':' quoted by urllib.quote?
+		return urllib.quote(self._uri.geturl(), safe="/:")
 	
 	@property
 	def exists(self):

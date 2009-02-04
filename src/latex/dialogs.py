@@ -495,6 +495,13 @@ class UseBibliographyDialog(GladeInterface, PreviewRenderer):
 		"""
 		The button for refreshing the preview has been clicked
 		"""
+		index = self._comboStyle.get_active()
+		if index < 0:
+			self._log.error("No style selected")
+			return
+		
+		style = self._storeStyle[index][0]
+		
 		self._imagePreview.set_from_stock(gtk.STOCK_EXECUTE, gtk.ICON_SIZE_BUTTON)
 		
 		# create temporary bibtex file
@@ -506,8 +513,6 @@ class UseBibliographyDialog(GladeInterface, PreviewRenderer):
 		self._filenameBase = splitext(basename(filename))[0]
 		
 		# build preview image
-		style = self._storeStyle[self._comboStyle.get_active()][0]
-		
 		self.render("Book \\cite{dijkstra76} Article \\cite{dijkstra68} \\bibliography{%s}\\bibliographystyle{%s}" % (self._filenameBase, 
 																													style))
 	def _on_render_succeeded(self, pixbuf):

@@ -326,6 +326,9 @@ class CompletionDistributor(object):
 	# keys that are used to navigate in the popup
 	_NAVIGATION_KEYS = [ "Up", "Down", "Page_Up", "Page_Down" ]
 	
+	# some characters have key constants that differ from their value
+	_SPECIAL_KEYS = {"@" : "at"}
+	
 	def __init__(self, editor, handlers):
 		"""
 		@param editor: the instance of Editor this CompletionDistributor should observe
@@ -346,7 +349,11 @@ class CompletionDistributor(object):
 	   	# collect trigger keys from all handlers
 	   	self._trigger_keys = []
 	   	for handler in self._handlers:
-	   		self._trigger_keys.extend(handler.trigger_keys)
+	   		for key in handler.trigger_keys:
+	   			if key in self._SPECIAL_KEYS.keys():
+	   				self._trigger_keys.append(self._SPECIAL_KEYS[key])
+	   			else:
+	   				self._trigger_keys.append(key)
 		
 		# TODO: is it right to instatiate this here?
 		self._popup = ProposalPopup()
@@ -408,10 +415,10 @@ class CompletionDistributor(object):
 		"""
 		key = gtk.gdk.keyval_name(event.keyval)
 		
-		# trigger auto close on "}"
-		if key == "braceright":
-			# TODO: self._autoClose(braceTyped=True)
-			pass
+#		# trigger auto close on "}"
+#		if key == "braceright":
+#			# TODO: self._autoClose(braceTyped=True)
+#			pass
 		
 		
 		if self._state == self._STATE_ACTIVE:
@@ -522,7 +529,11 @@ class CompletionDistributor(object):
 				return None
 			
 			i += 1
-
+		
+		# to recognize the left-most delimiter, we have moved one char
+		# to much
+		it_left.forward_char()
+		
 		if i == self._MAX_PREFIX_LENGTH:
 			self._log.debug("_find_prefix: prefix too long")
 			return None
