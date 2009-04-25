@@ -157,12 +157,15 @@ import gobject
 # workaround for MenuToolItem
 # see http://library.gnome.org/devel/pygtk/stable/class-gtkaction.html#method-gtkaction--set-tool-item-type
 #
-class MenuToolAction(gtk.Action):
-	__gtype_name__ = "MenuToolAction"
+# we prepend the plugin name to be sure that it's a unique symbol
+# see https://sourceforge.net/tracker/index.php?func=detail&aid=2599705&group_id=204144&atid=988428
+#
+class GeditLaTeXPlugin_MenuToolAction(gtk.Action):
+	__gtype_name__ = "GeditLaTeXPlugin_MenuToolAction"
 
-gobject.type_register(MenuToolAction)
+gobject.type_register(GeditLaTeXPlugin_MenuToolAction)
 # needs PyGTK 2.10
-MenuToolAction.set_tool_item_type(gtk.MenuToolButton)
+GeditLaTeXPlugin_MenuToolAction.set_tool_item_type(gtk.MenuToolButton)
 
 
 class Action(object):
@@ -184,7 +187,7 @@ class Action(object):
 		@param window_context: a WindowContext object to pass when this action is activated
 		"""
 		if self.menu_tool_action:
-			action_clazz = MenuToolAction
+			action_clazz = GeditLaTeXPlugin_MenuToolAction
 		else:
 			action_clazz = gtk.Action
 		self._internal_action = action_clazz(self.__class__.__name__, self.label, self.tooltip, self.stock_id)
