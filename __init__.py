@@ -19,40 +19,7 @@
 # Street, Fifth Floor, Boston, MA  02110-1301, USA
 
 """
-latex.actions
+Needed for Python 2.6
 """
 
-from logging import getLogger
-import gtk
-
-from ..base import Action
-from dialogs import InsertBibTeXEntryDialog
-
-
-class BibTeXMenuAction(Action):
-	extensions = [".bib"]
-	label = "BibTeX"
-	stock_id = None
-	accelerator = None
-	tooltip = None
-	
-	def activate(self, context):
-		pass
-
-
-class BibTeXNewEntryAction(Action):
-	extensions = [".bib"]
-	label = "New BibTeX Entry..."
-	stock_id = None
-	accelerator = None
-	tooltip = "Create a new BibTeX entry"
-	
-	_dialog = None
-	
-	def activate(self, context):
-		if not self._dialog:
-			self._dialog = InsertBibTeXEntryDialog()
-		
-		source = self._dialog.run()
-		if not source is None:
-			context.active_editor.append(source)
+from src import *

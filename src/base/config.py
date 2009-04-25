@@ -22,12 +22,17 @@
 base.config
 """
 
+# ui definition
+
 UI = """
 	<ui>
 		<menubar name="MenuBar">
 			<menu name="FileMenu" action="File">
 				<placeholder name="FileOps_1">
 					<menuitem action="LaTeXNewAction" />
+				</placeholder>
+				<placeholder name="FileOps_3">
+					<menuitem action="LaTeXSaveAsTemplateAction" />
 				</placeholder>
 			</menu>
 			<placeholder name="ExtraMenu_1">
@@ -105,7 +110,8 @@ UI = """
 			<toolitem action="LaTeXBuildImageAction" />
 		</toolbar>
 	</ui>"""
-		
+
+# actions
 
 from ..latex.actions import LaTeXMenuAction, LaTeXNewAction, LaTeXCommentAction, LaTeXSpellCheckAction, LaTeXChooseMasterAction, \
 		LaTeXItemizeAction, LaTeXEnumerateAction, LaTeXFontFamilyAction, LaTeXFontFamilyMenuAction, LaTeXBoldAction, \
@@ -115,119 +121,30 @@ from ..latex.actions import LaTeXMenuAction, LaTeXNewAction, LaTeXCommentAction,
 		LaTeXJustifyCenterAction, LaTeXJustifyRightAction, LaTeXMathMenuAction, LaTeXMathAction, LaTeXDisplayMathAction, \
 		LaTeXEquationAction, LaTeXUnEqnArrayAction, LaTeXEqnArrayAction, LaTeXUnderlineAction, LaTeXSmallCapitalsAction, \
 		LaTeXRomanAction, LaTeXSansSerifAction, LaTeXTypewriterAction, LaTeXCloseEnvironmentAction, LaTeXBlackboardBoldAction, \
-		LaTeXCaligraphyAction, LaTeXFrakturAction, LaTeXForwardSearchAction, LaTeXBuildImageAction
+		LaTeXCaligraphyAction, LaTeXFrakturAction, LaTeXForwardSearchAction, LaTeXBuildImageAction, LaTeXSaveAsTemplateAction
 
 from ..bibtex.actions import BibTeXMenuAction, BibTeXNewEntryAction
 
+ACTIONS = [ LaTeXMenuAction, LaTeXNewAction, LaTeXCommentAction, LaTeXSpellCheckAction, LaTeXChooseMasterAction, 
+		LaTeXItemizeAction, LaTeXEnumerateAction, LaTeXFontFamilyAction, LaTeXFontFamilyMenuAction, LaTeXBoldAction, 
+		LaTeXItalicAction, LaTeXDescriptionAction, LaTeXStructureMenuAction, LaTeXPartAction, LaTeXChapterAction, 
+		LaTeXSectionAction, LaTeXSubsectionAction, LaTeXParagraphAction,LaTeXSubparagraphAction, LaTeXStructureAction, 
+		LaTeXGraphicsAction, LaTeXUseBibliographyAction, LaTeXTableAction, LaTeXListingAction, LaTeXJustifyLeftAction, 
+		LaTeXJustifyCenterAction, LaTeXJustifyRightAction, LaTeXMathMenuAction, LaTeXMathAction, LaTeXDisplayMathAction, 
+		LaTeXEquationAction, LaTeXUnEqnArrayAction, LaTeXEqnArrayAction, LaTeXUnderlineAction, LaTeXSmallCapitalsAction, 
+		LaTeXRomanAction, LaTeXSansSerifAction, LaTeXTypewriterAction, LaTeXCloseEnvironmentAction, LaTeXBlackboardBoldAction, 
+		LaTeXCaligraphyAction, LaTeXFrakturAction, LaTeXForwardSearchAction, LaTeXBuildImageAction, LaTeXSaveAsTemplateAction, 
+		BibTeXMenuAction, BibTeXNewEntryAction ]
 
-# TODO: extensions and UI path should be asked from Action objects (build UI like for tool actions)
-
-
-ACTION_OBJECTS = { "LaTeXMenuAction" : LaTeXMenuAction(), 
-				   "LaTeXNewAction" : LaTeXNewAction(),
-				   "LaTeXCommentAction" : LaTeXCommentAction(),
-				   "LaTeXSpellCheckAction" : LaTeXSpellCheckAction(),
-				   "LaTeXChooseMasterAction" : LaTeXChooseMasterAction(),
-				   "LaTeXItemizeAction" : LaTeXItemizeAction(),
-				   "LaTeXEnumerateAction" : LaTeXEnumerateAction(),
-				   "LaTeXFontFamilyAction" : LaTeXFontFamilyAction(),
-				   "LaTeXFontFamilyMenuAction" : LaTeXFontFamilyMenuAction(),
-				   "LaTeXBoldAction" : LaTeXBoldAction(),
-				   "LaTeXItalicAction" : LaTeXItalicAction(),
-				   "LaTeXUnderlineAction" : LaTeXUnderlineAction(),
-				   "LaTeXSmallCapitalsAction" : LaTeXSmallCapitalsAction(),
-				   "LaTeXRomanAction" : LaTeXRomanAction(),
-				   "LaTeXSansSerifAction" : LaTeXSansSerifAction(),
-				   "LaTeXTypewriterAction" : LaTeXTypewriterAction(),
-				   "LaTeXBlackboardBoldAction" : LaTeXBlackboardBoldAction(),
-				   "LaTeXCaligraphyAction" : LaTeXCaligraphyAction(),
-				   "LaTeXFrakturAction" : LaTeXFrakturAction(),
-				   "LaTeXDescriptionAction" : LaTeXDescriptionAction(),
-				   "LaTeXStructureAction" : LaTeXStructureAction(),
-				   "LaTeXStructureMenuAction" : LaTeXStructureMenuAction(),
-				   "LaTeXPartAction" : LaTeXPartAction(),
-				   "LaTeXChapterAction" : LaTeXChapterAction(),
-				   "LaTeXSectionAction" : LaTeXSectionAction(),
-				   "LaTeXSubsectionAction" : LaTeXSubsectionAction(),
-				   "LaTeXParagraphAction" : LaTeXParagraphAction(),
-				   "LaTeXSubparagraphAction" : LaTeXSubparagraphAction(),
-				   "LaTeXGraphicsAction" : LaTeXGraphicsAction(),
-				   "LaTeXUseBibliographyAction" : LaTeXUseBibliographyAction(),
-				   "LaTeXTableAction" : LaTeXTableAction(),
-				   "LaTeXListingAction" : LaTeXListingAction(),
-				   "LaTeXJustifyLeftAction" : LaTeXJustifyLeftAction(),
-				   "LaTeXJustifyCenterAction" : LaTeXJustifyCenterAction(),
-				   "LaTeXJustifyRightAction" : LaTeXJustifyRightAction(),
-				   "LaTeXMathMenuAction" : LaTeXMathMenuAction(),
-				   "LaTeXMathAction" : LaTeXMathAction(),
-				   "LaTeXDisplayMathAction" : LaTeXDisplayMathAction(),
-				   "LaTeXEquationAction" : LaTeXEquationAction(),
-				   "LaTeXUnEqnArrayAction" : LaTeXUnEqnArrayAction(),
-				   "LaTeXEqnArrayAction" : LaTeXEqnArrayAction(),
-				   "LaTeXCloseEnvironmentAction" : LaTeXCloseEnvironmentAction(),
-				   "LaTeXForwardSearchAction" : LaTeXForwardSearchAction(),
-				   "BibTeXMenuAction" : BibTeXMenuAction(),
-				   "BibTeXNewEntryAction" : BibTeXNewEntryAction(),
-				   "LaTeXBuildImageAction" : LaTeXBuildImageAction() }
-
-ACTION_EXTENSIONS = { None : ["LaTeXNewAction"],
-					  ".tex" : ["LaTeXMenuAction", 
-								"LaTeXCommentAction", 
-								"LaTeXSpellCheckAction", 
-								"LaTeXChooseMasterAction",
-								"LaTeXItemizeAction",
-								"LaTeXEnumerateAction",
-								"LaTeXFontFamilyAction",
-								"LaTeXFontFamilyMenuAction",
-								"LaTeXBoldAction",
-								"LaTeXItalicAction",
-								"LaTeXUnderlineAction",
-				   				"LaTeXSmallCapitalsAction",
-				   				"LaTeXRomanAction",
-				   				"LaTeXSansSerifAction",
-				   				"LaTeXTypewriterAction",
-				   				"LaTeXBlackboardBoldAction",
-				   				"LaTeXCaligraphyAction",
-				   				"LaTeXFrakturAction",
-								"LaTeXDescriptionAction",
-								"LaTeXStructureAction",
-								"LaTeXStructureMenuAction",
-								"LaTeXPartAction",
-								"LaTeXChapterAction",
-								"LaTeXSectionAction",
-								"LaTeXSubsectionAction",
-								"LaTeXParagraphAction",
-								"LaTeXSubparagraphAction",
-								"LaTeXGraphicsAction",
-								"LaTeXUseBibliographyAction",
-								"LaTeXTableAction",
-								"LaTeXListingAction",
-								"LaTeXJustifyCenterAction",
-								"LaTeXJustifyLeftAction",
-								"LaTeXJustifyRightAction",
-								"LaTeXMathMenuAction",
-				   				"LaTeXMathAction",
-				   				"LaTeXDisplayMathAction",
-				   				"LaTeXEquationAction",
-				   				"LaTeXUnEqnArrayAction",
-				   				"LaTeXEqnArrayAction",
-				   				"LaTeXCloseEnvironmentAction",
-				   				"LaTeXForwardSearchAction",
-				   				"LaTeXBuildImageAction"],
-				   		".bib" : ["BibTeXMenuAction", "BibTeXNewEntryAction"] }
-
-#from ..tools import Tool, Job
-#from ..tools.postprocess import GenericPostProcessor, RubberPostProcessor
-#
-#
-#TOOLS = { ".tex" : [ Tool("LaTeX → PDF", [Job("rubber --inplace --maxerr -1 --pdf --short --force --warn all \"$filename\"", True, RubberPostProcessor), Job("gnome-open $shortname.pdf", True, GenericPostProcessor)], "Create a PDF from LaTeX source"),
-#					 Tool("Cleanup LaTeX Build", [Job("rm -f $directory/*.aux $directory/*.log $directory/*.toc $directory/*.bbl $directory/*.blg", True, GenericPostProcessor)], "Remove LaTeX build files")] }
-
+# views
 
 from ..views import IssueView
 from ..latex.views import LaTeXSymbolMapView, LaTeXOutlineView
 from ..bibtex.views import BibTeXOutlineView
 
+
+#VIEWS = [ LaTeXSymbolMapView, IssueView, LaTeXOutlineView, BibTeXOutlineView ]
+# TODO:
 
 WINDOW_SCOPE_VIEWS = { ".tex" : {"LaTeXSymbolMapView" : LaTeXSymbolMapView } }
 
@@ -237,8 +154,10 @@ EDITOR_SCOPE_VIEWS = { ".tex" : {"IssueView" : IssueView,
 					   ".bib" : {"IssueView" : IssueView, 
 								 "BibTeXOutlineView" : BibTeXOutlineView} }
 
+# editors
+
 from ..latex.editor import LaTeXEditor
 from ..bibtex.editor import BibTeXEditor
 
+EDITORS = [ LaTeXEditor, BibTeXEditor ]
 
-EDITORS = {".tex" : LaTeXEditor, ".bib" : BibTeXEditor}

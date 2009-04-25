@@ -488,7 +488,11 @@ class TemplateDelegate(object):
 		
 		placeholders = self._compiler.placeholders
 		selected_i = self._selected_placeholder
-		selected_placeholder = placeholders[selected_i]
+		try:
+			selected_placeholder = placeholders[selected_i]
+		except IndexError:
+			# FIXME: template has been left?
+			return
 		
 		# find duplicates
 		duplicates = []
@@ -603,4 +607,6 @@ class TemplateDelegate(object):
 		# deactivate
 		if self._active:
 			self._deactivate()
+			
+		
 	

@@ -61,10 +61,7 @@ class GeditLaTeXPlugin(gedit.Plugin):
 	def __init__(self):
 		gedit.Plugin.__init__(self)
 		self._window_decorators = {}
-		
-		import sys
-		print "PATH: " + str(sys.path)
-		
+
 		# check requirements
 		requirements = [
 				(tuple(platform.python_version_tuple()), self._REQUIRED_PYTHON_VERSION, "Python"),
@@ -85,6 +82,8 @@ class GeditLaTeXPlugin(gedit.Plugin):
 		
 		@param window: GeditWindow
 		"""
+		self._log.debug("activate")
+		
 		if self._platform_okay:
 			self._window_decorators[window] = GeditWindowDecorator(window)
 	
@@ -94,6 +93,8 @@ class GeditLaTeXPlugin(gedit.Plugin):
 		
 		@param window: GeditWindow
 		"""
+		self._log.debug("deactivate")
+		
 		if self._platform_okay:
 			self._window_decorators[window].destroy()
 			del self._window_decorators[window]

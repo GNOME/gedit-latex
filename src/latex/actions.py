@@ -25,13 +25,21 @@ latex.actions
 from logging import getLogger
 import gtk
 
-from ..base import IAction
+from ..base import Action
 from ..util import IconAction
 
 
-class LaTeXTemplateAction(IconAction):
+class LaTeXAction(Action):
+	extensions = [".tex"]
+
+
+class LaTeXIconAction(IconAction):
+	extensions = [".tex"]
+
+
+class LaTeXTemplateAction(LaTeXIconAction):
 	"""
-	Utility class for quickly defining Actions inserting a LaTeX template
+	Utility base class for quickly defining Actions inserting a LaTeX template
 	"""
 	accelerator = None
 	
@@ -47,7 +55,7 @@ class LaTeXTemplateAction(IconAction):
 		context.active_editor.insert(LaTeXSource(Template(self.template_source), self.packages))
 
 
-class LaTeXMenuAction(IAction):
+class LaTeXMenuAction(LaTeXAction):
 	
 	label = "LaTeX"
 	stock_id = None
@@ -65,7 +73,7 @@ from dialogs import NewDocumentDialog
 from editor import LaTeXEditor
 
 
-class LaTeXNewAction(IAction):
+class LaTeXNewAction(Action):
 	label = "New LaTeX Document..."
 	stock_id = gtk.STOCK_NEW
 	accelerator = "<Ctrl><Alt>N"
@@ -87,7 +95,7 @@ class LaTeXNewAction(IAction):
 			context.activate_editor(file)
 		
 
-class LaTeXChooseMasterAction(IAction):
+class LaTeXChooseMasterAction(LaTeXAction):
 	_log = getLogger("LaTeXChooseMasterAction")
 	
 	label = "Choose Master Document..."
@@ -100,7 +108,7 @@ class LaTeXChooseMasterAction(IAction):
 		self._log.debug("activate")
 		
 		
-class LaTeXForwardSearchAction(IAction):
+class LaTeXForwardSearchAction(LaTeXAction):
 	_log = getLogger("LaTeXForwardSearchAction")
 	
 	label = "Find Position In DVI"
@@ -127,7 +135,7 @@ from parser import LaTeXParser, Node
 from ..issues import MockIssueHandler
 
 
-class LaTeXCloseEnvironmentAction(IconAction):
+class LaTeXCloseEnvironmentAction(LaTeXIconAction):
 	_log = getLogger("LaTeXCloseEnvironmentAction")
 	
 	label = "Close Nearest Environment"
@@ -181,7 +189,7 @@ class LaTeXCloseEnvironmentAction(IconAction):
 				self._find_open_environments(node)
 
 		
-class LaTeXUseBibliographyAction(IconAction):
+class LaTeXUseBibliographyAction(LaTeXIconAction):
 	_log = getLogger("LaTeXUseBibliographyAction")
 	
 	label = "Use Bibliography..."
@@ -205,7 +213,7 @@ class LaTeXUseBibliographyAction(IconAction):
 			editor.insert_at_position(source + "\n\n", LaTeXEditor.POSITION_BIBLIOGRAPHY)
 	
 
-class LaTeXCommentAction(IAction):
+class LaTeXCommentAction(LaTeXAction):
 	label = "Toggle Comment"
 	stock_id = None
 	accelerator = "<Ctrl><Alt>C"
@@ -215,7 +223,7 @@ class LaTeXCommentAction(IAction):
 		context.active_editor.toggle_comment("%")
 
 
-class LaTeXSpellCheckAction(IAction):
+class LaTeXSpellCheckAction(LaTeXAction):
 	label = "Spell Check"
 	stock_id = gtk.STOCK_SPELL_CHECK
 	accelerator = "<Ctrl><Alt>S"
@@ -225,7 +233,9 @@ class LaTeXSpellCheckAction(IAction):
 		context.active_editor.spell_check()
 
 
-class LaTeXFontFamilyAction(IconAction):
+class LaTeXFontFamilyAction(LaTeXIconAction):
+	menu_tool_action = True
+	
 	label = "Font Family"
 	accelerator = None
 	tooltip = "Font Family"
@@ -235,7 +245,7 @@ class LaTeXFontFamilyAction(IconAction):
 		pass
 
 
-class LaTeXFontFamilyMenuAction(IAction):
+class LaTeXFontFamilyMenuAction(LaTeXAction):
 	label = "Font Family"
 	accelerator = None
 	tooltip = "Font Family"
@@ -338,7 +348,9 @@ class LaTeXDescriptionAction(LaTeXTemplateAction):
 	template_source = "\\begin{description}\n\t\\item[$_]\n\\end{description}"
 	
 
-class LaTeXStructureAction(IconAction):
+class LaTeXStructureAction(LaTeXIconAction):
+	menu_tool_action = True
+	
 	label = "Structure"
 	accelerator = None
 	tooltip = "Structure"
@@ -348,7 +360,7 @@ class LaTeXStructureAction(IconAction):
 		pass
 
 
-class LaTeXStructureMenuAction(IAction):
+class LaTeXStructureMenuAction(LaTeXAction):
 	label = "Structure"
 	accelerator = None
 	tooltip = "Structure"
@@ -400,7 +412,7 @@ class LaTeXSubparagraphAction(LaTeXTemplateAction):
 	template_source = "\\subparagraph{$_}"
 	
 	
-class LaTeXGraphicsAction(IconAction):
+class LaTeXGraphicsAction(LaTeXIconAction):
 	label = "Insert Graphics"
 	accelerator = None
 	tooltip = "Insert Graphics"
@@ -417,7 +429,7 @@ class LaTeXGraphicsAction(IconAction):
 			context.active_editor.insert(source)
 
 
-class LaTeXTableAction(IconAction):
+class LaTeXTableAction(LaTeXIconAction):
 	label = "Insert Table or Matrix"
 	accelerator = None
 	tooltip = "Insert Table or Matrix"
@@ -434,7 +446,7 @@ class LaTeXTableAction(IconAction):
 			context.active_editor.insert(source)
 	
 	
-class LaTeXListingAction(IconAction):
+class LaTeXListingAction(LaTeXIconAction):
 	label = "Insert Source Code Listing"
 	accelerator = None
 	tooltip = "Insert Source Code Listing"
@@ -454,7 +466,7 @@ class LaTeXListingAction(IconAction):
 from ..tools import ToolRunner
 
 
-class LaTeXBuildImageAction(IconAction):
+class LaTeXBuildImageAction(LaTeXIconAction):
 	label = "Build Image"
 	accelerator = None
 	tooltip = "Build an image from the LaTeX document"
@@ -496,7 +508,7 @@ class LaTeXJustifyRightAction(LaTeXTemplateAction):
 	template_source = "\\begin{flushright}$_\\end{flushright}"
 	
 
-class LaTeXMathMenuAction(IAction):
+class LaTeXMathMenuAction(LaTeXAction):
 	label = "Math"
 	accelerator = None
 	tooltip = "Math"
@@ -507,6 +519,8 @@ class LaTeXMathMenuAction(IAction):
 
 
 class LaTeXMathAction(LaTeXTemplateAction):
+	menu_tool_action = True
+	
 	label = "Mathematical Environment"
 	tooltip = "Mathematical Environment"
 	icon_name = "math"
@@ -549,11 +563,19 @@ class LaTeXEqnArrayAction(LaTeXTemplateAction):
 \\end{align}"""
 	
 	
+class LaTeXSaveAsTemplateAction(LaTeXAction):
+	label = "Save as Template..."
+	accelerator = None
+	tooltip = "Save the current document as a template"
+	stock_id = gtk.STOCK_SAVE_AS
 	
-	
-	
-	
-	
+	def activate(self, context):
+		from dialogs import SaveAsTemplateDialog
+		
+		dialog = SaveAsTemplateDialog()
+		name = dialog.run()
+		
+		# TODO: save
 	
 	
 	

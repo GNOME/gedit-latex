@@ -151,10 +151,46 @@ class Template(object):
 		return self._expression
 
 
-class IAction(object):
+import gobject
+
+#
+# workaround for MenuToolItem
+# see http://library.gnome.org/devel/pygtk/stable/class-gtkaction.html#method-gtkaction--set-tool-item-type
+#
+class MenuToolAction(gtk.Action):
+	__gtype_name__ = "MenuToolAction"
+
+gobject.type_register(MenuToolAction)
+# needs PyGTK 2.10
+MenuToolAction.set_tool_item_type(gtk.MenuToolButton)
+
+
+class Action(object):
 	"""
 	"""
 	
+	menu_tool_action = False	# if True a MenuToolAction is created and hooked for this action
+								# instead of gtk.Action
+								
+	extensions = [None]			# a list of file extensions for which this action should be enabled
+								# [None] indicates that this action is to be enabled for all extensions
+	
+	def hook(self, action_group, window_context):
+		"""
+		Create an internal action object (gtk.Action or MenuToolAction), listen to it and
+		hook it in an action group
+		
+		@param action_group: a gtk.ActionGroup object
+		@param window_context: a WindowContext object to pass when this action is activated
+		"""
+		if self.menu_tool_action:
+			action_clazz = MenuToolAction
+		else:
+			action_clazz = gtk.Action
+		self._internal_action = action_clazz(self.__class__.__name__, self.label, self.tooltip, self.stock_id)
+		self._internal_action.connect("activate", lambda gtk_action, action: action.activate(window_context), self)
+		action_group.add_action_with_accel(self._internal_action, self.accelerator)
+		
 	@property
 	def label(self):
 		raise NotImplementedError
@@ -198,12 +234,12 @@ class ICompletionHandler(object):
 	
 	def complete(self, prefix):
 		"""
-		@return: a list of objects implementing IProposal
+		@return: a list of objects extending Proposal
 		"""
 		raise NotImplementedError
 
 
-class IProposal(object):
+class Proposal(object):
 	"""
 	A proposal for completion
 	"""
@@ -242,6 +278,12 @@ class IProposal(object):
 			proposal and the prefix it was generated for
 		"""
 		raise NotImplementedError
+	
+	def __cmp__(self, other):
+		"""
+		Compare this proposal to another one
+		"""
+		return cmp(self.label.lower(), other.label.lower())
 
 
 import re
@@ -254,6 +296,11 @@ from .templates import TemplateDelegate
 
 class Editor(object):
 	"""
+	The base class for editors. This manages
+	 - the subclass life-cycle
+	 - the marker framework
+	 - change monitoring
+	 - drag'n'drop support
 	"""
 	
 	__log = getLogger("Editor")
@@ -351,7 +398,7 @@ class Editor(object):
 		
 		# start life-cycle for subclass
 		self.init(file, self._window_context)
-	
+		
 	def __on_buffer_changed(self, text_buffer):
 		"""
 		Store the timestamp of the last buffer change
@@ -459,6 +506,13 @@ class Editor(object):
 	
 	# methods/properties to be used/overridden by the subclass
 	
+	@property
+	def extensions(self):
+		"""
+		Return a list of extensions for which this Editor is to be activated
+		"""
+		raise NotImplementedError
+	
 	def drag_drop_received(self, files):
 		"""
 		To be overridden
@@ -468,7 +522,7 @@ class Editor(object):
 		pass
 	
 	@property
-	def init_timestamp(self):
+	def initial_timestamp(self):
 		"""
 		Return an initial reference timestamp (this just has to be smaller than
 		every value returned by current_timestamp)
@@ -952,8 +1006,9 @@ class WindowContext(object):
 		"""
 		self._window_decorator = window_decorator
 		self._editor_scope_view_classes = editor_scope_view_classes
-		self._window_scope_views = {}	# maps view ids to View objects
-		self._editor_scope_views = {}	# maps Editor object to a map from ID to View object
+		
+		self.window_scope_views = {}	# maps view ids to View objects
+		self.editor_scope_views = {}	# maps Editor object to a map from ID to View object
 		
 		self._log.debug("init")
 	
@@ -962,32 +1017,17 @@ class WindowContext(object):
 		Create instances of the editor specific Views for a given Editor instance
 		and File
 		
-		Called Editor base class
+		Called by Editor base class
 		"""
-		self._editor_scope_views[editor] = {}
+		self.editor_scope_views[editor] = {}
 		try:
 			for id, clazz in self._editor_scope_view_classes[file.extension].iteritems():
 				# create View instance and add it to the map
-				view = clazz.__new__(clazz)
-				clazz.__init__(view, self)
-				self._editor_scope_views[editor][id] = view
+				self.editor_scope_views[editor][id] = clazz(self)
 				
 				self._log.debug("Created view " + id)
 		except KeyError:
 			self._log.debug("No views for %s" % file.extension)
-	
-	def set_window_views(self, views):
-		"""
-		
-		Called by GeditWindowDecorator
-		"""
-		self._window_scope_views = views
-	
-	def get_editor_views(self, editor):
-		"""
-		Return a map of all editor scope views
-		"""
-		return self._editor_scope_views[editor]
 	
 	###
 	# public interface
@@ -1016,9 +1056,9 @@ class WindowContext(object):
 		Return a View object
 		"""
 		try:
-			return self._editor_scope_views[editor][view_id]
+			return self.editor_scope_views[editor][view_id]
 		except KeyError:
-			return self._window_scope_views[view_id]
+			return self.window_scope_views[view_id]
 	
 	def set_action_enabled(self, action_id, enabled):
 		"""
@@ -1129,8 +1169,16 @@ class File(object):
 	@property
 	def uri(self):
 		# FIXME: urlparse.ParseResult.geturl should return a safe URL ('%20' instead of ' ')
+		
 		# FIXME: why is ':' quoted by urllib.quote?
-		return urllib.quote(self._uri.geturl(), safe="/:")
+		
+		# FIXME: urllib.quote can't handle unicode as argument when it can't be encoded in ASCII
+		# (see http://localhost:8000/LaTeXPlugin3/ticket/104)
+		# workaround: encode in latin1
+		url = self._uri.geturl().encode("latin1")
+		
+		#return urllib.quote(self._uri.geturl(), safe="/:")
+		return urllib.quote(url, safe="/:")
 	
 	@property
 	def exists(self):
@@ -1251,5 +1299,41 @@ class File(object):
 	
 	def __str__(self):
 		return self.uri
+	
+	def __cmp__(self, other):
+		try:
+			return self.basename.__cmp__(other.basename)
+		except AttributeError:		# no File object passed or None
+			# returning NotImplemented is bad because we have to
+			# compare None with File
+			return False
 
-
+class Folder(File):
+	
+	# FIXME: a Folder is NOT a subclass of a File, both are a subclass of some AbstractFileSystemObject,
+	# this is just a quick hack
+	
+	__log = getLogger("Folder")
+	
+	@property
+	def files(self):
+		"""
+		Return File objects for all files in this Folder
+		"""
+		try:
+			filenames = glob("%s/*" % (self.path))
+			files = [File(filename) for filename in filenames]
+			return files
+		
+		except Exception, e:
+			# as seen in Bug #2002630 the glob() call compiles a regex and so we must be prepared
+			# for an exception from that because the shortname may contain regex characters
+			
+			# TODO: a more robust solution would be an escape() method for re
+			
+			self.__log.debug("files: %s" % e)
+			
+			return []
+		
+		
+		

@@ -1,0 +1,9 @@
+\documentclass$DocumentOptions{$DocumentClass}
+\usepackage[$InputEncoding]{inputenc}
+\usepackage[$BabelPackage]{babel}$AdditionalPackages
+\title{$Title}
+\author{$Author}
+\date{$Date}$AdditionalPreamble
+\begin{document}
+	
+\end{document}

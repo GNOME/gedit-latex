@@ -20,6 +20,15 @@
 
 """
 base.resources
+
+Either the plugin is installed in ~/.gnome2/gedit/plugins/GeditLaTeXPlugin as
+described in INSTALL or it's installed system-wide, e.g. by a .deb package.
+For a system-wide installation everything but the pixmaps is copied to
+/usr/lib/gedit-2/plugins/GeditLaTeXPlugin. And FHS requires to place the
+pixmaps in /usr/share/gedit-2/plugins/GeditLaTeXPlugin.
+
+To be backward compatibale when it's installed system-wide, we have to
+look for pixmaps in _PATH_SYSTEM and _PATH_SHARE.
 """
 
 import logging
@@ -30,6 +39,9 @@ from shutil import copyfile
 from ..util import open_error
 
 
+logging.basicConfig(level=logging.DEBUG)
+_log = logging.getLogger("resources")
+
 #
 # init plugin resource locating
 #
@@ -37,8 +49,9 @@ from ..util import open_error
 _PATH_SYSTEM = "/usr/lib/gedit-2/plugins/GeditLaTeXPlugin"
 _PATH_USER = expanduser("~/.gnome2/gedit/plugins/GeditLaTeXPlugin")
 
-logging.basicConfig(level=logging.DEBUG)
-_log = logging.getLogger("resources")
+# FHS-compliant location for pixmaps
+_PATH_SHARE = "/usr/share/gedit-2/plugins/GeditLaTeXPlugin"
+
 
 _log.debug("Initializing resource locating")
 
@@ -46,6 +59,7 @@ _installed_system_wide = exists(_PATH_SYSTEM)
 if _installed_system_wide:
 	# ensure that we have a user plugin dir
 	if not exists(_PATH_USER):
+		_log.debug("Creating %s" % _PATH_USER)
 		makedirs(_PATH_USER)
 	
 	PLUGIN_PATH = _PATH_SYSTEM	# only used by build to expand $plugin
@@ -72,6 +86,10 @@ def find_resource(relative_path, access_mode=MODE_READONLY):
 		#
 		if _installed_system_wide:
 			path = "%s/%s" % (_PATH_SYSTEM, relative_path)
+			
+			if not exists(path):
+				# second chance: look in _PATH_SHARE
+				path = "%s/%s" % (_PATH_SHARE, relative_path)
 		else:
 			path = "%s/%s" % (_PATH_USER, relative_path)
 		

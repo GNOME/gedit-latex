@@ -28,10 +28,10 @@ from logging import getLogger
 from gtk import gdk
 
 from ..base.resources import find_resource
-from ..base import ICompletionHandler, IProposal, Template
+from ..base import ICompletionHandler, Proposal, Template
 
 
-class LaTeXCommandProposal(IProposal):
+class LaTeXCommandProposal(Proposal):
 	"""
 	A proposal inserting a Template when activated
 	"""
@@ -59,7 +59,7 @@ class LaTeXCommandProposal(IProposal):
 		return self._overlap
 	
 
-class LaTeXChoiceProposal(IProposal):
+class LaTeXChoiceProposal(Proposal):
 	"""
 	A proposal inserting a simple string when activated
 	"""

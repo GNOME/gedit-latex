@@ -86,9 +86,6 @@ class ProposalPopup(gtk.Window):
 		"""
 		Load proposals, move to the cursor position and show
 		"""
-		
-		# TODO: simplify this and don't call all the methods
-		
 		self._set_proposals(proposals)
 		self._move_to_cursor(text_view)
 		
@@ -108,11 +105,10 @@ class ProposalPopup(gtk.Window):
 		Loads proposals into the popup
 		"""
 		# sort
-		proposals.sort(lambda x,y: cmp(x.label, y.label))
+		proposals.sort()
 		
 		# load
 		self._store.clear()
-		
 		for proposal in proposals:
 			self._store.append([proposal.label, proposal, proposal.icon])
 			
@@ -359,10 +355,12 @@ class CompletionDistributor(object):
 		self._popup = ProposalPopup()
 		
 		# connect to signals
-		self._text_view.connect("key-press-event", self._on_key_pressed)
-		self._text_view.connect_after("key-release-event", self._on_key_released)
-		self._text_view.connect("button-press-event", self._on_button_pressed)
-		self._text_view.connect("focus-out-event", self._on_focus_out)
+		self._signal_handlers = [
+				self._text_view.connect("key-press-event", self._on_key_pressed),
+				self._text_view.connect_after("key-release-event", self._on_key_released),
+				self._text_view.connect("button-press-event", self._on_button_pressed),
+				self._text_view.connect("focus-out-event", self._on_focus_out)
+		]
 	
 	def _on_key_pressed(self, view, event):
 		"""
@@ -531,7 +529,7 @@ class CompletionDistributor(object):
 			i += 1
 		
 		# to recognize the left-most delimiter, we have moved one char
-		# to much
+		# too much
 		it_left.forward_char()
 		
 		if i == self._MAX_PREFIX_LENGTH:
@@ -559,5 +557,8 @@ class CompletionDistributor(object):
 	
 	def destroy(self):
 		self._log.debug("destroy")
+		
+		for handler in self._signal_handlers:
+			self._text_view.disconnect(handler)
 	
 	

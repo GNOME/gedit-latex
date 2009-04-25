@@ -86,24 +86,30 @@ class ToolView(BottomView, IStructuredIssueHandler):
 		
 		self._buttonCancel = gtk.ToolButton(gtk.STOCK_STOP)
 		self._buttonCancel.set_sensitive(False)
-		self._buttonCancel.set_tooltip_text("Abort job")
+		self._buttonCancel.set_tooltip_text("Abort Job")
 		self._buttonCancel.connect("clicked", self._on_abort_clicked)
-#		
-#		self._buttonClear = gtk.ToolButton(gtk.STOCK_CLEAR)
-#		self._buttonClear.set_tooltip_text("Cleanup LaTeX build files")
-#		self._buttonClear.connect("clicked", lambda x: self.trigger("cleanupClicked"))
-#		
+		
+		self._buttonDetails = gtk.ToolButton(gtk.STOCK_INFO)
+		self._buttonDetails.set_sensitive(False)
+		self._buttonDetails.set_tooltip_text("Show Detailed Output")
+		self._buttonDetails.connect("clicked", self._on_details_clicked)
+
 		self._toolbar = gtk.Toolbar()
 		self._toolbar.set_style(gtk.TOOLBAR_ICONS)
 		self._toolbar.set_icon_size(gtk.ICON_SIZE_SMALL_TOOLBAR)		# FIXME: deprecated???
 		self._toolbar.set_orientation(gtk.ORIENTATION_VERTICAL)
 		self._toolbar.insert(self._buttonCancel, -1)
-#		self._toolbar.insert(self._buttonClear, -1)
-#		
+		self._toolbar.insert(self._buttonDetails, -1)
+
 		self.pack_start(self._toolbar, False)
 	
 	def _on_abort_clicked(self, button):
 		self._abort_method.__call__()
+	
+	def _on_details_clicked(self, button):
+		"""
+		The details button has been clicked
+		"""
 	
 	def _on_row_activated(self, view, path, column):
 		it = self._store.get_iter(path)
@@ -147,10 +153,8 @@ class ToolView(BottomView, IStructuredIssueHandler):
 		return self._store.append(parent_partition_id, [icon, label, "", "", None])
 	
 	def set_partition_state(self, partition_id, state):
-		"""
-		@param partition: a partition id as returned by add_partition
-		@param state: any string
-		"""
+		# see IStructuredIssueHandler.set_partition_state
+		
 		icon = None
 		if state == "running":
 			icon = self._ICON_RUN

@@ -41,6 +41,7 @@ if BENCHMARK:
 class BibTeXEditor(Editor, IIssueHandler):
 	
 	_log = getLogger("BibTeXEditor")
+	extensions = [".bib"]
 	
 	@property
 	def completion_handlers(self):

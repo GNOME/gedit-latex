@@ -26,8 +26,8 @@ from logging import getLogger
 
 from ..preferences import Preferences
 from ..util import GladeInterface
-from ..base.resources import find_resource
-from ..base import Template, File
+from ..base.resources import find_resource, MODE_READWRITE
+from ..base import Template, File, Folder
 
 
 class AbstractProxy(object):
@@ -89,6 +89,7 @@ class ComboBoxProxy(AbstractProxy):
 	
 	def restore(self, default):
 		restored_value = self._preferences.get(self._key, default)
+		restored_index = 0
 		i = 0
 		for value, label in self._options:
 			if value == restored_value:
@@ -164,6 +165,7 @@ class ChooseMasterDialog(GladeInterface):
 
 import gtk
 from time import strftime
+import string
 
 from environment import Environment
 
@@ -172,7 +174,7 @@ class NewDocumentDialog(GladeInterface):
 	"""
 	Dialog for creating the body of a new LaTeX document
 	"""
-	filename = find_resource("glade/new_document_dialog.glade")
+	filename = find_resource("glade/new_document_template_dialog.glade")
 	
 	_log = getLogger("NewDocumentWizard")
 	
@@ -220,6 +222,22 @@ class NewDocumentDialog(GladeInterface):
 			self._entry_name = self.find_widget("entryName")
 			self._button_dir = self.find_widget("buttonDirectory")
 			self._button_dir.set_action(gtk.FILE_CHOOSER_ACTION_SELECT_FOLDER)
+			
+			#
+			# templates
+			#
+			self._proxy_template = ComboBoxProxy(self.find_widget("comboTemplate"), "RecentTemplate")
+#			language_definitions = environment.language_definitions
+#			language_definitions.sort(key=lambda x: x.name.lower())
+#			for l in language_definitions:
+#				self._proxy_babel.add_option(l.name, l.label)
+
+			folder = Folder(find_resource("templates", MODE_READWRITE))
+			templates = folder.files
+			templates.sort()
+			for template in templates:
+				self._proxy_template.add_option(template, template.shortbasename, show_value=False)
+			self._proxy_template.restore("Default")
 			
 			#
 			# metadata
@@ -372,15 +390,22 @@ class NewDocumentDialog(GladeInterface):
 		else:
 			default_font_family = "\n\\renewcommand{\\familydefault}{%s}" % self._proxy_font_family.value
 		
-		s = """\\documentclass%s{%s}
-\\usepackage[%s]{inputenc}
-\\usepackage[%s]{babel}%s%s
-\\title{%s}
-\\author{%s}
-\\date{%s}%s
-\\begin{document}
-	
-\\end{document}""" % (documentOptions, documentClass, inputEncoding, babelPackage, default_font_family, ifpdf, title, author, date, pdfinfo)
+		template_string = open(self._proxy_template.value.path).read()
+		template = string.Template(template_string)
+		s = template.safe_substitute({"DocumentOptions" : documentOptions, "DocumentClass" : documentClass, 
+					"InputEncoding" : inputEncoding, "BabelPackage" : babelPackage, 
+					"AdditionalPackages" : default_font_family + ifpdf, "Title" : title, "Author" : author, 
+					"Date" : date, "AdditionalPreamble" : pdfinfo})
+		
+#		s = """\\documentclass%s{%s}
+#\\usepackage[%s]{inputenc}
+#\\usepackage[%s]{babel}%s%s
+#\\title{%s}
+#\\author{%s}
+#\\date{%s}%s
+#\\begin{document}
+#	
+#\\end{document}""" % (documentOptions, documentClass, inputEncoding, babelPackage, default_font_family, ifpdf, title, author, date, pdfinfo)
 		
 		return s
 	
@@ -404,7 +429,6 @@ class NewDocumentDialog(GladeInterface):
 from tempfile import NamedTemporaryFile
 from os.path import basename, splitext
 
-from ..base import File
 from preview import PreviewRenderer
 
 		
@@ -750,11 +774,14 @@ class InsertTableDialog(GladeInterface):
 		This builds the body of a table template according to the number of rows and
 		columns.
 		"""
+		
+		# FIXME: create unique placeholders for each cell for multi-placeholder feature
+		
 		s = ""
 		for i in range(rows):
 			colList = []
 			for j in range(cols):
-				colList.append("${x}")
+				colList.append("${%s%s}" % (i + 1, j + 1))
 			s += "\n" + indent + " & ".join(colList) + " \\\\"
 		return s
 
@@ -982,5 +1009,29 @@ class BuildImageDialog(GladeInterface):
 			
 		return self._dialog
 	
+
+class SaveAsTemplateDialog(GladeInterface):
+	filename = find_resource("glade/save_as_template_dialog.glade")
+	_dialog = None
 	
+	def get_dialog(self):
+		if self._dialog is None:
+			self._dialog = self.find_widget("dialogSaveAsTemplate")
+			
+		return self._dialog
+	
+	def run(self):
+		dialog = self.get_dialog()
+		
+		if dialog.run() == 1:
+			confirmed = True
+		else:
+			confirmed = False
+			
+		dialog.hide()
+		
+		if confirmed:
+			return self.find_widget("entryName").get_text()
+		else:
+			return None
 	

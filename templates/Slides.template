@@ -1,0 +1,14 @@
+\documentclass{beamer}
+\usepackage[$InputEncoding]{inputenc}
+\usepackage[$BabelPackage]{babel}$AdditionalPackages
+\title{$Title}
+\author{$Author}
+\date{$Date}$AdditionalPreamble
+\begin{document}
+	\frame{\titlepage}
+	\frame{
+		\frametitle{Table of Contents}
+		\tableofcontents
+	}
+	
+\end{document}

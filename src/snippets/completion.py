@@ -27,14 +27,14 @@ Snippet-specific completion classes
 from logging import getLogger
 from gtk import gdk
 
-from ..base import ICompletionHandler, IProposal, Template
+from ..base import ICompletionHandler, Proposal, Template
 from ..base.resources import find_resource
 from ..base.templates import TemplateTokenizer, TemplateToken
 from ..preferences import Preferences
-
 from ..latex import LaTeXSource
 
-class SnippetProposal(IProposal):
+
+class SnippetProposal(Proposal):
 	
 	icon = gdk.pixbuf_new_from_file(find_resource("icons/snippet.png"))
 	
@@ -76,7 +76,7 @@ class SnippetProposal(IProposal):
 				elif token.type == TemplateToken.PLACEHOLDER:
 					self._details += "<span color='%s'>%s</span>" % (self._color, token.value)
 				elif token.type == TemplateToken.CURSOR:
-					self._details += "<span color='%s'>→</span>" % self._color
+					self._details += "<span color='%s'>•</span>" % self._color
 		return self._details
 	
 	@property
@@ -88,36 +88,17 @@ class SnippetProposal(IProposal):
 		return self._overlap
 
 
-#from . import Snippet
-#
-#
-#SNIPPETS = [
-#		Snippet("includegraphics", "\\includegraphics[${Attributes}]{${Filename}}"),
-#		Snippet("begin", "\\begin{${Environment}}\n\t$_\n\\end{${Environment}}") ]
-
-from ..preferences import Preferences
-
-
 class SnippetCompletionHandler(ICompletionHandler):
 	"""
 	"""
 	
 	_log = getLogger("SnippetCompletionHandler")
 	
+	trigger_keys = []
+	prefix_delimiters = ["\t", "\n", " "]
+	
 	def __init__(self):
 		self._snippets = Preferences().snippets
-	
-	@property
-	def trigger_keys(self):
-		return []
-	
-	@property
-	def prefix_delimiters(self):
-		return ["\t", "\n", " "]
-	
-	@property
-	def strip_delimiter(self):
-		return True
 	
 	def complete(self, prefix):
 		prefix = prefix.strip()

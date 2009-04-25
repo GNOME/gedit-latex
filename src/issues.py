@@ -78,7 +78,7 @@ class IStructuredIssueHandler(object):
 	
 	def set_partition_state(self, partition_id, state):
 		"""
-		@param partition: a partition id as returned by add_partition
+		@param partition_id: a partition id as returned by add_partition
 		@param state: any string
 		"""
 		raise NotImplementedError

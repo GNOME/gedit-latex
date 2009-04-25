@@ -28,28 +28,15 @@ extension point.
 from logging import getLogger
 import gedit
 import gtk
-import gobject
+import string
 
-from config import UI, ACTION_OBJECTS, ACTION_EXTENSIONS, WINDOW_SCOPE_VIEWS, EDITOR_SCOPE_VIEWS, EDITORS
+from config import UI, WINDOW_SCOPE_VIEWS, EDITOR_SCOPE_VIEWS, EDITORS, ACTIONS
 from ..tools.views import ToolView
 from . import File, SideView, BottomView, WindowContext
 from ..tools import ToolAction
 from ..preferences import Preferences, IPreferencesMonitor
 
-
 # TODO: maybe create ActionDelegate for GeditWindowDecorator
-
-
-#
-# workaround for MenuToolItem
-# see http://library.gnome.org/devel/pygtk/stable/class-gtkaction.html#method-gtkaction--set-tool-item-type
-#
-class MenuToolAction(gtk.Action):
-	__gtype_name__ = "MenuToolAction"
-
-gobject.type_register(MenuToolAction)
-# needs PyGTK 2.10
-MenuToolAction.set_tool_item_type(gtk.MenuToolButton)
 		
 
 class GeditWindowDecorator(IPreferencesMonitor):
@@ -61,6 +48,15 @@ class GeditWindowDecorator(IPreferencesMonitor):
 	"""
 	
 	_log = getLogger("GeditWindowDecorator")
+	
+	# ui definition template for hooking tools in gedit's ui
+	_tool_ui_template = string.Template("""<ui>
+			<menubar name="MenuBar">
+				<menu name="ToolsMenu" action="Tools">
+					<placeholder name="ToolsOps_1">$items</placeholder>
+				</menu>
+			</menubar>
+		</ui>""")
 	
 	def __init__(self, window):
 		self._window = window
@@ -87,18 +83,19 @@ class GeditWindowDecorator(IPreferencesMonitor):
 #		except Exception, e:
 #			self._log.error("Failed to create InverseSearchService: %s" % e)
 		
+		
 		# FIXME: find another way to save a document
 		self._save_action = self._ui_manager.get_action("/MenuBar/FileMenu/FileSaveMenu")
 		
 		#
 		# listen to tab signals
 		#
-		self._tab_signal_handlers = [
+		self._signal_handlers = [
 				self._window.connect("tab_added", self._on_tab_added),
 				self._window.connect("tab_removed", self._on_tab_removed),
 				self._window.connect("active_tab_changed", self._on_active_tab_changed),
 				self._window.connect("destroy", self._on_window_destroyed) ]
-	
+		
 	def _init_views(self):
 		"""
 		"""
@@ -129,7 +126,7 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		#self._window_bottom_views.append(tool_view)
 		
 		# update window context
-		self._window_context.set_window_views(self._views)
+		self._window_context.window_scope_views = self._views
 	
 	def _init_actions(self):
 		"""
@@ -138,27 +135,29 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		self._ui_manager = self._window.get_ui_manager()
 		self._action_group = gtk.ActionGroup("LaTeXPluginActions")
 		
-		# add plugin actions
+		# create action instances, hook them and build up some
+		# hash tables
 		
-		for name, action in ACTION_OBJECTS.iteritems():
-			
-			# FIXME: this is quite hacky
-			
-			if name in ["LaTeXFontFamilyAction", "LaTeXStructureAction", "LaTeXMathAction"]:
-				gtk_action = MenuToolAction(name, action.label, action.tooltip, action.stock_id)
-			else:
-				gtk_action = gtk.Action(name, action.label, action.tooltip, action.stock_id)
-			
-			gtk_action.connect("activate", self._on_action_activated, action)
-			self._action_group.add_action_with_accel(gtk_action, action.accelerator)
+		self._action_objects = {}		# name -> Action object
+		self._action_extensions = {}	# extension -> action names
 		
-		# merge
+		for clazz in ACTIONS:
+			action = clazz()
+			action.hook(self._action_group, self._window_context)
+			
+			self._action_objects[clazz.__name__] = action
+			
+			for extension in action.extensions:
+				if extension in self._action_extensions.keys():
+					self._action_extensions[extension].append(clazz.__name__)
+				else:
+					self._action_extensions[extension] = [clazz.__name__]
+		
+		# merge ui
 		self._ui_manager.insert_action_group(self._action_group, -1)
 		self._ui_id = self._ui_manager.add_ui_from_string(UI)
 		
-		#
 		# hook the toolbar
-		#
 		self._toolbar = self._ui_manager.get_widget("/LaTeXToolbar")
 		self._toolbar.set_style(gtk.TOOLBAR_BOTH_HORIZ)
 		
@@ -201,15 +200,11 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		self._tool_action_extensions = { None : [] }
 		
 		self._tool_action_group = gtk.ActionGroup("LaTeXPluginToolActions")
+			
+		items_ui = ""
 		
-		
-		tool_ui = """<ui>
-			<menubar name="MenuBar">
-				<menu name="ToolsMenu" action="Tools">
-					<placeholder name="ToolsOps_1">"""
-					
-		
-		i = 1
+		i = 1					# counting tool actions
+		accel_counter = 1		# counting tool actions without custom accel
 		for tool in self._preferences.tools:
 			# hopefully unique action name
 			name = "Tool%sAction" % i
@@ -223,24 +218,22 @@ class GeditWindowDecorator(IPreferencesMonitor):
 					self._tool_action_extensions[extension] = [name]
 			
 			 # create action
-			action = ToolAction()
-			action.init(tool)
+			action = ToolAction(tool)
 			gtk_action = gtk.Action(name, action.label, action.tooltip, action.stock_id)
-			gtk_action.connect("activate", self._on_action_activated, action)
+			gtk_action.connect("activate", lambda gtk_action, action: action.activate(self._window_context), action)
 			
-			# TODO: allow custom accelerator
-			self._tool_action_group.add_action_with_accel(gtk_action, "<Ctrl><Alt>%s" % i)
+			if not tool.accelerator is None and len(tool.accelerator) > 0:
+				self._tool_action_group.add_action_with_accel(gtk_action, tool.accelerator)
+			else:
+				self._tool_action_group.add_action_with_accel(gtk_action, "<Ctrl><Alt>%s" % accel_counter)
+				accel_counter += 1
 			
 			# add UI definition
-			tool_ui += """<menuitem action="%s" />""" % name
+			items_ui += """<menuitem action="%s" />""" % name
 			
 			i += 1
 		
-		
-		tool_ui += """</placeholder>
-					</menu>
-				</menubar>
-			</ui>"""
+		tool_ui = self._tool_ui_template.substitute({"items" : items_ui})
 		
 		self._ui_manager.insert_action_group(self._tool_action_group, -1)
 		self._tool_ui_id = self._ui_manager.add_ui_from_string(tool_ui)
@@ -267,15 +260,6 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		# re-adjust action states
 		self.adjust(self._active_tab_decorator)
 	
-	def _on_action_activated(self, gtk_action, action):
-		"""
-		An action has been activated - propagate to action object
-		
-		@param gtk_action: the activated gtk.Action
-		@param action: a base.Action object for the activated action (not a gtk.Action)
-		"""
-		action.activate(self._window_context)
-	
 	def activate_tab(self, file):
 		"""
 		Activate the GeditTab containing the given File or open a new
@@ -301,7 +285,7 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		self._toolbar.hide()
 		
 		# disable all actions
-		for name in ACTION_OBJECTS.keys():
+		for name in self._action_objects.iterkeys():
 			self._action_group.get_action(name).set_visible(False)
 			
 		# disable all tool actions
@@ -357,7 +341,7 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		#
 		
 		# disable all actions
-		for name in ACTION_OBJECTS.keys():
+		for name in self._action_objects:
 			self._action_group.get_action(name).set_visible(False)
 		
 		# disable all tool actions
@@ -367,13 +351,13 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		
 		
 		# enable the actions for all extensions
-		for name in ACTION_EXTENSIONS[None]:
+		for name in self._action_extensions[None]:
 			self._action_group.get_action(name).set_visible(True)
 		
 		# enable the actions registered for the extension
 		if extension:
 			try:
-				for name in ACTION_EXTENSIONS[extension]:
+				for name in self._action_extensions[extension]:
 					self._action_group.get_action(name).set_visible(True)
 			except KeyError:
 				pass
@@ -412,7 +396,7 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		after_bottom_views = set()
 		
 		if tab_decorator.editor:
-			editor_views = self._window_context.get_editor_views(tab_decorator.editor)
+			editor_views = self._window_context.editor_scope_views[tab_decorator.editor]
 			for id, view in editor_views.iteritems():
 				if isinstance(view, BottomView):
 					after_bottom_views.add(view)
@@ -467,12 +451,8 @@ class GeditWindowDecorator(IPreferencesMonitor):
 					self._views[id] = view
 				
 				if isinstance(view, BottomView):
-					#self._window.get_bottom_panel().add_item(view, view.label, view.icon)
-					#self._window_bottom_views.append(view)
 					after_window_bottom_views.add(view)
 				elif isinstance(view, SideView):
-					#self._window.get_side_panel().add_item(view, view.label, view.icon)
-					#self._window_side_views.append(view)
 					after_window_side_views.add(view)
 				else:
 					raise RuntimeError("Invalid view type: %s" % view)
@@ -500,7 +480,7 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		#
 		# update window context
 		#
-		self._window_context.set_window_views(self._views)
+		self._window_context.window_scope_views = self._views
 		
 		#
 		# restore selection state
@@ -538,9 +518,6 @@ class GeditWindowDecorator(IPreferencesMonitor):
 	
 	def _on_tab_added(self, window, tab):
 		self._log.debug("tab_added")
-		
-#		if not tab in self._tab_decorators.keys():
-#			self._create_tab_decorator(tab)
 			
 	def _on_tab_removed(self, window, tab):
 		"""
@@ -592,26 +569,35 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		"""
 		self._log.debug("received 'destroy'")
 		
-		self._preferences.save()
+		self.destroy()
 	
 	def destroy(self):
+		# save preferences
+		self._preferences.save()
+		
 		#
 		# disconnect from tab signals
 		#
-		for id in self._tab_signal_handlers:
+		for id in self._signal_handlers:
 			self._window.disconnect(id)
 		#
 		# destroy tab decorators
 		#
 		for decorator in self._tab_decorators:
 			decorator.destroy()
+			del decorator
 		#
-		# remove views
+		# TODO: remove all views
 		#
 		self._window.get_bottom_panel().remove_item(self._views["ToolView"])
 		
+		# remove toolbar
 		self._toolbar.destroy()
-
+		
+		# remove actions
+		self._ui_manager.remove_ui(self._tool_ui_id)
+		self._ui_manager.remove_ui(self._ui_id)
+		
 
 class GeditTabDecorator(object):
 	"""
@@ -646,9 +632,11 @@ class GeditTabDecorator(object):
 			self._adjust_editor()
 		
 		# listen to GeditDocument signals
-		self._text_buffer.connect("loaded", self._on_load)
-		self._text_buffer.connect("saved", self._on_save)
-	
+		self._signals_handlers = [
+				self._text_buffer.connect("loaded", self._on_load),
+				self._text_buffer.connect("saved", self._on_save)
+		]
+		
 	@property
 	def tab(self):
 		return self._tab
@@ -694,7 +682,7 @@ class GeditTabDecorator(object):
 			if file == self._file:		# != doesn't work for File...
 				return False
 			else:
-				self._log.debug("---------- _adjust_editor: URI has changed")
+				self._log.debug("_adjust_editor: URI has changed")
 				
 				self._file = file
 				
@@ -705,13 +693,38 @@ class GeditTabDecorator(object):
 					self._editor = None
 	
 				extension = file.extension.lower()
-	
-				# create new editor instance
-				if extension in EDITORS.keys():
-					editor_class = EDITORS[extension]
-					
+				
+				# find Editor class for extension
+				editor_class = None
+				for clazz in EDITORS:
+					if extension in clazz.extensions:
+						editor_class = clazz
+						break
+				
+				if not editor_class is None:
+					# create instance
 					self._editor = editor_class.__new__(editor_class)
 					editor_class.__init__(self._editor, self, file)
+					
+					# The following doesn't work because the right expression is evaluated
+					# and then assigned to the left. This means that Editor.__init__ is
+					# running and reading _editor while _editor is None. That leads to
+					# 
+					# Traceback (most recent call last):
+					#   File "/home/michael/.gnome2/gedit/plugins/GeditLaTeXPlugin/src/base/decorators.py", line 662, in _on_load
+					#     self._adjust_editor()
+					#   File "/home/michael/.gnome2/gedit/plugins/GeditLaTeXPlugin/src/base/decorators.py", line 716, in _adjust_editor
+					#     self._editor = editor_class(self, file)
+					#   File "/home/michael/.gnome2/gedit/plugins/GeditLaTeXPlugin/src/base/__init__.py", line 353, in __init__
+					#     self.init(file, self._window_context)
+					#   File "/home/michael/.gnome2/gedit/plugins/GeditLaTeXPlugin/src/latex/editor.py", line 106, in init
+					#     self.__parse()
+					#   File "/home/michael/.gnome2/gedit/plugins/GeditLaTeXPlugin/src/latex/editor.py", line 279, in __parse
+					#     self._outline_view.set_outline(self._outline)
+					#   File "/home/michael/.gnome2/gedit/plugins/GeditLaTeXPlugin/src/latex/views.py", line 228, in set_outline
+					#     OutlineConverter().convert(self._store, outline, self._offset_map, self._context.active_editor.edited_file)
+					
+					#self._editor = editor_class(self, file)
 				
 				# tell WindowDecorator to adjust actions
 				self._window_decorator.adjust(self)
@@ -732,13 +745,18 @@ class GeditTabDecorator(object):
 		"""
 		@return: the extension of the currently opened file
 		"""
-		if self._file:
-			return self._file.extension.lower()
-		else:
+		if self._file is None:
 			return None
+		else:
+			return self._file.extension.lower()
 	
 	def destroy(self):
-		if self._editor:
+		# disocnnect from signals
+		for handler in self._signals_handlers:
+			self._text_buffer.disconnect(handler)
+		
+		# destroy Editor instance
+		if not self._editor is None:
 			self._editor.destroy()
 	
 	

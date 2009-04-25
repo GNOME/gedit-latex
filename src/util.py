@@ -188,10 +188,10 @@ class GladeInterface(object):
 from uuid import uuid1
 from gtk import gdk
 
-from base import IAction
+from base import Action
 
 
-class IconAction(IAction):
+class IconAction(Action):
 	"""
 	A utility class for creating actions with a custom icon instead of
 	a gtk stock id.

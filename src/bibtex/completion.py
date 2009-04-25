@@ -27,13 +27,13 @@ from gtk import gdk
 
 from ..preferences import Preferences
 from ..base.resources import find_resource
-from ..base import ICompletionHandler, IProposal, Template
+from ..base import ICompletionHandler, Proposal, Template
 from ..issues import MockIssueHandler
 from model import BibTeXModel
 from parser import BibTeXParser
 
 
-class BibTeXEntryTypeProposal(IProposal):
+class BibTeXEntryTypeProposal(Proposal):
 	"""
 	"""
 	icon = gdk.pixbuf_new_from_file(find_resource("icons/document.png"))

@@ -32,17 +32,19 @@ class Tool(object):
 	"""
 	The model of a tool. This is to be stored in preferences.
 	"""
-	def __init__(self, label, jobs, description, extensions=[]):
+	def __init__(self, label, jobs, description, accelerator, extensions=[]):
 		"""
 		@param label: a label used when displaying the Tool in the UI
 		@param jobs: a list of Job objects
 		@param description: a descriptive string used as tooltip
+		@param accelerator: a key combination for activating this tool
 		@param extensions: a list of file extensions for which this Tool can be used
 		"""
 		self.label = label
 		self.jobs = jobs
 		self.description = description
 		self.extensions = extensions
+		self.accelerator = accelerator
 	
 	def __str__(self):
 		return "Tool{%s}" % self.label
@@ -85,17 +87,17 @@ class Job(object):
 
 import gtk
 
-from ..base import IAction
+from ..base import Action
 
 	
-class ToolAction(IAction):
+class ToolAction(Action):
 	"""
 	This hooks Tools in the UI. A ToolAction is instantiated for each registered Tool.
 	"""
 	
 	_log = getLogger("ToolAction")
 	
-	def init(self, tool):
+	def __init__(self, tool):
 		self._tool = tool
 		self._runner = ToolRunner()
 	
@@ -226,12 +228,7 @@ class ToolRunner(Process):
 		assert self._job
 		
 		# create post-processor instance
-		post_processor_class = self._job.post_processor
-		
-		self._log.debug("post processor: " + str(post_processor_class))
-		
-		post_processor = post_processor_class.__new__(post_processor_class)
-		post_processor_class.__init__(post_processor)
+		post_processor = self._job.post_processor()
 		
 		# run post-processor
 		post_processor.process(self._file, self._stdout_text, self._stderr_text, condition)

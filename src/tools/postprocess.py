@@ -25,12 +25,11 @@ tools.postprocess
 from logging import getLogger
 import re
 
-#from ..base import File
 from ..issues import Issue
 from ..util import escape
 
 
-class IPostProcessor(object):
+class PostProcessor(object):
 	"""
 	The contract for a post-processor
 	"""
@@ -66,7 +65,7 @@ class IPostProcessor(object):
 		raise NotImplementedError
 	
 	
-class GenericPostProcessor(IPostProcessor):
+class GenericPostProcessor(PostProcessor):
 	"""
 	This just interprets the exit condition of the process
 	"""
@@ -97,7 +96,7 @@ class GenericPostProcessor(IPostProcessor):
 		return self._summary
 	
 	
-class LaTeXPostProcessor(object):
+class LaTeXPostProcessor(PostProcessor):
 	"""
 	This post-processor generates messages from a standard LaTeX log with
 	default error format (NOT using "-file-line-error")
@@ -154,7 +153,7 @@ class LaTeXPostProcessor(object):
 			return [Issue("No LaTeX log file found", None, None, self._file, Issue.SEVERITY_ERROR)]
 	
 
-class RubberPostProcessor(object):
+class RubberPostProcessor(PostProcessor):
 	"""
 	This is a post-processor for rubber
 	"""

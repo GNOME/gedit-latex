@@ -22,9 +22,13 @@
 latex.editor
 """
 
+BENCHMARK = True
+
 import gtk
 import gtk.gdk
 from logging import getLogger
+
+if BENCHMARK: import time
 
 from ..base import Editor
 from completion import LaTeXCompletionHandler
@@ -48,10 +52,9 @@ from spellcheck import SpellChecker, IMisspelledWordHandler
 
 class LaTeXEditor(Editor, IIssueHandler, IMisspelledWordHandler, IPreferencesMonitor):
 	
-	# TODO: use _document_dirty
-	
 	_log = getLogger("LaTeXEditor")
 	
+	extensions = [".tex"]
 	dnd_extensions = [".png", ".pdf", ".bib", ".tex"]
 	
 	@property
@@ -97,7 +100,7 @@ class LaTeXEditor(Editor, IIssueHandler, IMisspelledWordHandler, IPreferencesMon
 		#
 		# initially parse
 		#
-		self._change_reference = self.init_timestamp
+		self._change_reference = self.initial_timestamp
 		
 		self.__parse()
 		self.__update_neighbors()
@@ -247,8 +250,12 @@ class LaTeXEditor(Editor, IIssueHandler, IMisspelledWordHandler, IPreferencesMon
 			# reset issues
 			self._issue_view.clear()
 			
+			if BENCHMARK: t = time.clock()
+			
 			# parse document
 			self._document = self._parser.parse(content, self._file, self)
+			
+			if BENCHMARK: self._log.info("LaTeXParser.parse: %f" % (time.clock() - t))
 			
 			# create a copy that won't be expanded (e.g. for spell check)
 			#self._local_document = deepcopy(self._document)
@@ -486,6 +493,11 @@ class LaTeXEditor(Editor, IIssueHandler, IMisspelledWordHandler, IPreferencesMon
 		This is called by the outline view to identify foreign nodes
 		"""
 		return self._file
+
+	def destroy(self):
+		self._preferences.remove_monitor(self)
+		
+		Editor.destroy(self)
 
 
 # TODO: use ElementTree

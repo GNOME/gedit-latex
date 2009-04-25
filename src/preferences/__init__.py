@@ -155,6 +155,14 @@ class Preferences(object):
 		# TODO: support a flag indicating which parts are to be monitored
 		
 		self.__monitors.append(monitor)
+		
+	def remove_monitor(self, monitor):
+		"""
+		Remove a monitor
+		
+		@raise ValueError: if monitor is not found
+		"""
+		del self.__monitors[self.__monitors.index(monitor)]
 	
 	def get(self, key, default_value=None):
 		"""
@@ -236,8 +244,9 @@ class Preferences(object):
 			assert not tool_element.get("extensions") is None
 			
 			extensions = tool_element.get("extensions").split()
+			accelerator = tool_element.get("accelerator")
 			id = tool_element.get("id")
-			tool = Tool(tool_element.get("label"), jobs, tool_element.get("description"), extensions)
+			tool = Tool(tool_element.get("label"), jobs, tool_element.get("description"), accelerator, extensions)
 			self.__tool_ids[tool] = id
 			
 			tools.append(tool)
