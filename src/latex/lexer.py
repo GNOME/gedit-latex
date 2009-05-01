@@ -178,7 +178,7 @@ class Lexer(object):
 					if char in self._SPECIAL or char.isspace():
 						# this is a one-character-command, also whitespace is allowed
 						self._state = self._DEFAULT
-						return Token(Token.COMMAND, self._startOffset, "\\" + char)
+						return Token(Token.COMMAND, self._startOffset, char)
 					
 					else:
 						self._state = self._COMMAND
@@ -224,7 +224,7 @@ class Lexer(object):
 					else:
 						if self._verbListener.put(char):
 							# we have "\verb"
-							self._state = self._VERB_COMMAND
+							self._state = self._VERB
 						else:
 							self._text.append(char)
 				
@@ -279,8 +279,9 @@ class Lexer(object):
 					else:
 						self._text.append(char)
 				
-				elif self._state == self._VERB_COMMAND:
+				elif self._state == self._VERB:
 					# this char is the verb delimiter
+					# TODO: implement verbatim detection
 					pass
 						
 			except StopIteration:

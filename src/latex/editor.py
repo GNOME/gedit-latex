@@ -313,6 +313,9 @@ class LaTeXEditor(Editor, IIssueHandler, IMisspelledWordHandler, IPreferencesMon
 			
 			# pass neighbor files to completion
 			self.__update_neighbors()
+			
+			
+			print self._document.xml
 	
 	@property
 	def __master_file(self):

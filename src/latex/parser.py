@@ -138,7 +138,7 @@ class Node(list):
 		Return the concatenated markup values of this node and all child nodes
 		"""
 		if self.type == self.COMMAND:
-			return "<span color=\"grey\">\\%s</span>%s" % (self.value, "".join([node.markup for node in self]))
+			return "<span color=\"grey\">\\%s</span>%s" % (escape(self.value), "".join([node.markup for node in self]))
 		elif self.type == self.MANDATORY_ARGUMENT or self.type == self.EMBRACED:
 			return "<span color=\"grey\">{</span>%s<span color=\"grey\">}</span>" % "".join([node.markup for node in self])
 		elif self.type == self.OPTIONAL_ARGUMENT:
