@@ -1,3 +1,33 @@
+0.2 rc2
+ * added 'pdfpages' commands
+ * handling exceptions in LaTeXValidator and LaTeXOutlineGenerator ([ 2483621 ])
+ * enabling triggered completion again (completion triggered at '\', '[' and '{' for LaTeX and at '@' for BibTeX)
+ * removed obsolete ICompletionHandler.strip_delimiter
+ * improved performance of BibTeXParser by ~20%
+ * fixed/extended labels for babel language definitions ([ 2503408 ])
+ * sorting choices in "New LaTeX Document" dialog ([ 2503408 ])
+ * fixed annoying completion at '\\\\'
+ * finished connect-outline-to-editor-feature for BibTeX outline
+ * added completion of environments defined by \newenvironment and \newtheorem
+ * storing relative paths in property files
+ * enabling auto-save-before-build feature again ([ 2543463 ])
+ * fixed \usepackage{verbatim} issue ([ ? ])
+ * fixed errors and exceptions in BibTeX parser
+ * updated INSTALL
+ * fixed misplaced \usepackage issue ([ 2546325 ])
+ * fixed build fail on spaces/specials in path ([ 2549490, ? ])
+ * fixed "New LaTeX Document" fail when path contains spaces ([ 2549554 ])
+ * fixed LaTeX completion fail in certain situations ([ 2548406 ])
+ * ensuring an up-to-date model on auto-insert of \usepackage ([ 2546366 ])
+ * hiding features when no tab is opened ([ ? ])
+ * support for duplicate placeholders in templates (see e.g. 'environment' snippet)
+ * showing nicer hints for snippets
+ * finished BibTeX validator that checks for:
+  - duplicate entry names
+  - duplicate fields
+  - missing required fields
+  - unused fields
+
 0.2 rc1
  * improved support for multi-file documents (fixes [ 2039930 ], [ 2011830 ], [ 2003370 ], [ 1885775 ], [ 1801142 ])
  * improved support for remote files (fixes [ 1875238 ])
