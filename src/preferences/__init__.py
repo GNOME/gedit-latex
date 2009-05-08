@@ -193,7 +193,7 @@ class Preferences(object):
 		for element in self.__preferences.findall("value"):
 			if element.get("key") == key:
 				return element
-		self._log.warning("<value key='%s'> not found" % key)
+		self._log.debug("<value key='%s'> not found" % key)
 		return None
 	
 	def set(self, key, value):

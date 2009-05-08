@@ -208,8 +208,13 @@ class LaTeXEditor(Editor, IIssueHandler, IMisspelledWordHandler, IPreferencesMon
 		
 		Update models
 		"""
+		
+#		from multiprocessing import Process
+#		
+#		p_parse = Process(target=self.__parse)
+#		p_parse.start()
+		
 		self.__parse()
-		self.__update_neighbors()
 		
 	def __update_neighbors(self):
 		"""
@@ -293,6 +298,9 @@ class LaTeXEditor(Editor, IIssueHandler, IMisspelledWordHandler, IPreferencesMon
 				# find master
 				master_file = self.__master_file
 				
+				if master_file is None:
+					return
+				
 				# parse master
 				master_content = open(master_file.path).read()
 				self._document = self._parser.parse(master_content, master_file, self)
@@ -314,8 +322,9 @@ class LaTeXEditor(Editor, IIssueHandler, IMisspelledWordHandler, IPreferencesMon
 			# pass neighbor files to completion
 			self.__update_neighbors()
 			
+			self._log.debug("Parsing finished")
 			
-			print self._document.xml
+			#print self._document.xml
 	
 	@property
 	def __master_file(self):
@@ -348,7 +357,8 @@ class LaTeXEditor(Editor, IIssueHandler, IMisspelledWordHandler, IPreferencesMon
 				property_file.save()
 				return File(master_filename)
 			else:
-				raise RuntimeError("No master file chosen")
+				# no master file chosen
+				return None
 	
 	def issue(self, issue):
 		# see IIssueHandler.issue
