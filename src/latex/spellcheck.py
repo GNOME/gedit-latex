@@ -79,6 +79,8 @@ class SpellCheckerBackend(IPreferencesMonitor):
 		"""
 		@param text: the text to be checked
 		@param handler: an IErrorHandler
+		
+		@raise ImportError: if pyenchant is not installed
 		"""
 		if not self._initialized: self._initialize()
 		
@@ -132,12 +134,17 @@ class SpellChecker(IErrorHandler):
 		
 		@param document: a LaTeX document model
 		@param handler: an IMisspelledWordHandler
+		
+		@raise ImportError: if pyenchant is not installed
 		"""
 		self._file = file
 		self._handler = handler
 		self.__run(document)
 	
 	def __run(self, parent_node):
+		"""
+		@raise ImportError: if pyenchant is not installed
+		"""
 		for node in parent_node:
 			if node.type == Node.TEXT and node.file == self._file:
 				text = node.value.decode("utf8")

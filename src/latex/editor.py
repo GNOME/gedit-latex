@@ -34,7 +34,7 @@ from ..base import Editor
 from completion import LaTeXCompletionHandler
 from ..snippets.completion import SnippetCompletionHandler
 from ..issues import Issue, IIssueHandler
-from ..util import verbose
+from ..util import verbose, open_error
 from copy import deepcopy
 
 from parser import LaTeXParser
@@ -382,6 +382,8 @@ class LaTeXEditor(Editor, IIssueHandler, IMisspelledWordHandler, IPreferencesMon
 	def spell_check(self):
 		"""
 		Run a spell check on the file
+		
+		@raise ImportError: if pyenchant is not installed
 		"""
 		self.remove_markers("latex-spell")
 		self.__word_markers = {}
@@ -391,7 +393,11 @@ class LaTeXEditor(Editor, IIssueHandler, IMisspelledWordHandler, IPreferencesMon
 		# the expanded model of the document. We must keep the the not expanded
 		# one, too.
 		#
-		self.__spell_checker.run(self._document, self.edited_file, self)
+		
+		try:
+			self.__spell_checker.run(self._document, self.edited_file, self)
+		except ImportError:
+			open_error("Enchant is missing", "The enchant library and its Python bindings (package is propably called pyenchant) are needed for spell checking but could not be found")
 			
 	def on_misspelled_word(self, word, position):
 		# see IMisspelledWordHandler.on_misspelled_word
