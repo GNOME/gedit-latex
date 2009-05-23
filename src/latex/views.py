@@ -220,6 +220,8 @@ class LaTeXOutlineView(BaseOutlineView):
 		"""
 		Load a new outline model
 		"""
+		self._log.debug("set_outline")
+		
 		self.assure_init()
 		
 		self._save_state()

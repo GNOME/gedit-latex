@@ -182,7 +182,10 @@ class Lexer(object):
 					
 					else:
 						self._state = self._COMMAND
+						
 						self._verbListener = StringListener("verb", any_position=False)
+						self._verbListener.put(char)
+						
 						self._text = [char]
 				
 				elif self._state == self._COMMENT:
@@ -255,7 +258,7 @@ class Lexer(object):
 						self._text.append(char)
 				
 				elif self._state == self._VERB:
-					if char == self._verbDelimiter:
+					if char == self._verbDelimiter:		# FIXME: \overbrace
 						self._state = self._DEFAULT
 						
 						return Token(Token.VERBATIM, self._startOffset, "".join(self._text) + char)

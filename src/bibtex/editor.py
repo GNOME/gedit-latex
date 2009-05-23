@@ -75,7 +75,32 @@ class BibTeXEditor(Editor, IIssueHandler):
 		
 		Update models
 		"""
+#		from multiprocessing import Process
+#		
+#		p_parse = Process(target=self.__parse_async)
+#		p_parse.start()
+		
 		self.__parse()
+	
+	
+	
+	
+	def __on_parse_finished(self, document):
+		self._log.debug("__on_parse_finished")
+		
+		self._validator.validate(document, self._file, self)
+		self._outline_view.set_outline(document)
+	
+	def __parse_async(self):
+		self._log.debug("__parse_async")
+		
+		content = self.content
+		document = self._parser.parse(content, self._file, self)
+		
+		self.__on_parse_finished(document)
+		
+		
+		
 	
 	@verbose
 	def __parse(self):

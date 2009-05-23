@@ -22,8 +22,8 @@
 # install the plugin
 #
 
-PLUGINS = ~/.gnome2/gedit/plugins
-NAME = "GeditLaTeXPlugin"
+PLUGINS=~/.gnome2/gedit/plugins
+NAME="GeditLaTeXPlugin"
 
 #  ensure that the plugin directory exists
 mkdir --parents $PLUGINS/$NAME

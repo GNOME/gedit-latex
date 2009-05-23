@@ -11,15 +11,15 @@
  * added completion of environments defined by \newenvironment and \newtheorem
  * storing relative paths in property files
  * enabling auto-save-before-build feature again ([ 2543463 ])
- * fixed \usepackage{verbatim} issue ([ ? ])
+ * fixed \usepackage{verbatim} issue ([ 2540046 ])
  * fixed errors and exceptions in BibTeX parser
  * updated INSTALL
  * fixed misplaced \usepackage issue ([ 2546325 ])
- * fixed build fail on spaces/specials in path ([ 2549490, ? ])
+ * fixed build fail on spaces/specials in path ([ 2549490 ])
  * fixed "New LaTeX Document" fail when path contains spaces ([ 2549554 ])
  * fixed LaTeX completion fail in certain situations ([ 2548406 ])
  * ensuring an up-to-date model on auto-insert of \usepackage ([ 2546366 ])
- * hiding features when no tab is opened ([ ? ])
+ * hiding features when no tab is opened
  * support for duplicate placeholders in templates (see e.g. 'environment' snippet)
  * showing nicer hints for snippets
  * finished BibTeX validator that checks for:
@@ -27,6 +27,11 @@
   - duplicate fields
   - missing required fields
   - unused fields
+ * fixed freeze when no master file is chosen
+ * fixed bug in LaTeX outline ([ 2644609 ])
+ * fixed bug in BibTeX outline when grouped by author
+ * omit file extension for pdf and eps images and validate them correctly ([ 2793148 ])
+ * fixed LaTeX lexer issue ([ 2792736 ])
 
 0.2 rc1
  * improved support for multi-file documents (fixes [ 2039930 ], [ 2011830 ], [ 2003370 ], [ 1885775 ], [ 1801142 ])

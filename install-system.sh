@@ -22,9 +22,9 @@
 # install the plugin system-wide
 #
 
-PLUGINS_LIB = "/usr/lib/gedit-2/plugins"
-PLUGINS_SHARE = "/usr/share/gedit-2/plugins"
-NAME = "GeditLaTeXPlugin"
+PLUGINS_LIB="/usr/lib/gedit-2/plugins"
+PLUGINS_SHARE="/usr/share/gedit-2/plugins"
+NAME="GeditLaTeXPlugin"
 
 # ensure that all directories exist
 mkdir --parents $PLUGINS_LIB/$NAME

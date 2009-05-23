@@ -238,7 +238,7 @@ class OutlineConverter(object):
 				# split list of authors
 				try:
 					authorValue = str(entry.findField("author").valueString)
-					authors = [a.strip() for a in authorValue.split("and")]
+					authors = [a.strip() for a in authorValue.split(" and ")]
 				except KeyError:
 					# no year, so put this in an extra group
 					authors = [NA_IDENT]

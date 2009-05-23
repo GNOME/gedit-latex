@@ -148,7 +148,16 @@ class LaTeXValidator(object):
 							else:
 								filename = "%s/%s" % (node.file.dirname, target)
 							
-							if not exists(filename):
+							# an image may be specified without the extension
+							potential_filenames = [filename, filename + ".eps", filename + ".pdf"]
+							
+							found = False
+							for f in potential_filenames:
+								if exists(f):
+									found = True
+									break
+							
+							if not found:
 								self._issue_handler.issue(Issue("Image <b>%s</b> could not be found" % escape(target), node.start, node.lastEnd, node.file, Issue.SEVERITY_WARNING))
 						else:
 							self._issue_handler.issue(Issue("No image file specified", node.start, node.lastEnd, node.file, Issue.SEVERITY_WARNING))

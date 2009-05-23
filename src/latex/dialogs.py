@@ -555,6 +555,8 @@ class UseBibliographyDialog(GladeInterface, PreviewRenderer):
 		self._tempFile.close()
 
 
+from os.path import splitext
+
 from . import LaTeXSource
 
 
@@ -578,6 +580,12 @@ class InsertGraphicsDialog(GladeInterface):
 			file = File(self._fileChooser.get_filename())
 			relative_filename = file.relativize(edited_file.dirname)
 			
+			# for eps and pdf the extension should be omitted 
+			# (see http://www.tex.ac.uk/cgi-bin/texfaq2html?label=graph-pspdf)
+			ext = splitext(relative_filename)[1]
+			if ext == ".pdf" or ext == ".eps":
+				relative_filename = splitext(relative_filename)[0]
+				
 			width = "%.2f" % round(self.find_widget("spinbuttonWidth").get_value() / 100.0, 2)
 			caption = self.find_widget("entryCaption").get_text()
 			label = self.find_widget("entryLabel").get_text()
