@@ -26,7 +26,7 @@ from logging import getLogger
 import gtk
 from gtk import gdk
 
-from ..base.resources import find_resource
+from ..base.resources import find_resource, MODE_READWRITE
 from ..util import GladeInterface
 from . import Preferences, IPreferencesMonitor
 
@@ -512,6 +512,11 @@ class PreferencesDialog(GladeInterface, IPreferencesMonitor):
 			check_hide_box = self.find_widget("checkHideBox")
 			check_hide_box.set_active(self._preferences.get_bool("HideBoxWarnings", False))
 			
+			
+			filechooser_tmp = self.find_widget("filechooserTemplates")
+			filechooser_tmp.set_filename(self._preferences.get("TemplateFolder", find_resource("templates", MODE_READWRITE)))
+			
+			
 			#
 			# proxies for ColorButtons and SpinButtons
 			#
@@ -538,9 +543,17 @@ class PreferencesDialog(GladeInterface, IPreferencesMonitor):
 								   "on_buttonDeleteTool_clicked" : self._on_delete_tool_clicked,
 								   "on_buttonEditSnippet_clicked" : self._on_edit_snippet_clicked,
 								   "on_comboLanguages_changed" : self._on_language_changed,
-								   "on_checkHideBox_toggled" : self._on_hide_box_toggled })
+								   "on_checkHideBox_toggled" : self._on_hide_box_toggled,
+								   "on_filechooserTemplates_selection_changed" : self._on_templates_dir_changed })
 			
 		return self._dialog
+	
+	def _on_templates_dir_changed(self, filechooser):
+		folder = filechooser.get_filename()
+		if folder is None:
+			return
+		
+		self._preferences.set("TemplateFolder", folder)
 	
 	def _on_hide_box_toggled(self, togglebutton):
 		value = togglebutton.get_active()
