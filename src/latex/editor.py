@@ -393,7 +393,6 @@ class LaTeXEditor(Editor, IIssueHandler, IMisspelledWordHandler, IPreferencesMon
 		# the expanded model of the document. We must keep the the not expanded
 		# one, too.
 		#
-		
 		try:
 			self.__spell_checker.run(self._document, self.edited_file, self)
 		except ImportError:

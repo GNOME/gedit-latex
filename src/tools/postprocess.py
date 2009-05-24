@@ -151,7 +151,7 @@ class LaTeXPostProcessor(PostProcessor):
 		
 		except IOError:
 			return [Issue("No LaTeX log file found", None, None, self._file, Issue.SEVERITY_ERROR)]
-	
+
 
 class RubberPostProcessor(PostProcessor):
 	"""
@@ -168,6 +168,11 @@ class RubberPostProcessor(PostProcessor):
 		self._issues = None
 		self._summary = None
 		self._successful = False
+		
+		# FIXME: circ dep
+		from ..preferences import Preferences
+		
+		self._hide_box_warnings = Preferences().get_bool("HideBoxWarnings", False)
 	
 	@property
 	def successful(self):
@@ -191,12 +196,16 @@ class RubberPostProcessor(PostProcessor):
 		self._successful = not bool(condition)
 		
 		for match in self._pattern.finditer(stderr):
+			severity = Issue.SEVERITY_ERROR
+			
 			# text
 			text = match.group("text")
 			
-			# TODO: this is ugly!
 			if "Underfull" in text or "Overfull" in text:
-				continue
+				if self._hide_box_warnings:
+					continue
+				else:
+					severity = Issue.SEVERITY_WARNING
 			
 			# line(s)
 			lineFrom, lineTo = None, None
@@ -212,7 +221,7 @@ class RubberPostProcessor(PostProcessor):
 			# filename
 			filename = "%s/%s" % (file.dirname, match.group("file"))
 			
-			self._issues.append(Issue(escape(text), lineFrom, lineTo, File(filename), Issue.SEVERITY_ERROR, Issue.POSITION_LINE))
+			self._issues.append(Issue(escape(text), lineFrom, lineTo, File(filename), severity, Issue.POSITION_LINE))
 			
 	
 	

@@ -31,7 +31,10 @@
  * fixed bug in LaTeX outline ([ 2644609 ])
  * fixed bug in BibTeX outline when grouped by author
  * omit file extension for pdf and eps images and validate them correctly ([ 2793148 ])
- * fixed LaTeX lexer issue ([ 2792736 ])
+ * fixed LaTeX lexer issues ([ 2792736 ])
+ * support for user-defined templates
+ * search more paths for TeX resources ([ 2795865 ])
+ * hiding of box warnings from rubber may now be configured ([ 2795868 ])
 
 0.2 rc1
  * improved support for multi-file documents (fixes [ 2039930 ], [ 2011830 ], [ 2003370 ], [ 1885775 ], [ 1801142 ])

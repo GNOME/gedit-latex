@@ -211,13 +211,29 @@ class Environment(object):
 			self._kpsewhich_installed = None
 			self._file_exists_cache = {}
 			
+			self._search_paths = []
+			
 			try:
 				cnf_file = CnfFile(self._CONFIG_FILENAME)
-				self._TEXMFMAIN = cnf_file["TEXMFDIST"]
+
+				path_found = False
+				
+				for key in ["TEXMFMAIN", "TEXMFDIST"]:
+					try:
+						self._search_paths.append(cnf_file[key])
+						path_found = True
+					except KeyError:
+						# config key not found
+						self._log.error("Key %s not found in %s" % (key, self._CONFIG_FILENAME))
+				
+				if not path_found:
+					self._log.error("No search paths found in %s, using default search path %s" % (key, self._CONFIG_FILENAME, self._DEFAULT_TEXMF_DIR))
+					self._search_paths = [self._DEFAULT_TEXMF_DIR]
+				
 			except IOError:
-				# _CONFIG_FILENAME not found - use default path
-				self._log.error("%s not found, using default value for TEXMFDIST (%s)" % (self._CONFIG_FILENAME, self._DEFAULT_TEXMF_DIR))
-				self._TEXMFMAIN = self._DEFAULT_TEXMF_DIR
+				# file _CONFIG_FILENAME not found - use default path
+				self._log.error("%s not found, using default search path %s" % (self._CONFIG_FILENAME, self._DEFAULT_TEXMF_DIR))
+				self._search_paths = [self._DEFAULT_TEXMF_DIR]
 			
 			self._ready = True
 	
@@ -284,25 +300,28 @@ class Environment(object):
 		"""
 		Find TeX resources
 		
-		@param relative: a path relative to TEXMFDIST, e.g. '/tex/latex/base/'
+		@param relative: a path relative to TEXMF... search path, e.g. '/tex/latex/base/'
 		@param extension: the file extension of the resources, e.g. '.bst'
 		@param labels: the dictionary to be searched for labels  
 		"""
 		resources = []
-		files = [File(f) for f in popen("find %s%s -name '*%s'" % (self._TEXMFMAIN, relative, extension)).readlines()]
-		if len(files) > 0:
-			for file in files:
-				name = file.shortbasename
-				try:
-					label = labels[name]
-				except KeyError:
-					label = ""
-				resources.append(TeXResource(file, name, label))
-		else:
-			# no files found
-			self._log.error("No %s-files found in TEXMFDIST%s" % (extension, relative))
-			for name, label in labels.iteritems():
-				resources.append(TeXResource(None, name, label))
+		
+		for search_path in self._search_paths:
+			files = [File(f) for f in popen("find %s%s -name '*%s'" % (search_path, relative, extension)).readlines()]
+			if len(files) > 0:
+				for file in files:
+					name = file.shortbasename
+					try:
+						label = labels[name]
+					except KeyError:
+						label = ""
+					resources.append(TeXResource(file, name, label))
+			else:
+				# no files found
+				self._log.error("No %s-files found in %s%s" % (extension, search_path, relative))
+				for name, label in labels.iteritems():
+					resources.append(TeXResource(None, name, label))
+					
 		return resources
 	
 	@property

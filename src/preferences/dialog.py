@@ -508,6 +508,10 @@ class PreferencesDialog(GladeInterface, IPreferencesMonitor):
 				
 				pass
 			
+			# misc
+			check_hide_box = self.find_widget("checkHideBox")
+			check_hide_box.set_active(self._preferences.get_bool("HideBoxWarnings", False))
+			
 			#
 			# proxies for ColorButtons and SpinButtons
 			#
@@ -533,9 +537,14 @@ class PreferencesDialog(GladeInterface, IPreferencesMonitor):
 								   "on_buttonConfigureTool_clicked" : self._on_configure_tool_clicked,
 								   "on_buttonDeleteTool_clicked" : self._on_delete_tool_clicked,
 								   "on_buttonEditSnippet_clicked" : self._on_edit_snippet_clicked,
-								   "on_comboLanguages_changed" : self._on_language_changed })
+								   "on_comboLanguages_changed" : self._on_language_changed,
+								   "on_checkHideBox_toggled" : self._on_hide_box_toggled })
 			
 		return self._dialog
+	
+	def _on_hide_box_toggled(self, togglebutton):
+		value = togglebutton.get_active()
+		self._preferences.set("HideBoxWarnings", value)
 	
 	def _on_language_changed(self, combobox):
 		language = combobox.get_model().get_value(combobox.get_active_iter(), 0)

@@ -227,12 +227,11 @@ class NewDocumentDialog(GladeInterface):
 			# templates
 			#
 			self._proxy_template = ComboBoxProxy(self.find_widget("comboTemplate"), "RecentTemplate")
-#			language_definitions = environment.language_definitions
-#			language_definitions.sort(key=lambda x: x.name.lower())
-#			for l in language_definitions:
-#				self._proxy_babel.add_option(l.name, l.label)
 
-			folder = Folder(find_resource("templates", MODE_READWRITE))
+			#folder = Folder(find_resource("templates", MODE_READWRITE))
+			
+			folder = Folder(preferences.get("TemplateFolder", find_resource("templates", MODE_READWRITE)))
+			
 			templates = folder.files
 			templates.sort()
 			for template in templates:

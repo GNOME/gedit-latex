@@ -97,7 +97,7 @@ class Lexer(object):
 	# TODO: redesign and optimize this from a DFA
 	
 	# states of the lexer
-	_DEFAULT, _BACKSLASH, _COMMAND, _TEXT, _COMMENT, _VERB, _VERBATIM = range(7)
+	_DEFAULT, _BACKSLASH, _COMMAND, _TEXT, _COMMENT, _PRE_VERB, _VERB, _VERBATIM = range(8)
 	
 	_SPECIAL = set(["&", "$", "{", "}", "[", "]", "%", "#", "_", "\\"])
 	
@@ -203,6 +203,7 @@ class Lexer(object):
 
 						name = "".join(self._text)
 						
+						# this is mostly false because \verb is mostly followed by something like |
 						if name == "verb":
 							self._state = self._VERB
 							self._verbDelimiter = char
@@ -227,9 +228,15 @@ class Lexer(object):
 					else:
 						if self._verbListener.put(char):
 							# we have "\verb"
-							self._state = self._VERB
+							self._state = self._PRE_VERB
 						else:
 							self._text.append(char)
+				
+				elif self._state == self._PRE_VERB:
+					self._state = self._VERB
+					self._verbDelimiter = char
+					self._startOffset = self._reader.offset - 1
+					self._text = []
 				
 				elif self._state == self._TEXT:
 					if char in self._SPECIAL:

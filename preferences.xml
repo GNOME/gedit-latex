@@ -13,7 +13,7 @@
 	<value key="ShowGraphicsInOutline">True</value>
 	<value key="IssuesShowWarnings">True</value>
 	<value key="IssuesShowTasks">True</value>
-	<value key="ExpandedSymbolGroups">Delimiters,Operators,Arrows,Greek,Accents,Special</value>
+	<value key="ExpandedSymbolGroups">Operators</value>
 	<value key="RecentDocumentClass">scrartcl</value>
 	<value key="RecentPaperSize">a4paper</value>
 	<value key="RecentDefaultFontFamily">\sfdefault</value>
