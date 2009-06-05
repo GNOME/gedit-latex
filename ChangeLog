@@ -35,6 +35,9 @@
  * support for user-defined templates
  * search more paths for TeX resources ([ 2795865 ])
  * hiding of box warnings from rubber may now be configured ([ 2795868 ])
+ * added fancyhdr and some page setup commands to LaTeX completion
+ * brought back R Sweave tool
+ * added embedded PDF preview (thanks to Dan Mihai Ile, [ 2799221 ])
 
 0.2 rc1
  * improved support for multi-file documents (fixes [ 2039930 ], [ 2011830 ], [ 2003370 ], [ 1885775 ], [ 1801142 ])

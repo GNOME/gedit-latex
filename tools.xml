@@ -7,6 +7,11 @@
 			gnome-open "$shortname.pdf"
 		</job>
 	</tool>
+	<tool description="Create a PDF from LaTeX source and show in embedded preview" extensions=".tex" id="1" label="LaTeX &#8594; PDF (Embedded Preview)">
+		<job mustSucceed="true" postProcessor="RubberPostProcessor">
+			rubber --inplace --maxerr -1 --short --force --warn all --pdf "$filename"
+		</job>
+	</tool>
 	<tool description="Create a PostScript from LaTeX source" extensions=".tex" id="2" label="LaTeX &#8594; PS">
 		<job mustSucceed="true" postProcessor="RubberPostProcessor">
 			rubber --inplace --maxerr -1 --short --force --warn all --ps "$filename"
@@ -32,6 +37,17 @@
 		</job>
 		<job mustSucceed="true" postProcessor="GenericPostProcessor">
 			xdvi -unique -s 6 -bg white -editor gedit "$shortname.dvi"
+		</job>
+	</tool>
+	<tool description="Process R Sweave file and create a PDF from the resulting LaTeX source" extensions=".Rnw" id="1" label="R Sweave &#8594; PDF">
+		<job mustSucceed="true" postProcessor="GenericPostProcessor">
+			R Sweave "$shortname.Rnw"
+		</job>
+		<job mustSucceed="true" postProcessor="RubberPostProcessor">
+			rubber --inplace --maxerr -1 --short --force --warn all --pdf "$shortname.tex"
+		</job>
+		<job mustSucceed="true" postProcessor="GenericPostProcessor">
+			gnome-open "$shortname.pdf"
 		</job>
 	</tool>
 	<tool description="Remove LaTeX build files" extensions=".tex" id="5" label="Cleanup LaTeX Build Files">

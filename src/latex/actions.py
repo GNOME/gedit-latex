@@ -223,6 +223,29 @@ class LaTeXCommentAction(LaTeXAction):
 		context.active_editor.toggle_comment("%")
 
 
+from ..util import verbose
+
+
+class LaTeXPreviewAction(LaTeXAction):
+	latex_preview = None
+	label = "Toggle Embedded Preview"
+	stock_id = gtk.STOCK_ZOOM_FIT				 # TODO: Create and use a better icon 
+	accelerator = "<Ctrl><Shift>T"
+	tooltip = "Toggle embedded PDF preview"
+	
+	@verbose
+	def activate(self, context):
+		
+		editor = context.active_editor
+		assert type(editor) is LaTeXEditor
+		pdf_file_path = "%s.pdf" % editor.file.shortname
+
+		from livepreview import LatexPreview
+		if self.latex_preview == None:
+			self.latex_preview = LatexPreview(context._window_decorator._window)
+		self.latex_preview.toggle_preview(pdf_file_path)
+		
+
 class LaTeXSpellCheckAction(LaTeXAction):
 	label = "Spell Check"
 	stock_id = gtk.STOCK_SPELL_CHECK

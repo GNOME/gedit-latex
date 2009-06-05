@@ -626,6 +626,7 @@
                               <widget class="GtkFileChooserButton" id="filechooserTemplates">
                                 <property name="visible">True</property>
                                 <property name="action">select-folder</property>
+                                <signal name="selection_changed" handler="on_filechooserTemplates_selection_changed"/>
                               </widget>
                               <packing>
                                 <property name="position">1</property>

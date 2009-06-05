@@ -19,6 +19,62 @@ this program; if not, write to the Free Software Foundation, Inc., 51 Franklin
 Street, Fifth Floor, Boston, MA  02110-1301, USA
 -->
 <commands>
+	<!-- fancyhdr -->
+	
+	<command name="fancyhead">
+		<argument label="Position" type="optional" />
+		<argument label="Text" />
+	</command>
+	
+	<command name="fancyfoot">
+		<argument label="Position" type="optional" />
+		<argument label="Text" />
+	</command>
+	
+	<command name="fancyhf">
+		<argument label="Position" type="optional" />
+		<argument label="Text" />
+	</command>
+	
+	<!-- general page setup -->
+	
+	<command name="pagenumbering">
+		<argument label="Type">
+			<choice name="Alph" />
+			<choice name="alph" />
+			<choice name="arabic" />
+			<choice name="Roman" />
+			<choice name="roman" />
+		</argument>
+	</command>
+
+	<command name="pagestyle">
+		<argument label="Type">
+			<choice name="plain" />
+			<choice name="empty" />
+			<choice name="headings" />
+			<choice name="myheadings" />
+		</argument>
+	</command>
+	
+	<command name="thispagestyle">
+		<argument label="Type">
+			<choice name="plain" />
+			<choice name="empty" />
+			<choice name="headings" />
+			<choice name="myheadings" />
+		</argument>
+	</command>
+	
+	<command name="markboth">
+		<argument label="EvenHeader" />
+		<argument label="OddHeader" />
+	</command>
+	
+	<command name="markright">
+		<argument label="Header" />
+	</command>
+
 	<!-- pdfpages -->
 	<command name="includepdf" package="pdfpages">
 		<argument label="LocalOptions" type="optional" />

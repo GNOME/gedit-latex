@@ -50,6 +50,8 @@ UI = """
 					<separator />
 					<menuitem action="LaTeXForwardSearchAction" />
 					<menuitem action="LaTeXBuildImageAction" />
+					<separator />
+					<menuitem action="LaTeXPreviewAction" />
 				</menu>
 				<menu action="BibTeXMenuAction">
 					<menuitem action="BibTeXNewEntryAction" />
@@ -113,7 +115,7 @@ UI = """
 
 # actions
 
-from ..latex.actions import LaTeXMenuAction, LaTeXNewAction, LaTeXCommentAction, LaTeXSpellCheckAction, LaTeXChooseMasterAction, \
+from ..latex.actions import LaTeXMenuAction, LaTeXNewAction, LaTeXCommentAction, LaTeXPreviewAction, LaTeXSpellCheckAction, LaTeXChooseMasterAction, \
 		LaTeXItemizeAction, LaTeXEnumerateAction, LaTeXFontFamilyAction, LaTeXFontFamilyMenuAction, LaTeXBoldAction, \
 		LaTeXItalicAction, LaTeXDescriptionAction, LaTeXStructureMenuAction, LaTeXPartAction, LaTeXChapterAction, \
 		LaTeXSectionAction, LaTeXSubsectionAction, LaTeXParagraphAction,LaTeXSubparagraphAction, LaTeXStructureAction, \
@@ -125,7 +127,7 @@ from ..latex.actions import LaTeXMenuAction, LaTeXNewAction, LaTeXCommentAction,
 
 from ..bibtex.actions import BibTeXMenuAction, BibTeXNewEntryAction
 
-ACTIONS = [ LaTeXMenuAction, LaTeXNewAction, LaTeXCommentAction, LaTeXSpellCheckAction, LaTeXChooseMasterAction, 
+ACTIONS = [ LaTeXMenuAction, LaTeXNewAction, LaTeXCommentAction, LaTeXPreviewAction, LaTeXSpellCheckAction, LaTeXChooseMasterAction, 
 		LaTeXItemizeAction, LaTeXEnumerateAction, LaTeXFontFamilyAction, LaTeXFontFamilyMenuAction, LaTeXBoldAction, 
 		LaTeXItalicAction, LaTeXDescriptionAction, LaTeXStructureMenuAction, LaTeXPartAction, LaTeXChapterAction, 
 		LaTeXSectionAction, LaTeXSubsectionAction, LaTeXParagraphAction,LaTeXSubparagraphAction, LaTeXStructureAction, 
