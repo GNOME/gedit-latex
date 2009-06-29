@@ -748,7 +748,7 @@ class GeditTabDecorator(object):
 		if self._file is None:
 			return None
 		else:
-			return self._file.extension.lower()
+			return self._file.extension
 	
 	def destroy(self):
 		# disocnnect from signals
