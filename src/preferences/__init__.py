@@ -289,6 +289,7 @@ class Preferences(object):
 		tool_element.set("label", tool.label)
 		tool_element.set("description", tool.description)
 		tool_element.set("extensions", " ".join(tool.extensions))
+		tool_element.set("accelerator", tool.accelerator)
 		
 		# remove all jobs
 		for job_element in tool_element.findall("job"):
@@ -438,7 +439,7 @@ class Preferences(object):
 			self._log.debug("Saving preferences...")
 		
 			tree = ElementTree.ElementTree(self.__preferences)
-			tree.write(find_resource("preferences.xml", MODE_READWRITE))
+			tree.write(find_resource("preferences.xml", MODE_READWRITE), encoding="utf-8")
 			
 			self.__preferences_changed = False
 		
@@ -446,7 +447,7 @@ class Preferences(object):
 			self._log.debug("Saving tools...")
 		
 			tree = ElementTree.ElementTree(self.__tools)
-			tree.write(find_resource("tools.xml", MODE_READWRITE))
+			tree.write(find_resource("tools.xml", MODE_READWRITE), encoding="utf-8")
 			
 			self.__tools_changed = False
 		
@@ -454,7 +455,7 @@ class Preferences(object):
 			self._log.debug("Saving snippets...")
 		
 			tree = ElementTree.ElementTree(self.__snippets)
-			tree.write(find_resource("snippets.xml", MODE_READWRITE))
+			tree.write(find_resource("snippets.xml", MODE_READWRITE), encoding="utf-8")
 			
 			self.__snippets_changed = False
 			

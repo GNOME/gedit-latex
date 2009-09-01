@@ -26,19 +26,31 @@ from logging import getLogger
 
 from ..base import Editor
 from ..preferences import Preferences
-from ..issues import Issue, IIssueHandler
+from ..issues import Issue, IIssueHandler, MockIssueHandler
 from ..util import verbose
+
+from ..base.job import Job, JobChangeListener, JobManager
 
 from parser import BibTeXParser
 from completion import BibTeXCompletionHandler
 from validator import BibTeXValidator
+
 
 BENCHMARK = True
 
 if BENCHMARK:
 	import time
 
-class BibTeXEditor(Editor, IIssueHandler):
+
+class ParseJob(Job):
+	def _run(self, arguments):
+		file = arguments[0]
+		content = arguments[1]
+		self._parser = BibTeXParser()
+		return self._parser.parse(content, file, MockIssueHandler())
+
+
+class BibTeXEditor(Editor, IIssueHandler, JobChangeListener):
 	
 	_log = getLogger("BibTeXEditor")
 	extensions = [".bib"]
@@ -64,7 +76,12 @@ class BibTeXEditor(Editor, IIssueHandler):
 		self._validator = BibTeXValidator()
 		self._outline_view = context.find_view(self, "BibTeXOutlineView")
 		
-		self._connect_outline_to_editor = True	# TODO: read from config
+		self._connect_outline_to_editor = self._preferences.get_bool("ConnectOutlineToEditor", True)
+		
+		
+		self._parse_job = ParseJob()
+		self._parse_job.set_change_listener(self)
+		
 		
 		# initially parse
 		self.__parse()
@@ -75,33 +92,48 @@ class BibTeXEditor(Editor, IIssueHandler):
 		
 		Update models
 		"""
-#		from multiprocessing import Process
-#		
-#		p_parse = Process(target=self.__parse_async)
-#		p_parse.start()
-		
 		self.__parse()
 	
 	
-	
-	
-	def __on_parse_finished(self, document):
-		self._log.debug("__on_parse_finished")
+#	def _on_state_changed(self, state):
+#		#
+#		# job.JobChangeListener._on_state_changed
+#		#
+#		if (state == JobManager.STATE_COMPLETED):
+#			self._log.debug("Parser finished")
+#			
+#			self._document = self._parse_job.get_returned()
+#			
+#			#self._log.debug(str(self._document))
+#			
+#			for entry in self._document.entries:
+#				print entry.key
+#			
+#			# FIXME: gedit crashes here with: 
+#			# gedit: Fatal IO error 11 (Resource temporarily unavailable) on X server :0.0.
+#			
+#			self._log.debug("Validating...")
+#			self._validator.validate(self._document, self._file, self)
+#			self._log.debug("Validating finished")
+#			
+#			self._outline_view.set_outline(self._document)
+#	
+#	
+#	def __parse_async(self):
+#		
+#		# reset highlight
+#		self.remove_markers("bibtex-error")
+#		self.remove_markers("bibtex-warning")
+#		
+#		# reset issues
+#		self._issue_view.clear()
+#		
+#		self._log.debug("Starting parser job")
+#		
+#		self._parse_job.set_argument([self._file, self.content])
+#		self._parse_job.schedule()
 		
-		self._validator.validate(document, self._file, self)
-		self._outline_view.set_outline(document)
-	
-	def __parse_async(self):
-		self._log.debug("__parse_async")
 		
-		content = self.content
-		document = self._parser.parse(content, self._file, self)
-		
-		self.__on_parse_finished(document)
-		
-		
-		
-	
 	@verbose
 	def __parse(self):
 		"""

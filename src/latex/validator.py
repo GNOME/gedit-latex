@@ -175,7 +175,7 @@ class LaTeXValidator(object):
 								filename = "%s/%s.tex" % (node.file.dirname, target)
 							
 							if not exists(filename):
-								self._issue_handler.issue(Issue("Document <b>%s</b> could not be found" % escape(target), node.start, node.lastEnd, node.file, Issue.SEVERITY_WARNING))
+								self._issue_handler.issue(Issue("Document <b>%s</b> could not be found" % escape(filename), node.start, node.lastEnd, node.file, Issue.SEVERITY_WARNING))
 					except IndexError:		# firstOfType failed
 						# this happens on old-style syntax like "\input myfile"
 						self._issue_handler.issue(Issue("Malformed command", node.start, node.lastEnd, node.file, Issue.SEVERITY_ERROR))

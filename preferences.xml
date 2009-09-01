@@ -13,9 +13,11 @@
 	<value key="ShowGraphicsInOutline">True</value>
 	<value key="IssuesShowWarnings">True</value>
 	<value key="IssuesShowTasks">True</value>
-	<value key="ExpandedSymbolGroups">Operators</value>
+	<value key="ExpandedSymbolGroups">Operators,Arrows</value>
 	<value key="RecentDocumentClass">scrartcl</value>
 	<value key="RecentPaperSize">a4paper</value>
 	<value key="RecentDefaultFontFamily">\sfdefault</value>
 	<value key="SaveBeforeTool">True</value>
-</preferences>
+	<value key="HideBoxWarnings">False</value>
+	<value key="LatexExtensions">.tex .sty</value>
+<value key="TemplateFolder">/home/michael/.gnome2/gedit/plugins/GeditLaTeXPlugin/templates</value></preferences>

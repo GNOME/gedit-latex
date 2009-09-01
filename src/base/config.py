@@ -145,16 +145,28 @@ from ..latex.views import LaTeXSymbolMapView, LaTeXOutlineView
 from ..bibtex.views import BibTeXOutlineView
 
 
-#VIEWS = [ LaTeXSymbolMapView, IssueView, LaTeXOutlineView, BibTeXOutlineView ]
-# TODO:
+#WINDOW_SCOPE_VIEWS = { ".tex" : {"LaTeXSymbolMapView" : LaTeXSymbolMapView } }
+#
+#EDITOR_SCOPE_VIEWS = { ".tex" : {"IssueView" : IssueView, 
+#								 "LaTeXOutlineView" : LaTeXOutlineView},
+#								 
+#					   ".bib" : {"IssueView" : IssueView, 
+#								 "BibTeXOutlineView" : BibTeXOutlineView} }
 
-WINDOW_SCOPE_VIEWS = { ".tex" : {"LaTeXSymbolMapView" : LaTeXSymbolMapView } }
+from ..preferences import Preferences
+LATEX_EXTENSIONS = Preferences().get("LatexExtensions", ".tex").split(" ")
+BIBTEX_EXTENSIONS = Preferences().get("BibtexExtensions", ".bib").split(" ")
 
-EDITOR_SCOPE_VIEWS = { ".tex" : {"IssueView" : IssueView, 
-								 "LaTeXOutlineView" : LaTeXOutlineView},
-								 
-					   ".bib" : {"IssueView" : IssueView, 
-								 "BibTeXOutlineView" : BibTeXOutlineView} }
+WINDOW_SCOPE_VIEWS = {}
+EDITOR_SCOPE_VIEWS = {}
+
+for e in LATEX_EXTENSIONS:
+	WINDOW_SCOPE_VIEWS[e] = {"LaTeXSymbolMapView" : LaTeXSymbolMapView }
+	EDITOR_SCOPE_VIEWS[e] = {"IssueView" : IssueView, "LaTeXOutlineView" : LaTeXOutlineView}
+
+for e in BIBTEX_EXTENSIONS:
+	EDITOR_SCOPE_VIEWS[e] = {"IssueView" : IssueView, "BibTeXOutlineView" : BibTeXOutlineView}
+
 
 # editors
 

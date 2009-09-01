@@ -223,6 +223,7 @@ class GeditWindowDecorator(IPreferencesMonitor):
 			gtk_action.connect("activate", lambda gtk_action, action: action.activate(self._window_context), action)
 			
 			if not tool.accelerator is None and len(tool.accelerator) > 0:
+				# TODO: validate accelerator!
 				self._tool_action_group.add_action_with_accel(gtk_action, tool.accelerator)
 			else:
 				self._tool_action_group.add_action_with_accel(gtk_action, "<Ctrl><Alt>%s" % accel_counter)
@@ -247,6 +248,8 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		self._save_action.activate()
 	
 	def _on_tools_changed(self):
+		# FIXME: tools reload doesn't work
+		
 		# see IPreferencesMonitor._on_tools_changed
 		self._log.debug("_on_tools_changed")
 		
@@ -325,7 +328,8 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		
 		# FIXME: a hack again...
 		# the toolbar should hide when it doesn't contain any visible items
-		if extension == ".tex":
+		latex_extensions = self._preferences.get("LatexExtensions", ".tex").split(" ")
+		if extension in latex_extensions:
 			self._toolbar.show()
 		else:
 			self._toolbar.hide()

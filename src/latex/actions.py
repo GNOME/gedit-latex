@@ -27,14 +27,17 @@ import gtk
 
 from ..base import Action
 from ..util import IconAction
+from ..preferences import Preferences
 
 
 class LaTeXAction(Action):
-	extensions = [".tex"]
+	#extensions = [".tex"]
+	extensions = Preferences().get("LatexExtensions", ".tex").split(" ")
 
 
 class LaTeXIconAction(IconAction):
-	extensions = [".tex"]
+	#extensions = [".tex"]
+	extensions = Preferences().get("LatexExtensions", ".tex").split(" ")
 
 
 class LaTeXTemplateAction(LaTeXIconAction):

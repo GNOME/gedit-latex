@@ -490,7 +490,7 @@ class Field(object):
 		return " ".join([v.text for v in self.value])
 	
 	def __str__(self):
-		return "<Field name='%s' value='%s' />" % (self.name, self.value)
+		return "<Field name='%s' value='%s' />" % (self.name, self.valueString)
 
 
 class Entry(object):
@@ -508,8 +508,8 @@ class Entry(object):
 		raise KeyError
 	
 	def __str__(self):
-		s = "<Entry type='%s' key='%s'>\n" % (self._type, self._key)
-		for field in self._fields:
+		s = "<Entry type='%s' key='%s'>\n" % (self.type, self.key)
+		for field in self.fields:
 			s += "\t" + str(field) + "\n"
 		s += "</Entry>"
 		return s

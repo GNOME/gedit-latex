@@ -1,3 +1,12 @@
+0.2
+ * fixed bug in BibTeX parser
+ * fixed bug in LaTeX validator
+ * changed debug output format
+ * the file extensions activating LaTeX or BibTeX features may now be configured (key 'LatexExtensions' in preferences.xml) ([ 2818067 ])
+ * warn instead of crash on '\include{file.tex}' ([ 2749624 ])
+ * fixed encoding issues with config files
+ * tool keyboard shortcut may be configured again
+
 0.2 rc2
  * added 'pdfpages' commands
  * handling exceptions in LaTeXValidator and LaTeXOutlineGenerator ([ 2483621 ])

@@ -27,7 +27,7 @@ import gtk
 import logging
 import platform
 
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.DEBUG, format="%(asctime)s %(levelname)s %(name)s - %(message)s")
 
 from base.decorators import GeditWindowDecorator
 from util import open_error

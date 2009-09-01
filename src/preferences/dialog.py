@@ -121,6 +121,13 @@ class ConfigureToolDialog(GladeInterface):
 		for ext in tool.extensions:
 			self._store_extension.append([ext])
 		
+		if tool.accelerator is None:
+			self._radio_user_accel.set_active(False)
+			self._entry_accel.set_text("")
+		else:
+			self._radio_user_accel.set_active(True)
+			self._entry_accel.set_text(tool.accelerator)
+		
 		if dialog.run() == 1:
 			#
 			# okay clicked - update the Tool object
@@ -136,7 +143,13 @@ class ConfigureToolDialog(GladeInterface):
 			tool.extensions = []
 			for row in self._store_extension:
 				tool.extensions.append(row[0])
-				
+			
+			# TODO: validate accelerator!
+			if self._radio_user_accel.get_active():
+				tool.accelerator = self._entry_accel.get_text()
+			else:
+				tool.accelerator = None
+			
 			return tool
 		else:
 			return None
@@ -212,6 +225,9 @@ class ConfigureToolDialog(GladeInterface):
 			self._button_add_extension = self.find_widget("buttonAddExtension")
 			self._button_remove_extension = self.find_widget("buttonRemoveExtension")
 			
+			self._radio_user_accel = self.find_widget("radioAccelUser")
+			self._entry_accel = self.find_widget("entryAccel")
+			
 			self.connect_signals({ "on_entryNewJob_changed" : self._on_new_job_changed,
 								   "on_entryNewExtension_changed" : self._on_new_extension_changed,
 								   "on_buttonAddJob_clicked" : self._on_add_job_clicked,
@@ -222,9 +238,14 @@ class ConfigureToolDialog(GladeInterface):
 								   "on_buttonOkay_clicked" : self._on_okay_clicked,
 								   "on_buttonRemoveExtension_clicked" : self._on_remove_extension_clicked,
 								   "on_buttonAddExtension_clicked" : self._on_add_extension_clicked,
-								   "on_buttonMoveUpJob_clicked" : self._on_move_up_job_clicked })
+								   "on_buttonMoveUpJob_clicked" : self._on_move_up_job_clicked,
+								   "on_radioAccelUser_toggled" : self._on_accel_user_toggled })
 		
 		return self._dialog
+	
+	def _on_accel_user_toggled(self, togglebutton):
+		enabled = togglebutton.get_active()
+		self._entry_accel.set_sensitive(enabled)
 	
 	def _on_move_up_job_clicked(self, button):
 		store, iter = self._view_job.get_selection().get_selected()

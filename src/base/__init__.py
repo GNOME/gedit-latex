@@ -1189,7 +1189,10 @@ class File(object):
 	
 	@property
 	def mtime(self):
-		return os.path.getmtime(self.path)
+		if self.exists:
+			return os.path.getmtime(self.path)
+		else:
+			raise IOError("File not found")
 	
 	def find_neighbors(self, extension):
 		"""
@@ -1281,7 +1284,10 @@ class File(object):
 		
 		@raise OSError: 
 		"""
-		remove(self.path)
+		if self.exists:
+			remove(self.path)
+		else:
+			raise IOError("File not found")
 	
 	def __eq__(self, other):
 		"""
@@ -1315,6 +1321,8 @@ class Folder(File):
 	
 	# FIXME: a Folder is NOT a subclass of a File, both are a subclass of some AbstractFileSystemObject,
 	# this is just a quick hack
+	#
+	# FIXME: but basically a Folder is a File so this class should not be needed 
 	
 	__log = getLogger("Folder")
 	

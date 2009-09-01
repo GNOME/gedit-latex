@@ -54,7 +54,9 @@ class LaTeXEditor(Editor, IIssueHandler, IMisspelledWordHandler, IPreferencesMon
 	
 	_log = getLogger("LaTeXEditor")
 	
-	extensions = [".tex"]
+	#extensions = [".tex"]
+	extensions = Preferences().get("LatexExtensions", ".tex").split(" ")
+	
 	dnd_extensions = [".png", ".pdf", ".bib", ".tex"]
 	
 	@property

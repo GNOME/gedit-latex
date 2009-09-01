@@ -113,6 +113,8 @@ class IssueView(BottomView, IPreferencesMonitor):
 		
 		self._issues = []
 		self._preferences.register_monitor(self)
+		
+		self._log.debug("init finished")
 	
 	def _on_row_activated(self, view, path, column):
 		"""
