@@ -19,6 +19,21 @@ this program; if not, write to the Free Software Foundation, Inc., 51 Franklin
 Street, Fifth Floor, Boston, MA  02110-1301, USA
 -->
 <commands>
+	<!-- gchords -->
+	<command name="chord">
+		<argument label="Parameter" />
+		<argument label="Positions" />
+		<argument label="Name" />
+	</command>
+	
+	<command name="upchord">
+		<argument label="Name" />
+	</command>
+	
+	<command name="chords">
+		<argument label="Chords" />
+	</command>
+
 	<!-- fancyhdr -->
 	
 	<command name="fancyhead">
@@ -1096,10 +1111,6 @@ Street, Fifth Floor, Boston, MA  02110-1301, USA
 	<command name="tbinom">
 		<argument label="n" />
 		<argument label="k" />
-	</command>
-
-	<command name="eqref" package="amsmath">
-		<argument label="Name" />
 	</command>
 
 	<command name="text" package="amsmath">
