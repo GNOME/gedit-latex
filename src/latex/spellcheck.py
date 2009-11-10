@@ -26,7 +26,7 @@ from parser import Node
 
 class IMisspelledWordHandler(object):
 	"""
-	
+	Somehting that may react on misspelled words
 	"""
 	def on_misspelled_word(self, word, position):
 		"""
@@ -35,6 +35,16 @@ class IMisspelledWordHandler(object):
 		@param word: the misspelled word
 		@param position: the start offset
 		"""
+
+
+class Suggestion(object):
+	def __init__(self, word, user_defined):
+		"""
+		@param word: string, the suggested word
+		@param user_defined: bool, whether the word has been added to the user's dictionary 
+		"""
+		self.word = word
+		self.user_defined = user_defined
 
 
 class SpellCheckerBackend(IPreferencesMonitor):
@@ -56,21 +66,23 @@ class SpellCheckerBackend(IPreferencesMonitor):
 		@raise ImportError: if pyenchant is not installed
 		@raise enchant.Error: if no default dictionary exists
 		"""
+		
+		# lazy import for catching import exceptions on missing Enchant
 		import enchant
 		import enchant.checker
 		import enchant.tokenize
-	
+		
+		# select a dictionary
 		language = str(self._preferences.get("SpellCheckDictionary", ""))
 		if len(language) > 0 and enchant.dict_exists(language):
 			self._dictionary = enchant.Dict(language)
 		else:
-			#
 			# try to use default language (may raise enchant.Error)
-			#
 			self._dictionary = enchant.Dict()
 			language = self._dictionary.tag
-			
 		self._log.debug("Using dictionary '%s'" % language)
+		
+		# create a spellchecker that is aware of email addresses and URLs
 		self._checker = enchant.checker.SpellChecker(language, filters=[enchant.tokenize.EmailFilter, enchant.tokenize.URLFilter])
 	
 		self._initialized = True
@@ -91,11 +103,14 @@ class SpellCheckerBackend(IPreferencesMonitor):
 	def find_suggestions(self, word):
 		"""
 		@param word: 
-		@return: a list of suggested words
+		@return: a list of Suggestions
 		"""
 		if not self._initialized: self._initialize()
 		
-		return self._dictionary.suggest(word)
+		suggestions = []
+		for word in self._dictionary.suggest(word):
+			suggestions.append(Suggestion(word, bool(self._dictionary.is_added(word))))
+		return suggestions
 	
 	@property
 	def languages(self):
@@ -104,17 +119,34 @@ class SpellCheckerBackend(IPreferencesMonitor):
 		"""
 		import enchant
 		
-		return enchant.Broker().list_languages()
+		return enchant.list_languages()
+	
+	@property
+	def default_language(self):
+		"""
+		Return the tag (e.g. 'de-DE') of the default language
+		
+		@raise enchant.Error: if no default dictionary exists
+		"""
+		import enchant
+		
+		dictionary = enchant.Dict()
+		return dictionary.tag
 	
 	def add_word(self, word):
-		raise NotImplementedError
+		"""
+		Add a word to the user's dictionary
+		"""
+		if not self._initialized: self._initialize()
+		
+		self._dictionary.add(word)
 
 
 class IErrorHandler(object):
 	def on_error(self, word, position):
 		raise NotImplementedError
 
-	
+
 class SpellChecker(IErrorHandler):
 	"""
 	This walks the LaTeX model and calls the spell checking backend at
@@ -154,7 +186,13 @@ class SpellChecker(IErrorHandler):
 			self.__run(node)
 	
 	def find_suggestions(self, word):
+		"""
+		@return: list of Suggestions
+		"""
 		return self._backend.find_suggestions(word)
+	
+	def add_word(self, word):
+		self._backend.add_word(word)
 	
 	def on_error(self, word, position):
 		# see IErrorHandler.on_error

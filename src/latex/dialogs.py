@@ -1022,13 +1022,58 @@ class SaveAsTemplateDialog(GladeInterface):
 	_dialog = None
 	
 	def get_dialog(self):
+		self._folder = Preferences().get("TemplateFolder", find_resource("templates", MODE_READWRITE))
+		
 		if self._dialog is None:
 			self._dialog = self.find_widget("dialogSaveAsTemplate")
+			self._entry_name = self.find_widget("entryName")
+			self._label = self.find_widget("labelLocation")
+			self._button_okay = self.find_widget("buttonOkay")
+			self._icon = self.find_widget("imageIcon")
+			
+			self.connect_signals({ "on_entryName_changed" : self._on_name_changed })
 			
 		return self._dialog
 	
+	def _escape_name(self, name):
+		return name.replace(" ", "_")
+	
+	def _on_name_changed(self, entry):
+		self._validate()
+	
+	def _validate(self):
+		name = self._entry_name.get_text()
+		valid = True
+		
+		if len(name) == 0:
+			self._label.set_markup("A name is required.")
+			self._icon.set_from_stock(gtk.STOCK_DIALOG_ERROR, gtk.ICON_SIZE_MENU)
+			self._icon.show()
+			
+			valid = False
+		else:			
+			filename = "%s/%s.template" % (self._folder, self._escape_name(name))
+			if File(filename).exists:
+				self._label.set_markup("The file <tt>%s</tt> already exists." % filename)
+				self._icon.set_from_stock(gtk.STOCK_DIALOG_ERROR, gtk.ICON_SIZE_MENU)
+				self._icon.show()
+				
+				valid = False
+			else:
+				self._label.set_markup("The file will be saved as <tt>%s</tt>." % filename)
+				self._icon.set_from_stock(gtk.STOCK_DIALOG_INFO, gtk.ICON_SIZE_MENU)
+				self._icon.show()
+		
+		self._button_okay.set_sensitive(valid)
+	
 	def run(self):
+		"""
+		@param template_location: the folder in which the template will be saved
+		"""
 		dialog = self.get_dialog()
+		
+		self._entry_name.set_text("")
+		self._validate()
 		
 		if dialog.run() == 1:
 			confirmed = True
@@ -1038,7 +1083,7 @@ class SaveAsTemplateDialog(GladeInterface):
 		dialog.hide()
 		
 		if confirmed:
-			return self.find_widget("entryName").get_text()
+			return File("%s/%s.template" % (self._folder, self._escape_name(self._entry_name.get_text())))
 		else:
 			return None
 	

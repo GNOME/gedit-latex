@@ -1,0 +1,19 @@
+\documentclass[foldmarks=off,fromalign=right,backaddress=false,fromemail=false,fromurl=false,fromlogo=false,fromphone=true]{scrlttr2}
+\usepackage[$InputEncoding]{inputenc}
+\usepackage[$BabelPackage]{babel}
+\renewcommand{\familydefault}{\sfdefault}
+\title{$Title}
+\author{$Author}
+\date{\today}
+\setkomavar{fromname}{$Author}
+\setkomavar{fromaddress}{ABC}
+\setkomavar{fromphone}{0123456789}
+\setkomavar{signature}{$Title}
+\setkomavar{subject}{$Title}
+\begin{document}
+	\begin{letter}{Recipient}
+		\opening{Dear ...,}
+		
+		\closing{Best regards,}
+	\end{letter}
+\end{document}

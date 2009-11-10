@@ -506,7 +506,13 @@ class PreferencesDialog(GladeInterface, IPreferencesMonitor):
 				self._storeLanguages = gtk.ListStore(str)
 				
 				backend = SpellCheckerBackend()
-				active_language = self._preferences.get("SpellCheckDictionary")
+				
+				try :
+					active_language = self._preferences.get("SpellCheckDictionary", backend.default_language)
+				except Exception:
+					self._log.error("Failed to determine default Enchant language")
+					active_language = self._preferences.get("SpellCheckDictionary")
+				
 				active_index = 0
 				i = 0
 				for l in backend.languages:
@@ -525,7 +531,8 @@ class PreferencesDialog(GladeInterface, IPreferencesMonitor):
 			except ImportError:
 				
 				self._log.error("Enchant library could not be imported. Spell checking will be disabled.")
-				# TODO: show warning 
+				
+				# TODO: disable controls
 				
 				pass
 			

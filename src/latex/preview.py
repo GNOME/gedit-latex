@@ -55,7 +55,7 @@ class ImageToolGenerator(object):
 		"""
 		@return: a Tool object
 		"""
-		tool = Tool(label=self._names[self.format], jobs=[], description="")
+		tool = Tool(label=self._names[self.format], jobs=[], description="", accelerator="", extensions=[])
 		
 		# use rubber to render a DVI
 		tool.jobs.append(Job("rubber --force --short --inplace \"$filename\"", True, RubberPostProcessor))

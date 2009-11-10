@@ -590,7 +590,7 @@ class LaTeXEqnArrayAction(LaTeXTemplateAction):
 	
 	
 class LaTeXSaveAsTemplateAction(LaTeXAction):
-	label = "Save as Template..."
+	label = "Save As Template..."
 	accelerator = None
 	tooltip = "Save the current document as a template"
 	stock_id = gtk.STOCK_SAVE_AS
@@ -599,9 +599,13 @@ class LaTeXSaveAsTemplateAction(LaTeXAction):
 		from dialogs import SaveAsTemplateDialog
 		
 		dialog = SaveAsTemplateDialog()
-		name = dialog.run()
+		file = dialog.run()
 		
-		# TODO: save
+		content = context.active_editor.content
+		
+		fo = open(file.path, "w")
+		fo.write(content)
+		fo.close
 	
 	
 	

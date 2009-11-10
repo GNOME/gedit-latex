@@ -24,13 +24,15 @@ latex.editor
 
 BENCHMARK = True
 
+from ..typecheck import accepts, returns
+
 import gtk
 import gtk.gdk
 from logging import getLogger
 
 if BENCHMARK: import time
 
-from ..base import Editor
+from ..base import Editor, File
 from completion import LaTeXCompletionHandler
 from ..snippets.completion import SnippetCompletionHandler
 from ..issues import Issue, IIssueHandler
@@ -67,6 +69,10 @@ class LaTeXEditor(Editor, IIssueHandler, IMisspelledWordHandler, IPreferencesMon
 		return [ self.__latex_completion_handler, self.__snippet_completion_handler ]
 	
 	def init(self, file, context):
+		"""
+		@param file: base.File
+		@param content: base.WindowContext
+		"""
 		self._log.debug("init(%s)" % file)
 		
 		self._file = file
@@ -96,8 +102,6 @@ class LaTeXEditor(Editor, IIssueHandler, IMisspelledWordHandler, IPreferencesMon
 		
 		# spell checking
 		self.__spell_checker = SpellChecker()
-		self.__suggestions_menu = None
-		self.__suggestion_items = []
 		
 		#
 		# initially parse
@@ -329,9 +333,12 @@ class LaTeXEditor(Editor, IIssueHandler, IMisspelledWordHandler, IPreferencesMon
 			#print self._document.xml
 	
 	@property
+	@returns(File)
 	def __master_file(self):
 		"""
 		Find the LaTeX master of this child
+		
+		@return: base.File
 		"""
 		# TODO: cache result
 		
@@ -418,56 +425,52 @@ class LaTeXEditor(Editor, IIssueHandler, IMisspelledWordHandler, IPreferencesMon
 			self._log.debug(str(suggestions))
 			
 			# build and show the context menu
-			menu = self.__get_suggestions_menu(suggestions, marker)
+			menu = self.__get_suggestions_menu(word, suggestions, marker)
 			menu.popup(None, None, None, event.button, event.time)
 			
 			# swallow the signal so that the original context menu
 			# isn't shown
 			return True
 			
-	def __get_suggestions_menu(self, suggestions, marker):
+	def __get_suggestions_menu(self, word, suggestions, marker):
 		"""
 		Return the context menu for spell check suggestions
 		
-		@param marker: the activated Marker
+		@param word: the misspelled word
 		@param suggestions: a list of suggested words
+		@param marker: the activated Marker
 		"""
-		if not self.__suggestions_menu:
-			self.__suggestions_menu = gtk.Menu()
-			
-			self.__suggestions_menu.add(gtk.SeparatorMenuItem())
-			
-			item_ignore = gtk.MenuItem("Ignore")
-			item_ignore.set_sensitive(False)
-			self.__suggestions_menu.add(item_ignore)
-			
-			item_add = gtk.MenuItem("Add to Dictionary")
-			item_add.set_sensitive(False)
-			self.__suggestions_menu.add(item_add)
-			
-			self.__suggestions_menu.add(gtk.SeparatorMenuItem())
-			
-			item_abort = gtk.ImageMenuItem(gtk.STOCK_CANCEL)
-			item_abort.connect("activate", self.__on_abort_spell_check_activated)
-			self.__suggestions_menu.add(item_abort)
-			
-			self.__suggestions_menu.show_all()
+		suggestions_menu = gtk.Menu()
 		
-		# remove old suggestions
-		for item in self.__suggestion_items:
-			self.__suggestions_menu.remove(item)
-			
-		# add new ones
+		suggestions_menu.add(gtk.SeparatorMenuItem())
+		
+		item_add = gtk.ImageMenuItem(gtk.STOCK_ADD)
+		item_add.connect("activate", self.__on_add_word_activated, marker, word)
+		suggestions_menu.add(item_add)
+		
+		suggestions_menu.add(gtk.SeparatorMenuItem())
+		
+		item_abort = gtk.ImageMenuItem(gtk.STOCK_CANCEL)
+		item_abort.connect("activate", self.__on_abort_spell_check_activated)
+		suggestions_menu.add(item_abort)
+		
+		suggestions_menu.show_all()
+		
+		# add suggestions
 		suggestions.reverse()	# we insert in reverse order, so reverse before
 		
 		for suggestion in suggestions:
-			item = gtk.MenuItem(suggestion)
+			if suggestion.user_defined:
+				item = gtk.ImageMenuItem(suggestion.word)
+				item.set_image(gtk.image_new_from_stock(gtk.STOCK_FLOPPY, gtk.ICON_SIZE_MENU))
+			else:
+				item = gtk.MenuItem(suggestion.word)
+				
 			item.connect("activate", self.__on_suggestion_activated, suggestion, marker)
-			self.__suggestions_menu.insert(item, 0)
+			suggestions_menu.insert(item, 0)
 			item.show()
-			self.__suggestion_items.append(item)
 		
-		return self.__suggestions_menu
+		return suggestions_menu
 	
 	def __on_suggestion_activated(self, menu_item, suggestion, marker):
 		"""
@@ -476,12 +479,22 @@ class LaTeXEditor(Editor, IIssueHandler, IMisspelledWordHandler, IPreferencesMon
 		@param menu_item: the activated MenuItem
 		@param suggestion: the word
 		"""
-		self.replace_marker_content(marker, suggestion)
+		self.replace_marker_content(marker, suggestion.word)
 	
 	def __on_abort_spell_check_activated(self, menu_item):
 		"""
 		"""
 		self.remove_markers("latex-spell")
+	
+	def __on_add_word_activated(self, menu_item, marker, word):
+		"""
+		Add a word to the dictionary
+		
+		@param marker: the marker for the word
+		@param word: the checked word
+		"""
+		self.__spell_checker.add_word(word)
+		# TODO: remove marker
 	
 	#
 	# spell checking end
