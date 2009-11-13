@@ -92,8 +92,6 @@ class LatexPreview:
             preview_panel = PreviewPanel(parent_pdf_path)
             self.preview_panels[current_tab] = preview_panel
             
-            mybuffer = self.__gedit_window.get_active_view().get_buffer()
-
             vbox2 = gtk.VBox()
             vbox2.pack_start(self.split_views[current_tab])
 

@@ -10,6 +10,7 @@
  * implemented user dictionary and improved spell checking configuration [ 2792874 ]
  * removed duplicates from latex.xml [ 2869574 ]
  * implemented template support ("Save As Template" and new from template)
+ * fixed serialize error when saving tools [ 2892971 ]
 
 0.2 rc2
  * added 'pdfpages' commands

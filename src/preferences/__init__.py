@@ -108,10 +108,10 @@ class Preferences(object):
 					   "LaTeXPostProcessor" : LaTeXPostProcessor, 
 					   "RubberPostProcessor" : RubberPostProcessor}
 	
-	def __new__(type):
-		if not '_instance' in type.__dict__:
-			type._instance = object.__new__(type)
-		return type._instance
+	def __new__(cls):
+		if not '_instance' in cls.__dict__:
+			cls._instance = object.__new__(cls)
+		return cls._instance
 	
 	def __init__(self):
 		if not '_ready' in dir(self):
@@ -271,13 +271,13 @@ class Preferences(object):
 		"""
 		tool_element = None
 		if tool in self.__tool_ids:
-			# find tool
+			# find tool tag
 			self._log.debug("Tool element found, updating...")
 			
 			id = self.__tool_ids[tool]
 			tool_element = self.__find_tool_element(id)
 		else:
-			# create tool
+			# create new tool tag
 			self._log.debug("Creating new Tool...")
 			
 			id = str(uuid.uuid4())		# random UUID
@@ -289,7 +289,11 @@ class Preferences(object):
 		tool_element.set("label", tool.label)
 		tool_element.set("description", tool.description)
 		tool_element.set("extensions", " ".join(tool.extensions))
-		tool_element.set("accelerator", tool.accelerator)
+		if tool.accelerator is None:
+			if "accelerator" in tool_element.attrib.keys():
+				del tool_element.attrib["accelerator"]
+		else:
+			tool_element.set("accelerator", tool.accelerator)
 		
 		# remove all jobs
 		for job_element in tool_element.findall("job"):
@@ -303,7 +307,6 @@ class Preferences(object):
 			job_element.text = job.command_template
 		
 		self.__tools_changed = True
-		
 		self.__notify_tools_changed()
 	
 	def swap_tools(self, tool_1, tool_2):

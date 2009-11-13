@@ -537,8 +537,6 @@ class LaTeXEditor(Editor, IIssueHandler, IMisspelledWordHandler, IPreferencesMon
 from xml.dom import minidom
 from xml.parsers.expat import ExpatError
 
-from ..base import File
-
 
 class PropertyFile(dict):
 	"""
@@ -600,12 +598,12 @@ class PropertyFile(dict):
 			mode = "a"
 		
 		try:
-			f = open(self.__file.path, mode)
+			f = open(filename, mode)
 			f.write(self.__dom.toxml())
 			f.close()
-			self.__log.debug("Saved to %s" % self.__file.path)
+			self.__log.debug("Saved to %s" % filename)
 		except IOError, e:
-			self.__log.error("Error saving %s: %s" % (self.__file.path, e))
+			self.__log.error("Error saving %s: %s" % (filename, e))
 	
 	
 	

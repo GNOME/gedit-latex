@@ -272,10 +272,10 @@ class LanguageModelFactory(object):
 	
 	__log = getLogger("LanguageModelFactory")
 	
-	def __new__(type):
-		if not '_instance' in type.__dict__:
-			type._instance = object.__new__(type)
-		return type._instance
+	def __new__(cls):
+		if not '_instance' in cls.__dict__:
+			cls._instance = object.__new__(cls)
+		return cls._instance
 	
 	def __init__(self):
 		if not '_ready' in dir(self):
@@ -288,11 +288,11 @@ class LanguageModelFactory(object):
 				pkl_filename = find_resource("latex.pkl", MODE_READWRITE)
 				xml_filename = find_resource("latex.xml")
 				
-			 	self.__language_model = LanguageModel()
-			 	parser = LanguageModelParser()
-			 	parser.parse(xml_filename, self.__language_model)
-			 	
-			 	pickle.dump(self.__language_model, open(pkl_filename, 'w'))
+				self.__language_model = LanguageModel()
+				parser = LanguageModelParser()
+				parser.parse(xml_filename, self.__language_model)
+				
+				pickle.dump(self.__language_model, open(pkl_filename, 'w'))
 			
 			self._ready = True
 	

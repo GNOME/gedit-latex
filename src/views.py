@@ -120,7 +120,6 @@ class IssueView(BottomView, IPreferencesMonitor):
 		"""
 		A row has been double-clicked on
 		"""
-		it = self._store.get_iter(path)
 		issue = self._store.get(self._store.get_iter(path), 3)[0]
 		
 		self._context.activate_editor(issue.file)

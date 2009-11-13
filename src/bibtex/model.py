@@ -53,10 +53,10 @@ class Field(object):
 
 
 class BibTeXModel(object):
-	def __new__(type):
-		if not '_instance' in type.__dict__:
-			type._instance = object.__new__(type)
-		return type._instance
+	def __new__(cls):
+		if not '_instance' in cls.__dict__:
+			cls._instance = object.__new__(cls)
+		return cls._instance
 	
 	def __init__(self):
 		if not '_ready' in dir(self):

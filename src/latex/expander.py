@@ -83,7 +83,7 @@ class LaTeXReferenceExpander(object):
 						fragment = self._document_cache.get_document(File(filename), self._charset, self._issue_handler)
 
 						node.append(fragment)
-					except IOError, e:
+					except IOError:
 						self._log.error("Referenced file not found: %s" % filename)
 				except IndexError:
 					self._log.error("Malformed reference command at %s" % node.start)

@@ -531,8 +531,7 @@ class TemplateDelegate(object):
 		else:
 			# check if the cursor has left the template
 			if self._cursor_in_template:
-				if not key == self._KEY_RETURN:  # don't update dupl after Return to keep 
-										 # the placeholder highlightings
+				if not key == self._KEY_RETURN:  # don't update dupl after Return to keep the placeholder highlightings
 					self._update_duplicates()
 			else:
 				self._leave_template(place_cursor=False)

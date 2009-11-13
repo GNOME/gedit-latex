@@ -19,5 +19,5 @@
 	<value key="RecentDefaultFontFamily">\sfdefault</value>
 	<value key="SaveBeforeTool">True</value>
 	<value key="HideBoxWarnings">False</value>
-	<value key="LatexExtensions">.tex .sty</value>
-<value key="TemplateFolder">/home/michael/.gnome2/gedit/plugins/GeditLaTeXPlugin/templates</value></preferences>
+	<value key="LatexExtensions">.tex .sty .Rnw</value>
+</preferences>

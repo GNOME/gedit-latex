@@ -26,6 +26,7 @@ LaTeX-specific views
 
 import gtk
 from gtk.gdk import Pixbuf, pixbuf_new_from_file
+from gobject import GError
 from logging import getLogger
 import xml.etree.ElementTree as ElementTree
 
@@ -116,7 +117,7 @@ class LaTeXSymbolMapView(SideView):
 		for symbol in group.symbols:
 			try:
 				model.append([gtk.gdk.pixbuf_new_from_file(symbol.icon), str(symbol.template), symbol.template])
-			except GError, s:
+			except GError as s:
 				print s
 		
 		view = gtk.IconView(model)
@@ -286,8 +287,6 @@ class LaTeXOutlineView(BaseOutlineView):
 	
 	
 
-from ..base.resources import find_resource
-from outline import OutlineNode
 from os.path import basename
 
 

@@ -112,7 +112,6 @@ class ToolView(BottomView, IStructuredIssueHandler):
 		"""
 	
 	def _on_row_activated(self, view, path, column):
-		it = self._store.get_iter(path)
 		issue = self._store.get(self._store.get_iter(path), 4)[0]
 		if issue:
 			self._context.activate_editor(issue.file)

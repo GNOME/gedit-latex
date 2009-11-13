@@ -42,10 +42,10 @@ class ProposalPopup(gtk.Window):
 	_POPUP_HEIGHT = 200
 	_SPACE = 0
 	
-	def __new__(type):
-		if not '_instance' in type.__dict__:
-			type._instance = gtk.Window.__new__(type)
-		return type._instance
+	def __new__(cls):
+		if not '_instance' in cls.__dict__:
+			cls._instance = gtk.Window.__new__(cls)
+		return cls._instance
 	
 	def __init__(self):
 		if not '_ready' in dir(self):
@@ -71,7 +71,7 @@ class ProposalPopup(gtk.Window):
 			self.add(frame)
 			
 			self._details_popup = DetailsPopup()
-			 
+			
 			self._ready = True
 	
 	@property
@@ -194,9 +194,6 @@ class ProposalPopup(gtk.Window):
 		"""
 		Move the popup to the current location of the cursor
 		"""
-		x = 0
-		y = 0
-	
 		sw = gtk.gdk.screen_width()
 		sh = gtk.gdk.screen_height()
 		
@@ -210,7 +207,7 @@ class ProposalPopup(gtk.Window):
 		if y + h > sh:
 			# get the height of a character
 			layout = text_view.create_pango_layout("a")
-			xtext, ytext = layout.get_pixel_size()
+			ytext = layout.get_pixel_size()[1]
 			y = y - ytext - h
 		
 		self.move(x, y)
@@ -342,14 +339,14 @@ class CompletionDistributor(object):
 		self._state = self._STATE_IDLE
 		self._timer = None
 		
-	   	# collect trigger keys from all handlers
-	   	self._trigger_keys = []
-	   	for handler in self._handlers:
-	   		for key in handler.trigger_keys:
-	   			if key in self._SPECIAL_KEYS.keys():
-	   				self._trigger_keys.append(self._SPECIAL_KEYS[key])
-	   			else:
-	   				self._trigger_keys.append(key)
+		# collect trigger keys from all handlers
+		self._trigger_keys = []
+		for handler in self._handlers:
+			for key in handler.trigger_keys:
+				if key in self._SPECIAL_KEYS.keys():
+					self._trigger_keys.append(self._SPECIAL_KEYS[key])
+				else:
+					self._trigger_keys.append(key)
 		
 		# TODO: is it right to instatiate this here?
 		self._popup = ProposalPopup()

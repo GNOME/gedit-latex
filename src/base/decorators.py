@@ -217,7 +217,7 @@ class GeditWindowDecorator(IPreferencesMonitor):
 					# extension not yet mapped
 					self._tool_action_extensions[extension] = [name]
 			
-			 # create action
+			# create action
 			action = ToolAction(tool)
 			gtk_action = gtk.Action(name, action.label, action.tooltip, action.stock_id)
 			gtk_action.connect("activate", lambda gtk_action, action: action.activate(self._window_context), action)

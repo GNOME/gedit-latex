@@ -213,8 +213,6 @@ class NewDocumentDialog(GladeInterface):
 			environment = Environment()
 			
 			self.dialog = self.find_widget("dialogNewDocument")
-		
-			lightForeground = preferences.get("LightForeground")
 			
 			#
 			# file
@@ -760,16 +758,16 @@ class InsertTableDialog(GladeInterface):
 			self._comboDelims.set_model(self._storeDelims)
 			
 			cellPixbuf = gtk.CellRendererPixbuf()
-	  		self._comboDelims.pack_start(cellPixbuf, False)
-	  		self._comboDelims.add_attribute(cellPixbuf, 'pixbuf', 0)
-	  		
+			self._comboDelims.pack_start(cellPixbuf, False)
+			self._comboDelims.add_attribute(cellPixbuf, 'pixbuf', 0)
+			
 			cellText = gtk.CellRendererText()
-	  		self._comboDelims.pack_start(cellText, False)
-	  		self._comboDelims.add_attribute(cellText, 'text', 1)
-	  		
-	  		self._comboDelims.set_active(0)
-	  		
-	  		self.connect_signals({ "on_radioMatrix_toggled" : self.__matrix_toggled })
+			self._comboDelims.pack_start(cellText, False)
+			self._comboDelims.add_attribute(cellText, 'text', 1)
+			
+			self._comboDelims.set_active(0)
+			
+			self.connect_signals({ "on_radioMatrix_toggled" : self.__matrix_toggled })
 			
 		return self._dialog
 
@@ -932,7 +930,6 @@ class InsertListingDialog(GladeInterface):
 
 
 from preview import ImageToolGenerator
-from environment import Environment
 
 
 class BuildImageDialog(GladeInterface):

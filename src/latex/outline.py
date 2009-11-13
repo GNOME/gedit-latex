@@ -227,7 +227,7 @@ class LaTeXOutlineGenerator(object):
 							nArgs = int(node.filter(Node.OPTIONAL_ARGUMENT)[0].innerText)
 						except IndexError:
 							nArgs = 0
-						except Exception, e:
+						except Exception:
 							self._issue_handler.issue(Issue("Malformed newcommand", node.start, node.end, node.file, Issue.SEVERITY_ERROR))
 							nArgs = 0
 						ncNode = OutlineNode(OutlineNode.NEWCOMMAND, node.start, node.lastEnd, name, numOfArgs=nArgs, file=node.file)
