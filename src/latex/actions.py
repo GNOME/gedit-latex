@@ -247,24 +247,122 @@ from ..util import verbose
 
 
 class LaTeXPreviewAction(LaTeXAction):
-	latex_preview = None
+	label = "Embedded Preview"
+	stock_id = gtk.STOCK_ZOOM_FIT
+	tooltip = None
+	accelerator = None
+	
+	def activate(self, context):
+		pass
+	
+
+class LaTeXPreviewToggleAction(LaTeXAction):
 	label = "Toggle Embedded Preview"
 	stock_id = gtk.STOCK_ZOOM_FIT				 # TODO: Create and use a better icon 
 	accelerator = "<Ctrl><Shift>T"
-	tooltip = "Toggle embedded PDF preview"
+	tooltip = "Toggle the embedded PDF preview"
 	
 	@verbose
 	def activate(self, context):
-		
 		editor = context.active_editor
 		assert type(editor) is LaTeXEditor
 		pdf_file_path = "%s.pdf" % editor.file.shortname
 
 		from livepreview import LatexPreview
-		if self.latex_preview == None:
-			self.latex_preview = LatexPreview(context._window_decorator._window)
-		self.latex_preview.toggle_preview(pdf_file_path)
+		if editor.latex_preview == None:
+			editor.latex_preview = LatexPreview(context._window_decorator._window)
+		editor.latex_preview.toggle_preview(pdf_file_path)
+
+
+class LaTeXPreviewZoomInAction(LaTeXAction):
+	label = "Zoom In"
+	stock_id = gtk.STOCK_ZOOM_IN
+	accelerator = "<Alt><Super>P"
+	tooltip = "Zoom the embedded preview in"
+
+	def activate(self, context):
+		editor = context.active_editor
+		assert type(editor) is LaTeXEditor
 		
+		current_tab = context._window_decorator._window.get_active_tab()
+		if editor.latex_preview != None and (current_tab in editor.latex_preview.split_views):
+			editor.latex_preview.preview_panels[current_tab].zoom_in()
+
+
+class LaTeXPreviewZoomOutAction(LaTeXAction):
+	label = "Zoom Out"
+	stock_id = gtk.STOCK_ZOOM_OUT
+	accelerator = "<Alt><Super>M"
+	tooltip = "Zoom the embedded preview out"
+
+	def activate(self, context):
+		editor = context.active_editor
+		assert type(editor) is LaTeXEditor
+
+		current_tab = context._window_decorator._window.get_active_tab()
+		if editor.latex_preview != None and (current_tab in editor.latex_preview.split_views):
+			editor.latex_preview.preview_panels[current_tab].zoom_out()
+
+
+class LaTeXPreviewScrollUpAction(LaTeXAction):
+	label = "Scroll Up"
+	stock_id = gtk.STOCK_GO_UP
+	accelerator = "<Alt><Super>Up"
+	tooltip = "Scroll the embedded preview up"
+
+	def activate(self, context):
+		editor = context.active_editor
+		assert type(editor) is LaTeXEditor
+		
+		current_tab = context._window_decorator._window.get_active_tab()
+		if editor.latex_preview != None and (current_tab in editor.latex_preview.split_views):
+			editor.latex_preview.preview_panels[current_tab].scroll_up()
+
+
+class LaTeXPreviewScrollDownAction(LaTeXAction):
+	label = "Scroll Down"
+	stock_id = gtk.STOCK_GO_DOWN
+	accelerator = "<Alt><Super>Down"
+	tooltip = "Scroll the embedded preview down"
+
+	def activate(self, context):
+		editor = context.active_editor
+		assert type(editor) is LaTeXEditor
+		
+		current_tab = context._window_decorator._window.get_active_tab()
+		if editor.latex_preview != None and (current_tab in editor.latex_preview.split_views):
+			editor.latex_preview.preview_panels[current_tab].scroll_down()
+
+
+class LaTeXPreviewScrollLeftAction(LaTeXAction):
+	label = "Scroll Left"
+	stock_id = gtk.STOCK_GO_BACK
+	accelerator = "<Alt><Super>Left"
+	tooltip = "Scroll the embedded preview to the left"
+
+	def activate(self, context):
+		editor = context.active_editor
+		assert type(editor) is LaTeXEditor
+		
+		current_tab = context._window_decorator._window.get_active_tab()
+		if editor.latex_preview != None and (current_tab in editor.latex_preview.split_views):
+			editor.latex_preview.preview_panels[current_tab].scroll_left()
+
+
+class LaTeXPreviewScrollRightAction(LaTeXAction):
+	label = "Scroll Right"
+	stock_id = gtk.STOCK_GO_FORWARD
+	accelerator = "<Alt><Super>Right"
+	tooltip = "Scroll the embedded preview to the right"
+
+	def activate(self, context):
+		editor = context.active_editor
+		assert type(editor) is LaTeXEditor
+		
+		current_tab = context._window_decorator._window.get_active_tab()
+		if editor.latex_preview != None and (current_tab in editor.latex_preview.split_views):
+			editor.latex_preview.preview_panels[current_tab].scroll_right()
+
 
 class LaTeXSpellCheckAction(LaTeXAction):
 	label = "Spell Check"

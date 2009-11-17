@@ -11,6 +11,10 @@
  * removed duplicates from latex.xml [ 2869574 ]
  * implemented template support ("Save As Template" and new from template)
  * fixed serialize error when saving tools [ 2892971 ]
+ * fixed DVI forward search issue [ 2884708 ]
+ * improved "New LaTeX Document" dialog [ 2897797 ]
+ * fixed the "Choose Master Document" dialog [ 2898996 ]
+ * improved the PDF live preview [ 2839668 ]
 
 0.2 rc2
  * added 'pdfpages' commands

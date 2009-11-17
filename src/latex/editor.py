@@ -87,6 +87,8 @@ class LaTeXEditor(Editor, IIssueHandler, IMisspelledWordHandler, IPreferencesMon
 		
 		self._issue_view = context.find_view(self, "IssueView")
 		self._outline_view = context.find_view(self, "LaTeXOutlineView")
+
+		self.latex_preview = None
 		
 		self._parser = LaTeXParser()
 		self._outline_generator = LaTeXOutlineGenerator()

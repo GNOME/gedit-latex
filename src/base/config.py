@@ -51,7 +51,17 @@ UI = """
 					<menuitem action="LaTeXForwardSearchAction" />
 					<menuitem action="LaTeXBuildImageAction" />
 					<separator />
-					<menuitem action="LaTeXPreviewAction" />
+					<menu action="LaTeXPreviewAction">
+						<menuitem action="LaTeXPreviewToggleAction" />
+						<separator />
+						<menuitem action="LaTeXPreviewZoomInAction" />
+						<menuitem action="LaTeXPreviewZoomOutAction" />
+						<separator />
+						<menuitem action="LaTeXPreviewScrollUpAction" />
+						<menuitem action="LaTeXPreviewScrollDownAction" />
+						<menuitem action="LaTeXPreviewScrollLeftAction" />
+						<menuitem action="LaTeXPreviewScrollRightAction" />
+					</menu>
 				</menu>
 				<menu action="BibTeXMenuAction">
 					<menuitem action="BibTeXNewEntryAction" />
@@ -110,6 +120,11 @@ UI = """
 			<toolitem action="LaTeXUseBibliographyAction" />
 			<separator />
 			<toolitem action="LaTeXBuildImageAction" />
+			<!--
+			<separator />
+			<toolitem action="LaTeXPreviewZoomInAction" />
+			<toolitem action="LaTeXPreviewZoomOutAction" />
+			-->
 		</toolbar>
 	</ui>"""
 
@@ -123,7 +138,9 @@ from ..latex.actions import LaTeXMenuAction, LaTeXNewAction, LaTeXCommentAction,
 		LaTeXJustifyCenterAction, LaTeXJustifyRightAction, LaTeXMathMenuAction, LaTeXMathAction, LaTeXDisplayMathAction, \
 		LaTeXEquationAction, LaTeXUnEqnArrayAction, LaTeXEqnArrayAction, LaTeXUnderlineAction, LaTeXSmallCapitalsAction, \
 		LaTeXRomanAction, LaTeXSansSerifAction, LaTeXTypewriterAction, LaTeXCloseEnvironmentAction, LaTeXBlackboardBoldAction, \
-		LaTeXCaligraphyAction, LaTeXFrakturAction, LaTeXForwardSearchAction, LaTeXBuildImageAction, LaTeXSaveAsTemplateAction
+		LaTeXCaligraphyAction, LaTeXFrakturAction, LaTeXForwardSearchAction, LaTeXBuildImageAction, LaTeXSaveAsTemplateAction, \
+		LaTeXPreviewZoomInAction, LaTeXPreviewZoomOutAction, LaTeXPreviewScrollUpAction, LaTeXPreviewScrollDownAction, \
+		LaTeXPreviewScrollLeftAction, LaTeXPreviewScrollRightAction, LaTeXPreviewToggleAction
 
 from ..bibtex.actions import BibTeXMenuAction, BibTeXNewEntryAction
 
@@ -136,7 +153,8 @@ ACTIONS = [ LaTeXMenuAction, LaTeXNewAction, LaTeXCommentAction, LaTeXPreviewAct
 		LaTeXEquationAction, LaTeXUnEqnArrayAction, LaTeXEqnArrayAction, LaTeXUnderlineAction, LaTeXSmallCapitalsAction, 
 		LaTeXRomanAction, LaTeXSansSerifAction, LaTeXTypewriterAction, LaTeXCloseEnvironmentAction, LaTeXBlackboardBoldAction, 
 		LaTeXCaligraphyAction, LaTeXFrakturAction, LaTeXForwardSearchAction, LaTeXBuildImageAction, LaTeXSaveAsTemplateAction, 
-		BibTeXMenuAction, BibTeXNewEntryAction ]
+		BibTeXMenuAction, BibTeXNewEntryAction, LaTeXPreviewZoomInAction, LaTeXPreviewZoomOutAction, LaTeXPreviewScrollUpAction, 
+		LaTeXPreviewScrollDownAction, LaTeXPreviewScrollLeftAction, LaTeXPreviewScrollRightAction, LaTeXPreviewToggleAction ]
 
 # views
 
