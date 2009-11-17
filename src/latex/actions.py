@@ -140,11 +140,11 @@ class LaTeXForwardSearchAction(LaTeXAction):
 		editor = context.active_editor
 		assert type(editor) is LaTeXEditor
 		
-		tex_filename = "%s.tex" % editor.file.shortname
+		tex_filename = "%s.tex" % editor.edited_file.shortname
 		dvi_filename = "%s.dvi" % editor.file.shortname
 		line, column = editor.cursor_position
 		
-		command = "xdvi -sourceposition \"%s:%s %s\" \"%s\"" % (line, column, tex_filename, dvi_filename)
+		command = "xdvi -sourceposition \"%s:%s %s\" \"%s\"" % (line + 1, column, tex_filename, dvi_filename)
 		self._log.debug(command)
 		
 		import os
