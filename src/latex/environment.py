@@ -48,122 +48,119 @@ class CnfFile(dict):
 
 
 _INPUT_ENCODINGS = {
-	"utf8" : "UTF-8 (Unicode)",
-	"ascii" : "US-ASCII",
-	"next" : "ASCII (NeXT)",
-	"ansinew" : "ASCII (Windows)",
+	"utf8"	   : "UTF-8 (Unicode)",
+	"ascii"	   : "US-ASCII",
+	"next"     : "ASCII (NeXT)",
+	"ansinew"  : "ASCII (Windows)",
 	"applemac" : "ASCII (Apple)",
-	"macce" : "MacCE (Apple Central European)",
-	"latin1" : "Latin-1",
-	"latin2" : "Latin-2",
-	"latin3" : "Latin-3 (South European)",
-	"latin4" : "Latin-4 (North European)",
-	"latin5" : "Latin-5 (Turkish)",
-	"latin6" : "Latin-6 (Nordic)",
-	"latin7" : "Latin-7 (Baltic)",
-	"latin8" : "Latin-8 (Celtic)",
-	"latin9" : "Latin-9 (extended Latin-1)",
-	"latin10" : "Latin-10 (South-Eastern European)",
-	"cp1250" : "CP1250 (Windows Central European)",
-	"cp1252" : "CP1252 (Windows Western European)",
-	"cp1257" : "CP1257 (Windows Baltic)",
-	"cp437" : "CP437 (DOS US)",
-	"cp850" : "CP850 (DOS Latin-1)",
-	"cp852" : "CP852 (DOS Central European)",
-	"cp858" : "CP858 (DOS Western European)",
-	"cp865" : "CP865 (DOS Nordic)"
+	"macce"    : "MacCE (Apple Central European)",
+	"latin1"   : "Latin-1 (Western European)",
+	"latin2"   : "Latin-2 (Danubian European)",
+	"latin3"   : "Latin-3 (South European)",
+	"latin4"   : "Latin-4 (North European)",
+	"latin5"   : "Latin-5 (Turkish)",
+	"latin6"   : "Latin-6 (Nordic)",
+	"latin7"   : "Latin-7 (Baltic)",
+	"latin8"   : "Latin-8 (Celtic)",
+	"latin9"   : "Latin-9 (extended Latin-1)",
+	"latin10"  : "Latin-10 (South-Eastern European)",
+	"cp1250"   : "CP1250 (Windows Central European)",
+	"cp1252"   : "CP1252 (Windows Western European)",
+	"cp1257"   : "CP1257 (Windows Baltic)",
+	"cp437"    : "CP437 (DOS US with β)",
+	"cp437de"  : "CP437 (DOS US with ß)",
+	"cp850"    : "CP850 (DOS Latin-1)",
+	"cp852"    : "CP852 (DOS Central European)",
+	"cp858"    : "CP858 (DOS Western European)",
+	"cp865"    : "CP865 (DOS Nordic)",
+	"decmulti" : "DEC Multinational Character Set"
 }
 
 _BABEL_PACKAGES = {
-	"acadian" : "Acadian French",
-	"albanian" : "Albanian",
-	"afrikaans" : "Afrikaans",
-	"american" : "American",
-	"australian" : "Australian",
-	"austrian" : "Austrian",
-	"naustrian" : "Austrian (new spelling)",
-	"bahasa" : "Bahasa Indonesia",
-	"bahasai" : "Bahasa Indonesia",
-	"indon" : "Bahasa Indonesia",
-	"indonesian" : "Bahasa Indonesia",
-	"malay" : "Bahasa Malaysia",
-	"meyalu" : "Bahasa Malaysia",
-	"bahasam" : "Bahasa Malaysia",
-	"basque" : "Basque",
-	"brazil" : "Brazilian Portuguese",
-	"brazilian" : "Brazilian Portugese",
-	"breton" : "Breton",
-	"british" : "British",
-	"bulgarian" : "Bulgarian",
-	"canadian" : "Canadian English",
-	"canadien" : "Canadian French",
-	"catalan" : "Catalan",
-	"croatian" : "Croatian",
-	"czech" : "Czech",
-	"danish" : "Danish",
-	"dutch" : "Dutch",
-	"english" : "English",
-	"UKenglish" : "English (UK)",
-	"USenglish" : "English (US)",
-	"esperanto" : "Esperanto",
-	"estonian" : "Estonian",
-	"finnish" : "Finnish",
-	"francais" : "French",
-	"french" : "French",
-	"frenchb" : "French",
-	"galician" : "Galician",
-	"german" : "German",
-	"germanb" : "German",
-	"ngerman" : "German (new spelling)",
-	"ngermanb" : "German (new spelling)",
-	"greek" : "Greek",
+	"albanian"	 : "Albanian",
+	"afrikaans"	 : "Afrikaans", #dutch dialect
+	"austrian"	 : "Austrian",
+	"naustrian"	 : "Austrian (new spelling)",
+	"bahasai"  	 : "Bahasa Indonesia",
+	"bahasam"	 : "Bahasa Malaysia",
+	"basque" 	 : "Basque",
+	"breton"	 : "Breton",
+	"bulgarian"	 : "Bulgarian",
+	"catalan"	 : "Catalan",
+	"croatian"	 : "Croatian",
+	"czech"		 : "Czech",
+	"danish"	 : "Danish",
+	"dutch"		 : "Dutch",
+	"australian"	 : "English (AU)",
+	"canadian"	 : "English (CA)",
+	"newzealand"	 : "English (NZ)",
+	"UKenglish"	 : "English (UK)",
+	"english"	 : "English (US)",
+	"esperanto"	 : "Esperanto",
+	"estonian"	 : "Estonian",
+	"finnish"	 : "Finnish",
+	"frenchb"	 : "French",
+	"acadian"	 : "French (Acadian)",
+	"canadien"	 : "French (CA)",
+	"galician"	 : "Galician",
+	"germanb"	 : "German",
+	"ngermanb"	 : "German (new spelling)",
+	"greek"		 : "Greek",
 	"polutonikogreek" : "Greek (polytonic)",
-#	"athnum" : "Greek (Athens numbering)",
-	"hebrew" : "Hebrew",
-	"hungarian" : "Hungarian",
-	"icelandic" : "Icelandic",
-	"interlingua" : "Interlingua",
-	"irish" : "Irish Gaelic",
-	"italian" : "Italian",
-	"kannada" : "Kannada",
-	"latin" : "Latin",
-	"lsorbian" : "Lower Sorbian",
-	"magyar" : "Magyar",
-	"nagari" : "Nagari",
-	"norsk" : "Norwegian Bokmål",
-	"nynorsk" : "Norwegian Nynorsk",
-	"polish" : "Polish",
-	"portuges" : "Portuguese",
-	"portuguese" : "Portugese",
-	"romanian" : "Romanian",
-	"russianb" : "Russian",
-	"samin" : "Samin",
-	"sanskrit" : "Sanskrit",
-	"scottish" : "Scottish Gaelic",
-	"serbian" : "Serbian",
-	"slovak" : "Slovak",
-	"slovene" : "Slovene",
-	"spanish" : "Spanish",
-	"swedish" : "Swedish",
-	"tamil" : "Tamil",
-	"turkish" : "Turkish",
-	"ukraineb" : "Ukraine",
-	"usorbian" : "Upper Sorbian",
-	"welsh" : "Welsh"
+#	"athnum"	 : "Greek (Athens numbering)",
+	"hebrew"	 : "Hebrew",
+	"magyar"	 : "Hungarian",
+	"icelandic"	 : "Icelandic",
+	"interlingua"	 : "Interlingua",
+	"irish"		 : "Irish Gaelic",
+	"italian"	 : "Italian",
+	"latin"		 : "Latin",
+	"lsorbian"	 : "Lower Sorbian",
+	"norsk"		 : "Norwegian Bokmål",
+	"nynorsk"	 : "Norwegian Nynorsk",
+	"polish"	 : "Polish",
+	"portuges"	 : "Portuguese (PT)",
+	"brazilian"	 : "Portuguese (BR)",
+	"romanian"	 : "Romanian",
+	"russianb"	 : "Russian",
+	"samin"		 : "North Sami",
+	"scottish"	 : "Scottish Gaelic",
+	"serbian"	 : "Serbian",
+	"slovak"	 : "Slovak",
+	"slovene"	 : "Slovene",
+	"spanish"	 : "Spanish",
+	"swedish"	 : "Swedish",
+	"turkish"	 : "Turkish",
+	"ukraineb"	 : "Ukraine",
+	"usorbian"	 : "Upper Sorbian",
+	"welsh"		 : "Welsh"
 }
 
 _DOCUMENT_CLASSES = {
+	"abstbook"	: _("Book of abstracts"),
 	"article" 	: _("Article"),
+	"amsart"	: _("Article (AMS)"),
+	"amsbook"	: _("Book (AMS)"),
+	"amsdtx"	: _("AMS Documentation"),
+	"amsproc"	: _("Proceedings (AMS)"),
 	"report" 	: _("Report"),
-	"book" 		: _("Book"),
 	"beamer" 	: _("Beamer slides"),
+	"beletter"	: _("Belgian letter"),
+	"book" 		: _("Book"),
+	"flashcard"	: _("Flashcard"),
+	"iagproc"	: _("Proceedings (IAG)"),
 	"letter" 	: _("Letter"),
+	"ltnews"	: _("LaTeX News"),
+	"ltxdoc"	: _("LaTeX Documentation"),
+	"ltxguide"	: _("LaTeX Guide"),
+	"proc"		: _("Proceedings"),
 	"scrartcl" 	: _("Article (KOMA-Script)"),
-	"scrreport" : _("Report (KOMA-Script)"),
+	"scrreport"	: _("Report (KOMA-Script)"),
 	"scrbook" 	: _("Book (KOMA-Script)"),
 	"scrlettr" 	: _("Letter (KOMA-Script)"),
 	"scrlttr2" 	: _("Letter 2 (KOMA-Script)"),
-	"scrreprt"	: _("Report (KOMA-Script)")
+	"scrreprt"	: _("Report (KOMA-Script)"),
+	"slides"	: _("Slides")
 }
 
 
@@ -308,22 +305,30 @@ class Environment(object):
 		@param labels: the dictionary to be searched for labels  
 		"""
 		resources = []
+		files = []
 		
 		for search_path in self._search_paths:
-			files = [File(f) for f in popen("find %s%s -name '*%s'" % (search_path, relative, extension)).readlines()]
-			if len(files) > 0:
-				for file in files:
-					name = file.shortbasename
-					try:
-						label = labels[name]
-					except KeyError:
-						label = ""
-					resources.append(TeXResource(file, name, label))
-			else:
-				# no files found
-				self._log.error("No %s-files found in %s%s" % (extension, search_path, relative))
-				for name, label in labels.iteritems():
-					resources.append(TeXResource(None, name, label))
+			files += [File(f) for f in popen("find %s%s -name '*%s'" % (search_path, relative, extension)).readlines()]
+			
+		if len(files) > 0:
+			for file in files:
+				name = file.shortbasename
+				try:
+					label = labels[name]
+				except KeyError:
+					label = ""
+				resources.append(TeXResource(file, name, label))
+		else:
+			# no files found
+			self._log.error("No %s-files found in %s%s" % (extension, search_path, relative))
+			
+		for name, label in labels.iteritems():
+			found = False
+			for resource in resources:
+				if resource.name == name:
+					found = True
+			if not found:
+				resources.append(TeXResource(None, name, label))
 					
 		return resources
 	
