@@ -23,7 +23,6 @@ latex.environment
 """
 
 from os import popen, system
-from os.path import splitext, basename
 from gtk.gdk import screen_width, screen_height, screen_width_mm, screen_height_mm
 from pwd import getpwnam
 from getpass import getuser
@@ -180,6 +179,8 @@ class TeXResource(object):
 		self.label = label
 
 
+from os.path import expanduser
+
 from ..base import File
 
 
@@ -187,6 +188,7 @@ class Environment(object):
 	
 	_CONFIG_FILENAME = "/etc/texmf/texmf.cnf"
 	_DEFAULT_TEXMF_DIR = "/usr/share/texmf-texlive"
+	_DEFAULT_TEXMF_DIR_HOME = "~/texmf"
 	
 	"""
 	This encapsulates the user's LaTeX distribution and provides methods
@@ -212,13 +214,14 @@ class Environment(object):
 			self._file_exists_cache = {}
 			
 			self._search_paths = []
+			default_search_paths = [self._DEFAULT_TEXMF_DIR, expanduser(self._DEFAULT_TEXMF_DIR_HOME)]
 			
 			try:
 				cnf_file = CnfFile(self._CONFIG_FILENAME)
 
 				path_found = False
 				
-				for key in ["TEXMFMAIN", "TEXMFDIST"]:
+				for key in ["TEXMFMAIN", "TEXMFDIST", "TEXMFHOME"]:
 					try:
 						self._search_paths.append(cnf_file[key])
 						path_found = True
@@ -227,13 +230,13 @@ class Environment(object):
 						self._log.error("Key %s not found in %s" % (key, self._CONFIG_FILENAME))
 				
 				if not path_found:
-					self._log.error("No search paths found in %s, using default search path %s" % (key, self._CONFIG_FILENAME, self._DEFAULT_TEXMF_DIR))
-					self._search_paths = [self._DEFAULT_TEXMF_DIR]
+					self._log.error("No search paths found in %s, using default search paths %s" % (self._CONFIG_FILENAME, default_search_paths))
+					self._search_paths = default_search_paths
 				
 			except IOError:
 				# file _CONFIG_FILENAME not found - use default path
-				self._log.error("%s not found, using default search path %s" % (self._CONFIG_FILENAME, self._DEFAULT_TEXMF_DIR))
-				self._search_paths = [self._DEFAULT_TEXMF_DIR]
+				self._log.error("%s not found, using default search paths %s" % (self._CONFIG_FILENAME, default_search_paths))
+				self._search_paths = default_search_paths
 			
 			self._ready = True
 	

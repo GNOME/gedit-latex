@@ -51,7 +51,6 @@ class LaTeXReferenceExpander(object):
 		"""
 		self._master_file = master_file
 		self._issue_handler = issue_handler
-#		self._parser = LaTeXParser()
 		self._charset = charset
 		self._expand(documentNode)
 		
@@ -75,11 +74,8 @@ class LaTeXReferenceExpander(object):
 					
 					self._log.debug("Expanding %s" % filename)
 					
-					# parse child
+					# lookup/parse child document model
 					try:
-#						content = open(filename).read().decode(self._charset)
-#						fragment = self._parser.parse(content, File(filename), self._issue_handler)
-
 						fragment = self._document_cache.get_document(File(filename), self._charset, self._issue_handler)
 
 						node.append(fragment)

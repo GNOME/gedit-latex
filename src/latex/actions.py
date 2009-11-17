@@ -96,7 +96,11 @@ class LaTeXNewAction(Action):
 			file = self._dialog.file
 			file.create(self._dialog.source)
 			context.activate_editor(file)
-		
+
+
+from dialogs import ChooseMasterDialog
+from . import PropertyFile
+
 
 class LaTeXChooseMasterAction(LaTeXAction):
 	_log = getLogger("LaTeXChooseMasterAction")
@@ -107,8 +111,21 @@ class LaTeXChooseMasterAction(LaTeXAction):
 	tooltip = None
 	
 	def activate(self, context):
-		# TODO:
-		self._log.debug("activate")
+		editor = context.active_editor
+		assert type(editor) is LaTeXEditor
+		
+		file = editor._file		# FIXME: access to private member
+		
+		# load property file
+		property_file = PropertyFile(file)
+		
+		master_filename = ChooseMasterDialog().run(file.dirname)
+		if master_filename:
+			# relativize the master filename
+			master_filename = File(master_filename).relativize(file.dirname, True)
+			
+			property_file["MasterFilename"] = master_filename
+			property_file.save()
 		
 		
 class LaTeXForwardSearchAction(LaTeXAction):
