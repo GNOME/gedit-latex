@@ -1,9 +1,11 @@
 REQUIREMENTS
 
  - gedit >=2.15.2
- - Python >=2.5
+ - Python >=2.6
  - PyGTK >=2.12
  - GTK+ >=2.10.14
+ - PyEnchant (optional, needed for LaTeX spell checking)
+ - Poppler Python Bindings (optional, needed for embedded PDF preview)
 
 INSTALLATION
 
