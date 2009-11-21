@@ -15,6 +15,7 @@
  * improved "New LaTeX Document" dialog [ 2897797 ]
  * fixed the "Choose Master Document" dialog [ 2898996 ]
  * improved the PDF live preview [ 2839668 ]
+ * fixed special-character-in-urls issue [ 2794805 ]
 
 0.2 rc2
  * added 'pdfpages' commands

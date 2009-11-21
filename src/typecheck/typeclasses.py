@@ -15,7 +15,7 @@
 #	project's website. The module also includes support for type variables, a concept borrowed from 
 #	languages such as Haskell.
 
-from typecheck import Typeclass
+from . import Typeclass
 
 ### Number
 ####################################################

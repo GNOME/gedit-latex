@@ -1070,13 +1070,41 @@ class WindowContext(object):
 		self._window_decorator._action_group.get_action(action_id).set_sensitive(enabled)
 	
 
-from urlparse import urlparse
+from urlparse import urlparse, urlunsplit, urlsplit
 import urllib
 from os import remove
 import os.path
 from glob import glob
 
 from ..relpath import relpath
+from . import urlquote
+from ..typecheck import accepts
+from ..typecheck.typeclasses import String
+
+
+@accepts(String)
+def fixurl(url):
+	"""
+	http://stackoverflow.com/questions/804336/best-way-to-convert-a-unicode-url-to-ascii-utf-8-percent-escaped-in-python
+	"""
+	# turn string into unicode
+	url = url.decode('utf8')
+
+	# parse it
+	parsed = urlsplit(url)
+
+	# encode each component
+	scheme = parsed.scheme.encode('utf8')
+	netloc = parsed.netloc.encode('idna')
+	path = '/'.join(  # could be encoded slashes!
+		urllib.quote(urllib.unquote(pce).encode('utf8'),'')
+		for pce in parsed.path.split('/')
+	)
+	query = urllib.quote(urllib.unquote(parsed.query).encode('utf8'),'=&?/')
+	fragment = urllib.quote(urllib.unquote(parsed.query).encode('utf8'))
+
+	# put it back together
+	return urlunsplit((scheme,netloc,path,query,fragment))
 
 
 class File(object):
@@ -1171,17 +1199,8 @@ class File(object):
 	
 	@property
 	def uri(self):
-		# FIXME: urlparse.ParseResult.geturl should return a safe URL ('%20' instead of ' ')
-		
-		# FIXME: why is ':' quoted by urllib.quote?
-		
-		# FIXME: urllib.quote can't handle unicode as argument when it can't be encoded in ASCII
-		# (see http://localhost:8000/LaTeXPlugin3/ticket/104)
-		# workaround: encode in latin1
-		url = self._uri.geturl().encode("latin1")
-		
-		#return urllib.quote(self._uri.geturl(), safe="/:")
-		return urllib.quote(url, safe="/:")
+		# TODO: urllib.quote doesn't support utf-8
+		return fixurl(self._uri.geturl())
 	
 	@property
 	def exists(self):

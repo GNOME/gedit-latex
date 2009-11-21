@@ -174,6 +174,9 @@ class Document(Node):
 	An extended Node with special methods for a LaTeX document
 	"""
 	
+	# FIXME: doesn't extend LocalizedNode which leads to
+	# https://sourceforge.net/tracker/index.php?func=detail&aid=2899795&group_id=204144&atid=988428
+	
 	# TODO: implement a generic interface for searching the document model
 	
 	def __init__(self, file):

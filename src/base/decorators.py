@@ -277,9 +277,12 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		
 		# not found, open file in a new tab...
 		
-		self._log.debug("GeditWindow.create_tab_from_uri(%s)" % file.uri)
-		
-		self._window.create_tab_from_uri(file.uri, gedit.encoding_get_current(), 1, False, True)
+		uri = file.uri
+		self._log.debug("GeditWindow.create_tab_from_uri(%s)" % uri)
+		if gedit.utils.uri_is_valid(uri):
+			self._window.create_tab_from_uri(file.uri, gedit.encoding_get_current(), 1, False, True)
+		else:
+			self._log.error("gedit.utils.uri_is_valid(%s) = False" % uri)
 	
 	def disable(self):
 		"""

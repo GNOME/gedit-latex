@@ -66,6 +66,10 @@ class AbstractProxy(object):
 		raise NotImplementedError
 
 
+from ..typecheck import accepts
+from ..typecheck.typeclasses import String
+
+
 class ComboBoxProxy(AbstractProxy):
 	"""
 	This proxies a ComboBox widget:
@@ -103,6 +107,7 @@ class ComboBoxProxy(AbstractProxy):
 	def _on_changed(self, combobox):
 		self.save()
 	
+	@accepts(object, String, String, bool)
 	def add_option(self, value, label, show_value=True):
 		"""
 		Add an option to the widget
@@ -111,6 +116,9 @@ class ComboBoxProxy(AbstractProxy):
 		@param label: a label text that may contain markup
 		"""
 		self._options.append((value, label))
+		
+		label_markup = ""
+		
 		if show_value:
 			if not value is None and len(value) > 0:
 				label_markup = "%s <span color='%s'>%s</span>" % (value, self._preferences.get("LightForeground"), label)
@@ -118,6 +126,7 @@ class ComboBoxProxy(AbstractProxy):
 				label_markup = "<span color='%s'>%s</span>" % (self._preferences.get("LightForeground"), label)
 		else:
 			label_markup = label
+
 		self._store.append([value, label_markup])
 	
 	@property
@@ -335,7 +344,7 @@ class NewDocumentDialog(GladeInterface):
 			templates = folder.files
 			templates.sort()
 			for template in templates:
-				self._proxy_template.add_option(template, template.shortbasename, show_value=False)
+				self._proxy_template.add_option(template.path, template.shortbasename, show_value=False)
 			self._proxy_template.restore("Default")
 			
 			#
@@ -489,7 +498,7 @@ class NewDocumentDialog(GladeInterface):
 		else:
 			default_font_family = "\n\\renewcommand{\\familydefault}{%s}" % self._proxy_font_family.value
 		
-		template_string = open(self._proxy_template.value.path).read()
+		template_string = open(self._proxy_template.value).read()
 		template = string.Template(template_string)
 		s = template.safe_substitute({"DocumentOptions" : documentOptions, "DocumentClass" : documentClass, 
 					"InputEncoding" : inputEncoding, "BabelPackage" : babelPackage, 

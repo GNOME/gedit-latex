@@ -15,9 +15,9 @@
 #	project's website. The module also includes support for type variables, a concept borrowed from 
 #	languages such as Haskell.
 
-from typecheck import CheckType, _TC_TypeError, check_type, Type
-from typecheck import register_type, Or, _TC_Exception, _TC_KeyError
-from typecheck import _TC_LengthError
+from . import CheckType, _TC_TypeError, check_type, Type
+from . import register_type, Or, _TC_Exception, _TC_KeyError
+from . import _TC_LengthError
 
 ### Provide typechecking for the built-in set() class
 ###
