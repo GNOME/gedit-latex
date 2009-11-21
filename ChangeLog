@@ -1,4 +1,4 @@
-0.2
+0.2 rc3
  * fixed bug in BibTeX parser
  * fixed bug in LaTeX validator
  * changed debug output format
