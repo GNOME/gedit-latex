@@ -1077,7 +1077,6 @@ import os.path
 from glob import glob
 
 from ..relpath import relpath
-from . import urlquote
 from ..typecheck import accepts
 from ..typecheck.typeclasses import String
 
