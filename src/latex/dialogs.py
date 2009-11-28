@@ -478,17 +478,31 @@ class NewDocumentDialog(GladeInterface):
 			date = "\\today"
 		
 		if self.find_widget("checkPDFMeta").get_active():
-			ifpdf = "\n\\usepackage{ifpdf}"
+			ifpdf = "\n\\usepackage{ifpdf}\n\\usepackage{hyperref}"
+			
+			# pdfinfo is discouraged because it
+			#  - doesn't support special characters like umlauts
+			#  - is not supported by XeTeX
+			# see http://sourceforge.net/tracker/index.php?func=detail&aid=2809478&group_id=204144&atid=988431
+			
+#			pdfinfo = """
+#\\ifpdf
+#	\\pdfinfo {
+#		/Author (%s)
+#		/Title (%s)
+#		/Subject (SUBJECT)
+#		/Keywords (KEYWORDS)
+#		/CreationDate (D:%s)
+#	}
+#\\fi""" % (author, title, strftime('%Y%m%d%H%M%S'))
+
 			pdfinfo = """
 \\ifpdf
-	\\pdfinfo {
-		/Author (%s)
-		/Title (%s)
-		/Subject (SUBJECT)
-		/Keywords (KEYWORDS)
-		/CreationDate (D:%s)
-	}
-\\fi""" % (author, title, strftime('%Y%m%d%H%M%S'))
+\\hypersetup{
+	pdfauthor={%s},
+	pdftitle={%s},
+}
+\\fi""" % (author, title)
 		else:
 			ifpdf = ""
 			pdfinfo = ""
@@ -500,10 +514,16 @@ class NewDocumentDialog(GladeInterface):
 		
 		template_string = open(self._proxy_template.value).read()
 		template = string.Template(template_string)
-		s = template.safe_substitute({"DocumentOptions" : documentOptions, "DocumentClass" : documentClass, 
-					"InputEncoding" : inputEncoding, "BabelPackage" : babelPackage, 
-					"AdditionalPackages" : default_font_family + ifpdf, "Title" : title, "Author" : author, 
-					"Date" : date, "AdditionalPreamble" : pdfinfo})
+		s = template.safe_substitute({
+					"DocumentOptions" : documentOptions, 
+					"DocumentClass" : documentClass, 
+					"InputEncoding" : inputEncoding, 
+					"BabelPackage" : babelPackage, 
+					"AdditionalPackages" : default_font_family + ifpdf, 
+					"Title" : title, 
+					"Author" : author, 
+					"Date" : date, 
+					"AdditionalPreamble" : pdfinfo})
 		
 #		s = """\\documentclass%s{%s}
 #\\usepackage[%s]{inputenc}

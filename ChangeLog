@@ -1,3 +1,8 @@
+0.2 final
+ * added hyperref package to latex.xml
+ * switch to hyperref for PDF meta data [ 2809478 ]
+ * avoiding the column separator in the completion popup
+
 0.2 rc3
  * fixed bug in BibTeX parser
  * fixed bug in LaTeX validator

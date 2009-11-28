@@ -54,8 +54,22 @@ class ProposalPopup(gtk.Window):
 			self._store = gtk.ListStore(str, object, gtk.gdk.Pixbuf)		# markup, Proposal instance
 			
 			self._view = gtk.TreeView(self._store)
-			self._view.insert_column_with_attributes(-1, "", gtk.CellRendererPixbuf(), pixbuf=2)
-			self._view.insert_column_with_attributes(-1, "", gtk.CellRendererText(), markup=0)
+			
+			# pack the icon and text cells in one column to avoid the column separator
+			column = gtk.TreeViewColumn()
+			pixbuf_renderer = gtk.CellRendererPixbuf()
+			column.pack_start(pixbuf_renderer, False)
+			column.add_attribute(pixbuf_renderer, "pixbuf", 2)
+		
+			text_renderer = gtk.CellRendererText()
+			column.pack_start(text_renderer, True)
+			column.add_attribute(text_renderer, "markup", 0)
+		
+			self._view.append_column(column)
+			
+#			self._view.insert_column_with_attributes(-1, "", gtk.CellRendererPixbuf(), pixbuf=2)
+#			self._view.insert_column_with_attributes(-1, "", gtk.CellRendererText(), markup=0)
+
 			self._view.set_enable_search(False)
 			self._view.set_headers_visible(False)
 			

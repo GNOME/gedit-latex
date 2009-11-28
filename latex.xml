@@ -18,19 +18,119 @@ You should have received a copy of the GNU General Public Licence along with
 this program; if not, write to the Free Software Foundation, Inc., 51 Franklin
 Street, Fifth Floor, Boston, MA  02110-1301, USA
 -->
+
+<!-- 
+TODO:
+ - use <package> tag instead of package attribute
+ - switch to YAML
+-->
 <commands>
+	<!-- hyperref -->
+	<command name="href" package="hyperref">
+		<argument label="URL" />
+		<argument label="Text" />
+	</command>
+	<command name="hyperbaseurl" package="hyperref">
+		<argument label="URL" />
+	</command>
+	<command name="hyperimage" package="hyperref">
+		<argument label="URL" />
+	</command>
+	<command name="hyperdef" package="hyperref">
+		<argument label="Category" />
+		<argument label="Name" />
+	</command>
+	<command name="hyperref" package="hyperref">
+		<argument label="URL" />
+		<argument label="Category" />
+		<argument label="Name" />
+		<argument label="Text" />
+	</command>
+	<command name="hyperlink" package="hyperref">
+		<argument label="Name" />
+		<argument label="Text" />
+	</command>
+	<command name="hypertarget" package="hyperref">
+		<argument label="Name" />
+		<argument label="Text" />
+	</command>
+	<command name="Acrobatmenu" package="hyperref">
+		<argument label="Option" />
+		<argument label="Text" />
+	</command>
+	<command name="hypersetup" package="hyperref">
+		<argument label="Options" />
+	</command>
+	
+	<command name="TextField" package="hyperref">
+		<argument label="Parameters" type="optional" />
+		<argument label="Label" />
+	</command>
+	<command name="CheckBox" package="hyperref">
+		<argument label="Parameters" type="optional" />
+		<argument label="Label" />
+	</command>
+	<command name="ChoiceMenu" package="hyperref">
+		<argument label="Parameters" type="optional" />
+		<argument label="Label" />
+		<argument label="Choices" />
+	</command>
+	<command name="PushButton" package="hyperref">
+		<argument label="Parameters" type="optional" />
+		<argument label="Label" />
+	</command>
+	<command name="Submit" package="hyperref">
+		<argument label="Parameters" type="optional" />
+		<argument label="Label" />
+	</command>
+	<command name="Reset" package="hyperref">
+		<argument label="Parameters" type="optional" />
+		<argument label="Label" />
+	</command>
+	<command name="LayoutTextField" package="hyperref">
+		<argument label="Label" />
+		<argument label="Field" />
+	</command>
+	<command name="LayoutChoiceField" package="hyperref">
+		<argument label="Label" />
+		<argument label="Field" />
+	</command>
+	<command name="LayoutCheckboxField" package="hyperref">
+		<argument label="Label" />
+		<argument label="Field" />
+	</command>
+	<command name="MakeRadioField" package="hyperref">
+		<argument label="Width" />
+		<argument label="Height" />
+	</command>
+	<command name="MakeCheckField" package="hyperref">
+		<argument label="Width" />
+		<argument label="Height" />
+	</command>
+	<command name="MakeTextField" package="hyperref">
+		<argument label="Width" />
+		<argument label="Height" />
+	</command>
+	<command name="MakeChoiceField" package="hyperref">
+		<argument label="Width" />
+		<argument label="Height" />
+	</command>
+	<command name="MakeButtonField" package="hyperref">
+		<argument label="Text" />
+	</command>
+	
 	<!-- gchords -->
-	<command name="chord">
+	<command name="chord" package="gchords">
 		<argument label="Parameter" />
 		<argument label="Positions" />
 		<argument label="Name" />
 	</command>
 	
-	<command name="upchord">
+	<command name="upchord" package="gchords">
 		<argument label="Name" />
 	</command>
 	
-	<command name="chords">
+	<command name="chords" package="gchords">
 		<argument label="Chords" />
 	</command>
 
