@@ -62,7 +62,7 @@ Street, Fifth Floor, Boston, MA  02110-1301, USA
 		<symbol icon="operators/supseteq.png">\supseteq</symbol>
 		<symbol icon="operators/times.png">\times</symbol>
 		<symbol icon="operators/uplus.png">\uplus</symbol>
-		<symbol icon="operators/varnothing.png">\varnothing</symbol>
+		<symbol icon="operators/varnothing.png">\varnothing</symbol>	<!-- FIXME: needs amssymb -->
 	</group>
 	<group label="Arrows">
 		<symbol icon="arrows/Leftarrow.png">\Leftarrow</symbol>

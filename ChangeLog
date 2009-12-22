@@ -2,6 +2,9 @@
  * added hyperref package to latex.xml
  * switch to hyperref for PDF meta data [ 2809478 ]
  * avoiding the column separator in the completion popup
+ * fixed resolution setting in image exporter
+ * fixed support for R Sweave [ 2825855 ]
+ * \varnothing needs amssymb package
 
 0.2 rc3
  * fixed bug in BibTeX parser

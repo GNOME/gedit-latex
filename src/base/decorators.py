@@ -686,7 +686,7 @@ class GeditTabDecorator(object):
 		else:
 			file = File(uri)
 			
-			if file == self._file:		# != doesn't work for File...
+			if file == self._file:		# FIXME: != doesn't work for File...
 				return False
 			else:
 				self._log.debug("_adjust_editor: URI has changed")
@@ -699,7 +699,8 @@ class GeditTabDecorator(object):
 					self._editor.destroy()
 					self._editor = None
 	
-				extension = file.extension.lower()
+				# FIXME: comparing file extensions should be case-INsensitive... 
+				extension = file.extension
 				
 				# find Editor class for extension
 				editor_class = None
@@ -732,6 +733,8 @@ class GeditTabDecorator(object):
 					#     OutlineConverter().convert(self._store, outline, self._offset_map, self._context.active_editor.edited_file)
 					
 					#self._editor = editor_class(self, file)
+				else:
+					self._log.warning("No editor class found for extension %s" % extension)
 				
 				# tell WindowDecorator to adjust actions
 				self._window_decorator.adjust(self)

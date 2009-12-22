@@ -131,6 +131,8 @@ class ToolAction(Action):
 			
 			self._runner.run(context.active_editor.file, self._tool, tool_view)
 			self._log.debug("activate: " + str(context.active_editor.file))
+		else:
+			self._log.error("No active editor")
 		
 
 from os import chdir

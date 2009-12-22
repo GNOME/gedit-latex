@@ -386,6 +386,8 @@ TODO:
 	<command name="mathbb" package="amssymb">
 		<argument label="Formula" />
 	</command>
+	
+	<command name="varnothing" package="amssymb" />
 
 	<command name="mathrm">
 		<argument label="Formula" />
