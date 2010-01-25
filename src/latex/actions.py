@@ -270,8 +270,9 @@ class LaTeXPreviewToggleAction(LaTeXAction):
 
 		from livepreview import LatexPreview
 		if editor.latex_preview == None:
-			editor.latex_preview = LatexPreview(context._window_decorator._window)
-		editor.latex_preview.toggle_preview(pdf_file_path)
+			editor.latex_preview = LatexPreview()
+		current_tab = context._window_decorator._window.get_active_tab()
+		editor.latex_preview.toggle(current_tab, pdf_file_path)
 
 
 class LaTeXPreviewZoomInAction(LaTeXAction):

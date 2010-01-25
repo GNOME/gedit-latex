@@ -322,7 +322,7 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		 * _on_active_tab_changed()
 		 * GeditTabDecorator when the Editor instance changes 
 		"""
-		
+
 		# TODO: improve and simplify this!
 		
 		extension = tab_decorator.extension
@@ -332,7 +332,8 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		# FIXME: a hack again...
 		# the toolbar should hide when it doesn't contain any visible items
 		latex_extensions = self._preferences.get("LatexExtensions", ".tex").split(" ")
-		if extension in latex_extensions:
+		show_toolbar = self._preferences.get("ShowLaTeXToolbar", True)
+		if show_toolbar and extension in latex_extensions:
 			self._toolbar.show()
 		else:
 			self._toolbar.hide()
@@ -693,9 +694,12 @@ class GeditTabDecorator(object):
 				
 				self._file = file
 				
+				latex_preview = None
+				
 				# URI has changed - manage the editor instance
 				if self._editor:
-					# editor is present - destroy it
+					# editor is present - save latex_preview and destroy editor
+					latex_preview = self._editor.latex_preview
 					self._editor.destroy()
 					self._editor = None
 	
@@ -713,6 +717,13 @@ class GeditTabDecorator(object):
 					# create instance
 					self._editor = editor_class.__new__(editor_class)
 					editor_class.__init__(self._editor, self, file)
+					
+					# transfer latex_preview from the old editor to the new one
+					if latex_preview != None:
+						self._editor.latex_preview = latex_preview
+						current_tab = self._window_decorator._window.get_active_tab()
+						pdf_file_path = "%s.pdf" % file.shortname
+						self._editor.latex_preview.update_file_path(current_tab, pdf_file_path)
 					
 					# The following doesn't work because the right expression is evaluated
 					# and then assigned to the left. This means that Editor.__init__ is

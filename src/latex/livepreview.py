@@ -30,8 +30,27 @@ import gtk
 import os
 import gobject
 import cairo
+import pango
+import logging
 
 from ..preferences import Preferences
+
+
+"""
+TODO:
+- Make the "padding" in PreviewPanel a constant defined at the beginning. 
+  It is used in too many places with the explicit value "2".
+- Move the latex_preview variable from editor to something else, 
+  because LaTeXPreviex is supposed to keep track of all previews, but 
+  there is one editor per tab, so there are plenty of latex_preview 
+  variables, each keeping track of one preview...
+- Replace the popup menu items by Actions from latex/actions.py, and add 
+  these also to the "Embedded Preview" menu (Next page, Previous page, 
+  Toggle continuous, Document properties, Open in default viewer).
+- Add toolbar items to check and modify the zoom status and page number.
+- Add SyncTeX support.
+- ...
+"""
 
 
 class LatexPreview:
@@ -39,119 +58,121 @@ class LatexPreview:
 	Class that manages all tab's preview panels.
 	"""
 	
-	def __init__(self, window):
+	def __init__(self):
 		"""
 		Initializes the PDF preview.
 		"""
 		
-		self.__gedit_window = window
-		
 		self._preferences = Preferences()
 		
 		# keep track of all gedit tabs that have preview enabled
+		self.__pane_position_id = {}
 		self.split_views = {}
 		self.preview_panels = {}
 
-		# I hardly even know how this works, but it gets our encoding.
-		try: self.encoding = gedit.encoding_get_current()
-		except: self.encoding = gedit.gedit_encoding_get_current()
 
-
-	def toggle_preview(self, parent_pdf_path):
+	def is_shown(self, tab):
+		return (tab in self.split_views)
+		
+		
+	def toggle(self, tab, compiled_file_path):
 		"""
-		Enables/disables the preview window for the active tab.
-		@param parent_pdf_path: the path to the pdf file
+		Enables/disables the preview window for the tab "tab".
+		@param tab: the tab to toggle the preview of
+		@param compiled_file_path: the path to the compiled file
 		"""
-
-		# use the current tab to create the preview in it
-		current_tab = self.__gedit_window.get_active_tab()
 
 		# If we already have a preview for this tab, remove it
-		if (current_tab in self.split_views):
-			self.end_preview()
+		if self.is_shown(tab):
+			self.hide(tab)
 		# Otherwise, start the preview
 		else:
-			self.split_view(parent_pdf_path)
+			self.show(tab, compiled_file_path)
 
 
-	def split_view(self, parent_pdf_path):
+	def show(self, tab, compiled_file_path):
 		"""
-		Method that creates the actual split view.
-		@param parent_pdf_path: the path to the pdf file
-		"""
-		
-		# Get the preferred width for the pdf preview (default: A4 width (scale 1) + scrollbar)
-		self.__preview_width = int(self._preferences.get("PdfPreviewWidth", 620))
-		
-		# Get the tab / document
-		current_tab = self.__gedit_window.get_active_tab()
-		self.split_views[current_tab] = gtk.HPaned()
-
-		old_view = None
-
-		# Here we just kind of loop through the child object of the tab
-		# and get rid of all of the existing GUI objects.
-		for each in current_tab.get_children():
-
-			# The child of the child has the View object for the active document.
-			for any in each.get_children():
-				old_view = any
-				each.remove(any)
-
-			# Create a scrolled window for the left / top side.
-			left_window = gtk.ScrolledWindow()
-			left_window.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
-			left_window.add(old_view)
-
-			preview_panel = PreviewPanel(parent_pdf_path)
-			self.preview_panels[current_tab] = preview_panel
-			
-			vbox2 = gtk.VBox()
-			vbox2.pack_start(self.split_views[current_tab])
-
-			each.add_with_viewport(vbox2)
-
-			# Add the two scrolled windows to our Paned object.
-			# Ask that when the window is resized, the preview keep the same size
-			self.split_views[current_tab].pack1(left_window, True, True)
-			self.split_views[current_tab].pack2(preview_panel.get_panel(), False, True)
-
-			# Request the preferred width for the preview
-			self.split_views[current_tab].get_child2().set_size_request(self.__preview_width, -1)
-
-			# Monitor the handle position to keep the document centered
-			self.__pane_position_id = self.split_views[current_tab].connect("notify::position", self.__pane_moved)
-
-		current_tab.show_all()
-
-
-	def end_preview(self):
-		"""
-		Method that ends the preview.
+		Creates the actual split view.
+		@param tab: the tab to show the preview in
+		@param compiled_file_path: the path to the compiled file
 		"""
 		
-		current_tab = self.__gedit_window.get_active_tab()
-		original_view = self.split_views[current_tab].get_child1().get_children()[0]
+		if self.is_shown(tab):
+			if self.preview_panels[tab].file_path != compiled_file_path:
+				self.update_file_path(tab, compiled_file_path)
+			return
+		
+		# Get the preferred width for the pdf preview (default: (A4 width (scale 1) + scrollbar) (=620) + shadow)
+		self.__preview_width = int(self._preferences.get("PdfPreviewWidth", 623))
+		
+		# Here we assume that the tab only contains the scrolled window containing the view
+		# (actually another plugin could have added another view in the tab...)
+		old_scrolled_view = tab.get_children()[0]
+		tab.remove(old_scrolled_view)
 
-		for each in current_tab.get_children():
+		# Create the preview
+		preview_panel = PreviewPanel(compiled_file_path)
+		self.preview_panels[tab] = preview_panel
 
-			for any in each.get_children():
-				each.remove(any)
+		# Create the Paned object which will contin the old view and the preview
+		self.split_views[tab] = gtk.HPaned()
 
-			original_view.reparent(each)
+		# Add the two scrolled windows to our Paned object.
+		# Ask that when the window is resized, the preview keep the same size
+		self.split_views[tab].pack1(old_scrolled_view, True, True)
+		self.split_views[tab].pack2(preview_panel.get_panel(), False, True)
 
-		current_tab.show_all()
+		# Request the preferred width for the preview
+		self.split_views[tab].get_child2().set_size_request(self.__preview_width, -1)
 
-		self.split_views.pop(current_tab)
-		self.preview_panels[current_tab].destroy()
-		self.preview_panels.pop(current_tab)
+		# Monitor the handle position to keep the document centered
+		self.__pane_position_id[tab] = self.split_views[tab].connect("notify::position", self.__pane_moved)
+
+		# Add the Paned object to the tab
+		tab.pack_start(self.split_views[tab])
+		
+		tab.show_all()
+		preview_panel.get_panel().grab_focus()
+		#~ old_scrolled_view.grab_focus()
+		#~ print self.split_views[tab].get_focus_chain()
+
+
+	def hide(self, tab):
+		"""
+		Ends the preview for the tab "tab".
+		@param tab: the tab to hide the preview of
+		"""
+		
+		original_view = self.split_views[tab].get_child1()
+
+		self.preview_panels[tab].destroy()
+		self.preview_panels.pop(tab)
+		
+		self.split_views[tab].disconnect(self.__pane_position_id[tab])
+		del self.__pane_position_id[tab]
+		tab.remove(self.split_views[tab])
+		
+		original_view.reparent(tab)
+		
+		self.split_views.pop(tab)
+		
+		tab.show_all()
+		
+	
+	def update_file_path(self, tab, compiled_file_path):
+		"""
+		Updates the compiled file path for the preview.
+		Called on "Save as...".
+		"""
+		
+		self.preview_panels[tab].update_file_path(compiled_file_path)
 
 
 	def __pane_moved(self, pane, paramspec):
 		"""
-		Method that saves the width of the preview each time it is 
-		modified.
+		Saves the width of the preview each time it is modified.
 		"""
+
 		total_width = pane.get_property("max-position")
 		position = pane.get_position()
 		self.__preview_width = total_width - position
@@ -162,9 +183,15 @@ class LatexPreview:
 class PreviewDocument:
 	"""
 	Class that abstracts document methods for a future pdf and ps support.
-	Currently does nothing.
+	Currently only pdf. The goal is to keep calls to external libraries 
+	confined in this class.
 	"""
 
+	_log = logging.getLogger("PreviewDocument")
+	
+	TYPE_PDF = 0
+	TYPE_PS = 1
+	
 	def __init__(self, document_path):
 		"""
 		Initializes the ps or pdf document with name document_path.
@@ -173,13 +200,17 @@ class PreviewDocument:
 		# TODO: Handle errors
 		# TODO: Support postscript documents
 
+		self._log.debug("Initialize %s" % self)
+		
 		self.__document_path = document_path
+		self.__document_loaded = False
 		if self.__document_path.endswith(".pdf"):
-			self.__document_type = "pdf"
+			self.__document_type = self.TYPE_PDF
 			import poppler
 			self.__document = poppler.document_new_from_file("file://%s" % self.__document_path, None)
+			self.__document_loaded = True
 		elif self.__document_path.endswith(".ps"):
-			self.__document_type = "ps"
+			self.__document_type = self.TYPE_PS
 			self.__document = None
 		else:
 			self.__document_type = None
@@ -187,6 +218,18 @@ class PreviewDocument:
 		self.__pages = {}
 
 
+	def is_pdf(self):
+		return (self.__document_type == self.TYPE_PDF)
+		
+		
+	def is_ps(self):
+		return (self.__document_type == self.TYPE_PS)
+		
+	
+	def get_document_path(self):
+		return "file://%s" % self.__document_path
+		
+		
 	def get_n_pages(self):
 		if not self.__document_type is None:
 			return self.__document.get_n_pages()
@@ -214,8 +257,14 @@ class PreviewDocument:
 
 
 	def free_page(self, page):
-		# Was necessary with libspectre: spectre_page_free(page)
-		pass
+		if self.__document_type == self.TYPE_PDF:
+			import ctypes
+			glib = ctypes.CDLL("libgobject-2.0.so")
+			glib.g_object_unref(hash(page))
+			del page
+		else:
+			# Was necessary with libspectre: spectre_page_free(page)
+			pass
 
 
 	def get_page_size(self, index):
@@ -223,41 +272,575 @@ class PreviewDocument:
 		if page is None:
 			return None
 		size = self.get_size_from_page(page)
-		self.free_page(page)
+		#~ self.free_page(page)
 		return size
 
 
 	def render_page(self, rc, index):
-		if not self.__document_type is None:
+		if self.__document_type == self.TYPE_PDF:
 			return self.get_page(index).render(rc)
 		else:
 			return None
+	
+	
+	def render_page_to_pixbuf(self, index, x, y, width, height, scale, rotation, pixbuf):
+		if self.__document_type == self.TYPE_PDF:
+			return self.get_page(index).render_to_pixbuf(x, y, width, height, scale, rotation, pixbuf)
+		else:
+			return None
+	
+	
+	def get_property(self, name):
+		if self.__document_type == self.TYPE_PDF:
+			return self.__document.get_property(name)
+			
+	
+	def permissions_to_text_list(self, permissions):
+		if self.__document_type == self.TYPE_PDF:
+			import poppler
+			perm = []
+			if permissions & poppler.PERMISSIONS_OK_TO_PRINT:
+				perm.append("print")
+			if permissions & poppler.PERMISSIONS_OK_TO_MODIFY:
+				perm.append("modify")
+			if permissions & poppler.PERMISSIONS_OK_TO_COPY:
+				perm.append("copy")
+			if permissions & poppler.PERMISSIONS_OK_TO_ADD_NOTES:
+				perm.append("add notes")
+			if permissions & poppler.PERMISSIONS_OK_TO_FILL_FORM:
+				perm.append("fill forms")
+			return perm
+		else:
+			return str(permissions)
+	
+	
+	def page_layout_to_text(self, layout):
+		if self.__document_type == self.TYPE_PDF:
+			import poppler
+			if layout == poppler.PAGE_LAYOUT_UNSET:
+				return "Unset"
+			elif layout == poppler.PAGE_LAYOUT_SINGLE_PAGE:
+				return "Single page, advancing flips the page"
+			elif layout == poppler.PAGE_LAYOUT_ONE_COLUMN:
+				return "One column, continuous scrolling"
+			elif layout == poppler.PAGE_LAYOUT_TWO_COLUMN_LEFT:
+				return "Two columns, odd-numbered pages to the left"
+			elif layout == poppler.PAGE_LAYOUT_TWO_COLUMN_RIGHT:
+				return "Two columns, odd-numbered pages to the right"
+			elif layout == poppler.PAGE_LAYOUT_TWO_PAGE_LEFT:
+				return "Two pages, odd-numbered pages to the left"
+			elif layout == poppler.PAGE_LAYOUT_TWO_PAGE_RIGHT:
+				return "Two pages, odd-numbered pages to the right"
+			else:
+				return str(layout)
+		else:
+			return str(layout)
+	
+	
+	def page_mode_to_text(self, mode):
+		if self.__document_type == self.TYPE_PDF:
+			import poppler
+			if mode == poppler.PAGE_MODE_UNSET:
+				return "Unset"
+			elif mode == poppler.PAGE_MODE_NONE:
+				return "None"
+			elif mode == poppler.PAGE_MODE_USE_OUTLINES:
+				return "Use outlines"
+			elif mode == poppler.PAGE_MODE_USE_THUMBS:
+				return "Use thumbs"
+			elif mode == poppler.PAGE_MODE_FULL_SCREEN:
+				return "Full screen"
+			elif mode == poppler.PAGE_MODE_USE_OC:
+				return "Use OC"
+			elif mode == poppler.PAGE_MODE_USE_ATTACHMENTS:
+				return "Use attachments"
+			else:
+				return str(mode)
+		else:
+			return str(mode)
+	
+	
+	def viewer_preferences_to_text_list(self, preferences):
+		if self.__document_type == self.TYPE_PDF:
+			import poppler
+			pref = []
+			if preferences & poppler.VIEWER_PREFERENCES_UNSET:
+				pref.append("Unset")
+			if preferences & poppler.VIEWER_PREFERENCES_HIDE_TOOLBAR:
+				pref.append("Hide toolbar")
+			if preferences & poppler.VIEWER_PREFERENCES_HIDE_MENUBAR:
+				pref.append("Hide menubar")
+			if preferences & poppler.VIEWER_PREFERENCES_HIDE_WINDOWUI:
+				pref.append("Hide window UI")
+			if preferences & poppler.VIEWER_PREFERENCES_FIT_WINDOW:
+				pref.append("Fit window")
+			if preferences & poppler.VIEWER_PREFERENCES_CENTER_WINDOW:
+				pref.append("Center window")
+			if preferences & poppler.VIEWER_PREFERENCES_DISPLAY_DOC_TITLE:
+				pref.append("Display document title")
+			if preferences & poppler.VIEWER_PREFERENCES_DIRECTION_RTL:
+				pref.append("Direction right-to-left")
+			return pref
+		else:
+			return str(preferences)
+
+
+	def open_in_external_viewer(self):
+		"""
+		Opens the document in the default external viewer.
+		"""
+		
+		# Should it be configurable ? The gnome defaults should be what 
+		# the user wants for a gnome program normally...
+		import os
+		os.system("gnome-open \"%s\"" % self.get_document_path())
+		
+		
+	def get_page_links(self, page_index):
+		if self.__document_type == self.TYPE_PDF:
+			import poppler
+			
+			# python-poppler version 0.10.* and before, do not support 
+			# actions (at least not in a usable way)
+			[maj, min, rev] = poppler.pypoppler_version
+			if int(min) < 12:
+				return []
+			
+			page = self.get_page(page_index)
+			lm = page.get_link_mapping()
+			width, height = self.get_size_from_page(page)
+			
+			links = []
+			for link in lm:
+				# area is in PDF coordinates (bottom-left based), so we
+				# first convert them to top-left page coordinates
+				area = link.area
+				(x1, y1, x2, y2) = area.x1, height - area.y2, area.x2, height - area.y1
+				
+				# Handle title ?
+				type = None
+				dest = None
+				if isinstance(link.action, poppler.ActionGotoDest):
+					named_dest = link.action.dest.named_dest
+					links.append(PreviewDocumentLinkGotoDest(self, page, x1, y1, x2, y2, named_dest))
+				elif isinstance(link.action, poppler.ActionNamed):
+					named_dest = link.action.named_dest
+					links.append(PreviewDocumentLinkNamed(self, page, x1, y1, x2, y2, named_dest))
+				elif isinstance(link.action, poppler.ActionUri):
+					uri = link.action.uri
+					links.append(PreviewDocumentLinkURI(self, page, x1, y1, x2, y2, uri))
+				else:
+					print link.action
+				
+			return links
+			
+	
+	def find_named_dest(self, name):
+		if self.__document_type == self.TYPE_PDF:
+			return self.__document.find_dest(name)
+			
+	
+	def __del__(self):
+		# We use glib.g_object_unref to destroy poppler pages and documents.
+		# This reduces memory leakage (a lot ?).
+		# Due to bugs #316722 and #509408 (on launchpad) in python-poppler.
+
+		self._log.debug("Destroy %s" % self)
+		
+		if not self.__document_loaded:
+			return
+			
+		import ctypes
+		glib = ctypes.CDLL("libgobject-2.0.so")
+		
+		for page in self.__pages:
+			glib.g_object_unref(hash(self.__pages[page]))
+			self._log.debug("Destroyed poppler page %d" % page)
+		self.__pages = {}
+		
+		glib.g_object_unref(hash(self.__document))
+		self._log.debug("Destroyed poppler document")
+		self.__document = None
+			
+			
+			
+class PreviewDocumentLink:
+	
+	ACTION_GOTO_DEST = 0
+	ACTION_URI = 1
+	ACTION_NAMED = 2
+	
+	def __init__(self, document, page, x1, y1, x2, y2):
+		self.type = None
+		self._document = document
+		self.page = page
+		self.x1 = x1
+		self.y1 = y1
+		self.x2 = x2
+		self.y2 = y2
+
+
+	def activate(self, preview_panel):
+		pass
+		
+	
+	@property
+	def tooltip(self):
+		return ""
 
 
 
+class PreviewDocumentLinkGotoDest(PreviewDocumentLink):
+	
+	_log = logging.getLogger("PreviewDocumentLinkGotoDest")
+	
+	def __init__(self, document, page, x1, y1, x2, y2, named_dest):
+		PreviewDocumentLink.__init__(self, document, page, x1, y1, x2, y2)
+		self.type = self.ACTION_GOTO_DEST
+		self.named_dest = named_dest
+		
+		
+	def activate(self, preview_panel):
+		dest = self._document.find_named_dest(self.named_dest)
+		
+		page = dest.page_num - 1
+		page_width, page_height = self._document.get_page_size(page)
+		vert_pos = page_height - dest.top - 5
+		preview_panel.go_to_page_and_position(page, vert_pos)
+		
+		self._log.debug("Activate link: %s" % self.named_dest)
+
+
+	@property
+	def tooltip(self):
+		dest = self._document.find_named_dest(self.named_dest)
+		return "Go to page %d" % dest.page_num
+
+
+
+class PreviewDocumentLinkURI(PreviewDocumentLink):
+	
+	_log = logging.getLogger("PreviewDocumentLink")
+	
+	def __init__(self, document, page, x1, y1, x2, y2, uri):
+		PreviewDocumentLink.__init__(self, document, page, x1, y1, x2, y2)
+		self.type = self.ACTION_URI
+		self.uri = uri
+		
+		
+	def activate(self, preview_panel):
+		import os
+		os.system("gnome-open \"%s\"" % self.uri)
+		
+		self._log.debug("Activate link: %s" % self.uri)
+
+
+	@property
+	def tooltip(self):
+		return "Browse URI %s" % self.uri
+
+
+
+class PreviewDocumentLinkNamed(PreviewDocumentLink):
+	
+	_log = logging.getLogger("PreviewDocumentLinkNamed")
+	
+	def __init__(self, document, page, x1, y1, x2, y2, named_dest):
+		PreviewDocumentLink.__init__(self, document, page, x1, y1, x2, y2)
+		self.type = self.ACTION_NAMED
+		self.named_dest = named_dest
+		# possibilities: GoForward, GoBack, Find, GoToPage, NextPage, ...
+		# GoForward and GoBack (used by beamer class for example, and
+		# implemented in Acrobat Reader but not evince) would 
+		# necessitate the introduction of a "history" of moves in the 
+		# document.
+		
+		
+	def activate(self, preview_panel):
+		self._log.debug("Activate link: %s" % self.named_dest)
+
+
+	@property
+	def tooltip(self):
+		return "Named destination %s" % self.named_dest
+
+
+
+class PreviewLink(gtk.EventBox):
+	"""
+	The sensitive area in the preview corresponding to a document link."
+	"""
+	
+	def __init__(self, preview_panel, document_link):
+		gtk.EventBox.__init__(self)
+
+		self.__preview_panel = preview_panel
+		self.doc_link = document_link
+
+		scale = self.__preview_panel.scale
+		width = int((self.doc_link.x2 - self.doc_link.x1 + 1) * scale)
+		height = int((self.doc_link.y2 - self.doc_link.y1 + 1) * scale)
+		
+		self.set_size_request(width, height)
+		self.set_visible_window(False)
+		
+		self.__handlers = [ self.connect("button-press-event", self.__on_button_press),
+							self.connect("button-release-event", self.__on_button_release),
+							self.connect("motion-notify-event", self.__on_motion),
+							self.connect("enter-notify-event", self.__on_enter),
+							self.connect("leave-notify-event", self.__on_leave) ]
+		
+		
+	def update(self):
+		# Called when changing scale of the preview
+		scale = self.__preview_panel.scale
+		width = int((self.doc_link.x2 - self.doc_link.x1 + 1) * scale)
+		height = int((self.doc_link.y2 - self.doc_link.y1 + 1) * scale)
+		
+		self.set_size_request(width, height)
+
+		
+	def __on_button_press(self, widget, event):
+		# prevent the signal from being passed to the preview panel
+		if event.button == 1:
+			return True
+		else:
+			return False
+		
+
+	def __on_button_release(self, widget, event):
+		self.__preview_panel.set_cursor(PreviewPanel.CURSOR_DEFAULT)
+		self.__preview_panel.get_scrolled_window().set_tooltip_text(None)		
+		self.doc_link.activate(self.__preview_panel)
+		return True		
+	
+
+	def __on_motion(self, widget, event):
+		# prevent the signal from being passed to the preview panel
+		return True
+		
+		
+	def __on_enter(self, widget, event):
+		self.__preview_panel.set_cursor(PreviewPanel.CURSOR_LINK)
+		self.__preview_panel.get_scrolled_window().set_tooltip_text(self.doc_link.tooltip)		
+		
+
+	def __on_leave(self, widget, event):
+		self.__preview_panel.set_cursor(PreviewPanel.CURSOR_DEFAULT)
+		self.__preview_panel.get_scrolled_window().set_tooltip_text(None)
+		
+		
+	def destroy(self):
+		for handler in self.__handlers:
+			self.disconnect(handler)
+		self.__preview_panel = None
+		
+
+
+class PreviewDrag:
+	"""
+	Class that manages the dragging of the preview.
+	"""
+	
+	def __init__(self, preview_panel):
+		self.__preview_panel = preview_panel
+		self.__in_drag = False
+		self.__handler = None
+		self.__last_x = 0
+		self.__last_y = 0
+
+
+	def is_in_drag(self):
+		return self.__in_drag
+		
+		
+	def start(self, hscroll, vscroll, x, y):
+		self.__in_drag = True
+		self.__preview_panel.set_cursor(PreviewPanel.CURSOR_DRAG)
+
+		self.__initial_hscroll = hscroll
+		self.__initial_vscroll = vscroll
+		self.__initial_x = x
+		self.__initial_y = y
+		
+	
+	def stop(self):
+		self.__in_drag = False
+		self.__preview_panel.set_cursor(PreviewPanel.CURSOR_DEFAULT)
+		
+		self.free_handlers()
+	
+	
+	def update(self, x, y):
+		self.__last_x = x
+		self.__last_y = y
+		
+		# Schedule the actual move for a time where the computer 
+		# has nothing better to do. The function __do_drag
+		# always returns False, so that it is only executed once, 
+		# even if it has been queued many times. This results in the 
+		# view really following the mouse, and not lagging behind 
+		# trying to execute every single mouse move.
+		self.__handler = gobject.idle_add(self.__do_drag)
+		
+
+	def __do_drag(self):
+		if self.__in_drag == True:
+			hadj = self.__preview_panel.get_hadjustment()
+			vadj = self.__preview_panel.get_vadjustment()
+
+			new_hscroll = self.__initial_hscroll - (self.__last_x - self.__initial_x)
+			new_vscroll = self.__initial_vscroll - (self.__last_y - self.__initial_y)
+
+			new_hscroll = max(0, min(hadj.upper - hadj.page_size, new_hscroll))
+			new_vscroll = max(0, min(vadj.upper - vadj.page_size, new_vscroll))
+				
+			hadj.set_value(new_hscroll)
+			vadj.set_value(new_vscroll)
+		return False
+
+
+	def free_handlers(self):
+		if not self.__handler is None:
+			gobject.source_remove(self.__handler)
+			self.__handler = None
+
+	
+	def destroy(self):
+		self.free_handlers()
+		self.__preview_panel = None
+
+	
+	
+class GlassDrag:
+	"""
+	Class that manages the dragging of the magnifying glass.
+	"""
+	
+	def __init__(self, preview_panel):
+		self.__preview_panel = preview_panel
+		self.__in_drag = False
+		self.__handler = None
+		self.__last_x = 0
+		self.__last_y = 0
+
+
+	def is_in_drag(self):
+		return self.__in_drag
+		
+		
+	def start(self, magnifying_glass, x, y):
+		self.__in_drag = True
+		self.__preview_panel.set_cursor(PreviewPanel.CURSOR_EMPTY)
+		
+		self.__magnifying_glass = magnifying_glass
+
+		page, x_in_page, y_in_page = self.__preview_panel.get_page_and_position_from_pointer(x, y)
+
+		self.__magnifying_glass.set_page_and_position(page, x_in_page, y_in_page)
+		self.__magnifying_glass.show()
+
+	
+	def stop(self):
+		self.__in_drag = False
+		self.__preview_panel.set_cursor(PreviewPanel.CURSOR_DEFAULT)
+
+		self.free_handlers()
+
+		self.__magnifying_glass.hide()
+	
+	
+	def update(self, root_x, root_y, x, y):
+		self.__last_root_x = root_x
+		self.__last_root_y = root_y
+
+		self.__last_x = x
+		self.__last_y = y
+		
+		# Schedule the actual move for a time where the computer 
+		# has nothing better to do. The function __do_drag
+		# always returns False, so that it is only executed once, 
+		# even if it has been queued many times. This results in the 
+		# view really following the mouse, and not lagging behind 
+		# trying to execute every single mouse move.
+		self.__handler = gobject.idle_add(self.__do_drag)
+
+
+	def __do_drag(self):
+		if self.__in_drag == True:
+			page, x_in_page, y_in_page = self.__preview_panel.get_page_and_position_from_pointer(self.__last_x, self.__last_y)
+			
+			self.__magnifying_glass.set_page_and_position(page, x_in_page, y_in_page)
+			self.__magnifying_glass.move_center_to(int(self.__last_root_x), int(self.__last_root_y))
+			
+			self.__magnifying_glass.refresh()
+		return False
+
+
+	def free_handlers(self):
+		if not self.__handler is None:
+			gobject.source_remove(self.__handler)
+			self.__handler = None
+
+	
+	def destroy(self):
+		self.free_handlers()
+		self.__magnifying_glass = None
+		self.__preview_panel = None
+
+	
+	
 class PreviewPanel:
 	"""
-	This class contains a view of the .pdf file. A gtk.Vbox is created
+	This class contains a view of the compiled file. A gtk.Vbox is created
 	that contains all visible elements, accessible through get_panel().
 	If the file is not found or an error is triggered during the 
 	preview generation a default display is shown.
 	"""
 
-	def __init__(self, parent_pdf_path):
+	_log = logging.getLogger("PreviewPanel")
+	
+	ZOOM_NORMAL = 0
+	ZOOM_FIT_WIDTH = 1
+	ZOOM_FIT_PAGE = 2
+	
+	VIEW_CONTINUOUS = 0
+	VIEW_SINGLE_PAGE = 1
+	
+	CURSOR_DEFAULT = 0
+	CURSOR_EMPTY = 1
+	CURSOR_DRAG = 2
+	CURSOR_LINK = 3
+	
+	EVENT_CREATE = 0
+	EVENT_RESIZE = 1
+	EVENT_CHANGE_PAGE = 2
+	EVENT_UPDATE_FILE = 3
+	EVENT_TOGGLE_CONTINUOUS = 4
+	
+	DELAY_ZOOM = True
+	
+	def __init__(self, compiled_file_path):
 		"""
-		Creates a PreviewPanel given a pdf file path
-		@param parent_pdf_path: the path to the pdf file
+		Creates a PreviewPanel given a compiled file path
+		@param compiled_file_path: the path to the compiled file
 		"""
 		
-		# Get the preferred scale for the pdf preview
+		self._log.debug("Initialize")
+		
 		self._preferences = Preferences()
+
 		self.__scale = float(self._preferences.get("PdfPreviewScale", 1.0))
+		self.__scale_list = [0.25, 0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0, 3.0, 4.0, 6.0, 8.0, 10.0, 12.0, 14.0, 16.0]
+
+		self.__zoom_type = int(self._preferences.get("PdfPreviewZoomType", self.ZOOM_NORMAL))
+		if self.__zoom_type not in [self.ZOOM_NORMAL, self.ZOOM_FIT_WIDTH, self.ZOOM_FIT_PAGE]:
+			self.__zoom_type = self.ZOOM_NORMAL
 		
-		# Get the preferred type of view (continuous of single page)
-		if int(self._preferences.get("PdfPreviewTypeOfView", 0)) == 0:
-			self.__type_of_view = 0 # continuous
+		if int(self._preferences.get("PdfPreviewTypeOfView", self.VIEW_CONTINUOUS)) == self.VIEW_CONTINUOUS:
+			self.__type_of_view = self.VIEW_CONTINUOUS
 		else:
-			self.__type_of_view = 1 # single page
+			self.__type_of_view = self.VIEW_SINGLE_PAGE
 		
 		# by default the document width and height is an A4 document
 		self.__page_width = {}
@@ -273,11 +856,8 @@ class PreviewPanel:
 		
 		# TODO preview message should be externalised and translatable
 		self.__no_preview_message = "Preview not available..."
-		self.__parent_pdf_path = parent_pdf_path
+		self.__compiled_file_path = compiled_file_path
 		self.__document = None
-
-		# the panel that will contain all visible elements
-		self.__panel = gtk.VBox(False, 0)
 
 		# keep track of vertical scroll changes in the preview document
 		self.__last_vertical_scroll_position = 0
@@ -296,53 +876,129 @@ class PreviewPanel:
 
 		self.__expose_id = {}
 
-		self.__button_press_id = None
-		self.__motion_id = None
-		self.__button_release_id = None
+		self.__mouse_handlers = []
 		
-		self.__in_drag = False
-		self.__drag_id = None
-		self.__drag_last_x = 0
-		self.__drag_last_y = 0
-
 		# Only used in "single page" type of view
 		self.__current_page = 0
+
 		# See self.__on_scroll()
 		self.__scroll_up_count = 0
 		self.__scroll_down_count = 0
 		
+		self.__preview_drag = PreviewDrag(self)
+		self.__glass_drag = GlassDrag(self)
+		
 		self.__magnifying_glass = None
-		self.__glass_id = None
-		self.__glass_last_x = 0
-		self.__glass_last_y = 0
-		self.__glass_last_root_x = 0
-		self.__glass_last_root_y = 0	
-		#~ self.__glass_delayed_hide_mouse_id = None
 		
+		self.__links = {}
 		
+		# Cursors. Used in self.set_cursor().
+		self.__cursor_default = None
+		self.__cursor_drag = gtk.gdk.Cursor(gtk.gdk.HAND1)
+		pixmap = gtk.gdk.Pixmap(None, 1, 1, 1)
+		color = gtk.gdk.Color()
+		self.__cursor_empty = gtk.gdk.Cursor(pixmap, pixmap, color, color, 0, 0)
+		self.__cursor_link = gtk.gdk.Cursor(gtk.gdk.HAND2)
+
 		# TODO: very nasty hack to detect changes in pdf file
 		# this is a 1000ms loop, there should be an event generated
 		# by the plugin to notify that pdf file was updated
 		self.__check_changes_id = gobject.timeout_add(1000, self.__check_changes)
 		
+		# the panel that will contain all visible elements
+		# for the moment only the scrolled window, but there could be 
+		# a toolbar for example
+		self.__panel = gtk.VBox(False, 0)
+		self.__panel.set_flags(gtk.CAN_FOCUS)
+		self.__connect_keyboard_events()
+
 		# create the visible elements on the panel
-		self.__initialize()
+		self.__create_scrolled_window()
+		self.__update_scrolled_window(self.EVENT_CREATE)
 
 
-	def __initialize(self):
+	@property
+	def scale(self):
+		return self.__scale
+		
+		
+	def __on_key_press(self, widget, event):
+		key = gtk.gdk.keyval_name(event.keyval)
+		
+		if key == "Tab":
+			hpane = self.__panel.get_parent()
+			gedit_view = hpane.get_child1().get_children()[0]
+			gedit_view.grab_focus()
+		elif key == "Up":
+			self.scroll_up()
+		elif key == "Down":
+			self.scroll_down()
+		elif key == "Left":
+			self.scroll_left()
+		elif key == "Right":
+			self.scroll_right()
+		elif key == "plus":
+			self.zoom_in()
+		elif key == "minus":
+			self.zoom_out()
+		elif key == "equal":
+			self.zoom_to(1.0, self.ZOOM_NORMAL)
+		elif key == "Page_Up":
+			if event.state & gtk.gdk.CONTROL_MASK:
+				self.go_to_page(-1, True)
+			else:
+				# We do it manually... should be in a method 
+				# (self.scroll(type) with type in [TYPE_UP, TYPE_DOWN, 
+				# TYPE_PAGE_UP, etc.] for example)
+				vadj = self.get_vadjustment()
+				vadj.set_value(max(vadj.lower, vadj.value - vadj.page_increment))
+				if self.__type_of_view == self.VIEW_SINGLE_PAGE:
+					self.__decide_page_change(vadj, gtk.gdk.SCROLL_UP)
+		elif key == "Page_Down":
+			if event.state & gtk.gdk.CONTROL_MASK:
+				self.go_to_page(1, True)
+			else:
+				# We do it manually... should be in a method
+				vadj = self.get_vadjustment()
+				vadj.set_value(min(vadj.upper - vadj.page_size, vadj.value + vadj.page_increment))
+				if self.__type_of_view == self.VIEW_SINGLE_PAGE:
+					self.__decide_page_change(vadj, gtk.gdk.SCROLL_DOWN)
+		elif key == "Home":
+			if event.state & gtk.gdk.CONTROL_MASK:
+				self.go_to_page(0)
+			else:
+				vadj = self.get_vadjustment()
+				vadj.set_value(vadj.lower)
+		elif key == "End":
+			if event.state & gtk.gdk.CONTROL_MASK:
+				self.go_to_page(-1)
+			else:
+				vadj = self.get_vadjustment()
+				vadj.set_value(vadj.upper - vadj.page_size)
+		else:
+			return False
+			
+		return True
+		
+		
+	def __create_scrolled_window(self):
 		"""
-		Creates all visible elements on the panel, cleaning it
-		from previous existing elements first
+		Creates the scrolled window that will contain the pages.
 		"""
 		
-		self.__free_handlers()
-		
-		# clean the panel before addin anything to it
-		for i in self.__panel.get_children():
-			self.__panel.remove(i)
-		# a scrolled window that will contain all .pdf pages
 		scrolled_window = gtk.ScrolledWindow()
-		
+		scrolled_window.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+		self.__panel.pack_start(scrolled_window, True, True, 0)
+
+		# the VBox inside the scrolled window, that will contain the pages
+		pages = gtk.VBox(False, 2) # here we ask for a padding equal to 2
+
+		# pack the VBox in an EventBox to be able to receive 
+		# events like "button-release-event" and "motion-notify-event"
+		event_box = gtk.EventBox()
+		event_box.add(pages)
+		scrolled_window.add_with_viewport(event_box)
+
 		vadj = scrolled_window.get_vadjustment()
 		hadj = scrolled_window.get_hadjustment()
 
@@ -351,38 +1007,49 @@ class PreviewPanel:
 
 		self.__hadj_changed_id = hadj.connect('changed', self.__on_horiz_adj_changed)
 		self.__hadj_value_id = hadj.connect("notify::value", self.__on_horiz_adj_value_changed)
-
-		# See __on_horiz_adj_changed()
-		self.__horiz_rescroll_count = 0
-
-		# Cursors. Used in self.__set_cursor().
-		self.__cursor_standard = None
-		self.__cursor_hand = gtk.gdk.Cursor(gtk.gdk.HAND1)
-		pixmap = gtk.gdk.Pixmap(None, 1, 1, 1)
-		color = gtk.gdk.Color()
-		self.__cursor_invisible = gtk.gdk.Cursor(pixmap, pixmap, color, color, 0, 0)
-
-
-		scrolled_window.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
-		self.__panel.pack_start(scrolled_window, True, True, 0)
+		
+		
+	def __update_scrolled_window(self, event):
+		"""
+		Creates all visible elements on the panel, cleaning it
+		from previous existing elements first.
+		If resize_only == True, then only resize the drawing areas.
+		"""
+		
 		try: # try to create a preview for the document, if unable
-			self.__create_preview_panel(scrolled_window)
-		except: # then show a default document view
-			self.__create_default_panel(scrolled_window)
+			self.__create_preview_panel(event)
+		except Exception as exc: # then show a default document view
+			self._log.debug("Error while creating preview panel: %s, %s, %s" % (type(exc), exc, exc.args))
+			self._log.debug("Creating default panel")
+			self.__create_default_panel()
 
-			
+	
+	@property
+	def file_path(self):
+		return self.__compiled_file_path
+		
+		
+	def update_file_path(self, file_path):
+		"""
+		Updates the file path of the compiled document.
+		Called by LatexPreview.update_file_path() on "Save as...".
+		"""
+		
+		self.__compiled_file_path = file_path
+		self.__update_scrolled_window(self.EVENT_UPDATE_FILE)
+		
+		
 	def __check_changes(self):
 		"""
-		Check the pdf file for the last modification time and call for
+		Check the compiled file for the last modification time and call for
 		preview redraw it file has a more recent modification timestamp
 		@return: True so that the method will be called again by gobject.timeout_add
 		"""
 		
 		try:
-			file_time = os.path.getmtime(self.__parent_pdf_path)
+			file_time = os.path.getmtime(self.__compiled_file_path)
 			if self.__last_update_time < file_time:
-				self.__initialize()
-				self.__panel.show_all()
+				self.__update_scrolled_window(self.EVENT_UPDATE_FILE)
 			return True
 		except:
 			return True
@@ -404,23 +1071,22 @@ class PreviewPanel:
 	def __on_horiz_adj_changed(self, adj):
 		"""
 		Called when any property of the horizontal scrollbar other 
-		than the value is changed (I think). Uses the value stored in 
+		than the value is changed. Uses the value stored in 
 		self.__last_horizontal_scroll_position (by 
 		self.__on_horiz_adj_value_changed(), self.zoom_in/out()) 
-		to scroll to the previous position after a zoom in/out.
+		to scroll to the previous position after a zoom in/out or a 
+		refresh.
 		"""
-		
-		# Wait until page_size settles: the first time a "changed" 
-		# event is triggered, the vertical scroll bar is not yet 
-		# present, giving the wrong size to page_size. Waiting for a 
-		# few events bypasses this.
-		if self.__horiz_rescroll_count < 2:
-			self.__horiz_rescroll_count += 1
-			return
-		
+				
+		zoom_type = self.get_zoom_type()
+		if zoom_type == self.ZOOM_FIT_WIDTH:
+			self.zoom_fit_width()
+		elif zoom_type == self.ZOOM_FIT_PAGE:
+			self.zoom_fit_page()
+
 		if self.__last_horizontal_scroll_position == None:
 			total = adj.upper - adj.lower - adj.page_size - 2 * self.__shadow_thickness * self.__scale
-			adj.value = adj.lower + total / 2
+			adj.value = max(0.0, adj.lower + total / 2)
 		else:
 			new_value = self.__last_horizontal_scroll_position - (adj.page_size - self.__last_horizontal_scroll_page_size) / 2
 			if new_value < adj.lower:
@@ -444,7 +1110,7 @@ class PreviewPanel:
 	def __on_vert_adj_changed(self, adj):
 		"""
 		Called when any property of the vertical scrollbar other 
-		than the value is changed (I think). Uses the value stored in 
+		than the value is changed. Uses the value stored in 
 		self.__last_vertical_scroll_position (by 
 		self.__on_vert_adj_value_changed(), self.zoom_in/out(), or
 		self.toggle_continuous()) to scroll to the previous 
@@ -452,114 +1118,289 @@ class PreviewPanel:
 		continuous/single page type of view.
 		"""
 
+		zoom_type = self.get_zoom_type()
+		if zoom_type == self.ZOOM_FIT_PAGE:
+			self.zoom_fit_page()
+
 		if self.__last_vertical_scroll_position < (adj.upper - adj.page_size):
 			adj.set_value(self.__last_vertical_scroll_position)
 			
 
-	def __create_default_panel(self, scrolled_window):
+	def __update_drawing_area(self, dwg, i, j, default, event):
+		"""
+		Does the tasks that __create_page and __update_page have in common.
+		@param dwg: the drawing area to update
+		@param i: the index of dwg in self.__drawing_areas
+		@param j: the index in self.__document of the page to render on dwg
+		@param default: True if default panel, False if not
+		"""
+		
+		if default: # default panel
+			if event != self.EVENT_RESIZE:
+				if i in self.__expose_id:
+					dwg.disconnect(self.__expose_id[i])
+				self.__expose_id[i] = dwg.connect("expose-event", self.__on_expose_default)
+			# TODO: If there was a preview panel before, maybe we 
+			# should keep the old sizes. But as the preview panel had a 
+			# problem (since we ended up in the default panel), maybe 
+			# these lengths are bad...
+			(self.__page_width[i], self.__page_height[i]) = (595, 842)
+		else: # preview panel
+			if event != self.EVENT_RESIZE:
+				if i in self.__expose_id:
+					dwg.disconnect(self.__expose_id[i])
+				self.__expose_id[i] = dwg.connect("expose-event", self.__on_expose, i, j)
+			(self.__page_width[i], self.__page_height[i]) = self.__document.get_page_size(j)
+
+		dwg.set_size_request(int((self.__page_width[i] + 2 * self.__shadow_thickness) * self.__scale), 
+							 int((self.__page_height[i] + 2 * self.__shadow_thickness) * self.__scale))
+
+		# Save each page's position in the scrolled_window for the popup 
+		# menu "Next/Previous page". Actually it is the page position 
+		# minus the padding, so that self.__page_position[i] is exactly 
+		# between the end of page i-1 (2 pixels higher) and the 
+		# beginning page i (2 pixels lower).
+		if i == 0:
+			self.__page_position[i] = 0
+		else:
+			# don't forget to take the padding into account (+ 4)
+			self.__page_position[i] = self.__page_position[i-1] + int((self.__page_height[i-1] + 2 * self.__shadow_thickness) * self.__scale) + 4
+
+		
+	def __create_page(self, i, j, pages, default):
+		"""
+		Creates a drawing area at index i in self.__drawing_areas, to 
+		render page j of self.__document, and adds it to the VBox pages.
+		@param i: the index in self.__drawing_areas
+		@param j: the index in self.__document of the page to render
+		@param pages: the VBox containing the (alignments containging the) drawing areas
+		@param default: True if default panel, False if not
+		"""
+		
+		dwg = gtk.DrawingArea()
+		self.__drawing_areas[i] = dwg
+
+		self.__update_drawing_area(dwg, i, j, default, False)
+		
+		fixed = gtk.Fixed()
+		fixed.put(dwg, 0, 0)
+
+		self.__links[i] = []
+		if not default:
+			page_links = self.__document.get_page_links(j)
+			for doc_link in page_links:
+				link = PreviewLink(self, doc_link)
+				self.__links[i].append(link)
+				x, y = int(doc_link.x1 * self.__scale), int(doc_link.y1 * self.__scale)
+				fixed.put(link, x, y)
+
+		# keep the page in the (horizontal) middle of the scrolled window
+		align = gtk.Alignment(0.5, 0.5, 0, 0)
+		# if in single page type of view, center the page vertically
+		expand = (self.__type_of_view == self.VIEW_SINGLE_PAGE)
+		pages.pack_start(align, expand, False, 1)
+		
+		align.add(fixed)
+		
+		self._log.debug("Created drawing area %d for page %d" % (i, j))
+		
+		
+	def __update_page(self, i, j, pages, default, event):
+		"""
+		Updates the drawing area at index "i" in self.__drawing_areas, 
+		to render page "j" of self.__document, and add it to the VBox "pages".
+		@param i: the index in self.__drawing_areas
+		@param j: the index in self.__document of the page to render
+		@param pages: the VBox containing the (alignments containging the) drawing areas
+		@param default: True if default panel, False if not
+		"""
+		
+		dwg = self.__drawing_areas[i]
+
+		self.__update_drawing_area(dwg, i, j, default, event)
+		
+		if event == self.EVENT_RESIZE:
+			for link in self.__links[i]:
+				x, y = int(link.doc_link.x1 * self.__scale), int(link.doc_link.y1 * self.__scale)
+				link.get_parent().move(link, x, y)
+				link.update()
+		else:
+			fixed = dwg.get_parent()
+			
+			for link in self.__links[i]:
+				link.destroy()
+				fixed.remove(link)
+				del link
+			self.__links[i] = []
+			
+			if not default:
+				page_links = self.__document.get_page_links(j)
+				for doc_link in page_links:
+					link = PreviewLink(self, doc_link)
+					self.__links[i].append(link)
+					x, y = int(doc_link.x1 * self.__scale), int(doc_link.y1 * self.__scale)
+					fixed.put(link, x, y)
+		
+		if event == self.EVENT_TOGGLE_CONTINUOUS:
+			# if in single page type of view, center the page vertically
+			expand = (self.__type_of_view == self.VIEW_SINGLE_PAGE) # True if in single page
+			pages.set_child_packing(dwg.get_parent().get_parent(), expand, False, 1, gtk.PACK_START)
+		
+		self._log.debug("Updated drawing area %d for page %d" % (i, j))
+
+
+	def __delete_last_page(self, pages):
+		"""
+		Deletes the last drawing_area from the VBox "pages".
+		@return: False if there was no drawing area to delete, True else.
+		"""
+		
+		last = len(self.__drawing_areas) - 1
+		if last == -1:
+			return False
+		
+		self.__drawing_areas[last].disconnect(self.__expose_id[last])
+
+		# Remove links, if any
+		fixed = self.__drawing_areas[last].get_parent()
+		for link in self.__links[last]:
+			link.destroy()
+			fixed.remove(link)
+			del link
+		del self.__links[last]
+
+		# The drawing areas are contained in Fixed, which are contained 
+		# in Alignments, which are contained in the VBox "pages". 
+		# We thus have to remove the alignments.
+		pages.remove(self.__drawing_areas[last].get_parent().get_parent())
+		
+		del self.__expose_id[last]
+		del self.__drawing_areas[last]
+		
+		self._log.debug("Deleted last drawing area (index %d)" % last)
+
+		
+	
+	def __get_mean_page_size(self):
+		"""
+		Computes the mean size of a drawing area.
+		"""
+		
+		# The mean size taken by a page in the scrolled window
+		n = len(self.__drawing_areas)
+		if n == 0:
+			return 0
+		elif n == 1:
+			penultimate_position = 0
+		else:
+			penultimate_position = self.__page_position[n-1]
+		mean_page_size = (penultimate_position + int((self.__page_height[n-1] + 2 * self.__shadow_thickness) * self.__scale) + 4)/n
+		
+		return mean_page_size
+		
+
+	def __create_default_panel(self):
 		"""
 		Creates a default document view.
-		@param scrolled_window: the window to add the default view page
 		"""
+		
+		if self.__mouse_handlers != []:
+			self.__disconnect_mouse_events()
 		if not self.__document is None:
 			self.__document = None
+
+		scrolled_window = self.get_scrolled_window()
+		viewport = scrolled_window.get_children()[0]
+		eventbox = viewport.get_children()[0]
+		pages = eventbox.get_children()[0]
+
+		old_n = len(pages.get_children())
 		
-		page = gtk.VBox(False, 2)
-		dwg = gtk.DrawingArea()
-		dwg.set_size_request(int((self.__page_width[0] + 2 * self.__shadow_thickness) * self.__scale), int((self.__page_height[0] + 2 * self.__shadow_thickness) * self.__scale))
-		self.__page_position[0] = 0
-		self.__mean_page_size = int((self.__page_height[0] + 2 * self.__shadow_thickness) * self.__scale)
-		# we need to redraw the new exposed portion of the document
-		self.__drawing_areas[0] = dwg
-		self.__expose_id[0] = dwg.connect("expose-event", self.__on_expose_default)
-		# keep the page in the middle of the scrolled window
-		align = gtk.Alignment(0.5, 0.5, 0, 0)
-		page.pack_start(align, True, False, 1)
-		align.add(dwg)
+		if old_n == 0: # we should really create the page
+			self.__create_page(0, self.__current_page, pages, True)
+		else: # we should update the first page and delete the others
+			self.__update_page(0, self.__current_page, pages, True, False)
+			for i in range(old_n - 1):
+				self.__delete_last_page(pages)
 		
-		scrolled_window.add_with_viewport(page)
+		self.__mean_page_size = self.__get_mean_page_size()
+		
+		scrolled_window.show_all()
+		scrolled_window.queue_draw()
 
 
-	def __create_preview_panel(self, scrolled_window):
+	def __create_preview_panel(self, event):
 		"""
-		Method that creates a view of all document pages.
-		@param scrolled_window: the window to add the document pages
+		Creates a view of all document pages.
 		"""
 		
-		# create the document using poppler library
-		self.__document = PreviewDocument(self.__parent_pdf_path)
-		self.__last_update_time = os.path.getmtime(self.__parent_pdf_path)
+		if self.__mouse_handlers == []:
+			self.__connect_mouse_events()		
+		
+		if event in [self.EVENT_CREATE, self.EVENT_UPDATE_FILE] or self.__document == None:
+			self.__document = PreviewDocument(self.__compiled_file_path)
+			self.__last_update_time = os.path.getmtime(self.__compiled_file_path)
 
-		# create all document pages, or only one if in "single page" type of view
-		pages = gtk.VBox(False, 2) # here we ask for a padding equal to 2
-		if self.__type_of_view == 0: # continuous
-			for i in range(self.__document.get_n_pages()):
-				dwg = gtk.DrawingArea()
-				(self.__page_width[i], self.__page_height[i]) = self.__document.get_page_size(i)
-				dwg.set_size_request(int((self.__page_width[i] + 2 * self.__shadow_thickness) * self.__scale), int((self.__page_height[i] + 2 * self.__shadow_thickness) * self.__scale))
-
-				# Save each page's position in the scrolled_window for 
-				# the popup menu "Next/Previous page".
-				# Actually it is the page position minus the padding, 
-				# so that self.__page_position[i] is exactly between 
-				# the end of page i-1 (2 pixels higher) and the 
-				# beginning page i (2 pixels lower).
-				if i == 0:
-					self.__page_position[i] = 0
-				else:
-					# don't forget to take the padding into account (+ 4)
-					self.__page_position[i] = self.__page_position[i-1] + int((self.__page_height[i-1] + 2 * self.__shadow_thickness) * self.__scale) + 4
-
-				# we need to redraw the new exposed portion of the document
-				self.__drawing_areas[i] = dwg
-				self.__expose_id[i] = dwg.connect("expose-event", self.__on_expose, i)
-				# keep the page in the middle of the scrolled window
-				align = gtk.Alignment(0.5, 0.5, 0, 0)
-				pages.pack_start(align, False, False, 1)
-				align.add(dwg)
+		old_n = len(self.__drawing_areas)
+		new_n = self.__document.get_n_pages()
+		
+		# get the VBox containing all the pages
+		scrolled_window = self.get_scrolled_window()
+		viewport = scrolled_window.get_children()[0]
+		eventbox = viewport.get_children()[0]
+		pages = eventbox.get_children()[0]
+		
+		zoom_type = self.get_zoom_type()
+		if zoom_type == self.ZOOM_FIT_WIDTH:
+			if self.DELAY_ZOOM:
+				scrolled_window.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
+			else:
+				scrolled_window.set_policy(gtk.POLICY_NEVER, gtk.POLICY_ALWAYS)
+			self.__scale = self.__get_fit_width_scale()
+		elif zoom_type == self.ZOOM_FIT_PAGE and self.__type_of_view == self.VIEW_SINGLE_PAGE:
+			scrolled_window.set_policy(gtk.POLICY_NEVER, gtk.POLICY_NEVER)
+			#~ scrolled_window.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
+			self.__scale = self.__get_fit_page_scale()
+		elif zoom_type == self.ZOOM_FIT_PAGE and self.__type_of_view == self.VIEW_CONTINUOUS:
+			scrolled_window.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
+			self.__scale = self.__get_fit_page_scale()			
+		else:
+			scrolled_window.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
 			
-			# The mean size taken by a page in the scrolled window
-			n = self.__document.get_n_pages()
-			self.__mean_page_size = (self.__page_position[n-1] + int((self.__page_height[n-1] + 2 * self.__shadow_thickness) * self.__scale) + 4)/n
-			
+		# create or update all document pages, 
+		# or only one if in "single page" type of view
+		if self.__type_of_view == self.VIEW_CONTINUOUS: # continuous
+			for i in range(min(old_n, new_n)):
+				self.__update_page(i, i, pages, False, event)
+			for i in range(new_n - old_n):
+				self.__create_page(old_n + i, old_n + i, pages, False)
+			for i in range(old_n - new_n):
+				self.__delete_last_page(pages)
 		else: # single page
-			dwg = gtk.DrawingArea()
-			(self.__page_width[0], self.__page_height[0]) = self.__document.get_page_size(self.__current_page)
-			dwg.set_size_request(int((self.__page_width[0] + 2 * self.__shadow_thickness) * self.__scale), int((self.__page_height[0] + 2 * self.__shadow_thickness) * self.__scale))
+			if old_n == 0:
+				self.__create_page(0, self.__current_page, pages, False)
+			else:
+				self.__update_page(0, self.__current_page, pages, False, event)
+				for i in range(old_n - 1):
+					self.__delete_last_page(pages)
 
-			self.__page_position[0] = 0
+		self.__mean_page_size = self.__get_mean_page_size()
 
-			# we need to redraw the new exposed portion of the document
-			self.__drawing_areas[0] = dwg
-			self.__expose_id[0] = dwg.connect("expose-event", self.__on_expose, 0)
-			# keep the page in the middle of the scrolled window
-			align = gtk.Alignment(0.5, 0.5, 0, 0)
-			pages.pack_start(align, True, False, 1)
-			align.add(dwg)
-			
-			self.__mean_page_size = int((self.__page_height[0] + 2 * self.__shadow_thickness) * self.__scale + 4)
-			
-			# this one is triggered by mouse wheel move
-			self.__scroll_id = scrolled_window.connect("scroll-event", self.__on_scroll)
-			# this one is triggered by self.scroll_up/down()
-			self.__scroll_child_id = scrolled_window.connect("scroll-child", self.__on_scroll_child)
+		if event in [self.EVENT_CREATE, self.EVENT_UPDATE_FILE]:
+			if self.__magnifying_glass != None:
+				self.__magnifying_glass.destroy()
+				self.__magnifying_glass = None
+			self.__magnifying_glass = MagnifyingGlass(self.__scale, self.__document)
+		elif event in [self.EVENT_RESIZE]:
+			self.__magnifying_glass.set_preview_scale(self.__scale)
 		
-		self.__magnifying_glass = MagnifyingGlass(self.__scale, self.__document)
-		
-		self.__button_press_id = scrolled_window.connect("button-press-event", self.__on_button_press)
-		self.__button_release_id = scrolled_window.connect("button-release-event", self.__on_button_release)
-		self.__motion_id = scrolled_window.connect("motion-notify-event", self.__on_motion)
-
-		# pack the VBox in an EventBox to be able to receive 
-		# events like "button-release-event" and "motion-notify-event"
-		event_box = gtk.EventBox()
-		event_box.add(pages)
-		scrolled_window.add_with_viewport(event_box)
+		scrolled_window.show_all()
+		scrolled_window.queue_draw()
 		
 		
 	def get_panel(self):
 		"""
-		Method that returns the current panel available for display.
+		Returns the current panel available for display.
 		@return: the current panel available for display
 		"""
 		
@@ -568,7 +1409,7 @@ class PreviewPanel:
 
 	def get_scrolled_window(self):
 		"""
-		Method that returns the scrolled window containing the preview.
+		Returns the scrolled window containing the preview.
 		@return: the scrolled window containing the preview
 		"""
 		
@@ -577,8 +1418,8 @@ class PreviewPanel:
 	
 	def get_vadjustment(self):
 		"""
-		Method that returns the vertical adjustment of the scrolled 
-		window containing the preview.
+		Returns the vertical adjustment of the scrolled window 
+		containing the preview.
 		"""
 		
 		scrolled_window = self.get_scrolled_window()
@@ -587,49 +1428,31 @@ class PreviewPanel:
 		
 	def get_hadjustment(self):
 		"""
-		Method that returns the horizontal adjustment of the scrolled 
-		window containing the preview.
+		Returns the horizontal adjustment of the scrolled window 
+		containing the preview.
 		"""
 		
 		scrolled_window = self.get_scrolled_window()
 		return scrolled_window.get_hadjustment()
 		
 		
-	def get_width(self):
-		"""
-		Method that returns the document's width.
-		@return: the document's width
-		"""
-		
-		return self.__page_width[0]
-
-
-	def __on_expose(self, widget, event, i):
+	def __on_expose(self, widget, event, i, j):
 		"""
 		Redraws a portion of the document area that is exposed.
 		@param widget: 
 		@param event: 
-		@param i: 
+		@param i: page index in self.__drawing_areas
+		@param j: page to render, i.e. page index in self.__document
 		"""
 		
-		# When in "single page" type of view, the dimensions are stored 
-		# at index 0 of variables like self.__page_height,
-		# while i is the index of the page to be rendered.
-		# When in "continuous" type of view, i serves for both indices.
-		if self.__type_of_view == 0: # continuous
-			page_to_render = i
-		else: # single page
-			page_to_render = self.__current_page
-		
 		cr = self.__initialize_cairo_page(widget, event, i)
-		self.__document.render_page(cr, page_to_render)
+		self.__document.render_page(cr, j)
 		self.__create_page_border(cr, i)
 
 
 	def __on_expose_default(self, widget, event):
 		"""
-		Method that redraws a portion of the default document area 
-		that is exposed.
+		Redraws a portion of the default document area that is exposed.
 		"""
 		
 		cr = self.__initialize_cairo_page(widget, event, 0)
@@ -651,35 +1474,36 @@ class PreviewPanel:
 		button 3.
 		"""
 		
+		if event.type != gtk.gdk.BUTTON_PRESS:
+			return False
+
+		self.__panel.grab_focus()
+		
 		if event.button == 1:
-			page, x_in_page, y_in_page = self.get_page_and_position_from_pointer(event.x, event.y)
-			self.__magnifying_glass.set_page_and_position(page, x_in_page, y_in_page)
-			self.__magnifying_glass.show()
-			self.__set_cursor(True)
-			#~ self.__glass_delayed_hide_mouse_id = gobject.timeout_add(500, self.__delayed_hide_mouse)
+			x = event.x
+			y = event.y
+			
+			self.__glass_drag.start(self.__magnifying_glass, x, y)
+
 			return True
 			
 		elif event.button == 2:
 			scrolled_window = self.get_scrolled_window()
+
 			hscroll = scrolled_window.get_hadjustment().value
 			vscroll = scrolled_window.get_vadjustment().value
 			
-			self.__drag_initial_x = event.x - hscroll
-			self.__drag_initial_y = event.y - vscroll
-			self.__drag_last_x = event.x - hscroll
-			self.__drag_last_y = event.y - vscroll
-			self.__drag_initial_hscroll = hscroll
-			self.__drag_initial_vscroll = vscroll
-			
-			self.__in_drag = True
-			
-			self.__set_cursor(True, True)
+			x = event.x - hscroll
+			y = event.y - vscroll
+
+			self.__preview_drag.start(hscroll, vscroll, x, y)
 			
 			return True
 
 		elif event.button == 3:
 			popup_menu = gtk.Menu()
 
+			#TODO: Set labels manually.
 			menu_zoom_in = gtk.ImageMenuItem(gtk.STOCK_ZOOM_IN)
 			popup_menu.add(menu_zoom_in)
 			menu_zoom_in.connect_object("event", self.__on_popup_clicked, "zoom_in", event.time)
@@ -700,7 +1524,15 @@ class PreviewPanel:
 			popup_menu.add(menu_continuous)
 			menu_continuous.connect_object("event", self.__on_popup_clicked, "continuous", event.time)
 
-			if self.__type_of_view == 0:
+			menu_properties = gtk.MenuItem("Properties...")
+			popup_menu.add(menu_properties)
+			menu_properties.connect_object("event", self.__on_popup_clicked, "properties", event.time)
+			
+			menu_open = gtk.MenuItem("Open in default viewer")
+			popup_menu.add(menu_open)
+			menu_open.connect_object("event", self.__on_popup_clicked, "open", event.time)
+			
+			if self.__type_of_view == self.VIEW_CONTINUOUS:
 				menu_continuous.set_active(True)
 			else:
 				menu_continuous.set_active(False)
@@ -720,83 +1552,26 @@ class PreviewPanel:
 		actual move of the view for an idle time.
 		"""
 		
-		if self.__in_drag == True:
+		if self.__preview_drag.is_in_drag():
 			scrolled_window = self.get_scrolled_window()
 
 			hadj = scrolled_window.get_hadjustment()
 			vadj = scrolled_window.get_vadjustment()
-			self.__drag_last_x = event.x - hadj.value
-			self.__drag_last_y = event.y - vadj.value
 			
-			# Schedule the actual move for a time where the computer 
-			# has nothing better to do. The function __follow_mouse_drag
-			# always returns False, so that it is only executed once, 
-			# even if it has been queued many times. This results in the 
-			# view really following the mouse, and not lagging behind 
-			# trying to execute every single mouse move.
-			self.__drag_id = gobject.idle_add(self.__follow_mouse_drag)
+			x = event.x - hadj.value
+			y = event.y - vadj.value
+
+			self.__preview_drag.update(x, y)
 			
 		elif self.__magnifying_glass.is_shown():
 			root_window = widget.get_screen().get_root_window()
 			root_x, root_y, mods = root_window.get_pointer()
 
-			self.__glass_last_root_x = root_x
-			self.__glass_last_root_y = root_y
-			self.__glass_last_x = event.x
-			self.__glass_last_y = event.y
+			x = event.x
+			y = event.y
 			
-			self.__glass_id = gobject.idle_add(self.__follow_mouse_glass)
-			
-			self.__set_cursor(True)
-			#~ if not self.__glass_delayed_hide_mouse_id is None:
-				#~ gobject.source_remove(self.__glass_delayed_hide_mouse_id)
-			#~ self.__glass_delayed_hide_mouse_id = gobject.timeout_add(500, self.__delayed_hide_mouse)
+			self.__glass_drag.update(root_x, root_y, x, y)
 
-		return False
-
-
-	def __follow_mouse_drag(self):
-		"""
-		Executed in idle time (see self.__on_motion). Drags the view 
-		when the middle mouse button is down.
-		@return: False whatever happens so that it is only executed once even if it has been queued many times.
-		"""
-		
-		if self.__in_drag == True:
-			hadj = self.get_hadjustment()
-			vadj = self.get_vadjustment()
-			new_hscroll = self.__drag_initial_hscroll - (self.__drag_last_x - self.__drag_initial_x)
-			new_vscroll = self.__drag_initial_vscroll - (self.__drag_last_y - self.__drag_initial_y)
-			
-			if new_hscroll < 0:
-				new_hscroll = 0
-			elif new_hscroll > hadj.upper - hadj.page_size:
-				new_hscroll = hadj.upper - hadj.page_size
-				
-			if new_vscroll < 0:
-				new_vscroll = 0
-			elif new_vscroll > vadj.upper - vadj.page_size:
-				new_vscroll = vadj.upper - vadj.page_size
-				
-			self.__last_horizontal_scroll_position = new_hscroll
-			self.__last_vertical_scroll_position = new_vscroll
-			hadj.set_value(new_hscroll)
-			vadj.set_value(new_vscroll)
-		return False
-		
-		
-	def __follow_mouse_glass(self):
-		"""
-		Executed in idle time (see self.__on_motion). Moves the 
-		magnifying glass when the left mouse button is down.
-		@return: False whatever happens so that it is only executed once even if it has been queued many times.
-		"""
-		
-		if self.__magnifying_glass.is_shown() == True:
-			page, x_in_page, y_in_page = self.get_page_and_position_from_pointer(self.__glass_last_x, self.__glass_last_y)
-			self.__magnifying_glass.set_page_and_position(page, x_in_page, y_in_page) #page_to_render, x_in_page, y_in_page)
-			self.__magnifying_glass.move_center_to(int(self.__glass_last_root_x), int(self.__glass_last_root_y))
-			self.__magnifying_glass.refresh()
 		return False
 
 
@@ -807,68 +1582,34 @@ class PreviewPanel:
 		glass.
 		"""
 		
-		if self.__in_drag == True:
-			self.__in_drag = False
-			# It may happen that we start the drag and then don't move, 
-			# which results in self.__drag_id not being defined by 
-			# self.__on_motion()
-			if not self.__drag_id is None:
-				gobject.source_remove(self.__drag_id)
-				self.__drag_id = None
-			self.__set_cursor(True)
-			
-		elif self.__magnifying_glass.is_shown():
-			if not self.__glass_id is None:
-				gobject.source_remove(self.__glass_id)
-				self.__glass_id = None
-			#~ if not self.__glass_delayed_hide_mouse_id is None:
-				#~ gobject.source_remove(self.__glass_delayed_hide_mouse_id)
-				#~ self.__glass_delayed_hide_mouse_id = None
-			self.__set_cursor(True)
-			self.__magnifying_glass.hide()
+		if self.__preview_drag.is_in_drag():
+			self.__preview_drag.stop()
+		
+		if self.__glass_drag.is_in_drag():
+			self.__glass_drag.stop()
 			
 		return False
 
 
-	def __set_cursor(self, visible, in_drag = False):
+	def set_cursor(self, curs):
 		"""
 		Sets the cursor visible or invisible according to the variable 
 		"visible" being True or False, and if visible, sets the cursor 
 		to a hand if in_drag is True.
 		"""
-				
-		if visible:
-			if in_drag:
-				cursor = self.__cursor_hand
-			else:
-				cursor = self.__cursor_standard
-		else:
-			cursor = self.__cursor_invisible
 		
-		#~ if self.__magnifying_glass.is_shown():
-			#~ self.__magnifying_glass.set_cursor(cursor)
+		if curs == self.CURSOR_EMPTY:
+			cursor = self.__cursor_empty
+		elif curs == self.CURSOR_DRAG:
+			cursor = self.__cursor_drag
+		elif curs == self.CURSOR_LINK:
+			cursor = self.__cursor_link
+		else:
+			cursor = self.__cursor_default
+		
 		self.get_scrolled_window().window.set_cursor(cursor)
 
 	
-	def __delayed_hide_mouse(self):
-		"""
-		Hides the mouse. Scheduled for half a second after the last 
-		mouse move when the magnifying glass if shown (the reason is 
-		that otherwise the mouse pointer is always in the middle of the 
-		magnifying glass, which is a bit annoying).
-		What is more annoying is that this doesn't work! I can't change 
-		the cursor while the button is pressed, only before or after it
-		has been released... I think it is related to the fact that 
-		when the button is pressed, another window has the focus, and 
-		it is the cursor of that window which should be changed.
-		@return: False, to be executed only once.
-		"""
-		
-		self.__set_cursor(False)
-		
-		return False
-		
-		
 	def __on_popup_clicked(self, widget, event, time):
 		"""
 		Called when a popup menu item is clicked on.
@@ -889,70 +1630,86 @@ class PreviewPanel:
 				self.go_to_page(1, True)
 			elif widget == "continuous":
 				self.toggle_continuous()
+			elif widget == "properties":
+				self.__properties_dialog = DocumentPropertiesDialog(self.__document)
+			elif widget == "open":
+				self.__document.open_in_external_viewer()
 		return False
 
 
-	def __on_scroll_child(self, scrolled_window, scroll_type, horizontal):
-		"""
-		Monitors the scroll events, to go to next/previous page when 
-		in single page type of view and the user scrolls further 
-		as he already reached the end of the view.
-		Two mouse wheel "clicks" are necessary to go to next/previous 
-		page.
-		This one is triggered by self.scroll_up/down().
-		"""
-		
-		direction = None
-		if horizontal == False:
-			if scroll_type == gtk.SCROLL_STEP_BACKWARD:
-				direction = gtk.gdk.SCROLL_UP
-			elif scroll_type == gtk.SCROLL_STEP_FORWARD:
-				direction = gtk.gdk.SCROLL_DOWN
-		if not direction is None:
-			vadj = scrolled_window.get_vadjustment()
-			self.__decide_page_change(vadj, direction)
-			
-	
 	def __on_scroll(self, scrolled_window, event):
 		"""
 		Monitors the scroll events, to go to next/previous page when 
 		in single page type of view and the user scrolls further 
-		as he already reached the end of the view.
-		Two mouse wheel "clicks" are necessary to go to next/previous 
-		page.
-		This one is triggered by mouse wheel move.
+		as he already reached the end of the view.		
+		In addition, Ctrl+Scroll triggers zoom in/out, and Alt+Scroll
+		triggers Next/Previous page.
 		"""
-		
-		vadj = scrolled_window.get_vadjustment()
-		self.__decide_page_change(vadj, event.direction)
 
+		if event.state & gtk.gdk.CONTROL_MASK:
+			if event.direction == gtk.gdk.SCROLL_DOWN:
+				self.zoom_out()
+				return True
+			elif event.direction == gtk.gdk.SCROLL_UP:
+				self.zoom_in()
+				return True
+		elif event.state & gtk.gdk.MOD1_MASK:
+			if event.direction == gtk.gdk.SCROLL_DOWN:
+				self.go_to_page(1, True)
+				return True
+			elif event.direction == gtk.gdk.SCROLL_UP:
+				self.go_to_page(-1, True)
+				return True
+
+		if self.__type_of_view == self.VIEW_SINGLE_PAGE:
+			vadj = scrolled_window.get_vadjustment()
+			if (self.__decide_page_change(vadj, event.direction)):
+				# If we changed page, return True so that we don't take 
+				# into account the last scroll (that triggered the page 
+				# change), to prevent scrolling further on the new page.
+				return True
+		
+		return False
+				
 
 	def __decide_page_change(self, vadj, direction):
 		"""
 		According to vadj.value, direction, and 
 		self.__scroll_up/down_count, decide wether to change page 
 		or not. 
-		See self.__on_scroll() and self.__on_scroll_child() for more 
-		information.
+		Two mouse wheel "clicks" are necessary to go to next/previous 
+		page.
+		Only one is needed when it does fit.
+		See self.__on_scroll() for more	information.
+		@return: True if we changed page, False if not.
 		"""
+		
+		if vadj.lower == vadj.upper - vadj.page_size:
+			max_scroll_count = 1
+		else:
+			max_scroll_count = 2
 		
 		if vadj.value == vadj.lower and direction == gtk.gdk.SCROLL_UP and self.__current_page != 0:
 			self.__scroll_up_count += 1
-			if self.__scroll_up_count == 2:
+			if self.__scroll_up_count == max_scroll_count:
 				self.go_to_page(-1, True)
 				self.__scroll_up_count = 0
 				self.__last_vertical_scroll_position = vadj.upper - vadj.page_size
 				vadj.value = vadj.upper - vadj.page_size
+				return True
 		elif vadj.value == vadj.upper - vadj.page_size and direction == gtk.gdk.SCROLL_DOWN and self.__current_page != self.__document.get_n_pages() - 1:
 			self.__scroll_down_count += 1
-			if self.__scroll_down_count == 2:
+			if self.__scroll_down_count == max_scroll_count:
 				self.go_to_page(1, True)
 				self.__scroll_down_count = 0
 				self.__last_vertical_scroll_position = vadj.lower
 				vadj.value = vadj.lower
+				return True
 		else:
 			self.__scroll_up_count = 0
 			self.__scroll_down_count = 0
+		
+		return False
 
 
 	def __initialize_cairo_page(self, widget, event, i):
@@ -1002,41 +1759,192 @@ class PreviewPanel:
 		cr.rectangle(0, 0, self.__page_width[i] + 1 / self.__scale, self.__page_height[i])
 		cr.stroke()
 
+	
+	def __get_fit_width_scale(self):
+		hadj = self.get_hadjustment()
+		avail_width = hadj.page_size
+		doc_width = self.__page_width[0] + 2 * self.__shadow_thickness + 4
 		
+		return avail_width / doc_width
+		
+		
+	def __get_fit_page_scale(self):
+		hadj = self.get_hadjustment()
+		vadj = self.get_vadjustment()
+		avail_width = hadj.page_size
+		avail_height = vadj.page_size
+		doc_width = self.__page_width[0] + 2 * self.__shadow_thickness + 4
+		doc_height = self.__page_height[0] + 2 * self.__shadow_thickness + 4
+		
+		return min(avail_width / doc_width, avail_height / doc_height)
+		
+		
+	def __get_scale_pos(self, scale):
+		"""
+		Method that gets the position i in self.__scale_list such that 
+		scale is between self.__scale_list[i] and 
+		self.__scale_list[i+1].
+		"""
+		
+		pos = 0
+		last = len(self.__scale_list) - 1
+		for i in range(last):
+			if self.__scale_list[i] <= scale and scale < self.__scale_list[i+1]:
+				pos = i
+		if scale >= self.__scale_list[last]:
+			pos = last
+				
+		return pos
+		
+		
+	def __get_next_scale(self):
+		"""
+		Method that computes the next scale in the scale list, with
+		Fit width and Fit page inserted at the right positions.
+		"""
+		
+		scale = self.__scale
+		zoom_type = self.__zoom_type
+		pos = self.__get_scale_pos(scale)
+		last = len(self.__scale_list) - 1
+		
+		if pos == last:
+			return scale, zoom_type
+		
+		fit_width = self.__get_fit_width_scale()
+		fit_page = self.__get_fit_page_scale()
+		
+		fit_width_candidate = False
+		fit_page_candidate = False
+		if scale < fit_width and fit_width < self.__scale_list[pos+1]:
+			fit_width_candidate = True
+		if scale < fit_page and fit_page < self.__scale_list[pos+1]:
+			fit_page_candidate = True
+		
+		if fit_width_candidate and fit_page_candidate:
+			if fit_width <= fit_page:
+				return fit_width, self.ZOOM_FIT_WIDTH
+			else:
+				return fit_page, self.ZOOM_FIT_PAGE
+		elif fit_width_candidate:
+			return fit_width, self.ZOOM_FIT_WIDTH
+		elif fit_page_candidate:
+			return fit_page, self.ZOOM_FIT_PAGE
+		else:
+			return self.__scale_list[pos+1], self.ZOOM_NORMAL
+
+		
+	def __get_previous_scale(self):
+		"""
+		Method that computes the previous scale in the scale list, with
+		Fit width and Fit page inserted at the right positions.
+		"""
+		
+		scale = self.__scale
+		pos = self.__get_scale_pos(scale)
+		first = 0
+		if scale == self.__scale_list[first]:
+			return scale, self.ZOOM_NORMAL
+		if scale == self.__scale_list[pos]:
+			pos -= 1
+				
+		fit_width = self.__get_fit_width_scale()
+		fit_page = self.__get_fit_page_scale()
+		
+		fit_width_candidate = False
+		fit_page_candidate = False
+		if scale > fit_width and fit_width > self.__scale_list[pos]:
+			fit_width_candidate = True
+		if scale > fit_page and fit_page > self.__scale_list[pos]:
+			fit_page_candidate = True
+		
+		if fit_width_candidate and fit_page_candidate:
+			if fit_width > fit_page:
+				return fit_width, self.ZOOM_FIT_WIDTH
+			else:
+				return fit_page, self.ZOOM_FIT_PAGE
+		elif fit_width_candidate:
+			return fit_width, self.ZOOM_FIT_WIDTH
+		elif fit_page_candidate:
+			return fit_page, self.ZOOM_FIT_PAGE
+		else:
+			return self.__scale_list[pos], self.ZOOM_NORMAL
+
+
+	def get_zoom_type(self):
+		return self.__zoom_type
+			
+		
+	def set_zoom_type(self, zoom_type):
+		self.__zoom_type = zoom_type
+		self._preferences.set("PdfPreviewZoomType", zoom_type)
+
+
+	def zoom_to(self, scale, zoom_type):
+		"""
+		Method that zooms the preview from old_scale to scale.
+		"""
+
+		self.__new_scale = scale
+		self.__new_zoom_type = zoom_type
+		if self.DELAY_ZOOM:
+			self.__zoom_to_id = gobject.idle_add(self.__do_zoom_to)
+		else:
+			self.__do_zoom_to()
+		
+	
+	def __do_zoom_to(self):
+		scale = self.__new_scale
+		zoom_type = self.__new_zoom_type
+		old_scale = self.__scale
+		old_zoom_type = self.__zoom_type
+		
+		self.set_zoom_type(zoom_type)
+		if zoom_type == self.ZOOM_FIT_WIDTH:
+			scale = self.__get_fit_width_scale()
+		elif zoom_type == self.ZOOM_FIT_PAGE:
+			scale = self.__get_fit_page_scale()
+
+		if old_scale == scale:
+			return
+
+		self.__scale = scale
+		self._preferences.set("PdfPreviewScale", scale)
+		
+		# Save the horizontal scroll position before initializing
+		# and restore it after, to prevent the document from being centered
+		# if it was not before
+		hadj = self.get_hadjustment()
+		last_pos = hadj.value
+		last_size = hadj.page_size		
+		last_upper = hadj.upper
+		last_lower = hadj.lower
+
+		# Keep the vertical scrollbar at the same position in the document
+		# up to the error due to the space between the pages, which is not scaled
+		vertical_scroll_position = self.__last_vertical_scroll_position * scale / old_scale
+		self.__last_vertical_scroll_position = vertical_scroll_position
+
+		self.__update_scrolled_window(self.EVENT_RESIZE)
+		
+		# If there was no horizontal scroll bar before zooming in, center the document
+		if last_upper - last_lower == last_size and scale > old_scale:
+			self.__last_horizontal_scroll_position = None
+		else:
+			# Keep the center of the view centered after zooming
+			self.__last_horizontal_scroll_position = max(0.0, ((last_pos + (last_size / 2)) * (scale / old_scale)) - (hadj.page_size / 2))
+			self.__last_horizontal_scroll_page_size = last_size
+			
+		return False # to execute the method only once even if queued many times
+		
+
 	def zoom_in(self):
 		"""
 		Method that zooms in the pdf preview.
 		"""
 
-		if self.__scale < 16:
-			self.__scale += 0.25
-			self._preferences.set("PdfPreviewScale", self.__scale)
-
-			# Keep the vertical scrollbar at the same position in the document
-			# up to the error due to the space between the pages, which is not scaled
-			self.__last_vertical_scroll_position *= self.__scale / (self.__scale - 0.25)
-
-			# Save the horizontal scroll position before initializing
-			# and restore it after, to prevent the document from being centered
-			# if it was not before
-			last_pos = self.__last_horizontal_scroll_position
-			last_size = self.__last_horizontal_scroll_page_size
-
-			scrolled_window = self.get_scrolled_window()
-			hadj = scrolled_window.get_hadjustment()
-			last_upper = hadj.upper
-			last_lower = hadj.lower
-			
-			self.__initialize()
-			
-			# If there was no horizontal scroll bar before zooming in, center the document
-			if last_upper - last_lower == last_size:
-				self.__last_horizontal_scroll_position = None
-			else:
-				# Keep the center of the view centered after zooming
-				self.__last_horizontal_scroll_position = (last_pos + last_size / 2) * (self.__scale / (self.__scale - 0.25)) - last_size / 2
-				self.__last_horizontal_scroll_page_size = last_size
-			self.__panel.show_all()
+		scale, zoom_type = self.__get_next_scale()
+		self.zoom_to(scale, zoom_type)
 
 
 	def zoom_out(self):
@@ -1044,37 +1952,32 @@ class PreviewPanel:
 		Method that zooms out the pdf preview.
 		"""
 
-		if self.__scale > 0.25:
-			self.__scale -= 0.25
-			self._preferences.set("PdfPreviewScale", self.__scale)
-
-			# Keep the vertical scrollbar at the same position in the document
-			# up to the error due to the space between the pages, which is not scaled
-			self.__last_vertical_scroll_position *= self.__scale / (self.__scale + 0.25)
-
-			# Save the horizontal scroll position before initializing
-			# and restore it after, to prevent the document from being centered
-			# if it was not before
-			last_pos = self.__last_horizontal_scroll_position
-			last_size = self.__last_horizontal_scroll_page_size
-			
-			self.__initialize()
-			
-			# Keep the center of the view centered after zooming
-			self.__last_horizontal_scroll_position = (last_pos + last_size / 2) * (self.__scale / (self.__scale + 0.25)) - last_size / 2
-			self.__last_horizontal_scroll_page_size = last_size
-			
-			self.__panel.show_all()
+		scale, zoom_type = self.__get_previous_scale()
+		self.zoom_to(scale, zoom_type)
 
 
+	def zoom_fit_width(self):
+		
+		scale = self.__get_fit_width_scale()
+		self.zoom_to(scale, self.ZOOM_FIT_WIDTH)
+
+		
+	def zoom_fit_page(self):
+		
+		scale = self.__get_fit_page_scale()
+		self.zoom_to(scale, self.ZOOM_FIT_PAGE)
+
+		
 	def scroll_up(self):
 		"""
 		Method that scrolls up the pdf preview a few lines.
 		It is triggered by an accelerator to allow moving in the preview without the mouse.
 		"""
 
+		event = gtk.gdk.Event(gtk.gdk.SCROLL)
+		event.direction = gtk.gdk.SCROLL_UP
 		scrolled_window = self.get_scrolled_window()
-		scrolled_window.emit("scroll-child", gtk.SCROLL_STEP_BACKWARD, False)
+		scrolled_window.emit("scroll-event", event)
 
 
 	def scroll_down(self):
@@ -1083,8 +1986,10 @@ class PreviewPanel:
 		It is triggered by an accelerator to allow moving in the preview without the mouse.
 		"""
 
+		event = gtk.gdk.Event(gtk.gdk.SCROLL)
+		event.direction = gtk.gdk.SCROLL_DOWN
 		scrolled_window = self.get_scrolled_window()
-		scrolled_window.emit("scroll-child", gtk.SCROLL_STEP_FORWARD, False)
+		scrolled_window.emit("scroll-event", event)
 
 
 	def scroll_left(self):
@@ -1093,8 +1998,10 @@ class PreviewPanel:
 		It is triggered by an accelerator to allow moving in the preview without the mouse.
 		"""
 
+		event = gtk.gdk.Event(gtk.gdk.SCROLL)
+		event.direction = gtk.gdk.SCROLL_LEFT
 		scrolled_window = self.get_scrolled_window()
-		scrolled_window.emit("scroll-child", gtk.SCROLL_STEP_BACKWARD, True)
+		scrolled_window.emit("scroll-event", event)
 
 
 	def scroll_right(self):
@@ -1103,8 +2010,10 @@ class PreviewPanel:
 		It is triggered by an accelerator to allow moving in the preview without the mouse.
 		"""
 
+		event = gtk.gdk.Event(gtk.gdk.SCROLL)
+		event.direction = gtk.gdk.SCROLL_RIGHT
 		scrolled_window = self.get_scrolled_window()
-		scrolled_window.emit("scroll-child", gtk.SCROLL_STEP_FORWARD, True)
+		scrolled_window.emit("scroll-event", event)
 
 
 	def get_free_horiz_space(self, page_index):
@@ -1135,12 +2044,13 @@ class PreviewPanel:
 		# area i-1 and drawing area i. That is, the real page position 
 		# is self.__page_position[i] + the padding, which is equal to 2 
 		# here.
-		if self.__type_of_view == 0: # continuous
+		if self.__type_of_view == self.VIEW_CONTINUOUS: # continuous
 			n = self.__document.get_n_pages()
 			drawing_areas_height = (self.__page_position[n-1] - 2) + (self.__page_height[n-1] + 2 * self.__shadow_thickness) * self.__scale + 2
 		else: # single page
 			n = 1
 			drawing_areas_height = (self.__page_height[0] + 2 * self.__shadow_thickness) * self.__scale
+			
 		return (scrolled_window_height - drawing_areas_height) / 2
 		
 		
@@ -1155,7 +2065,7 @@ class PreviewPanel:
 		hadj = scrolled_window.get_hadjustment()
 		vadj = scrolled_window.get_vadjustment()
 
-		if self.__type_of_view == 0: # continuous
+		if self.__type_of_view == self.VIEW_CONTINUOUS: # continuous
 			page_index = self.get_page_at_position(y)
 			page_to_render = page_index
 		else: # single page
@@ -1186,7 +2096,7 @@ class PreviewPanel:
 		if page > n - 1:
 			page = n - 1
 			
-		while not (page == 0 or self.__page_position[page] <= position and (page == (n - 1) or self.__page_position[page+1] >= position)):
+		while not ((page == 0 or self.__page_position[page] <= position) and (page == (n - 1) or self.__page_position[page+1] >= position)):
 			if self.__page_position[page] > position:
 				page -= 1
 			else:
@@ -1208,11 +2118,9 @@ class PreviewPanel:
 		and not n+1, because the first pixel of the view shows page n.
 		"""
 		
-		if self.__type_of_view == 0: # continuous
-			scrolled_window = self.get_scrolled_window()
-			adj = scrolled_window.get_vadjustment()
-			current_pos = adj.value
-			
+		if self.__type_of_view == self.VIEW_CONTINUOUS: # continuous
+			adj = self.get_vadjustment()
+			current_pos = adj.value			
 			return self.get_page_at_position(current_pos)
 		else: # single page
 			return self.__current_page
@@ -1220,15 +2128,22 @@ class PreviewPanel:
 			
 	def go_to_page(self, page, relative = False):
 		"""
-		Method that moves the view to a given page.
+		Method that moves the view to a given page. If relative is 
+		False, and page is negative, go to (n - page) where n is the 
+		total number of pages.
 		@param page: the number of the page to go to
 		@param relative: True if parameter "page" is relative to the current page number, False if parameter "page" is the absolute page number
 		"""
 		
+		if self.__document == None:
+			return
+
 		if relative:
 			current_page = self.get_current_page()
 			new_page = current_page + page
 		else:
+			if page < 0:
+				page = self.__document.get_n_pages() + page
 			new_page = page
 			
 		if new_page < 0:
@@ -1236,77 +2151,121 @@ class PreviewPanel:
 		elif new_page >= self.__document.get_n_pages():
 			new_page = self.__document.get_n_pages() - 1
 			
-		if self.__type_of_view == 0: #continous
-			scrolled_window = self.get_scrolled_window()
-			adj = scrolled_window.get_vadjustment()
+		if self.__type_of_view == self.VIEW_CONTINUOUS: # continous
+			adj = self.get_vadjustment()
 			adj.set_value(self.__page_position[new_page])
 		else: # single page
 			self.__current_page = new_page
-			self.__initialize()
-			self.__panel.show_all()
+			self.__update_scrolled_window(self.EVENT_CHANGE_PAGE)
 
 
+	def go_to_page_and_position(self, page, y):	
+		if page < 0 or page > self.__document.get_n_pages():
+			return False
+			
+		if self.__type_of_view == self.VIEW_CONTINUOUS:
+			page_index = page
+		else:
+			page_index = 0
+		
+		#~ free_left_space = self.get_free_horiz_space(page_index)
+		free_top_space = self.get_free_vert_space()
+		#~ x_in_page = (x - free_left_space) / self.__scale
+		scroll_pos = y * self.__scale + free_top_space + (self.__page_position[page_index] + 2)
+		
+		vadj = self.get_vadjustment()
+		scroll_pos = max(vadj.lower, min(scroll_pos, vadj.upper - vadj.page_size))
+		if self.__type_of_view == self.VIEW_CONTINUOUS:
+			vadj.set_value(scroll_pos)
+		else:
+			if page != self.__current_page:
+				self.__current_page = page
+				self.__update_scrolled_window(self.EVENT_CHANGE_PAGE)
+			vadj.set_value(scroll_pos)
+		
+		return True
+		
+				
 	def toggle_continuous(self):
 		"""
 		Method that toggles continuous/single page type of view.
 		"""
 		
 		current_page = self.get_current_page()
-		if self.__type_of_view == 0: # was continuous
-			self.__type_of_view = 1 # set to single page
+		if self.__type_of_view == self.VIEW_CONTINUOUS: # was continuous
+			self.__type_of_view = self.VIEW_SINGLE_PAGE # set to single page
 			self._preferences.set("PdfPreviewTypeOfView", self.__type_of_view)
 			last_pos = self.__last_vertical_scroll_position - self.__page_position[current_page]
 			self.__current_page = current_page
-			self.__initialize()
+			self.__update_scrolled_window(self.EVENT_TOGGLE_CONTINUOUS)
 			self.__last_vertical_scroll_position = last_pos
 		else: # was single page
-			self.__type_of_view = 0 # set to continuous
+			self.__type_of_view = self.VIEW_CONTINUOUS # set to continuous
 			self._preferences.set("PdfPreviewTypeOfView", self.__type_of_view)
 			last_pos = self.__last_vertical_scroll_position
-			self.__initialize()
+			self.__update_scrolled_window(self.EVENT_TOGGLE_CONTINUOUS)
 			self.__last_vertical_scroll_position = last_pos + self.__page_position[current_page]
-		self.__panel.show_all()
 
 
-	def __free_handlers(self):
+	def __connect_mouse_events(self):
+		"""
+		Connects mouse events. Called by 
+		__create_preview_panel().
+		"""
+		
+		scrolled_window = self.get_scrolled_window()
+
+		self.__mouse_handlers = [ scrolled_window.connect("scroll-event", self.__on_scroll),
+					scrolled_window.connect("button-press-event", self.__on_button_press),
+					scrolled_window.connect("button-release-event", self.__on_button_release),
+					scrolled_window.connect("motion-notify-event", self.__on_motion) ]
+		
+		
+	def __disconnect_mouse_events(self):
+		"""
+		Disconnects mouse events. Called by 
+		__create_default_panel().
+		"""
+
+		scrolled_window = self.get_scrolled_window()
+		
+		for handler in self.__mouse_handlers:
+			scrolled_window.disconnect(handler)
+			handler = None
+		self.__mouse_handlers = []
+
+		
+	def __connect_keyboard_events(self):
+		"""
+		Connects keyboard events. Called by 
+		__create_preview_panel().
+		"""
+		
+		widget = self.get_panel()
+
+		self.__keyboard_handlers = [ widget.connect("key-press-event", self.__on_key_press) ]
+		
+		
+	def __disconnect_keyboard_events(self):
+		"""
+		Disconnects keyboard events. Called by 
+		__create_default_panel().
+		"""
+
+		widget = self.get_panel()
+		
+		for handler in self.__keyboard_handlers:
+			widget.disconnect(handler)
+			handler = None
+		self.__keyboard_handlers = []
+
+	
+	def __free_scrolled_window_handlers(self):
 		"""
 		Method that frees all signal handlers related to the preview 
 		panel.
 		"""
 		
-		panel_children = self.__panel.get_children()
-		if len(panel_children) != 0:
-			scrolled_window = panel_children[0]
-			
-			vadj = scrolled_window.get_vadjustment()
-			vadj.disconnect(self.__vadj_changed_id)
-			vadj.disconnect(self.__vadj_value_id)
-			self.__vadj_changed_id = None
-			self.__vadj_value_id = None
-			
-			hadj = scrolled_window.get_hadjustment()
-			hadj.disconnect(self.__hadj_changed_id)
-			hadj.disconnect(self.__hadj_value_id)
-			self.__hadj_changed_id = None
-			self.__hadj_value_id = None
-			
-			# These are not defined in default view, so we have to check
-			if not self.__button_press_id is None:
-				scrolled_window.disconnect(self.__button_press_id)
-				scrolled_window.disconnect(self.__button_release_id)
-				scrolled_window.disconnect(self.__motion_id)
-				self.__button_press_id = None
-				self.__button_release_id = None
-				self.__motion_id = None
-			
-			if not self.__magnifying_glass is None:
-				self.__magnifying_glass.destroy()
-				self.__magnifying_glass = None
-		
-		for i in self.__drawing_areas:
-			self.__drawing_areas[i].disconnect(self.__expose_id[i])
-		self.__expose_id.clear()
-		self.__drawing_areas.clear()
 		
 		
 	def destroy(self):
@@ -1314,11 +2273,53 @@ class PreviewPanel:
 		Method that destroys every children of the panel.
 		"""
 		
-		self.__free_handlers()
-		for i in self.__panel.get_children():
-			self.__panel.remove(i)
 		gobject.source_remove(self.__check_changes_id)
 
+		# scrolled window adjustments
+		scrolled_window = self.get_scrolled_window()
+		
+		vadj = scrolled_window.get_vadjustment()
+		vadj.disconnect(self.__vadj_changed_id)
+		vadj.disconnect(self.__vadj_value_id)
+		self.__vadj_changed_id = None
+		self.__vadj_value_id = None
+		
+		hadj = scrolled_window.get_hadjustment()
+		hadj.disconnect(self.__hadj_changed_id)
+		hadj.disconnect(self.__hadj_value_id)
+		self.__hadj_changed_id = None
+		self.__hadj_value_id = None
+		
+		# mouse
+		self.__disconnect_mouse_events()
+
+		# drag managers
+		self.__preview_drag.destroy()
+		self.__glass_drag.destroy()
+		
+		# keyboard
+		self.__disconnect_keyboard_events()
+		
+		# magnifying glass
+		if not self.__magnifying_glass is None:
+			self.__magnifying_glass.destroy()
+			self.__magnifying_glass = None
+		
+		# pages
+		pages = self.get_scrolled_window().get_children()[0].get_children()[0].get_children()[0]
+		for i in range(len(self.__drawing_areas)):
+			self.__delete_last_page(pages)
+		self.__expose_id.clear()
+		self.__drawing_areas.clear()
+
+		# the scrolled window
+		for i in self.__panel.get_children():
+			self.__panel.remove(i)
+
+
+	def __del__(self):
+		self._log.debug("Preview panel properly destroyed (__del__ called)")
+		
 
 
 class MagnifyingGlass:
@@ -1326,23 +2327,26 @@ class MagnifyingGlass:
 	Class that manages a magnifying glass for the PDF preview.
 	"""
 	
+	USE_PIXBUF = False
+	
 	def __init__(self, preview_scale, document):
 		"""
 		Initializes the magnifying glass.
 		"""
 		
-		self.__width = 400
-		self.__height = 233
+		self._preferences = Preferences()
 		
-		self.__scale = 4
+		self.__width = int(self._preferences.get("PDFPreviewMagnifierWidth", 400))
+		self.__height = int(self._preferences.get("PDFPreviewMagnifierHeight", 233))
+		
+		self.__scale = float(self._preferences.get("PDFPreviewMagnifierScale", 4.0))
+		self.set_preview_scale(preview_scale)
 		
 		self.__is_shown = False
 		
 		self.__page = 0
 		self.__page_center_x = 0
 		self.__page_center_y = 0
-		
-		self.__preview_scale = preview_scale
 		
 		self.__document = document
 		self.__page_width, self.__page_height = self.__document.get_page_size(self.__page)
@@ -1356,7 +2360,10 @@ class MagnifyingGlass:
 		self.__drawing_area.set_size_request(int(self.__width), int(self.__height))
 		self.__drawing_area.show()
 		
-		self.__expose_id = self.__drawing_area.connect("expose-event", self.__on_expose)
+		if self.USE_PIXBUF:
+			self.__expose_id = self.__drawing_area.connect("expose-event", self.__on_expose_with_pixbuf)
+		else:
+			self.__expose_id = self.__drawing_area.connect("expose-event", self.__on_expose)
 		
 		self.__window.add(self.__drawing_area)
 		
@@ -1371,10 +2378,16 @@ class MagnifyingGlass:
 		self.__is_shown = False
 	
 	
-	def set_cursor(self, cursor):
-		self.__window.window.set_cursor(cursor)
+	def set_scale(self, scale):
+		self.__scale = scale
+		self._preferences.set("PDFPreviewMagnifierScale", float(scale))
+		
+		
+	def set_preview_scale(self, preview_scale):
+		self.__preview_scale = preview_scale
+		self.__total_scale = self.__scale * self.__preview_scale
 
-	
+
 	def is_shown(self):
 		return self.__is_shown
 		
@@ -1392,15 +2405,15 @@ class MagnifyingGlass:
 		if page != self.__page:
 			self.__page = page
 			self.__page_width, self.__page_height = self.__document.get_page_size(page)
-
+			
 		self.__page_center_x = x
 		self.__page_center_y = y	
 	
 	
 	def __on_expose(self, drawing_area, event):
 		cr = drawing_area.window.cairo_create()
-				
-		scale = self.__scale * self.__preview_scale
+
+		scale = self.__total_scale
 		cr.scale(scale, scale)
 		
 		translate_x = (self.__page_center_x - (self.__width / scale) / 2)
@@ -1410,8 +2423,44 @@ class MagnifyingGlass:
 		cr.set_source_rgb(1, 1, 1)
 		cr.rectangle(0, 0, self.__page_width, self.__page_height)
 		cr.fill()
-		
+
 		self.__document.render_page(cr, self.__page)
+
+
+	def __on_expose_with_pixbuf(self, drawing_area, event):
+		scale = self.__scale * self.__preview_scale
+		
+		translate_x = (self.__page_center_x - (self.__width / scale) / 2)
+		translate_y = (self.__page_center_y - (self.__height / scale) / 2)
+
+		pixbuf = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, False, 8, self.__width, self.__height)
+		pixbuf.fill(0xffffffff)
+
+		# Strange: render_to_pixbuf doesn't take into account the width 
+		# and height given as 4th and 5th arguments here...
+		# And it is VERY slow...
+		self.__document.render_page_to_pixbuf(self.__page, int(translate_x * scale), int(translate_y * scale), self.__width, self.__height, scale, 0, pixbuf)
+
+		drawing_area.window.draw_pixbuf(None, pixbuf, 0, 0, 0, 0)
+
+		# TODO: Check this (from pygtk FAQ I think):
+		#~ 
+		#~ You can make use of cairo to do this. First, create a gtk.DrawingArea based class, and connect the expose-event to your expose func.
+		#~ 
+		#~ class draw(gtk.gdk.DrawingArea):
+			#~ def __init__(self):
+				#~ self.connect('expose-event', self._do_expose)
+				#~ self.pixbuf = self.gen_pixbuf_from_file(PATH_TO_THE_FILE)
+		#~ 
+			#~ def _do_expose(self, widget, event):
+				#~ cr = self.window.cairo_create()
+				#~ cr.set_operator(cairo.OPERATOR_SOURCE)
+				#~ cr.set_source_rgb(1,1,1)
+				#~ cr.paint()
+				#~ cr.set_source_pixbuf(self.pixbuf, 0, 0)
+				#~ cr.paint()
+		#~ 
+		#~ This will draw the image every time the expose-event is emited.
 
 
 	def refresh(self):
@@ -1420,3 +2469,197 @@ class MagnifyingGlass:
 		
 	def destroy(self):
 		self.__drawing_area.disconnect(self.__expose_id)
+
+
+
+class DocumentPropertiesDialog:
+	"""
+	This class manages the document properties dialog.
+	"""
+	
+	def __init__(self, document):
+		"""
+		Initializes the dialog.
+		"""
+		
+		self.__document = document
+		
+		# Hacky way to get the gedit main window...
+		self.__parent_window = gtk.window_list_toplevels()[0]
+
+		self.__properties = ["title", "path", "subject", "author",
+							 "keywords", "producer", "creator", 
+							 "creation-date", "mod-date", "format", 
+							 "n-pages", "linearized", "permissions",
+							 "page-layout", "page-mode", 
+							 "viewer-preferences", "paper-size"]
+		self.__labels = {"title": "Title:",
+						 "path": "Path:",
+						 "subject": "Subject:",
+						 "author": "Author:",
+						 "keywords": "Keywords:",
+						 "producer": "Producer:",
+						 "creator": "Creator:",
+						 "creation-date": "Creation date:",
+						 "mod-date": "Modification date:",
+						 "format": "Format:",
+						 "n-pages": "Number of pages:",
+						 "linearized": "Optimized:",
+						 "page-layout": "Page layout:",
+						 "page-mode": "Page mode:",
+						 "viewer-preferences": "Viewer preferences:",
+						 "permissions": "Permissions:",
+						 "paper-size": "Paper size:"}
+		self.__tooltips = {"title": "The title of the document",
+						   "path": "The file path of the document",
+						   "subject": "Subjects the document touches",
+						   "author": "The author of the document",
+						   "keywords": "Keywords",
+						   "producer": "The software that converted the document",
+						   "creator": "The software that created the document",
+						   "creation-date": "The date and time the document was created",
+						   "mod-date": "The date and time the document was modified",
+						   "format": "The PDF version of the document",
+						   "n-pages": "Number of pages",
+						   "linearized": "Is the document optimized for web viewing?",
+						   "page-layout": "Initial Page Layout",
+						   "page-mode": "Page Mode",
+						   "viewer-preferences": "Viewer preferences",
+						   "permissions": "Permissions",
+						   "paper-size": "Paper size of the first page of the document"}
+
+		self.__property_values = {}
+		self.__dialog = None
+		
+		self.__build_dialog()
+
+		self.show()
+		
+	
+	def __on_response(self, widget, response):
+		"""
+		Monitors the response events sent by the dialog.
+		"""
+		
+		if response == gtk.RESPONSE_CLOSE or response == gtk.RESPONSE_DELETE_EVENT:
+			self.destroy()
+		
+		
+	def __build_dialog(self):
+		"""
+		Builds the dialog.
+		"""
+		
+		self.__dialog = gtk.Dialog("PDF document properties",
+                     self.__parent_window,
+                     gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
+                     (gtk.STOCK_CLOSE, gtk.RESPONSE_CLOSE))
+		
+		self.__response_id = self.__dialog.connect("response", self.__on_response)
+		
+		table = gtk.Table(len(self.__properties), 2)
+		
+		(maj, min, rev) = gtk.ver
+		if not (maj >= 2 and min >= 12):
+			tooltips = gtk.Tooltips()
+		
+		i = 0
+		for property in self.__properties:
+			label = gtk.Label()
+			label.set_markup("<b>%s</b>" % self.__labels[property])
+			label.set_alignment(0, 1)
+			if not (maj >= 2 and min >= 12):
+				tooltips.set_tip(label, self.__tooltips[property])
+			else:
+				label.set_tooltip_text(self.__tooltips[property])
+			table.attach(label, 0, 1, i, i + 1, gtk.FILL, gtk.FILL, 8, 3)
+
+			value = gtk.Label()
+			value.set_selectable(True)
+			value.set_width_chars(45)
+			value.set_ellipsize(pango.ELLIPSIZE_END)
+			value.set_alignment(0, 1)
+			table.attach(value, 1, 2, i, i + 1, gtk.FILL | gtk.EXPAND, gtk.FILL, 8, 3)
+			self.__property_values[property] = value
+			i += 1
+		
+		self.__dialog.vbox.add(table)
+		
+
+	def __format_value(self, property, value):
+		"""
+		Formats value according to property type.
+		"""
+		
+		if property in ["creation-date", "mod-date"]:
+			import datetime
+			date = datetime.datetime.fromtimestamp(value)
+			return date.ctime()
+		elif property == "n-pages":
+			return str(value)
+		elif property == "permissions":
+			perm = self.__document.permissions_to_text_list(value)
+			return "Allowed to %s" % ", ".join(perm)
+		elif property == "page-layout":
+			return self.__document.page_layout_to_text(value)
+		elif property == "page-mode":
+			return self.__document.page_mode_to_text(value)
+		elif property == "viewer-preferences":
+			pref = self.__document.viewer_preferences_to_text_list(value)
+			return ", ".join(pref)
+		elif property == "paper-size":
+			width, height = value
+			return "%d x %d mm" % (width / 72 * 25.4, height / 72 * 25.4)
+		else:
+			return str(value)
+		
+		
+	def update(self):
+		"""
+		Updates the fields.
+		"""
+		
+		for property in self.__properties:
+			if property == "path":
+				value = self.__document.get_document_path()
+			elif property == "n-pages":
+				value = self.__document.get_n_pages()
+			elif property == "paper-size":
+				value = self.__document.get_page_size(0)
+			else:
+				value = self.__document.get_property(property)
+			
+			text = self.__format_value(property, value)
+			if text == "":
+				text = "<i>%s</i>" % "None"
+				self.__property_values[property].set_markup(text)
+			else:
+				self.__property_values[property].set_text(text)		
+		
+		
+	def show(self):
+		"""
+		Shows the dialog (actually creates it).
+		"""
+		
+		self.update()
+		self.__dialog.show_all()
+		
+		
+	def hide(self):
+		"""
+		Hides the dialog (actually destroys it).
+		"""
+		
+		self.__dialog.hide()
+		
+		
+	def destroy(self):
+		"""
+		Destroys the dialog (removes all handlers, references, etc.).
+		"""
+		
+		self.hide()
+		self.__dialog.disconnect(self.__response_id)
+		self.__dialog = None
+		
