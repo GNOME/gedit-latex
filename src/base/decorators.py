@@ -332,7 +332,7 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		# FIXME: a hack again...
 		# the toolbar should hide when it doesn't contain any visible items
 		latex_extensions = self._preferences.get("LatexExtensions", ".tex").split(" ")
-		show_toolbar = self._preferences.get("ShowLaTeXToolbar", True)
+		show_toolbar = self._preferences.get_bool("ShowLaTeXToolbar", True)
 		if show_toolbar and extension in latex_extensions:
 			self._toolbar.show()
 		else:
@@ -555,7 +555,8 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		if tab in self._tab_decorators.keys():
 			decorator = self._tab_decorators[tab]
 		else:
-			# on gedit startup 'tab-changed' comes before 'tab-added'
+			# (on gedit startup 'tab-changed' comes before 'tab-added')
+			# remember: init=True crashes the plugin here!
 			decorator = self._create_tab_decorator(tab)
 		
 		self._active_tab_decorator = decorator
@@ -644,6 +645,8 @@ class GeditTabDecorator(object):
 				self._text_buffer.connect("loaded", self._on_load),
 				self._text_buffer.connect("saved", self._on_save)
 		]
+		
+		self._log.debug("Created %s" % self)
 		
 	@property
 	def tab(self):

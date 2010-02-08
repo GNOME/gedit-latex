@@ -433,8 +433,6 @@ class PreferencesDialog(GladeInterface, IPreferencesMonitor):
 			
 			self._dialog = self.find_widget("dialogConfigure")
 			
-			self._buttonApply = self.find_widget("buttonApply")
-			
 			#
 			# snippets
 			#
@@ -469,14 +467,7 @@ class PreferencesDialog(GladeInterface, IPreferencesMonitor):
 			#
 			
 			# grab widgets
-			self._entryProfileName = self.find_widget("entryProfileName")
-			
-			#self._buttonProfileSave = self.find_widget("buttonProfileSave")
-			#self._entryViewCommand = self.find_widget("entryViewCommand")
-			#self._entryOutputFile = self.find_widget("entryOutputFile")
-			
-			# tools
-			
+
 			self._button_delete_tool = self.find_widget("buttonDeleteTool")
 			self._button_move_up_tool = self.find_widget("buttonMoveUpTool")
 			self._button_configure_tool = self.find_widget("buttonConfigureTool")
@@ -538,6 +529,10 @@ class PreferencesDialog(GladeInterface, IPreferencesMonitor):
 			check_hide_box.set_active(self._preferences.get_bool("HideBoxWarnings", False))
 			
 			
+			check_show_toolbar = self.find_widget("checkShowToolbar")
+			check_show_toolbar.set_active(self._preferences.get_bool("ShowLatexToolbar", True))
+			
+			
 			filechooser_tmp = self.find_widget("filechooserTemplates")
 			filechooser_tmp.set_filename(self._preferences.get("TemplateFolder", find_resource("templates", MODE_READWRITE)))
 			
@@ -569,9 +564,14 @@ class PreferencesDialog(GladeInterface, IPreferencesMonitor):
 								   "on_buttonEditSnippet_clicked" : self._on_edit_snippet_clicked,
 								   "on_comboLanguages_changed" : self._on_language_changed,
 								   "on_checkHideBox_toggled" : self._on_hide_box_toggled,
-								   "on_filechooserTemplates_selection_changed" : self._on_templates_dir_changed })
+								   "on_filechooserTemplates_selection_changed" : self._on_templates_dir_changed,
+								   "on_checkShowToolbar_toggled" : self._on_show_toolbar_toggled })
 			
 		return self._dialog
+	
+	def _on_show_toolbar_toggled(self, togglebutton):
+		value = togglebutton.get_active()
+		self._preferences.set("ShowLatexToolbar", value)
 	
 	def _on_templates_dir_changed(self, filechooser):
 		folder = filechooser.get_filename()

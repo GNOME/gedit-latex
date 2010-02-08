@@ -13,11 +13,9 @@
 	<value key="ShowGraphicsInOutline">True</value>
 	<value key="IssuesShowWarnings">True</value>
 	<value key="IssuesShowTasks">True</value>
-	<value key="ExpandedSymbolGroups">Operators,Arrows</value>
-	<value key="RecentDocumentClass">scrartcl</value>
-	<value key="RecentPaperSize">a4paper</value>
-	<value key="RecentDefaultFontFamily">\sfdefault</value>
+	<value key="ExpandedSymbolGroups">Greek,Operators,Arrows,Special</value>
 	<value key="SaveBeforeTool">True</value>
 	<value key="HideBoxWarnings">False</value>
 	<value key="LatexExtensions">.tex .sty .Rnw</value>
+	<value key="ShowLatexToolbar">True</value>
 </preferences>

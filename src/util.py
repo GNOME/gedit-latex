@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import logging
 
 # This file is part of the Gedit LaTeX Plugin
 #
@@ -162,6 +163,8 @@ class GladeInterface(object):
 	Utility base class for interfaces loaded from a Glade definition 
 	"""
 	
+	__log = logging.getLogger("GladeInterface")
+	
 	filename = None
 	
 	def __init__(self):
@@ -176,7 +179,10 @@ class GladeInterface(object):
 		"""
 		Find a widget by its name
 		"""
-		return self.__get_tree().get_widget(name)
+		widget = self.__get_tree().get_widget(name)
+		if widget is None:
+			self.__log.error("Widget '%s' could not be found in interface description '%s'" % (name, self.filename))
+		return widget
 	
 	def connect_signals(self, mapping):
 		"""
