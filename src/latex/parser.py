@@ -290,6 +290,10 @@ class LocalizedNode(Node):
 			return self[-1].end
 		except IndexError:
 			return self.end
+		except AttributeError:
+			# AttributeError: 'Document' object has no attribute 'end'
+			# FIXME: why can this happen?
+			return self.end
 				
 
 class FatalParseException(Exception):
