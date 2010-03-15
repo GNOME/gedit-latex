@@ -79,8 +79,8 @@ class LaTeXOutlineGenerator(object):
 	
 	# TODO: foreign flag is not necessary
 	
-	_STRUCTURE_LEVELS = { "part" : 1, 
-						  "chapter" : 2, 
+	_STRUCTURE_LEVELS = { "part" : 1, "part*" : 1, 
+						  "chapter" : 2, "chapter*" : 2, 
 						  "section" : 3, "section*" : 3,
 						  "subsection" : 4, "subsection*" : 4,
 						  "subsubsection" : 5, "subsubsection*" : 5,
