@@ -227,7 +227,7 @@ Street, Fifth Floor, Boston, MA  02110-1301, USA
 				<field id="url" />
 			</optional>
 		</type>
-		<type id="MasterThesis">
+		<type id="MastersThesis">
 			<required>
 				<field id="title" />
 				<field id="author" />
