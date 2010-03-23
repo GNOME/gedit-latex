@@ -46,6 +46,8 @@ _log = logging.getLogger("resources")
 # init plugin resource locating
 #
 
+# TODO: switch to gedit.Plugin.get_data_dir()
+
 _PATH_SYSTEM = "/usr/lib/gedit-2/plugins/GeditLaTeXPlugin"
 _PATH_USER = expanduser("~/.gnome2/gedit/plugins/GeditLaTeXPlugin")
 

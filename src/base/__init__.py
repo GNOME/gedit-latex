@@ -1112,7 +1112,7 @@ class File(object):
 	represents the reference to a file.
 	"""
 	
-	# TODO: move this to module 'platform', it's not part of the plugin base...
+	# TODO: use gio.File as underlying implementation
 	
 	@staticmethod
 	def create_from_relative_path(relative_path, working_directory):

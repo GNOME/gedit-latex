@@ -75,15 +75,6 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		self._init_views()
 		self._init_tab_decorators()
 		
-		
-		# create the DBUS service for inverse search
-#		try:
-#			from ..latex.inversesearch import InverseSearchService
-#			self._inverse_search_service = InverseSearchService(self._window_context)
-#		except Exception, e:
-#			self._log.error("Failed to create InverseSearchService: %s" % e)
-		
-		
 		# FIXME: find another way to save a document
 		self._save_action = self._ui_manager.get_action("/MenuBar/FileMenu/FileSaveMenu")
 		
@@ -195,6 +186,10 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		 - create a map from extensions to lists of ToolActions
 		"""
 		
+		# add a MenuToolButton with the tools menu to the toolbar afterwards
+		# FIXME: this is quite hacky
+		menu = gtk.Menu()
+		
 		# this is used for enable/disable actions by name
 		# None stands for every extension
 		self._tool_action_extensions = { None : [] }
@@ -229,6 +224,10 @@ class GeditWindowDecorator(IPreferencesMonitor):
 				self._tool_action_group.add_action_with_accel(gtk_action, "<Ctrl><Alt>%s" % accel_counter)
 				accel_counter += 1
 			
+			# add to MenuToolBar menu
+			# FIXME: GtkWarning: gtk_accel_label_set_accel_closure: assertion `gtk_accel_group_from_accel_closure (accel_closure) != NULL' failed
+			menu.add(gtk_action.create_menu_item())
+			
 			# add UI definition
 			items_ui += """<menuitem action="%s" />""" % name
 			
@@ -238,6 +237,12 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		
 		self._ui_manager.insert_action_group(self._tool_action_group, -1)
 		self._tool_ui_id = self._ui_manager.add_ui_from_string(tool_ui)
+		
+		# add a MenuToolButton with the tools menu to the toolbar
+		self._menu_tool_button = gtk.MenuToolButton(gtk.STOCK_CONVERT)
+		self._menu_tool_button.set_menu(menu)
+		self._menu_tool_button.show_all()
+		self._toolbar.insert(self._menu_tool_button, -1)
 	
 	def save_file(self):
 		"""
@@ -256,6 +261,9 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		# remove actions and ui
 		self._ui_manager.remove_action_group(self._tool_action_group)
 		self._ui_manager.remove_ui(self._tool_ui_id)
+		
+		# remove MenuToolButton
+		self._toolbar.remove(self._menu_tool_button)
 		
 		# re-init tool actions
 		self._init_tool_actions()
@@ -525,7 +533,19 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		notebook.set_current_page(view)
 	
 	def _on_tab_added(self, window, tab):
+		"""
+		A new tab has been added
+		
+		@param window: gedit.Window object
+		@param tab: gedit.Tab object
+		"""
 		self._log.debug("tab_added")
+		
+		if tab in self._tab_decorators:
+			self._log.warning("There is already a decorator for tab %s" % tab)
+			return
+		
+		self._create_tab_decorator(tab)
 			
 	def _on_tab_removed(self, window, tab):
 		"""
