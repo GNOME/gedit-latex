@@ -203,12 +203,12 @@ class PreviewDocument:
 		self._log.debug("Initialize %s" % self)
 		
 		self.__document_path = document_path
-		self.__document_loaded = False
+		self.document_loaded = False
 		if self.__document_path.endswith(".pdf"):
 			self.__document_type = self.TYPE_PDF
 			import poppler
 			self.__document = poppler.document_new_from_file("file://%s" % self.__document_path, None)
-			self.__document_loaded = True
+			self.document_loaded = True
 		elif self.__document_path.endswith(".ps"):
 			self.__document_type = self.TYPE_PS
 			self.__document = None
@@ -447,7 +447,7 @@ class PreviewDocument:
 
 		self._log.debug("Destroy %s" % self)
 		
-		if not self.__document_loaded:
+		if not self.document_loaded:
 			return
 			
 		import ctypes
@@ -903,7 +903,8 @@ class PreviewPanel:
 		# TODO: very nasty hack to detect changes in pdf file
 		# this is a 1000ms loop, there should be an event generated
 		# by the plugin to notify that pdf file was updated
-		self.__check_changes_id = gobject.timeout_add(1000, self.__check_changes)
+		self.__file_update_count = 0
+		self.__check_changes_id = gobject.timeout_add(250, self.__check_changes)
 		
 		# the panel that will contain all visible elements
 		# for the moment only the scrolled window, but there could be 
@@ -926,6 +927,7 @@ class PreviewPanel:
 		key = gtk.gdk.keyval_name(event.keyval)
 		
 		if key == "Tab":
+			# TODO: Get the view in a GeditLaTeXPlugin way...
 			hpane = self.__panel.get_parent()
 			gedit_view = hpane.get_child1().get_children()[0]
 			gedit_view.grab_focus()
@@ -1016,11 +1018,14 @@ class PreviewPanel:
 		If resize_only == True, then only resize the drawing areas.
 		"""
 		
-		try: # try to create a preview for the document, if unable
+		try: # try to create a preview for the document
 			self.__create_preview_panel(event)
-		except Exception as exc: # then show a default document view
+		except Exception as exc: # if unable, then show a default document view
 			self._log.debug("Error while creating preview panel: %s, %s, %s" % (type(exc), exc, exc.args))
 			self._log.debug("Creating default panel")
+			if not self.__document is None:
+				# to prevent a possible crash due to ctypes trying to free memory
+				self.__document.document_loaded = False
 			self.__create_default_panel()
 
 	
@@ -1046,10 +1051,19 @@ class PreviewPanel:
 		@return: True so that the method will be called again by gobject.timeout_add
 		"""
 		
+		# A hack again: self.__file_update_count is there to make sure 
+		# that the file hasn't been modified since at leat for the time 
+		# between two calls of this method, so that we're pretty sure 
+		# that compilation is finished.
 		try:
 			file_time = os.path.getmtime(self.__compiled_file_path)
 			if self.__last_update_time < file_time:
-				self.__update_scrolled_window(self.EVENT_UPDATE_FILE)
+				self.__file_update_count = 3 # change this value and the time interval to adjust
+				self.__last_update_time = file_time
+			elif self.__file_update_count > 0:
+				self.__file_update_count -= 1
+				if self.__file_update_count == 0: 
+					self.__update_scrolled_window(self.EVENT_UPDATE_FILE)
 			return True
 		except:
 			return True
@@ -1477,8 +1491,6 @@ class PreviewPanel:
 		if event.type != gtk.gdk.BUTTON_PRESS:
 			return False
 
-		self.__panel.grab_focus()
-		
 		if event.button == 1:
 			x = event.x
 			y = event.y
@@ -1527,6 +1539,10 @@ class PreviewPanel:
 			menu_properties = gtk.MenuItem("Properties...")
 			popup_menu.add(menu_properties)
 			menu_properties.connect_object("event", self.__on_popup_clicked, "properties", event.time)
+			
+			menu_reload = gtk.MenuItem("Reload")
+			popup_menu.add(menu_reload)
+			menu_reload.connect_object("event", self.__on_popup_clicked, "reload", event.time)			
 			
 			menu_open = gtk.MenuItem("Open in default viewer")
 			popup_menu.add(menu_open)
@@ -1632,6 +1648,8 @@ class PreviewPanel:
 				self.toggle_continuous()
 			elif widget == "properties":
 				self.__properties_dialog = DocumentPropertiesDialog(self.__document)
+			elif widget == "reload":
+				self.__update_scrolled_window(self.EVENT_UPDATE_FILE)
 			elif widget == "open":
 				self.__document.open_in_external_viewer()
 		return False
@@ -2361,6 +2379,7 @@ class MagnifyingGlass:
 		self.__drawing_area.show()
 		
 		if self.USE_PIXBUF:
+			self.__pixbuf = None
 			self.__expose_id = self.__drawing_area.connect("expose-event", self.__on_expose_with_pixbuf)
 		else:
 			self.__expose_id = self.__drawing_area.connect("expose-event", self.__on_expose)
@@ -2386,6 +2405,8 @@ class MagnifyingGlass:
 	def set_preview_scale(self, preview_scale):
 		self.__preview_scale = preview_scale
 		self.__total_scale = self.__scale * self.__preview_scale
+		if self.USE_PIXBUF:
+			self.__pixbuf = None
 
 
 	def is_shown(self):
@@ -2406,10 +2427,27 @@ class MagnifyingGlass:
 			self.__page = page
 			self.__page_width, self.__page_height = self.__document.get_page_size(page)
 			
+			if self.USE_PIXBUF:
+				self.__update_pixbuf()
+			
 		self.__page_center_x = x
 		self.__page_center_y = y	
 	
 	
+	def __update_pixbuf(self):
+		scale = self.__total_scale
+		width = int(self.__page_width * scale)
+		height = int(self.__page_height * scale)
+		
+		self.__pixbuf = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, False, 8, width, height)
+		self.__pixbuf.fill(0xffffffff)
+
+		# Strange: render_to_pixbuf doesn't take into account the width 
+		# and height given as 4th and 5th arguments here...
+		# And it is VERY slow...
+		self.__document.render_page_to_pixbuf(self.__page, 0, 0, width, height, scale, 0, self.__pixbuf)
+
+
 	def __on_expose(self, drawing_area, event):
 		cr = drawing_area.window.cairo_create()
 
@@ -2430,37 +2468,14 @@ class MagnifyingGlass:
 	def __on_expose_with_pixbuf(self, drawing_area, event):
 		scale = self.__scale * self.__preview_scale
 		
-		translate_x = (self.__page_center_x - (self.__width / scale) / 2)
-		translate_y = (self.__page_center_y - (self.__height / scale) / 2)
+		translate_x = (self.__page_center_x * scale - self.__width / 2.0)
+		translate_y = (self.__page_center_y * scale - self.__height / 2.0)
 
-		pixbuf = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, False, 8, self.__width, self.__height)
-		pixbuf.fill(0xffffffff)
-
-		# Strange: render_to_pixbuf doesn't take into account the width 
-		# and height given as 4th and 5th arguments here...
-		# And it is VERY slow...
-		self.__document.render_page_to_pixbuf(self.__page, int(translate_x * scale), int(translate_y * scale), self.__width, self.__height, scale, 0, pixbuf)
-
-		drawing_area.window.draw_pixbuf(None, pixbuf, 0, 0, 0, 0)
-
-		# TODO: Check this (from pygtk FAQ I think):
-		#~ 
-		#~ You can make use of cairo to do this. First, create a gtk.DrawingArea based class, and connect the expose-event to your expose func.
-		#~ 
-		#~ class draw(gtk.gdk.DrawingArea):
-			#~ def __init__(self):
-				#~ self.connect('expose-event', self._do_expose)
-				#~ self.pixbuf = self.gen_pixbuf_from_file(PATH_TO_THE_FILE)
-		#~ 
-			#~ def _do_expose(self, widget, event):
-				#~ cr = self.window.cairo_create()
-				#~ cr.set_operator(cairo.OPERATOR_SOURCE)
-				#~ cr.set_source_rgb(1,1,1)
-				#~ cr.paint()
-				#~ cr.set_source_pixbuf(self.pixbuf, 0, 0)
-				#~ cr.paint()
-		#~ 
-		#~ This will draw the image every time the expose-event is emited.
+		cr = drawing_area.window.cairo_create()
+		if self.__pixbuf is None:
+			self.__update_pixbuf()
+		cr.set_source_pixbuf(self.__pixbuf, -translate_x, -translate_y)
+		cr.paint()
 
 
 	def refresh(self):
