@@ -410,6 +410,13 @@ class LaTeXItalicAction(LaTeXTemplateAction):
 	icon_name = "it"
 	template_source = "\\textit{$_}"
 	
+
+class LaTeXEmphasizeAction(LaTeXTemplateAction):
+	label = "Emphasize"
+	tooltip = "Emphasize"
+	icon_name = "it"
+	template_source = "\\emph{$_}"
+	
 	
 class LaTeXUnderlineAction(LaTeXTemplateAction):
 	label = "Underline"

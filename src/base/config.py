@@ -73,6 +73,7 @@ UI = """
 				<menu action="LaTeXFontFamilyMenuAction">
 					<menuitem action="LaTeXBoldAction" />
 					<menuitem action="LaTeXItalicAction" />
+					<menuitem action="LaTeXEmphasizeAction" />
 					<menuitem action="LaTeXUnderlineAction" />
 					<menuitem action="LaTeXSmallCapitalsAction" />
 					<menuitem action="LaTeXRomanAction" />
@@ -132,7 +133,7 @@ UI = """
 
 from ..latex.actions import LaTeXMenuAction, LaTeXNewAction, LaTeXCommentAction, LaTeXPreviewAction, LaTeXSpellCheckAction, LaTeXChooseMasterAction, \
 		LaTeXItemizeAction, LaTeXEnumerateAction, LaTeXFontFamilyAction, LaTeXFontFamilyMenuAction, LaTeXBoldAction, \
-		LaTeXItalicAction, LaTeXDescriptionAction, LaTeXStructureMenuAction, LaTeXPartAction, LaTeXChapterAction, \
+		LaTeXItalicAction, LaTeXEmphasizeAction, LaTeXDescriptionAction, LaTeXStructureMenuAction, LaTeXPartAction, LaTeXChapterAction, \
 		LaTeXSectionAction, LaTeXSubsectionAction, LaTeXParagraphAction,LaTeXSubparagraphAction, LaTeXStructureAction, \
 		LaTeXGraphicsAction, LaTeXUseBibliographyAction, LaTeXTableAction, LaTeXListingAction, LaTeXJustifyLeftAction, \
 		LaTeXJustifyCenterAction, LaTeXJustifyRightAction, LaTeXMathMenuAction, LaTeXMathAction, LaTeXDisplayMathAction, \
@@ -146,7 +147,7 @@ from ..bibtex.actions import BibTeXMenuAction, BibTeXNewEntryAction
 
 ACTIONS = [ LaTeXMenuAction, LaTeXNewAction, LaTeXCommentAction, LaTeXPreviewAction, LaTeXSpellCheckAction, LaTeXChooseMasterAction, 
 		LaTeXItemizeAction, LaTeXEnumerateAction, LaTeXFontFamilyAction, LaTeXFontFamilyMenuAction, LaTeXBoldAction, 
-		LaTeXItalicAction, LaTeXDescriptionAction, LaTeXStructureMenuAction, LaTeXPartAction, LaTeXChapterAction, 
+		LaTeXItalicAction, LaTeXEmphasizeAction, LaTeXDescriptionAction, LaTeXStructureMenuAction, LaTeXPartAction, LaTeXChapterAction, 
 		LaTeXSectionAction, LaTeXSubsectionAction, LaTeXParagraphAction,LaTeXSubparagraphAction, LaTeXStructureAction, 
 		LaTeXGraphicsAction, LaTeXUseBibliographyAction, LaTeXTableAction, LaTeXListingAction, LaTeXJustifyLeftAction, 
 		LaTeXJustifyCenterAction, LaTeXJustifyRightAction, LaTeXMathMenuAction, LaTeXMathAction, LaTeXDisplayMathAction, 
