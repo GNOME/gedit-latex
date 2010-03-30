@@ -503,6 +503,19 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		#
 		self._set_selected_bottom_view(self._selected_bottom_views[tab_decorator])
 		self._set_selected_side_view(self._selected_side_views[tab_decorator])
+		
+		
+		# update latex_previews
+		latex_previews = self._window_context.latex_previews
+		if latex_previews != None and tab_decorator.tab in latex_previews.split_views:
+			tab = tab_decorator.tab
+			panel = latex_previews.preview_panels[tab].get_panel()
+			parent = panel.get_parent()
+			if parent != latex_previews.split_views[tab]:
+				parent.remove(panel)
+				latex_previews.split_views[tab].pack2(panel, False, True)
+				latex_previews.split_views[tab].set_position(parent.get_position())
+		
 	
 	def _get_selected_bottom_view(self):
 		notebook = self._window.get_bottom_panel().get_children()[0].get_children()[0]
@@ -555,7 +568,12 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		@param tab: the closed GeditTab
 		"""
 		self._log.debug("tab_removed")
-		
+
+		# properly remove the latex preview, if any
+		latex_previews = self._window_context.latex_previews
+		if latex_previews != None and tab in latex_previews.split_views:
+			latex_previews.hide(tab)
+
 		self._tab_decorators[tab].destroy()
 		del self._tab_decorators[tab]
 		
@@ -717,12 +735,9 @@ class GeditTabDecorator(object):
 				
 				self._file = file
 				
-				latex_preview = None
-				
 				# URI has changed - manage the editor instance
 				if self._editor:
-					# editor is present - save latex_preview and destroy editor
-					latex_preview = self._editor.latex_preview
+					# editor is present - destroy editor
 					self._editor.destroy()
 					self._editor = None
 	
@@ -741,12 +756,12 @@ class GeditTabDecorator(object):
 					self._editor = editor_class.__new__(editor_class)
 					editor_class.__init__(self._editor, self, file)
 					
-					# transfer latex_preview from the old editor to the new one
-					if latex_preview != None:
-						self._editor.latex_preview = latex_preview
-						current_tab = self._window_decorator._window.get_active_tab()
-						pdf_file_path = "%s.pdf" % file.shortname
-						self._editor.latex_preview.update_file_path(current_tab, pdf_file_path)
+					# update the file path in latex_previews
+					current_tab = self._window_decorator._window.get_active_tab()
+					pdf_file_path = "%s.pdf" % file.shortname
+					latex_previews = self._window_decorator._window_context.latex_previews
+					if latex_previews != None and latex_previews.is_shown(current_tab):
+						latex_previews.update_file_path(current_tab, pdf_file_path)
 					
 					# The following doesn't work because the right expression is evaluated
 					# and then assigned to the left. This means that Editor.__init__ is
@@ -769,6 +784,11 @@ class GeditTabDecorator(object):
 					#self._editor = editor_class(self, file)
 				else:
 					self._log.warning("No editor class found for extension %s" % extension)
+
+					current_tab = self._window_decorator._window.get_active_tab()
+					latex_previews = self._window_decorator._window_context.latex_previews
+					if latex_previews != None and latex_previews.is_shown(current_tab):
+						latex_previews.hide(current_tab)
 				
 				# tell WindowDecorator to adjust actions
 				self._window_decorator.adjust(self)

@@ -34,37 +34,37 @@ import pango
 import logging
 
 from ..preferences import Preferences
+from ..base import File		
 
 
 """
 TODO:
 - Make the "padding" in PreviewPanel a constant defined at the beginning. 
   It is used in too many places with the explicit value "2".
-- Move the latex_preview variable from editor to something else, 
-  because LaTeXPreviex is supposed to keep track of all previews, but 
-  there is one editor per tab, so there are plenty of latex_preview 
-  variables, each keeping track of one preview...
 - Replace the popup menu items by Actions from latex/actions.py, and add 
   these also to the "Embedded Preview" menu (Next page, Previous page, 
   Toggle continuous, Document properties, Open in default viewer).
 - Add toolbar items to check and modify the zoom status and page number.
-- Add SyncTeX support.
 - ...
 """
 
 
-class LatexPreview:
+class LaTeXPreviews:
 	"""
 	Class that manages all tab's preview panels.
 	"""
 	
-	def __init__(self):
+	_log = logging.getLogger("LaTeXPreviews")
+	
+	def __init__(self, context):
 		"""
 		Initializes the PDF preview.
 		"""
 		
 		self._preferences = Preferences()
 		
+		self._context = context
+
 		# keep track of all gedit tabs that have preview enabled
 		self.__pane_position_id = {}
 		self.split_views = {}
@@ -103,18 +103,35 @@ class LatexPreview:
 			return
 		
 		# Get the preferred width for the pdf preview (default: (A4 width (scale 1) + scrollbar) (=620) + shadow)
-		self.__preview_width = int(self._preferences.get("PdfPreviewWidth", 623))
+		preview_width = int(self._preferences.get("PdfPreviewWidth", 623))
 		
 		# Here we assume that the tab only contains the scrolled window containing the view
 		# (actually another plugin could have added another view in the tab...)
 		old_scrolled_view = tab.get_children()[0]
 		tab.remove(old_scrolled_view)
 
-		# Create the preview
-		preview_panel = PreviewPanel(compiled_file_path)
+		preview_panel = None
+		
+		# If the same pdf is already opened for another source file,
+		# we use the same panel for both
+		for tabb in self.preview_panels:
+			if self.preview_panels[tabb].file_path == compiled_file_path:
+				preview_panel = self.preview_panels[tabb]
+				preview_panel.get_panel().get_parent().remove(preview_panel.get_panel())
+				
+				total_width = self.split_views[tabb].get_property("max-position")
+				position = self.split_views[tabb].get_position()
+				preview_width = total_width - position
+				
+				break
+			
+		# If not, create the panel
+		if preview_panel == None:
+			preview_panel = PreviewPanel(self, compiled_file_path)
+
 		self.preview_panels[tab] = preview_panel
 
-		# Create the Paned object which will contin the old view and the preview
+		# Create the Paned object which will contain the old view and the preview
 		self.split_views[tab] = gtk.HPaned()
 
 		# Add the two scrolled windows to our Paned object.
@@ -123,7 +140,7 @@ class LatexPreview:
 		self.split_views[tab].pack2(preview_panel.get_panel(), False, True)
 
 		# Request the preferred width for the preview
-		self.split_views[tab].get_child2().set_size_request(self.__preview_width, -1)
+		self.split_views[tab].get_child2().set_size_request(preview_width, -1)
 
 		# Monitor the handle position to keep the document centered
 		self.__pane_position_id[tab] = self.split_views[tab].connect("notify::position", self.__pane_moved)
@@ -133,8 +150,6 @@ class LatexPreview:
 		
 		tab.show_all()
 		preview_panel.get_panel().grab_focus()
-		#~ old_scrolled_view.grab_focus()
-		#~ print self.split_views[tab].get_focus_chain()
 
 
 	def hide(self, tab):
@@ -145,8 +160,22 @@ class LatexPreview:
 		
 		original_view = self.split_views[tab].get_child1()
 
-		self.preview_panels[tab].destroy()
+		preview_panel = self.preview_panels[tab]
 		self.preview_panels.pop(tab)
+
+		destroy_panel = True
+		for tabb in self.preview_panels:
+			if self.preview_panels[tabb] == preview_panel:
+				self._log.debug("Found another split view for the same output file, not destroying this panel.")
+				destroy_panel = False
+				panel = preview_panel.get_panel()
+				parent = panel.get_parent()
+				parent.remove(panel)
+				self.split_views[tabb].pack2(panel, False, True)
+				self.split_views[tabb].set_position(parent.get_position())
+				break
+		if destroy_panel:
+			preview_panel.destroy()
 		
 		self.split_views[tab].disconnect(self.__pane_position_id[tab])
 		del self.__pane_position_id[tab]
@@ -164,10 +193,67 @@ class LatexPreview:
 		Updates the compiled file path for the preview.
 		Called on "Save as...".
 		"""
+
+		old_path = self.preview_panels[tab].file_path
+		if compiled_file_path == old_path:
+			return
 		
+		complete_update_needed = False
+		for tabb in self.preview_panels:
+			if (tabb != tab and self.preview_panels[tabb].file_path == old_path) \
+					or self.preview_panels[tabb].file_path == compiled_file_path:
+				complete_update_needed = True
+		if complete_update_needed:
+			self.hide(tab)
+			self.show(tab, compiled_file_path)
+			return
+			
 		self.preview_panels[tab].update_file_path(compiled_file_path)
 
 
+	def sync_view(self, tab, source_file, line, column, output_file):
+		"""
+		Called by the editor to view the corresponding output.
+		"""
+
+		if not self.is_shown(tab):
+			self.show(tab, output_file)
+			# When we are in this case, as opening the preview 
+			# takes some time, calling directly sync_view does nothing.
+			# Thus we wait for the panel to be opened to send the call.
+			self.__sync_handler = gobject.idle_add(self.__sync_view, tab, source_file, line, column, output_file)
+			return
+		
+		self.preview_panels[tab].sync_view(source_file, line, column, output_file)
+		self.preview_panels[tab].get_panel().grab_focus()
+		
+	
+	def __sync_view(self, tab, source_file, line, column, output_file):
+		self.preview_panels[tab].sync_view(source_file, line, column, output_file)
+		self.preview_panels[tab].get_panel().grab_focus()
+		gobject.source_remove(self.__sync_handler)
+				
+	
+	def sync_edit(self, source_file, output_file, line, column, offset, context):
+		"""
+		Called by the (internal) viewer to edit the corresponding source.
+		"""
+		
+		self._log.debug("Sync edit. Source:%s, Output:%s, Line:%d, Column:%d, Offset:%d, Context:%s" % (source_file, output_file, line, column, offset, context))
+		
+		self._context.activate_editor(File("file://%s" % source_file))
+		editor = self._context.active_editor
+		
+		if type(editor) == type(None):
+			# This happens when we are in a .toc file for example.
+			return
+
+		editor._text_buffer.goto_line(line - 1)
+		editor._text_view.scroll_to_cursor()
+
+		editor._text_view.grab_focus()
+		
+		
 	def __pane_moved(self, pane, paramspec):
 		"""
 		Saves the width of the preview each time it is modified.
@@ -175,8 +261,8 @@ class LatexPreview:
 
 		total_width = pane.get_property("max-position")
 		position = pane.get_position()
-		self.__preview_width = total_width - position
-		self._preferences.set("PdfPreviewWidth", self.__preview_width)
+		preview_width = total_width - position
+		self._preferences.set("PdfPreviewWidth", preview_width)
 
 
 
@@ -205,8 +291,14 @@ class PreviewDocument:
 		self.__document_path = document_path
 		self.document_loaded = False
 		if self.__document_path.endswith(".pdf"):
+			try:
+				import poppler
+			except:
+				self._log.warning("Error loading poppler (python-poppler not installed ?).")
+				self.__document_type = None
+				self.__document = None
+				return
 			self.__document_type = self.TYPE_PDF
-			import poppler
 			self.__document = poppler.document_new_from_file("file://%s" % self.__document_path, None)
 			self.document_loaded = True
 		elif self.__document_path.endswith(".ps"):
@@ -413,7 +505,7 @@ class PreviewDocument:
 			links = []
 			for link in lm:
 				# area is in PDF coordinates (bottom-left based), so we
-				# first convert them to top-left page coordinates
+				# first convert them to top-left based page coordinates
 				area = link.area
 				(x1, y1, x2, y2) = area.x1, height - area.y2, area.x2, height - area.y1
 				
@@ -430,7 +522,7 @@ class PreviewDocument:
 					uri = link.action.uri
 					links.append(PreviewDocumentLinkURI(self, page, x1, y1, x2, y2, uri))
 				else:
-					print link.action
+					self._log.debug("Action not handled: %s" % link.action)
 				
 			return links
 			
@@ -601,14 +693,18 @@ class PreviewLink(gtk.EventBox):
 
 		
 	def __on_button_press(self, widget, event):
-		# prevent the signal from being passed to the preview panel
-		if event.button == 1:
+		# prevent the signal from being passed to the preview panel,
+		# except for Ctrl+Left button for synctex
+		if event.button == 1 and not (event.state & gtk.gdk.CONTROL_MASK):
 			return True
 		else:
 			return False
 		
 
 	def __on_button_release(self, widget, event):
+		if event.state & gtk.gdk.CONTROL_MASK:
+			return False
+			
 		self.__preview_panel.set_cursor(PreviewPanel.CURSOR_DEFAULT)
 		self.__preview_panel.get_scrolled_window().set_tooltip_text(None)		
 		self.doc_link.activate(self.__preview_panel)
@@ -790,6 +886,65 @@ class GlassDrag:
 
 	
 	
+class SyncRectangle:
+	"""
+	Class that manages the highlighted rectangle in the preview
+	when synchroning through synctex. Initialized in
+	PreviewPanel.__init__() and used in PreviewPanel.sync_view()
+	and PreviewPanel.__on_expose().
+	"""
+
+	def __init__(self):
+		self.show_me = False
+		self.__handler = None
+		
+		
+	def show(self, page, x, y, width, height, drawing_area, scale):
+		if self.__handler != None:
+			self.hide()
+
+		self.show_me = True
+		
+		self.page = page
+		self.x = x
+		self.y = y
+		self.width = width
+		self.height = height
+		self.drawing_area = drawing_area
+		self.scale = scale
+		
+		self.__handler = gobject.timeout_add(1000, self.hide)
+		
+		self.drawing_area.window.invalidate_rect( \
+					gtk.gdk.Rectangle(int(self.x*self.scale)-4, \
+									  int(self.y*self.scale)-4, \
+									  int(self.width*self.scale)+8, \
+									  int(self.height*self.scale)+8), \
+					False)
+		
+		
+	def hide(self):
+		self.show_me = False
+		gobject.source_remove(self.__handler)
+		
+		self.drawing_area.window.invalidate_rect( \
+					gtk.gdk.Rectangle(int(self.x*self.scale)-4, \
+									  int(self.y*self.scale)-4, \
+									  int(self.width*self.scale)+8, \
+									  int(self.height*self.scale)+8), \
+					False)
+		
+		return False
+		
+	def draw(self, cr, page):
+		if self.show_me == True and self.page == page:
+			cr.set_line_width(2)
+			cr.set_source_rgb(255, 0, 0)
+			cr.rectangle(self.x, self.y, self.width, self.height)
+			cr.stroke()
+
+		
+		
 class PreviewPanel:
 	"""
 	This class contains a view of the compiled file. A gtk.Vbox is created
@@ -820,7 +975,7 @@ class PreviewPanel:
 	
 	DELAY_ZOOM = True
 	
-	def __init__(self, compiled_file_path):
+	def __init__(self, latex_previews, compiled_file_path):
 		"""
 		Creates a PreviewPanel given a compiled file path
 		@param compiled_file_path: the path to the compiled file
@@ -830,6 +985,8 @@ class PreviewPanel:
 		
 		self._preferences = Preferences()
 
+		self.__latex_previews = latex_previews
+		
 		self.__scale = float(self._preferences.get("PdfPreviewScale", 1.0))
 		self.__scale_list = [0.25, 0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0, 3.0, 4.0, 6.0, 8.0, 10.0, 12.0, 14.0, 16.0]
 
@@ -892,6 +1049,8 @@ class PreviewPanel:
 		
 		self.__links = {}
 		
+		self.__sync_rectangle = SyncRectangle()
+
 		# Cursors. Used in self.set_cursor().
 		self.__cursor_default = None
 		self.__cursor_drag = gtk.gdk.Cursor(gtk.gdk.HAND1)
@@ -927,10 +1086,7 @@ class PreviewPanel:
 		key = gtk.gdk.keyval_name(event.keyval)
 		
 		if key == "Tab":
-			# TODO: Get the view in a GeditLaTeXPlugin way...
-			hpane = self.__panel.get_parent()
-			gedit_view = hpane.get_child1().get_children()[0]
-			gedit_view.grab_focus()
+			self.__latex_previews._context.active_editor._text_view.grab_focus()
 		elif key == "Up":
 			self.scroll_up()
 		elif key == "Down":
@@ -1021,10 +1177,10 @@ class PreviewPanel:
 		try: # try to create a preview for the document
 			self.__create_preview_panel(event)
 		except Exception as exc: # if unable, then show a default document view
-			self._log.debug("Error while creating preview panel: %s, %s, %s" % (type(exc), exc, exc.args))
-			self._log.debug("Creating default panel")
+			self._log.warning("Error while creating preview panel: %s, %s, %s" % (type(exc), exc, exc.args))
+			self._log.warning("Creating default panel")
 			if not self.__document is None:
-				# to prevent a possible crash due to ctypes trying to free memory
+				# to prevent a possible crash due to ctypes trying to free memory not allocated
 				self.__document.document_loaded = False
 			self.__create_default_panel()
 
@@ -1051,14 +1207,30 @@ class PreviewPanel:
 		@return: True so that the method will be called again by gobject.timeout_add
 		"""
 		
+		TIMES = 3
+		
 		# A hack again: self.__file_update_count is there to make sure 
-		# that the file hasn't been modified since at leat for the time 
-		# between two calls of this method, so that we're pretty sure 
-		# that compilation is finished.
+		# that the file hasn't been modified since at least TIMES times 
+		# the time between two calls of this method, so that we're 
+		# pretty sure that compilation is finished. 
+		#
+		# (For example, we check for a file change every 250 ms. 
+		# If the file has not changed for 4 times 250 ms, we assume 
+		# that compilation is finished. Although this sums up to 
+		# 1 second, this is finer than checking 1 time after 1 second, 
+		# because in the latter case, it may take up to 2 seconds 
+		# to be sure that we can update, whereas for the former 
+		# it takes up to 1.25 second. The interval of 1 second is 
+		# arbitrary, but with a shorter one, we face the problem that 
+		# when the compilation process involves bibtex or other 
+		# programs, the main output doesn't change while the 
+		# auxiliary files are updated (.toc, .aux, etc.), so we could 
+		# think that compilation is finished although it is not, and 
+		# end up with a broken output file.)
 		try:
 			file_time = os.path.getmtime(self.__compiled_file_path)
 			if self.__last_update_time < file_time:
-				self.__file_update_count = 3 # change this value and the time interval to adjust
+				self.__file_update_count = TIMES
 				self.__last_update_time = file_time
 			elif self.__file_update_count > 0:
 				self.__file_update_count -= 1
@@ -1353,6 +1525,9 @@ class PreviewPanel:
 		
 		if event in [self.EVENT_CREATE, self.EVENT_UPDATE_FILE] or self.__document == None:
 			self.__document = PreviewDocument(self.__compiled_file_path)
+			if self.__document == None or not self.__document.document_loaded:
+				# TODO: Raise our own exception
+				raise Exception, "Error when opening the output file %s" % self.__compiled_file_path
 			self.__last_update_time = os.path.getmtime(self.__compiled_file_path)
 
 		old_n = len(self.__drawing_areas)
@@ -1462,6 +1637,8 @@ class PreviewPanel:
 		cr = self.__initialize_cairo_page(widget, event, i)
 		self.__document.render_page(cr, j)
 		self.__create_page_border(cr, i)
+		
+		self.__sync_rectangle.draw(cr, j)
 
 
 	def __on_expose_default(self, widget, event):
@@ -1491,11 +1668,16 @@ class PreviewPanel:
 		if event.type != gtk.gdk.BUTTON_PRESS:
 			return False
 
+		self.__panel.grab_focus()
+ 
 		if event.button == 1:
 			x = event.x
 			y = event.y
 			
-			self.__glass_drag.start(self.__magnifying_glass, x, y)
+			if event.state & gtk.gdk.CONTROL_MASK:
+				self.__sync_edit(x,y)
+			else:
+				self.__glass_drag.start(self.__magnifying_glass, x, y)
 
 			return True
 			
@@ -2171,13 +2353,16 @@ class PreviewPanel:
 			
 		if self.__type_of_view == self.VIEW_CONTINUOUS: # continous
 			adj = self.get_vadjustment()
-			adj.set_value(self.__page_position[new_page])
+			value = max(adj.lower, min(adj.upper - adj.page_size, self.__page_position[new_page]))
+			adj.set_value(value)
 		else: # single page
 			self.__current_page = new_page
 			self.__update_scrolled_window(self.EVENT_CHANGE_PAGE)
 
 
-	def go_to_page_and_position(self, page, y):	
+	def go_to_page_and_position(self, page, y):
+		# TODO: Add an argument for choosing where to put 
+		# the destination: at the top, middle, or bottom of the view.
 		if page < 0 or page > self.__document.get_n_pages():
 			return False
 			
@@ -2225,6 +2410,122 @@ class PreviewPanel:
 			self.__last_vertical_scroll_position = last_pos + self.__page_position[current_page]
 
 
+	def __sync_edit(self, x, y):
+		"""
+		Called on Ctrl+Click at some point in the output, to sync with 
+		the corresponding source through synctex. (x,y) is the position 
+		in the scrolled window.
+		"""
+		
+		page, page_x, page_y = self.get_page_and_position_from_pointer(x, y)
+			
+		import subprocess
+		import sys
+
+		cmd = ["synctex", "edit", "-o", "%d:%d:%d:%s" % (page + 1, page_x, page_y, self.__compiled_file_path)]
+		try:
+			p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+		except OSError:
+			self._log.warning("Synctex not found. Please install the synctex package from your TeX distribution.")
+			return
+
+		found_a_place = False
+		for l in iter(p.stdout.readline, ''):
+			tag, sep, value = l.strip("\n").partition(":")
+			if tag == "SyncTeX ERROR":
+				self._log.warning("%s: %s" % (tag, value))
+				self._log.warning("Use the '\synctex=1' command in your preamble.")
+				return
+			elif tag == "Output":
+				# We only keep the first result.
+				if found_a_place == True:
+					break
+				else:
+					found_a_place = True
+				output = value
+			elif tag == "Input":
+				input = value
+			elif tag == "Line":
+				line = int(value)
+			elif tag == "Column":
+				column = int(value)
+			elif tag == "Offset":
+				offset = int(value)
+			elif tag == "Context":
+				context = value
+			sys.stdout.flush() 
+		p.wait()
+		
+		if not found_a_place:
+			return
+
+		self.__latex_previews.sync_edit(input, output, line, column, offset, context)
+				
+	
+	def sync_view(self, source_file, line, column, output_file):
+		import subprocess
+		import sys
+
+		found_a_place = False
+		
+		cmd = ["synctex", "view", "-i", "%d:%d:%s" % (line, column, source_file), "-o", output_file]
+		try:
+			p = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+		except OSError:
+			self._log.warning("Synctex not found. Please install the synctex package from your TeX distribution.")
+			return
+			
+		for l in iter(p.stdout.readline, ''):
+			tag, sep, value = l.strip("\n").partition(":")
+			if tag == "SyncTeX ERROR":
+				self._log.warning("%s: %s" % (tag, value))
+				self._log.warning("Use the '\synctex=1' command in your preamble.")
+				return
+			elif tag == "Output":
+				# We only keep the first result.
+				if found_a_place == True:
+					break
+				else:
+					found_a_place = True
+			elif tag == "Page":
+				page = int(value)
+			elif tag == "x":
+				x = float(value)
+			elif tag == "y":
+				y = float(value)
+			elif tag == "h":
+				h = float(value)
+			elif tag == "v":
+				v = float(value)
+			elif tag == "W":
+				W = float(value)
+			elif tag == "H":
+				H = float(value)
+			# For synchronization by offset, use the tags:
+			# before, offset, middle, after
+			# Run "synctex view" for more information.
+
+			sys.stdout.flush()
+		p.wait()
+
+		if not found_a_place:
+			return
+		
+		self._log.debug("Sync view. Found values: page:%d, x:%f, y:%f, h:%f, v:%f, W:%f, H:%f." % (page, x, y, h, v, W, H))
+		
+		# TODO: implement a method to make sure the box with top-left 
+		# and bottom-right corners (h, v - H) and (h + W, v) is visible.
+		# Currently, we only scroll to put the vertical position v - H 
+		# of page "page", at the middle of the pdf preview.
+		if self.__type_of_view == self.VIEW_CONTINUOUS:
+			index = page - 1
+		else:
+			index = 0
+		view_height = self.get_vadjustment().page_size
+		self.go_to_page_and_position(page - 1, v - H/2 - (view_height/self.scale)/2)
+		self.__sync_rectangle.show(page - 1, h, v - H, W, H, self.__drawing_areas[index], self.scale)
+
+		
 	def __connect_mouse_events(self):
 		"""
 		Connects mouse events. Called by 

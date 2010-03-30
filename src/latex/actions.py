@@ -257,6 +257,8 @@ class LaTeXPreviewAction(LaTeXAction):
 	
 
 class LaTeXPreviewToggleAction(LaTeXAction):
+	_log = getLogger("LaTeXPreviewToggleAction")
+	
 	label = "Toggle Embedded Preview"
 	stock_id = gtk.STOCK_ZOOM_FIT				 # TODO: Create and use a better icon 
 	accelerator = "<Ctrl><Shift>T"
@@ -265,14 +267,26 @@ class LaTeXPreviewToggleAction(LaTeXAction):
 	@verbose
 	def activate(self, context):
 		editor = context.active_editor
-		assert type(editor) is LaTeXEditor
-		pdf_file_path = "%s.pdf" % editor.file.shortname
+		if not type(editor) is LaTeXEditor:
+			return
 
-		from livepreview import LatexPreview
-		if editor.latex_preview == None:
-			editor.latex_preview = LatexPreview()
+		from livepreview import LaTeXPreviews
+		if context.latex_previews == None:
+			context.latex_previews = LaTeXPreviews(context)
 		current_tab = context._window_decorator._window.get_active_tab()
-		editor.latex_preview.toggle(current_tab, pdf_file_path)
+
+		try:
+			pdf_file_path = "%s.pdf" % editor.file.shortname
+		except Exception as exc:
+			# This happens when a .tex document has no master file.
+			# Is it a bug ? Or should one catch this exception ?
+			self._log.debug("Exception catched. %s" % exc)
+			if context.latex_previews.is_shown(current_tab):
+				context.latex_previews.hide(current_tab)
+				self._log.debug("Closing the preview.")
+			return
+
+		context.latex_previews.toggle(current_tab, pdf_file_path)
 
 
 class LaTeXPreviewZoomInAction(LaTeXAction):
@@ -283,11 +297,12 @@ class LaTeXPreviewZoomInAction(LaTeXAction):
 
 	def activate(self, context):
 		editor = context.active_editor
-		assert type(editor) is LaTeXEditor
+		if not type(editor) is LaTeXEditor:
+			return
 		
 		current_tab = context._window_decorator._window.get_active_tab()
-		if editor.latex_preview != None and (current_tab in editor.latex_preview.split_views):
-			editor.latex_preview.preview_panels[current_tab].zoom_in()
+		if context.latex_previews != None and (current_tab in context.latex_previews.split_views):
+			context.latex_previews.preview_panels[current_tab].zoom_in()
 
 
 class LaTeXPreviewZoomOutAction(LaTeXAction):
@@ -298,11 +313,12 @@ class LaTeXPreviewZoomOutAction(LaTeXAction):
 
 	def activate(self, context):
 		editor = context.active_editor
-		assert type(editor) is LaTeXEditor
-
+		if not type(editor) is LaTeXEditor:
+			return
+			
 		current_tab = context._window_decorator._window.get_active_tab()
-		if editor.latex_preview != None and (current_tab in editor.latex_preview.split_views):
-			editor.latex_preview.preview_panels[current_tab].zoom_out()
+		if context.latex_previews != None and (current_tab in context.latex_previews.split_views):
+			context.latex_previews.preview_panels[current_tab].zoom_out()
 
 
 class LaTeXPreviewScrollUpAction(LaTeXAction):
@@ -313,11 +329,12 @@ class LaTeXPreviewScrollUpAction(LaTeXAction):
 
 	def activate(self, context):
 		editor = context.active_editor
-		assert type(editor) is LaTeXEditor
-		
+		if not type(editor) is LaTeXEditor:
+			return
+			
 		current_tab = context._window_decorator._window.get_active_tab()
-		if editor.latex_preview != None and (current_tab in editor.latex_preview.split_views):
-			editor.latex_preview.preview_panels[current_tab].scroll_up()
+		if context.latex_previews != None and (current_tab in context.latex_previews.split_views):
+			context.latex_previews.preview_panels[current_tab].scroll_up()
 
 
 class LaTeXPreviewScrollDownAction(LaTeXAction):
@@ -328,11 +345,12 @@ class LaTeXPreviewScrollDownAction(LaTeXAction):
 
 	def activate(self, context):
 		editor = context.active_editor
-		assert type(editor) is LaTeXEditor
-		
+		if not type(editor) is LaTeXEditor:
+			return
+			
 		current_tab = context._window_decorator._window.get_active_tab()
-		if editor.latex_preview != None and (current_tab in editor.latex_preview.split_views):
-			editor.latex_preview.preview_panels[current_tab].scroll_down()
+		if context.latex_previews != None and (current_tab in context.latex_previews.split_views):
+			context.latex_previews.preview_panels[current_tab].scroll_down()
 
 
 class LaTeXPreviewScrollLeftAction(LaTeXAction):
@@ -343,11 +361,12 @@ class LaTeXPreviewScrollLeftAction(LaTeXAction):
 
 	def activate(self, context):
 		editor = context.active_editor
-		assert type(editor) is LaTeXEditor
-		
+		if not type(editor) is LaTeXEditor:
+			return
+			
 		current_tab = context._window_decorator._window.get_active_tab()
-		if editor.latex_preview != None and (current_tab in editor.latex_preview.split_views):
-			editor.latex_preview.preview_panels[current_tab].scroll_left()
+		if context.latex_previews != None and (current_tab in context.latex_previews.split_views):
+			context.latex_previews.preview_panels[current_tab].scroll_left()
 
 
 class LaTeXPreviewScrollRightAction(LaTeXAction):
@@ -358,11 +377,12 @@ class LaTeXPreviewScrollRightAction(LaTeXAction):
 
 	def activate(self, context):
 		editor = context.active_editor
-		assert type(editor) is LaTeXEditor
-		
+		if not type(editor) is LaTeXEditor:
+			return
+			
 		current_tab = context._window_decorator._window.get_active_tab()
-		if editor.latex_preview != None and (current_tab in editor.latex_preview.split_views):
-			editor.latex_preview.preview_panels[current_tab].scroll_right()
+		if context.latex_previews != None and (current_tab in context.latex_previews.split_views):
+			context.latex_previews.preview_panels[current_tab].scroll_right()
 
 
 class LaTeXSpellCheckAction(LaTeXAction):
