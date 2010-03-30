@@ -498,7 +498,7 @@ class LaTeXEditor(Editor, IIssueHandler, IMisspelledWordHandler, IPreferencesMon
 		@param word: the checked word
 		"""
 		self.__spell_checker.add_word(word)
-		# TODO: remove marker
+		self.remove_marker(marker)
 	
 	#
 	# spell checking end
