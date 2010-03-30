@@ -126,6 +126,36 @@ class LaTeXEditor(Editor, IIssueHandler, IMisspelledWordHandler, IPreferencesMon
 				# so we may not use it for regenerating the outline here
 				self.__parse()
 	
+	def _ctrl_left_clicked(self, it):
+		"""
+		For synchronization by synctex
+		"""
+		# Editor._ctrl_left_clicked
+		
+		tab = self.tab_decorator.tab
+		line = it.get_line() + 1
+		column = it.get_line_offset() + 1
+		source_file = "%s/%s" % (self._file.dirname, self._file.basename)
+		# We use self.file and not self._file here, to get the 
+		# master document, because the output file will have the 
+		# name of the master document
+		try:
+			output_file = "%s.pdf" % self.file.shortname
+		except:
+			# Is this due to a bug ? Or is there a method I 
+			# don't know to check wether a file has/is a 
+			# master file or doesn't/couldn't have one ?
+			self.__log.debug("Error while trying to get the output file path. No master document ?")
+			return
+		
+		from livepreview import LaTeXPreviews
+		
+		if self._window_context.latex_previews == None:
+			self._window_context.latex_previews = LaTeXPreviews(self._window_context)
+			
+		latex_previews = self._window_context.latex_previews
+		latex_previews.sync_view(tab, source_file, line, column, output_file)
+	
 	def drag_drop_received(self, files):
 		# see base.Editor.drag_drop_received
 		
