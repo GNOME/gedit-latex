@@ -94,7 +94,6 @@ class LaTeXEditor(Editor, IIssueHandler, IMisspelledWordHandler, IPreferencesMon
 		self._outline_generator = LaTeXOutlineGenerator()
 		self._validator = LaTeXValidator()
 		
-		self._connect_outline_to_editor = True	# TODO: read from config
 		self._document_dirty = True
 		
 		# if the document is no master we display an info message on the packages to
@@ -125,6 +124,9 @@ class LaTeXEditor(Editor, IIssueHandler, IMisspelledWordHandler, IPreferencesMon
 				# FIXME: self._document contains the full model of child and master
 				# so we may not use it for regenerating the outline here
 				self.__parse()
+		elif key == "ShowLatexToolbar":
+			tab_decorator = self._window_context._window_decorator._active_tab_decorator
+			self._window_context._window_decorator.adjust(tab_decorator)
 	
 	def _ctrl_left_clicked(self, it):
 		"""

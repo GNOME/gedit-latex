@@ -241,7 +241,7 @@ class LaTeXPreviews:
 		
 		self._log.debug("Sync edit. Source:%s, Output:%s, Line:%d, Column:%d, Offset:%d, Context:%s" % (source_file, output_file, line, column, offset, context))
 		
-		self._context.activate_editor(File("file://%s" % source_file))
+		self._context.activate_editor(File(source_file))
 		editor = self._context.active_editor
 		
 		if type(editor) == type(None):

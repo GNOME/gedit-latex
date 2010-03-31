@@ -340,7 +340,7 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		# FIXME: a hack again...
 		# the toolbar should hide when it doesn't contain any visible items
 		latex_extensions = self._preferences.get("LatexExtensions", ".tex").split(" ")
-		show_toolbar = self._preferences.get_bool("ShowLaTeXToolbar", True)
+		show_toolbar = self._preferences.get_bool("ShowLatexToolbar", True)
 		if show_toolbar and extension in latex_extensions:
 			self._toolbar.show()
 		else:

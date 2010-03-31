@@ -76,8 +76,6 @@ class BibTeXEditor(Editor, IIssueHandler, JobChangeListener):
 		self._validator = BibTeXValidator()
 		self._outline_view = context.find_view(self, "BibTeXOutlineView")
 		
-		self._connect_outline_to_editor = self._preferences.get_bool("ConnectOutlineToEditor", True)
-		
 		
 		self._parse_job = ParseJob()
 		self._parse_job.set_change_listener(self)

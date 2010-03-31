@@ -317,6 +317,10 @@ class Preferences(object):
 		id_1 = self.__tool_ids[tool_1]
 		id_2 = self.__tool_ids[tool_2]
 		
+		if id_1 == id_2:
+			self._log.warning("Two tools have the same id. Please modify tools.xml to have unique id's.")
+			return
+		
 		self._log.debug("Tool IDs are {%s: %s, %s, %s}" % (tool_1.label, id_1, tool_2.label, id_2))
 		
 		tool_element_1 = None
@@ -339,16 +343,16 @@ class Preferences(object):
 		
 		self._log.debug("Found XML elements, indexes are {%s: %s, %s, %s}" % (tool_1.label, index_1, tool_2.label, index_2))
 		
-		# remove them from the XML model and insert them again in swapped order
+		# successively replace each of them by the other in the XML model
 		self.__tools.remove(tool_element_1)
-		self.__tools.remove(tool_element_2)
-		
-		self._log.debug("Removed elements from XML model")
-		
 		self.__tools.insert(index_1, tool_element_2)
+		
+		self._log.debug("Replaced first tool by second in list")
+				
+		self.__tools.remove(tool_element_2)
 		self.__tools.insert(index_2, tool_element_1)
 		
-		self._log.debug("Inserted them in swapped order")
+		self._log.debug("Replaced second tool by first in list")
 		
 		# notify changes
 		self.__tools_changed = True

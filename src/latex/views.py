@@ -205,10 +205,12 @@ class LaTeXOutlineView(BaseOutlineView):
 		# additional toolbar buttons
 		btn_graphics = gtk.ToggleToolButton()
 		btn_graphics.set_icon_widget(gtk.image_new_from_file(find_resource("icons/tree_includegraphics.png")))
+		btn_graphics.set_tooltip_text("Show graphics")
 		self._toolbar.insert(btn_graphics, -1)
 		
 		btn_tables = gtk.ToggleToolButton()
 		btn_tables.set_icon_widget(gtk.image_new_from_file(find_resource("icons/tree_table.png")))
+		btn_tables.set_tooltip_text("Show tables")
 		self._toolbar.insert(btn_tables, -1)
 		
 		btn_graphics.set_active(Preferences().get_bool("ShowGraphicsInOutline", True))
@@ -269,9 +271,11 @@ class LaTeXOutlineView(BaseOutlineView):
 			
 		else:
 			# open/activate the referenced file, if the node is 'foreign'
-			
 			if node.file != self._context.active_editor.edited_file:
 				self._context.activate_editor(node.file)
+			else:
+				it = self._context.active_editor._text_buffer.get_iter_at_offset(node.start)
+				self._context.active_editor._ctrl_left_clicked(it)
 	
 	def _on_tables_toggled(self, toggle_button):
 		value = toggle_button.get_active()
