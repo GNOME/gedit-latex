@@ -542,8 +542,17 @@ class PreviewDocument:
 		if not self.document_loaded:
 			return
 			
-		import ctypes
-		glib = ctypes.CDLL("libgobject-2.0.so")
+		try:
+			import ctypes
+			glib = ctypes.CDLL("libgobject-2.0.so.0")
+		except:
+			try:
+				import ctypes
+				glib = ctypes.CDLL("libgobject-2.0.so")
+			except:
+				self.__pages = {}
+				self.__document = None
+				return
 		
 		for page in self.__pages:
 			glib.g_object_unref(hash(self.__pages[page]))
