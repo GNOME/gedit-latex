@@ -117,7 +117,7 @@ class LaTeXSymbolMapView(SideView):
 		for symbol in group.symbols:
 			try:
 				model.append([gtk.gdk.pixbuf_new_from_file(symbol.icon), str(symbol.template), symbol.template])
-			except GError as s:
+			except GError, s:
 				print s
 		
 		view = gtk.IconView(model)

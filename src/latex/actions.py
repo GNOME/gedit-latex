@@ -277,7 +277,7 @@ class LaTeXPreviewToggleAction(LaTeXAction):
 
 		try:
 			pdf_file_path = "%s.pdf" % editor.file.shortname
-		except Exception as exc:
+		except Exception, exc:
 			# This happens when a .tex document has no master file.
 			# Is it a bug ? Or should one catch this exception ?
 			self._log.debug("Exception catched. %s" % exc)

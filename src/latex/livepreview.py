@@ -1185,7 +1185,7 @@ class PreviewPanel:
 		
 		try: # try to create a preview for the document
 			self.__create_preview_panel(event)
-		except Exception as exc: # if unable, then show a default document view
+		except Exception, exc: # if unable, then show a default document view
 			self._log.warning("Error while creating preview panel: %s, %s, %s" % (type(exc), exc, exc.args))
 			self._log.warning("Creating default panel")
 			if not self.__document is None:
