@@ -241,7 +241,11 @@ class LaTeXPreviews:
 		
 		self._log.debug("Sync edit. Source:%s, Output:%s, Line:%d, Column:%d, Offset:%d, Context:%s" % (source_file, output_file, line, column, offset, context))
 		
-		self._context.activate_editor(File(source_file))
+		if not File.is_absolute(source_file):
+			file = File.create_from_relative_path(source_file, File(output_file).dirname)
+		else:
+			file = File(source_file)
+		self._context.activate_editor(file)
 		editor = self._context.active_editor
 		
 		if type(editor) == type(None):
@@ -351,7 +355,7 @@ class PreviewDocument:
 	def free_page(self, page):
 		if self.__document_type == self.TYPE_PDF:
 			import ctypes
-			glib = ctypes.CDLL("libgobject-2.0.so")
+			glib = ctypes.CDLL("libgobject-2.0.so.0")
 			glib.g_object_unref(hash(page))
 			del page
 		else:
@@ -559,8 +563,8 @@ class PreviewDocument:
 			self._log.debug("Destroyed poppler page %d" % page)
 		self.__pages = {}
 		
-		glib.g_object_unref(hash(self.__document))
-		self._log.debug("Destroyed poppler document")
+		#~ glib.g_object_unref(hash(self.__document))
+		#~ self._log.debug("Destroyed poppler document")
 		self.__document = None
 			
 			
