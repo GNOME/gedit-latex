@@ -221,6 +221,8 @@ class LaTeXPreviews:
 			# When we are in this case, as opening the preview 
 			# takes some time, calling directly sync_view does nothing.
 			# Thus we wait for the panel to be opened to send the call.
+			while gtk.events_pending():
+				gtk.main_iteration(False)
 			self.__sync_handler = gobject.idle_add(self.__sync_view, tab, source_file, line, column, output_file)
 			return
 		
@@ -246,12 +248,24 @@ class LaTeXPreviews:
 		else:
 			file = File(source_file)
 		self._context.activate_editor(file)
+		
+		# wait for the editor to be adjusted
+		while gtk.events_pending():
+			gtk.main_iteration(False)
+
 		editor = self._context.active_editor
 		
 		if type(editor) == type(None):
 			# This happens when we are in a .toc file for example.
 			return
 
+		# show the preview
+		# this gives the focus to the preview, but we were syncing 
+		# view to source so we do it before giving the focus to the editor
+		tab = self._context._window_decorator._active_tab_decorator.tab
+		self.show(tab, output_file)
+
+		# sync the editor
 		editor._text_buffer.goto_line(line - 1)
 		editor._text_view.scroll_to_cursor()
 
