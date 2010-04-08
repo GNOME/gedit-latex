@@ -56,6 +56,9 @@ class LaTeXPreviews:
 	
 	_log = logging.getLogger("LaTeXPreviews")
 	
+	ZOOM_IN, ZOOM_OUT = range(2)
+	SCROLL_UP, SCROLL_DOWN, SCROLL_LEFT, SCROLL_RIGHT = range(4)
+	
 	def __init__(self, context):
 		"""
 		Initializes the PDF preview.
@@ -188,6 +191,22 @@ class LaTeXPreviews:
 		tab.show_all()
 		
 	
+	def reparent(self, tab):
+		"""
+		Attaches the panel corresponding to "tab" to the split view 
+		corresponding to "tab". A same panel is shared between all 
+		split views corresponding to a single compiled file.
+		Called by GeditWindowDecorator.adjust().
+		"""
+		
+		panel = self.preview_panels[tab].get_panel()
+		parent = panel.get_parent()
+		if parent != self.split_views[tab]:
+			parent.remove(panel)
+			self.split_views[tab].pack2(panel, False, True)
+			self.split_views[tab].set_position(parent.get_position())
+
+
 	def update_file_path(self, tab, compiled_file_path):
 		"""
 		Updates the compiled file path for the preview.
@@ -209,6 +228,38 @@ class LaTeXPreviews:
 			return
 			
 		self.preview_panels[tab].update_file_path(compiled_file_path)
+
+
+	def zoom(self, tab, direction):
+		"""
+		Called by src.latex.LaTeXPreviewZoom{In,Out}Action.
+		"""
+		
+		if not self.is_shown(tab):
+			return
+		
+		if direction == self.ZOOM_IN:
+			self.preview_panels[tab].zoom_in()
+		elif direction == self.ZOOM_OUT:
+			self.preview_panels[tab].zoom_out()
+
+
+	def scroll(self, tab, direction):
+		"""
+		Called by src.latex.LaTeXPreviewScroll{Up,Down,Left,Right}Action.
+		"""
+		
+		if not self.is_shown(tab):
+			return
+		
+		if direction == self.SCROLL_UP:
+			self.preview_panels[tab].scroll_up()
+		elif direction == self.SCROLL_DOWN:
+			self.preview_panels[tab].scroll_down()
+		elif direction == self.SCROLL_LEFT:
+			self.preview_panels[tab].scroll_left()
+		elif direction == self.SCROLL_RIGHT:
+			self.preview_panels[tab].scroll_right()
 
 
 	def sync_view(self, tab, source_file, line, column, output_file):

@@ -514,16 +514,9 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		
 		# update latex_previews
 		latex_previews = self._window_context.latex_previews
-		if latex_previews != None and tab_decorator.tab in latex_previews.split_views:
-			tab = tab_decorator.tab
-			panel = latex_previews.preview_panels[tab].get_panel()
-			parent = panel.get_parent()
-			if parent != latex_previews.split_views[tab]:
-				parent.remove(panel)
-				latex_previews.split_views[tab].pack2(panel, False, True)
-				latex_previews.split_views[tab].set_position(parent.get_position())
+		if latex_previews != None and latex_previews.is_shown(tab_decorator.tab):
+			latex_previews.reparent(tab_decorator.tab)
 		
-	
 	def _get_selected_bottom_view(self):
 		notebook = self._window.get_bottom_panel().get_children()[0].get_children()[0]
 		assert type(notebook) is gtk.Notebook
@@ -578,7 +571,7 @@ class GeditWindowDecorator(IPreferencesMonitor):
 
 		# properly remove the latex preview, if any
 		latex_previews = self._window_context.latex_previews
-		if latex_previews != None and tab in latex_previews.split_views:
+		if latex_previews != None and latex_previews.is_shown(tab):
 			latex_previews.hide(tab)
 		
 		# As we don't call GeditWindowDecorator.adjust() if the new 

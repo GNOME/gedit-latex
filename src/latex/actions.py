@@ -244,6 +244,7 @@ class LaTeXCommentAction(LaTeXAction):
 
 
 from ..util import verbose
+from livepreview import LaTeXPreviews
 
 
 class LaTeXPreviewAction(LaTeXAction):
@@ -270,7 +271,6 @@ class LaTeXPreviewToggleAction(LaTeXAction):
 		if not type(editor) is LaTeXEditor:
 			return
 
-		from livepreview import LaTeXPreviews
 		if context.latex_previews == None:
 			context.latex_previews = LaTeXPreviews(context)
 		current_tab = context._window_decorator._window.get_active_tab()
@@ -301,8 +301,8 @@ class LaTeXPreviewZoomInAction(LaTeXAction):
 			return
 		
 		current_tab = context._window_decorator._window.get_active_tab()
-		if context.latex_previews != None and (current_tab in context.latex_previews.split_views):
-			context.latex_previews.preview_panels[current_tab].zoom_in()
+		if context.latex_previews != None and context.latex_previews.is_shown(current_tab):
+			context.latex_previews.zoom(current_tab, LaTeXPreviews.ZOOM_IN)
 
 
 class LaTeXPreviewZoomOutAction(LaTeXAction):
@@ -317,8 +317,8 @@ class LaTeXPreviewZoomOutAction(LaTeXAction):
 			return
 			
 		current_tab = context._window_decorator._window.get_active_tab()
-		if context.latex_previews != None and (current_tab in context.latex_previews.split_views):
-			context.latex_previews.preview_panels[current_tab].zoom_out()
+		if context.latex_previews != None and context.latex_previews.is_shown(current_tab):
+			context.latex_previews.zoom(current_tab, LaTeXPreviews.ZOOM_OUT)
 
 
 class LaTeXPreviewScrollUpAction(LaTeXAction):
@@ -333,8 +333,8 @@ class LaTeXPreviewScrollUpAction(LaTeXAction):
 			return
 			
 		current_tab = context._window_decorator._window.get_active_tab()
-		if context.latex_previews != None and (current_tab in context.latex_previews.split_views):
-			context.latex_previews.preview_panels[current_tab].scroll_up()
+		if context.latex_previews != None and context.latex_previews.is_shown(current_tab):
+			context.latex_previews.scroll(current_tab, LaTeXPreviews.SCROLL_UP)
 
 
 class LaTeXPreviewScrollDownAction(LaTeXAction):
@@ -349,8 +349,8 @@ class LaTeXPreviewScrollDownAction(LaTeXAction):
 			return
 			
 		current_tab = context._window_decorator._window.get_active_tab()
-		if context.latex_previews != None and (current_tab in context.latex_previews.split_views):
-			context.latex_previews.preview_panels[current_tab].scroll_down()
+		if context.latex_previews != None and context.latex_previews.is_shown(current_tab):
+			context.latex_previews.scroll(current_tab, LaTeXPreviews.SCROLL_DOWN)
 
 
 class LaTeXPreviewScrollLeftAction(LaTeXAction):
@@ -365,8 +365,8 @@ class LaTeXPreviewScrollLeftAction(LaTeXAction):
 			return
 			
 		current_tab = context._window_decorator._window.get_active_tab()
-		if context.latex_previews != None and (current_tab in context.latex_previews.split_views):
-			context.latex_previews.preview_panels[current_tab].scroll_left()
+		if context.latex_previews != None and context.latex_previews.is_shown(current_tab):
+			context.latex_previews.scroll(current_tab, LaTeXPreviews.SCROLL_LEFT)
 
 
 class LaTeXPreviewScrollRightAction(LaTeXAction):
@@ -381,8 +381,8 @@ class LaTeXPreviewScrollRightAction(LaTeXAction):
 			return
 			
 		current_tab = context._window_decorator._window.get_active_tab()
-		if context.latex_previews != None and (current_tab in context.latex_previews.split_views):
-			context.latex_previews.preview_panels[current_tab].scroll_right()
+		if context.latex_previews != None and context.latex_previews.is_shown(current_tab):
+			context.latex_previews.scroll(current_tab, LaTeXPreviews.SCROLL_RIGHT)
 
 
 class LaTeXSpellCheckAction(LaTeXAction):
