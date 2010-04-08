@@ -172,11 +172,11 @@ class BibTeXParser(object):
 	# callables for each state of the parser
 	#
 	
-	def _on_outside(self, token):
+	def _on_outside(self, token, file, issue_handler):
 		if token.type == Token.AT:
 			self._state = self._TYPE
 	
-	def _on_type(self, token):
+	def _on_type(self, token, file, issue_handler):
 		if token.type == Token.TEXT:
 			self._type = token.value.strip()
 			
@@ -191,12 +191,12 @@ class BibTeXParser(object):
 				self._entry.start = token.offset - 2
 				self._state = self._AFTER_TYPE
 		else:
-			self._issue_handler.issue(Issue("Unexpected token <b>%s</b> in entry type" % escape(token.value), 
-									token.offset, token.offset + 1, self._file, Issue.SEVERITY_ERROR))
+			issue_handler.issue(Issue("Unexpected token <b>%s</b> in entry type" % escape(token.value), 
+									token.offset, token.offset + 1, file, Issue.SEVERITY_ERROR))
 			self._entry = None
 			self._state = self._OUTSIDE
 	
-	def _on_after_type(self, token):
+	def _on_after_type(self, token, file, issue_handler):
 		if token.type == Token.CURLY_OPEN:
 			self._closingDelimiter = Token.CURLY_CLOSE
 			self._state = self._KEY
@@ -204,12 +204,12 @@ class BibTeXParser(object):
 			self._closingDelimiter = Token.ROUND_CLOSE
 			self._state = self._KEY
 		else:
-			self._issue_handler.issue(Issue("Unexpected token <b>%s</b> after entry type" % escape(token.value), 
-									token.offset, token.offset + 1, self._file, Issue.SEVERITY_ERROR))
+			issue_handler.issue(Issue("Unexpected token <b>%s</b> after entry type" % escape(token.value), 
+									token.offset, token.offset + 1, file, Issue.SEVERITY_ERROR))
 			self._entry = None
 			self._state = self._OUTSIDE
 	
-	def _on_after_string_type(self, token):
+	def _on_after_string_type(self, token, file, issue_handler):
 		if token.type == Token.CURLY_OPEN:
 			self._closingDelimiter = Token.CURLY_CLOSE
 			self._state = self._STRING_KEY
@@ -217,32 +217,32 @@ class BibTeXParser(object):
 			self._closingDelimiter = Token.ROUND_CLOSE
 			self._state = self._STRING_KEY
 		else:
-			self._issue_handler.issue(Issue("Unexpected token <b>%s</b> after string type" % escape(token.value), 
-									token.offset, token.offset + 1, self._file, Issue.SEVERITY_ERROR))
+			issue_handler.issue(Issue("Unexpected token <b>%s</b> after string type" % escape(token.value), 
+									token.offset, token.offset + 1, file, Issue.SEVERITY_ERROR))
 			self._constant = None
 			self._state = self._OUTSIDE
 	
-	def _on_key(self, token):
+	def _on_key(self, token, file, issue_handler):
 		if token.type == Token.TEXT:
 			self._entry.key = token.value.strip()
 			self._state = self._AFTER_KEY
 		else:
-			self._issue_handler.issue(Issue("Unexpected token <b>%s</b> in entry key" % escape(token.value), 
-									token.offset, token.offset + 1, self._file, Issue.SEVERITY_ERROR))
+			issue_handler.issue(Issue("Unexpected token <b>%s</b> in entry key" % escape(token.value), 
+									token.offset, token.offset + 1, file, Issue.SEVERITY_ERROR))
 			self._entry = None
 			self._state = self._OUTSIDE
 	
-	def _on_string_key(self, token):
+	def _on_string_key(self, token, file, issue_handler):
 		if token.type == Token.TEXT:
 			self._constant.name = token.value.strip()
 			self._state = self._AFTER_STRING_KEY
 		else:
-			self._issue_handler.issue(Issue("Unexpected token <b>%s</b> in string key" % escape(token.value), 
-									token.offset, token.offset + 1, self._file, Issue.SEVERITY_ERROR))
+			issue_handler.issue(Issue("Unexpected token <b>%s</b> in string key" % escape(token.value), 
+									token.offset, token.offset + 1, file, Issue.SEVERITY_ERROR))
 			self._constant = None
 			self._state = self._OUTSIDE
 	
-	def _on_after_key(self, token):
+	def _on_after_key(self, token, file, issue_handler):
 		if token.type == Token.COMMA:
 			self._state = self._FIELD_NAME
 		elif token.type == self._closingDelimiter:
@@ -250,21 +250,21 @@ class BibTeXParser(object):
 			self._document.entries.append(self._entry)
 			self._state = self._OUTSIDE
 		else:
-			self._issue_handler.issue(Issue("Unexpected token <b>%s</b> after entry key" % escape(token.value), 
-									token.offset, token.offset + 1, self._file, Issue.SEVERITY_ERROR))
+			issue_handler.issue(Issue("Unexpected token <b>%s</b> after entry key" % escape(token.value), 
+									token.offset, token.offset + 1, file, Issue.SEVERITY_ERROR))
 			self._entry = None
 			self._state = self._OUTSIDE
 	
-	def _on_after_string_key(self, token):
+	def _on_after_string_key(self, token, file, issue_handler):
 		if token.type == Token.EQUALS:
 			self._state = self._STRING_VALUE
 		else:
-			self._issue_handler.issue(Issue("Unexpected token <b>%s</b> after string key" % escape(token.value), 
-									token.offset, token.offset + 1, self._file, Issue.SEVERITY_ERROR))
+			issue_handler.issue(Issue("Unexpected token <b>%s</b> after string key" % escape(token.value), 
+									token.offset, token.offset + 1, file, Issue.SEVERITY_ERROR))
 			self._constant = None
 			self._state = self._OUTSIDE
 	
-	def _on_string_value(self, token):
+	def _on_string_value(self, token, file, issue_handler):
 		if token.type == Token.QUOTE:
 			self._state = self._QUOTED_STRING_VALUE
 	
@@ -274,7 +274,7 @@ class BibTeXParser(object):
 			self._document.constants.append(self._constant)
 			self._state = self._OUTSIDE
 	
-	def _on_field_name(self, token):
+	def _on_field_name(self, token, file, issue_handler):
 		if token.type == Token.TEXT:
 			
 			if token.value.isspace():
@@ -288,21 +288,21 @@ class BibTeXParser(object):
 			self._document.entries.append(self._entry)
 			self._state = self._OUTSIDE
 		else:
-			self._issue_handler.issue(Issue("Unexpected token <b>%s</b> in field name" % escape(token.value), 
-									token.offset, token.offset + 1, self._file, Issue.SEVERITY_ERROR))
+			issue_handler.issue(Issue("Unexpected token <b>%s</b> in field name" % escape(token.value), 
+									token.offset, token.offset + 1, file, Issue.SEVERITY_ERROR))
 			self._entry = None
 			self._state = self._OUTSIDE
 	
-	def _on_after_field_name(self, token):
+	def _on_after_field_name(self, token, file, issue_handler):
 		if token.type == Token.EQUALS:
 			self._state = self._FIELD_VALUE
 		else:
-			self._issue_handler.issue(Issue("Unexpected token <b>%s</b> after field name" % escape(token.value), 
-									token.offset, token.offset + 1, self._file, Issue.SEVERITY_ERROR))
+			issue_handler.issue(Issue("Unexpected token <b>%s</b> after field name" % escape(token.value), 
+									token.offset, token.offset + 1, file, Issue.SEVERITY_ERROR))
 			self._entry = None
 			self._state = self._OUTSIDE
 	
-	def _on_field_value(self, token):
+	def _on_field_value(self, token, file, issue_handler):
 		# TODO: we may not recognize something like "author = ," as an error
 				
 		if token.value.isspace():
@@ -333,12 +333,12 @@ class BibTeXParser(object):
 		elif token.type == Token.HASH:
 			pass
 		else:
-			self._issue_handler.issue(Issue("Unexpected token <b>%s</b> in field value" % escape(token.value), 
-									token.offset, token.offset + 1, self._file, Issue.SEVERITY_ERROR))
+			issue_handler.issue(Issue("Unexpected token <b>%s</b> in field value" % escape(token.value), 
+									token.offset, token.offset + 1, file, Issue.SEVERITY_ERROR))
 			self._entry = None
 			self._state = self._OUTSIDE
 	
-	def _on_embraced_field_value(self, token):
+	def _on_embraced_field_value(self, token, file, issue_handler):
 		if token.type == Token.CURLY_OPEN:
 			self._stack.append(Token.CURLY_OPEN)
 			self._value += token.value
@@ -355,14 +355,14 @@ class BibTeXParser(object):
 					self._value += token.value
 				
 			except IndexError:
-				self._issue_handler.issue(Issue("Unexpected token <b>%s</b> in field value" % escape(token.value), 
-									token.offset, token.offset + 1, self._file, Issue.SEVERITY_ERROR))
+				issue_handler.issue(Issue("Unexpected token <b>%s</b> in field value" % escape(token.value), 
+									token.offset, token.offset + 1, file, Issue.SEVERITY_ERROR))
 				self._entry = None
 				self._state = self._OUTSIDE
 		else:
 			self._value += token.value
 	
-	def _on_quoted_field_value(self, token):
+	def _on_quoted_field_value(self, token, file, issue_handler):
 		if token.type == Token.QUOTE:
 			self._field.value.append(StringValue(self._value))
 			self._state = self._FIELD_VALUE
@@ -376,8 +376,6 @@ class BibTeXParser(object):
 		@param file: the File object containing the BibTeX
 		@param issue_handler: an object implementing IIssueHandler
 		"""
-		self._issue_handler = issue_handler
-		self._file = file
 		self._document = Document()
 		
 		# respect maximum BibTeX file size
@@ -415,9 +413,12 @@ class BibTeXParser(object):
 		}
 		
 		for token in BibTeXLexer(string):
-			callables[self._state].__call__(token)
+			callables[self._state].__call__(token, file, issue_handler)
 
 		return self._document
+	
+	#~ def __del__(self):
+		#~ print "properly destroyed %s" % self
 
 #
 # BibTeX object model

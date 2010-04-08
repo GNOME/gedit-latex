@@ -65,25 +65,27 @@ class LaTeXReferenceExpander(object):
 		for node in parentNode:
 			if node.type == Node.COMMAND and (node.value == "input" or node.value == "include"):
 				try:
-					# build child filename
+					# build child filename (absolute/relative, with .tex/without .tex)
 					target = node.firstOfType(Node.MANDATORY_ARGUMENT).innerText
-					if target[0] == "/":
-						filename = "%s.tex" % target
+					if File.is_absolute(target):
+						file = File("%s.tex" % target)
+						if not file.exists:
+							file = File(target)
 					else:
-						filename = "%s/%s.tex" % (self._master_file.dirname, target)
+						file = File.create_from_relative_path("%s.tex" % target, self._master_file.dirname)
+						if not file.exists:
+							file = File.create_from_relative_path(target, self._master_file.dirname)
 					
-					self._log.debug("Expanding %s" % filename)
+					self._log.debug("Expanding %s" % file.uri)
 					
 					# lookup/parse child document model
 					try:
-						fragment = self._document_cache.get_document(File(filename), self._charset, self._issue_handler)
+						fragment = self._document_cache.get_document(file, self._charset, self._issue_handler)
 
 						node.append(fragment)
 					except IOError:
-						self._log.error("Referenced file not found: %s" % filename)
+						self._log.error("Referenced file not found: %s" % file.uri)
 				except IndexError:
 					self._log.error("Malformed reference command at %s" % node.start)
 			
 			self._expand(node)
-
-

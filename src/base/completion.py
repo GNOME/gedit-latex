@@ -567,9 +567,13 @@ class CompletionDistributor(object):
 			self._state = self._STATE_IDLE
 	
 	def destroy(self):
-		self._log.debug("destroy")
+		# unreference the editor (very important! cyclic reference)
+		del self._editor
 		
+		# disconnect text view events
 		for handler in self._signal_handlers:
 			self._text_view.disconnect(handler)
 	
+	def __del__(self):
+		self._log.debug("Properly destroyed %s" % self)
 	

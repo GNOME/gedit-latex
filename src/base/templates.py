@@ -603,6 +603,9 @@ class TemplateDelegate(object):
 		table.remove(self._tag_template)
 		table.remove(self._tag_placeholder)
 		
+		# unreference editor
+		del self._editor
+		
 		# deactivate
 		if self._active:
 			self._deactivate()

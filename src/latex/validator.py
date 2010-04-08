@@ -25,6 +25,7 @@ latex.validator
 from logging import getLogger
 from os.path import exists
 
+from ..base import File
 from ..issues import Issue
 from ..util import escape
 from parser import Node
@@ -56,31 +57,27 @@ class LaTeXValidator(object):
 		
 		self._log.debug("validate")
 		
-		# TODO: this is dangerous, the outline object could be outdated
-		
-		self._outline = outline
+		#~ # TODO: this is dangerous, the outline object could be outdated		
+		#~ self._outline = outline
 		
 		# prepare a map for checking labels
 		self._labels = {}
 		for label in outline.labels:
 			self._labels[label.value] = [label, False]	
 		
-		self._issue_handler = issue_handler
 		self._environStack = []
 		
 		self._checkRefs = True
 		
-#		self._file = file
-		
-		self._run(document_node)
+		self._run(document_node, issue_handler)
 		
 		# evaluate label map
 		for label, used in self._labels.values():
 			if not used:
 				# FIXME: we need to know in which File the label was defined!
-				self._issue_handler.issue(Issue("Label <b>%s</b> is never used" % escape(label.value), label.start, label.end, label.file, Issue.SEVERITY_WARNING))
+				issue_handler.issue(Issue("Label <b>%s</b> is never used" % escape(label.value), label.start, label.end, label.file, Issue.SEVERITY_WARNING))
 		
-	def _run(self, parentNode):
+	def _run(self, parentNode, issue_handler):
 		"""
 		Recursive method validation
 		"""
@@ -100,7 +97,7 @@ class LaTeXValidator(object):
 						environ = node.firstOfType(Node.MANDATORY_ARGUMENT).innerText
 						self._environStack.append((environ, node.start, node.lastEnd))
 					except IndexError:
-						self._issue_handler.issue(Issue("Malformed command", node.start, node.lastEnd, node.file, Issue.SEVERITY_ERROR))
+						issue_handler.issue(Issue("Malformed command", node.start, node.lastEnd, node.file, Issue.SEVERITY_ERROR))
 						
 				elif node.value == "end":
 					try:
@@ -109,11 +106,11 @@ class LaTeXValidator(object):
 						try:
 							tEnviron, tStart, tEnd = self._environStack.pop()
 							if tEnviron != environ:
-								self._issue_handler.issue(Issue("Environment <b>%s</b> has to be ended before <b>%s</b>" % (escape(tEnviron), escape(environ)), node.start, node.lastEnd, node.file, Issue.SEVERITY_ERROR))
+								issue_handler.issue(Issue("Environment <b>%s</b> has to be ended before <b>%s</b>" % (escape(tEnviron), escape(environ)), node.start, node.lastEnd, node.file, Issue.SEVERITY_ERROR))
 						except IndexError:
-							self._issue_handler.issue(Issue("Environment <b>%s</b> has no beginning" % escape(environ), node.start, node.lastEnd, node.file, Issue.SEVERITY_ERROR))
+							issue_handler.issue(Issue("Environment <b>%s</b> has no beginning" % escape(environ), node.start, node.lastEnd, node.file, Issue.SEVERITY_ERROR))
 					except IndexError:
-						self._issue_handler.issue(Issue("Malformed command", node.start, node.lastEnd, node.file, Issue.SEVERITY_ERROR))
+						issue_handler.issue(Issue("Malformed command", node.start, node.lastEnd, node.file, Issue.SEVERITY_ERROR))
 						
 				elif node.value == "[":
 					# push eqn env on stack
@@ -123,9 +120,9 @@ class LaTeXValidator(object):
 					try:
 						tEnviron, tStart, tEnd = self._environStack.pop()
 						if tEnviron != "[":
-							self._issue_handler.issue(Issue("Environment <b>%s</b> has to be ended before <b>]</b>" % escape(tEnviron), node.start, node.end, node.file, Issue.SEVERITY_ERROR))
+							issue_handler.issue(Issue("Environment <b>%s</b> has to be ended before <b>]</b>" % escape(tEnviron), node.start, node.end, node.file, Issue.SEVERITY_ERROR))
 					except IndexError:
-						self._issue_handler.issue(Issue("Environment <b>%s</b> has no beginning" % escape(environ), node.start, node.end, node.file, Issue.SEVERITY_ERROR))
+						issue_handler.issue(Issue("Environment <b>%s</b> has no beginning" % escape(environ), node.start, node.end, node.file, Issue.SEVERITY_ERROR))
 				
 				elif node.value == "ref" or node.value == "eqref" or node.value == "pageref":
 					# mark label as used
@@ -134,66 +131,87 @@ class LaTeXValidator(object):
 						try:
 							self._labels[label][1] = True
 						except KeyError:
-							self._issue_handler.issue(Issue("Label <b>%s</b> has not been defined" % escape(label), node.start, node.lastEnd, node.file, Issue.SEVERITY_ERROR))
+							issue_handler.issue(Issue("Label <b>%s</b> has not been defined" % escape(label), node.start, node.lastEnd, node.file, Issue.SEVERITY_ERROR))
 					except IndexError:
-						self._issue_handler.issue(Issue("Malformed command", node.start, node.lastEnd, node.file, Issue.SEVERITY_ERROR))
+						issue_handler.issue(Issue("Malformed command", node.start, node.lastEnd, node.file, Issue.SEVERITY_ERROR))
 						
 				elif self._checkRefs and (node.value == "includegraphics"):
 					try:
 						# check referenced image file
 						target = node.firstOfType(Node.MANDATORY_ARGUMENT).innerText
 						if len(target) > 0:
-							if target[0] == "/":
+							if File.is_absolute(target):
 								filename = target
 							else:
-								filename = "%s/%s" % (node.file.dirname, target)
+								file = File.create_from_relative_path(target, node.file.dirname)
+								filename = file.path
 							
 							# an image may be specified without the extension
-							potential_filenames = [filename, filename + ".eps", filename + ".pdf"]
+							potential_extensions = ["", ".eps", ".pdf", ".jpg", ".jpeg", ".gif", ".png"]
 							
 							found = False
-							for f in potential_filenames:
-								if exists(f):
+							for ext in potential_extensions:
+								if exists(filename + ext):
 									found = True
 									break
 							
 							if not found:
-								self._issue_handler.issue(Issue("Image <b>%s</b> could not be found" % escape(target), node.start, node.lastEnd, node.file, Issue.SEVERITY_WARNING))
+								issue_handler.issue(Issue("Image <b>%s</b> could not be found" % escape(target), node.start, node.lastEnd, node.file, Issue.SEVERITY_WARNING))
 						else:
-							self._issue_handler.issue(Issue("No image file specified", node.start, node.lastEnd, node.file, Issue.SEVERITY_WARNING))
+							issue_handler.issue(Issue("No image file specified", node.start, node.lastEnd, node.file, Issue.SEVERITY_WARNING))
 					except IndexError:
-						self._issue_handler.issue(Issue("Malformed command", node.start, node.lastEnd, node.file, Issue.SEVERITY_ERROR))
+						issue_handler.issue(Issue("Malformed command", node.start, node.lastEnd, node.file, Issue.SEVERITY_ERROR))
 						
 				elif self._checkRefs and (node.value == "include" or node.value == "input"):
 					# check referenced tex file
 					try:
 						target = node.firstOfType(Node.MANDATORY_ARGUMENT).innerText
-						if len(target):
-							if target[0] == "/":
-								filename = "%s.tex" % target
+						if len(target) > 0:
+							if File.is_absolute(target):
+								filename = target
 							else:
-								filename = "%s/%s.tex" % (node.file.dirname, target)
+								file = File.create_from_relative_path(target, node.file.dirname)
+								filename = file.path
 							
-							if not exists(filename):
-								self._issue_handler.issue(Issue("Document <b>%s</b> could not be found" % escape(filename), node.start, node.lastEnd, node.file, Issue.SEVERITY_WARNING))
+							# an input may be specified without the extension
+							potential_extensions = ["", ".tex"]
+							
+							found = False
+							for ext in potential_extensions:
+								if exists(filename + ext):
+									found = True
+									break
+							
+							if not found:
+								issue_handler.issue(Issue("Document <b>%s</b> could not be found" % escape(filename), node.start, node.lastEnd, node.file, Issue.SEVERITY_WARNING))
 					except IndexError:		# firstOfType failed
 						# this happens on old-style syntax like "\input myfile"
-						self._issue_handler.issue(Issue("Malformed command", node.start, node.lastEnd, node.file, Issue.SEVERITY_ERROR))
+						issue_handler.issue(Issue("Malformed command", node.start, node.lastEnd, node.file, Issue.SEVERITY_ERROR))
 								
 				elif self._checkRefs and node.value == "bibliography":
 					try:
 						# check referenced BibTeX file(s)
-						value = node.firstOfType(Node.MANDATORY_ARGUMENT).innerText
+						value = node.firstOfType(Node.MANDATORY_ARGUMENT).innerText							
 						for target in value.split(","):
-							if target[0] == "/":
-								filename = target + ".bib"
+							if File.is_absolute(target):
+								filename = target
 							else:
-								filename = "%s/%s.bib" % (node.file.dirname, target)
+								file = File.create_from_relative_path(target, node.file.dirname)
+								filename = file.path
 							
-							if not exists(filename):
-								self._issue_handler.issue(Issue("Bibliography <b>%s</b> could not be found" % escape(filename), node.start, node.lastEnd, node.file, Issue.SEVERITY_WARNING))
+							# a bib file may be specified without the extension
+							potential_extensions = ["", ".bib"]
+							
+							found = False
+							for ext in potential_extensions:
+								if exists(filename + ext):
+									found = True
+									break
+							
+							if not found:
+								issue_handler.issue(Issue("Bibliography <b>%s</b> could not be found" % escape(filename), node.start, node.lastEnd, node.file, Issue.SEVERITY_WARNING))
 					except IndexError:		# firstOfType failed
-						self._issue_handler.issue(Issue("Malformed command", node.start, node.lastEnd, node.file, Issue.SEVERITY_ERROR))
+						issue_handler.issue(Issue("Malformed command", node.start, node.lastEnd, node.file, Issue.SEVERITY_ERROR))
 						
 				elif node.value == "newcommand":
 					# don't validate in newcommand definitions
@@ -205,12 +223,14 @@ class LaTeXValidator(object):
 						value = node.firstOfType(Node.MANDATORY_ARGUMENT).innerText
 						
 						if not self._environment.file_exists("%s.bst" % value):
-							self._issue_handler.issue(Issue("Bibliography style <b>%s</b> could not be found" % escape(value), node.start, node.lastEnd, node.file, Issue.SEVERITY_WARNING))
+							issue_handler.issue(Issue("Bibliography style <b>%s</b> could not be found" % escape(value), node.start, node.lastEnd, node.file, Issue.SEVERITY_WARNING))
 					except IndexError:
-						self._issue_handler.issue(Issue("Malformed command", node.start, node.lastEnd, node.file, Issue.SEVERITY_ERROR))
+						issue_handler.issue(Issue("Malformed command", node.start, node.lastEnd, node.file, Issue.SEVERITY_ERROR))
 						
 			if recurse:
-				self._run(node)
+				self._run(node, issue_handler)
 				
+	#~ def __del__(self):
+		#~ print "Properly destroyed %s" % self
 				
 				

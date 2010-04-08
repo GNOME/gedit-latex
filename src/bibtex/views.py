@@ -47,6 +47,10 @@ class BibTeXOutlineView(BaseOutlineView):
 
 	_log = getLogger("BibTeXOutlineView")
 	
+	def __init__(self, context, editor):
+		BaseOutlineView.__init__(self, context, editor)
+		self._handlers = {}
+	
 	def init(self, context):
 		BaseOutlineView.init(self, context)
 		
@@ -71,10 +75,10 @@ class BibTeXOutlineView(BaseOutlineView):
 		elif grouping == GROUP_YEAR:
 			self._item_year.set_active(True)
 		
-		self._item_none.connect("toggled", self._on_grouping_toggled)
-		self._item_type.connect("toggled", self._on_grouping_toggled)
-		self._item_author.connect("toggled", self._on_grouping_toggled)
-		self._item_year.connect("toggled", self._on_grouping_toggled)
+		self._handlers[self._item_none] = self._item_none.connect("toggled", self._on_grouping_toggled)
+		self._handlers[self._item_type] = self._item_type.connect("toggled", self._on_grouping_toggled)
+		self._handlers[self._item_author] = self._item_author.connect("toggled", self._on_grouping_toggled)
+		self._handlers[self._item_year] = self._item_year.connect("toggled", self._on_grouping_toggled)
 
 		menu = gtk.Menu()
 		menu.add(self._item_none)
@@ -125,7 +129,12 @@ class BibTeXOutlineView(BaseOutlineView):
 		An outline node has been selected
 		"""
 		if isinstance(node, Entry):
-			self._context.active_editor.select(node.start, node.end)
+			self._editor.select(node.start, node.end)
+			
+	def destroy(self):
+		for obj in self._handlers:
+			obj.disconnect(self._handlers[obj])
+		BaseOutlineView.destroy(self)
 
 
 class OutlineConverter(object):

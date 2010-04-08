@@ -167,6 +167,7 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		self._active_tab_decorator = None
 		active_view = self._window.get_active_view()
 		views = self._window.get_views()
+
 		for view in views:
 			tab = gedit.tab_get_from_document(view.get_buffer())
 			decorator = self._create_tab_decorator(tab, init=True)
@@ -198,6 +199,8 @@ class GeditWindowDecorator(IPreferencesMonitor):
 			
 		items_ui = ""
 		
+		self._action_handlers = {}
+		
 		i = 1					# counting tool actions
 		accel_counter = 1		# counting tool actions without custom accel
 		for tool in self._preferences.tools:
@@ -215,7 +218,7 @@ class GeditWindowDecorator(IPreferencesMonitor):
 			# create action
 			action = ToolAction(tool)
 			gtk_action = gtk.Action(name, action.label, action.tooltip, action.stock_id)
-			gtk_action.connect("activate", lambda gtk_action, action: action.activate(self._window_context), action)
+			self._action_handlers[gtk_action] = gtk_action.connect("activate", lambda gtk_action, action: action.activate(self._window_context), action)
 			
 			if not tool.accelerator is None and len(tool.accelerator) > 0:
 				# TODO: validate accelerator!
@@ -254,14 +257,18 @@ class GeditWindowDecorator(IPreferencesMonitor):
 	
 	def _on_tools_changed(self):
 		# FIXME: tools reload doesn't work
+		# UPDATE: should work now
 		
 		# see IPreferencesMonitor._on_tools_changed
 		self._log.debug("_on_tools_changed")
 		
-		# remove actions and ui
-		self._ui_manager.remove_action_group(self._tool_action_group)
+		# remove tool actions and ui
 		self._ui_manager.remove_ui(self._tool_ui_id)
-		
+		for gtk_action in self._action_handlers:
+			gtk_action.disconnect(self._action_handlers[gtk_action])
+			self._tool_action_group.remove_action(gtk_action)
+		self._ui_manager.remove_action_group(self._tool_action_group)
+
 		# remove MenuToolButton
 		self._toolbar.remove(self._menu_tool_button)
 		
@@ -573,8 +580,20 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		latex_previews = self._window_context.latex_previews
 		if latex_previews != None and tab in latex_previews.split_views:
 			latex_previews.hide(tab)
-
+		
+		# As we don't call GeditWindowDecorator.adjust() if the new 
+		# tab is not the active one (for example, when opening several 
+		# files at once, see GeditTabDecorator._adjust_editor()), 
+		# it may happen that self._selected_side_views[tab] is not set.
+		if self._tab_decorators[tab] in self._selected_side_views:
+			del self._selected_side_views[self._tab_decorators[tab]]
+		if self._tab_decorators[tab] in self._selected_bottom_views:
+			del self._selected_bottom_views[self._tab_decorators[tab]]
+		
 		self._tab_decorators[tab].destroy()
+		if self._active_tab_decorator == self._tab_decorators[tab]:
+			self._active_tab_decorator = None
+
 		del self._tab_decorators[tab]
 		
 		if len(self._tab_decorators) == 0:
@@ -619,31 +638,55 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		self.destroy()
 	
 	def destroy(self):
-		# save preferences
+		# save preferences and stop listening
 		self._preferences.save()
+		self._preferences.remove_monitor(self)
 		
-		#
+		# destroy tab decorators
+		self._active_tab_decorator = None
+		for tab in self._tab_decorators:
+			self._tab_decorators[tab].destroy()
+		self._tab_decorators = {}
+
 		# disconnect from tab signals
-		#
 		for id in self._signal_handlers:
 			self._window.disconnect(id)
-		#
-		# destroy tab decorators
-		#
-		for decorator in self._tab_decorators:
-			decorator.destroy()
-			del decorator
-		#
-		# TODO: remove all views
-		#
-		self._window.get_bottom_panel().remove_item(self._views["ToolView"])
+		del self._signal_handlers
+
+		# remove all views
+		self.disable()
+		
+		# destroy all window scope views
+		# (the editor scope views are destroyed by the editor)
+		for i in self._window_context.window_scope_views:
+			self._window_context.window_scope_views[i].destroy()
+		self._window_context.window_scope_views = {}
 		
 		# remove toolbar
 		self._toolbar.destroy()
 		
-		# remove actions
+		# remove tool actions
 		self._ui_manager.remove_ui(self._tool_ui_id)
+		for gtk_action in self._action_handlers:
+			gtk_action.disconnect(self._action_handlers[gtk_action])
+			self._tool_action_group.remove_action(gtk_action)
+		self._ui_manager.remove_action_group(self._tool_action_group)
+		
+		# remove actions
 		self._ui_manager.remove_ui(self._ui_id)
+		for clazz in self._action_objects:
+			self._action_objects[clazz].unhook(self._action_group)
+		self._ui_manager.remove_action_group(self._action_group)
+
+		# unreference the gedit window
+		del self._window
+		
+		# destroy the window context
+		self._window_context.destroy()
+		del self._window_context
+		
+	def __del__(self):
+		self._log.debug("Properly destroyed %s" % self)
 		
 
 class GeditTabDecorator(object):
@@ -723,7 +766,8 @@ class GeditTabDecorator(object):
 			
 			self._log.debug("No file loaded")
 			
-			self._window_decorator.adjust(self)
+			if self._window_decorator._window.get_active_view() == self._text_view:
+				self._window_decorator.adjust(self)
 			
 		else:
 			file = File(uri)
@@ -791,7 +835,9 @@ class GeditTabDecorator(object):
 						latex_previews.hide(current_tab)
 				
 				# tell WindowDecorator to adjust actions
-				self._window_decorator.adjust(self)
+				# but only if this tab is the active tab
+				if self._window_decorator._window.get_active_view() == self._text_view:
+					self._window_decorator.adjust(self)
 	
 				# notify that URI has changed
 				return True
@@ -815,12 +861,16 @@ class GeditTabDecorator(object):
 			return self._file.extension
 	
 	def destroy(self):
-		# disocnnect from signals
+		# disconnect from signals
 		for handler in self._signals_handlers:
 			self._text_buffer.disconnect(handler)
 		
+		# unreference the window decorator
+		del self._window_decorator
+
 		# destroy Editor instance
 		if not self._editor is None:
 			self._editor.destroy()
-	
-	
+
+	def __del__(self):
+		self._log.debug("Properly destroyed %s" % self)

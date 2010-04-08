@@ -60,6 +60,10 @@ class BibTeXEditor(Editor, IIssueHandler, JobChangeListener):
 		self.__bibtex_completion_handler = BibTeXCompletionHandler()
 		return [ self.__bibtex_completion_handler ]
 	
+	def __init__(self, tab_decorator, file):
+		Editor.__init__(self, tab_decorator, file)
+		self._parse_job = None
+		
 	def init(self, file, context):
 		self._log.debug("init(%s)" % file)
 		
@@ -75,7 +79,6 @@ class BibTeXEditor(Editor, IIssueHandler, JobChangeListener):
 		self._parser = BibTeXParser()
 		self._validator = BibTeXValidator()
 		self._outline_view = context.find_view(self, "BibTeXOutlineView")
-		
 		
 		self._parse_job = ParseJob()
 		self._parse_job.set_change_listener(self)
@@ -191,6 +194,18 @@ class BibTeXEditor(Editor, IIssueHandler, JobChangeListener):
 		"""
 		if self._preferences.get_bool("ConnectOutlineToEditor", True):
 			self._outline_view.select_path_by_offset(offset)
+				
+	def destroy(self):
+		# unreference the window context
+		del self._context
 		
+		# remove parse listener
+		if self._parse_job != None:
+			self._parse_job.set_change_listener(None)
+
+		Editor.destroy(self)
 		
-		
+	def __del__(self):
+		self._log.debug("Properly destroyed %s" % self)
+	
+

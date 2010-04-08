@@ -115,7 +115,6 @@ class LaTeXCompletionHandler(ICompletionHandler):
 		
 		@param outline: a latex.outline.Outline instance
 		"""
-		self._outline = outline
 		
 		# labels
 		label_choices = [Choice(None, label.value) for label in outline.labels]
@@ -217,6 +216,9 @@ class LaTeXCompletionHandler(ICompletionHandler):
 		
 		return []
 
+	def __del__(self):
+		self._log.debug("Properly destroyed %s" % self)
+		
 
 from ..preferences import Preferences
 from . import LaTeXSource

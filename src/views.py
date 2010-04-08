@@ -43,6 +43,11 @@ class IssueView(BottomView, IPreferencesMonitor):
 	icon = gtk.STOCK_DIALOG_INFO
 	scope = View.SCOPE_EDITOR
 	
+	def __init__(self, context, editor):
+		BottomView.__init__(self, context)
+		self._editor = editor
+		self._handlers = {}
+	
 	def init(self, context):
 		self._log.debug("init")
 		
@@ -74,7 +79,7 @@ class IssueView(BottomView, IPreferencesMonitor):
 		
 		self._view.append_column(column)
 		self._view.insert_column_with_attributes(-1, "File", gtk.CellRendererText(), markup=2)
-		self._view.connect("row-activated", self._on_row_activated)
+		self._handlers[self._view] = self._view.connect("row-activated", self._on_row_activated)
 		
 		self._scr = gtk.ScrolledWindow()
 		
@@ -92,7 +97,7 @@ class IssueView(BottomView, IPreferencesMonitor):
 		image.set_from_file(find_resource("icons/warning.png"))
 		self._button_warnings.set_icon_widget(image)
 		self._button_warnings.set_active(self._show_warnings)
-		self._button_warnings.connect("toggled", self.__on_warnings_toggled)
+		self._handlers[self._button_warnings] = self._button_warnings.connect("toggled", self.__on_warnings_toggled)
 		
 		self._button_tasks = gtk.ToggleToolButton()
 		self._button_tasks.set_tooltip_text("Show/Hide Tasks")
@@ -100,7 +105,7 @@ class IssueView(BottomView, IPreferencesMonitor):
 		imageTask.set_from_file(find_resource("icons/task.png"))
 		self._button_tasks.set_icon_widget(imageTask)
 		self._button_tasks.set_active(self._show_tasks)
-		self._button_tasks.connect("toggled", self.__on_tasks_toggled)
+		self._handlers[self._button_tasks] = self._button_tasks.connect("toggled", self.__on_tasks_toggled)
 		
 		toolbar = gtk.Toolbar()
 		toolbar.set_orientation(gtk.ORIENTATION_VERTICAL)
@@ -124,9 +129,10 @@ class IssueView(BottomView, IPreferencesMonitor):
 		
 		self._context.activate_editor(issue.file)
 		
-		# FIXME: this doesn't work correctly
-		if not self._context.active_editor is None:
-			self._context.active_editor.select(issue.start, issue.end)
+		#~ # FIXME: this doesn't work correctly
+		#~ if not self._context.active_editor is None:
+			#~ self._context.active_editor.select(issue.start, issue.end)
+		self._editor.select(issue.start, issue.end)
 	
 	def _on_value_changed(self, key, value):
 		if key == "IssuesShowWarnings" or key == "IssuesShowTasks":
@@ -181,6 +187,10 @@ class IssueView(BottomView, IPreferencesMonitor):
 			filename = "<span color='%s'>%s</span>" % (self._preferences.get("LightForeground", "#7f7f7f"), issue.file.basename)
 		self._store.append([self._icons[issue.severity], message, filename, issue])
 		
-		
-		
+	def destroy(self):
+		del self._editor
+		self._preferences.remove_monitor(self)
+		for obj in self._handlers:
+			obj.disconnect(self._handlers[obj])
+		BottomView.destroy(self)
 		

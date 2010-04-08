@@ -104,7 +104,6 @@ class LaTeXOutlineGenerator(object):
 		self.cfgTablesInTree = Preferences().get_bool("ShowTablesInOutline", True)
 		self.cfgGraphicsInTree = Preferences().get_bool("ShowGraphicsInOutline", True)
 		
-		self._issue_handler = issue_handler
 		self._outline = Outline()
 		self._stack = [self._outline.rootNode]
 		
@@ -112,11 +111,11 @@ class LaTeXOutlineGenerator(object):
 		
 #		self._file = documentNode.value		# this is updated when a DOCUMENT occurs
 		
-		self._walk(documentNode)
+		self._walk(documentNode, issue_handler)
 		
 		return self._outline
 	
-	def _walk(self, parentNode, foreign=False):
+	def _walk(self, parentNode, issue_handler, foreign=False):
 		"""
 		Recursively walk a node in the document model
 		
@@ -142,7 +141,7 @@ class LaTeXOutlineGenerator(object):
 						self._stack[-1].append(outlineNode)
 						self._stack.append(outlineNode)
 					except IndexError:
-						self._issue_handler.issue(Issue("Malformed structure command", node.start, node.end, node.file, Issue.SEVERITY_ERROR))
+						issue_handler.issue(Issue("Malformed structure command", node.start, node.end, node.file, Issue.SEVERITY_ERROR))
 				
 				elif node.value == "label":
 					try:
@@ -150,7 +149,7 @@ class LaTeXOutlineGenerator(object):
 	
 						if value in self._labelCache.keys():
 							start, end = self._labelCache[value]
-							self._issue_handler.issue(Issue("Label <b>%s</b> has already been defined" % value, start, end, node.file, Issue.SEVERITY_ERROR))
+							issue_handler.issue(Issue("Label <b>%s</b> has already been defined" % value, start, end, node.file, Issue.SEVERITY_ERROR))
 						else:
 							self._labelCache[value] = (node.start, node.lastEnd)
 						
@@ -160,7 +159,7 @@ class LaTeXOutlineGenerator(object):
 							if self.cfgLabelsInTree:
 								self._stack[-1].append(labelNode)
 					except IndexError:
-						self._issue_handler.issue(Issue("Malformed command", node.start, node.lastEnd, node.file, Issue.SEVERITY_ERROR))
+						issue_handler.issue(Issue("Malformed command", node.start, node.lastEnd, node.file, Issue.SEVERITY_ERROR))
 				
 #				elif node.value == "begin":
 #					environment = str(node.filter(Node.MANDATORY_ARGUMENT)[0][0])
@@ -186,7 +185,7 @@ class LaTeXOutlineGenerator(object):
 						packageNode = OutlineNode(OutlineNode.PACKAGE, node.start, node.lastEnd, package, file=node.file)
 						self._outline.packages.append(packageNode)
 					except IndexError:
-						self._issue_handler.issue(Issue("Malformed command", node.start, node.end, node.file, Issue.SEVERITY_ERROR))
+						issue_handler.issue(Issue("Malformed command", node.start, node.end, node.file, Issue.SEVERITY_ERROR))
 				
 				elif self.cfgTablesInTree and node.value == "begin":
 					try:
@@ -195,7 +194,7 @@ class LaTeXOutlineGenerator(object):
 							tableNode = OutlineNode(OutlineNode.TABLE, node.start, node.lastEnd, "", foreign=foreign, file=node.file)
 							self._stack[-1].append(tableNode)
 					except IndexError:
-						self._issue_handler.issue(Issue("Malformed command", node.start, node.lastEnd, node.file, Issue.SEVERITY_ERROR))
+						issue_handler.issue(Issue("Malformed command", node.start, node.lastEnd, node.file, Issue.SEVERITY_ERROR))
 				
 				elif self.cfgGraphicsInTree and node.value == "includegraphics":
 					try:
@@ -203,7 +202,7 @@ class LaTeXOutlineGenerator(object):
 						graphicsNode = OutlineNode(OutlineNode.GRAPHICS, node.start, node.lastEnd, target, foreign=foreign, file=node.file)
 						self._stack[-1].append(graphicsNode)
 					except IndexError:
-						self._issue_handler.issue(Issue("Malformed command", node.start, node.lastEnd, node.file, Issue.SEVERITY_ERROR))
+						issue_handler.issue(Issue("Malformed command", node.start, node.lastEnd, node.file, Issue.SEVERITY_ERROR))
 				
 				elif node.value == "bibliography":
 					try:
@@ -211,14 +210,14 @@ class LaTeXOutlineGenerator(object):
 						for bib in value.split(","):
 							self._outline.bibliographies.append(File("%s/%s.bib" % (node.file.dirname, bib)))
 					except IndexError:
-						self._issue_handler.issue(Issue("Malformed command", node.start, node.lastEnd, node.file, Issue.SEVERITY_ERROR))
+						issue_handler.issue(Issue("Malformed command", node.start, node.lastEnd, node.file, Issue.SEVERITY_ERROR))
 						
 				elif node.value == "definecolor" or node.value == "xdefinecolor":
 					try:
 						name = str(node.firstOfType(Node.MANDATORY_ARGUMENT)[0])
 						self._outline.colors.append(name)
 					except IndexError:
-						self._issue_handler.issue(Issue("Malformed command", node.start, node.lastEnd, node.file, Issue.SEVERITY_ERROR))
+						issue_handler.issue(Issue("Malformed command", node.start, node.lastEnd, node.file, Issue.SEVERITY_ERROR))
 						
 				elif node.value == "newcommand":
 					try:
@@ -228,12 +227,12 @@ class LaTeXOutlineGenerator(object):
 						except IndexError:
 							nArgs = 0
 						except Exception:
-							self._issue_handler.issue(Issue("Malformed newcommand", node.start, node.end, node.file, Issue.SEVERITY_ERROR))
+							issue_handler.issue(Issue("Malformed newcommand", node.start, node.end, node.file, Issue.SEVERITY_ERROR))
 							nArgs = 0
 						ncNode = OutlineNode(OutlineNode.NEWCOMMAND, node.start, node.lastEnd, name, numOfArgs=nArgs, file=node.file)
 						self._outline.newcommands.append(ncNode)
 					except IndexError:
-						self._issue_handler.issue(Issue("Malformed command", node.start, node.lastEnd, node.file, Issue.SEVERITY_ERROR))
+						issue_handler.issue(Issue("Malformed command", node.start, node.lastEnd, node.file, Issue.SEVERITY_ERROR))
 					
 					# don't walk through \newcommand
 					continue
@@ -248,13 +247,15 @@ class LaTeXOutlineGenerator(object):
 						ne_node = OutlineNode(OutlineNode.NEWENVIRONMENT, node.start, node.lastEnd, name, numOfArgs=0, file=node.file)
 						self._outline.newenvironments.append(ne_node)
 					except IndexError:
-						self._issue_handler.issue(Issue("Malformed command", node.start, node.lastEnd, node.file, Issue.SEVERITY_ERROR))
+						issue_handler.issue(Issue("Malformed command", node.start, node.lastEnd, node.file, Issue.SEVERITY_ERROR))
 				
 				elif node.value == "include" or node.value == "input":
 					childForeign = True
 			
-			self._walk(node, childForeign)
+			self._walk(node, issue_handler, childForeign)
 
+	#~ def __del__(self):
+		#~ print "Properly destroyed %s" % self
 
 
 	

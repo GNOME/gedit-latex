@@ -2,19 +2,28 @@
  Base
  * fixed URL escaping issues [ 2979778 ]
  * avoiding the column separator in the completion popup
+ * fixed crashes when activating/deactivating the plugin with (several) files open [ 2979394, 2929220 ]
  
  LaTeX
  * added \emph to font tools [ 2911558 ]
  * \varnothing needs amssymb package
  * switch to hyperref for PDF meta data [ 2809478 ]
  * added hyperref package to latex.xml
+ * fixed memory leak when saving [ 2979799 ]
+ * fixed relative paths and extensions for inputs [ 2927409 ]
  
  Embedded Preview
- * added SyncTeX support for the embedded viewer
+ * added SyncTeX support for the embedded viewer, through Ctrl+LeftClick in source or view
   - http://itexmac.sourceforge.net/SyncTeX.html
   - http://www.tug.org/TUGboat/Articles/tb29-3/tb93laurens.pdf
  * fixed sync edit, when synctex gives a relative file path for the input_file
  * double-click (or press Space or Enter when selected) on a node in outline synchronizes source and output (equivalent to click in outline, then Ctrl+click in the source at the highlighted position)
+ * single preview panel for all source files attached to one output file [ 2942875 ]
+ * added support for links in pdf document
+ * added focusability of the preview, with usual keyboard (and keyboard+mouse_scrolling) shortcuts. Navigation from view to preview is by Ctrl+Tab, and from preview to view is by Tab or Ctrl+Tab.
+ * added support for "single page" type of view (for beamer presentations etc.)
+ * added magnifying glass for left mouse button
+ * fixed memory leak when scrolling [ 2974140 ]
  
  Tools
  * fixed support for R Sweave [ 2825855 ]

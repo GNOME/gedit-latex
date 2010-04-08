@@ -41,7 +41,12 @@ class BaseOutlineView(SideView):
 	
 	label = "Outline"
 	scope = View.SCOPE_EDITOR
-	
+
+	def __init__(self, context, editor):
+		SideView.__init__(self, context)
+		self._editor = editor
+		self._base_handlers = {}
+		
 	@property
 	def icon(self):
 		image = gtk.Image()
@@ -56,19 +61,19 @@ class BaseOutlineView(SideView):
 		self._preferences = Preferences()
 
 		# toolbar
-
+		
 		btn_follow = gtk.ToggleToolButton(gtk.STOCK_CONNECT)
 		btn_follow.set_tooltip_text("Follow Editor")
 		btn_follow.set_active(self._preferences.get_bool("ConnectOutlineToEditor", True))
-		btn_follow.connect("toggled", self._on_follow_toggled)
+		self._base_handlers[btn_follow] = btn_follow.connect("toggled", self._on_follow_toggled)
 		
 		btn_expand = gtk.ToolButton(gtk.STOCK_ZOOM_IN)
 		btn_expand.set_tooltip_text("Expand All")
-		btn_expand.connect("clicked", self._on_expand_clicked)
+		self._base_handlers[btn_expand] = btn_expand.connect("clicked", self._on_expand_clicked)
 		
 		btn_collapse = gtk.ToolButton(gtk.STOCK_ZOOM_OUT)
 		btn_collapse.set_tooltip_text("Collapse All")
-		btn_collapse.connect("clicked", self._on_collapse_clicked)
+		self._base_handlers[btn_collapse] = btn_collapse.connect("clicked", self._on_collapse_clicked)
 		
 		self._toolbar = gtk.Toolbar()
 		self._toolbar.set_style(gtk.TOOLBAR_ICONS)
@@ -102,7 +107,7 @@ class BaseOutlineView(SideView):
 		self._view.append_column(column)
 		self._view.set_headers_visible(False)
 		self._cursor_changed_id = self._view.connect("cursor-changed", self._on_cursor_changed)
-		self._view.connect("row-activated", self._on_row_activated)
+		self._base_handlers[self._view] = self._view.connect("row-activated", self._on_row_activated)
 		
 		scrolled = gtk.ScrolledWindow()
 		scrolled.add(self._view)
@@ -214,6 +219,13 @@ class BaseOutlineView(SideView):
 		To be overridden
 		"""
 
+	def destroy(self):
+		self._view.disconnect(self._cursor_changed_id)
+		for obj in self._base_handlers:
+			obj.disconnect(self._base_handlers[obj])
+		del self._editor
+		SideView.destroy(self)
+		
 
 class Item(object):
 	def __init__(self, key, value):

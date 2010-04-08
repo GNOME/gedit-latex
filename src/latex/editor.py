@@ -71,7 +71,7 @@ class LaTeXEditor(Editor, IIssueHandler, IMisspelledWordHandler, IPreferencesMon
 	def init(self, file, context):
 		"""
 		@param file: base.File
-		@param content: base.WindowContext
+		@param context: base.WindowContext
 		"""
 		self._log.debug("init(%s)" % file)
 		
@@ -88,11 +88,10 @@ class LaTeXEditor(Editor, IIssueHandler, IMisspelledWordHandler, IPreferencesMon
 		self._issue_view = context.find_view(self, "IssueView")
 		self._outline_view = context.find_view(self, "LaTeXOutlineView")
 
-		self.latex_preview = None
-		
 		self._parser = LaTeXParser()
 		self._outline_generator = LaTeXOutlineGenerator()
 		self._validator = LaTeXValidator()
+		self._document = None
 		
 		self._document_dirty = True
 		
@@ -125,8 +124,11 @@ class LaTeXEditor(Editor, IIssueHandler, IMisspelledWordHandler, IPreferencesMon
 				# so we may not use it for regenerating the outline here
 				self.__parse()
 		elif key == "ShowLatexToolbar":
-			tab_decorator = self._window_context._window_decorator._active_tab_decorator
-			self._window_context._window_decorator.adjust(tab_decorator)
+			show_toolbar = self._preferences.get_bool("ShowLatexToolbar", True)
+			if show_toolbar:
+				self._window_context._window_decorator._toolbar.show()
+			else:
+				self._window_context._window_decorator._toolbar.hide()
 	
 	def _ctrl_left_clicked(self, it):
 		"""
@@ -286,8 +288,6 @@ class LaTeXEditor(Editor, IIssueHandler, IMisspelledWordHandler, IPreferencesMon
 			
 			self._log.debug("Parsing document...")
 			
-			content = self.content
-			
 			# reset highlight
 			self.remove_markers("latex-error")
 			self.remove_markers("latex-warning")
@@ -298,14 +298,17 @@ class LaTeXEditor(Editor, IIssueHandler, IMisspelledWordHandler, IPreferencesMon
 			if BENCHMARK: t = time.clock()
 			
 			# parse document
-			self._document = self._parser.parse(content, self._file, self)
+			if self._document != None:
+				self._document.destroy()
+				del self._document
+			self._document = self._parser.parse(self.content, self._file, self)
 			
 			if BENCHMARK: self._log.info("LaTeXParser.parse: %f" % (time.clock() - t))
 			
 			# create a copy that won't be expanded (e.g. for spell check)
 			#self._local_document = deepcopy(self._document)
 			
-			self._log.debug("Parsed %s bytes of content" % len(content))
+			self._log.debug("Parsed %s bytes of content" % len(self.content))
 			
 			# FIXME: the LaTeXChooseMasterAction enabled state has to be updated on tab change, too!
 			
@@ -564,7 +567,18 @@ class LaTeXEditor(Editor, IIssueHandler, IMisspelledWordHandler, IPreferencesMon
 		return self._file
 
 	def destroy(self):
+		# stop listening preferences
 		self._preferences.remove_monitor(self)
+
+		# unreference the window context
+		del self._context
 		
+		# destroy the cached document
+		self._document.destroy()
+		del self._document
+
 		Editor.destroy(self)
+		
+	def __del__(self):
+		self._log.debug("Properly destroyed %s" % self)
 	

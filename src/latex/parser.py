@@ -168,6 +168,18 @@ class Node(list):
 		"""
 		# TODO
 		
+	def destroy(self):
+		# This is important, python cannot automatically free this 
+		# object because of cyclic references (it is doubly linked)
+		self.parent = None
+		for child in self:
+			child.destroy()
+		del self[:]
+		
+	#~ def __del__(self):
+		#~ print "Properly destroyed %s" % self
+		
+		
 
 class Document(Node):
 	"""
@@ -317,8 +329,6 @@ class LaTeXParser(object):
 		"""
 		@deprecated: use parse_string() and issues() instead
 		"""
-		self._file = file
-		self._issue_handler = issue_handler
 		
 		self._stack = [documentNode]
 		
@@ -334,16 +344,16 @@ class LaTeXParser(object):
 		
 		try:
 			for token in Lexer(string):
-				callables[token.type].__call__(token.value, token.offset)
+				callables[token.type].__call__(token.value, token.offset, file, issue_handler)
 		except FatalParseException:
 			return
 		
 		# check stack remainder
 		for node in self._stack:
 			if node.type == Node.MANDATORY_ARGUMENT or node.type == Node.EMBRACED:
-				self._issue_handler.issue(Issue("Unclosed {", node.start, node.start + 1, self._file, Issue.SEVERITY_ERROR))
+				issue_handler.issue(Issue("Unclosed {", node.start, node.start + 1, file, Issue.SEVERITY_ERROR))
 			elif node.type == Node.OPTIONAL_ARGUMENT:
-				self._issue_handler.issue(Issue("Unclosed [", node.start, node.start + 1, self._file, Issue.SEVERITY_ERROR))
+				issue_handler.issue(Issue("Unclosed [", node.start, node.start + 1, file, Issue.SEVERITY_ERROR))
 	
 	def parse(self, string, file, issue_handler):
 		"""
@@ -360,14 +370,14 @@ class LaTeXParser(object):
 	
 	# TODO: rename methods from "command()" to "_on_command()"
 	
-	def command(self, value, offset):
+	def command(self, value, offset, file, issue_handler):
 		top = self._stack[-1]
 		
 		if top.type == Node.DOCUMENT \
 				or top.type == Node.MANDATORY_ARGUMENT \
 				or top.type == Node.OPTIONAL_ARGUMENT \
 				or top.type == Node.EMBRACED:
-			node = LocalizedNode(Node.COMMAND, offset, offset + len(value) + 1, value, self._file)
+			node = LocalizedNode(Node.COMMAND, offset, offset + len(value) + 1, value, file)
 			top.append(node)
 			self._stack.append(node)
 			
@@ -375,40 +385,40 @@ class LaTeXParser(object):
 				or top.type == Node.TEXT:
 			try:
 				self._stack.pop()
-				self.command(value, offset)
+				self.command(value, offset, file, issue_handler)
 			except IndexError:
-				self._issue_handler.issue(Issue("Undefined Parse Error", offset, offset + 1, self._file, Issue.SEVERITY_ERROR))
+				issue_handler.issue(Issue("Undefined Parse Error", offset, offset + 1, file, Issue.SEVERITY_ERROR))
 	
-	def text(self, value, offset):
+	def text(self, value, offset, file, issue_handler):
 		top = self._stack[-1]
 
 		if top.type == Node.DOCUMENT \
 				or top.type == Node.MANDATORY_ARGUMENT \
 				or top.type == Node.OPTIONAL_ARGUMENT \
 				or top.type == Node.EMBRACED:
-			node = LocalizedNode(Node.TEXT, offset, offset + len(value), value, self._file)
+			node = LocalizedNode(Node.TEXT, offset, offset + len(value), value, file)
 			top.append(node)
 			self._stack.append(node)
 			
 		elif top.type == Node.COMMAND:
 			self._stack.pop()
-			self.text(value, offset)
+			self.text(value, offset, file, issue_handler)
 			
 		elif top.type == Node.TEXT:
 			try:
 				self._stack.pop()
-				self.text(value, offset)
+				self.text(value, offset, file, issue_handler)
 			except IndexError:
-				self._issue_handler.issue(Issue("Undefined Parse Error", offset, offset + 1, self._file, Issue.SEVERITY_ERROR))
+				issue_handler.issue(Issue("Undefined Parse Error", offset, offset + 1, file, Issue.SEVERITY_ERROR))
 		else:
 			# TODO: possible?
-			self._issue_handler.issue(Issue("Unexpected TEXT token with %s on stack" % top.type, offset, offset + 1, self._file, Issue.SEVERITY_ERROR))
+			issue_handler.issue(Issue("Unexpected TEXT token with %s on stack" % top.type, offset, offset + 1, file, Issue.SEVERITY_ERROR))
 	
-	def beginCurly(self, value, offset):
+	def beginCurly(self, value, offset, file, issue_handler):
 		top = self._stack[-1]
 		
 		if top.type == Node.COMMAND:
-			node = LocalizedNode(Node.MANDATORY_ARGUMENT, offset, offset + 1, file=self._file)
+			node = LocalizedNode(Node.MANDATORY_ARGUMENT, offset, offset + 1, file=file)
 			top.append(node)
 			self._stack.append(node)
 		
@@ -416,21 +426,21 @@ class LaTeXParser(object):
 				or top.type == Node.MANDATORY_ARGUMENT \
 				or top.type == Node.OPTIONAL_ARGUMENT \
 				or top.type == Node.EMBRACED:
-			node = LocalizedNode(Node.EMBRACED, offset, offset + 1, file=self._file)
+			node = LocalizedNode(Node.EMBRACED, offset, offset + 1, file=file)
 			top.append(node)
 			self._stack.append(node)
 		
 		elif top.type == Node.TEXT:
 			try:
 				self._stack.pop()
-				self.beginCurly(value, offset)
+				self.beginCurly(value, offset, file, issue_handler)
 			except IndexError:
-				self._issue_handler.issue(Issue("Undefined Parse Error", offset, offset + 1, self._file, Issue.SEVERITY_ERROR))
+				issue_handler.issue(Issue("Undefined Parse Error", offset, offset + 1, file, Issue.SEVERITY_ERROR))
 		else:
 			# TODO: possible?
-			self._issue_handler.issue(Issue("Unexpected BEGIN_CURLY token with %s on stack" % top.type, offset, offset + 1, self._file, Issue.SEVERITY_ERROR))
+			issue_handler.issue(Issue("Unexpected BEGIN_CURLY token with %s on stack" % top.type, offset, offset + 1, file, Issue.SEVERITY_ERROR))
 	
-	def endCurly(self, value, offset):
+	def endCurly(self, value, offset, file, issue_handler):
 		try:
 			# pop from stack until MANDATORY_ARGUMENT or EMBRACED
 			while True:
@@ -443,14 +453,14 @@ class LaTeXParser(object):
 			# set end offset of MANDATORY_ARGUMENT or EMBRACED
 			node.end = offset + 1
 		except IndexError:
-			self._issue_handler.issue(Issue("Encountered <b>}</b> without <b>{</b>", offset, offset + 1, self._file, Issue.SEVERITY_ERROR))
+			issue_handler.issue(Issue("Encountered <b>}</b> without <b>{</b>", offset, offset + 1, file, Issue.SEVERITY_ERROR))
 			# we cannot continue after that
 			raise FatalParseException
 	
-	def beginSquare(self, value, offset):
+	def beginSquare(self, value, offset, file, issue_handler):
 		top = self._stack[-1]
 		if top.type == Node.COMMAND:
-			node = LocalizedNode(Node.OPTIONAL_ARGUMENT, offset, offset + 1, file=self._file)
+			node = LocalizedNode(Node.OPTIONAL_ARGUMENT, offset, offset + 1, file=file)
 			top.append(node)
 			self._stack.append(node)
 		
@@ -458,14 +468,14 @@ class LaTeXParser(object):
 			top.value += "["
 		
 		elif top.type == Node.MANDATORY_ARGUMENT:
-			node = LocalizedNode(Node.TEXT, offset, offset + 1, "[", self._file)
+			node = LocalizedNode(Node.TEXT, offset, offset + 1, "[", file)
 			top.append(node)
 			self._stack.append(node)
 		
 		else:
-			self._issue_handler.issue(Issue("Unexpected BEGIN_SQUARE token with %s on stack" % top.type, offset, offset + 1, self._file, Issue.SEVERITY_ERROR))
+			issue_handler.issue(Issue("Unexpected BEGIN_SQUARE token with %s on stack" % top.type, offset, offset + 1, file, Issue.SEVERITY_ERROR))
 	
-	def endSquare(self, value, offset):
+	def endSquare(self, value, offset, file, issue_handler):
 		try:
 			node = [node for node in self._stack if node.type == Node.OPTIONAL_ARGUMENT][-1]
 			
@@ -487,21 +497,21 @@ class LaTeXParser(object):
 			elif top.type == Node.COMMAND:
 				try:
 					self._stack.pop()
-					self.endSquare(value, offset)
+					self.endSquare(value, offset, file, issue_handler)
 				except IndexError:
-					self._issue_handler.issue(Issue("Undefined Parse Error", offset, offset + 1, self._file, Issue.SEVERITY_ERROR))
+					issue_handler.issue(Issue("Undefined Parse Error", offset, offset + 1, file, Issue.SEVERITY_ERROR))
 			
 			elif top.type == Node.MANDATORY_ARGUMENT or top.type == Node.DOCUMENT or top.type == Node.OPTIONAL_ARGUMENT:
-				node = LocalizedNode(Node.TEXT, offset, offset + 1, "]", self._file)
+				node = LocalizedNode(Node.TEXT, offset, offset + 1, "]", file)
 				top.append(node)
 				self._stack.append(node)
 			
 			else:
-				self._issue_handler.issue(Issue("Unexpected END_SQUARE token with %s on stack and no optional argument" % top.type, offset, offset + 1, self._file, Issue.SEVERITY_ERROR))
+				issue_handler.issue(Issue("Unexpected END_SQUARE token with %s on stack and no optional argument" % top.type, offset, offset + 1, file, Issue.SEVERITY_ERROR))
 	
 	_PATTERN = compile("(TODO|FIXME)\w?\:?(?P<text>.*)")
 	
-	def comment(self, value, offset):
+	def comment(self, value, offset, file, issue_handler):
 		"""
 		Extract TODOs and FIXMEs
 		"""
@@ -509,10 +519,13 @@ class LaTeXParser(object):
 		if match:
 			text = match.group("text").strip()
 			# TODO: escape
-			self._issue_handler.issue(Issue(text, offset + match.start(), offset + match.end() + 1, self._file, Issue.SEVERITY_TASK))
+			issue_handler.issue(Issue(text, offset + match.start(), offset + match.end() + 1, file, Issue.SEVERITY_TASK))
 		
-	def verbatim(self, value, offset):
+	def verbatim(self, value, offset, file, issue_handler):
 		pass
+		
+	#~ def __del__(self):
+		#~ print "Properly destroyed %s" % self
 
 
 class PrefixParser(object):

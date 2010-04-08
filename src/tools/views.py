@@ -49,6 +49,10 @@ class ToolView(BottomView, IStructuredIssueHandler):
 	_ICON_WARNING = gtk.gdk.pixbuf_new_from_file(find_resource("icons/warning.png"))
 	_ICON_ABORT = gtk.gdk.pixbuf_new_from_file(find_resource("icons/abort.png"))
 	
+	def __init__(self, context):
+		BottomView.__init__(self, context)
+		self._handlers = {}
+		
 	def init(self, context):
 		self._log.debug("init")
 		
@@ -76,7 +80,7 @@ class ToolView(BottomView, IStructuredIssueHandler):
 		self._view.append_column(gtk.TreeViewColumn("File", gtk.CellRendererText(), text=2))
 		self._view.append_column(gtk.TreeViewColumn("Line", gtk.CellRendererText(), text=3))
 		
-		self._view.connect("row-activated", self._on_row_activated)
+		self._handlers[self._view] = self._view.connect("row-activated", self._on_row_activated)
 		
 		self._scroll.add(self._view)
 		
@@ -87,12 +91,12 @@ class ToolView(BottomView, IStructuredIssueHandler):
 		self._buttonCancel = gtk.ToolButton(gtk.STOCK_STOP)
 		self._buttonCancel.set_sensitive(False)
 		self._buttonCancel.set_tooltip_text("Abort Job")
-		self._buttonCancel.connect("clicked", self._on_abort_clicked)
+		self._handlers[self._buttonCancel] = self._buttonCancel.connect("clicked", self._on_abort_clicked)
 		
 		self._buttonDetails = gtk.ToolButton(gtk.STOCK_INFO)
 		self._buttonDetails.set_sensitive(False)
 		self._buttonDetails.set_tooltip_text("Show Detailed Output")
-		self._buttonDetails.connect("clicked", self._on_details_clicked)
+		self._handlers[self._buttonDetails] = self._buttonDetails.connect("clicked", self._on_details_clicked)
 
 		self._toolbar = gtk.Toolbar()
 		self._toolbar.set_style(gtk.TOOLBAR_ICONS)
@@ -179,7 +183,8 @@ class ToolView(BottomView, IStructuredIssueHandler):
 			
 		self._view.expand_all()
 	
-	
-	
-	
+	def destroy(self):
+		for obj in self._handlers:
+			obj.disconnect(self._handlers[obj])
+		BottomView.destroy(self)
 	

@@ -281,6 +281,18 @@ class LaTeXPreviews:
 		position = pane.get_position()
 		preview_width = total_width - position
 		self._preferences.set("PdfPreviewWidth", preview_width)
+		
+	
+	def destroy(self):
+		self._log.debug("destroy")
+		del self._context
+		del self._preferences
+		for tab in self.split_views:
+			# unlikely but...
+			self.hide(tab)
+			
+	def __del__(self):
+		self._log.debug("Properly destroyed %s" % self)
 
 
 
@@ -573,12 +585,13 @@ class PreviewDocument:
 				return
 		
 		for page in self.__pages:
+			# The information in the log is in the event ctypes crashes
+			self._log.debug("Destroying poppler page %d, %s, hash %s" % (page, type(self.__pages[page]), hash(self.__pages[page])))
 			glib.g_object_unref(hash(self.__pages[page]))
-			self._log.debug("Destroyed poppler page %d" % page)
 		self.__pages = {}
 		
-		#~ glib.g_object_unref(hash(self.__document))
-		#~ self._log.debug("Destroyed poppler document")
+		self._log.debug("Destroying poppler document %s, hash %s" % (type(self.__document), hash(self.__document)))
+		glib.g_object_unref(hash(self.__document))
 		self.__document = None
 			
 			

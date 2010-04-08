@@ -191,6 +191,10 @@ class LaTeXOutlineView(BaseOutlineView):
 	label = "Outline"
 	scope = View.SCOPE_EDITOR
 	
+	def __init__(self, context, editor):
+		BaseOutlineView.__init__(self, context, editor)
+		self._handlers = {}
+	
 	@property
 	def icon(self):
 		image = gtk.Image()
@@ -216,8 +220,8 @@ class LaTeXOutlineView(BaseOutlineView):
 		btn_graphics.set_active(Preferences().get_bool("ShowGraphicsInOutline", True))
 		btn_tables.set_active(Preferences().get_bool("ShowTablesInOutline", True))
 		
-		btn_graphics.connect("toggled", self._on_graphics_toggled)
-		btn_tables.connect("toggled", self._on_tables_toggled)
+		self._handlers[btn_graphics] = btn_graphics.connect("toggled", self._on_graphics_toggled)
+		self._handlers[btn_tables] = btn_tables.connect("toggled", self._on_tables_toggled)
 	
 	def set_outline(self, outline):
 		"""
@@ -230,7 +234,7 @@ class LaTeXOutlineView(BaseOutlineView):
 		self._save_state()
 		
 		self._offset_map = OutlineOffsetMap()
-		OutlineConverter().convert(self._store, outline, self._offset_map, self._context.active_editor.edited_file)
+		OutlineConverter().convert(self._store, outline, self._offset_map, self._editor.edited_file)
 		
 		self._restore_state()
 	
@@ -239,8 +243,8 @@ class LaTeXOutlineView(BaseOutlineView):
 		An outline node has been selected
 		"""
 		if Preferences().get_bool("ConnectOutlineToEditor", True):
-			if node.file == self._context.active_editor.edited_file:
-				self._context.active_editor.select(node.start, node.end)
+			if node.file == self._editor.edited_file:
+				self._editor.select(node.start, node.end)
 	
 	def _on_node_activated(self, node):
 		"""
@@ -255,31 +259,40 @@ class LaTeXOutlineView(BaseOutlineView):
 			
 			if not target:
 				return
-			
-			if target.startswith("/"):
+
+			# the way we use a mixture of File objects and filenames is not optimal...
+			if File.is_absolute(target):
 				filename = target
 			else:
-				filename = "%s/%s" % (node.file.dirname, target)
+				filename = File.create_from_relative_path(target, node.file.dirname).path
 			
-			f = File(filename)
+			# an image may be specified without the extension
+			potential_extensions = ["", ".eps", ".pdf", ".jpg", ".jpeg", ".gif", ".png"]
 			
-			if not f.exists:
+			found = False
+			for ext in potential_extensions:
+				f = File(filename + ext)
+				if f.exists:
+					found = True
+					break
+			
+			if not found:
 				self._log.error("File not found: %s" % filename)
 				return
 			
-			system("gnome-open %s" % filename)
+			system("gnome-open %s" % f.uri)
 			
 		else:
 			# open/activate the referenced file, if the node is 'foreign'
-			if node.file != self._context.active_editor.edited_file:
+			if node.file != self._editor.edited_file:
 				self._context.activate_editor(node.file)
 			else:
 				# act as if the user Ctrl+clicked on the region of the activated node
 				
 				# FIXME: this doesn't belong here, what if an implementation of _ctrl_left_clicked requires
 				# a gdk.Event for e.g. displaying a context menu?
-				it = self._context.active_editor._text_buffer.get_iter_at_offset(node.start)
-				self._context.active_editor._ctrl_left_clicked(it)
+				it = self._editor._text_buffer.get_iter_at_offset(node.start)
+				self._editor._ctrl_left_clicked(it)
 	
 	def _on_tables_toggled(self, toggle_button):
 		value = toggle_button.get_active()
@@ -293,6 +306,10 @@ class LaTeXOutlineView(BaseOutlineView):
 #		self.trigger("graphicsToggled", value)
 		Preferences().set("ShowGraphicsInOutline", value)
 	
+	def destroy(self):
+		for obj in self._handlers:
+			obj.disconnect(self._handlers[obj])
+		BaseOutlineView.destroy(self)
 	
 
 from os.path import basename

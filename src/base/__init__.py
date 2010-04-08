@@ -33,6 +33,8 @@ class View(object):
 	Base class for a view
 	"""
 	
+	_log = getLogger("View")
+	
 	# TODO: this doesn't belong to the interface of base
 	# TODO: call destroy()
 	
@@ -62,6 +64,9 @@ class View(object):
 		"""
 		To be overridden
 		"""
+		
+	def __del__(self):
+		self._log.debug("Properly destroyed %s" % self)
 
 
 class SideView(View, gtk.VBox):
@@ -98,6 +103,12 @@ class SideView(View, gtk.VBox):
 		"""
 		if not self._initialized:
 			self._do_init()
+			
+	def destroy(self):
+		if not self._initialized:
+			self.disconnect(self._expose_handler)
+		gtk.VBox.destroy(self)
+		self._context = None
 
 
 class BottomView(View, gtk.HBox):
@@ -134,6 +145,13 @@ class BottomView(View, gtk.HBox):
 		"""
 		if not self._initialized:
 			self._do_init()
+			
+	def destroy(self):
+		if not self._initialized:
+			self.disconnect(self._expose_handler)
+		gtk.HBox.destroy(self)
+		self._context = None
+
 
 
 class Template(object):
@@ -191,7 +209,7 @@ class Action(object):
 		else:
 			action_clazz = gtk.Action
 		self._internal_action = action_clazz(self.__class__.__name__, self.label, self.tooltip, self.stock_id)
-		self._internal_action.connect("activate", lambda gtk_action, action: action.activate(window_context), self)
+		self._handler = self._internal_action.connect("activate", lambda gtk_action, action: action.activate(window_context), self)
 		action_group.add_action_with_accel(self._internal_action, self.accelerator)
 		
 	@property
@@ -215,6 +233,13 @@ class Action(object):
 		@param context: the current WindowContext instance
 		"""
 		raise NotImplementedError
+
+	def unhook(self, action_group):
+		self._internal_action.disconnect(self._handler)
+		action_group.remove_action(self._internal_action)
+		
+	#~ def __del__(self):
+		#~ print "Properly destroyed Action %s" % self
 
 
 class ICompletionHandler(object):
@@ -1000,7 +1025,28 @@ class Editor(object):
 		for tag in self._tags:
 			table.remove(tag)
 		
+		# destroy the template delegate
 		self._template_delegate.destroy()
+		del self._template_delegate
+		
+		# destroy the views associated to this editor
+		for i in self._window_context.editor_scope_views[self]:
+			self._window_context.editor_scope_views[self][i].destroy()
+		del self._window_context.editor_scope_views[self]
+		
+		# unreference the tab decorator
+		del self._tab_decorator
+
+		# destroy the completion distributor
+		if self._completion_distributor != None:
+			self._completion_distributor.destroy()
+		del self._completion_distributor
+
+		# unreference the window context
+		del self._window_context
+		
+	def __del__(self):
+		self._log.debug("Properly destroyed %s" % self)
 
 
 class WindowContext(object):
@@ -1041,7 +1087,7 @@ class WindowContext(object):
 		try:
 			for id, clazz in self._editor_scope_view_classes[file.extension].iteritems():
 				# create View instance and add it to the map
-				self.editor_scope_views[editor][id] = clazz(self)
+				self.editor_scope_views[editor][id] = clazz(self, editor)
 				
 				self._log.debug("Created view " + id)
 		except KeyError:
@@ -1083,6 +1129,18 @@ class WindowContext(object):
 		Enable/disable an IAction object
 		"""
 		self._window_decorator._action_group.get_action(action_id).set_sensitive(enabled)
+		
+	def destroy(self):
+		# unreference the window decorator
+		del self._window_decorator
+		
+		# destroy the internal pdf previews
+		if self.latex_previews != None:
+			self.latex_previews.destroy()
+			del self.latex_previews
+		
+	def __del__(self):
+		self._log.debug("Properly destroyed %s" % self)
 	
 
 from os import remove
