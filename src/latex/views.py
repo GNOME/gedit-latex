@@ -274,6 +274,10 @@ class LaTeXOutlineView(BaseOutlineView):
 			if node.file != self._context.active_editor.edited_file:
 				self._context.activate_editor(node.file)
 			else:
+				# act as if the user Ctrl+clicked on the region of the activated node
+				
+				# FIXME: this doesn't belong here, what if an implementation of _ctrl_left_clicked requires
+				# a gdk.Event for e.g. displaying a context menu?
 				it = self._context.active_editor._text_buffer.get_iter_at_offset(node.start)
 				self._context.active_editor._ctrl_left_clicked(it)
 	

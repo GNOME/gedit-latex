@@ -1,10 +1,34 @@
 0.2 final
- * added hyperref package to latex.xml
- * switch to hyperref for PDF meta data [ 2809478 ]
+ Base
+ * fixed URL escaping issues [ 2979778 ]
  * avoiding the column separator in the completion popup
- * fixed resolution setting in image exporter
- * fixed support for R Sweave [ 2825855 ]
+ 
+ LaTeX
+ * added \emph to font tools [ 2911558 ]
  * \varnothing needs amssymb package
+ * switch to hyperref for PDF meta data [ 2809478 ]
+ * added hyperref package to latex.xml
+ 
+ Embedded Preview
+ * added SyncTeX support for the embedded viewer
+  - http://itexmac.sourceforge.net/SyncTeX.html
+  - http://www.tug.org/TUGboat/Articles/tb29-3/tb93laurens.pdf
+ * fixed sync edit, when synctex gives a relative file path for the input_file
+ * double-click (or press Space or Enter when selected) on a node in outline synchronizes source and output (equivalent to click in outline, then Ctrl+click in the source at the highlighted position)
+ 
+ Tools
+ * fixed support for R Sweave [ 2825855 ]
+ * fixed resolution setting in image exporter
+ * added quotes to Cleanup tool, to handle directories with spaces
+ * made the tool id's unique, it crashed the plugin when not the case
+
+ Preferences
+ * fixed the algorithm to swap two tools in the preferences dialog (removing the two tools at the same time changed the position where they should have been inserted back)
+ * fixed case problem in ShowLatexToolbar preference (there were ShowLatexToolbar and ShowLaTeXToolbar)
+ * toggling the "Show Latex Toolbar" option in the Miscelleaneous tab directly shows or hides the toolbar
+ 
+ Misc
+ * added tooltips to the "Show Tables" and "Show graphics" buttons in the Outline
 
 0.2 rc3
  * fixed bug in BibTeX parser
