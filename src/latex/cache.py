@@ -94,18 +94,26 @@ class LaTeXDocumentCache(object):
 			# update timestamp
 			self.__mtime = self.__file.mtime
 			
-			# read file (the "with open(...) as f:" statement 
-			# automatically closes the file at the end)
-			with open(self.__file.path, "r") as f:
-				content = f.read()
+			# clear previous data
+			self.__issue_handler.clear()
+			if self.__document != None:
+				self.__document.destroy()
+				self.__document = None
+
+			# read file
+			try:
+				f = open(self.__file.path, "r")
+				try:
+					content = f.read()
+				finally:
+					f.close()
+			except IOError:
+				return
+
 			if self.__charset is not None:
 				content = content.decode(self.__charset)
 			
 			# parse
-			self.__issue_handler.clear()
-			if self.__document != None:
-				self.__document.destroy()
-				del self.__document
 			self.__document = self.__parser.parse(content, self.__file, self.__issue_handler)
 	
 	def __new__(cls):
