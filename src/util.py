@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
-import logging
 
 # This file is part of the Gedit LaTeX Plugin
 #
-# Copyright (C) 2009 Michael Zeising
+# Copyright (C) 2010 Michael Zeising
 #
 # This program is free software; you can redistribute it and/or modify it under
 # the terms of the GNU General Public Licence as published by the Free Software
@@ -26,6 +25,7 @@ Utility classes, functions and decorators used at various places across
 the project
 """
 
+import logging
 
 def require(arg_name, *allowed_types):
 	"""
