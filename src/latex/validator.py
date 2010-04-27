@@ -222,8 +222,12 @@ class LaTeXValidator(object):
 						# check if style exists
 						value = node.firstOfType(Node.MANDATORY_ARGUMENT).innerText
 						
+						# search the TeX environment
 						if not self._environment.file_exists("%s.bst" % value):
-							issue_handler.issue(Issue("Bibliography style <b>%s</b> could not be found" % escape(value), node.start, node.lastEnd, node.file, Issue.SEVERITY_WARNING))
+							# search the working directory
+							bst_file = File.create_from_relative_path("%s.bst" % value, node.file.dirname)
+							if not bst_file.exists:
+								issue_handler.issue(Issue("Bibliography style <b>%s</b> could not be found" % escape(value), node.start, node.lastEnd, node.file, Issue.SEVERITY_WARNING))
 					except IndexError:
 						issue_handler.issue(Issue("Malformed command", node.start, node.lastEnd, node.file, Issue.SEVERITY_ERROR))
 						
