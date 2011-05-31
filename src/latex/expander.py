@@ -67,16 +67,23 @@ class LaTeXReferenceExpander(object):
 				try:
 					# build child filename (absolute/relative, with .tex/without .tex)
 					target = node.firstOfType(Node.MANDATORY_ARGUMENT).innerText
+
+					file = None
 					if File.is_absolute(target):
+						# absolute path
+						# look for 'x' and then for 'x.tex'
 						file = File("%s.tex" % target)
 						if not file.exists:
 							file = File(target)
 					else:
+						# path relative to the master file's directory
+						# TODO: include TeX search path!
+						# look for 'x' and then for 'x.tex'
 						file = File.create_from_relative_path("%s.tex" % target, self._master_file.dirname)
 						if not file.exists:
 							file = File.create_from_relative_path(target, self._master_file.dirname)
 					
-					self._log.debug("Expanding %s" % file.uri)
+					self._log.debug("Expanding %s" % file)
 					
 					# lookup/parse child document model
 					try:
