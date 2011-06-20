@@ -40,7 +40,7 @@ class ToolView(BottomView, IStructuredIssueHandler):
 	_log = getLogger("ToolView")
 	
 	label = "Tools"
-	icon = Gtk.STOCK_CONVERT
+	icon = Gtk.Image.new_from_stock(Gtk.STOCK_CONVERT, Gtk.IconSize.MENU)
 	scope = View.SCOPE_WINDOW
 	
 	_ICON_RUN = GdkPixbuf.Pixbuf.new_from_file(find_resource("icons/run.png"))

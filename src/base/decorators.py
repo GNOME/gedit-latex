@@ -113,7 +113,10 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		# 
 		tool_view = ToolView(self._window_context)
 		self._views["ToolView"] = tool_view
-		self._window.get_bottom_panel().add_item(tool_view, tool_view.label, tool_view.icon)
+		#fixme put the id!
+		bottom_panel = self._window.get_bottom_panel()
+		print tool_view.icon
+		bottom_panel.add_item(tool_view, "ToolViewid", tool_view.label, tool_view.icon)
 		#self._window_bottom_views.append(tool_view)
 		
 		# update window context
@@ -752,7 +755,7 @@ class GeditTabDecorator(object):
 		
 		@return: True if the editor has changed
 		"""
-		uri = self._text_buffer.get_uri()
+		uri = self._text_buffer.get_location().get_uri()
 		if uri is None:
 			# this happends when the plugin is activated in a running gedit
 			# and this decorator is created for the empty file
