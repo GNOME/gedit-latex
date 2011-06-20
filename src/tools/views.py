@@ -65,7 +65,7 @@ class ToolView(BottomView, IStructuredIssueHandler):
 		
 		self._store = Gtk.TreeStore(GdkPixbuf.Pixbuf, str, str, str, object)	# icon, message, file, line, Issue object
 		
-		self._view = Gtk.TreeView(self._store)
+		self._view = Gtk.TreeView(model=self._store)
 		
 		column = Gtk.TreeViewColumn("Job")
 
@@ -85,28 +85,28 @@ class ToolView(BottomView, IStructuredIssueHandler):
 		
 		self._scroll.add(self._view)
 		
-		self.pack_start(self._scroll, True)
+		self.pack_start(self._scroll, True, False, 0)
 		
 		# toolbar
 		
-		self._buttonCancel = Gtk.ToolButton(Gtk.STOCK_STOP)
+		self._buttonCancel = Gtk.ToolButton(icon_name=Gtk.STOCK_STOP)
 		self._buttonCancel.set_sensitive(False)
 		self._buttonCancel.set_tooltip_text("Abort Job")
 		self._handlers[self._buttonCancel] = self._buttonCancel.connect("clicked", self._on_abort_clicked)
 		
-		self._buttonDetails = Gtk.ToolButton(Gtk.STOCK_INFO)
+		self._buttonDetails = Gtk.ToolButton(icon_name=Gtk.STOCK_INFO)
 		self._buttonDetails.set_sensitive(False)
 		self._buttonDetails.set_tooltip_text("Show Detailed Output")
 		self._handlers[self._buttonDetails] = self._buttonDetails.connect("clicked", self._on_details_clicked)
 
 		self._toolbar = Gtk.Toolbar()
-		self._toolbar.set_style(Gtk.TOOLBAR_ICONS)
+		self._toolbar.set_style(Gtk.ToolbarStyle.ICONS)
 		self._toolbar.set_icon_size(Gtk.IconSize.SMALL_TOOLBAR)		# FIXME: deprecated???
-		self._toolbar.set_orientation(Gtk.ORIENTATION_VERTICAL)
+		self._toolbar.set_orientation(Gtk.Orientation.VERTICAL)
 		self._toolbar.insert(self._buttonCancel, -1)
 		self._toolbar.insert(self._buttonDetails, -1)
 
-		self.pack_start(self._toolbar, False)
+		self.pack_start(self._toolbar, False, False, 0)
 	
 	def _on_abort_clicked(self, button):
 		self._abort_method.__call__()

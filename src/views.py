@@ -22,7 +22,7 @@
 views
 """
 
-from gi.repository import Gtk
+from gi.repository import Gtk, GdkPixbuf
 from logging import getLogger
 
 from preferences import Preferences, IPreferencesMonitor
@@ -61,9 +61,9 @@ class IssueView(BottomView, IPreferencesMonitor):
 			   			Issue.SEVERITY_INFO : None,
 			   			Issue.SEVERITY_TASK : GdkPixbuf.Pixbuf.new_from_file(find_resource("icons/task.png")) }
 		
-		self._store = Gtk.ListStore(Pixbuf, str, str, object)
+		self._store = Gtk.ListStore(GdkPixbuf.Pixbuf, str, str, object)
 		
-		self._view = Gtk.TreeView(self._store)
+		self._view = Gtk.TreeView(model=self._store)
 		
 		column = Gtk.TreeViewColumn()
 		column.set_title("Message")
