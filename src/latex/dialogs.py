@@ -66,8 +66,8 @@ class AbstractProxy(object):
 		raise NotImplementedError
 
 
-from ..typecheck import accepts
-from ..typecheck.typeclasses import String
+#from ..typecheck import accepts
+#from ..typecheck.typeclasses import String
 
 
 class ComboBoxProxy(AbstractProxy):
@@ -107,7 +107,7 @@ class ComboBoxProxy(AbstractProxy):
 	def _on_changed(self, combobox):
 		self.save()
 	
-	@accepts(object, String, String, bool)
+	#@accepts(object, String, String, bool)
 	def add_option(self, value, label, show_value=True):
 		"""
 		Add an option to the widget

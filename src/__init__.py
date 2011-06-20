@@ -24,7 +24,7 @@ This is searched by gedit for a class extending gedit.Plugin
 
 from gi.repository import Gedit, GObject, Gtk
 import logging
-import platform
+#import platform
 
 logging.basicConfig(level=logging.DEBUG, format="%(asctime)s %(levelname)s	%(name)s - %(message)s")
 
@@ -33,7 +33,7 @@ from util import open_error
 from preferences.dialog import PreferencesDialog
 
 
-class GeditLaTeXPlugin(Gedit.WindowActivatable, GObject.Object):
+class GeditLaTeXPlugin(GObject.Object, Gedit.WindowActivatable):
 	"""
 	This controls the plugin life-cycle
 	"""
@@ -44,12 +44,12 @@ class GeditLaTeXPlugin(Gedit.WindowActivatable, GObject.Object):
 	
 	_log = logging.getLogger("GeditLaTeXPlugin")
 	
-	_platform_okay = True
+	_platform_okay = True 
 	
 	def __init__(self):
 		GObject.Object.__init__(self)
 		self._window_decorators = {}
-		
+	
 	def do_activate(self):
 		"""
 		Called when the plugin is loaded with gedit or activated in 
@@ -60,7 +60,7 @@ class GeditLaTeXPlugin(Gedit.WindowActivatable, GObject.Object):
 		self._log.debug("activate")
 		
 		if self._platform_okay:
-			self._window_decorators[window] = GeditWindowDecorator(window)
+			self._window_decorators[self.window] = GeditWindowDecorator(self.window)
 	
 	def do_deactivate(self):
 		"""
@@ -71,11 +71,11 @@ class GeditLaTeXPlugin(Gedit.WindowActivatable, GObject.Object):
 		self._log.debug("deactivate")
 		
 		if self._platform_okay:
-			self._window_decorators[window].destroy()
-			del self._window_decorators[window]
+			self._window_decorators[self.window].destroy()
+			del self._window_decorators[self.window]
 	
 	def create_configure_dialog(self):
 		if self._platform_okay:
 			return PreferencesDialog().dialog
 	
-	
+		pass	

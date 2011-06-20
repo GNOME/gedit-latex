@@ -24,7 +24,7 @@ latex.editor
 
 BENCHMARK = True
 
-from ..typecheck import accepts, returns
+#from ..typecheck import accepts, returns
 
 from gi.repository import Gtk
 from gi.repository import Gdk
@@ -372,7 +372,7 @@ class LaTeXEditor(Editor, IIssueHandler, IMisspelledWordHandler, IPreferencesMon
 			#print self._document.xml
 	
 	@property
-	@returns(File)
+	#@returns(File)
 	def __master_file(self):
 		"""
 		Find the LaTeX master of this child
