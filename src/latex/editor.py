@@ -26,8 +26,8 @@ BENCHMARK = True
 
 from ..typecheck import accepts, returns
 
-import gtk
-import gtk.gdk
+from gi.repository import Gtk
+import Gtk.gdk
 from logging import getLogger
 
 if BENCHMARK: import time
@@ -479,17 +479,17 @@ class LaTeXEditor(Editor, IIssueHandler, IMisspelledWordHandler, IPreferencesMon
 		@param suggestions: a list of suggested words
 		@param marker: the activated Marker
 		"""
-		suggestions_menu = gtk.Menu()
+		suggestions_menu = Gtk.Menu()
 		
-		suggestions_menu.add(gtk.SeparatorMenuItem())
+		suggestions_menu.add(Gtk.SeparatorMenuItem())
 		
-		item_add = gtk.ImageMenuItem(gtk.STOCK_ADD)
+		item_add = Gtk.ImageMenuItem(Gtk.STOCK_ADD)
 		item_add.connect("activate", self.__on_add_word_activated, marker, word)
 		suggestions_menu.add(item_add)
 		
-		suggestions_menu.add(gtk.SeparatorMenuItem())
+		suggestions_menu.add(Gtk.SeparatorMenuItem())
 		
-		item_abort = gtk.ImageMenuItem(gtk.STOCK_CANCEL)
+		item_abort = Gtk.ImageMenuItem(Gtk.STOCK_CANCEL)
 		item_abort.connect("activate", self.__on_abort_spell_check_activated)
 		suggestions_menu.add(item_abort)
 		
@@ -500,10 +500,10 @@ class LaTeXEditor(Editor, IIssueHandler, IMisspelledWordHandler, IPreferencesMon
 		
 		for suggestion in suggestions:
 			if suggestion.user_defined:
-				item = gtk.ImageMenuItem(suggestion.word)
-				item.set_image(gtk.image_new_from_stock(gtk.STOCK_FLOPPY, gtk.ICON_SIZE_MENU))
+				item = Gtk.ImageMenuItem(suggestion.word)
+				item.set_image(Gtk.Image.new_from_stock(Gtk.STOCK_FLOPPY, Gtk.IconSize.MENU))
 			else:
-				item = gtk.MenuItem(suggestion.word)
+				item = Gtk.MenuItem(suggestion.word)
 				
 			item.connect("activate", self.__on_suggestion_activated, suggestion, marker)
 			suggestions_menu.insert(item, 0)

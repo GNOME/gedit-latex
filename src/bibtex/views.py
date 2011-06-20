@@ -24,8 +24,8 @@ bibtex.views
 The BibTeX outline view
 """
 
-import gtk
-from gtk.gdk import Pixbuf, pixbuf_new_from_file
+from gi.repository import Gtk
+from Gtk.gdk import Pixbuf, pixbuf_new_from_file
 from xml.sax.saxutils import escape
 from logging import getLogger
 
@@ -58,10 +58,10 @@ class BibTeXOutlineView(BaseOutlineView):
 		
 		# add grouping controls to toolbar
 		
-		self._item_none = gtk.RadioMenuItem(None, "No Grouping")
-		self._item_type = gtk.RadioMenuItem(self._item_none, "Group by Type")
-		self._item_author = gtk.RadioMenuItem(self._item_none, "Group by Author")
-		self._item_year = gtk.RadioMenuItem(self._item_none, "Group by Year")
+		self._item_none = Gtk.RadioMenuItem(None, "No Grouping")
+		self._item_type = Gtk.RadioMenuItem(self._item_none, "Group by Type")
+		self._item_author = Gtk.RadioMenuItem(self._item_none, "Group by Author")
+		self._item_year = Gtk.RadioMenuItem(self._item_none, "Group by Year")
 		
 		self._preferences = Preferences()
 		
@@ -80,14 +80,14 @@ class BibTeXOutlineView(BaseOutlineView):
 		self._handlers[self._item_author] = self._item_author.connect("toggled", self._on_grouping_toggled)
 		self._handlers[self._item_year] = self._item_year.connect("toggled", self._on_grouping_toggled)
 
-		menu = gtk.Menu()
+		menu = Gtk.Menu()
 		menu.add(self._item_none)
 		menu.add(self._item_type)
 		menu.add(self._item_author)
 		menu.add(self._item_year)
 		menu.show_all()
 
-		tool_button = gtk.MenuToolButton(gtk.STOCK_SORT_DESCENDING)
+		tool_button = Gtk.MenuToolButton(Gtk.STOCK_SORT_DESCENDING)
 		tool_button.set_menu(menu)
 		tool_button.show()
 		
@@ -139,7 +139,7 @@ class BibTeXOutlineView(BaseOutlineView):
 
 class OutlineConverter(object):
 	"""
-	This converts a BibTeX document to a gtk.TreeStore and realizes the 
+	This converts a BibTeX document to a Gtk.TreeStore and realizes the 
 	grouping feature
 	"""
 	
@@ -151,9 +151,9 @@ class OutlineConverter(object):
 	
 	def convert(self, tree_store, document, offset_map, grouping=GROUP_NONE):
 		"""
-		Convert a BibTeX document model into a gtk.TreeStore
+		Convert a BibTeX document model into a Gtk.TreeStore
 		
-		@param tree_store: the gtk.TreeStore to fill
+		@param tree_store: the Gtk.TreeStore to fill
 		@param document: the BibTeX document model (bibtex.parser.Document object)
 		@param offset_map: the OutlineOffsetMap object to be filled 
 		@param grouping: the grouping to use: GROUP_NONE|GROUP_TYPE|GROUP_AUTHOR|GROUP_YEAR

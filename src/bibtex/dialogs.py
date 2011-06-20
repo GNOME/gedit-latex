@@ -23,7 +23,7 @@ latex.dialogs
 """
 
 from logging import getLogger
-import gtk
+from gi.repository import Gtk
 
 from ..util import GladeInterface
 from ..base.resources import find_resource
@@ -79,16 +79,16 @@ class InsertBibTeXEntryDialog(GladeInterface):
 			# setup types combobox
 			
 			self._activeType = None
-			self._mapping = {}		# this maps gtk.Entry objects to field names
+			self._mapping = {}		# this maps Gtk.Entry objects to field names
 			self._fieldCache = {}	# this is used to restore field values after the type has changed
 			
-			self._storeTypes = gtk.ListStore(str)
+			self._storeTypes = Gtk.ListStore(str)
 			for t in self._model.types:
 				self._storeTypes.append([t.name])
 			
 			comboTypes = self.find_widget("comboTypes")
 			comboTypes.set_model(self._storeTypes)
-			cell = gtk.CellRendererText()
+			cell = Gtk.CellRendererText()
 			comboTypes.pack_start(cell, True)
 			comboTypes.add_attribute(cell, "text", 0)
 			
@@ -127,19 +127,19 @@ class InsertBibTeXEntryDialog(GladeInterface):
 		
 		# required fields
 		
-		tbl_required = gtk.Table()
+		tbl_required = Gtk.Table()
 		tbl_required.set_border_width(5)
 		tbl_required.set_row_spacings(5)
 		tbl_required.set_col_spacings(5)
 		i = 0
 		
 		for field in self._activeType.required_fields:
-			label = gtk.Label(field.label + ":")
+			label = Gtk.Label(label=field.label + ":")
 			label.set_alignment(0, .5)
 			
-			entry = gtk.Entry()
+			entry = Gtk.Entry()
 			
-			tbl_required.attach(label, 0, 1, i, i + 1, xoptions=gtk.FILL)
+			tbl_required.attach(label, 0, 1, i, i + 1, xoptions=Gtk.AttachOptions.FILL)
 			tbl_required.attach(entry, 1, 2, i, i + 1)
 			
 			self._mapping[entry] = field.name
@@ -160,19 +160,19 @@ class InsertBibTeXEntryDialog(GladeInterface):
 		
 		# optional fields
 		
-		tbl_optional = gtk.Table()
+		tbl_optional = Gtk.Table()
 		tbl_optional.set_border_width(5)
 		tbl_optional.set_row_spacings(5)
 		tbl_optional.set_col_spacings(5)
 		i = 0
 		
 		for field in self._activeType.optional_fields:
-			label = gtk.Label(field.label + ":")
+			label = Gtk.Label(label=field.label + ":")
 			label.set_alignment(0, .5)
 			
-			entry = gtk.Entry()
+			entry = Gtk.Entry()
 			
-			tbl_optional.attach(label, 0, 1, i, i + 1, xoptions=gtk.FILL)
+			tbl_optional.attach(label, 0, 1, i, i + 1, xoptions=Gtk.AttachOptions.FILL)
 			tbl_optional.attach(entry, 1, 2, i, i + 1)
 			
 			self._mapping[entry] = field.name

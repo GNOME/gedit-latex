@@ -101,7 +101,7 @@ class ImageToolGenerator(object):
 		return tool
 
 
-from gtk import gdk
+from gi.repository import Gdk
 
 from tempfile import NamedTemporaryFile
 
@@ -128,7 +128,7 @@ class PreviewRenderer(ToolRunner):
 	
 	def _on_tool_succeeded(self):
 		# see ToolRunner._on_tool_succeeded
-		pixbuf = gdk.pixbuf_new_from_file(self._file.shortname + ".png")
+		pixbuf = GdkPixbuf.Pixbuf.new_from_file(self._file.shortname + ".png")
 		self.__cleanup()
 		self._on_render_succeeded(pixbuf)
 	
@@ -156,7 +156,7 @@ class PreviewRenderer(ToolRunner):
 		"""
 		The rendering process has finished successfully
 		
-		@param pixbuf: a gtk.gdk.Pixbuf containing the result image
+		@param pixbuf: a GdkPixbuf.Pixbuf containing the result image
 		"""
 	
 	def _on_render_failed(self):

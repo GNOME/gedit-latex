@@ -76,7 +76,7 @@ def require(arg_name, *allowed_types):
 	return make_wrapper
 
 
-import gtk
+from gi.repository import Gtk
 import traceback
 from xml.sax import saxutils
 
@@ -120,8 +120,8 @@ def open_error(message, secondary_message=None):
 	"""
 	Popup an error dialog window
 	"""
-	dialog = gtk.MessageDialog(None, gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT, 
-							gtk.MESSAGE_ERROR, gtk.BUTTONS_OK, message)
+	dialog = Gtk.MessageDialog(None, Gtk.DialogFlags.MODAL|Gtk.DialogFlags.DESTROY_WITH_PARENT, 
+							Gtk.MessageType.ERROR, Gtk.ButtonsType.OK, message)
 	if secondary_message:
 		# TODO: why not use markup?
 		dialog.format_secondary_text(secondary_message)
@@ -133,8 +133,8 @@ def open_info(message, secondary_message=None):
 	"""
 	Popup an info dialog window
 	"""
-	dialog = gtk.MessageDialog(None, gtk.DIALOG_MODAL|gtk.DIALOG_DESTROY_WITH_PARENT, 
-							gtk.MESSAGE_INFO, gtk.BUTTONS_OK, message)
+	dialog = Gtk.MessageDialog(None, Gtk.DialogFlags.MODAL|Gtk.DialogFlags.DESTROY_WITH_PARENT, 
+							Gtk.MessageType.INFO, Gtk.ButtonsType.OK, message)
 	if secondary_message:
 		dialog.format_secondary_markup(secondary_message)
 	dialog.run()
@@ -192,7 +192,7 @@ class GladeInterface(object):
 
 
 from uuid import uuid1
-from gtk import gdk
+from gi.repository import Gdk
 
 from base import Action
 
@@ -228,15 +228,15 @@ class IconAction(Action):
 			((self.__stock_id, "", 0, 0, "")),
 		)
 		
-		gtk.stock_add(stock_items)
+		Gtk.stock_add(stock_items)
 		
-		factory = gtk.IconFactory()
+		factory = Gtk.IconFactory()
 		factory.add_default()
 		
 		# TODO: use IconSource, the Pixbuf is just fallback
-		pixbuf = gdk.pixbuf_new_from_file(self.icon.path)
+		pixbuf = GdkPixbuf.Pixbuf.new_from_file(self.icon.path)
 		
-		icon_set = gtk.IconSet(pixbuf)
+		icon_set = Gtk.IconSet(pixbuf)
 		
 		factory.add(self.__stock_id, icon_set)
 	

@@ -24,8 +24,8 @@ latex.views
 LaTeX-specific views
 """
 
-import gtk
-from gtk.gdk import Pixbuf, pixbuf_new_from_file
+from gi.repository import Gtk
+from Gtk.gdk import Pixbuf, pixbuf_new_from_file
 from gobject import GError
 from logging import getLogger
 import xml.etree.ElementTree as ElementTree
@@ -84,7 +84,7 @@ class LaTeXSymbolMapView(SideView):
 	__log = getLogger("LaTeXSymbolMapView")
 	
 	label = "Symbols"
-	icon = gtk.STOCK_INDEX
+	icon = Gtk.STOCK_INDEX
 	scope = View.SCOPE_WINDOW
 	
 	def init(self, context):
@@ -93,11 +93,11 @@ class LaTeXSymbolMapView(SideView):
 		self.__context = context
 		self.__preferences = Preferences()
 		
-		scrolled = gtk.ScrolledWindow()
-		scrolled.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
-		scrolled.set_shadow_type(gtk.SHADOW_NONE)
+		scrolled = Gtk.ScrolledWindow()
+		scrolled.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
+		scrolled.set_shadow_type(Gtk.ShadowType.NONE)
 		
-		self.__box = gtk.VBox()
+		self.__box = Gtk.VBox()
 		scrolled.add_with_viewport(self.__box)
 		
 		self.add(scrolled)
@@ -112,17 +112,17 @@ class LaTeXSymbolMapView(SideView):
 			self.__add_group(group)
 	
 	def __add_group(self, group):
-		model = gtk.ListStore(gtk.gdk.Pixbuf, str, object)		# icon, tooltip, Template
+		model = Gtk.ListStore(GdkPixbuf.Pixbuf, str, object)		# icon, tooltip, Template
 		
 		for symbol in group.symbols:
 			try:
-				model.append([gtk.gdk.pixbuf_new_from_file(symbol.icon), str(symbol.template), symbol.template])
+				model.append([GdkPixbuf.Pixbuf.new_from_file(symbol.icon), str(symbol.template), symbol.template])
 			except GError, s:
 				print s
 		
-		view = gtk.IconView(model)
+		view = Gtk.IconView(model)
 		view.set_pixbuf_column(0)
-		view.set_selection_mode(gtk.SELECTION_SINGLE)
+		view.set_selection_mode(Gtk.SelectionMode.SINGLE)
 		view.connect("selection-changed", self.__on_symbol_selected)
 		view.set_item_width(-1)
 		view.set_spacing(0)
@@ -135,7 +135,7 @@ class LaTeXSymbolMapView(SideView):
 		
 		view.show()
 		
-		expander = gtk.Expander(group.label)
+		expander = Gtk.Expander(group.label)
 		expander.add(view)
 		expander.show_all()
 		
@@ -161,7 +161,7 @@ class LaTeXSymbolMapView(SideView):
 		"""
 		A symbol has been selected
 		
-		@param icon_view: the gtk.IconView 
+		@param icon_view: the Gtk.IconView 
 		"""
 		try: 
 			path = icon_view.get_selected_items()[0]
@@ -197,7 +197,7 @@ class LaTeXOutlineView(BaseOutlineView):
 	
 	@property
 	def icon(self):
-		image = gtk.Image()
+		image = Gtk.Image()
 		image.set_from_file(find_resource("icons/outline.png"))
 		return image
 	
@@ -207,13 +207,13 @@ class LaTeXOutlineView(BaseOutlineView):
 		self._offset_map = OutlineOffsetMap()
 		
 		# additional toolbar buttons
-		btn_graphics = gtk.ToggleToolButton()
-		btn_graphics.set_icon_widget(gtk.image_new_from_file(find_resource("icons/tree_includegraphics.png")))
+		btn_graphics = Gtk.ToggleToolButton()
+		btn_graphics.set_icon_widget(Gtk.image_new_from_file(find_resource("icons/tree_includegraphics.png")))
 		btn_graphics.set_tooltip_text("Show graphics")
 		self._toolbar.insert(btn_graphics, -1)
 		
-		btn_tables = gtk.ToggleToolButton()
-		btn_tables.set_icon_widget(gtk.image_new_from_file(find_resource("icons/tree_table.png")))
+		btn_tables = Gtk.ToggleToolButton()
+		btn_tables.set_icon_widget(Gtk.image_new_from_file(find_resource("icons/tree_table.png")))
 		btn_tables.set_tooltip_text("Show tables")
 		self._toolbar.insert(btn_tables, -1)
 		
@@ -290,7 +290,7 @@ class LaTeXOutlineView(BaseOutlineView):
 				# act as if the user Ctrl+clicked on the region of the activated node
 				
 				# FIXME: this doesn't belong here, what if an implementation of _ctrl_left_clicked requires
-				# a gdk.Event for e.g. displaying a context menu?
+				# a Gdk.Event for e.g. displaying a context menu?
 				it = self._editor._text_buffer.get_iter_at_offset(node.start)
 				self._editor._ctrl_left_clicked(it)
 	
@@ -317,29 +317,29 @@ from os.path import basename
 
 class OutlineConverter(object):
 	"""
-	This creates a gtk.TreeStore object from a LaTeX outline model
+	This creates a Gtk.TreeStore object from a LaTeX outline model
 	"""
 	
-	_ICON_LABEL = gtk.gdk.pixbuf_new_from_file(find_resource("icons/label.png"))
-	_ICON_TABLE = gtk.gdk.pixbuf_new_from_file(find_resource("icons/tree_table.png"))
-	_ICON_GRAPHICS = gtk.gdk.pixbuf_new_from_file(find_resource("icons/tree_includegraphics.png"))
+	_ICON_LABEL = GdkPixbuf.Pixbuf.new_from_file(find_resource("icons/label.png"))
+	_ICON_TABLE = GdkPixbuf.Pixbuf.new_from_file(find_resource("icons/tree_table.png"))
+	_ICON_GRAPHICS = GdkPixbuf.Pixbuf.new_from_file(find_resource("icons/tree_includegraphics.png"))
 	
-	_LEVEL_ICONS = { 1 : gtk.gdk.pixbuf_new_from_file(find_resource("icons/tree_part.png")),
-				2 : gtk.gdk.pixbuf_new_from_file(find_resource("icons/tree_chapter.png")),
-				3 : gtk.gdk.pixbuf_new_from_file(find_resource("icons/tree_section.png")),
-				4 : gtk.gdk.pixbuf_new_from_file(find_resource("icons/tree_subsection.png")),
-				5 : gtk.gdk.pixbuf_new_from_file(find_resource("icons/tree_subsubsection.png")),
-				6 : gtk.gdk.pixbuf_new_from_file(find_resource("icons/tree_paragraph.png")),
-				7 : gtk.gdk.pixbuf_new_from_file(find_resource("icons/tree_paragraph.png")) }
+	_LEVEL_ICONS = { 1 : GdkPixbuf.Pixbuf.new_from_file(find_resource("icons/tree_part.png")),
+				2 : GdkPixbuf.Pixbuf.new_from_file(find_resource("icons/tree_chapter.png")),
+				3 : GdkPixbuf.Pixbuf.new_from_file(find_resource("icons/tree_section.png")),
+				4 : GdkPixbuf.Pixbuf.new_from_file(find_resource("icons/tree_subsection.png")),
+				5 : GdkPixbuf.Pixbuf.new_from_file(find_resource("icons/tree_subsubsection.png")),
+				6 : GdkPixbuf.Pixbuf.new_from_file(find_resource("icons/tree_paragraph.png")),
+				7 : GdkPixbuf.Pixbuf.new_from_file(find_resource("icons/tree_paragraph.png")) }
 	
 	def __init__(self):
 		self._preferences = Preferences()
 	
 	def convert(self, tree_store, outline, offset_map, file):
 		"""
-		Convert an Outline object to a gtk.TreeStore and update an OutlineOffsetMap
+		Convert an Outline object to a Gtk.TreeStore and update an OutlineOffsetMap
 		
-		@param tree_store: gtk.TreeStore
+		@param tree_store: Gtk.TreeStore
 		@param outline: latex.outline.Outline
 		@param offset_map: outline.OutlineOffsetMap
 		@param file: the edited File (to identify foreign outline nodes)
@@ -355,7 +355,7 @@ class OutlineConverter(object):
 		"""
 		Recursively append an outline node to the TreeStore
 		
-		@param parent: a gtk.TreeIter or None
+		@param parent: a Gtk.TreeIter or None
 		@param node: an OutlineNode
 		"""
 		value = node.value

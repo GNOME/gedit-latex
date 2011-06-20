@@ -23,7 +23,7 @@ latex.environment
 """
 
 from os import popen, system
-from gtk.gdk import screen_width, screen_height, screen_width_mm, screen_height_mm
+from Gtk.gdk import screen_width, screen_height, screen_width_mm, screen_height_mm
 from pwd import getpwnam
 from getpass import getuser
 from locale import getdefaultlocale, nl_langinfo, D_FMT

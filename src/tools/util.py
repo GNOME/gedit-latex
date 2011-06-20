@@ -27,7 +27,7 @@ import os
 import signal
 import subprocess
 import fcntl
-import gobject
+from gi.repository import GObject
 
 
 class Process(object):
@@ -52,9 +52,9 @@ class Process(object):
 		fcntl.fcntl(self.__process.stderr, fcntl.F_SETFL, os.O_NONBLOCK)
 		
 		# monitor process and pipes
-		self.__handlers = [ gobject.timeout_add(self.__POLL_INTERVAL, self.__on_stdout),
-							gobject.timeout_add(self.__POLL_INTERVAL, self.__on_stderr),
-							gobject.child_watch_add(self.__process.pid, self.__on_exit) ]
+		self.__handlers = [ GObject.timeout_add(self.__POLL_INTERVAL, self.__on_stdout),
+							GObject.timeout_add(self.__POLL_INTERVAL, self.__on_stderr),
+							GObject.child_watch_add(self.__process.pid, self.__on_exit) ]
 	
 	def abort(self):
 		"""
@@ -62,7 +62,7 @@ class Process(object):
 		"""
 		if self.__process:
 			for handler in self.__handlers:
-				gobject.source_remove(handler)
+				GObject.source_remove(handler)
 			
 			try:
 				os.kill(self.__process.pid, signal.SIGTERM)
@@ -91,7 +91,7 @@ class Process(object):
 	
 	def __on_exit(self, pid, condition):
 		for handler in self.__handlers:
-			gobject.source_remove(handler)
+			GObject.source_remove(handler)
 		
 		# read remaining output
 		self.__on_stdout()

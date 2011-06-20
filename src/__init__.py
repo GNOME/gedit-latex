@@ -23,7 +23,7 @@ This is searched by gedit for a class extending gedit.Plugin
 """
 
 import gedit
-import gtk
+from gi.repository import Gtk
 import logging
 import platform
 
@@ -34,7 +34,7 @@ from util import open_error
 from preferences.dialog import PreferencesDialog
 
 
-class GeditLaTeXPlugin(gedit.Plugin):
+class GeditLaTeXPlugin(Gedit.AppActivatable, GObject.Object):
 	"""
 	This controls the plugin life-cycle
 	"""
@@ -48,10 +48,10 @@ class GeditLaTeXPlugin(gedit.Plugin):
 	# TODO: we should support earlier versions because e.g. Debian Etch still offers 2.14
 	_REQUIRED_GEDIT_VERSION = (2, 15, 2)
 	
-	# we need gtk.IconView.set_tooltip_column
+	# we need Gtk.IconView.set_tooltip_column
 	_REQUIRED_PYGTK_VERSION = (2, 12, 0)
 	
-	# we need to pack a gtk.Expander into a gtk.VBox which fails before GTK+ 2.10.14
+	# we need to pack a Gtk.Expander into a Gtk.VBox which fails before GTK+ 2.10.14
 	_REQUIRED_GTK_VERSION = (2, 10, 14)
 	
 	_log = logging.getLogger("GeditLaTeXPlugin")
@@ -66,8 +66,8 @@ class GeditLaTeXPlugin(gedit.Plugin):
 		requirements = [
 				(tuple(platform.python_version_tuple()), self._REQUIRED_PYTHON_VERSION, "Python"),
 				(gedit.version, self._REQUIRED_GEDIT_VERSION, "gedit"),
-				(gtk.pygtk_version, self._REQUIRED_PYGTK_VERSION, "PyGTK"),
-				(gtk.ver, self._REQUIRED_GTK_VERSION, "GTK+")]
+				(Gtk.pygtk_version, self._REQUIRED_PYGTK_VERSION, "PyGTK"),
+				(Gtk.ver, self._REQUIRED_GTK_VERSION, "GTK+")]
 		
 		for version, required_version, label in requirements:
 			if version < required_version:

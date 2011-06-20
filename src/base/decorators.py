@@ -27,7 +27,7 @@ extension point.
 
 from logging import getLogger
 import gedit
-import gtk
+from gi.repository import Gtk
 import string
 
 from config import UI, WINDOW_SCOPE_VIEWS, EDITOR_SCOPE_VIEWS, EDITORS, ACTIONS
@@ -124,7 +124,7 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		Merge the plugin's UI definition with the one of gedit and hook the actions
 		"""
 		self._ui_manager = self._window.get_ui_manager()
-		self._action_group = gtk.ActionGroup("LaTeXPluginActions")
+		self._action_group = Gtk.ActionGroup("LaTeXPluginActions")
 		
 		# create action instances, hook them and build up some
 		# hash tables
@@ -150,7 +150,7 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		
 		# hook the toolbar
 		self._toolbar = self._ui_manager.get_widget("/LaTeXToolbar")
-		self._toolbar.set_style(gtk.TOOLBAR_BOTH_HORIZ)
+		self._toolbar.set_style(Gtk.TOOLBAR_BOTH_HORIZ)
 		
 		self._main_box = self._window.get_children()[0]
 		self._main_box.pack_start(self._toolbar, False)
@@ -189,13 +189,13 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		
 		# add a MenuToolButton with the tools menu to the toolbar afterwards
 		# FIXME: this is quite hacky
-		menu = gtk.Menu()
+		menu = Gtk.Menu()
 		
 		# this is used for enable/disable actions by name
 		# None stands for every extension
 		self._tool_action_extensions = { None : [] }
 		
-		self._tool_action_group = gtk.ActionGroup("LaTeXPluginToolActions")
+		self._tool_action_group = Gtk.ActionGroup("LaTeXPluginToolActions")
 			
 		items_ui = ""
 		
@@ -217,7 +217,7 @@ class GeditWindowDecorator(IPreferencesMonitor):
 			
 			# create action
 			action = ToolAction(tool)
-			gtk_action = gtk.Action(name, action.label, action.tooltip, action.stock_id)
+			gtk_action = Gtk.Action(name, action.label, action.tooltip, action.stock_id)
 			self._action_handlers[gtk_action] = gtk_action.connect("activate", lambda gtk_action, action: action.activate(self._window_context), action)
 			
 			if not tool.accelerator is None and len(tool.accelerator) > 0:
@@ -242,7 +242,7 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		self._tool_ui_id = self._ui_manager.add_ui_from_string(tool_ui)
 		
 		# add a MenuToolButton with the tools menu to the toolbar
-		self._menu_tool_button = gtk.MenuToolButton(gtk.STOCK_CONVERT)
+		self._menu_tool_button = Gtk.MenuToolButton(Gtk.STOCK_CONVERT)
 		self._menu_tool_button.set_menu(menu)
 		self._menu_tool_button.show_all()
 		self._toolbar.insert(self._menu_tool_button, -1)
@@ -519,19 +519,19 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		
 	def _get_selected_bottom_view(self):
 		notebook = self._window.get_bottom_panel().get_children()[0].get_children()[0]
-		assert type(notebook) is gtk.Notebook
+		assert type(notebook) is Gtk.Notebook
 		
 		return notebook.get_current_page()
 	
 	def _get_selected_side_view(self):
 		notebook = self._window.get_side_panel().get_children()[1]
-		assert type(notebook) is gtk.Notebook
+		assert type(notebook) is Gtk.Notebook
 		
 		return notebook.get_current_page()
 	
 	def _set_selected_bottom_view(self, view):
 		notebook = self._window.get_bottom_panel().get_children()[0].get_children()[0]
-		assert type(notebook) is gtk.Notebook
+		assert type(notebook) is Gtk.Notebook
 		
 		self._log.debug("_set_selected_bottom_view: %s" % view)
 		
@@ -539,7 +539,7 @@ class GeditWindowDecorator(IPreferencesMonitor):
 	
 	def _set_selected_side_view(self, view):
 		notebook = self._window.get_side_panel().get_children()[1]
-		assert type(notebook) is gtk.Notebook
+		assert type(notebook) is Gtk.Notebook
 		
 		self._log.debug("_set_selected_side_view: %s" % view)
 		
@@ -624,7 +624,7 @@ class GeditWindowDecorator(IPreferencesMonitor):
 	
 	def _on_window_destroyed(self, object):
 		"""
-		The gtk.Window received the 'destroy' signal as a gtk.Object
+		The Gtk.Window received the 'destroy' signal as a Gtk.Object
 		"""
 		self._log.debug("received 'destroy'")
 		

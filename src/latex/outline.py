@@ -23,8 +23,8 @@ latex.outline
 """
 
 from logging import getLogger
-import gtk
-import gtk.gdk
+from gi.repository import Gtk
+import Gtk.gdk
 from os.path import basename
 
 

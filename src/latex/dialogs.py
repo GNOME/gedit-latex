@@ -83,9 +83,9 @@ class ComboBoxProxy(AbstractProxy):
 	def __init__(self, widget, key):
 		AbstractProxy.__init__(self, widget, key)
 		
-		self._store = gtk.ListStore(str, str)			# value, label
+		self._store = Gtk.ListStore(str, str)			# value, label
 		self._widget.set_model(self._store)
-		cell = gtk.CellRendererText()
+		cell = Gtk.CellRendererText()
 		self._widget.pack_start(cell, True)
 		self._widget.add_attribute(cell, "markup", 1)
 		
@@ -172,7 +172,7 @@ class ChooseMasterDialog(GladeInterface):
 		return filename
 
 
-import gtk
+from gi.repository import Gtk
 from time import strftime
 import string
 
@@ -330,7 +330,7 @@ class NewDocumentDialog(GladeInterface):
 			#
 			self._entry_name = self.find_widget("entryName")
 			self._button_dir = self.find_widget("buttonDirectory")
-			self._button_dir.set_action(gtk.FILE_CHOOSER_ACTION_SELECT_FOLDER)
+			self._button_dir.set_action(Gtk.FileChooserAction.SELECT_FOLDER)
 			
 			#
 			# templates
@@ -615,7 +615,7 @@ class UseBibliographyDialog(GladeInterface, PreviewRenderer):
 			
 			# styles
 			
-			self._storeStyle = gtk.ListStore(str)
+			self._storeStyle = Gtk.ListStore(str)
 			
 			styles = Environment().bibtex_styles
 			for style in styles:
@@ -632,7 +632,7 @@ class UseBibliographyDialog(GladeInterface, PreviewRenderer):
 			self._comboStyle.set_active(recent)
 			
 			
-			self._imagePreview = gtk.Image()
+			self._imagePreview = Gtk.Image()
 			self._imagePreview.show()
 			
 			scrollPreview = self.find_widget("scrollPreview")
@@ -654,7 +654,7 @@ class UseBibliographyDialog(GladeInterface, PreviewRenderer):
 		
 		style = self._storeStyle[index][0]
 		
-		self._imagePreview.set_from_stock(gtk.STOCK_EXECUTE, gtk.ICON_SIZE_BUTTON)
+		self._imagePreview.set_from_stock(Gtk.STOCK_EXECUTE, Gtk.IconSize.BUTTON)
 		
 		# create temporary bibtex file
 		self._tempFile = NamedTemporaryFile(mode="w", suffix=".bib")
@@ -678,7 +678,7 @@ class UseBibliographyDialog(GladeInterface, PreviewRenderer):
 		# PreviewRenderer._on_render_failed
 		
 		# set a default icon as preview
-		self._imagePreview.set_from_stock(gtk.STOCK_STOP, gtk.ICON_SIZE_BUTTON)
+		self._imagePreview.set_from_stock(Gtk.STOCK_STOP, Gtk.IconSize.BUTTON)
 		# remove the temp bib file
 		self._tempFile.close()
 
@@ -775,7 +775,7 @@ class InsertGraphicsDialog(GladeInterface):
 			
 			self._dialog = self.find_widget("dialogInsertGraphics")
 			
-			previewImage = gtk.Image()
+			previewImage = Gtk.Image()
 			self._fileChooser = self.find_widget("FileChooser")
 			self._fileChooser.set_preview_widget(previewImage)
 			self._fileChooser.connect("update-preview", self.__update_preview, previewImage)
@@ -797,7 +797,7 @@ class InsertGraphicsDialog(GladeInterface):
 		filename = fileChooser.get_preview_filename()
 		
 		try:
-			pixbuf = gtk.gdk.pixbuf_new_from_file_at_size(filename, self._PREVIEW_WIDTH, self._PREVIEW_HEIGHT)
+			pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_size(filename, self._PREVIEW_WIDTH, self._PREVIEW_HEIGHT)
 			previewImage.set_from_pixbuf(pixbuf)
 			fileChooser.set_preview_widget_active(True)
 		except:
@@ -871,7 +871,7 @@ class InsertTableDialog(GladeInterface):
 			self._dialog = self.find_widget("dialogInsertTable")
 			
 			# delimiters
-			self._storeDelims = gtk.ListStore(gtk.gdk.Pixbuf, str, str)  	# icon, label, environment
+			self._storeDelims = Gtk.ListStore(GdkPixbuf.Pixbuf, str, str)  	# icon, label, environment
 			
 			self._storeDelims.append([None, "None", "matrix"])
 			
@@ -882,17 +882,17 @@ class InsertTableDialog(GladeInterface):
 						("dvbars", "Double Vertical Bars", "Vmatrix")]
 			
 			for d in delimiters:
-				pixbuf = gtk.gdk.pixbuf_new_from_file(find_resource("icons/%s.png" % d[0]))
+				pixbuf = GdkPixbuf.Pixbuf.new_from_file(find_resource("icons/%s.png" % d[0]))
 				self._storeDelims.append([pixbuf, d[1], d[2]])
 			
 			self._comboDelims = self.find_widget("comboDelims")
 			self._comboDelims.set_model(self._storeDelims)
 			
-			cellPixbuf = gtk.CellRendererPixbuf()
+			cellPixbuf = Gtk.CellRendererPixbuf()
 			self._comboDelims.pack_start(cellPixbuf, False)
 			self._comboDelims.add_attribute(cellPixbuf, 'pixbuf', 0)
 			
-			cellText = gtk.CellRendererText()
+			cellText = Gtk.CellRendererText()
 			self._comboDelims.pack_start(cellText, False)
 			self._comboDelims.add_attribute(cellText, 'text', 1)
 			
@@ -988,7 +988,7 @@ class InsertListingDialog(GladeInterface):
 			
 			recentLanguage = Preferences().get("RecentListingLanguage", "Java")
 			
-			self._storeLanguages = gtk.ListStore(str)
+			self._storeLanguages = Gtk.ListStore(str)
 			recentLanguageIndex = 0
 			i = 0
 			for l in self._languages:
@@ -999,7 +999,7 @@ class InsertListingDialog(GladeInterface):
 			
 			self._comboLanguage = self.find_widget("comboLanguage")
 			self._comboLanguage.set_model(self._storeLanguages)
-			cell = gtk.CellRendererText()
+			cell = Gtk.CellRendererText()
 			self._comboLanguage.pack_start(cell, True)
 			self._comboLanguage.add_attribute(cell, "text", 0)
 			
@@ -1008,11 +1008,11 @@ class InsertListingDialog(GladeInterface):
 			#
 			self._labelDialect = self.find_widget("labelDialect")
 			
-			self._storeDialects = gtk.ListStore(str)
+			self._storeDialects = Gtk.ListStore(str)
 			
 			self._comboDialect = self.find_widget("comboDialect")
 			self._comboDialect.set_model(self._storeDialects)
-			cell = gtk.CellRendererText()
+			cell = Gtk.CellRendererText()
 			self._comboDialect.pack_start(cell, True)
 			self._comboDialect.add_attribute(cell, "text", 0)
 			
@@ -1108,7 +1108,7 @@ class BuildImageDialog(GladeInterface):
 			
 			# PNG mode
 			
-			self._storeMode = gtk.ListStore(str, int)	# label, mode constant
+			self._storeMode = Gtk.ListStore(str, int)	# label, mode constant
 			self._storeMode.append(["Monochrome", ImageToolGenerator.PNG_MODE_MONOCHROME])
 			self._storeMode.append(["Grayscale", ImageToolGenerator.PNG_MODE_GRAYSCALE])
 			self._storeMode.append(["RGB", ImageToolGenerator.PNG_MODE_RGB])
@@ -1116,14 +1116,14 @@ class BuildImageDialog(GladeInterface):
 			
 			self._comboMode = self.find_widget("comboMode")
 			self._comboMode.set_model(self._storeMode)
-			cell = gtk.CellRendererText()
+			cell = Gtk.CellRendererText()
 			self._comboMode.pack_start(cell, True)
 			self._comboMode.add_attribute(cell, "text", 0)
 			self._comboMode.set_active(3)
 			
 			# anti-alias
 			
-			self._storeAntialias = gtk.ListStore(str, int)	# label, factor
+			self._storeAntialias = Gtk.ListStore(str, int)	# label, factor
 			self._storeAntialias.append(["Off", 0])
 			self._storeAntialias.append(["1x", 1])
 			self._storeAntialias.append(["2x", 2])
@@ -1132,7 +1132,7 @@ class BuildImageDialog(GladeInterface):
 			
 			self._comboAntialias = self.find_widget("comboAntialias")
 			self._comboAntialias.set_model(self._storeAntialias)
-			cell = gtk.CellRendererText()
+			cell = Gtk.CellRendererText()
 			self._comboAntialias.pack_start(cell, True)
 			self._comboAntialias.add_attribute(cell, "text", 0)
 			self._comboAntialias.set_active(3)
@@ -1175,7 +1175,7 @@ class SaveAsTemplateDialog(GladeInterface):
 		
 		if len(name) == 0:
 			self._label.set_markup("A name is required.")
-			self._icon.set_from_stock(gtk.STOCK_DIALOG_ERROR, gtk.ICON_SIZE_MENU)
+			self._icon.set_from_stock(Gtk.STOCK_DIALOG_ERROR, Gtk.IconSize.MENU)
 			self._icon.show()
 			
 			valid = False
@@ -1183,13 +1183,13 @@ class SaveAsTemplateDialog(GladeInterface):
 			filename = "%s/%s.template" % (self._folder, self._escape_name(name))
 			if File(filename).exists:
 				self._label.set_markup("The file <tt>%s</tt> already exists." % filename)
-				self._icon.set_from_stock(gtk.STOCK_DIALOG_ERROR, gtk.ICON_SIZE_MENU)
+				self._icon.set_from_stock(Gtk.STOCK_DIALOG_ERROR, Gtk.IconSize.MENU)
 				self._icon.show()
 				
 				valid = False
 			else:
 				self._label.set_markup("The file will be saved as <tt>%s</tt>." % filename)
-				self._icon.set_from_stock(gtk.STOCK_DIALOG_INFO, gtk.ICON_SIZE_MENU)
+				self._icon.set_from_stock(Gtk.STOCK_DIALOG_INFO, Gtk.IconSize.MENU)
 				self._icon.show()
 		
 		self._button_okay.set_sensitive(valid)

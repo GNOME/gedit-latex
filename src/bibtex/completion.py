@@ -23,7 +23,7 @@ bibtex.completion
 """
 
 from logging import getLogger
-from gtk import gdk
+from gi.repository import Gdk
 
 from ..preferences import Preferences
 from ..base.resources import find_resource
@@ -36,7 +36,7 @@ from parser import BibTeXParser
 class BibTeXEntryTypeProposal(Proposal):
 	"""
 	"""
-	icon = gdk.pixbuf_new_from_file(find_resource("icons/document.png"))
+	icon = GdkPixbuf.Pixbuf.new_from_file(find_resource("icons/document.png"))
 	
 	_color = Preferences().get("LightForeground", "#957d47")
 	

@@ -23,8 +23,8 @@ base.views
 """
 
 from logging import getLogger
-from gtk.gdk import Pixbuf, pixbuf_new_from_file
-import gtk
+from Gtk.gdk import Pixbuf, pixbuf_new_from_file
+from gi.repository import Gtk
 
 
 from ..base.resources import find_resource
@@ -39,15 +39,15 @@ class ToolView(BottomView, IStructuredIssueHandler):
 	_log = getLogger("ToolView")
 	
 	label = "Tools"
-	icon = gtk.STOCK_CONVERT
+	icon = Gtk.STOCK_CONVERT
 	scope = View.SCOPE_WINDOW
 	
-	_ICON_RUN = gtk.gdk.pixbuf_new_from_file(find_resource("icons/run.png"))
-	_ICON_FAIL = gtk.gdk.pixbuf_new_from_file(find_resource("icons/error.png"))
-	_ICON_SUCCESS = gtk.gdk.pixbuf_new_from_file(find_resource("icons/okay.png"))
-	_ICON_ERROR = gtk.gdk.pixbuf_new_from_file(find_resource("icons/error.png"))
-	_ICON_WARNING = gtk.gdk.pixbuf_new_from_file(find_resource("icons/warning.png"))
-	_ICON_ABORT = gtk.gdk.pixbuf_new_from_file(find_resource("icons/abort.png"))
+	_ICON_RUN = GdkPixbuf.Pixbuf.new_from_file(find_resource("icons/run.png"))
+	_ICON_FAIL = GdkPixbuf.Pixbuf.new_from_file(find_resource("icons/error.png"))
+	_ICON_SUCCESS = GdkPixbuf.Pixbuf.new_from_file(find_resource("icons/okay.png"))
+	_ICON_ERROR = GdkPixbuf.Pixbuf.new_from_file(find_resource("icons/error.png"))
+	_ICON_WARNING = GdkPixbuf.Pixbuf.new_from_file(find_resource("icons/warning.png"))
+	_ICON_ABORT = GdkPixbuf.Pixbuf.new_from_file(find_resource("icons/abort.png"))
 	
 	def __init__(self, context):
 		BottomView.__init__(self, context)
@@ -58,27 +58,27 @@ class ToolView(BottomView, IStructuredIssueHandler):
 		
 		self._context = context
 		
-		self._scroll = gtk.ScrolledWindow()
-		self._scroll.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
-		self._scroll.set_shadow_type(gtk.SHADOW_IN)
+		self._scroll = Gtk.ScrolledWindow()
+		self._scroll.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
+		self._scroll.set_shadow_type(Gtk.ShadowType.IN)
 		
-		self._store = gtk.TreeStore(gtk.gdk.Pixbuf, str, str, str, object)	# icon, message, file, line, Issue object
+		self._store = Gtk.TreeStore(GdkPixbuf.Pixbuf, str, str, str, object)	# icon, message, file, line, Issue object
 		
-		self._view = gtk.TreeView(self._store)
+		self._view = Gtk.TreeView(self._store)
 		
-		column = gtk.TreeViewColumn("Job")
+		column = Gtk.TreeViewColumn("Job")
 
-		pixbuf_renderer = gtk.CellRendererPixbuf()
+		pixbuf_renderer = Gtk.CellRendererPixbuf()
 		column.pack_start(pixbuf_renderer, False)
 		column.add_attribute(pixbuf_renderer, "pixbuf", 0)
 		
-		text_renderer = gtk.CellRendererText()
+		text_renderer = Gtk.CellRendererText()
 		column.pack_start(text_renderer, True)
 		column.add_attribute(text_renderer, "markup", 1)
 		
 		self._view.append_column(column)
-		self._view.append_column(gtk.TreeViewColumn("File", gtk.CellRendererText(), text=2))
-		self._view.append_column(gtk.TreeViewColumn("Line", gtk.CellRendererText(), text=3))
+		self._view.append_column(Gtk.TreeViewColumn("File", Gtk.CellRendererText(), text=2))
+		self._view.append_column(Gtk.TreeViewColumn("Line", Gtk.CellRendererText(), text=3))
 		
 		self._handlers[self._view] = self._view.connect("row-activated", self._on_row_activated)
 		
@@ -88,20 +88,20 @@ class ToolView(BottomView, IStructuredIssueHandler):
 		
 		# toolbar
 		
-		self._buttonCancel = gtk.ToolButton(gtk.STOCK_STOP)
+		self._buttonCancel = Gtk.ToolButton(Gtk.STOCK_STOP)
 		self._buttonCancel.set_sensitive(False)
 		self._buttonCancel.set_tooltip_text("Abort Job")
 		self._handlers[self._buttonCancel] = self._buttonCancel.connect("clicked", self._on_abort_clicked)
 		
-		self._buttonDetails = gtk.ToolButton(gtk.STOCK_INFO)
+		self._buttonDetails = Gtk.ToolButton(Gtk.STOCK_INFO)
 		self._buttonDetails.set_sensitive(False)
 		self._buttonDetails.set_tooltip_text("Show Detailed Output")
 		self._handlers[self._buttonDetails] = self._buttonDetails.connect("clicked", self._on_details_clicked)
 
-		self._toolbar = gtk.Toolbar()
-		self._toolbar.set_style(gtk.TOOLBAR_ICONS)
-		self._toolbar.set_icon_size(gtk.ICON_SIZE_SMALL_TOOLBAR)		# FIXME: deprecated???
-		self._toolbar.set_orientation(gtk.ORIENTATION_VERTICAL)
+		self._toolbar = Gtk.Toolbar()
+		self._toolbar.set_style(Gtk.TOOLBAR_ICONS)
+		self._toolbar.set_icon_size(Gtk.IconSize.SMALL_TOOLBAR)		# FIXME: deprecated???
+		self._toolbar.set_orientation(Gtk.ORIENTATION_VERTICAL)
 		self._toolbar.insert(self._buttonCancel, -1)
 		self._toolbar.insert(self._buttonDetails, -1)
 
@@ -139,7 +139,7 @@ class ToolView(BottomView, IStructuredIssueHandler):
 		Add a new partition
 		
 		@param label: a label used in the UI
-		@return: a unique id for the partition (here a gtk.TreeIter)
+		@return: a unique id for the partition (here a Gtk.TreeIter)
 		"""
 		icon = None
 		if state == "running":

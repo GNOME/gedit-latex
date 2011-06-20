@@ -25,7 +25,7 @@ Classes used for creating an outline view of LaTeX and BibTeX files
 """
 
 from logging import getLogger
-import gtk
+from gi.repository import Gtk
 
 from base import View, SideView
 from preferences import Preferences
@@ -49,7 +49,7 @@ class BaseOutlineView(SideView):
 		
 	@property
 	def icon(self):
-		image = gtk.Image()
+		image = Gtk.Image()
 		image.set_from_file(find_resource("icons/outline.png"))
 		return image
 	
@@ -62,56 +62,56 @@ class BaseOutlineView(SideView):
 
 		# toolbar
 		
-		btn_follow = gtk.ToggleToolButton(gtk.STOCK_CONNECT)
+		btn_follow = Gtk.ToggleToolButton(Gtk.STOCK_CONNECT)
 		btn_follow.set_tooltip_text("Follow Editor")
 		btn_follow.set_active(self._preferences.get_bool("ConnectOutlineToEditor", True))
 		self._base_handlers[btn_follow] = btn_follow.connect("toggled", self._on_follow_toggled)
 		
-		btn_expand = gtk.ToolButton(gtk.STOCK_ZOOM_IN)
+		btn_expand = Gtk.ToolButton(Gtk.STOCK_ZOOM_IN)
 		btn_expand.set_tooltip_text("Expand All")
 		self._base_handlers[btn_expand] = btn_expand.connect("clicked", self._on_expand_clicked)
 		
-		btn_collapse = gtk.ToolButton(gtk.STOCK_ZOOM_OUT)
+		btn_collapse = Gtk.ToolButton(Gtk.STOCK_ZOOM_OUT)
 		btn_collapse.set_tooltip_text("Collapse All")
 		self._base_handlers[btn_collapse] = btn_collapse.connect("clicked", self._on_collapse_clicked)
 		
-		self._toolbar = gtk.Toolbar()
-		self._toolbar.set_style(gtk.TOOLBAR_ICONS)
+		self._toolbar = Gtk.Toolbar()
+		self._toolbar.set_style(Gtk.TOOLBAR_ICONS)
 		# TODO: why is this deprecated?
-		self._toolbar.set_icon_size(gtk.ICON_SIZE_MENU)
+		self._toolbar.set_icon_size(Gtk.IconSize.MENU)
 		self._toolbar.insert(btn_follow, -1)
-		self._toolbar.insert(gtk.SeparatorToolItem(), -1)
+		self._toolbar.insert(Gtk.SeparatorToolItem(), -1)
 		self._toolbar.insert(btn_expand, -1)
 		self._toolbar.insert(btn_collapse, -1)
-		self._toolbar.insert(gtk.SeparatorToolItem(), -1)
+		self._toolbar.insert(Gtk.SeparatorToolItem(), -1)
 		
 		self.pack_start(self._toolbar, False)
 		
 		# tree view
 		
-		column = gtk.TreeViewColumn()
+		column = Gtk.TreeViewColumn()
 		
-		pixbuf_renderer = gtk.CellRendererPixbuf()
+		pixbuf_renderer = Gtk.CellRendererPixbuf()
 		column.pack_start(pixbuf_renderer, False)
 		column.add_attribute(pixbuf_renderer, "pixbuf", 1)
 		
-		text_renderer = gtk.CellRendererText()
+		text_renderer = Gtk.CellRendererText()
 		column.pack_start(text_renderer, True)
 		column.add_attribute(text_renderer, "markup", 0)
 		
 		self._offset_map = OutlineOffsetMap()
 		
-		self._store = gtk.TreeStore(str, gtk.gdk.Pixbuf, object)	# label, icon, node object
+		self._store = Gtk.TreeStore(str, GdkPixbuf.Pixbuf, object)	# label, icon, node object
 		
-		self._view = gtk.TreeView(self._store)
+		self._view = Gtk.TreeView(self._store)
 		self._view.append_column(column)
 		self._view.set_headers_visible(False)
 		self._cursor_changed_id = self._view.connect("cursor-changed", self._on_cursor_changed)
 		self._base_handlers[self._view] = self._view.connect("row-activated", self._on_row_activated)
 		
-		scrolled = gtk.ScrolledWindow()
+		scrolled = Gtk.ScrolledWindow()
 		scrolled.add(self._view)
-		scrolled.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+		scrolled.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
 		
 		self.pack_start(scrolled, True)
 		

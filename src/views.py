@@ -22,8 +22,7 @@
 views
 """
 
-import gtk
-from gtk.gdk import Pixbuf, pixbuf_new_from_file
+from gi.repository import Gtk
 from logging import getLogger
 
 from preferences import Preferences, IPreferencesMonitor
@@ -40,7 +39,7 @@ class IssueView(BottomView, IPreferencesMonitor):
 	_log = getLogger("IssueView")
 	
 	label = "Issues"
-	icon = gtk.STOCK_DIALOG_INFO
+	icon = Gtk.STOCK_DIALOG_INFO
 	scope = View.SCOPE_EDITOR
 	
 	def __init__(self, context, editor):
@@ -62,55 +61,55 @@ class IssueView(BottomView, IPreferencesMonitor):
 			   			Issue.SEVERITY_INFO : None,
 			   			Issue.SEVERITY_TASK : pixbuf_new_from_file(find_resource("icons/task.png")) }
 		
-		self._store = gtk.ListStore(Pixbuf, str, str, object)
+		self._store = Gtk.ListStore(Pixbuf, str, str, object)
 		
-		self._view = gtk.TreeView(self._store)
+		self._view = Gtk.TreeView(self._store)
 		
-		column = gtk.TreeViewColumn()
+		column = Gtk.TreeViewColumn()
 		column.set_title("Message")
 		
-		pixbuf_renderer = gtk.CellRendererPixbuf()
+		pixbuf_renderer = Gtk.CellRendererPixbuf()
 		column.pack_start(pixbuf_renderer, False)
 		column.add_attribute(pixbuf_renderer, "pixbuf", 0)
 		
-		text_renderer = gtk.CellRendererText()
+		text_renderer = Gtk.CellRendererText()
 		column.pack_start(text_renderer, True)
 		column.add_attribute(text_renderer, "markup", 1)
 		
 		self._view.append_column(column)
-		self._view.insert_column_with_attributes(-1, "File", gtk.CellRendererText(), markup=2)
+		self._view.insert_column_with_attributes(-1, "File", Gtk.CellRendererText(), markup=2)
 		self._handlers[self._view] = self._view.connect("row-activated", self._on_row_activated)
 		
-		self._scr = gtk.ScrolledWindow()
+		self._scr = Gtk.ScrolledWindow()
 		
 		self._scr.add(self._view)
-		self._scr.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
-		self._scr.set_shadow_type(gtk.SHADOW_IN)
+		self._scr.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
+		self._scr.set_shadow_type(Gtk.ShadowType.IN)
 		
 		self.pack_start(self._scr, True)
 		
 		# toolbar
 		
-		self._button_warnings = gtk.ToggleToolButton()
+		self._button_warnings = Gtk.ToggleToolButton()
 		self._button_warnings.set_tooltip_text("Show/Hide Warnings")
-		image = gtk.Image()
+		image = Gtk.Image()
 		image.set_from_file(find_resource("icons/warning.png"))
 		self._button_warnings.set_icon_widget(image)
 		self._button_warnings.set_active(self._show_warnings)
 		self._handlers[self._button_warnings] = self._button_warnings.connect("toggled", self.__on_warnings_toggled)
 		
-		self._button_tasks = gtk.ToggleToolButton()
+		self._button_tasks = Gtk.ToggleToolButton()
 		self._button_tasks.set_tooltip_text("Show/Hide Tasks")
-		imageTask = gtk.Image()
+		imageTask = Gtk.Image()
 		imageTask.set_from_file(find_resource("icons/task.png"))
 		self._button_tasks.set_icon_widget(imageTask)
 		self._button_tasks.set_active(self._show_tasks)
 		self._handlers[self._button_tasks] = self._button_tasks.connect("toggled", self.__on_tasks_toggled)
 		
-		toolbar = gtk.Toolbar()
-		toolbar.set_orientation(gtk.ORIENTATION_VERTICAL)
-		toolbar.set_style(gtk.TOOLBAR_ICONS)
-		toolbar.set_icon_size(gtk.ICON_SIZE_MENU)
+		toolbar = Gtk.Toolbar()
+		toolbar.set_orientation(Gtk.ORIENTATION_VERTICAL)
+		toolbar.set_style(Gtk.TOOLBAR_ICONS)
+		toolbar.set_icon_size(Gtk.IconSize.MENU)
 		toolbar.insert(self._button_warnings, -1)
 		toolbar.insert(self._button_tasks, -1)
 		

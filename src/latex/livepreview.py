@@ -26,11 +26,11 @@ PDF live preview
 """
 
 import gedit
-import gtk
+from gi.repository import Gtk
 import os
-import gobject
+from gi.repository import GObject
 import cairo
-import pango
+from gi.repository import Pango
 import logging
 
 from ..preferences import Preferences
@@ -135,7 +135,7 @@ class LaTeXPreviews:
 		self.preview_panels[tab] = preview_panel
 
 		# Create the Paned object which will contain the old view and the preview
-		self.split_views[tab] = gtk.HPaned()
+		self.split_views[tab] = Gtk.HPaned()
 
 		# Add the two scrolled windows to our Paned object.
 		# Ask that when the window is resized, the preview keep the same size
@@ -149,7 +149,7 @@ class LaTeXPreviews:
 		self.__pane_position_id[tab] = self.split_views[tab].connect("notify::position", self.__pane_moved)
 
 		# Add the Paned object to the tab
-		tab.pack_start(self.split_views[tab])
+		tab.pack_start(self.split_views[tab], True, True, 0)
 		
 		tab.show_all()
 		preview_panel.get_panel().grab_focus()
@@ -272,9 +272,9 @@ class LaTeXPreviews:
 			# When we are in this case, as opening the preview 
 			# takes some time, calling directly sync_view does nothing.
 			# Thus we wait for the panel to be opened to send the call.
-			while gtk.events_pending():
-				gtk.main_iteration(False)
-			self.__sync_handler = gobject.idle_add(self.__sync_view, tab, source_file, line, column, output_file)
+			while Gtk.events_pending():
+				Gtk.main_iteration(False)
+			self.__sync_handler = GObject.idle_add(self.__sync_view, tab, source_file, line, column, output_file)
 			return
 		
 		self.preview_panels[tab].sync_view(source_file, line, column, output_file)
@@ -284,7 +284,7 @@ class LaTeXPreviews:
 	def __sync_view(self, tab, source_file, line, column, output_file):
 		self.preview_panels[tab].sync_view(source_file, line, column, output_file)
 		self.preview_panels[tab].get_panel().grab_focus()
-		gobject.source_remove(self.__sync_handler)
+		GObject.source_remove(self.__sync_handler)
 				
 	
 	def sync_edit(self, source_file, output_file, line, column, offset, context):
@@ -301,8 +301,8 @@ class LaTeXPreviews:
 		self._context.activate_editor(file)
 		
 		# wait for the editor to be adjusted
-		while gtk.events_pending():
-			gtk.main_iteration(False)
+		while Gtk.events_pending():
+			Gtk.main_iteration(False)
 
 		editor = self._context.active_editor
 		
@@ -749,13 +749,13 @@ class PreviewDocumentLinkNamed(PreviewDocumentLink):
 
 
 
-class PreviewLink(gtk.EventBox):
+class PreviewLink(Gtk.EventBox):
 	"""
 	The sensitive area in the preview corresponding to a document link."
 	"""
 	
 	def __init__(self, preview_panel, document_link):
-		gtk.EventBox.__init__(self)
+		GObject.GObject.__init__(self)
 
 		self.__preview_panel = preview_panel
 		self.doc_link = document_link
@@ -786,14 +786,14 @@ class PreviewLink(gtk.EventBox):
 	def __on_button_press(self, widget, event):
 		# prevent the signal from being passed to the preview panel,
 		# except for Ctrl+Left button for synctex
-		if event.button == 1 and not (event.state & gtk.gdk.CONTROL_MASK):
+		if event.button == 1 and not (event.get_state() & Gdk.EventMask.CONTROL_MASK):
 			return True
 		else:
 			return False
 		
 
 	def __on_button_release(self, widget, event):
-		if event.state & gtk.gdk.CONTROL_MASK:
+		if event.get_state() & Gdk.EventMask.CONTROL_MASK:
 			return False
 			
 		self.__preview_panel.set_cursor(PreviewPanel.CURSOR_DEFAULT)
@@ -868,7 +868,7 @@ class PreviewDrag:
 		# even if it has been queued many times. This results in the 
 		# view really following the mouse, and not lagging behind 
 		# trying to execute every single mouse move.
-		self.__handler = gobject.idle_add(self.__do_drag)
+		self.__handler = GObject.idle_add(self.__do_drag)
 		
 
 	def __do_drag(self):
@@ -889,7 +889,7 @@ class PreviewDrag:
 
 	def free_handlers(self):
 		if not self.__handler is None:
-			gobject.source_remove(self.__handler)
+			GObject.source_remove(self.__handler)
 			self.__handler = None
 
 	
@@ -950,7 +950,7 @@ class GlassDrag:
 		# even if it has been queued many times. This results in the 
 		# view really following the mouse, and not lagging behind 
 		# trying to execute every single mouse move.
-		self.__handler = gobject.idle_add(self.__do_drag)
+		self.__handler = GObject.idle_add(self.__do_drag)
 
 
 	def __do_drag(self):
@@ -966,7 +966,7 @@ class GlassDrag:
 
 	def free_handlers(self):
 		if not self.__handler is None:
-			gobject.source_remove(self.__handler)
+			GObject.source_remove(self.__handler)
 			self.__handler = None
 
 	
@@ -1004,10 +1004,10 @@ class SyncRectangle:
 		self.drawing_area = drawing_area
 		self.scale = scale
 		
-		self.__handler = gobject.timeout_add(1000, self.hide)
+		self.__handler = GObject.timeout_add(1000, self.hide)
 		
 		self.drawing_area.window.invalidate_rect( \
-					gtk.gdk.Rectangle(int(self.x*self.scale)-4, \
+					(int(self.x*self.scale)-4, \
 									  int(self.y*self.scale)-4, \
 									  int(self.width*self.scale)+8, \
 									  int(self.height*self.scale)+8), \
@@ -1016,10 +1016,10 @@ class SyncRectangle:
 		
 	def hide(self):
 		self.show_me = False
-		gobject.source_remove(self.__handler)
+		GObject.source_remove(self.__handler)
 		
 		self.drawing_area.window.invalidate_rect( \
-					gtk.gdk.Rectangle(int(self.x*self.scale)-4, \
+					(int(self.x*self.scale)-4, \
 									  int(self.y*self.scale)-4, \
 									  int(self.width*self.scale)+8, \
 									  int(self.height*self.scale)+8), \
@@ -1038,7 +1038,7 @@ class SyncRectangle:
 		
 class PreviewPanel:
 	"""
-	This class contains a view of the compiled file. A gtk.Vbox is created
+	This class contains a view of the compiled file. A Gtk.Vbox is created
 	that contains all visible elements, accessible through get_panel().
 	If the file is not found or an error is triggered during the 
 	preview generation a default display is shown.
@@ -1144,23 +1144,23 @@ class PreviewPanel:
 
 		# Cursors. Used in self.set_cursor().
 		self.__cursor_default = None
-		self.__cursor_drag = gtk.gdk.Cursor(gtk.gdk.HAND1)
-		pixmap = gtk.gdk.Pixmap(None, 1, 1, 1)
-		color = gtk.gdk.Color()
-		self.__cursor_empty = gtk.gdk.Cursor(pixmap, pixmap, color, color, 0, 0)
-		self.__cursor_link = gtk.gdk.Cursor(gtk.gdk.HAND2)
+		self.__cursor_drag = Gdk.Cursor.new(Gdk.HAND1)
+		pixmap = Gdk.Pixmap(None, 1, 1, 1)
+		color = Gdk.Color()
+		self.__cursor_empty = Gdk.Cursor.new(pixmap, pixmap, color, color, 0, 0)
+		self.__cursor_link = Gdk.Cursor.new(Gdk.HAND2)
 
 		# TODO: very nasty hack to detect changes in pdf file
 		# this is a 1000ms loop, there should be an event generated
 		# by the plugin to notify that pdf file was updated
 		self.__file_update_count = 0
-		self.__check_changes_id = gobject.timeout_add(250, self.__check_changes)
+		self.__check_changes_id = GObject.timeout_add(250, self.__check_changes)
 		
 		# the panel that will contain all visible elements
 		# for the moment only the scrolled window, but there could be 
 		# a toolbar for example
-		self.__panel = gtk.VBox(False, 0)
-		self.__panel.set_flags(gtk.CAN_FOCUS)
+		self.__panel = Gtk.VBox(False, 0)
+		self.__panel.set_flags(Gtk.CAN_FOCUS)
 		self.__connect_keyboard_events()
 
 		# create the visible elements on the panel
@@ -1174,7 +1174,7 @@ class PreviewPanel:
 		
 		
 	def __on_key_press(self, widget, event):
-		key = gtk.gdk.keyval_name(event.keyval)
+		key = Gdk.keyval_name(event.keyval)
 		
 		if key == "Tab":
 			self.__latex_previews._context.active_editor._text_view.grab_focus()
@@ -1193,7 +1193,7 @@ class PreviewPanel:
 		elif key == "equal":
 			self.zoom_to(1.0, self.ZOOM_NORMAL)
 		elif key == "Page_Up":
-			if event.state & gtk.gdk.CONTROL_MASK:
+			if event.get_state() & Gdk.EventMask.CONTROL_MASK:
 				self.go_to_page(-1, True)
 			else:
 				# We do it manually... should be in a method 
@@ -1202,24 +1202,24 @@ class PreviewPanel:
 				vadj = self.get_vadjustment()
 				vadj.set_value(max(vadj.lower, vadj.value - vadj.page_increment))
 				if self.__type_of_view == self.VIEW_SINGLE_PAGE:
-					self.__decide_page_change(vadj, gtk.gdk.SCROLL_UP)
+					self.__decide_page_change(vadj, Gdk.ScrollDirection.UP)
 		elif key == "Page_Down":
-			if event.state & gtk.gdk.CONTROL_MASK:
+			if event.get_state() & Gdk.EventMask.CONTROL_MASK:
 				self.go_to_page(1, True)
 			else:
 				# We do it manually... should be in a method
 				vadj = self.get_vadjustment()
 				vadj.set_value(min(vadj.upper - vadj.page_size, vadj.value + vadj.page_increment))
 				if self.__type_of_view == self.VIEW_SINGLE_PAGE:
-					self.__decide_page_change(vadj, gtk.gdk.SCROLL_DOWN)
+					self.__decide_page_change(vadj, Gdk.ScrollDirection.DOWN)
 		elif key == "Home":
-			if event.state & gtk.gdk.CONTROL_MASK:
+			if event.get_state() & Gdk.EventMask.CONTROL_MASK:
 				self.go_to_page(0)
 			else:
 				vadj = self.get_vadjustment()
 				vadj.set_value(vadj.lower)
 		elif key == "End":
-			if event.state & gtk.gdk.CONTROL_MASK:
+			if event.get_state() & Gdk.EventMask.CONTROL_MASK:
 				self.go_to_page(-1)
 			else:
 				vadj = self.get_vadjustment()
@@ -1235,16 +1235,16 @@ class PreviewPanel:
 		Creates the scrolled window that will contain the pages.
 		"""
 		
-		scrolled_window = gtk.ScrolledWindow()
-		scrolled_window.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+		scrolled_window = Gtk.ScrolledWindow()
+		scrolled_window.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
 		self.__panel.pack_start(scrolled_window, True, True, 0)
 
 		# the VBox inside the scrolled window, that will contain the pages
-		pages = gtk.VBox(False, 2) # here we ask for a padding equal to 2
+		pages = Gtk.VBox(False, 2) # here we ask for a padding equal to 2
 
 		# pack the VBox in an EventBox to be able to receive 
 		# events like "button-release-event" and "motion-notify-event"
-		event_box = gtk.EventBox()
+		event_box = Gtk.EventBox()
 		event_box.add(pages)
 		scrolled_window.add_with_viewport(event_box)
 
@@ -1295,7 +1295,7 @@ class PreviewPanel:
 		"""
 		Check the compiled file for the last modification time and call for
 		preview redraw it file has a more recent modification timestamp
-		@return: True so that the method will be called again by gobject.timeout_add
+		@return: True so that the method will be called again by GObject.timeout_add
 		"""
 		
 		TIMES = 3
@@ -1454,12 +1454,12 @@ class PreviewPanel:
 		@param default: True if default panel, False if not
 		"""
 		
-		dwg = gtk.DrawingArea()
+		dwg = Gtk.DrawingArea()
 		self.__drawing_areas[i] = dwg
 
 		self.__update_drawing_area(dwg, i, j, default, False)
 		
-		fixed = gtk.Fixed()
+		fixed = Gtk.Fixed()
 		fixed.put(dwg, 0, 0)
 
 		self.__links[i] = []
@@ -1472,7 +1472,7 @@ class PreviewPanel:
 				fixed.put(link, x, y)
 
 		# keep the page in the (horizontal) middle of the scrolled window
-		align = gtk.Alignment(0.5, 0.5, 0, 0)
+		align = Gtk.Alignment.new(0.5, 0.5, 0, 0)
 		# if in single page type of view, center the page vertically
 		expand = (self.__type_of_view == self.VIEW_SINGLE_PAGE)
 		pages.pack_start(align, expand, False, 1)
@@ -1521,7 +1521,7 @@ class PreviewPanel:
 		if event == self.EVENT_TOGGLE_CONTINUOUS:
 			# if in single page type of view, center the page vertically
 			expand = (self.__type_of_view == self.VIEW_SINGLE_PAGE) # True if in single page
-			pages.set_child_packing(dwg.get_parent().get_parent(), expand, False, 1, gtk.PACK_START)
+			pages.set_child_packing(dwg.get_parent().get_parent(), expand, False, 1, Gtk.PACK_START)
 		
 		self._log.debug("Updated drawing area %d for page %d" % (i, j))
 
@@ -1633,19 +1633,19 @@ class PreviewPanel:
 		zoom_type = self.get_zoom_type()
 		if zoom_type == self.ZOOM_FIT_WIDTH:
 			if self.DELAY_ZOOM:
-				scrolled_window.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
+				scrolled_window.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
 			else:
-				scrolled_window.set_policy(gtk.POLICY_NEVER, gtk.POLICY_ALWAYS)
+				scrolled_window.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.ALWAYS)
 			self.__scale = self.__get_fit_width_scale()
 		elif zoom_type == self.ZOOM_FIT_PAGE and self.__type_of_view == self.VIEW_SINGLE_PAGE:
-			scrolled_window.set_policy(gtk.POLICY_NEVER, gtk.POLICY_NEVER)
-			#~ scrolled_window.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
+			scrolled_window.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.NEVER)
+			#~ scrolled_window.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
 			self.__scale = self.__get_fit_page_scale()
 		elif zoom_type == self.ZOOM_FIT_PAGE and self.__type_of_view == self.VIEW_CONTINUOUS:
-			scrolled_window.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
+			scrolled_window.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
 			self.__scale = self.__get_fit_page_scale()			
 		else:
-			scrolled_window.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+			scrolled_window.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
 			
 		# create or update all document pages, 
 		# or only one if in "single page" type of view
@@ -1756,7 +1756,7 @@ class PreviewPanel:
 		button 3.
 		"""
 		
-		if event.type != gtk.gdk.BUTTON_PRESS:
+		if event.type != Gdk.EventType.BUTTON_PRESS:
 			return False
 
 		self.__panel.grab_focus()
@@ -1765,7 +1765,7 @@ class PreviewPanel:
 			x = event.x
 			y = event.y
 			
-			if event.state & gtk.gdk.CONTROL_MASK:
+			if event.get_state() & Gdk.EventMask.CONTROL_MASK:
 				self.__sync_edit(x,y)
 			else:
 				self.__glass_drag.start(self.__magnifying_glass, x, y)
@@ -1786,38 +1786,38 @@ class PreviewPanel:
 			return True
 
 		elif event.button == 3:
-			popup_menu = gtk.Menu()
+			popup_menu = Gtk.Menu()
 
 			#TODO: Set labels manually.
-			menu_zoom_in = gtk.ImageMenuItem(gtk.STOCK_ZOOM_IN)
+			menu_zoom_in = Gtk.ImageMenuItem(Gtk.STOCK_ZOOM_IN)
 			popup_menu.add(menu_zoom_in)
 			menu_zoom_in.connect_object("event", self.__on_popup_clicked, "zoom_in", event.time)
 
-			menu_zoom_out = gtk.ImageMenuItem(gtk.STOCK_ZOOM_OUT)
+			menu_zoom_out = Gtk.ImageMenuItem(Gtk.STOCK_ZOOM_OUT)
 			popup_menu.add(menu_zoom_out)
 			menu_zoom_out.connect_object("event", self.__on_popup_clicked, "zoom_out", event.time)
 			
-			menu_previous_page = gtk.ImageMenuItem(gtk.STOCK_GO_UP)
+			menu_previous_page = Gtk.ImageMenuItem(Gtk.STOCK_GO_UP)
 			popup_menu.add(menu_previous_page)
 			menu_previous_page.connect_object("event", self.__on_popup_clicked, "previous_page", event.time)
 			
-			menu_next_page = gtk.ImageMenuItem(gtk.STOCK_GO_DOWN)
+			menu_next_page = Gtk.ImageMenuItem(Gtk.STOCK_GO_DOWN)
 			popup_menu.add(menu_next_page)
 			menu_next_page.connect_object("event", self.__on_popup_clicked, "next_page", event.time)
 			
-			menu_continuous = gtk.CheckMenuItem("Continuous")
+			menu_continuous = Gtk.CheckMenuItem("Continuous")
 			popup_menu.add(menu_continuous)
 			menu_continuous.connect_object("event", self.__on_popup_clicked, "continuous", event.time)
 
-			menu_properties = gtk.MenuItem("Properties...")
+			menu_properties = Gtk.MenuItem("Properties...")
 			popup_menu.add(menu_properties)
 			menu_properties.connect_object("event", self.__on_popup_clicked, "properties", event.time)
 			
-			menu_reload = gtk.MenuItem("Reload")
+			menu_reload = Gtk.MenuItem("Reload")
 			popup_menu.add(menu_reload)
 			menu_reload.connect_object("event", self.__on_popup_clicked, "reload", event.time)			
 			
-			menu_open = gtk.MenuItem("Open in default viewer")
+			menu_open = Gtk.MenuItem("Open in default viewer")
 			popup_menu.add(menu_open)
 			menu_open.connect_object("event", self.__on_popup_clicked, "open", event.time)
 			
@@ -1908,7 +1908,7 @@ class PreviewPanel:
 		# when right clicking and releasing directly the button, the first 
 		# menu item is "activated" (i.e. clicked) AND the menu stays open...
 		#TODO: Find out why this doesn't happen in other programs, and fix this properly.
-		if event.type == gtk.gdk.BUTTON_RELEASE and event.time - time > 200:
+		if event.type == Gdk.BUTTON_RELEASE and event.time - time > 200:
 			if widget == "zoom_in":
 				self.zoom_in()
 			elif widget == "zoom_out":
@@ -1937,18 +1937,18 @@ class PreviewPanel:
 		triggers Next/Previous page.
 		"""
 
-		if event.state & gtk.gdk.CONTROL_MASK:
-			if event.direction == gtk.gdk.SCROLL_DOWN:
+		if event.get_state() & Gdk.EventMask.CONTROL_MASK:
+			if event.direction == Gdk.ScrollDirection.DOWN:
 				self.zoom_out()
 				return True
-			elif event.direction == gtk.gdk.SCROLL_UP:
+			elif event.direction == Gdk.ScrollDirection.UP:
 				self.zoom_in()
 				return True
-		elif event.state & gtk.gdk.MOD1_MASK:
-			if event.direction == gtk.gdk.SCROLL_DOWN:
+		elif event.get_state() & Gdk.ModifierType.MOD1_MASK:
+			if event.direction == Gdk.ScrollDirection.DOWN:
 				self.go_to_page(1, True)
 				return True
-			elif event.direction == gtk.gdk.SCROLL_UP:
+			elif event.direction == Gdk.ScrollDirection.UP:
 				self.go_to_page(-1, True)
 				return True
 
@@ -1980,7 +1980,7 @@ class PreviewPanel:
 		else:
 			max_scroll_count = 2
 		
-		if vadj.value == vadj.lower and direction == gtk.gdk.SCROLL_UP and self.__current_page != 0:
+		if vadj.value == vadj.lower and direction == Gdk.ScrollDirection.UP and self.__current_page != 0:
 			self.__scroll_up_count += 1
 			if self.__scroll_up_count == max_scroll_count:
 				self.go_to_page(-1, True)
@@ -1988,7 +1988,7 @@ class PreviewPanel:
 				self.__last_vertical_scroll_position = vadj.upper - vadj.page_size
 				vadj.value = vadj.upper - vadj.page_size
 				return True
-		elif vadj.value == vadj.upper - vadj.page_size and direction == gtk.gdk.SCROLL_DOWN and self.__current_page != self.__document.get_n_pages() - 1:
+		elif vadj.value == vadj.upper - vadj.page_size and direction == Gdk.ScrollDirection.DOWN and self.__current_page != self.__document.get_n_pages() - 1:
 			self.__scroll_down_count += 1
 			if self.__scroll_down_count == max_scroll_count:
 				self.go_to_page(1, True)
@@ -2012,7 +2012,7 @@ class PreviewPanel:
 		cr = widget.window.cairo_create()
 		
 		# do not draw too much for nothing
-		region = gtk.gdk.region_rectangle(event.area)
+		region = Gdk.region_rectangle(event.area)
 		cr.region(region)
 		cr.clip()
 		
@@ -2179,7 +2179,7 @@ class PreviewPanel:
 		self.__new_scale = scale
 		self.__new_zoom_type = zoom_type
 		if self.DELAY_ZOOM:
-			self.__zoom_to_id = gobject.idle_add(self.__do_zoom_to)
+			self.__zoom_to_id = GObject.idle_add(self.__do_zoom_to)
 		else:
 			self.__do_zoom_to()
 		
@@ -2265,8 +2265,8 @@ class PreviewPanel:
 		It is triggered by an accelerator to allow moving in the preview without the mouse.
 		"""
 
-		event = gtk.gdk.Event(gtk.gdk.SCROLL)
-		event.direction = gtk.gdk.SCROLL_UP
+		event = Gdk.Event(Gdk.SCROLL)
+		event.direction = Gdk.ScrollDirection.UP
 		scrolled_window = self.get_scrolled_window()
 		scrolled_window.emit("scroll-event", event)
 
@@ -2277,8 +2277,8 @@ class PreviewPanel:
 		It is triggered by an accelerator to allow moving in the preview without the mouse.
 		"""
 
-		event = gtk.gdk.Event(gtk.gdk.SCROLL)
-		event.direction = gtk.gdk.SCROLL_DOWN
+		event = Gdk.Event(Gdk.SCROLL)
+		event.direction = Gdk.ScrollDirection.DOWN
 		scrolled_window = self.get_scrolled_window()
 		scrolled_window.emit("scroll-event", event)
 
@@ -2289,8 +2289,8 @@ class PreviewPanel:
 		It is triggered by an accelerator to allow moving in the preview without the mouse.
 		"""
 
-		event = gtk.gdk.Event(gtk.gdk.SCROLL)
-		event.direction = gtk.gdk.SCROLL_LEFT
+		event = Gdk.Event(Gdk.SCROLL)
+		event.direction = Gdk.ScrollDirection.LEFT
 		scrolled_window = self.get_scrolled_window()
 		scrolled_window.emit("scroll-event", event)
 
@@ -2301,8 +2301,8 @@ class PreviewPanel:
 		It is triggered by an accelerator to allow moving in the preview without the mouse.
 		"""
 
-		event = gtk.gdk.Event(gtk.gdk.SCROLL)
-		event.direction = gtk.gdk.SCROLL_RIGHT
+		event = Gdk.Event(Gdk.SCROLL)
+		event.direction = Gdk.ScrollDirection.RIGHT
 		scrolled_window = self.get_scrolled_window()
 		scrolled_window.emit("scroll-event", event)
 
@@ -2683,7 +2683,7 @@ class PreviewPanel:
 		Method that destroys every children of the panel.
 		"""
 		
-		gobject.source_remove(self.__check_changes_id)
+		GObject.source_remove(self.__check_changes_id)
 
 		# scrolled window adjustments
 		scrolled_window = self.get_scrolled_window()
@@ -2761,12 +2761,12 @@ class MagnifyingGlass:
 		self.__document = document
 		self.__page_width, self.__page_height = self.__document.get_page_size(self.__page)
 		
-		self.__window = gtk.Window(gtk.WINDOW_POPUP)
+		self.__window = Gtk.Window(Gtk.WindowType.POPUP)
 		self.__window.set_size_request(self.__width, self.__height)
-		self.__window.set_gravity(gtk.gdk.GRAVITY_CENTER)
-		self.__window.set_position(gtk.WIN_POS_MOUSE)
+		self.__window.set_gravity(Gdk.GRAVITY_CENTER)
+		self.__window.set_position(Gtk.WindowPosition.MOUSE)
 		
-		self.__drawing_area = gtk.DrawingArea()
+		self.__drawing_area = Gtk.DrawingArea()
 		self.__drawing_area.set_size_request(int(self.__width), int(self.__height))
 		self.__drawing_area.show()
 		
@@ -2831,7 +2831,7 @@ class MagnifyingGlass:
 		width = int(self.__page_width * scale)
 		height = int(self.__page_height * scale)
 		
-		self.__pixbuf = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, False, 8, width, height)
+		self.__pixbuf = GdkPixbuf.Pixbuf(GdkPixbuf.Colorspace.RGB, False, 8, width, height)
 		self.__pixbuf.fill(0xffffffff)
 
 		# Strange: render_to_pixbuf doesn't take into account the width 
@@ -2892,7 +2892,7 @@ class DocumentPropertiesDialog:
 		self.__document = document
 		
 		# Hacky way to get the gedit main window...
-		self.__parent_window = gtk.window_list_toplevels()[0]
+		self.__parent_window = Gtk.window_list_toplevels()[0]
 
 		self.__properties = ["title", "path", "subject", "author",
 							 "keywords", "producer", "creator", 
@@ -2948,7 +2948,7 @@ class DocumentPropertiesDialog:
 		Monitors the response events sent by the dialog.
 		"""
 		
-		if response == gtk.RESPONSE_CLOSE or response == gtk.RESPONSE_DELETE_EVENT:
+		if response == Gtk.ResponseType.CLOSE or response == Gtk.ResponseType.DELETE_EVENT:
 			self.destroy()
 		
 		
@@ -2957,36 +2957,36 @@ class DocumentPropertiesDialog:
 		Builds the dialog.
 		"""
 		
-		self.__dialog = gtk.Dialog("PDF document properties",
+		self.__dialog = Gtk.Dialog("PDF document properties",
                      self.__parent_window,
-                     gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
-                     (gtk.STOCK_CLOSE, gtk.RESPONSE_CLOSE))
+                     Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT,
+                     (Gtk.STOCK_CLOSE, Gtk.ResponseType.CLOSE))
 		
 		self.__response_id = self.__dialog.connect("response", self.__on_response)
 		
-		table = gtk.Table(len(self.__properties), 2)
+		table = Gtk.Table(len(self.__properties), 2)
 		
-		(maj, min, rev) = gtk.ver
+		(maj, min, rev) = Gtk.ver
 		if not (maj >= 2 and min >= 12):
-			tooltips = gtk.Tooltips()
+			tooltips = Gtk.Tooltips()
 		
 		i = 0
 		for property in self.__properties:
-			label = gtk.Label()
+			label = Gtk.Label()
 			label.set_markup("<b>%s</b>" % self.__labels[property])
 			label.set_alignment(0, 1)
 			if not (maj >= 2 and min >= 12):
 				tooltips.set_tip(label, self.__tooltips[property])
 			else:
 				label.set_tooltip_text(self.__tooltips[property])
-			table.attach(label, 0, 1, i, i + 1, gtk.FILL, gtk.FILL, 8, 3)
+			table.attach(label, 0, 1, i, i + 1, Gtk.AttachOptions.FILL, Gtk.AttachOptions.FILL, 8, 3)
 
-			value = gtk.Label()
+			value = Gtk.Label()
 			value.set_selectable(True)
 			value.set_width_chars(45)
-			value.set_ellipsize(pango.ELLIPSIZE_END)
+			value.set_ellipsize(Pango.EllipsizeMode.END)
 			value.set_alignment(0, 1)
-			table.attach(value, 1, 2, i, i + 1, gtk.FILL | gtk.EXPAND, gtk.FILL, 8, 3)
+			table.attach(value, 1, 2, i, i + 1, Gtk.AttachOptions.FILL | Gtk.AttachOptions.EXPAND, Gtk.AttachOptions.FILL, 8, 3)
 			self.__property_values[property] = value
 			i += 1
 		

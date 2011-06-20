@@ -25,7 +25,7 @@ These classes form the interface exposed by the plugin base layer.
 """
 
 from logging import getLogger
-import gtk
+from gi.repository import Gtk
 
 
 class View(object):
@@ -47,7 +47,7 @@ class View(object):
 	# a label string used for this view
 	label = ""
 	
-	# an icon for this view (gtk.Image or a stock_id string)
+	# an icon for this view (Gtk.Image or a stock_id string)
 	icon = None
 	
 	# the scope of this View:
@@ -69,11 +69,11 @@ class View(object):
 		self._log.debug("Properly destroyed %s" % self)
 
 
-class SideView(View, gtk.VBox):
+class SideView(View, Gtk.VBox):
 	"""
 	"""
 	def __init__(self, context):
-		gtk.VBox.__init__(self)
+		GObject.GObject.__init__(self)
 		
 		self._context = context
 		self._initialized = False
@@ -107,15 +107,15 @@ class SideView(View, gtk.VBox):
 	def destroy(self):
 		if not self._initialized:
 			self.disconnect(self._expose_handler)
-		gtk.VBox.destroy(self)
+		Gtk.VBox.destroy(self)
 		self._context = None
 
 
-class BottomView(View, gtk.HBox):
+class BottomView(View, Gtk.HBox):
 	"""
 	"""
 	def __init__(self, context):
-		gtk.HBox.__init__(self)
+		GObject.GObject.__init__(self)
 		
 		self._context = context
 		self._initialized = False
@@ -149,7 +149,7 @@ class BottomView(View, gtk.HBox):
 	def destroy(self):
 		if not self._initialized:
 			self.disconnect(self._expose_handler)
-		gtk.HBox.destroy(self)
+		Gtk.HBox.destroy(self)
 		self._context = None
 
 
@@ -169,7 +169,7 @@ class Template(object):
 		return self._expression
 
 
-import gobject
+from gi.repository import GObject
 
 #
 # workaround for MenuToolItem
@@ -178,12 +178,12 @@ import gobject
 # we prepend the plugin name to be sure that it's a unique symbol
 # see https://sourceforge.net/tracker/index.php?func=detail&aid=2599705&group_id=204144&atid=988428
 #
-class GeditLaTeXPlugin_MenuToolAction(gtk.Action):
+class GeditLaTeXPlugin_MenuToolAction(Gtk.Action):
 	__gtype_name__ = "GeditLaTeXPlugin_MenuToolAction"
 
-gobject.type_register(GeditLaTeXPlugin_MenuToolAction)
+GObject.type_register(GeditLaTeXPlugin_MenuToolAction)
 # needs PyGTK 2.10
-GeditLaTeXPlugin_MenuToolAction.set_tool_item_type(gtk.MenuToolButton)
+GeditLaTeXPlugin_MenuToolAction.set_tool_item_type(Gtk.MenuToolButton)
 
 
 class Action(object):
@@ -191,23 +191,23 @@ class Action(object):
 	"""
 	
 	menu_tool_action = False	# if True a MenuToolAction is created and hooked for this action
-								# instead of gtk.Action
+								# instead of Gtk.Action
 								
 	extensions = [None]			# a list of file extensions for which this action should be enabled
 								# [None] indicates that this action is to be enabled for all extensions
 	
 	def hook(self, action_group, window_context):
 		"""
-		Create an internal action object (gtk.Action or MenuToolAction), listen to it and
+		Create an internal action object (Gtk.Action or MenuToolAction), listen to it and
 		hook it in an action group
 		
-		@param action_group: a gtk.ActionGroup object
+		@param action_group: a Gtk.ActionGroup object
 		@param window_context: a WindowContext object to pass when this action is activated
 		"""
 		if self.menu_tool_action:
 			action_clazz = GeditLaTeXPlugin_MenuToolAction
 		else:
-			action_clazz = gtk.Action
+			action_clazz = Gtk.Action
 		self._internal_action = action_clazz(self.__class__.__name__, self.label, self.tooltip, self.stock_id)
 		self._handler = self._internal_action.connect("activate", lambda gtk_action, action: action.activate(window_context), self)
 		action_group.add_action_with_accel(self._internal_action, self.accelerator)
@@ -295,7 +295,7 @@ class Proposal(object):
 	@property
 	def icon(self):
 		"""
-		@return: an instance of gtk.gdk.Pixbuf
+		@return: an instance of GdkPixbuf.Pixbuf
 		"""
 		raise NotImplementedError
 	
@@ -339,13 +339,13 @@ class Editor(object):
 		Markers refer to and highlight a range of text in the TextBuffer decorated by 
 		an Editor. They are used for spell checking and highlighting issues.
 		
-		Each Marker instance stores two gtk.TextMark objects refering to the start and
+		Each Marker instance stores two Gtk.TextMark objects refering to the start and
 		end of the text range.
 		"""
 		def __init__(self, left_mark, right_mark, id, type):
 			"""
-			@param left_mark: a gtk.TextMark
-			@param right_mark: a gtk.TextMark
+			@param left_mark: a Gtk.TextMark
+			@param right_mark: a Gtk.TextMark
 			@param id: a unique string
 			@param type: a marker type string
 			"""
@@ -361,7 +361,7 @@ class Editor(object):
 		"""
 		def __init__(self, tag, anonymous):
 			"""
-			@param tag: a gtk.TextTag
+			@param tag: a Gtk.TextTag
 			"""
 			self.tag = tag
 			self.anonymous = anonymous
@@ -438,10 +438,10 @@ class Editor(object):
 		The drag destination received the data from the drag operation
 		
 		@param widget: the widget that received the signal
-		@param context: the gtk.gdk.DragContext
+		@param context: the Gdk.DragContext
 		@param x: the X position of the drop
 		@param y: the Y position of the drop
-		@param data: a gtk.SelectionData object
+		@param data: a Gtk.SelectionData object
 		@param info: an integer ID for the drag
 		@param timestamp: the time of the drag event
 		"""
@@ -483,7 +483,7 @@ class Editor(object):
 		"""
 		if event.button == 3:	# right button
 			x, y = text_view.get_pointer()
-			x, y = text_view.window_to_buffer_coords(gtk.TEXT_WINDOW_WIDGET, x, y)
+			x, y = text_view.window_to_buffer_coords(Gtk.TextWindowType.WIDGET, x, y)
 			it = text_view.get_iter_at_location(x, y)
 			
 			self.__log.debug("Right button pressed at offset %s" % it.get_offset())
@@ -513,9 +513,9 @@ class Editor(object):
 					# start of buffer reached
 					return
 		
-		elif event.button == 1 and event.state & gtk.gdk.CONTROL_MASK:
+		elif event.button == 1 and event.get_state() & Gdk.EventMask.CONTROL_MASK:
 			x, y = text_view.get_pointer()
-			x, y = text_view.window_to_buffer_coords(gtk.TEXT_WINDOW_WIDGET, x, y)
+			x, y = text_view.window_to_buffer_coords(Gtk.TextWindowType.WIDGET, x, y)
 			it = text_view.get_iter_at_location(x, y)
 			# notify subclass
 			self._ctrl_left_clicked(it)
@@ -523,7 +523,7 @@ class Editor(object):
 	def _ctrl_left_clicked(self, it):
 		"""
 		Left-clicked on the editor with Ctrl modifier key pressed
-		@param it: the gtk.TextIter at the clicked position
+		@param it: the Gtk.TextIter at the clicked position
 		"""
 	
 	@property
@@ -847,7 +847,7 @@ class Editor(object):
 		"""
 		assert not marker_type in self._marker_types.keys()
 		
-		# create gtk.TextTag
+		# create Gtk.TextTag
 		tag = self._text_buffer.create_tag(marker_type, background=background_color)
 		
 		self._tags.append(tag)
@@ -1265,7 +1265,7 @@ class File(object):
 	represents the reference to a file.
 	"""
 	
-	# TODO: use gio.File as underlying implementation
+	# TODO: use Gio.File as underlying implementation
 	
 	@staticmethod
 	def create_from_relative_path(relative_path, working_directory):

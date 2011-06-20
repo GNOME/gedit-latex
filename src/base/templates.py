@@ -263,7 +263,7 @@ class TemplateCompiler(object):
 			raise MalformedTemplateException("Illegal state: %s" % state)
 	
 
-import gtk.gdk
+import Gtk.gdk
 
 from . import Template
 from ..preferences import Preferences
@@ -448,7 +448,7 @@ class TemplateDelegate(object):
 		"""
 		assert self._active
 		
-		key = gtk.gdk.keyval_name(event.keyval)
+		key = Gdk.keyval_name(event.keyval)
 		
 		if key == self._KEY_TAB:
 			# select next placeholder
@@ -523,7 +523,7 @@ class TemplateDelegate(object):
 		"""
 		assert self._active
 		
-		key = gtk.gdk.keyval_name(event.keyval)
+		key = Gdk.keyval_name(event.keyval)
 		
 		if key == self._KEY_TAB or key == self._KEY_LEFT_SHIFT_TAB:
 			# swallow event

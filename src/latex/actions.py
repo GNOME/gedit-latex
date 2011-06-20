@@ -23,7 +23,7 @@ latex.actions
 """
 
 from logging import getLogger
-import gtk
+from gi.repository import Gtk
 
 from ..base import Action
 from ..util import IconAction
@@ -78,7 +78,7 @@ from editor import LaTeXEditor
 
 class LaTeXNewAction(Action):
 	label = "New LaTeX Document..."
-	stock_id = gtk.STOCK_NEW
+	stock_id = Gtk.STOCK_NEW
 	accelerator = "<Ctrl><Alt>N"
 	tooltip = "Create a new LaTeX document"
 	
@@ -132,7 +132,7 @@ class LaTeXForwardSearchAction(LaTeXAction):
 	_log = getLogger("LaTeXForwardSearchAction")
 	
 	label = "Find Position In DVI"
-	stock_id = gtk.STOCK_FIND
+	stock_id = Gtk.STOCK_FIND
 	accelerator = None
 	tooltip = None
 	
@@ -249,7 +249,7 @@ from livepreview import LaTeXPreviews
 
 class LaTeXPreviewAction(LaTeXAction):
 	label = "Embedded Preview"
-	stock_id = gtk.STOCK_ZOOM_FIT
+	stock_id = Gtk.STOCK_ZOOM_FIT
 	tooltip = None
 	accelerator = None
 	
@@ -261,7 +261,7 @@ class LaTeXPreviewToggleAction(LaTeXAction):
 	_log = getLogger("LaTeXPreviewToggleAction")
 	
 	label = "Toggle Embedded Preview"
-	stock_id = gtk.STOCK_ZOOM_FIT				 # TODO: Create and use a better icon 
+	stock_id = Gtk.STOCK_ZOOM_FIT				 # TODO: Create and use a better icon 
 	accelerator = "<Ctrl><Shift>T"
 	tooltip = "Toggle the embedded PDF preview"
 	
@@ -291,7 +291,7 @@ class LaTeXPreviewToggleAction(LaTeXAction):
 
 class LaTeXPreviewZoomInAction(LaTeXAction):
 	label = "Zoom In"
-	stock_id = gtk.STOCK_ZOOM_IN
+	stock_id = Gtk.STOCK_ZOOM_IN
 	accelerator = "<Alt><Super>P"
 	tooltip = "Zoom the embedded preview in"
 
@@ -307,7 +307,7 @@ class LaTeXPreviewZoomInAction(LaTeXAction):
 
 class LaTeXPreviewZoomOutAction(LaTeXAction):
 	label = "Zoom Out"
-	stock_id = gtk.STOCK_ZOOM_OUT
+	stock_id = Gtk.STOCK_ZOOM_OUT
 	accelerator = "<Alt><Super>M"
 	tooltip = "Zoom the embedded preview out"
 
@@ -323,7 +323,7 @@ class LaTeXPreviewZoomOutAction(LaTeXAction):
 
 class LaTeXPreviewScrollUpAction(LaTeXAction):
 	label = "Scroll Up"
-	stock_id = gtk.STOCK_GO_UP
+	stock_id = Gtk.STOCK_GO_UP
 	accelerator = "<Alt><Super>Up"
 	tooltip = "Scroll the embedded preview up"
 
@@ -339,7 +339,7 @@ class LaTeXPreviewScrollUpAction(LaTeXAction):
 
 class LaTeXPreviewScrollDownAction(LaTeXAction):
 	label = "Scroll Down"
-	stock_id = gtk.STOCK_GO_DOWN
+	stock_id = Gtk.STOCK_GO_DOWN
 	accelerator = "<Alt><Super>Down"
 	tooltip = "Scroll the embedded preview down"
 
@@ -355,7 +355,7 @@ class LaTeXPreviewScrollDownAction(LaTeXAction):
 
 class LaTeXPreviewScrollLeftAction(LaTeXAction):
 	label = "Scroll Left"
-	stock_id = gtk.STOCK_GO_BACK
+	stock_id = Gtk.STOCK_GO_BACK
 	accelerator = "<Alt><Super>Left"
 	tooltip = "Scroll the embedded preview to the left"
 
@@ -371,7 +371,7 @@ class LaTeXPreviewScrollLeftAction(LaTeXAction):
 
 class LaTeXPreviewScrollRightAction(LaTeXAction):
 	label = "Scroll Right"
-	stock_id = gtk.STOCK_GO_FORWARD
+	stock_id = Gtk.STOCK_GO_FORWARD
 	accelerator = "<Alt><Super>Right"
 	tooltip = "Scroll the embedded preview to the right"
 
@@ -387,7 +387,7 @@ class LaTeXPreviewScrollRightAction(LaTeXAction):
 
 class LaTeXSpellCheckAction(LaTeXAction):
 	label = "Spell Check"
-	stock_id = gtk.STOCK_SPELL_CHECK
+	stock_id = Gtk.STOCK_SPELL_CHECK
 	accelerator = "<Ctrl><Alt>S"
 	tooltip = "Run LaTeX-aware spell check on the document"
 	
@@ -736,7 +736,7 @@ class LaTeXSaveAsTemplateAction(LaTeXAction):
 	label = "Save As Template..."
 	accelerator = None
 	tooltip = "Save the current document as a template"
-	stock_id = gtk.STOCK_SAVE_AS
+	stock_id = Gtk.STOCK_SAVE_AS
 	
 	def activate(self, context):
 		from dialogs import SaveAsTemplateDialog

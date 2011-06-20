@@ -85,7 +85,7 @@ class Job(object):
 		return self._post_processor
 
 
-import gtk
+from gi.repository import Gtk
 
 from ..base import Action
 
@@ -107,7 +107,7 @@ class ToolAction(Action):
 	
 	@property
 	def stock_id(self):
-		return gtk.STOCK_EXECUTE
+		return Gtk.STOCK_EXECUTE
 	
 	@property
 	def accelerator(self):

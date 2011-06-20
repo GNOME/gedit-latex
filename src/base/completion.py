@@ -23,14 +23,14 @@ base.completion
 """
 
 from logging import getLogger
-import gtk
-import gtk.gdk
-import gobject
+from gi.repository import Gtk
+import Gtk.gdk
+from gi.repository import GObject
 
 from ..preferences import Preferences
 
 
-class ProposalPopup(gtk.Window):
+class ProposalPopup(Gtk.Window):
 	"""
 	Popup showing a list of proposals. This is implemented as a singleton
 	as it doesn't make sense to have multiple popups around.
@@ -44,42 +44,42 @@ class ProposalPopup(gtk.Window):
 	
 	def __new__(cls):
 		if not '_instance' in cls.__dict__:
-			cls._instance = gtk.Window.__new__(cls)
+			cls._instance = Gtk.Window.__new__(cls)
 		return cls._instance
 	
 	def __init__(self):
 		if not '_ready' in dir(self):
-			gtk.Window.__init__(self, gtk.WINDOW_POPUP)
+			GObject.GObject.__init__(self, Gtk.WindowType.POPUP)
 			
-			self._store = gtk.ListStore(str, object, gtk.gdk.Pixbuf)		# markup, Proposal instance
+			self._store = Gtk.ListStore(str, object, GdkPixbuf.Pixbuf)		# markup, Proposal instance
 			
-			self._view = gtk.TreeView(self._store)
+			self._view = Gtk.TreeView(self._store)
 			
 			# pack the icon and text cells in one column to avoid the column separator
-			column = gtk.TreeViewColumn()
-			pixbuf_renderer = gtk.CellRendererPixbuf()
+			column = Gtk.TreeViewColumn()
+			pixbuf_renderer = Gtk.CellRendererPixbuf()
 			column.pack_start(pixbuf_renderer, False)
 			column.add_attribute(pixbuf_renderer, "pixbuf", 2)
 		
-			text_renderer = gtk.CellRendererText()
+			text_renderer = Gtk.CellRendererText()
 			column.pack_start(text_renderer, True)
 			column.add_attribute(text_renderer, "markup", 0)
 		
 			self._view.append_column(column)
 			
-#			self._view.insert_column_with_attributes(-1, "", gtk.CellRendererPixbuf(), pixbuf=2)
-#			self._view.insert_column_with_attributes(-1, "", gtk.CellRendererText(), markup=0)
+#			self._view.insert_column_with_attributes(-1, "", Gtk.CellRendererPixbuf(), pixbuf=2)
+#			self._view.insert_column_with_attributes(-1, "", Gtk.CellRendererText(), markup=0)
 
 			self._view.set_enable_search(False)
 			self._view.set_headers_visible(False)
 			
-			scr = gtk.ScrolledWindow()
-			scr.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+			scr = Gtk.ScrolledWindow()
+			scr.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
 			scr.add(self._view)
 			scr.set_size_request(self._POPUP_WIDTH, self._POPUP_HEIGHT)
 			
-			frame = gtk.Frame()
-			frame.set_shadow_type(gtk.SHADOW_OUT)
+			frame = Gtk.Frame()
+			frame.set_shadow_type(Gtk.ShadowType.OUT)
 			frame.add(scr)
 			
 			self.add(frame)
@@ -165,9 +165,9 @@ class ProposalPopup(gtk.Window):
 		buffer = text_view.get_buffer()
 		location = text_view.get_iter_location(buffer.get_iter_at_mark(buffer.get_insert()))
 		
-		winX, winY = text_view.buffer_to_window_coords(gtk.TEXT_WINDOW_WIDGET, location.x, location.y)
+		winX, winY = text_view.buffer_to_window_coords(Gtk.TextWindowType.WIDGET, location.x, location.y)
 		
-		win = text_view.get_window(gtk.TEXT_WINDOW_WIDGET)
+		win = text_view.get_window(Gtk.TextWindowType.WIDGET)
 		xx, yy = win.get_origin()
 		
 		x = winX + xx
@@ -208,8 +208,8 @@ class ProposalPopup(gtk.Window):
 		"""
 		Move the popup to the current location of the cursor
 		"""
-		sw = gtk.gdk.screen_width()
-		sh = gtk.gdk.screen_height()
+		sw = Gdk.Screen.width()
+		sh = Gdk.Screen.height()
 		
 		x, y = self._get_cursor_pos(text_view)
 		
@@ -227,7 +227,7 @@ class ProposalPopup(gtk.Window):
 		self.move(x, y)
 
 
-class DetailsPopup(gtk.Window):
+class DetailsPopup(Gtk.Window):
 	"""
 	A popup showing additional information at the right of the currently 
 	selected proposal in the ProposalPopup.
@@ -237,16 +237,16 @@ class DetailsPopup(gtk.Window):
 	"""
 	
 	def __init__(self):
-		gtk.Window.__init__(self, gtk.WINDOW_POPUP)
+		GObject.GObject.__init__(self, Gtk.WindowType.POPUP)
 		
 		self._color = Preferences().get("LightForeground", "#7f7f7f")
 		
-		self._label = gtk.Label()
+		self._label = Gtk.Label()
 		self._label.set_use_markup(True)
 		self._label.set_alignment(0, .5)
 		
-		self._frame = gtk.Frame()
-		self._frame.set_shadow_type(gtk.SHADOW_OUT)
+		self._frame = Gtk.Frame()
+		self._frame.set_shadow_type(Gtk.ShadowType.OUT)
 		#self._frame.set_border_width(3)
 		self._frame.add(self._label)
 		
@@ -265,7 +265,7 @@ class DetailsPopup(gtk.Window):
 		# create a child widget depending on the type of details
 		if type(details) is list:
 			# table data
-			table = gtk.Table()
+			table = Gtk.Table()
 			table.set_border_width(5)
 			table.set_col_spacings(5)
 			rc = 0
@@ -274,9 +274,9 @@ class DetailsPopup(gtk.Window):
 				for column in row:
 					if cc == 0:
 						# first column
-						label = gtk.Label("<span color='%s'>%s</span>" % (self._color, column))
+						label = Gtk.Label("<span color='%s'>%s</span>" % (self._color, column))
 					else:
-						label = gtk.Label(column)
+						label = Gtk.Label(label=column)
 					label.set_use_markup(True)
 					if cc == 0:
 						# 1st column is right aligned
@@ -291,7 +291,7 @@ class DetailsPopup(gtk.Window):
 		
 		else:
 			# markup text
-			label = gtk.Label(details)
+			label = Gtk.Label(label=details)
 			label.set_use_markup(True)
 			self._frame.add(label)
 		
@@ -376,7 +376,7 @@ class CompletionDistributor(object):
 	def _on_key_pressed(self, view, event):
 		"""
 		"""
-		key = gtk.gdk.keyval_name(event.keyval)
+		key = Gdk.keyval_name(event.keyval)
 		
 		if self._state == self._STATE_IDLE:
 			if key == "Control_L" or key == "Control_R":
@@ -422,7 +422,7 @@ class CompletionDistributor(object):
 	def _on_key_released(self, view, event):
 		"""
 		"""
-		key = gtk.gdk.keyval_name(event.keyval)
+		key = Gdk.keyval_name(event.keyval)
 		
 #		# trigger auto close on "}"
 #		if key == "braceright":
@@ -455,14 +455,14 @@ class CompletionDistributor(object):
 		# stop eventually running timer
 		self._stop_timer()
 		# start timer
-		self._timer = gobject.timeout_add(self._DELAY, self._timer_callback)
+		self._timer = GObject.timeout_add(self._DELAY, self._timer_callback)
 	
 	def _stop_timer(self):
 		"""
 		Stop the timer if it has been started
 		"""
 		if self._timer is not None:
-			gobject.source_remove(self._timer)
+			GObject.source_remove(self._timer)
 			self._timer = None
 		
 	def _timer_callback(self):

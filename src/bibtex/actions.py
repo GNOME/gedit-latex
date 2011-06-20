@@ -23,7 +23,7 @@ latex.actions
 """
 
 from logging import getLogger
-import gtk
+from gi.repository import Gtk
 
 from ..base import Action
 from dialogs import InsertBibTeXEntryDialog

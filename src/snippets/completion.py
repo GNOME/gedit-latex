@@ -25,7 +25,7 @@ Snippet-specific completion classes
 """
 
 from logging import getLogger
-from gtk import gdk
+from gi.repository import Gdk
 
 from ..base import ICompletionHandler, Proposal, Template
 from ..base.resources import find_resource
@@ -36,7 +36,7 @@ from ..latex import LaTeXSource
 
 class SnippetProposal(Proposal):
 	
-	icon = gdk.pixbuf_new_from_file(find_resource("icons/snippet.png"))
+	icon = GdkPixbuf.Pixbuf.new_from_file(find_resource("icons/snippet.png"))
 	
 	_color = Preferences().get("LightForeground", "#957d47")
 	
