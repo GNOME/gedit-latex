@@ -26,6 +26,7 @@ the project
 """
 
 import logging
+from gi.repository import GdkPixbuf
 
 def require(arg_name, *allowed_types):
 	"""
@@ -228,7 +229,7 @@ class IconAction(Action):
 			((self.__stock_id, "", 0, 0, "")),
 		)
 		
-		Gtk.stock_add(stock_items)
+	 #	Gtk.stock_add(stock_items)
 		
 		factory = Gtk.IconFactory()
 		factory.add_default()
@@ -236,9 +237,9 @@ class IconAction(Action):
 		# TODO: use IconSource, the Pixbuf is just fallback
 		pixbuf = GdkPixbuf.Pixbuf.new_from_file(self.icon.path)
 		
-		icon_set = Gtk.IconSet(pixbuf)
+		icon_set = Gtk.IconSet.new_from_pixbuf(pixbuf)
 		
-		factory.add(self.__stock_id, icon_set)
+	#	factory.add(self.__stock_id, icon_set)
 	
 	@property
 	def stock_id(self):

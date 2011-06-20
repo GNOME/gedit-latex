@@ -150,10 +150,10 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		
 		# hook the toolbar
 		self._toolbar = self._ui_manager.get_widget("/LaTeXToolbar")
-		self._toolbar.set_style(Gtk.TOOLBAR_BOTH_HORIZ)
+		self._toolbar.set_style(Gtk.ToolbarStyle.BOTH_HORIZ)
 		
 		self._main_box = self._window.get_children()[0]
-		self._main_box.pack_start(self._toolbar, False)
+		self._main_box.pack_start(self._toolbar, False, True, 0)
 		self._main_box.reorder_child(self._toolbar, 2)
 		
 		#self._toolbar.show()
@@ -242,7 +242,7 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		self._tool_ui_id = self._ui_manager.add_ui_from_string(tool_ui)
 		
 		# add a MenuToolButton with the tools menu to the toolbar
-		self._menu_tool_button = Gtk.MenuToolButton(Gtk.STOCK_CONVERT)
+		self._menu_tool_button = Gtk.MenuToolButton.new_from_stock(Gtk.STOCK_CONVERT)
 		self._menu_tool_button.set_menu(menu)
 		self._menu_tool_button.show_all()
 		self._toolbar.insert(self._menu_tool_button, -1)

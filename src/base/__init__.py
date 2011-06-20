@@ -121,7 +121,7 @@ class BottomView(View, Gtk.HBox):
 		self._initialized = False
 		
 		# connect to expose event and init() on first expose
-		self._expose_handler = self.connect("expose-event", self._on_expose_event)
+		self._expose_handler = self.connect("draw", self._on_expose_event)
 		
 	def _on_expose_event(self, *args):
 		"""
