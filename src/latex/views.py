@@ -24,8 +24,8 @@ latex.views
 LaTeX-specific views
 """
 
-from gi.repository import Gtk
-from Gtk.gdk import Pixbuf, pixbuf_new_from_file
+from gi.repository import Gtk, GdkPixbuf
+#from Gtk.gdk import Pixbuf, pixbuf_new_from_file
 from gobject import GError
 from logging import getLogger
 import xml.etree.ElementTree as ElementTree

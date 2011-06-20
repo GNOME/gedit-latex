@@ -23,8 +23,7 @@ base.completion
 """
 
 from logging import getLogger
-from gi.repository import Gtk
-import Gtk.gdk
+from gi.repository import Gtk, Gdk
 from gi.repository import GObject
 
 from ..preferences import Preferences

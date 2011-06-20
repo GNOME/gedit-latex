@@ -1,6 +1,6 @@
-[Gedit Plugin]
-Module=GeditLaTeXPlugin
-IAge=2
+[Plugin]
+Module=latex
+IAge=3
 Loader=python
 Name=LaTeX Plugin 0.2
 Description=A plugin that assists you in handling LaTeX documents and BibTeX bibliographies

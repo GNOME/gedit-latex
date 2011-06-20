@@ -25,7 +25,7 @@ PDF live preview
          Yannick Voglaire (yannickv)
 """
 
-import gedit
+from gi.repository import Gedit
 from gi.repository import Gtk
 import os
 from gi.repository import GObject

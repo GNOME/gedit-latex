@@ -25,7 +25,7 @@ LaTeX-specific completion classes
 """
 
 from logging import getLogger
-from gi.repository import Gdk
+from gi.repository import Gdk, GdkPixbuf
 
 from ..base.resources import find_resource
 from ..base import ICompletionHandler, Proposal, Template

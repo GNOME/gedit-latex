@@ -24,8 +24,8 @@ bibtex.views
 The BibTeX outline view
 """
 
-from gi.repository import Gtk
-from Gtk.gdk import Pixbuf, pixbuf_new_from_file
+from gi.repository import Gtk, GdkPixbuf
+#from Gtk.gdk import Pixbuf, GdkPixbuf.Pixbuf.new_from_file
 from xml.sax.saxutils import escape
 from logging import getLogger
 
@@ -143,11 +143,11 @@ class OutlineConverter(object):
 	grouping feature
 	"""
 	
-	_ICON_ENTRY = pixbuf_new_from_file(find_resource("icons/document.png"))
-	_ICON_FIELD = pixbuf_new_from_file(find_resource("icons/field.png"))
-	_ICON_AUTHOR = pixbuf_new_from_file(find_resource("icons/users.png"))
-	_ICON_YEAR = pixbuf_new_from_file(find_resource("icons/calendar.png"))
-	_ICON_TYPE = pixbuf_new_from_file(find_resource("icons/documents.png"))
+	_ICON_ENTRY = GdkPixbuf.Pixbuf.new_from_file(find_resource("icons/document.png"))
+	_ICON_FIELD = GdkPixbuf.Pixbuf.new_from_file(find_resource("icons/field.png"))
+	_ICON_AUTHOR = GdkPixbuf.Pixbuf.new_from_file(find_resource("icons/users.png"))
+	_ICON_YEAR = GdkPixbuf.Pixbuf.new_from_file(find_resource("icons/calendar.png"))
+	_ICON_TYPE = GdkPixbuf.Pixbuf.new_from_file(find_resource("icons/documents.png"))
 	
 	def convert(self, tree_store, document, offset_map, grouping=GROUP_NONE):
 		"""

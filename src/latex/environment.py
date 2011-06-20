@@ -22,8 +22,9 @@
 latex.environment
 """
 
+from gi.repository import Gdk
 from os import popen, system
-from Gtk.gdk import screen_width, screen_height, screen_width_mm, screen_height_mm
+#from Gtk.gdk import screen_width, screen_height, screen_width_mm, screen_height_mm
 from pwd import getpwnam
 from getpass import getuser
 from locale import getdefaultlocale, nl_langinfo, D_FMT
@@ -335,8 +336,9 @@ class Environment(object):
 	@property
 	def screen_dpi(self):
 		if not self._screen_dpi:
-			dpi_x = screen_width() / (screen_width_mm() / 25.4)
-			dpi_y = screen_height() / (screen_height_mm() / 25.4)
+			screen = Gdk.Screen.get_default()
+			dpi_x = screen.width() / screen.width_mm() * 25.4
+			dpi_y = screen.height() / screen.height_mm() * 25.4
 			
 			self._screen_dpi = (dpi_x + dpi_y) / 2.0
 			

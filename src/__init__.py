@@ -22,8 +22,7 @@
 This is searched by gedit for a class extending gedit.Plugin
 """
 
-import gedit
-from gi.repository import Gtk
+from gi.repository import Gedit, GObject, Gtk
 import logging
 import platform
 
@@ -34,48 +33,24 @@ from util import open_error
 from preferences.dialog import PreferencesDialog
 
 
-class GeditLaTeXPlugin(Gedit.AppActivatable, GObject.Object):
+class GeditLaTeXPlugin(Gedit.WindowActivatable, GObject.Object):
 	"""
 	This controls the plugin life-cycle
 	"""
+	__gtype_name__ =  "GeditLatexWindowActivatable"
+
+        window = GObject.property(type=Gedit.Window)
 	
-	# we need Python 2.5 because it contains the ElementTree XML library
-	_REQUIRED_PYTHON_VERSION = (2, 5, 0)
-	
-	# be sure that we're running on a gedit with the new binding API
-	# see http://ftp.acc.umu.se/pub/GNOME/sources/gedit/2.15/gedit-2.15.2.changes
-	#
-	# TODO: we should support earlier versions because e.g. Debian Etch still offers 2.14
-	_REQUIRED_GEDIT_VERSION = (2, 15, 2)
-	
-	# we need Gtk.IconView.set_tooltip_column
-	_REQUIRED_PYGTK_VERSION = (2, 12, 0)
-	
-	# we need to pack a Gtk.Expander into a Gtk.VBox which fails before GTK+ 2.10.14
-	_REQUIRED_GTK_VERSION = (2, 10, 14)
 	
 	_log = logging.getLogger("GeditLaTeXPlugin")
 	
 	_platform_okay = True
 	
 	def __init__(self):
-		gedit.Plugin.__init__(self)
+		GObject.Object.__init__(self)
 		self._window_decorators = {}
-
-		# check requirements
-		requirements = [
-				(tuple(platform.python_version_tuple()), self._REQUIRED_PYTHON_VERSION, "Python"),
-				(gedit.version, self._REQUIRED_GEDIT_VERSION, "gedit"),
-				(Gtk.pygtk_version, self._REQUIRED_PYGTK_VERSION, "PyGTK"),
-				(Gtk.ver, self._REQUIRED_GTK_VERSION, "GTK+")]
 		
-		for version, required_version, label in requirements:
-			if version < required_version:
-				self._platform_okay = False
-				version_s = ".".join(map(str, required_version))
-				open_error("LaTeX Plugin requires %s %s or newer" % (label, version_s))
-		
-	def activate(self, window):
+	def do_activate(self):
 		"""
 		Called when the plugin is loaded with gedit or activated in 
 		configuration
@@ -87,7 +62,7 @@ class GeditLaTeXPlugin(Gedit.AppActivatable, GObject.Object):
 		if self._platform_okay:
 			self._window_decorators[window] = GeditWindowDecorator(window)
 	
-	def deactivate(self, window):
+	def do_deactivate(self):
 		"""
 		Called when the plugin is deactivated in configuration
 		

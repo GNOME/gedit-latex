@@ -181,9 +181,9 @@ from gi.repository import GObject
 class GeditLaTeXPlugin_MenuToolAction(Gtk.Action):
 	__gtype_name__ = "GeditLaTeXPlugin_MenuToolAction"
 
-GObject.type_register(GeditLaTeXPlugin_MenuToolAction)
+#GObject.type_register(GeditLaTeXPlugin_MenuToolAction)
 # needs PyGTK 2.10
-GeditLaTeXPlugin_MenuToolAction.set_tool_item_type(Gtk.MenuToolButton)
+#GeditLaTeXPlugin_MenuToolAction.set_tool_item_type(Gtk.MenuToolButton)
 
 
 class Action(object):

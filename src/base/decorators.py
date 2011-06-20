@@ -26,7 +26,7 @@ extension point.
 """
 
 from logging import getLogger
-import gedit
+from gi.repository import Gedit
 from gi.repository import Gtk
 import string
 

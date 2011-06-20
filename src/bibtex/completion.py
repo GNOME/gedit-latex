@@ -23,7 +23,7 @@ bibtex.completion
 """
 
 from logging import getLogger
-from gi.repository import Gdk
+from gi.repository import Gdk, GdkPixbuf
 
 from ..preferences import Preferences
 from ..base.resources import find_resource

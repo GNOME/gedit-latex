@@ -56,10 +56,10 @@ class IssueView(BottomView, IPreferencesMonitor):
 		
 		self._context = context
 		
-		self._icons = { Issue.SEVERITY_WARNING : pixbuf_new_from_file(find_resource("icons/warning.png")), 
-						Issue.SEVERITY_ERROR : pixbuf_new_from_file(find_resource("icons/error.png")), 
+		self._icons = { Issue.SEVERITY_WARNING : GdkPixbuf.Pixbuf.new_from_file(find_resource("icons/warning.png")), 
+						Issue.SEVERITY_ERROR : GdkPixbuf.Pixbuf.new_from_file(find_resource("icons/error.png")), 
 			   			Issue.SEVERITY_INFO : None,
-			   			Issue.SEVERITY_TASK : pixbuf_new_from_file(find_resource("icons/task.png")) }
+			   			Issue.SEVERITY_TASK : GdkPixbuf.Pixbuf.new_from_file(find_resource("icons/task.png")) }
 		
 		self._store = Gtk.ListStore(Pixbuf, str, str, object)
 		

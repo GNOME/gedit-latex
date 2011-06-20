@@ -23,8 +23,9 @@ base.views
 """
 
 from logging import getLogger
-from Gtk.gdk import Pixbuf, pixbuf_new_from_file
-from gi.repository import Gtk
+
+#from Gtk.gdk import Pixbuf, pixbuf_new_from_file
+from gi.repository import Gtk, GdkPixbuf
 
 
 from ..base.resources import find_resource

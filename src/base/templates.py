@@ -263,8 +263,7 @@ class TemplateCompiler(object):
 			raise MalformedTemplateException("Illegal state: %s" % state)
 	
 
-import Gtk.gdk
-
+from gi.repository import Gdk
 from . import Template
 from ..preferences import Preferences
 
