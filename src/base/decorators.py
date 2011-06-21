@@ -21,7 +21,7 @@
 """
 base.decorators
 
-These classes are 'attached' to the according gedit objects. They form the
+These classes are 'attached' to the according Gedit objects. They form the
 extension point.
 """
 
@@ -49,7 +49,7 @@ class GeditWindowDecorator(IPreferencesMonitor):
 	
 	_log = getLogger("GeditWindowDecorator")
 	
-	# ui definition template for hooking tools in gedit's ui
+	# ui definition template for hooking tools in Gedit's ui
 	_tool_ui_template = string.Template("""<ui>
 			<menubar name="MenuBar">
 				<menu name="ToolsMenu" action="Tools">
@@ -124,7 +124,7 @@ class GeditWindowDecorator(IPreferencesMonitor):
 	
 	def _init_actions(self):
 		"""
-		Merge the plugin's UI definition with the one of gedit and hook the actions
+		Merge the plugin's UI definition with the one of Gedit and hook the actions
 		"""
 		self._ui_manager = self._window.get_ui_manager()
 		self._action_group = Gtk.ActionGroup("LaTeXPluginActions")
@@ -172,7 +172,7 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		views = self._window.get_views()
 
 		for view in views:
-			tab = gedit.tab_get_from_document(view.get_buffer())
+			tab = Gedit.tab_get_from_document(view.get_buffer())
 			decorator = self._create_tab_decorator(tab, init=True)
 			if view is active_view:
 				self._active_tab_decorator = decorator
@@ -297,10 +297,10 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		
 		uri = file.uri
 		self._log.debug("GeditWindow.create_tab_from_uri(%s)" % uri)
-		if gedit.utils.uri_is_valid(uri):
-			self._window.create_tab_from_uri(file.uri, gedit.encoding_get_current(), 1, False, True)
+		if Gedit.utils.uri_is_valid(uri):
+			self._window.create_tab_from_uri(file.uri, Gedit.encoding_get_current(), 1, False, True)
 		else:
-			self._log.error("gedit.utils.uri_is_valid(%s) = False" % uri)
+			self._log.error("Gedit.utils.uri_is_valid(%s) = False" % uri)
 	
 	def disable(self):
 		"""
@@ -552,8 +552,8 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		"""
 		A new tab has been added
 		
-		@param window: gedit.Window object
-		@param tab: gedit.Tab object
+		@param window: Gedit.Window object
+		@param tab: Gedit.Tab object
 		"""
 		self._log.debug("tab_added")
 		
@@ -608,7 +608,7 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		if tab in self._tab_decorators.keys():
 			decorator = self._tab_decorators[tab]
 		else:
-			# (on gedit startup 'tab-changed' comes before 'tab-added')
+			# (on Gedit startup 'tab-changed' comes before 'tab-added')
 			# remember: init=True crashes the plugin here!
 			decorator = self._create_tab_decorator(tab)
 		
@@ -674,7 +674,7 @@ class GeditWindowDecorator(IPreferencesMonitor):
 			self._action_objects[clazz].unhook(self._action_group)
 		self._ui_manager.remove_action_group(self._action_group)
 
-		# unreference the gedit window
+		# unreference the Gedit window
 		del self._window
 		
 		# destroy the window context
@@ -757,7 +757,7 @@ class GeditTabDecorator(object):
 		"""
 		uri = self._text_buffer.get_location().get_uri()
 		if uri is None:
-			# this happends when the plugin is activated in a running gedit
+			# this happends when the plugin is activated in a running Gedit
 			# and this decorator is created for the empty file
 			
 			self._log.debug("No file loaded")
@@ -808,17 +808,17 @@ class GeditTabDecorator(object):
 					# running and reading _editor while _editor is None. That leads to
 					# 
 					# Traceback (most recent call last):
-					#   File "/home/michael/.gnome2/gedit/plugins/GeditLaTeXPlugin/src/base/decorators.py", line 662, in _on_load
+					#   File "/home/michael/.gnome2/Gedit/plugins/GeditLaTeXPlugin/src/base/decorators.py", line 662, in _on_load
 					#     self._adjust_editor()
-					#   File "/home/michael/.gnome2/gedit/plugins/GeditLaTeXPlugin/src/base/decorators.py", line 716, in _adjust_editor
+					#   File "/home/michael/.gnome2/Gedit/plugins/GeditLaTeXPlugin/src/base/decorators.py", line 716, in _adjust_editor
 					#     self._editor = editor_class(self, file)
-					#   File "/home/michael/.gnome2/gedit/plugins/GeditLaTeXPlugin/src/base/__init__.py", line 353, in __init__
+					#   File "/home/michael/.gnome2/Gedit/plugins/GeditLaTeXPlugin/src/base/__init__.py", line 353, in __init__
 					#     self.init(file, self._window_context)
-					#   File "/home/michael/.gnome2/gedit/plugins/GeditLaTeXPlugin/src/latex/editor.py", line 106, in init
+					#   File "/home/michael/.gnome2/Gedit/plugins/GeditLaTeXPlugin/src/latex/editor.py", line 106, in init
 					#     self.__parse()
-					#   File "/home/michael/.gnome2/gedit/plugins/GeditLaTeXPlugin/src/latex/editor.py", line 279, in __parse
+					#   File "/home/michael/.gnome2/Gedit/plugins/GeditLaTeXPlugin/src/latex/editor.py", line 279, in __parse
 					#     self._outline_view.set_outline(self._outline)
-					#   File "/home/michael/.gnome2/gedit/plugins/GeditLaTeXPlugin/src/latex/views.py", line 228, in set_outline
+					#   File "/home/michael/.gnome2/Gedit/plugins/GeditLaTeXPlugin/src/latex/views.py", line 228, in set_outline
 					#     OutlineConverter().convert(self._store, outline, self._offset_map, self._context.active_editor.edited_file)
 					
 					#self._editor = editor_class(self, file)
