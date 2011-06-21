@@ -126,7 +126,7 @@ class ProposalPopup(Gtk.Window):
 		for proposal in proposals:
 			self._store.append([proposal.label, proposal, proposal.icon])
 			
-		self._view.set_cursor((0))
+		self._view.set_cursor(Gtk.TreePath.new_from_string("0"),None, False)
 		
 	def navigate(self, key):
 		"""
@@ -168,7 +168,7 @@ class ProposalPopup(Gtk.Window):
 		winX, winY = text_view.buffer_to_window_coords(Gtk.TextWindowType.WIDGET, location.x, location.y)
 		
 		win = text_view.get_window(Gtk.TextWindowType.WIDGET)
-		xx, yy = win.get_origin()
+		ignore, xx, yy = win.get_origin()
 		
 		x = winX + xx
 		y = winY + yy + location.height + self._SPACE

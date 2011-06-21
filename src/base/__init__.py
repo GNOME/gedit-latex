@@ -25,7 +25,7 @@ These classes form the interface exposed by the plugin base layer.
 """
 
 from logging import getLogger
-from gi.repository import Gtk
+from gi.repository import Gtk, Gdk
 
 
 class View(object):

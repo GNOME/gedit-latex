@@ -25,7 +25,7 @@ Classes used for creating an outline view of LaTeX and BibTeX files
 """
 
 from logging import getLogger
-from gi.repository import Gtk
+from gi.repository import Gtk, GdkPixbuf
 
 from base import View, SideView
 from preferences import Preferences
@@ -62,21 +62,21 @@ class BaseOutlineView(SideView):
 
 		# toolbar
 		
-		btn_follow = Gtk.ToggleToolButton(Gtk.STOCK_CONNECT)
+		btn_follow = Gtk.ToggleToolButton.new_from_stock(Gtk.STOCK_CONNECT)
 		btn_follow.set_tooltip_text("Follow Editor")
 		btn_follow.set_active(self._preferences.get_bool("ConnectOutlineToEditor", True))
 		self._base_handlers[btn_follow] = btn_follow.connect("toggled", self._on_follow_toggled)
 		
-		btn_expand = Gtk.ToolButton(Gtk.STOCK_ZOOM_IN)
+		btn_expand = Gtk.ToolButton.new_from_stock(Gtk.STOCK_ZOOM_IN)
 		btn_expand.set_tooltip_text("Expand All")
 		self._base_handlers[btn_expand] = btn_expand.connect("clicked", self._on_expand_clicked)
 		
-		btn_collapse = Gtk.ToolButton(Gtk.STOCK_ZOOM_OUT)
+		btn_collapse = Gtk.ToolButton.new_from_stock(Gtk.STOCK_ZOOM_OUT)
 		btn_collapse.set_tooltip_text("Collapse All")
 		self._base_handlers[btn_collapse] = btn_collapse.connect("clicked", self._on_collapse_clicked)
 		
 		self._toolbar = Gtk.Toolbar()
-		self._toolbar.set_style(Gtk.TOOLBAR_ICONS)
+		self._toolbar.set_style(Gtk.ToolbarStyle.ICONS)
 		# TODO: why is this deprecated?
 		self._toolbar.set_icon_size(Gtk.IconSize.MENU)
 		self._toolbar.insert(btn_follow, -1)
@@ -85,7 +85,7 @@ class BaseOutlineView(SideView):
 		self._toolbar.insert(btn_collapse, -1)
 		self._toolbar.insert(Gtk.SeparatorToolItem(), -1)
 		
-		self.pack_start(self._toolbar, False)
+		self.pack_start(self._toolbar, False, True, 0)
 		
 		# tree view
 		
@@ -103,7 +103,7 @@ class BaseOutlineView(SideView):
 		
 		self._store = Gtk.TreeStore(str, GdkPixbuf.Pixbuf, object)	# label, icon, node object
 		
-		self._view = Gtk.TreeView(self._store)
+		self._view = Gtk.TreeView(model=self._store)
 		self._view.append_column(column)
 		self._view.set_headers_visible(False)
 		self._cursor_changed_id = self._view.connect("cursor-changed", self._on_cursor_changed)
@@ -113,7 +113,7 @@ class BaseOutlineView(SideView):
 		scrolled.add(self._view)
 		scrolled.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
 		
-		self.pack_start(scrolled, True)
+		self.pack_start(scrolled, True, False, 0)
 		
 		# this holds a list of the currently expanded paths
 		self._expandedPaths = None
@@ -149,7 +149,7 @@ class BaseOutlineView(SideView):
 		Save the current expand state
 		"""
 		self._expanded_paths = []
-		self._view.map_expanded_rows(self._save_state_map_function)
+		self._view.map_expanded_rows(self._save_state_map_function,None)
 	
 	def _save_state_map_function(self, view, path):
 		"""
@@ -166,8 +166,8 @@ class BaseOutlineView(SideView):
 		if self._expanded_paths:
 			for path in self._expanded_paths:
 				self._view.expand_to_path(path)
-		else:
-			self._view.expand_to_path((0,))
+#		else:
+#			self._view.expand_to_path((0,))
 			
 	def _on_cursor_changed(self, view):
 		store, it = view.get_selection().get_selected()
@@ -193,7 +193,7 @@ class BaseOutlineView(SideView):
 		
 		# select path
 		self._view.expand_to_path(path)
-		self._view.set_cursor(path)
+		self._view.set_cursor(path, None, False)
 		
 		# connect to 'cursor-changed' again
 		self._cursor_changed_id = self._view.connect("cursor-changed", self._on_cursor_changed)

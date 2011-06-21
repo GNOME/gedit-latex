@@ -208,12 +208,12 @@ class LaTeXOutlineView(BaseOutlineView):
 		
 		# additional toolbar buttons
 		btn_graphics = Gtk.ToggleToolButton()
-		btn_graphics.set_icon_widget(Gtk.image_new_from_file(find_resource("icons/tree_includegraphics.png")))
+		btn_graphics.set_icon_widget(Gtk.Image.new_from_file(find_resource("icons/tree_includegraphics.png")))
 		btn_graphics.set_tooltip_text("Show graphics")
 		self._toolbar.insert(btn_graphics, -1)
 		
 		btn_tables = Gtk.ToggleToolButton()
-		btn_tables.set_icon_widget(Gtk.image_new_from_file(find_resource("icons/tree_table.png")))
+		btn_tables.set_icon_widget(Gtk.Image.new_from_file(find_resource("icons/tree_table.png")))
 		btn_tables.set_tooltip_text("Show tables")
 		self._toolbar.insert(btn_tables, -1)
 		

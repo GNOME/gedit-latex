@@ -77,7 +77,13 @@ class IssueView(BottomView, IPreferencesMonitor):
 		column.add_attribute(text_renderer, "markup", 1)
 		
 		self._view.append_column(column)
-		self._view.insert_column_with_attributes(-1, "File", Gtk.CellRendererText(), markup=2)
+		
+		column = Gtk.TreeViewColumn()
+		column.set_title("File")
+		text_renderer2 = Gtk.CellRendererText()
+		column.pack_start(text_renderer2, True)
+		column.add_attribute(text_renderer2, "markup", 2)
+		self._view.insert_column(column, -1)
 		self._handlers[self._view] = self._view.connect("row-activated", self._on_row_activated)
 		
 		self._scr = Gtk.ScrolledWindow()
@@ -86,7 +92,7 @@ class IssueView(BottomView, IPreferencesMonitor):
 		self._scr.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
 		self._scr.set_shadow_type(Gtk.ShadowType.IN)
 		
-		self.pack_start(self._scr, True)
+		self.pack_start(self._scr, True, False, 0)
 		
 		# toolbar
 		
@@ -107,13 +113,13 @@ class IssueView(BottomView, IPreferencesMonitor):
 		self._handlers[self._button_tasks] = self._button_tasks.connect("toggled", self.__on_tasks_toggled)
 		
 		toolbar = Gtk.Toolbar()
-		toolbar.set_orientation(Gtk.ORIENTATION_VERTICAL)
-		toolbar.set_style(Gtk.TOOLBAR_ICONS)
+		toolbar.set_orientation(Gtk.Orientation.VERTICAL)
+		toolbar.set_style(Gtk.ToolbarStyle.ICONS)
 		toolbar.set_icon_size(Gtk.IconSize.MENU)
 		toolbar.insert(self._button_warnings, -1)
 		toolbar.insert(self._button_tasks, -1)
 		
-		self.pack_start(toolbar, False)
+		self.pack_start(toolbar, False, False, 0)
 		
 		self._issues = []
 		self._preferences.register_monitor(self)
