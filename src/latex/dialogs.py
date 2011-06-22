@@ -151,7 +151,7 @@ class ChooseMasterDialog(GladeInterface):
 	"""
 	Dialog for choosing a master file to a LaTeX fragment file
 	"""
-	filename = find_resource("glade/choose_master_dialog.glade")
+	filename = find_resource("ui/choose_master_dialog.ui")
 	
 	def run(self, folder):
 		"""
@@ -183,7 +183,7 @@ class NewDocumentDialog(GladeInterface):
 	"""
 	Dialog for creating the body of a new LaTeX document
 	"""
-	filename = find_resource("glade/new_document_template_dialog.glade")
+	filename = find_resource("ui/new_document_template_dialog.ui")
 	
 	_log = getLogger("NewDocumentWizard")
 	
@@ -564,7 +564,7 @@ class UseBibliographyDialog(GladeInterface, PreviewRenderer):
 	"""
 	Dialog for inserting a reference to a bibliography
 	"""
-	filename = find_resource("glade/use_bibliography_dialog.glade")
+	filename = find_resource("ui/use_bibliography_dialog.ui")
 	
 	_log = getLogger("UseBibliographyWizard")
 	
@@ -691,7 +691,7 @@ from . import LaTeXSource
 class InsertGraphicsDialog(GladeInterface):
 	
 	_PREVIEW_WIDTH, _PREVIEW_HEIGHT = 128, 128
-	filename = find_resource("glade/insert_graphics_dialog.glade")
+	filename = find_resource("ui/insert_graphics_dialog.ui")
 	_dialog = None
 	
 	def run(self, edited_file):
@@ -809,7 +809,7 @@ class InsertTableDialog(GladeInterface):
 	This is used to include tables and matrices
 	"""
 	
-	filename = find_resource("glade/insert_table_dialog.glade")
+	filename = find_resource("ui/insert_table_dialog.ui")
 	_dialog = None
 	
 	def run(self):
@@ -929,7 +929,7 @@ class InsertListingDialog(GladeInterface):
 	"""
 	"""
 	
-	filename = find_resource("glade/insert_listing_dialog.glade")
+	filename = find_resource("ui/insert_listing_dialog.ui")
 	_dialog = None
 	
 	def run(self, edited_file):
@@ -1068,7 +1068,7 @@ class BuildImageDialog(GladeInterface):
 	Render the document to an image
 	"""
 	
-	filename = find_resource("glade/build_image_dialog.glade")
+	filename = find_resource("ui/build_image_dialog.ui")
 	_dialog = None
 	_generator = ImageToolGenerator()
 	
@@ -1146,7 +1146,7 @@ class BuildImageDialog(GladeInterface):
 	
 
 class SaveAsTemplateDialog(GladeInterface):
-	filename = find_resource("glade/save_as_template_dialog.glade")
+	filename = find_resource("ui/save_as_template_dialog.ui")
 	_dialog = None
 	
 	def get_dialog(self):

@@ -173,14 +173,15 @@ class GladeInterface(object):
 	
 	def __get_tree(self):
 		if not self.__tree:
-			self.__tree = glade.XML(self.filename)
+			self.__tree = Gtk.Builder()
+			self.__tree.add_from_file(self.filename)
 		return self.__tree
 	
 	def find_widget(self, name):
 		"""
 		Find a widget by its name
 		"""
-		widget = self.__get_tree().get_widget(name)
+		widget = self.__get_tree().get_object(name)
 		if widget is None:
 			self.__log.error("Widget '%s' could not be found in interface description '%s'" % (name, self.filename))
 		return widget
