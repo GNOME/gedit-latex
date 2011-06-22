@@ -441,12 +441,15 @@ class GeditWindowDecorator(IPreferencesMonitor):
 			self._bottom_views.remove(view)
 		
 		# add AFTER.difference(BEFORE)
+		i = 1
 		for view in after_side_views.difference(before_side_views):
-			self._window.get_side_panel().add_item(view, view.label, view.icon)
+			i+=1
+			self._window.get_side_panel().add_item(view, "after_side_view_id" + str(i), view.label, view.icon)
 			self._side_views.append(view)
-			
+		i = 1	
 		for view in after_bottom_views.difference(before_bottom_views):
-			self._window.get_bottom_panel().add_item(view, view.label, view.icon)
+			i+=1
+			self._window.get_bottom_panel().add_item(view, "bottom_view_id" + str(i),view.label, view.icon)
 			self._bottom_views.append(view)
 			
 		

@@ -85,7 +85,7 @@ class ToolView(BottomView, IStructuredIssueHandler):
 		
 		self._scroll.add(self._view)
 		
-		self.pack_start(self._scroll, True, False, 0)
+		self.pack_start(self._scroll, True, True, 0)
 		
 		# toolbar
 		
