@@ -190,7 +190,7 @@ class GladeInterface(object):
 		"""
 		Auto-connect signals
 		"""
-		self.__get_tree().signal_autoconnect(mapping)
+		self.__get_tree().connect_signals(mapping)
 
 
 from uuid import uuid1

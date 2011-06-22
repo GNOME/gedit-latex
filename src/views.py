@@ -39,7 +39,7 @@ class IssueView(BottomView, IPreferencesMonitor):
 	_log = getLogger("IssueView")
 	
 	label = "Issues"
-	icon = Gtk.STOCK_DIALOG_INFO
+	icon = Gtk.Image.new_from_stock(Gtk.STOCK_DIALOG_INFO, Gtk.IconSize.MENU)
 	scope = View.SCOPE_EDITOR
 	
 	def __init__(self, context, editor):

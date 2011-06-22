@@ -84,7 +84,7 @@ class LaTeXSymbolMapView(SideView):
 	__log = getLogger("LaTeXSymbolMapView")
 	
 	label = "Symbols"
-	icon = Gtk.STOCK_INDEX
+	icon = Gtk.Image.new_from_stock(Gtk.STOCK_INDEX,Gtk.IconSize.MENU)
 	scope = View.SCOPE_WINDOW
 	
 	def init(self, context):
