@@ -1154,7 +1154,7 @@ class PreviewPanel:
 		# the panel that will contain all visible elements
 		# for the moment only the scrolled window, but there could be 
 		# a toolbar for example
-		self.__panel = Gtk.VBox(False, 0)
+		self.__panel = Gtk.VBox()
 		self.__panel.set_flags(Gtk.CAN_FOCUS)
 		self.__connect_keyboard_events()
 
@@ -1235,7 +1235,7 @@ class PreviewPanel:
 		self.__panel.pack_start(scrolled_window, True, True, 0)
 
 		# the VBox inside the scrolled window, that will contain the pages
-		pages = Gtk.VBox(False, 2) # here we ask for a padding equal to 2
+		pages = Gtk.VBox(spacing=2) # here we ask for a padding equal to 2
 
 		# pack the VBox in an EventBox to be able to receive 
 		# events like "button-release-event" and "motion-notify-event"
