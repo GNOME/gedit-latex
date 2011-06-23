@@ -670,7 +670,7 @@ class Editor(object):
 		
 		i_end = i_start.copy()
 		i_end.forward_to_line_end()
-		string = self._text_buffer.get_text(i_start, i_end)
+		string = self._text_buffer.get_text(i_start, i_end, False)
 		
 		match = self.__PATTERN_INDENT.match(string)
 		if match:
