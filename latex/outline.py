@@ -113,7 +113,7 @@ class BaseOutlineView(SideView):
 		scrolled.add(self._view)
 		scrolled.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
 		
-		self.pack_start(scrolled, True, False, 0)
+		self.pack_start(scrolled, True, True, 0)
 		
 		# this holds a list of the currently expanded paths
 		self._expandedPaths = None
