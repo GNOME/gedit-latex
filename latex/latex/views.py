@@ -120,7 +120,7 @@ class LaTeXSymbolMapView(SideView):
 			except GError, s:
 				print s
 		
-		view = Gtk.IconView(model)
+		view = Gtk.IconView(model=model)
 		view.set_pixbuf_column(0)
 		view.set_selection_mode(Gtk.SelectionMode.SINGLE)
 		view.connect("selection-changed", self.__on_symbol_selected)
@@ -135,7 +135,7 @@ class LaTeXSymbolMapView(SideView):
 		
 		view.show()
 		
-		expander = Gtk.Expander(group.label)
+		expander = Gtk.Expander(label=group.label)
 		expander.add(view)
 		expander.show_all()
 		
