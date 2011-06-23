@@ -49,10 +49,8 @@ from dialogs import ChooseMasterDialog
 from . import LaTeXSource, PropertyFile
 from ..preferences import Preferences, IPreferencesMonitor
 
-from spellcheck import SpellChecker, IMisspelledWordHandler
 
-
-class LaTeXEditor(Editor, IIssueHandler, IMisspelledWordHandler, IPreferencesMonitor):
+class LaTeXEditor(Editor, IIssueHandler, IPreferencesMonitor):
 	
 	_log = getLogger("LaTeXEditor")
 	
@@ -80,8 +78,7 @@ class LaTeXEditor(Editor, IIssueHandler, IMisspelledWordHandler, IPreferencesMon
 		
 		self._preferences = Preferences()
 		self._preferences.register_monitor(self)	# listen to 'Show...InOutline' settings
-		
-		self.register_marker_type("latex-spell", self._preferences.get("SpellingBackgroundColor"), anonymous=False)
+
 		self.register_marker_type("latex-error", self._preferences.get("ErrorBackgroundColor"))
 		self.register_marker_type("latex-warning", self._preferences.get("WarningBackgroundColor"))
 		
@@ -99,9 +96,6 @@ class LaTeXEditor(Editor, IIssueHandler, IMisspelledWordHandler, IPreferencesMon
 		# include - _ensured_packages holds the already mentioned packages to not
 		# annoy the user
 		self._ensured_packages = []
-		
-		# spell checking
-		self.__spell_checker = SpellChecker()
 		
 		#
 		# initially parse
@@ -420,124 +414,6 @@ class LaTeXEditor(Editor, IIssueHandler, IMisspelledWordHandler, IPreferencesMon
 				self.create_marker("latex-error", issue.start, issue.end)
 			elif issue.severity == Issue.SEVERITY_WARNING:
 				self.create_marker("latex-warning", issue.start, issue.end)
-	
-	#
-	# spell checking begin
-	#
-	# TODO: put this in a SpellCheckDelegate or so
-	#
-	
-	def spell_check(self):
-		"""
-		Run a spell check on the file
-		
-		@raise ImportError: if pyenchant is not installed
-		"""
-		self.remove_markers("latex-spell")
-		self.__word_markers = {}
-		
-		#
-		# FIXME: it makes no sense to pass _document here because it contains
-		# the expanded model of the document. We must keep the the not expanded
-		# one, too.
-		#
-		try:
-			self.__spell_checker.run(self._document, self.edited_file, self)
-		except ImportError:
-			open_error("Enchant is missing", "The enchant library and its Python bindings (package is propably called pyenchant) are needed for spell checking but could not be found")
-			
-	def on_misspelled_word(self, word, position):
-		# see IMisspelledWordHandler.on_misspelled_word
-		marker = self.create_marker("latex-spell", position, position + len(word))
-		self.__word_markers[marker.id] = word
-	
-	def on_marker_activated(self, marker, event):
-		"""
-		A marker has been activated
-		"""
-		#self._log.debug("activate_marker(%s, %s)" % (marker, event))
-		
-		if marker.type == "latex-spell":
-			word = self.__word_markers[marker.id]
-			suggestions = self.__spell_checker.find_suggestions(word)
-			
-			self._log.debug(str(suggestions))
-			
-			# build and show the context menu
-			menu = self.__get_suggestions_menu(word, suggestions, marker)
-			menu.popup(None, None, None, event.button, event.time)
-			
-			# swallow the signal so that the original context menu
-			# isn't shown
-			return True
-			
-	def __get_suggestions_menu(self, word, suggestions, marker):
-		"""
-		Return the context menu for spell check suggestions
-		
-		@param word: the misspelled word
-		@param suggestions: a list of suggested words
-		@param marker: the activated Marker
-		"""
-		suggestions_menu = Gtk.Menu()
-		
-		suggestions_menu.add(Gtk.SeparatorMenuItem())
-		
-		item_add = Gtk.ImageMenuItem(Gtk.STOCK_ADD)
-		item_add.connect("activate", self.__on_add_word_activated, marker, word)
-		suggestions_menu.add(item_add)
-		
-		suggestions_menu.add(Gtk.SeparatorMenuItem())
-		
-		item_abort = Gtk.ImageMenuItem(Gtk.STOCK_CANCEL)
-		item_abort.connect("activate", self.__on_abort_spell_check_activated)
-		suggestions_menu.add(item_abort)
-		
-		suggestions_menu.show_all()
-		
-		# add suggestions
-		suggestions.reverse()	# we insert in reverse order, so reverse before
-		
-		for suggestion in suggestions:
-			if suggestion.user_defined:
-				item = Gtk.ImageMenuItem(suggestion.word)
-				item.set_image(Gtk.Image.new_from_stock(Gtk.STOCK_FLOPPY, Gtk.IconSize.MENU))
-			else:
-				item = Gtk.MenuItem(suggestion.word)
-				
-			item.connect("activate", self.__on_suggestion_activated, suggestion, marker)
-			suggestions_menu.insert(item, 0)
-			item.show()
-		
-		return suggestions_menu
-	
-	def __on_suggestion_activated(self, menu_item, suggestion, marker):
-		"""
-		A suggestion from the context menu has been activated
-		
-		@param menu_item: the activated MenuItem
-		@param suggestion: the word
-		"""
-		self.replace_marker_content(marker, suggestion.word)
-	
-	def __on_abort_spell_check_activated(self, menu_item):
-		"""
-		"""
-		self.remove_markers("latex-spell")
-	
-	def __on_add_word_activated(self, menu_item, marker, word):
-		"""
-		Add a word to the dictionary
-		
-		@param marker: the marker for the word
-		@param word: the checked word
-		"""
-		self.__spell_checker.add_word(word)
-		self.remove_marker(marker)
-	
-	#
-	# spell checking end
-	#
 	
 	def on_cursor_moved(self, offset):
 		"""

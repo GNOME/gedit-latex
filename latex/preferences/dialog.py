@@ -483,47 +483,6 @@ class PreferencesDialog(GladeInterface, IPreferencesMonitor):
 			self.__load_tools()
 			self._preferences.register_monitor(self)
 			
-			#
-			# spell check
-			#
-			try:
-				# the import may fail if enchant is not installed
-				from ..latex.spellcheck import SpellCheckerBackend
-				
-				
-				self._storeLanguages = Gtk.ListStore(str)
-				
-				backend = SpellCheckerBackend()
-				
-				try :
-					active_language = self._preferences.get("SpellCheckDictionary", backend.default_language)
-				except Exception:
-					self._log.error("Failed to determine default Enchant language")
-					active_language = self._preferences.get("SpellCheckDictionary")
-				
-				active_index = 0
-				i = 0
-				for l in backend.languages:
-					self._storeLanguages.append([l])
-					if l == active_language:
-						active_index = i
-					else:
-						i += 1
-				
-				self._comboLanguages = self.find_widget("comboLanguages")
-				self._comboLanguages.set_model(self._storeLanguages)
-				cell = Gtk.CellRendererText()
-				self._comboLanguages.pack_start(cell, True)
-				self._comboLanguages.add_attribute(cell, "text", 0)
-				self._comboLanguages.set_active(active_index)
-			except ImportError:
-				
-				self._log.error("Enchant library could not be imported. Spell checking will be disabled.")
-				
-				# TODO: disable controls
-				
-				pass
-			
 			# misc
 			check_hide_box = self.find_widget("checkHideBox")
 			check_hide_box.set_active(self._preferences.get_bool("HideBoxWarnings", False))
@@ -541,7 +500,6 @@ class PreferencesDialog(GladeInterface, IPreferencesMonitor):
 			# proxies for ColorButtons and SpinButtons
 			#
 			self._proxies = [ PreferencesColorProxy(self.find_widget("colorLight"), "LightForeground", "#957d47"),
-									PreferencesColorProxy(self.find_widget("colorSpelling"), "SpellingBackgroundColor", "#ffeccf"),
 									PreferencesColorProxy(self.find_widget("colorWarning"), "WarningBackgroundColor", "#ffffcf"),
 									PreferencesColorProxy(self.find_widget("colorError"), "ErrorBackgroundColor", "#ffdddd"),
 									PreferencesColorProxy(self.find_widget("colorTemplateBackground"), "TemplateBackgroundColor", "#f2f7ff"),
@@ -562,7 +520,6 @@ class PreferencesDialog(GladeInterface, IPreferencesMonitor):
 								   "on_buttonConfigureTool_clicked" : self._on_configure_tool_clicked,
 								   "on_buttonDeleteTool_clicked" : self._on_delete_tool_clicked,
 								   "on_buttonEditSnippet_clicked" : self._on_edit_snippet_clicked,
-								   "on_comboLanguages_changed" : self._on_language_changed,
 								   "on_checkHideBox_toggled" : self._on_hide_box_toggled,
 								   "on_filechooserTemplates_selection_changed" : self._on_templates_dir_changed,
 								   "on_checkShowToolbar_toggled" : self._on_show_toolbar_toggled })
@@ -583,10 +540,6 @@ class PreferencesDialog(GladeInterface, IPreferencesMonitor):
 	def _on_hide_box_toggled(self, togglebutton):
 		value = togglebutton.get_active()
 		self._preferences.set("HideBoxWarnings", value)
-	
-	def _on_language_changed(self, combobox):
-		language = combobox.get_model().get_value(combobox.get_active_iter(), 0)
-		self._preferences.set("SpellCheckDictionary", language)
 	
 	def __load_snippets(self):
 		self._store_snippets.clear()

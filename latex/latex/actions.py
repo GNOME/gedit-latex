@@ -385,16 +385,6 @@ class LaTeXPreviewScrollRightAction(LaTeXAction):
 			context.latex_previews.scroll(current_tab, LaTeXPreviews.SCROLL_RIGHT)
 
 
-class LaTeXSpellCheckAction(LaTeXAction):
-	label = "Spell Check"
-	stock_id = Gtk.STOCK_SPELL_CHECK
-	accelerator = "<Ctrl><Alt>S"
-	tooltip = "Run LaTeX-aware spell check on the document"
-	
-	def activate(self, context):
-		context.active_editor.spell_check()
-
-
 class LaTeXFontFamilyAction(LaTeXIconAction):
 	menu_tool_action = True
 	

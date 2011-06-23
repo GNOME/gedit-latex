@@ -337,7 +337,7 @@ class Editor(object):
 	class Marker(object):
 		"""
 		Markers refer to and highlight a range of text in the TextBuffer decorated by 
-		an Editor. They are used for spell checking and highlighting issues.
+		an Editor. They are used for highlighting issues.
 		
 		Each Marker instance stores two Gtk.TextMark objects refering to the start and
 		end of the text range.
@@ -836,7 +836,7 @@ class Editor(object):
 		self._text_view.scroll_to_iter(it_end, .25)
 	
 	#
-	# markers are used for spell checking (identified) and highlighting (anonymous)
+	# markers are used for highlighting (anonymous)
 	#
 	
 	def register_marker_type(self, marker_type, background_color, anonymous=True):

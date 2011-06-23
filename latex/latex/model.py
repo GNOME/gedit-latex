@@ -134,7 +134,6 @@ class LanguageModel(object):
 		
 		self.__placeholders = {}
 		self.__newcommands = []
-		self.__all_choices = None
 		
 		self.__log.debug("init")
 	
@@ -166,22 +165,6 @@ class LanguageModel(object):
 				placeholder.children = child_elements
 		except KeyError:
 			self.__log.error("fill_placeholder: placeholder '%s' not registered" % name)
-	
-	@property
-	def all_choices(self):
-		"""
-		Return all choices of all commands. This is used for spell checking so that
-		argument values like 'itemize' can be hidden from a german spell checker.
-		"""
-		
-		# TODO: this has to change, see Trac ticket for spell checking
-		
-		if not self.__all_choices:
-			self.__all_choices = []
-			for command in self.commands.itervalues():
-				for argument in command.children:
-					self.__all_choices.extend([choice.value for choice in argument.children])
-		return set(self.__all_choices)
 	
 	def set_newcommands(self, newcommands):
 		
