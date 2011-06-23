@@ -761,8 +761,8 @@ class GeditTabDecorator(object):
 		
 		@return: True if the editor has changed
 		"""
-		uri = self._text_buffer.get_location().get_uri()
-		if uri is None:
+		location = self._text_buffer.get_location()
+		if location is None:
 			# this happends when the plugin is activated in a running Gedit
 			# and this decorator is created for the empty file
 			
@@ -772,7 +772,7 @@ class GeditTabDecorator(object):
 				self._window_decorator.adjust(self)
 			
 		else:
-			file = File(uri)
+			file = File(location.get_uri())
 			
 			if file == self._file:		# FIXME: != doesn't work for File...
 				return False
