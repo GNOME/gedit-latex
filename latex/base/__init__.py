@@ -513,7 +513,7 @@ class Editor(object):
 					# start of buffer reached
 					return
 		
-		elif event.button == 1 and event.get_state() & Gdk.EventMask.CONTROL_MASK:
+		elif event.button == 1 and event.get_state() & Gdk.ModifierType.CONTROL_MASK:
 			x, y = text_view.get_pointer()
 			x, y = text_view.window_to_buffer_coords(Gtk.TextWindowType.WIDGET, x, y)
 			it = text_view.get_iter_at_location(x, y)

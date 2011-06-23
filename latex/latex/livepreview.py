@@ -786,14 +786,14 @@ class PreviewLink(Gtk.EventBox):
 	def __on_button_press(self, widget, event):
 		# prevent the signal from being passed to the preview panel,
 		# except for Ctrl+Left button for synctex
-		if event.button == 1 and not (event.get_state() & Gdk.EventMask.CONTROL_MASK):
+		if event.button == 1 and not (event.get_state() & Gdk.ModifierType.CONTROL_MASK):
 			return True
 		else:
 			return False
 		
 
 	def __on_button_release(self, widget, event):
-		if event.get_state() & Gdk.EventMask.CONTROL_MASK:
+		if event.get_state() & Gdk.ModifierType.CONTROL_MASK:
 			return False
 			
 		self.__preview_panel.set_cursor(PreviewPanel.CURSOR_DEFAULT)
@@ -1193,7 +1193,7 @@ class PreviewPanel:
 		elif key == "equal":
 			self.zoom_to(1.0, self.ZOOM_NORMAL)
 		elif key == "Page_Up":
-			if event.get_state() & Gdk.EventMask.CONTROL_MASK:
+			if event.get_state() & Gdk.ModifierType.CONTROL_MASK:
 				self.go_to_page(-1, True)
 			else:
 				# We do it manually... should be in a method 
@@ -1204,7 +1204,7 @@ class PreviewPanel:
 				if self.__type_of_view == self.VIEW_SINGLE_PAGE:
 					self.__decide_page_change(vadj, Gdk.ScrollDirection.UP)
 		elif key == "Page_Down":
-			if event.get_state() & Gdk.EventMask.CONTROL_MASK:
+			if event.get_state() & Gdk.ModifierType.CONTROL_MASK:
 				self.go_to_page(1, True)
 			else:
 				# We do it manually... should be in a method
@@ -1213,13 +1213,13 @@ class PreviewPanel:
 				if self.__type_of_view == self.VIEW_SINGLE_PAGE:
 					self.__decide_page_change(vadj, Gdk.ScrollDirection.DOWN)
 		elif key == "Home":
-			if event.get_state() & Gdk.EventMask.CONTROL_MASK:
+			if event.get_state() & Gdk.ModifierType.CONTROL_MASK:
 				self.go_to_page(0)
 			else:
 				vadj = self.get_vadjustment()
 				vadj.set_value(vadj.lower)
 		elif key == "End":
-			if event.get_state() & Gdk.EventMask.CONTROL_MASK:
+			if event.get_state() & Gdk.ModifierType.CONTROL_MASK:
 				self.go_to_page(-1)
 			else:
 				vadj = self.get_vadjustment()
@@ -1765,7 +1765,7 @@ class PreviewPanel:
 			x = event.x
 			y = event.y
 			
-			if event.get_state() & Gdk.EventMask.CONTROL_MASK:
+			if event.get_state() & Gdk.ModifierType.CONTROL_MASK:
 				self.__sync_edit(x,y)
 			else:
 				self.__glass_drag.start(self.__magnifying_glass, x, y)
@@ -1937,7 +1937,7 @@ class PreviewPanel:
 		triggers Next/Previous page.
 		"""
 
-		if event.get_state() & Gdk.EventMask.CONTROL_MASK:
+		if event.get_state() & Gdk.ModifierType.CONTROL_MASK:
 			if event.direction == Gdk.ScrollDirection.DOWN:
 				self.zoom_out()
 				return True
