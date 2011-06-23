@@ -172,7 +172,7 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		views = self._window.get_views()
 
 		for view in views:
-			tab = Gedit.tab_get_from_document(view.get_buffer())
+			tab = Gedit.Tab.get_from_document(view.get_buffer())
 			decorator = self._create_tab_decorator(tab, init=True)
 			if view is active_view:
 				self._active_tab_decorator = decorator
