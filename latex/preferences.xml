@@ -18,4 +18,4 @@
 	<value key="HideBoxWarnings">False</value>
 	<value key="LatexExtensions">.tex .sty .Rnw</value>
 	<value key="ShowLatexToolbar">True</value>
-</preferences>
+<value key="PdfPreviewWidth">488</value></preferences>

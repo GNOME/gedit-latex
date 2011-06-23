@@ -370,7 +370,7 @@ class PreviewDocument:
 		self.document_loaded = False
 		if self.__document_path.endswith(".pdf"):
 			try:
-				import poppler
+				import GO_AWAY_poppler
 			except:
 				self._log.warning("Error loading poppler (python-poppler not installed ?).")
 				self.__document_type = None
@@ -467,7 +467,7 @@ class PreviewDocument:
 	
 	def permissions_to_text_list(self, permissions):
 		if self.__document_type == self.TYPE_PDF:
-			import poppler
+			import GO_AWAY_poppler
 			perm = []
 			if permissions & poppler.PERMISSIONS_OK_TO_PRINT:
 				perm.append("print")
@@ -486,7 +486,7 @@ class PreviewDocument:
 	
 	def page_layout_to_text(self, layout):
 		if self.__document_type == self.TYPE_PDF:
-			import poppler
+			import GO_AWAY_poppler
 			if layout == poppler.PAGE_LAYOUT_UNSET:
 				return "Unset"
 			elif layout == poppler.PAGE_LAYOUT_SINGLE_PAGE:
@@ -509,7 +509,7 @@ class PreviewDocument:
 	
 	def page_mode_to_text(self, mode):
 		if self.__document_type == self.TYPE_PDF:
-			import poppler
+			import GO_AWAY_poppler
 			if mode == poppler.PAGE_MODE_UNSET:
 				return "Unset"
 			elif mode == poppler.PAGE_MODE_NONE:
@@ -532,7 +532,7 @@ class PreviewDocument:
 	
 	def viewer_preferences_to_text_list(self, preferences):
 		if self.__document_type == self.TYPE_PDF:
-			import poppler
+			import GO_AWAY_poppler
 			pref = []
 			if preferences & poppler.VIEWER_PREFERENCES_UNSET:
 				pref.append("Unset")
@@ -568,7 +568,7 @@ class PreviewDocument:
 		
 	def get_page_links(self, page_index):
 		if self.__document_type == self.TYPE_PDF:
-			import poppler
+			import GO_AWAY_poppler
 			
 			# python-poppler version 0.10.* and before, do not support 
 			# actions (at least not in a usable way)
@@ -979,7 +979,7 @@ class SyncRectangle:
 	Class that manages the highlighted rectangle in the preview
 	when synchroning through synctex. Initialized in
 	PreviewPanel.__init__() and used in PreviewPanel.sync_view()
-	and PreviewPanel.__on_expose().
+	and PreviewPanel.__on_draw().
 	"""
 
 	def __init__(self):
@@ -1119,7 +1119,7 @@ class PreviewPanel:
 		self.__vadj_value_id = None
 		self.__hadj_value_id = None
 
-		self.__expose_id = {}
+		self.__draw_id = {}
 
 		self.__mouse_handlers = []
 		
@@ -1409,9 +1409,9 @@ class PreviewPanel:
 		
 		if default: # default panel
 			if event != self.EVENT_RESIZE:
-				if i in self.__expose_id:
-					dwg.disconnect(self.__expose_id[i])
-				self.__expose_id[i] = dwg.connect("expose-event", self.__on_expose_default)
+				if i in self.__draw_id:
+					dwg.disconnect(self.__draw_id[i])
+				self.__draw_id[i] = dwg.connect("draw", self.__on_draw_default)
 			# TODO: If there was a preview panel before, maybe we 
 			# should keep the old sizes. But as the preview panel had a 
 			# problem (since we ended up in the default panel), maybe 
@@ -1419,9 +1419,9 @@ class PreviewPanel:
 			(self.__page_width[i], self.__page_height[i]) = (595, 842)
 		else: # preview panel
 			if event != self.EVENT_RESIZE:
-				if i in self.__expose_id:
-					dwg.disconnect(self.__expose_id[i])
-				self.__expose_id[i] = dwg.connect("expose-event", self.__on_expose, i, j)
+				if i in self.__draw_id:
+					dwg.disconnect(self.__draw_id[i])
+				self.__draw_id[i] = dwg.connect("draw", self.__on_draw, i, j)
 			(self.__page_width[i], self.__page_height[i]) = self.__document.get_page_size(j)
 
 		dwg.set_size_request(int((self.__page_width[i] + 2 * self.__shadow_thickness) * self.__scale), 
@@ -1531,7 +1531,7 @@ class PreviewPanel:
 		if last == -1:
 			return False
 		
-		self.__drawing_areas[last].disconnect(self.__expose_id[last])
+		self.__drawing_areas[last].disconnect(self.__draw_id[last])
 
 		# Remove links, if any
 		fixed = self.__drawing_areas[last].get_parent()
@@ -1546,7 +1546,7 @@ class PreviewPanel:
 		# We thus have to remove the alignments.
 		pages.remove(self.__drawing_areas[last].get_parent().get_parent())
 		
-		del self.__expose_id[last]
+		del self.__draw_id[last]
 		del self.__drawing_areas[last]
 		
 		self._log.debug("Deleted last drawing area (index %d)" % last)
@@ -1711,7 +1711,7 @@ class PreviewPanel:
 		return scrolled_window.get_hadjustment()
 		
 		
-	def __on_expose(self, widget, event, i, j):
+	def __on_draw(self, widget, cr, i, j):
 		"""
 		Redraws a portion of the document area that is exposed.
 		@param widget: 
@@ -1719,7 +1719,7 @@ class PreviewPanel:
 		@param i: page index in self.__drawing_areas
 		@param j: page to render, i.e. page index in self.__document
 		"""
-		
+		i,j = user_data
 		cr = self.__initialize_cairo_page(widget, event, i)
 		self.__document.render_page(cr, j)
 		self.__create_page_border(cr, i)
@@ -1727,12 +1727,10 @@ class PreviewPanel:
 		self.__sync_rectangle.draw(cr, j)
 
 
-	def __on_expose_default(self, widget, event):
+	def __on_draw_default(self, widget, cr):
 		"""
 		Redraws a portion of the default document area that is exposed.
 		"""
-		
-		cr = self.__initialize_cairo_page(widget, event, 0)
 		self.__create_page_border(cr, 0)
 		
 		# draw the default message in the center of the page
@@ -2714,7 +2712,7 @@ class PreviewPanel:
 		pages = self.get_scrolled_window().get_children()[0].get_children()[0].get_children()[0]
 		for i in range(len(self.__drawing_areas)):
 			self.__delete_last_page(pages)
-		self.__expose_id.clear()
+		self.__draw_id.clear()
 		self.__drawing_areas.clear()
 
 		# the scrolled window
@@ -2767,9 +2765,9 @@ class MagnifyingGlass:
 		
 		if self.USE_PIXBUF:
 			self.__pixbuf = None
-			self.__expose_id = self.__drawing_area.connect("expose-event", self.__on_expose_with_pixbuf)
+			self.__draw_id = self.__drawing_area.connect("draw", self.__on_draw_with_pixbuf)
 		else:
-			self.__expose_id = self.__drawing_area.connect("expose-event", self.__on_expose)
+			self.__draw_id = self.__drawing_area.connect("draw", self.__on_draw)
 		
 		self.__window.add(self.__drawing_area)
 		
@@ -2835,8 +2833,7 @@ class MagnifyingGlass:
 		self.__document.render_page_to_pixbuf(self.__page, 0, 0, width, height, scale, 0, self.__pixbuf)
 
 
-	def __on_expose(self, drawing_area, event):
-		cr = drawing_area.window.cairo_create()
+	def __on_draw(self, widget, cr):
 
 		scale = self.__total_scale
 		cr.scale(scale, scale)
@@ -2852,13 +2849,12 @@ class MagnifyingGlass:
 		self.__document.render_page(cr, self.__page)
 
 
-	def __on_expose_with_pixbuf(self, drawing_area, event):
+	def __on_draw_with_pixbuf(self, widget, cr):
 		scale = self.__scale * self.__preview_scale
 		
 		translate_x = (self.__page_center_x * scale - self.__width / 2.0)
 		translate_y = (self.__page_center_y * scale - self.__height / 2.0)
 
-		cr = drawing_area.window.cairo_create()
 		if self.__pixbuf is None:
 			self.__update_pixbuf()
 		cr.set_source_pixbuf(self.__pixbuf, -translate_x, -translate_y)
@@ -2870,7 +2866,7 @@ class MagnifyingGlass:
 		
 		
 	def destroy(self):
-		self.__drawing_area.disconnect(self.__expose_id)
+		self.__drawing_area.disconnect(self.__draw_id)
 
 
 
