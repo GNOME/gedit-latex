@@ -156,9 +156,6 @@ def verbose(function):
 	return decorated_function
 
 
-#from gtk import glade
-
-
 class GladeInterface(object):
 	"""
 	Utility base class for interfaces loaded from a Glade definition 

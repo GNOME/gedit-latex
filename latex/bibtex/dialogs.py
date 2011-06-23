@@ -32,7 +32,7 @@ from model import BibTeXModel
 
 class InsertBibTeXEntryDialog(GladeInterface):
 	
-	filename = find_resource("glade/insert_bibtex_entry.glade")
+	filename = find_resource("ui/insert_bibtex_entry.ui")
 	_dialog = None
 	
 	def run(self):

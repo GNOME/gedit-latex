@@ -97,7 +97,7 @@ class ConfigureToolDialog(GladeInterface):
 	Wraps the dialog for setting up a Tool
 	"""
 	
-	filename = find_resource("glade/configure_tool.glade")
+	filename = find_resource("ui/configure_tool.ui")
 	
 	_dialog = None
 	
@@ -342,7 +342,7 @@ class ConfigureToolDialog(GladeInterface):
 	
 
 class ConfigureSnippetDialog(GladeInterface):
-	filename = find_resource("glade/configure_snippet.glade")
+	filename = find_resource("ui/configure_snippet.ui")
 	
 	_dialog = None
 	
@@ -423,7 +423,7 @@ class PreferencesDialog(GladeInterface, IPreferencesMonitor):
 	
 	_log = getLogger("PreferencesWizard")
 	
-	filename = find_resource("glade/configure.glade")
+	filename = find_resource("ui/configure.ui")
 	_dialog = None
 	
 	@property
