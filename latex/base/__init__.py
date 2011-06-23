@@ -643,7 +643,7 @@ class Editor(object):
 		self._text_buffer.insert(iter, str(string))
 		
 		if scroll:
-			self._text_view.scroll_to_iter(iter, .25)
+			self._text_view.scroll_to_iter(iter, .25, False, 0.5, 0.5)
 		
 		# grab the focus again (necessary e.g. after symbol insert)
 		self._text_view.grab_focus()
@@ -655,7 +655,7 @@ class Editor(object):
 		@param string: a str
 		"""
 		self._text_buffer.insert(self._text_buffer.get_end_iter(), str(string))
-		self._text_view.scroll_to_iter(self._text_buffer.get_end_iter(), .25)
+		self._text_view.scroll_to_iter(self._text_buffer.get_end_iter(), .25, False, 0.5, 0.5)
 		
 		# grab the focus again (necessary e.g. after symbol insert)
 		self._text_view.grab_focus()
@@ -815,7 +815,7 @@ class Editor(object):
 		it_end = self._text_buffer.get_iter_at_offset(end_offset)
 		self._text_buffer.select_range(it_start, it_end)
 		# scroll
-		self._text_view.scroll_to_iter(it_end, .25)
+		self._text_view.scroll_to_iter(it_end, .25, False, 0.5, 0.5)
 	
 	def select_lines(self, start_line, end_line=None):
 		"""
@@ -833,7 +833,7 @@ class Editor(object):
 		# select
 		self._text_buffer.select_range(it_start, it_end)
 		# scroll
-		self._text_view.scroll_to_iter(it_end, .25)
+		self._text_view.scroll_to_iter(it_end, .25, False, 0.5, 0.5)
 	
 	#
 	# markers are used for highlighting (anonymous)
