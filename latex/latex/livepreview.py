@@ -25,17 +25,14 @@ PDF live preview
          Yannick Voglaire (yannickv)
 """
 
-from gi.repository import Gedit
-from gi.repository import Gtk
 import os
-from gi.repository import GObject
 import cairo
-from gi.repository import Pango
 import logging
+
+from gi.repository import Gedit, Gtk, Gdk, GObject, Pango
 
 from ..preferences import Preferences
 from ..base import File		
-
 
 """
 TODO:
@@ -1144,11 +1141,9 @@ class PreviewPanel:
 
 		# Cursors. Used in self.set_cursor().
 		self.__cursor_default = None
-		self.__cursor_drag = Gdk.Cursor.new(Gdk.HAND1)
-		pixmap = Gdk.Pixmap(None, 1, 1, 1)
-		color = Gdk.Color()
-		self.__cursor_empty = Gdk.Cursor.new(pixmap, pixmap, color, color, 0, 0)
-		self.__cursor_link = Gdk.Cursor.new(Gdk.HAND2)
+		self.__cursor_drag = Gdk.Cursor.new(Gdk.CursorType.HAND1)
+		self.__cursor_empty = Gdk.Cursor.new(Gdk.CursorType.BLANK_CURSOR)
+		self.__cursor_link = Gdk.Cursor.new(Gdk.CursorType.HAND2)
 
 		# TODO: very nasty hack to detect changes in pdf file
 		# this is a 1000ms loop, there should be an event generated
