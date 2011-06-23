@@ -1155,7 +1155,7 @@ class PreviewPanel:
 		# for the moment only the scrolled window, but there could be 
 		# a toolbar for example
 		self.__panel = Gtk.VBox()
-		self.__panel.set_flags(Gtk.CAN_FOCUS)
+		self.__panel.set_can_focus(True)
 		self.__connect_keyboard_events()
 
 		# create the visible elements on the panel
