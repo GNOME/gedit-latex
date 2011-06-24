@@ -32,7 +32,6 @@ import string
 from config import UI, WINDOW_SCOPE_VIEWS, EDITOR_SCOPE_VIEWS, EDITORS, ACTIONS
 from ..tools.views import ToolView
 from . import File, SideView, BottomView, WindowContext
-from ..tools import ToolAction
 from ..preferences import Preferences, IPreferencesMonitor
 
 # TODO: maybe create ActionDelegate for GeditWindowDecorator
@@ -41,20 +40,11 @@ class GeditWindowDecorator(IPreferencesMonitor):
 	"""
 	This class
 	 - manages the GeditTabDecorators
-	 - hooks the plugin actions as menu items and tool items
+	 - hooks the plugin actions as menu items
 	 - installs side and bottom panel views
 	"""
 	
 	_log = getLogger("GeditWindowDecorator")
-	
-	# ui definition template for hooking tools in Gedit's ui
-	_tool_ui_template = string.Template("""<ui>
-			<menubar name="MenuBar">
-				<menu name="ToolsMenu" action="Tools">
-					<placeholder name="ToolsOps_1">$items</placeholder>
-				</menu>
-			</menubar>
-		</ui>""")
 	
 	def __init__(self, window):
 		self._window = window
@@ -69,7 +59,6 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		
 		# the order is important!
 		self._init_actions()
-		self._init_tool_actions()
 		self._init_views()
 		self._init_tab_decorators()
 		
@@ -179,74 +168,6 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		if len(views) > 0 and not self._active_tab_decorator:
 			self._log.warning("_init_tab_decorators: no active decorator found")
 	
-	def _init_tool_actions(self):
-		"""
-		 - Load defined Tools
-		 - create and init ToolActions from them
-		 - hook them in the window UI
-		 - create a map from extensions to lists of ToolActions
-		"""
-		
-		# add a MenuToolButton with the tools menu to the toolbar afterwards
-		# FIXME: this is quite hacky
-		menu = Gtk.Menu()
-		
-		# this is used for enable/disable actions by name
-		# None stands for every extension
-		self._tool_action_extensions = { None : [] }
-		
-		self._tool_action_group = Gtk.ActionGroup("LaTeXPluginToolActions")
-			
-		items_ui = ""
-		
-		self._action_handlers = {}
-		
-		i = 1					# counting tool actions
-		accel_counter = 1		# counting tool actions without custom accel
-		for tool in self._preferences.tools:
-			# hopefully unique action name
-			name = "Tool%sAction" % i
-			
-			# update extension-tool mapping
-			for extension in tool.extensions:
-				try:
-					self._tool_action_extensions[extension].append(name)
-				except KeyError:
-					# extension not yet mapped
-					self._tool_action_extensions[extension] = [name]
-			
-			# create action
-			action = ToolAction(tool)
-			gtk_action = Gtk.Action(name, action.label, action.tooltip, action.stock_id)
-			self._action_handlers[gtk_action] = gtk_action.connect("activate", lambda gtk_action, action: action.activate(self._window_context), action)
-			
-			if not tool.accelerator is None and len(tool.accelerator) > 0:
-				# TODO: validate accelerator!
-				self._tool_action_group.add_action_with_accel(gtk_action, tool.accelerator)
-			else:
-				self._tool_action_group.add_action_with_accel(gtk_action, "<Ctrl><Alt>%s" % accel_counter)
-				accel_counter += 1
-			
-			# add to MenuToolBar menu
-			# FIXME: GtkWarning: gtk_accel_label_set_accel_closure: assertion `gtk_accel_group_from_accel_closure (accel_closure) != NULL' failed
-			menu.add(gtk_action.create_menu_item())
-			
-			# add UI definition
-			items_ui += """<menuitem action="%s" />""" % name
-			
-			i += 1
-		
-		tool_ui = self._tool_ui_template.substitute({"items" : items_ui})
-		
-		self._ui_manager.insert_action_group(self._tool_action_group, -1)
-		self._tool_ui_id = self._ui_manager.add_ui_from_string(tool_ui)
-		
-		# add a MenuToolButton with the tools menu to the toolbar
-		self._menu_tool_button = Gtk.MenuToolButton.new_from_stock(Gtk.STOCK_CONVERT)
-		self._menu_tool_button.set_menu(menu)
-		self._menu_tool_button.show_all()
-		self._toolbar.insert(self._menu_tool_button, -1)
-	
 	def save_file(self):
 		"""
 		Trigger the 'Save' action
@@ -254,29 +175,6 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		(used by ToolAction before tool run)
 		"""
 		self._save_action.activate()
-	
-	def _on_tools_changed(self):
-		# FIXME: tools reload doesn't work
-		# UPDATE: should work now
-		
-		# see IPreferencesMonitor._on_tools_changed
-		self._log.debug("_on_tools_changed")
-		
-		# remove tool actions and ui
-		self._ui_manager.remove_ui(self._tool_ui_id)
-		for gtk_action in self._action_handlers:
-			gtk_action.disconnect(self._action_handlers[gtk_action])
-			self._tool_action_group.remove_action(gtk_action)
-		self._ui_manager.remove_action_group(self._tool_action_group)
-
-		# remove MenuToolButton
-		self._toolbar.remove(self._menu_tool_button)
-		
-		# re-init tool actions
-		self._init_tool_actions()
-		
-		# re-adjust action states
-		self.adjust(self._active_tab_decorator)
 	
 	def activate_tab(self, file):
 		"""
@@ -313,11 +211,6 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		for name in self._action_objects.iterkeys():
 			self._action_group.get_action(name).set_visible(False)
 			
-		# disable all tool actions
-		for l in self._tool_action_extensions.values():
-			for name in l:
-				self._tool_action_group.get_action(name).set_sensitive(False)
-				
 		# remove all side views
 		side_views = self._window_side_views + self._side_views
 		for view in side_views:
@@ -371,12 +264,6 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		for name in self._action_objects:
 			self._action_group.get_action(name).set_visible(False)
 		
-		# disable all tool actions
-		for l in self._tool_action_extensions.values():
-			for name in l:
-				self._tool_action_group.get_action(name).set_sensitive(False)
-		
-		
 		# enable the actions for all extensions
 		for name in self._action_extensions[None]:
 			self._action_group.get_action(name).set_visible(True)
@@ -389,18 +276,6 @@ class GeditWindowDecorator(IPreferencesMonitor):
 			except KeyError:
 				pass
 		
-		
-		# enable the tool actions that apply for all extensions
-		for name in self._tool_action_extensions[None]:
-			self._tool_action_group.get_action(name).set_sensitive(True)
-		
-		# enable the tool actions that apply for this extension
-		if extension:
-			try:
-				for name in self._tool_action_extensions[extension]:
-					self._tool_action_group.get_action(name).set_sensitive(True)
-			except KeyError:
-				pass
 		
 		#
 		# save selection state
@@ -656,13 +531,6 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		
 		# remove toolbar
 		self._toolbar.destroy()
-		
-		# remove tool actions
-		self._ui_manager.remove_ui(self._tool_ui_id)
-		for gtk_action in self._action_handlers:
-			gtk_action.disconnect(self._action_handlers[gtk_action])
-			self._tool_action_group.remove_action(gtk_action)
-		self._ui_manager.remove_action_group(self._tool_action_group)
 		
 		# remove actions
 		self._ui_manager.remove_ui(self._ui_id)
