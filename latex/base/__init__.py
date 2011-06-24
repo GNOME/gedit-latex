@@ -195,6 +195,9 @@ class Action(object):
 								
 	extensions = [None]			# a list of file extensions for which this action should be enabled
 								# [None] indicates that this action is to be enabled for all extensions
+
+	def __init__(self, *args, **kwargs):
+		pass
 	
 	def hook(self, action_group, window_context):
 		"""

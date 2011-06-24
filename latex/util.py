@@ -191,7 +191,7 @@ class GladeInterface(object):
 
 
 from uuid import uuid1
-from gi.repository import Gdk
+from gi.repository import Gtk, Gdk
 
 from base import Action
 
@@ -203,6 +203,11 @@ class IconAction(Action):
 	
 	The subclass must provide a field 'icon'.
 	"""
+
+	__stock_id = None
+
+	def __init__(self, *args, **kwargs):
+		self.__icon_factory = kwargs["icon_factory"]
 	
 	@property
 	def icon(self):
@@ -215,34 +220,16 @@ class IconAction(Action):
 		#
 		# generate a new stock id
 		#
-		
-		# TODO: do we have to create the stock id every time?
-		
 		self.__stock_id = str(uuid1())
-		
-		# see http://article.gmane.org/gmane.comp.gnome.gtk%2B.python/5119
-		
-		# TODO: what is this strange construct for?
-		stock_items = (
-			((self.__stock_id, "", 0, 0, "")),
-		)
-		
-	 #	Gtk.stock_add(stock_items)
-		
-		factory = Gtk.IconFactory()
-		factory.add_default()
-		
-		# TODO: use IconSource, the Pixbuf is just fallback
-		pixbuf = GdkPixbuf.Pixbuf.new_from_file(self.icon.path)
-		
-		icon_set = Gtk.IconSet.new_from_pixbuf(pixbuf)
-		
-	#	factory.add(self.__stock_id, icon_set)
-	
+		self.__icon_factory.add(
+				self.__stock_id,
+				Gtk.IconSet.new_from_pixbuf(
+					GdkPixbuf.Pixbuf.new_from_file(self.icon.path)))
+
 	@property
 	def stock_id(self):
 		if self.icon:
-			if not "__stock_id" in dir(self):
+			if not self.__stock_id:
 				self.__init_stock_id()
 			return self.__stock_id
 		else:

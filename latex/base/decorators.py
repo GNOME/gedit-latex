@@ -38,7 +38,6 @@ from ..preferences import Preferences, IPreferencesMonitor
 
 # TODO: maybe create ActionDelegate for GeditWindowDecorator
 		
-
 class GeditWindowDecorator(IPreferencesMonitor):
 	"""
 	This class
@@ -128,6 +127,8 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		"""
 		self._ui_manager = self._window.get_ui_manager()
 		self._action_group = Gtk.ActionGroup("LaTeXPluginActions")
+		self._icon_factory = Gtk.IconFactory()
+		self._icon_factory.add_default()
 		
 		# create action instances, hook them and build up some
 		# hash tables
@@ -136,7 +137,7 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		self._action_extensions = {}	# extension -> action names
 		
 		for clazz in ACTIONS:
-			action = clazz()
+			action = clazz(icon_factory=self._icon_factory)
 			action.hook(self._action_group, self._window_context)
 			
 			self._action_objects[clazz.__name__] = action
