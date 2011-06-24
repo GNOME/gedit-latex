@@ -1,0 +1,11 @@
+General Information
+===================
+
+This is version 2.90.0 of gedit-latex. gedit-latex is a plugin that provides
+features to ease the edition of latex documents.
+
+Installation
+============
+
+For the moment, you have to ./configure with --prefix=same prefix as you
+configured gedit with.
