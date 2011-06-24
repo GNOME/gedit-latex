@@ -178,7 +178,7 @@ class ToolView(BottomView, IStructuredIssueHandler):
 		elif state == "aborted":
 			icon = self._ICON_ABORT
 			
-		self._store.set(partition_id, 0, icon)
+		self._store.set_value(partition_id, 0, icon)
 	
 	def append_issues(self, partition_id, issues):
 		for issue in issues:
