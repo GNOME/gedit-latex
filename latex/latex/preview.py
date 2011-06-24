@@ -24,7 +24,7 @@ latex.preview
 
 from ..base import File
 from ..tools import Tool, Job, ToolRunner
-from ..tools.postprocess import RubberPostProcessor, GenericPostProcessor
+from ..tools.postprocess import GenericPostProcessor
 from ..issues import MockStructuredIssueHandler
 from environment import Environment
 
@@ -59,7 +59,7 @@ class ImageToolGenerator(object):
 		tool = Tool(label=self._names[self.format], jobs=[], description="", accelerator="", extensions=[])
 		
 		# use rubber to render a DVI
-		tool.jobs.append(Job("rubber --force --short --inplace \"$filename\"", True, RubberPostProcessor))
+		tool.jobs.append(Job("rubber --force --short --inplace \"$filename\"", True, GenericPostProcessor))
 		
 		if self.render_box:
 			# DVI -> PS
