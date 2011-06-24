@@ -22,13 +22,24 @@
 latex.dialogs
 """
 
-from logging import getLogger
+import logging
+import tempfile
+import os.path
+import time
+import string
+
+from gi.repository import Gtk, GdkPixbuf
 
 from ..preferences import Preferences
 from ..util import GladeInterface
 from ..base.resources import find_resource, MODE_READWRITE
 from ..base import Template, File, Folder
 
+from .preview import PreviewRenderer, ImageToolGenerator
+from .environment import Environment
+from .listing import LanguagesParser
+
+from . import LaTeXSource
 
 class AbstractProxy(object):
 	"""
@@ -64,10 +75,6 @@ class AbstractProxy(object):
 		@return: the current value of the proxied widget
 		"""
 		raise NotImplementedError
-
-
-#from ..typecheck import accepts
-#from ..typecheck.typeclasses import String
 
 
 class ComboBoxProxy(AbstractProxy):
@@ -171,21 +178,13 @@ class ChooseMasterDialog(GladeInterface):
 		
 		return filename
 
-
-from gi.repository import Gtk
-from time import strftime
-import string
-
-from environment import Environment
-
-
 class NewDocumentDialog(GladeInterface):
 	"""
 	Dialog for creating the body of a new LaTeX document
 	"""
 	filename = find_resource("ui/new_document_template_dialog.ui")
 	
-	_log = getLogger("NewDocumentWizard")
+	_log = logging.getLogger("NewDocumentWizard")
 	
 	_PAPER_SIZES = (
 		("a4paper", "A4"),
@@ -494,7 +493,7 @@ class NewDocumentDialog(GladeInterface):
 #		/Keywords (KEYWORDS)
 #		/CreationDate (D:%s)
 #	}
-#\\fi""" % (author, title, strftime('%Y%m%d%H%M%S'))
+#\\fi""" % (author, title, time.strftime('%Y%m%d%H%M%S'))
 
 			pdfinfo = """
 \\ifpdf
@@ -554,19 +553,13 @@ class NewDocumentDialog(GladeInterface):
 		return r
 
 
-from tempfile import NamedTemporaryFile
-from os.path import basename, splitext
-
-from preview import PreviewRenderer
-
-		
 class UseBibliographyDialog(GladeInterface, PreviewRenderer):
 	"""
 	Dialog for inserting a reference to a bibliography
 	"""
 	filename = find_resource("ui/use_bibliography_dialog.ui")
 	
-	_log = getLogger("UseBibliographyWizard")
+	_log = logging.getLogger("UseBibliographyWizard")
 	
 	
 	# sample bibtex content used for rendering the preview
@@ -657,12 +650,12 @@ class UseBibliographyDialog(GladeInterface, PreviewRenderer):
 		self._imagePreview.set_from_stock(Gtk.STOCK_EXECUTE, Gtk.IconSize.BUTTON)
 		
 		# create temporary bibtex file
-		self._tempFile = NamedTemporaryFile(mode="w", suffix=".bib")
+		self._tempFile = tempfile.NamedTemporaryFile(mode="w", suffix=".bib")
 		self._tempFile.write(self._BIBTEX)
 		self._tempFile.flush()
 		
 		filename = self._tempFile.name
-		self._filenameBase = splitext(basename(filename))[0]
+		self._filenameBase = os.path.splitext(os.path.basename(filename))[0]
 		
 		# build preview image
 		self.render("Book \\cite{dijkstra76} Article \\cite{dijkstra68} \\bibliography{%s}\\bibliographystyle{%s}" % (self._filenameBase, 
@@ -681,11 +674,6 @@ class UseBibliographyDialog(GladeInterface, PreviewRenderer):
 		self._imagePreview.set_from_stock(Gtk.STOCK_STOP, Gtk.IconSize.BUTTON)
 		# remove the temp bib file
 		self._tempFile.close()
-
-
-from os.path import splitext
-
-from . import LaTeXSource
 
 
 class InsertGraphicsDialog(GladeInterface):
@@ -710,9 +698,9 @@ class InsertGraphicsDialog(GladeInterface):
 			
 			# for eps and pdf the extension should be omitted 
 			# (see http://www.tex.ac.uk/cgi-bin/texfaq2html?label=graph-pspdf)
-			ext = splitext(relative_filename)[1]
+			ext = os.path.splitext(relative_filename)[1]
 			if ext == ".pdf" or ext == ".eps":
-				relative_filename = splitext(relative_filename)[0]
+				relative_filename = os.path.splitext(relative_filename)[0]
 				
 			width = "%.2f" % round(self.find_widget("spinbuttonWidth").get_value() / 100.0, 2)
 			caption = self.find_widget("entryCaption").get_text()
@@ -922,9 +910,6 @@ class InsertTableDialog(GladeInterface):
 		return s
 
 
-from listing import LanguagesParser
-
-
 class InsertListingDialog(GladeInterface):
 	"""
 	"""
@@ -1058,9 +1043,6 @@ class InsertListingDialog(GladeInterface):
 		self._comboLanguage.set_sensitive(toggleButton.get_active())
 		self._labelDialect.set_sensitive(toggleButton.get_active() and self._dialectsEnabled)
 		self._comboDialect.set_sensitive(toggleButton.get_active() and self._dialectsEnabled)
-
-
-from preview import ImageToolGenerator
 
 
 class BuildImageDialog(GladeInterface):
