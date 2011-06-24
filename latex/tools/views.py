@@ -107,6 +107,15 @@ class ToolView(BottomView, IStructuredIssueHandler):
 		self._toolbar.insert(self._buttonDetails, -1)
 
 		self.pack_start(self._toolbar, False, False, 0)
+
+		# theme like gtk3
+		ctx = self._scroll.get_style_context()
+		ctx.set_junction_sides(Gtk.JunctionSides.RIGHT)
+
+		ctx = self._toolbar.get_style_context()
+		ctx.set_junction_sides(Gtk.JunctionSides.LEFT | Gtk.JunctionSides.RIGHT)
+		ctx.add_class("inline-toolbar")
+
 	
 	def _on_abort_clicked(self, button):
 		self._abort_method.__call__()
