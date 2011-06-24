@@ -74,6 +74,7 @@ AC_PATH_PROG(GLIB_GENMARSHAL, glib-genmarshal)
 AC_CONFIG_FILES([
 Makefile
 latex/gldefs.py
+latex/latex.plugin.desktop.in
 po/Makefile.in])
 
 AC_OUTPUT
