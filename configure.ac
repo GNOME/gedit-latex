@@ -82,7 +82,6 @@ latex/latex/Makefile
 latex/preferences/Makefile
 latex/templates/Makefile
 latex/tools/Makefile
-latex/typecheck/Makefile
 latex/ui/Makefile
 latex/util/Makefile
 po/Makefile.in])
