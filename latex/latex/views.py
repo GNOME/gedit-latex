@@ -144,7 +144,7 @@ class LaTeXSymbolMapView(SideView):
 		
 		expander.connect("notify::expanded", self.__on_group_expanded, group.label)
 		
-		self.__box.pack_start(expander, False)
+		self.__box.pack_start(expander, False, False, 0)
 	
 	def __on_group_expanded(self, expander, paramSpec, group_label):
 		"""
