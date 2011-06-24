@@ -616,7 +616,6 @@ class UseBibliographyDialog(GladeInterface, PreviewRenderer):
 			
 			self._comboStyle = self.find_widget("comboboxStyle")
 			self._comboStyle.set_model(self._storeStyle)
-			self._comboStyle.set_text_column(0)
 			
 			try:
 				recent = styles.index(Preferences().get("RecentBibtexStyle", "plain"))
@@ -662,7 +661,6 @@ class UseBibliographyDialog(GladeInterface, PreviewRenderer):
 																													style))
 	def _on_render_succeeded(self, pixbuf):
 		# PreviewRenderer._on_render_succeeded
-		
 		self._imagePreview.set_from_pixbuf(pixbuf)
 		# remove the temp bib file
 		self._tempFile.close()

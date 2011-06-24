@@ -112,8 +112,10 @@
               </packing>
             </child>
             <child>
-              <object class="GtkComboBoxEntry" id="comboboxStyle">
+              <object class="GtkComboBoxText" id="comboboxStyle">
                 <property name="visible">True</property>
+                <property name="has_entry">True</property>
+                 <property name="entry_text_column">0</property>
                 <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                 <child internal-child="entry">
                   <object class="GtkEntry" id="comboboxentry-entry1">
