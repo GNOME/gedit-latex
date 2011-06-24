@@ -3,9 +3,6 @@
 		<job mustSucceed="True" postProcessor="RubberPostProcessor">rubber --inplace --maxerr -1 --short --force --warn all --pdf "$filename"</job>
 		<job mustSucceed="True" postProcessor="GenericPostProcessor">gnome-open "$shortname.pdf"</job>
 	</tool>
-	<tool description="Create a PDF from LaTeX source and show in embedded preview" extensions=".tex" id="2" label="LaTeX → PDF (Embedded Preview)">
-		<job mustSucceed="true" postProcessor="RubberPostProcessor">rubber --inplace --maxerr -1 --short --force --warn all --pdf "$filename"</job>
-	</tool>
 	<tool description="Create a PostScript from LaTeX source" extensions=".tex" id="3" label="LaTeX → PS">
 		<job mustSucceed="true" postProcessor="RubberPostProcessor">rubber --inplace --maxerr -1 --short --force --warn all --ps "$filename"</job>
 		<job mustSucceed="true" postProcessor="GenericPostProcessor">gnome-open "$shortname.ps"</job>

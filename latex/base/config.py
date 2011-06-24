@@ -48,18 +48,6 @@ UI = """
 					<separator />
 					<menuitem action="LaTeXForwardSearchAction" />
 					<menuitem action="LaTeXBuildImageAction" />
-					<separator />
-					<menu action="LaTeXPreviewAction">
-						<menuitem action="LaTeXPreviewToggleAction" />
-						<separator />
-						<menuitem action="LaTeXPreviewZoomInAction" />
-						<menuitem action="LaTeXPreviewZoomOutAction" />
-						<separator />
-						<menuitem action="LaTeXPreviewScrollUpAction" />
-						<menuitem action="LaTeXPreviewScrollDownAction" />
-						<menuitem action="LaTeXPreviewScrollLeftAction" />
-						<menuitem action="LaTeXPreviewScrollRightAction" />
-					</menu>
 				</menu>
 				<menu action="BibTeXMenuAction">
 					<menuitem action="BibTeXNewEntryAction" />
@@ -119,17 +107,12 @@ UI = """
 			<toolitem action="LaTeXUseBibliographyAction" />
 			<separator />
 			<toolitem action="LaTeXBuildImageAction" />
-			<!--
-			<separator />
-			<toolitem action="LaTeXPreviewZoomInAction" />
-			<toolitem action="LaTeXPreviewZoomOutAction" />
-			-->
 		</toolbar>
 	</ui>"""
 
 # actions
 
-from ..latex.actions import LaTeXMenuAction, LaTeXNewAction, LaTeXPreviewAction, LaTeXChooseMasterAction, \
+from ..latex.actions import LaTeXMenuAction, LaTeXNewAction, LaTeXChooseMasterAction, \
 		LaTeXItemizeAction, LaTeXEnumerateAction, LaTeXFontFamilyAction, LaTeXFontFamilyMenuAction, LaTeXBoldAction, \
 		LaTeXItalicAction, LaTeXEmphasizeAction, LaTeXDescriptionAction, LaTeXStructureMenuAction, LaTeXPartAction, LaTeXChapterAction, \
 		LaTeXSectionAction, LaTeXSubsectionAction, LaTeXParagraphAction,LaTeXSubparagraphAction, LaTeXStructureAction, \
@@ -137,13 +120,11 @@ from ..latex.actions import LaTeXMenuAction, LaTeXNewAction, LaTeXPreviewAction,
 		LaTeXJustifyCenterAction, LaTeXJustifyRightAction, LaTeXMathMenuAction, LaTeXMathAction, LaTeXDisplayMathAction, \
 		LaTeXEquationAction, LaTeXUnEqnArrayAction, LaTeXEqnArrayAction, LaTeXUnderlineAction, LaTeXSmallCapitalsAction, \
 		LaTeXRomanAction, LaTeXSansSerifAction, LaTeXTypewriterAction, LaTeXCloseEnvironmentAction, LaTeXBlackboardBoldAction, \
-		LaTeXCaligraphyAction, LaTeXFrakturAction, LaTeXForwardSearchAction, LaTeXBuildImageAction, LaTeXSaveAsTemplateAction, \
-		LaTeXPreviewZoomInAction, LaTeXPreviewZoomOutAction, LaTeXPreviewScrollUpAction, LaTeXPreviewScrollDownAction, \
-		LaTeXPreviewScrollLeftAction, LaTeXPreviewScrollRightAction, LaTeXPreviewToggleAction
+		LaTeXCaligraphyAction, LaTeXFrakturAction, LaTeXForwardSearchAction, LaTeXBuildImageAction, LaTeXSaveAsTemplateAction
 
 from ..bibtex.actions import BibTeXMenuAction, BibTeXNewEntryAction
 
-ACTIONS = [ LaTeXMenuAction, LaTeXNewAction, LaTeXPreviewAction, LaTeXChooseMasterAction, 
+ACTIONS = [ LaTeXMenuAction, LaTeXNewAction, LaTeXChooseMasterAction, 
 		LaTeXItemizeAction, LaTeXEnumerateAction, LaTeXFontFamilyAction, LaTeXFontFamilyMenuAction, LaTeXBoldAction, 
 		LaTeXItalicAction, LaTeXEmphasizeAction, LaTeXDescriptionAction, LaTeXStructureMenuAction, LaTeXPartAction, LaTeXChapterAction, 
 		LaTeXSectionAction, LaTeXSubsectionAction, LaTeXParagraphAction,LaTeXSubparagraphAction, LaTeXStructureAction, 
@@ -152,8 +133,7 @@ ACTIONS = [ LaTeXMenuAction, LaTeXNewAction, LaTeXPreviewAction, LaTeXChooseMast
 		LaTeXEquationAction, LaTeXUnEqnArrayAction, LaTeXEqnArrayAction, LaTeXUnderlineAction, LaTeXSmallCapitalsAction, 
 		LaTeXRomanAction, LaTeXSansSerifAction, LaTeXTypewriterAction, LaTeXCloseEnvironmentAction, LaTeXBlackboardBoldAction, 
 		LaTeXCaligraphyAction, LaTeXFrakturAction, LaTeXForwardSearchAction, LaTeXBuildImageAction, LaTeXSaveAsTemplateAction, 
-		BibTeXMenuAction, BibTeXNewEntryAction, LaTeXPreviewZoomInAction, LaTeXPreviewZoomOutAction, LaTeXPreviewScrollUpAction, 
-		LaTeXPreviewScrollDownAction, LaTeXPreviewScrollLeftAction, LaTeXPreviewScrollRightAction, LaTeXPreviewToggleAction ]
+		BibTeXMenuAction, BibTeXNewEntryAction ]
 
 # views
 

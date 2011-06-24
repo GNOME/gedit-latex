@@ -520,13 +520,7 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		#
 		self._set_selected_bottom_view(self._selected_bottom_views[tab_decorator])
 		self._set_selected_side_view(self._selected_side_views[tab_decorator])
-		
-		
-		# update latex_previews
-		latex_previews = self._window_context.latex_previews
-		if latex_previews != None and latex_previews.is_shown(tab_decorator.tab):
-			latex_previews.reparent(tab_decorator.tab)
-		
+
 	def _get_selected_bottom_view(self):
 		notebook = self._window.get_bottom_panel().get_children()[0].get_children()[0]
 		assert type(notebook) is Gtk.Notebook
@@ -578,11 +572,6 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		@param tab: the closed GeditTab
 		"""
 		self._log.debug("tab_removed")
-
-		# properly remove the latex preview, if any
-		latex_previews = self._window_context.latex_previews
-		if latex_previews != None and latex_previews.is_shown(tab):
-			latex_previews.hide(tab)
 		
 		# As we don't call GeditWindowDecorator.adjust() if the new 
 		# tab is not the active one (for example, when opening several 
@@ -803,13 +792,6 @@ class GeditTabDecorator(object):
 					self._editor = editor_class.__new__(editor_class)
 					editor_class.__init__(self._editor, self, file)
 					
-					# update the file path in latex_previews
-					current_tab = self._window_decorator._window.get_active_tab()
-					pdf_file_path = "%s.pdf" % file.shortname
-					latex_previews = self._window_decorator._window_context.latex_previews
-					if latex_previews != None and latex_previews.is_shown(current_tab):
-						latex_previews.update_file_path(current_tab, pdf_file_path)
-					
 					# The following doesn't work because the right expression is evaluated
 					# and then assigned to the left. This means that Editor.__init__ is
 					# running and reading _editor while _editor is None. That leads to
@@ -831,11 +813,6 @@ class GeditTabDecorator(object):
 					#self._editor = editor_class(self, file)
 				else:
 					self._log.warning("No editor class found for extension %s" % extension)
-
-					current_tab = self._window_decorator._window.get_active_tab()
-					latex_previews = self._window_decorator._window_context.latex_previews
-					if latex_previews != None and latex_previews.is_shown(current_tab):
-						latex_previews.hide(current_tab)
 				
 				# tell WindowDecorator to adjust actions
 				# but only if this tab is the active tab

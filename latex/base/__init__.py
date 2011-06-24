@@ -949,8 +949,6 @@ class WindowContext(object):
 		
 		self.window_scope_views = {}	# maps view ids to View objects
 		self.editor_scope_views = {}	# maps Editor object to a map from ID to View object
-		
-		self.latex_previews = None
 
 		self._log.debug("init")
 	
@@ -1011,12 +1009,7 @@ class WindowContext(object):
 	def destroy(self):
 		# unreference the window decorator
 		del self._window_decorator
-		
-		# destroy the internal pdf previews
-		if self.latex_previews != None:
-			self.latex_previews.destroy()
-			del self.latex_previews
-		
+
 	def __del__(self):
 		self._log.debug("Properly destroyed %s" % self)
 	

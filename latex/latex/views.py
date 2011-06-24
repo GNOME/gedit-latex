@@ -286,13 +286,6 @@ class LaTeXOutlineView(BaseOutlineView):
 			# open/activate the referenced file, if the node is 'foreign'
 			if node.file != self._editor.edited_file:
 				self._context.activate_editor(node.file)
-			else:
-				# act as if the user Ctrl+clicked on the region of the activated node
-				
-				# FIXME: this doesn't belong here, what if an implementation of _ctrl_left_clicked requires
-				# a Gdk.Event for e.g. displaying a context menu?
-				it = self._editor._text_buffer.get_iter_at_offset(node.start)
-				self._editor._ctrl_left_clicked(it)
 	
 	def _on_tables_toggled(self, toggle_button):
 		value = toggle_button.get_active()
