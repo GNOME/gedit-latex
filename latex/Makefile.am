@@ -13,7 +13,7 @@ pluginlatexdir = $(plugindir)/latex
 
 pluginlatex_PYTHON = \
 	gldefs.py \
-	__init__py \
+	__init__.py \
 	issues.py \
 	outline.py \
 	relpath.py \

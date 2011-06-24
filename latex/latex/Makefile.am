@@ -11,7 +11,7 @@ plugin_PYTHON = \
 	expander.py \
 	__init__.py \
 	inversesearch.py \
-	lexter.py \
+	lexer.py \
 	listing.py \
 	model.py \
 	outline.py \
