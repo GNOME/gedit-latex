@@ -75,6 +75,16 @@ AC_CONFIG_FILES([
 Makefile
 latex/gldefs.py
 latex/latex.plugin.desktop.in
+latex/Makefile
+latex/base/Makefile
+latex/bibtex/Makefile
+latex/latex/Makefile
+latex/preferences/Makefile
+latex/templates/Makefile
+latex/tools/Makefile
+latex/typecheck/Makefile
+latex/ui/Makefile
+latex/util/Makefile
 po/Makefile.in])
 
 AC_OUTPUT
