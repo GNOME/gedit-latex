@@ -77,7 +77,6 @@ class BaseOutlineView(SideView):
 		
 		self._toolbar = Gtk.Toolbar()
 		self._toolbar.set_style(Gtk.ToolbarStyle.ICONS)
-		# TODO: why is this deprecated?
 		self._toolbar.set_icon_size(Gtk.IconSize.MENU)
 		self._toolbar.insert(btn_follow, -1)
 		self._toolbar.insert(Gtk.SeparatorToolItem(), -1)
@@ -114,7 +113,15 @@ class BaseOutlineView(SideView):
 		scrolled.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
 		
 		self.pack_start(scrolled, True, True, 0)
-		
+
+		# theme like gtk3
+		ctx = scrolled.get_style_context()
+		ctx.set_junction_sides(Gtk.JunctionSides.TOP)
+
+		ctx = self._toolbar.get_style_context()
+		ctx.set_junction_sides(Gtk.JunctionSides.TOP | Gtk.JunctionSides.BOTTOM)
+		ctx.add_class("inline-toolbar")
+
 		# this holds a list of the currently expanded paths
 		self._expandedPaths = None
 		
