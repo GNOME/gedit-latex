@@ -181,9 +181,10 @@ from gi.repository import GObject
 class GeditLaTeXPlugin_MenuToolAction(Gtk.Action):
 	__gtype_name__ = "GeditLaTeXPlugin_MenuToolAction"
 
-#GObject.type_register(GeditLaTeXPlugin_MenuToolAction)
-# needs PyGTK 2.10
-#GeditLaTeXPlugin_MenuToolAction.set_tool_item_type(Gtk.MenuToolButton)
+# GObject.type_register(GeditLaTeXPlugin_MenuToolAction)
+# needs PyGTK 2.10, but no such workaround exists in PyGObject + Introspection
+# https://bugzilla.gnome.org/show_bug.cgi?id=590335
+# GeditLaTeXPlugin_MenuToolAction.set_tool_item_type(Gtk.MenuToolButton)
 
 
 class Action(object):
@@ -208,6 +209,8 @@ class Action(object):
 		@param window_context: a WindowContext object to pass when this action is activated
 		"""
 		if self.menu_tool_action:
+			#FIXME: This is not supported yet...
+			#https://bugzilla.gnome.org/show_bug.cgi?id=653303
 			action_clazz = GeditLaTeXPlugin_MenuToolAction
 		else:
 			action_clazz = Gtk.Action

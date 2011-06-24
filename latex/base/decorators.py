@@ -160,9 +160,6 @@ class GeditWindowDecorator(IPreferencesMonitor):
 		self._main_box.pack_start(self._toolbar, False, True, 0)
 		self._main_box.reorder_child(self._toolbar, 2)
 		
-		#self._toolbar.show()
-		self._toolbar.hide()
-	
 	def _init_tab_decorators(self):
 		"""
 		Look for already open tabs and create decorators for them
