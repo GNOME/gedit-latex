@@ -1019,15 +1019,12 @@ import os.path
 from glob import glob
 
 from ..relpath import relpath
-from ..typecheck import accepts
-from ..typecheck.typeclasses import String
 
 
 import re
 import urllib
 import urlparse
 
-@accepts(String)
 def fixurl(url):
 	r"""From http://stackoverflow.com/questions/804336/best-way-to-convert-a-unicode-url-to-ascii-utf-8-percent-escaped-in-python/805166#805166 .
 	Was named canonurl(). Comments added to the original are prefixed with ##.
