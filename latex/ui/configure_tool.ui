@@ -90,7 +90,7 @@
                             <property name="layout_style">start</property>
                             <child>
                               <object class="GtkButton" id="buttonRemoveJob">
-                                <property name="label" translatable="yes">gtk-remove</property>
+                                <property name="label">gtk-remove</property>
                                 <property name="visible">True</property>
                                 <property name="sensitive">False</property>
                                 <property name="can_focus">True</property>
@@ -106,7 +106,7 @@
                             </child>
                             <child>
                               <object class="GtkButton" id="buttonMoveUpJob">
-                                <property name="label" translatable="yes">gtk-go-up</property>
+                                <property name="label">gtk-go-up</property>
                                 <property name="visible">True</property>
                                 <property name="sensitive">False</property>
                                 <property name="can_focus">True</property>
@@ -151,7 +151,7 @@
                         </child>
                         <child>
                           <object class="GtkButton" id="buttonAddJob">
-                            <property name="label" translatable="yes">gtk-add</property>
+                            <property name="label">gtk-add</property>
                             <property name="visible">True</property>
                             <property name="sensitive">False</property>
                             <property name="can_focus">True</property>
@@ -262,7 +262,7 @@
                             <property name="layout_style">start</property>
                             <child>
                               <object class="GtkButton" id="buttonRemoveExtension">
-                                <property name="label" translatable="yes">gtk-remove</property>
+                                <property name="label">gtk-remove</property>
                                 <property name="visible">True</property>
                                 <property name="sensitive">False</property>
                                 <property name="can_focus">True</property>
@@ -307,7 +307,7 @@
                         </child>
                         <child>
                           <object class="GtkButton" id="buttonAddExtension">
-                            <property name="label" translatable="yes">gtk-add</property>
+                            <property name="label">gtk-add</property>
                             <property name="visible">True</property>
                             <property name="sensitive">False</property>
                             <property name="can_focus">True</property>
@@ -431,7 +431,7 @@
             <property name="layout_style">end</property>
             <child>
               <object class="GtkButton" id="buttonAbort">
-                <property name="label" translatable="yes">gtk-cancel</property>
+                <property name="label">gtk-cancel</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -446,7 +446,7 @@
             </child>
             <child>
               <object class="GtkButton" id="buttonOkay">
-                <property name="label" translatable="yes">gtk-ok</property>
+                <property name="label">gtk-ok</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="can_default">True</property>
