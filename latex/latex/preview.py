@@ -28,6 +28,7 @@ from ..tools.postprocess import RubberPostProcessor, GenericPostProcessor
 from ..issues import MockStructuredIssueHandler
 from environment import Environment
 
+from gi.repository import Gdk, GdkPixbuf
 
 class ImageToolGenerator(object):
 	"""
@@ -101,10 +102,7 @@ class ImageToolGenerator(object):
 		return tool
 
 
-from gi.repository import Gdk
-
 from tempfile import NamedTemporaryFile
-
 
 class PreviewRenderer(ToolRunner):
 	def render(self, source):

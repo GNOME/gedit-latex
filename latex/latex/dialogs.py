@@ -623,14 +623,9 @@ class UseBibliographyDialog(GladeInterface, PreviewRenderer):
 				recent = 0
 			self._comboStyle.set_active(recent)
 			
-			
-			self._imagePreview = Gtk.Image()
+			self._imagePreview = self.find_widget("previewimage")
 			self._imagePreview.show()
-			
-			scrollPreview = self.find_widget("scrollPreview")
-			scrollPreview.add_with_viewport(self._imagePreview)
-			
-			
+
 			self.connect_signals({ "on_buttonRefresh_clicked" : self._on_refresh_clicked })
 			
 		return self.dialog
