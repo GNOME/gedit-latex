@@ -78,6 +78,7 @@ latex/latex.plugin.desktop.in
 latex/Makefile
 latex/base/Makefile
 latex/bibtex/Makefile
+latex/icons/Makefile
 latex/latex/Makefile
 latex/preferences/Makefile
 latex/templates/Makefile

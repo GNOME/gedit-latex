@@ -1,4 +1,4 @@
-SUBDIRS = base bibtex latex preferences templates tools ui util
+SUBDIRS = base bibtex icons latex preferences templates tools ui util
 
 plugindir = $(libdir)/gedit/plugins
 
