@@ -118,7 +118,7 @@ class ToolAction(Action):
 		return self._tool.description
 	
 	def activate(self, context):
-		self._log.debug("activate: " + str(self._tool))
+		self._log.debug("activate: %s" % self._tool)
 		
 		tool_view = context.find_view(None, "ToolView")
 		
@@ -194,7 +194,9 @@ class ToolRunner(Process):
 			# Tool finished successfully
 			self._issue_handler.set_partition_state(self._root_issue_partition, "succeeded")
 			# disable abort
-			self._issue_handler.set_abort_enabled(False, None)
+
+			# FIXME: CRASHES
+			# self._issue_handler.set_abort_enabled(False, None)
 			
 			self._on_tool_succeeded()
 	
