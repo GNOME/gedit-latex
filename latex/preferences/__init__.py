@@ -27,8 +27,6 @@ from logging import getLogger
 from ..base.resources import find_resource, MODE_READWRITE
 from ..tools import Tool, Job
 from ..tools.postprocess import GenericPostProcessor, RubberPostProcessor, LaTeXPostProcessor
-from ..snippets import Snippet
-
 
 def str_to_bool(x):
 	"""
@@ -53,11 +51,6 @@ class IPreferencesMonitor(object):
 	def _on_value_changed(self, key, new_value):
 		"""
 		A simple key-value-pair has changed
-		"""
-
-	def _on_snippets_changed(self):
-		"""
-		The snippets have changed
 		"""
 
 	def _on_tools_changed(self):
@@ -129,19 +122,14 @@ class Preferences(object):
 			
 			self.__preferences_changed = False
 			self.__tools_changed = False
-			self.__snippets_changed = False
 			
 			# TODO: use some object cache mechanism instead of those fields
 			self.__tool_objects = None
 			self.__tool_ids = None
 			
-			self.__snippet_objects = None
-			self.__snippet_ids = None
-						
 			# parse
 			self.__preferences = ElementTree.parse(find_resource("preferences.xml", MODE_READWRITE)).getroot()
 			self.__tools = ElementTree.parse(find_resource("tools.xml", MODE_READWRITE)).getroot()
-			self.__snippets = ElementTree.parse(find_resource("snippets.xml", MODE_READWRITE)).getroot()
 			
 			self._ready = True
 	
@@ -219,13 +207,6 @@ class Preferences(object):
 		"""
 		for monitor in self.__monitors:
 			monitor._on_tools_changed()
-	
-	def __notify_snippets_changed(self):
-		"""
-		Notify monitors that the Tools have changed
-		"""
-		for monitor in self.__monitors:
-			monitor._on_snippets_changed()
 	
 	@property
 	def tools(self):
@@ -377,67 +358,6 @@ class Preferences(object):
 		
 		self.__notify_tools_changed()
 	
-	def __find_snippet_element(self, id):
-		for element in self.__snippets.findall("snippet"):
-			if element.get("id") == id:
-				return element
-		self._log.warning("<snippet id='%s'> not found" % id)
-		return None
-	
-	@property
-	def snippets(self):
-		"""
-		Return and cache all Snippets
-		"""
-		if self.__snippet_objects is None:
-			self.__snippet_ids = {}
-			self.__snippet_objects = []
-			for snippet_element in self.__snippets.findall("snippet"):
-				id = snippet_element.get("id")
-				label = snippet_element.get("label")
-				packages = snippet_element.get("packages")
-				if packages is None:
-					packages = []
-				else:
-					packages = packages.split()
-				expression = snippet_element.text.strip()
-				active = str_to_bool(snippet_element.get("active"))
-				snippet = Snippet(label, expression, active, packages)
-				self.__snippet_ids[snippet] = id
-				self.__snippet_objects.append(snippet)
-		return self.__snippet_objects
-	
-	def save_or_update_snippet(self, snippet):
-		"""
-		@param snippet: a snippets.Snippet object
-		"""
-		snippet_element = None
-		if snippet in self.__snippet_ids:
-			# find snippet
-			self._log.debug("Snippet element found, updating...")
-			
-			id = self.__snippet_ids[snippet]
-			snippet_element = self.__find_snippet_element(id)
-		else:
-			# create snippet
-			self._log.debug("Creating new Snippet...")
-			
-			id = str(uuid.uuid4())		# random UUID
-			self.__snippet_ids[snippet] = id
-			self.__snippet_objects.append(snippet)
-			
-			snippet_element = ElementTree.SubElement(self.__snippets, "snippet")
-			snippet_element.set("id", id)
-		
-		snippet_element.set("label", snippet.label)
-		snippet_element.set("packages", " ".join(snippet.packages))
-		snippet_element.set("active", str(snippet.active))
-		snippet_element.text = snippet.expression
-		
-		self.__snippets_changed = True
-		
-		self.__notify_snippets_changed()
-	
 	def save(self):
 		"""
 		Save the preferences to XML
@@ -457,17 +377,4 @@ class Preferences(object):
 			tree.write(find_resource("tools.xml", MODE_READWRITE), encoding="utf-8")
 			
 			self.__tools_changed = False
-		
-		if self.__snippets_changed:
-			self._log.debug("Saving snippets...")
-		
-			tree = ElementTree.ElementTree(self.__snippets)
-			tree.write(find_resource("snippets.xml", MODE_READWRITE), encoding="utf-8")
-			
-			self.__snippets_changed = False
-			
-		
-		
-		
-		
-			
+	

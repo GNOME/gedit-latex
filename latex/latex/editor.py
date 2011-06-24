@@ -34,7 +34,6 @@ if BENCHMARK: import time
 
 from ..base import Editor, File
 from completion import LaTeXCompletionHandler
-from ..snippets.completion import SnippetCompletionHandler
 from ..issues import Issue, IIssueHandler
 from ..util import verbose, open_error
 from copy import deepcopy
@@ -62,9 +61,8 @@ class LaTeXEditor(Editor, IIssueHandler, IPreferencesMonitor):
 	@property
 	def completion_handlers(self):
 		self.__latex_completion_handler = LaTeXCompletionHandler()
-		self.__snippet_completion_handler = SnippetCompletionHandler()
 		
-		return [ self.__latex_completion_handler, self.__snippet_completion_handler ]
+		return [ self.__latex_completion_handler ]
 	
 	def init(self, file, context):
 		"""

@@ -348,80 +348,6 @@ class ConfigureToolDialog(GladeInterface):
 			self._labelProfileValidate.set_markup("Remember to run all commands in batch mode (e.g. append <tt>-interaction batchmode</tt> to <tt>latex</tt>)")
 	
 
-class ConfigureSnippetDialog(GladeInterface):
-	filename = find_resource("ui/configure_snippet.ui")
-	
-	_dialog = None
-	
-	def run(self, snippet):
-		print snippet
-		
-		dialog = self._get_dialog()
-		dialog.set_title("Configure Snippet - %s" % snippet.label)
-		
-		# load snippet
-		self._entry_label.set_text(snippet.label)
-		self._textview_source.get_buffer().set_text(snippet.expression)
-		self._store_package.clear()
-		for package in snippet.packages:
-			self._store_package.append([package])
-		
-		result = None
-		if dialog.run() == 1:
-			# success
-			buffer = self._textview_source.get_buffer()
-			snippet.expression = buffer.get_text(buffer.get_start_iter(), buffer.get_end_iter())
-			snippet.label = self._entry_label.get_text()
-			snippet.packages = [row[0] for row in self._store_package]
-			
-			result = snippet
-		
-		dialog.hide()
-		
-		return result
-	
-	def _get_dialog(self):
-		if not self._dialog:
-			self._preferences = Preferences()
-			
-			self._dialog = self.find_widget("dialogSnippet")
-			self._entry_label = self.find_widget("entryLabel")
-			self._entry_new_package = self.find_widget("entryNewPackage")
-			self._treeview_package = self.find_widget("treeviewPackage")
-			self._store_package = Gtk.ListStore(str)
-			self._treeview_package.set_model(self._store_package)
-			_insert_column_with_attributes(self._treeview_package, -1, "", Gtk.CellRendererText(), text=0)
-			self._treeview_package.set_headers_visible(False)
-			self._button_add_package = self.find_widget("buttonAddPackage")
-			self._button_remove_package = self.find_widget("buttonRemovePackage")
-			self._textview_source = self.find_widget("textviewSource")
-			
-			self.connect_signals({"on_buttonAddPackage_clicked" : self.__on_add_package_clicked,
-								  "on_buttonRemovePackage_clicked" : self.__on_remove_package_clicked,
-								  "on_entryNewPackage_changed" : self.__on_new_package_changed,
-								  "on_treeviewPackage_cursor_changed" : self.__on_package_cursor_changed})
-		return self._dialog
-	
-	def __on_package_cursor_changed(self, treeview):
-		store, it = treeview.get_selection().get_selected()
-		if not it: 
-			return
-		self._button_remove_package.set_sensitive(True)
-	
-	def __on_new_package_changed(self, entry):
-		self._button_add_package.set_sensitive(len(self._entry_new_package.get_text()) > 0)
-	
-	def __on_add_package_clicked(self, button):
-		package = self._entry_new_package.get_text()
-		self._store_package.append([package])
-	
-	def __on_remove_package_clicked(self, button):
-		store, it = self._treeview_package.get_selection().get_selected()
-		store.remove(it)
-	
-
-from ..snippets import Snippet
-
 
 class PreferencesDialog(GladeInterface, IPreferencesMonitor):
 	"""
@@ -439,23 +365,6 @@ class PreferencesDialog(GladeInterface, IPreferencesMonitor):
 			self._preferences = Preferences()
 			
 			self._dialog = self.find_widget("notebook1")
-			
-			#
-			# snippets
-			#
-			self._store_snippets = Gtk.ListStore(bool, str, object) 	# active, name, Template instance
-
-			render_toggle = Gtk.CellRendererToggle()
-			render_toggle.connect("toggled", self.__on_snippet_active_toggled)
-			
-			self._view_snippets = self.find_widget("treeviewTemplates")
-			self._view_snippets.set_model(self._store_snippets)
-			_insert_column_with_attributes(self._view_snippets, -1, "Active", render_toggle, active=0)
-			_insert_column_with_attributes(self._view_snippets, -1, "Name", Gtk.CellRendererText(), text=1)
-			
-			self._entry_snippet = self.find_widget("textviewTemplate")
-			
-			self.__load_snippets()
 			
 			#
 			# recent bibliographies
@@ -518,10 +427,7 @@ class PreferencesDialog(GladeInterface, IPreferencesMonitor):
 			# signals
 			#
 			self.connect_signals({ "on_buttonClose_clicked" : self._on_close_clicked,
-								   "on_treeviewTemplates_cursor_changed" : self._on_snippet_cursor_changed,
 								   "on_treeviewProfiles_cursor_changed" : self._on_tool_cursor_changed,
-								   "on_buttonNewTemplate_clicked" : self._on_new_snippet_clicked,
-								   "on_buttonDeleteTemplate_clicked" : self._on_delete_snippet_clicked,
 								   "on_buttonAddBib_clicked" : self._on_add_bib_clicked,
 								   "on_buttonRemoveBib_clicked" : self._on_delete_bib_clicked,
 								   "on_buttonNewProfile_clicked" : self._on_new_tool_clicked,
@@ -529,7 +435,6 @@ class PreferencesDialog(GladeInterface, IPreferencesMonitor):
 								   "on_buttonMoveDownTool_clicked" : self._on_tool_down_clicked,
 								   "on_buttonConfigureTool_clicked" : self._on_configure_tool_clicked,
 								   "on_buttonDeleteTool_clicked" : self._on_delete_tool_clicked,
-								   "on_buttonEditSnippet_clicked" : self._on_edit_snippet_clicked,
 								   "on_checkHideBox_toggled" : self._on_hide_box_toggled,
 								   "on_filechooserTemplates_selection_changed" : self._on_templates_dir_changed,
 								   "on_checkShowToolbar_toggled" : self._on_show_toolbar_toggled })
@@ -551,36 +456,9 @@ class PreferencesDialog(GladeInterface, IPreferencesMonitor):
 		value = togglebutton.get_active()
 		self._preferences.set("HideBoxWarnings", value)
 	
-	def __load_snippets(self):
-		self._store_snippets.clear()
-		for snippet in self._preferences.snippets:
-			self._store_snippets.append([snippet.active, snippet.label, snippet])
-		
-		self._entry_snippet.get_buffer().set_text("")
-	
-	def __on_snippet_active_toggled(self, renderer, path):
-		iter = self._store_snippets.get_iter_from_string(path)
-		active = not self._store_snippets.get_value(iter, 0)
-		self._store_snippets.set_value(iter, 0, active)
-		snippet = self._store_snippets.get_value(iter, 2)
-		snippet.active = active
-		self._preferences.save_or_update_snippet(snippet)
-	
-	def _on_edit_snippet_clicked(self, button):
-		store, it = self._view_snippets.get_selection().get_selected()
-		snippet = store.get_value(it, 2)
-		
-		snippet = ConfigureSnippetDialog().run(snippet)
-		if not snippet is None:
-			self._preferences.save_or_update_snippet(snippet)
-	
 	def _on_tools_changed(self):
 		# see IPreferencesMonitor._on_tools_changed
 		self.__load_tools()
-	
-	def _on_snippets_changed(self):
-		# see IPreferencesMonitor._on_snippets_changed
-		self.__load_snippets()
 	
 	def __load_tools(self):
 		# save cursor
@@ -660,14 +538,6 @@ class PreferencesDialog(GladeInterface, IPreferencesMonitor):
 		if not dialog.run(tool) is None:
 			self._preferences.save_or_update_tool(tool)
 	
-	def _on_new_snippet_clicked(self, button):
-		snippet = ConfigureSnippetDialog().run(Snippet("Unnamed", "", True, []))
-		if not snippet is None:
-			self._preferences.save_or_update_snippet(snippet)
-
-	def _on_delete_snippet_clicked(self, button):
-		pass
-
 	def _on_delete_bib_clicked(self, button):
 		pass
 
@@ -677,15 +547,6 @@ class PreferencesDialog(GladeInterface, IPreferencesMonitor):
 	def _on_close_clicked(self, button):
 		self._dialog.hide()
 	
-	def _on_snippet_cursor_changed(self, treeView):
-		store, it = treeView.get_selection().get_selected()
-		if not it: 
-			return
-		
-		snippet = store.get_value(it, 2)
-		
-		self._entry_snippet.get_buffer().set_text(snippet.expression)
-		
 	def _on_tool_cursor_changed(self, treeView):
 		"""
 		The cursor in the tools view has changed
