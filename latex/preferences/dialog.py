@@ -30,6 +30,13 @@ from ..base.resources import find_resource, MODE_READWRITE
 from ..util import GladeInterface
 from . import Preferences, IPreferencesMonitor
 
+def _insert_column_with_attributes(view, pos, title, rend, **kwargs):
+	print kwargs
+	tv = Gtk.TreeViewColumn(title)
+	tv.pack_start(rend, True)
+	for k in kwargs:
+		tv.add_attribute(rend, k, kwargs[k])
+	view.insert_column(tv, pos)
 
 class PreferencesSpinButtonProxy(object):
 	def __init__(self, widget, key, default_value):
@@ -65,7 +72,7 @@ class PreferencesColorProxy(object):
 		self._preferences = Preferences()
 		
 		# init value
-		self._widget.set_color(Gdk.color_parse(self._preferences.get(key, default_value)))
+		#self._widget.set_color(Gdk.color_parse(self._preferences.get(key, default_value)))
 		
 		# listen to change
 		self._widget.connect("color-set", self._on_color_set)
@@ -201,9 +208,9 @@ class ConfigureToolDialog(GladeInterface):
 			
 			ppRenderer.connect("edited", self._on_job_pp_edited)
 			
-			self._view_job.insert_column_with_attributes(-1, "Command", commandRenderer, text=0, editable=True)
-			self._view_job.insert_column_with_attributes(-1, "Must Succeed", mustSucceedRenderer, active=1)
-			self._view_job.insert_column_with_attributes(-1, "Post-Processor", ppRenderer, text=2)
+			_insert_column_with_attributes(self._view_job, -1, "Command", commandRenderer, text=0, editable=True)
+			_insert_column_with_attributes(self._view_job, -1, "Must Succeed", mustSucceedRenderer, active=1)
+			_insert_column_with_attributes(self._view_job, -1, "Post-Processor", ppRenderer, text=2)
 			
 			#
 			# description
@@ -219,7 +226,7 @@ class ConfigureToolDialog(GladeInterface):
 			
 			self._view_extension = self.find_widget("treeviewExtension")
 			self._view_extension.set_model(self._store_extension)
-			self._view_extension.insert_column_with_attributes(-1, "", Gtk.CellRendererText(), text=0)
+			_insert_column_with_attributes(self._view_extension, -1, "", Gtk.CellRendererText(), text=0)
 			self._view_extension.set_headers_visible(False)
 			
 			self._button_add_extension = self.find_widget("buttonAddExtension")
@@ -383,7 +390,7 @@ class ConfigureSnippetDialog(GladeInterface):
 			self._treeview_package = self.find_widget("treeviewPackage")
 			self._store_package = Gtk.ListStore(str)
 			self._treeview_package.set_model(self._store_package)
-			self._treeview_package.insert_column_with_attributes(-1, "", Gtk.CellRendererText(), text=0)
+			_insert_column_with_attributes(self._treeview_package, -1, "", Gtk.CellRendererText(), text=0)
 			self._treeview_package.set_headers_visible(False)
 			self._button_add_package = self.find_widget("buttonAddPackage")
 			self._button_remove_package = self.find_widget("buttonRemovePackage")
@@ -431,7 +438,7 @@ class PreferencesDialog(GladeInterface, IPreferencesMonitor):
 		if not self._dialog:
 			self._preferences = Preferences()
 			
-			self._dialog = self.find_widget("dialogConfigure")
+			self._dialog = self.find_widget("notebook1")
 			
 			#
 			# snippets
@@ -443,8 +450,8 @@ class PreferencesDialog(GladeInterface, IPreferencesMonitor):
 			
 			self._view_snippets = self.find_widget("treeviewTemplates")
 			self._view_snippets.set_model(self._store_snippets)
-			self._view_snippets.insert_column_with_attributes(-1, "Active", render_toggle, active=0)
-			self._view_snippets.insert_column_with_attributes(-1, "Name", Gtk.CellRendererText(), text=1)
+			_insert_column_with_attributes(self._view_snippets, -1, "Active", render_toggle, active=0)
+			_insert_column_with_attributes(self._view_snippets, -1, "Name", Gtk.CellRendererText(), text=1)
 			
 			self._entry_snippet = self.find_widget("textviewTemplate")
 			
@@ -460,7 +467,7 @@ class PreferencesDialog(GladeInterface, IPreferencesMonitor):
 				
 			self._viewBibs = self.find_widget("treeviewBibs")
 			self._viewBibs.set_model(self._storeBibs)
-			self._viewBibs.insert_column_with_attributes(-1, "Filename", Gtk.CellRendererText(), text=0)
+			_insert_column_with_attributes(self._viewBibs, -1, "Filename", Gtk.CellRendererText(), text=0)
 			
 			#
 			# tools
@@ -476,8 +483,8 @@ class PreferencesDialog(GladeInterface, IPreferencesMonitor):
 				
 			self._view_tool = self.find_widget("treeviewProfiles")
 			self._view_tool.set_model(self._store_tool)
-			self._view_tool.insert_column_with_attributes(-1, "Label", Gtk.CellRendererText(), markup=0)
-			self._view_tool.insert_column_with_attributes(-1, "File Extensions", Gtk.CellRendererText(), text=1)
+			_insert_column_with_attributes(self._view_tool, -1, "Label", Gtk.CellRendererText(), markup=0)
+			_insert_column_with_attributes(self._view_tool, -1, "File Extensions", Gtk.CellRendererText(), text=1)
 			
 			# init tool and listen to tool changes
 			self.__load_tools()
@@ -514,6 +521,9 @@ class PreferencesDialog(GladeInterface, IPreferencesMonitor):
 								   "on_treeviewTemplates_cursor_changed" : self._on_snippet_cursor_changed,
 								   "on_treeviewProfiles_cursor_changed" : self._on_tool_cursor_changed,
 								   "on_buttonNewTemplate_clicked" : self._on_new_snippet_clicked,
+								   "on_buttonDeleteTemplate_clicked" : self._on_delete_snippet_clicked,
+								   "on_buttonAddBib_clicked" : self._on_add_bib_clicked,
+								   "on_buttonRemoveBib_clicked" : self._on_delete_bib_clicked,
 								   "on_buttonNewProfile_clicked" : self._on_new_tool_clicked,
 								   "on_buttonMoveUpTool_clicked" : self._on_tool_up_clicked,
 								   "on_buttonMoveDownTool_clicked" : self._on_tool_down_clicked,
@@ -654,7 +664,16 @@ class PreferencesDialog(GladeInterface, IPreferencesMonitor):
 		snippet = ConfigureSnippetDialog().run(Snippet("Unnamed", "", True, []))
 		if not snippet is None:
 			self._preferences.save_or_update_snippet(snippet)
-	
+
+	def _on_delete_snippet_clicked(self, button):
+		pass
+
+	def _on_delete_bib_clicked(self, button):
+		pass
+
+	def _on_add_bib_clicked(self, button):
+		pass
+			
 	def _on_close_clicked(self, button):
 		self._dialog.hide()
 	
