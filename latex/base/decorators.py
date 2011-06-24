@@ -26,8 +26,7 @@ extension point.
 """
 
 from logging import getLogger
-from gi.repository import Gedit
-from gi.repository import Gtk
+from gi.repository import Gedit, Gtk, Gio
 import string
 
 from config import UI, WINDOW_SCOPE_VIEWS, EDITOR_SCOPE_VIEWS, EDITORS, ACTIONS
@@ -292,11 +291,15 @@ class GeditWindowDecorator(IPreferencesMonitor):
 				return
 		
 		# not found, open file in a new tab...
-		
+
 		uri = file.uri
-		self._log.debug("GeditWindow.create_tab_from_uri(%s)" % uri)
-		if Gedit.utils.uri_is_valid(uri):
-			self._window.create_tab_from_uri(file.uri, Gedit.encoding_get_current(), 1, False, True)
+		gfile = Gio.file_new_for_uri(uri)
+
+		if Gedit.utils_is_valid_location(gfile):
+			self._log.debug("GeditWindow.create_tab_from_uri(%s)" % uri)
+			self._window.create_tab_from_location(
+							gfile, Gedit.encoding_get_current(),
+							1, 1, False, True)
 		else:
 			self._log.error("Gedit.utils.uri_is_valid(%s) = False" % uri)
 	
