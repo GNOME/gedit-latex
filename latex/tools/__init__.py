@@ -27,6 +27,8 @@ It can be used for cleaning up, converting files, for building PDFs etc.
 
 from logging import getLogger
 
+from ..issues import MockStructuredIssueHandler
+
 
 class Tool(object):
 	"""
@@ -120,7 +122,7 @@ class ToolAction(Action):
 	def activate(self, context):
 		self._log.debug("activate: %s" % self._tool)
 		
-		tool_view = context.find_view(None, "ToolView")
+		tool_view = MockStructuredIssueHandler()
 		
 		if context.active_editor:
 			from ..preferences import Preferences		# FIXME: circ dep

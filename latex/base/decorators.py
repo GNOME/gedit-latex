@@ -30,7 +30,6 @@ from gi.repository import Gedit, Gtk, Gio
 import string
 
 from config import UI, WINDOW_SCOPE_VIEWS, EDITOR_SCOPE_VIEWS, EDITORS, ACTIONS
-from ..tools.views import ToolView
 from . import File, SideView, BottomView, WindowContext
 from ..preferences import Preferences, IPreferencesMonitor
 
@@ -92,19 +91,6 @@ class GeditWindowDecorator(IPreferencesMonitor):
 	
 		# caches window-scope View instances
 		self._views = {}
-		
-		#
-		# init the ToolView, it's always present
-		#
-		# TODO: position is ignored
-		# 
-		tool_view = ToolView(self._window_context)
-		self._views["ToolView"] = tool_view
-		#fixme put the id!
-		bottom_panel = self._window.get_bottom_panel()
-		print tool_view.icon
-		bottom_panel.add_item(tool_view, "ToolViewid", tool_view.label, tool_view.icon)
-		#self._window_bottom_views.append(tool_view)
 		
 		# update window context
 		self._window_context.window_scope_views = self._views

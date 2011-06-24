@@ -28,6 +28,7 @@ from gi.repository import Gtk
 from ..base import Action
 from ..util import IconAction
 from ..preferences import Preferences
+from ..issues import MockStructuredIssueHandler
 
 
 class LaTeXAction(Action):
@@ -490,10 +491,8 @@ class LaTeXBuildImageAction(LaTeXIconAction):
 			
 		tool = self.dialog.run()
 		if tool is not None:
-			tool_view = context.find_view(None, "ToolView")
-			
 			if context.active_editor:
-				ToolRunner().run(context.active_editor.file, tool, tool_view)
+				ToolRunner().run(context.active_editor.file, tool, MockStructuredIssueHandler())
 
 			
 class LaTeXJustifyLeftAction(LaTeXTemplateAction):
