@@ -38,7 +38,6 @@ UI = """
 			<placeholder name="ExtraMenu_1">
 				<menu action="LaTeXMenuAction">
 					<menuitem action="LaTeXChooseMasterAction" />
-					<menuitem action="LaTeXCommentAction" />
 					<separator />
 					<menuitem action="LaTeXGraphicsAction" />
 					<menuitem action="LaTeXTableAction" />
@@ -130,7 +129,7 @@ UI = """
 
 # actions
 
-from ..latex.actions import LaTeXMenuAction, LaTeXNewAction, LaTeXCommentAction, LaTeXPreviewAction, LaTeXChooseMasterAction, \
+from ..latex.actions import LaTeXMenuAction, LaTeXNewAction, LaTeXPreviewAction, LaTeXChooseMasterAction, \
 		LaTeXItemizeAction, LaTeXEnumerateAction, LaTeXFontFamilyAction, LaTeXFontFamilyMenuAction, LaTeXBoldAction, \
 		LaTeXItalicAction, LaTeXEmphasizeAction, LaTeXDescriptionAction, LaTeXStructureMenuAction, LaTeXPartAction, LaTeXChapterAction, \
 		LaTeXSectionAction, LaTeXSubsectionAction, LaTeXParagraphAction,LaTeXSubparagraphAction, LaTeXStructureAction, \
@@ -144,7 +143,7 @@ from ..latex.actions import LaTeXMenuAction, LaTeXNewAction, LaTeXCommentAction,
 
 from ..bibtex.actions import BibTeXMenuAction, BibTeXNewEntryAction
 
-ACTIONS = [ LaTeXMenuAction, LaTeXNewAction, LaTeXCommentAction, LaTeXPreviewAction, LaTeXChooseMasterAction, 
+ACTIONS = [ LaTeXMenuAction, LaTeXNewAction, LaTeXPreviewAction, LaTeXChooseMasterAction, 
 		LaTeXItemizeAction, LaTeXEnumerateAction, LaTeXFontFamilyAction, LaTeXFontFamilyMenuAction, LaTeXBoldAction, 
 		LaTeXItalicAction, LaTeXEmphasizeAction, LaTeXDescriptionAction, LaTeXStructureMenuAction, LaTeXPartAction, LaTeXChapterAction, 
 		LaTeXSectionAction, LaTeXSubsectionAction, LaTeXParagraphAction,LaTeXSubparagraphAction, LaTeXStructureAction, 

@@ -233,19 +233,8 @@ class LaTeXUseBibliographyAction(LaTeXIconAction):
 			editor.insert_at_position(source + "\n\n", LaTeXEditor.POSITION_BIBLIOGRAPHY)
 	
 
-class LaTeXCommentAction(LaTeXAction):
-	label = "Toggle Comment"
-	stock_id = None
-	accelerator = "<Ctrl><Alt>C"
-	tooltip = "Toggle LaTeX comment on the selection"
-	
-	def activate(self, context):
-		context.active_editor.toggle_comment("%")
-
-
 from ..util import verbose
 from livepreview import LaTeXPreviews
-
 
 class LaTeXPreviewAction(LaTeXAction):
 	label = "Embedded Preview"
