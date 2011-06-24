@@ -92,7 +92,7 @@ class IssueView(BottomView, IPreferencesMonitor):
 		self._scr.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
 		self._scr.set_shadow_type(Gtk.ShadowType.IN)
 		
-		self.pack_start(self._scr, True, False, 0)
+		self.pack_start(self._scr, True, True, 0)
 		
 		# toolbar
 		
@@ -120,6 +120,14 @@ class IssueView(BottomView, IPreferencesMonitor):
 		toolbar.insert(self._button_tasks, -1)
 		
 		self.pack_start(toolbar, False, False, 0)
+
+		# theme like gtk3
+		ctx = self._scr.get_style_context()
+		ctx.set_junction_sides(Gtk.JunctionSides.RIGHT)
+
+		ctx = toolbar.get_style_context()
+		ctx.set_junction_sides(Gtk.JunctionSides.LEFT | Gtk.JunctionSides.RIGHT)
+		ctx.add_class("inline-toolbar")
 		
 		self._issues = []
 		self._preferences.register_monitor(self)
