@@ -1,0 +1,703 @@
+# Slovenian translation for gedit-latex.
+# Copyright (C) 2011 gedit-latex's COPYRIGHT HOLDER
+# This file is distributed under the same license as the gedit-latex package.
+#
+# Matej Urbančič <mateju@svn.gnome.org>, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: gedit-latex master\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gedit&keywords=I18N+L10N&component=Plugins\n"
+"POT-Creation-Date: 2011-06-25 10:49+0000\n"
+"PO-Revision-Date: 2011-06-25 20:26+0100\n"
+"Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
+"Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n%100==4 ? 3 : 0);\n"
+"X-Poedit-Language: Slovenian\n"
+"X-Poedit-Country: SLOVENIA\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#: ../latex/bibtex.xml.h:1
+msgid "Address"
+msgstr "Naslov"
+
+#: ../latex/bibtex.xml.h:2
+msgid "Author"
+msgstr "Avtor"
+
+#: ../latex/bibtex.xml.h:3
+#, fuzzy
+msgid "Book Title"
+msgstr "Naslov knjige"
+
+#: ../latex/bibtex.xml.h:4
+msgid "Chapter"
+msgstr "Poglavje"
+
+#: ../latex/bibtex.xml.h:5
+#, fuzzy
+msgid "Cross Reference"
+msgstr "_API referenca"
+
+#: ../latex/bibtex.xml.h:6
+#, fuzzy
+msgid "Edition"
+msgstr "Izdaja"
+
+#: ../latex/bibtex.xml.h:7
+#: ../latex/ui/configure.ui.h:9
+#, fuzzy
+msgid "Editor"
+msgstr "Urejevalnik"
+
+#: ../latex/bibtex.xml.h:8
+#, fuzzy
+msgid "How Published"
+msgstr "Objava"
+
+#: ../latex/bibtex.xml.h:9
+#, fuzzy
+msgid "ISBN"
+msgstr "ISBN"
+
+#: ../latex/bibtex.xml.h:10
+msgid "ISSN"
+msgstr "ISSN"
+
+#: ../latex/bibtex.xml.h:11
+#, fuzzy
+msgid "Institution"
+msgstr "Ustanova"
+
+#: ../latex/bibtex.xml.h:12
+#, fuzzy
+msgid "Journal"
+msgstr "Dnevnik"
+
+#: ../latex/bibtex.xml.h:13
+#, fuzzy
+msgid "Key"
+msgstr "Ključ"
+
+#: ../latex/bibtex.xml.h:14
+#, fuzzy
+msgid "Location"
+msgstr "Mesto"
+
+#: ../latex/bibtex.xml.h:15
+#, fuzzy
+msgid "Month"
+msgstr "Mesec"
+
+#: ../latex/bibtex.xml.h:16
+#, fuzzy
+msgid "Note"
+msgstr "Opomba"
+
+#: ../latex/bibtex.xml.h:17
+#, fuzzy
+msgid "Number"
+msgstr "Številka"
+
+#: ../latex/bibtex.xml.h:18
+#, fuzzy
+msgid "Organization"
+msgstr "Organizacija"
+
+#: ../latex/bibtex.xml.h:19
+#, fuzzy
+msgid "Pages"
+msgstr "Strani"
+
+#: ../latex/bibtex.xml.h:20
+#, fuzzy
+msgid "Publisher"
+msgstr "Založnik"
+
+#: ../latex/bibtex.xml.h:21
+#, fuzzy
+msgid "School"
+msgstr "Šola"
+
+#: ../latex/bibtex.xml.h:22
+#, fuzzy
+msgid "Series"
+msgstr "Serija"
+
+#: ../latex/bibtex.xml.h:23
+#, fuzzy
+msgid "Title"
+msgstr "Naslov"
+
+#: ../latex/bibtex.xml.h:24
+#, fuzzy
+msgid "Type"
+msgstr "Vrsta"
+
+#: ../latex/bibtex.xml.h:25
+#, fuzzy
+msgid "URL"
+msgstr "URL"
+
+#: ../latex/bibtex.xml.h:26
+#, fuzzy
+msgid "Volume"
+msgstr "Glasnost"
+
+#: ../latex/bibtex.xml.h:27
+msgid "Year"
+msgstr "Leto"
+
+#: ../latex/latex.plugin.desktop.in.in.h:1
+msgid "A plugin that assists you in handling LaTeX documents and BibTeX bibliographies"
+msgstr ""
+
+#: ../latex/latex.plugin.desktop.in.in.h:2
+#, fuzzy
+msgid "LaTeX Plugin"
+msgstr "Napake vstavkov"
+
+#: ../latex/ui/build_image_dialog.ui.h:1
+#, fuzzy
+msgid "<b>Area</b>"
+msgstr "Področje:"
+
+#: ../latex/ui/build_image_dialog.ui.h:2
+#, fuzzy
+msgid "<b>Image Format</b>"
+msgstr "Zapis slike"
+
+#: ../latex/ui/build_image_dialog.ui.h:3
+#, fuzzy
+msgid "<b>Rendering</b>"
+msgstr "Izrisovanje"
+
+#: ../latex/ui/build_image_dialog.ui.h:4
+#, fuzzy
+msgid "Antialiasing:"
+msgstr "Glajenje"
+
+#: ../latex/ui/build_image_dialog.ui.h:5
+msgid "Attempt to render tight bounding box"
+msgstr ""
+
+#: ../latex/ui/build_image_dialog.ui.h:6
+#, fuzzy
+msgid "Color Mode:"
+msgstr "Način uvoza: "
+
+#: ../latex/ui/build_image_dialog.ui.h:7
+#, fuzzy
+msgid "GIF"
+msgstr "Slike GIF"
+
+#: ../latex/ui/build_image_dialog.ui.h:8
+#, fuzzy
+msgid "JPEG"
+msgstr "_JPEG"
+
+#: ../latex/ui/build_image_dialog.ui.h:9
+#, fuzzy
+msgid "PNG"
+msgstr "_PNG"
+
+#: ../latex/ui/build_image_dialog.ui.h:10
+#, fuzzy
+msgid "Render to Image"
+msgstr "POT DO ODTISA"
+
+#: ../latex/ui/build_image_dialog.ui.h:11
+#, fuzzy
+msgid "Render whole page(s)"
+msgstr "Približaj na širino strani"
+
+#: ../latex/ui/build_image_dialog.ui.h:12
+msgid "Resolution:"
+msgstr "Ločljivost:"
+
+#: ../latex/ui/choose_master_dialog.ui.h:1
+msgid "Filename:"
+msgstr "Ime datoteke:"
+
+#: ../latex/ui/choose_master_dialog.ui.h:2
+#, fuzzy
+msgid "Select Master Document"
+msgstr "Izberi celoten dokument"
+
+#: ../latex/ui/configure.ui.h:1
+#, fuzzy
+msgid "<b><i>rubber</i> Post-Processor</b>"
+msgstr "Procesor čelnega vmesnika"
+
+#: ../latex/ui/configure.ui.h:2
+#, fuzzy
+msgid "<b>BibTeX</b>"
+msgstr "BibTeX"
+
+#: ../latex/ui/configure.ui.h:3
+#, fuzzy
+msgid "<b>General</b>"
+msgstr "<b>Splošno</b>"
+
+#: ../latex/ui/configure.ui.h:4
+#, fuzzy
+msgid "<b>LaTeX Toolbar</b>"
+msgstr "Prikaži orodno vrstico."
+
+#: ../latex/ui/configure.ui.h:5
+#, fuzzy
+msgid "<b>Markers</b>"
+msgstr "Oznake"
+
+#: ../latex/ui/configure.ui.h:6
+#, fuzzy
+msgid "<b>Template</b>"
+msgstr "Predloga"
+
+#: ../latex/ui/configure.ui.h:7
+#, fuzzy
+msgid "<b>Templates</b>"
+msgstr "Predloga"
+
+#: ../latex/ui/configure.ui.h:8
+msgid "Bibliographies"
+msgstr "Bibliografije"
+
+#: ../latex/ui/configure.ui.h:10
+msgid "Error:"
+msgstr "Napaka:"
+
+#: ../latex/ui/configure.ui.h:11
+msgid "Folder:"
+msgstr "Mapa:"
+
+#: ../latex/ui/configure.ui.h:12
+#, fuzzy
+msgid "Hide Box Warnings"
+msgstr "     h,H         skrije/prikaže okno pomoči"
+
+#: ../latex/ui/configure.ui.h:13
+#, fuzzy
+msgid "KB"
+msgstr "kB"
+
+#: ../latex/ui/configure.ui.h:14
+#, fuzzy
+msgid "Light Foreground:"
+msgstr "<span foreground=\"%s\" >%s%s</span>"
+
+#: ../latex/ui/configure.ui.h:15
+#, fuzzy
+msgid "Maximum Parsed File Size:"
+msgstr "Prekoračena omejitev dolžine datoteke"
+
+#: ../latex/ui/configure.ui.h:16
+#, fuzzy
+msgid "Miscellaneous"
+msgstr "Razno"
+
+#: ../latex/ui/configure.ui.h:17
+#, fuzzy
+msgid "Placeholder Background:"
+msgstr "Lastnosti ozadja"
+
+#: ../latex/ui/configure.ui.h:18
+#, fuzzy
+msgid "Placeholder Foreground:"
+msgstr "<span foreground=\"%s\" >%s%s</span>"
+
+#: ../latex/ui/configure.ui.h:19
+msgid "Show LaTeX Toolbar when editing LaTeX files"
+msgstr "Pokaži orodno vrstico vstavka LaTeX med urejanjem te vrste datotek."
+
+#: ../latex/ui/configure.ui.h:20
+#, fuzzy
+msgid "Template Background:"
+msgstr "Predloga s črnim ozadjem"
+
+#: ../latex/ui/configure.ui.h:21
+#, fuzzy
+msgid "Toolbar"
+msgstr "Orodna vrstica"
+
+#: ../latex/ui/configure.ui.h:22
+#, fuzzy
+msgid "Tools"
+msgstr "Orodja"
+
+#: ../latex/ui/configure.ui.h:23
+#, fuzzy
+msgid "Warning:"
+msgstr "Opozorilo:"
+
+#: ../latex/ui/configure_tool.ui.h:1
+#, fuzzy
+msgid "<Ctrl><Alt>1"
+msgstr "CTRL+ALT+črke"
+
+#: ../latex/ui/configure_tool.ui.h:2
+#, fuzzy
+msgid "<b>Accelerator</b>"
+msgstr "Pospeševalnik ..."
+
+#: ../latex/ui/configure_tool.ui.h:3
+#, fuzzy
+msgid "<b>_Description</b>"
+msgstr "<b>Opis</b>"
+
+#: ../latex/ui/configure_tool.ui.h:4
+#, fuzzy
+msgid "<b>_File Extensions</b>"
+msgstr "Končnice vrst datotek"
+
+#: ../latex/ui/configure_tool.ui.h:5
+#, fuzzy
+msgid "<b>_Jobs</b>"
+msgstr "Opravila"
+
+#: ../latex/ui/configure_tool.ui.h:6
+#, fuzzy
+msgid "<b>_Label</b>"
+msgstr "oznaka"
+
+#: ../latex/ui/configure_tool.ui.h:7
+msgid "Remember to run all commands in batch mode (e.g. append <tt>-interaction batchmode</tt> to <tt>latex</tt>)"
+msgstr ""
+
+#: ../latex/ui/configure_tool.ui.h:8
+msgid "Valid placeholders are <tt>$filename</tt>, <tt>$shortname</tt>, <tt>$directory</tt>"
+msgstr "Veljavna držala so <tt>$filename</tt>, <tt>$shortname</tt> in <tt>$directory</tt>"
+
+#: ../latex/ui/configure_tool.ui.h:9
+#, fuzzy
+msgid "_Generated"
+msgstr "Ustvarjenih %(n)s iger"
+
+#: ../latex/ui/configure_tool.ui.h:10
+#, fuzzy
+msgid "_User Defined:"
+msgstr "Uporabniško določeno (%s)"
+
+#: ../latex/ui/insert_bibtex_entry.ui.h:1
+#, fuzzy
+msgid "Create Bibliography Entry"
+msgstr "Ustvari nov vnos"
+
+#: ../latex/ui/insert_bibtex_entry.ui.h:2
+#, fuzzy
+msgid "Optional Fields"
+msgstr "Dodatna polja"
+
+#: ../latex/ui/insert_bibtex_entry.ui.h:3
+#, fuzzy
+msgid "Required Fields"
+msgstr "Zahtevana polja"
+
+#: ../latex/ui/insert_bibtex_entry.ui.h:4
+#, fuzzy
+msgid "_Identifier:"
+msgstr "Določilo:"
+
+#: ../latex/ui/insert_bibtex_entry.ui.h:5
+#, fuzzy
+msgid "_Type:"
+msgstr "Vrs_ta:"
+
+#: ../latex/ui/insert_graphics_dialog.ui.h:2
+#, no-c-format
+msgid "% _of"
+msgstr ""
+
+#: ../latex/ui/insert_graphics_dialog.ui.h:3
+msgid "&#xB0; CCW"
+msgstr "&#xB0; CCW"
+
+#: ../latex/ui/insert_graphics_dialog.ui.h:4
+#, fuzzy
+msgid "Flip _Horizontally"
+msgstr "Zrcali _vodoravno"
+
+#: ../latex/ui/insert_graphics_dialog.ui.h:5
+#, fuzzy
+msgid "Floating _Object"
+msgstr "Predmet vsebuje"
+
+#: ../latex/ui/insert_graphics_dialog.ui.h:6
+#, fuzzy
+msgid "Image Size"
+msgstr "_Velikost slike:"
+
+#: ../latex/ui/insert_graphics_dialog.ui.h:7
+#, fuzzy
+msgid "Insert Graphics"
+msgstr "Grafična tema"
+
+#: ../latex/ui/insert_graphics_dialog.ui.h:8
+#, fuzzy
+msgid "Text Width"
+msgstr "Širina besedila"
+
+#: ../latex/ui/insert_graphics_dialog.ui.h:9
+#: ../latex/ui/insert_table_dialog.ui.h:4
+#, fuzzy
+msgid "_Caption:"
+msgstr "<i>Naslov:</i>"
+
+#: ../latex/ui/insert_graphics_dialog.ui.h:10
+#, fuzzy
+msgid "_File:"
+msgstr "_Datoteka:"
+
+#: ../latex/ui/insert_graphics_dialog.ui.h:11
+#: ../latex/ui/insert_table_dialog.ui.h:6
+#, fuzzy
+msgid "_Label:"
+msgstr "_Nalepka:"
+
+#: ../latex/ui/insert_graphics_dialog.ui.h:12
+#, fuzzy
+msgid "_Rotate:"
+msgstr "Zasukaj:"
+
+#: ../latex/ui/insert_graphics_dialog.ui.h:13
+#, fuzzy
+msgid "_Spread over two Columns"
+msgstr "Poravnaj stolpce po potenci števila dva"
+
+#: ../latex/ui/insert_graphics_dialog.ui.h:14
+#, fuzzy
+msgid "_Width:"
+msgstr "_Širina:"
+
+#: ../latex/ui/insert_graphics_dialog.ui.h:15
+msgid "fig:"
+msgstr ""
+
+#: ../latex/ui/insert_listing_dialog.ui.h:1
+#, fuzzy
+msgid "Insert Source Code Listing"
+msgstr "Poglej izvorno kodo strani"
+
+#: ../latex/ui/insert_listing_dialog.ui.h:2
+#, fuzzy
+msgid "Load From _File:"
+msgstr "_Naloži iz datoteke ..."
+
+#: ../latex/ui/insert_listing_dialog.ui.h:3
+#, fuzzy
+msgid "Programming _Language:"
+msgstr "Programski jezik"
+
+#: ../latex/ui/insert_listing_dialog.ui.h:4
+#, fuzzy
+msgid "_Dialect:"
+msgstr "Kasenna RTSP narečje"
+
+#: ../latex/ui/insert_table_dialog.ui.h:1
+#, fuzzy
+msgid "C_olumns:"
+msgstr "Stolp_ci:"
+
+#: ../latex/ui/insert_table_dialog.ui.h:2
+#, fuzzy
+msgid "Insert Table or Matrix"
+msgstr "Programnik razpredelnice (ali vrsta)"
+
+#: ../latex/ui/insert_table_dialog.ui.h:3
+#, fuzzy
+msgid "Type:"
+msgstr "Vrsta:"
+
+#: ../latex/ui/insert_table_dialog.ui.h:5
+#, fuzzy
+msgid "_Floating Object"
+msgstr "Predmet vsebuje"
+
+#: ../latex/ui/insert_table_dialog.ui.h:7
+#, fuzzy
+msgid "_Matrix:"
+msgstr "_Matrika:"
+
+#: ../latex/ui/insert_table_dialog.ui.h:8
+#, fuzzy
+msgid "_Rows:"
+msgstr "V_rstice:"
+
+#: ../latex/ui/insert_table_dialog.ui.h:9
+#, fuzzy
+msgid "_Table"
+msgstr "_Preglednica"
+
+#: ../latex/ui/insert_table_dialog.ui.h:10
+#, fuzzy
+msgid "tab:"
+msgstr "Tabulator"
+
+#: ../latex/ui/new_document_template_dialog.ui.h:1
+#, fuzzy
+msgid ".tex"
+msgstr "Oblikovanje s TeXom"
+
+#: ../latex/ui/new_document_template_dialog.ui.h:2
+#, fuzzy
+msgid "<b>Language Customization</b>"
+msgstr "Upravljalnik jezikov"
+
+#: ../latex/ui/new_document_template_dialog.ui.h:3
+#, fuzzy
+msgid "<b>Meta Information</b>"
+msgstr "Meta-podrobnosti"
+
+#: ../latex/ui/new_document_template_dialog.ui.h:4
+#, fuzzy
+msgid "<b>Style and Layout</b>"
+msgstr "Slog razporeditve opomnikov"
+
+#: ../latex/ui/new_document_template_dialog.ui.h:5
+#, fuzzy
+msgid "Base Font Size:"
+msgstr "_Dasher velikost pisave"
+
+#: ../latex/ui/new_document_template_dialog.ui.h:6
+#, fuzzy
+msgid "C_ustom:"
+msgstr "Po _meri:"
+
+#: ../latex/ui/new_document_template_dialog.ui.h:7
+#, fuzzy
+msgid "Date:"
+msgstr "Datum:"
+
+#: ../latex/ui/new_document_template_dialog.ui.h:8
+#, fuzzy
+msgid "De_fault"
+msgstr "_Privzeto"
+
+#: ../latex/ui/new_document_template_dialog.ui.h:9
+#, fuzzy
+msgid "Default F_ont Family:"
+msgstr "Vidno družini"
+
+#: ../latex/ui/new_document_template_dialog.ui.h:10
+#, fuzzy
+msgid "Di_rectory:"
+msgstr "_Številke:"
+
+#: ../latex/ui/new_document_template_dialog.ui.h:11
+#, fuzzy
+msgid "Document _Class:"
+msgstr "Osnovni razred:"
+
+#: ../latex/ui/new_document_template_dialog.ui.h:12
+#, fuzzy
+msgid "Include PDF _Metadata"
+msgstr "Dublin Core metapodatki"
+
+#: ../latex/ui/new_document_template_dialog.ui.h:13
+#, fuzzy
+msgid "New LaTeX Document"
+msgstr "Ustvari nov dokument"
+
+#: ../latex/ui/new_document_template_dialog.ui.h:14
+#, fuzzy
+msgid "T_emplate:"
+msgstr "Pr_edloga:"
+
+#: ../latex/ui/new_document_template_dialog.ui.h:15
+#, fuzzy
+msgid "To_day"
+msgstr "_Danes"
+
+#: ../latex/ui/new_document_template_dialog.ui.h:16
+#, fuzzy
+msgid "U_ser Defined:"
+msgstr "Uporabniško določeno (%s)"
+
+#: ../latex/ui/new_document_template_dialog.ui.h:17
+#, fuzzy
+msgid "_Author:"
+msgstr "_Avtor:"
+
+#: ../latex/ui/new_document_template_dialog.ui.h:18
+#, fuzzy
+msgid "_Babel Package:"
+msgstr "Dodaj _paket"
+
+#: ../latex/ui/new_document_template_dialog.ui.h:19
+#, fuzzy
+msgid "_Input Encoding:"
+msgstr "Privzet nabor znakov"
+
+#: ../latex/ui/new_document_template_dialog.ui.h:20
+#, fuzzy
+msgid "_Landscape"
+msgstr "_Ležeče"
+
+#: ../latex/ui/new_document_template_dialog.ui.h:21
+#: ../latex/ui/save_as_template_dialog.ui.h:3
+#, fuzzy
+msgid "_Name:"
+msgstr "_Ime:"
+
+#: ../latex/ui/new_document_template_dialog.ui.h:22
+#, fuzzy
+msgid "_Paper:"
+msgstr "Papir"
+
+#: ../latex/ui/new_document_template_dialog.ui.h:23
+#, fuzzy
+msgid "_Title:"
+msgstr "_Naziv:"
+
+#: ../latex/ui/new_document_template_dialog.ui.h:24
+#, fuzzy
+msgid "document"
+msgstr "dokument"
+
+#: ../latex/ui/new_document_template_dialog.ui.h:25
+#, fuzzy
+msgid "pt"
+msgstr "pik"
+
+#: ../latex/ui/save_as_template_dialog.ui.h:1
+msgid "Please specify a name for the new template."
+msgstr "Določite ime novi predlogi."
+
+#: ../latex/ui/save_as_template_dialog.ui.h:2
+#, fuzzy
+msgid "Save As Template"
+msgstr "Shrani kot _predlogo"
+
+#: ../latex/ui/save_as_template_dialog.ui.h:4
+#, fuzzy
+msgid "label"
+msgstr "oznaka"
+
+#: ../latex/ui/use_bibliography_dialog.ui.h:1
+#, fuzzy
+msgid "Bibliography _File:"
+msgstr "Datoteka preprečevanja:"
+
+#: ../latex/ui/use_bibliography_dialog.ui.h:2
+#, fuzzy
+msgid "Refresh Style Preview"
+msgstr "Omogoči predogled datotek"
+
+#: ../latex/ui/use_bibliography_dialog.ui.h:3
+#, fuzzy
+msgid "Style Preview:"
+msgstr "Predogled sloga"
+
+#: ../latex/ui/use_bibliography_dialog.ui.h:4
+#, fuzzy
+msgid "Use Bibliography"
+msgstr "Bibliografija (citat)"
+
+#: ../latex/ui/use_bibliography_dialog.ui.h:5
+#, fuzzy
+msgid "_Style:"
+msgstr "_Slog:"
+
