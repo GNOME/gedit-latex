@@ -72,7 +72,9 @@ class PreferencesColorProxy(object):
 		self._preferences = Preferences()
 		
 		# init value
-		#self._widget.set_color(Gdk.color_parse(self._preferences.get(key, default_value)))
+		ok, color = Gdk.color_parse(self._preferences.get(key, default_value))
+		if ok:
+			self._widget.set_color(color)
 		
 		# listen to change
 		self._widget.connect("color-set", self._on_color_set)
