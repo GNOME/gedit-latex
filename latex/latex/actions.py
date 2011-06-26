@@ -128,29 +128,6 @@ class LaTeXChooseMasterAction(LaTeXAction):
 			property_file.save()
 		
 		
-class LaTeXForwardSearchAction(LaTeXAction):
-	_log = getLogger("LaTeXForwardSearchAction")
-	
-	label = "Find Position In DVI"
-	stock_id = Gtk.STOCK_FIND
-	accelerator = None
-	tooltip = None
-	
-	def activate(self, context):
-		editor = context.active_editor
-		assert type(editor) is LaTeXEditor
-		
-		tex_filename = "%s.tex" % editor.edited_file.shortname
-		dvi_filename = "%s.dvi" % editor.file.shortname
-		line, column = editor.cursor_position
-		
-		command = "xdvi -sourceposition \"%s:%s %s\" \"%s\"" % (line + 1, column, tex_filename, dvi_filename)
-		self._log.debug(command)
-		
-		import os
-		os.system(command)
-
-
 from parser import LaTeXParser, Node
 from ..issues import MockIssueHandler
 

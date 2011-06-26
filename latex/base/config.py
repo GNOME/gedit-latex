@@ -46,7 +46,6 @@ UI = """
 					<separator />
 					<menuitem action="LaTeXCloseEnvironmentAction" />
 					<separator />
-					<menuitem action="LaTeXForwardSearchAction" />
 					<menuitem action="LaTeXBuildImageAction" />
 				</menu>
 				<menu action="BibTeXMenuAction">
@@ -120,7 +119,7 @@ from ..latex.actions import LaTeXMenuAction, LaTeXNewAction, LaTeXChooseMasterAc
 		LaTeXJustifyCenterAction, LaTeXJustifyRightAction, LaTeXMathMenuAction, LaTeXMathAction, LaTeXDisplayMathAction, \
 		LaTeXEquationAction, LaTeXUnEqnArrayAction, LaTeXEqnArrayAction, LaTeXUnderlineAction, LaTeXSmallCapitalsAction, \
 		LaTeXRomanAction, LaTeXSansSerifAction, LaTeXTypewriterAction, LaTeXCloseEnvironmentAction, LaTeXBlackboardBoldAction, \
-		LaTeXCaligraphyAction, LaTeXFrakturAction, LaTeXForwardSearchAction, LaTeXBuildImageAction, LaTeXSaveAsTemplateAction
+		LaTeXCaligraphyAction, LaTeXFrakturAction, LaTeXBuildImageAction, LaTeXSaveAsTemplateAction
 
 from ..bibtex.actions import BibTeXMenuAction, BibTeXNewEntryAction
 
@@ -132,7 +131,7 @@ ACTIONS = [ LaTeXMenuAction, LaTeXNewAction, LaTeXChooseMasterAction,
 		LaTeXJustifyCenterAction, LaTeXJustifyRightAction, LaTeXMathMenuAction, LaTeXMathAction, LaTeXDisplayMathAction, 
 		LaTeXEquationAction, LaTeXUnEqnArrayAction, LaTeXEqnArrayAction, LaTeXUnderlineAction, LaTeXSmallCapitalsAction, 
 		LaTeXRomanAction, LaTeXSansSerifAction, LaTeXTypewriterAction, LaTeXCloseEnvironmentAction, LaTeXBlackboardBoldAction, 
-		LaTeXCaligraphyAction, LaTeXFrakturAction, LaTeXForwardSearchAction, LaTeXBuildImageAction, LaTeXSaveAsTemplateAction, 
+		LaTeXCaligraphyAction, LaTeXFrakturAction, LaTeXBuildImageAction, LaTeXSaveAsTemplateAction, 
 		BibTeXMenuAction, BibTeXNewEntryAction ]
 
 # views

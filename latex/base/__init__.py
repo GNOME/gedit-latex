@@ -598,15 +598,6 @@ class Editor(object):
 		return self._text_buffer.get_encoding().get_charset()
 	
 	@property
-	def cursor_position(self):
-		"""
-		@return: a tuple containing (line, column)
-		"""
-		# only need by LaTeXForwardSearchAction
-		iter = self._text_buffer.get_iter_at_mark(self._text_buffer.get_insert())
-		return (iter.get_line(), iter.get_line_offset())
-	
-	@property
 	def content(self):
 		"""
 		Return the string contained in the TextBuffer
