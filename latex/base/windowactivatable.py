@@ -89,8 +89,7 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
 		self._signal_handlers = [
 				self.window.connect("tab_added", self._on_tab_added),
 				self.window.connect("tab_removed", self._on_tab_removed),
-				self.window.connect("active_tab_changed", self._on_active_tab_changed),
-				self.window.connect("destroy", self._on_window_destroyed) ]
+				self.window.connect("active_tab_changed", self._on_active_tab_changed) ]
 
 	def do_deactivate(self):
 		"""
@@ -107,8 +106,8 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
 		self._tab_decorators = {}
 
 		# disconnect from tab signals
-		for id in self._signal_handlers:
-			self.window.disconnect(id)
+		for handler in self._signal_handlers:
+			self.window.disconnect(handler)
 		del self._signal_handlers
 
 		# remove all views
