@@ -7,6 +7,7 @@ plugin_PYTHON = \
 	__init__.py \
 	job.py \
 	resources.py \
-	templates.py
+	templates.py \
+	windowactivatable.py
 
 -include $(top_srcdir)/git.mk

@@ -23,8 +23,7 @@ base.completion
 """
 
 from logging import getLogger
-from gi.repository import Gtk, Gdk, GdkPixbuf
-from gi.repository import GObject
+from gi.repository import GObject, Gtk, Gdk, GdkPixbuf
 
 from ..preferences import Preferences
 
@@ -48,7 +47,7 @@ class ProposalPopup(Gtk.Window):
 	
 	def __init__(self):
 		if not '_ready' in dir(self):
-			GObject.GObject.__init__(self,type=Gtk.WindowType.POPUP)
+			Gtk.Window.__init__(self,type=Gtk.WindowType.POPUP)
 			#self, Gtk.WindowType.POPUP)
 			
 			self._store = Gtk.ListStore(str, object, GdkPixbuf.Pixbuf)		# markup, Proposal instance
@@ -237,7 +236,7 @@ class DetailsPopup(Gtk.Window):
 	"""
 	
 	def __init__(self):
-		GObject.GObject.__init__(self, type=Gtk.WindowType.POPUP)
+		Gtk.Window.__init__(self, type=Gtk.WindowType.POPUP)
 		
 		self._color = Preferences().get("LightForeground", "#7f7f7f")
 		
