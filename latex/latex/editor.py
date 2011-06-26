@@ -44,10 +44,10 @@ from validator import LaTeXValidator
 from dialogs import ChooseMasterDialog
 
 from . import LaTeXSource, PropertyFile
-from ..preferences import Preferences, IPreferencesMonitor
+from ..preferences import Preferences
 
 
-class LaTeXEditor(Editor, IIssueHandler, IPreferencesMonitor):
+class LaTeXEditor(Editor, IIssueHandler):
 	
 	_log = getLogger("LaTeXEditor")
 	
@@ -73,7 +73,7 @@ class LaTeXEditor(Editor, IIssueHandler, IPreferencesMonitor):
 		self._context = context
 		
 		self._preferences = Preferences()
-		self._preferences.register_monitor(self)	# listen to 'Show...InOutline' settings
+		self._preferences.connect("preferences-changed", self._on_preferences_changed)
 
 		self.register_marker_type("latex-error", self._preferences.get("ErrorBackgroundColor"))
 		self.register_marker_type("latex-warning", self._preferences.get("WarningBackgroundColor"))
@@ -101,9 +101,7 @@ class LaTeXEditor(Editor, IIssueHandler, IPreferencesMonitor):
 		self.__parse()
 		self.__update_neighbors()
 	
-	def _on_value_changed(self, key, new_value):
-		# see preferences.IPreferencesMonitor._on_value_changed
-		
+	def _on_preferences_changed(self, prefs, key, new_value):
 		if key in ["ShowLabelsInOutline", "ShowTablesInOutline", "ShowGraphicsInOutline"]:
 			# regenerate outline model
 			if self._document_is_master:
@@ -409,9 +407,6 @@ class LaTeXEditor(Editor, IIssueHandler, IPreferencesMonitor):
 		return self._file
 
 	def destroy(self):
-		# stop listening preferences
-		self._preferences.remove_monitor(self)
-
 		# unreference the window context
 		del self._context
 		

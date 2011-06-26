@@ -44,19 +44,14 @@ def str_to_bool(x):
 	else:
 		print "str_to_bool: unsupported type %s" % str(type(x))
 
-
-class IPreferencesMonitor(object):
-	"""
-	This is not a real interface as classes don't have to implement all
-	methods
-	"""
-	def _on_value_changed(self, key, new_value):
-		"""
-		A simple key-value-pair has changed
-		"""
-
 @singleton
-class Preferences(object):
+class Preferences(GObject.GObject):
+
+	__gsignals__ = {
+		"preferences-changed": (
+			GObject.SignalFlags.RUN_LAST, None, [str, str]),
+	}
+
 	"""
 	A simple map storing preferences as key-value-pairs
 	"""
@@ -64,27 +59,11 @@ class Preferences(object):
 	_log = getLogger("Preferences")
 	
 	def __init__(self):
-		self.__monitors = []
+		GObject.GObject.__init__(self)
 		self.__preferences_changed = False
 		self.__preferences = ElementTree.parse(
 						find_resource("preferences.xml", MODE_READWRITE)).getroot()
 		self._log.debug("Constructed")
-	
-	def register_monitor(self, monitor):
-		"""
-		Register an object monitoring the preferences
-		
-		@param monitor: an object implementing IPreferencesMonitor 
-		"""
-		self.__monitors.append(monitor)
-		
-	def remove_monitor(self, monitor):
-		"""
-		Remove a monitor
-		
-		@raise ValueError: if monitor is not found
-		"""
-		del self.__monitors[self.__monitors.index(monitor)]
 	
 	def get(self, key, default_value=None):
 		"""
@@ -124,19 +103,14 @@ class Preferences(object):
 		value_element.text = str(value)
 		
 		self.__preferences_changed = True
-		
-		for monitor in self.__monitors:
-			monitor._on_value_changed(key, value)
+		self.emit("preferences-changed", str(key), str(value))
 	
 	def save(self):
 		"""
 		Save the preferences to XML
 		"""
 		if self.__preferences_changed:
+			self.__preferences_changed = False
 			self._log.debug("Saving preferences...")
-		
 			tree = ElementTree.ElementTree(self.__preferences)
 			tree.write(find_resource("preferences.xml", MODE_READWRITE), encoding="utf-8")
-			
-			self.__preferences_changed = False
-

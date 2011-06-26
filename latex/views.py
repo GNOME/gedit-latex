@@ -25,14 +25,14 @@ views
 from gi.repository import Gtk, GdkPixbuf
 from logging import getLogger
 
-from preferences import Preferences, IPreferencesMonitor
+from preferences import Preferences
 from base.resources import find_resource
 from base import View, BottomView
 from issues import Issue
 from util import escape
 
 
-class IssueView(BottomView, IPreferencesMonitor):
+class IssueView(BottomView):
 	"""
 	"""
 	
@@ -51,6 +51,7 @@ class IssueView(BottomView, IPreferencesMonitor):
 		self._log.debug("init")
 		
 		self._preferences = Preferences()
+		self._preferences.connect("preferences-changed", self._on_preferences_changed)
 		self._show_tasks = self._preferences.get_bool("IssuesShowTasks", True)
 		self._show_warnings = self._preferences.get_bool("IssuesShowWarnings", True)
 		
@@ -130,7 +131,6 @@ class IssueView(BottomView, IPreferencesMonitor):
 		ctx.add_class("inline-toolbar")
 		
 		self._issues = []
-		self._preferences.register_monitor(self)
 		
 		self._log.debug("init finished")
 	
@@ -147,7 +147,7 @@ class IssueView(BottomView, IPreferencesMonitor):
 			#~ self._context.active_editor.select(issue.start, issue.end)
 		self._editor.select(issue.start, issue.end)
 	
-	def _on_value_changed(self, key, value):
+	def _on_preferences_changed(self, prefs, key, value):
 		if key == "IssuesShowWarnings" or key == "IssuesShowTasks":
 			# update filter
 			self._store.clear()
@@ -202,7 +202,6 @@ class IssueView(BottomView, IPreferencesMonitor):
 		
 	def destroy(self):
 		del self._editor
-		self._preferences.remove_monitor(self)
 		for obj in self._handlers:
 			obj.disconnect(self._handlers[obj])
 		BottomView.destroy(self)
