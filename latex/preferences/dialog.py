@@ -28,7 +28,10 @@ from gi.repository import Gdk
 
 from ..base.resources import find_resource, MODE_READWRITE
 from ..util import GladeInterface
-from . import Preferences, IPreferencesMonitor
+from ..tools import Tool, Job
+
+from . import Preferences
+from .tools import ToolPreferences
 
 def _insert_column_with_attributes(view, pos, title, rend, **kwargs):
 	print kwargs
@@ -98,9 +101,6 @@ class PreferencesColorProxy(object):
 		return "#%02x%02x%02x" % (r, g, b)
 
 
-from ..tools import Tool, Job
-
-
 class ConfigureToolDialog(GladeInterface):
 	"""
 	Wraps the dialog for setting up a Tool
@@ -146,7 +146,7 @@ class ConfigureToolDialog(GladeInterface):
 			
 			tool.jobs = []
 			for row in self._store_job:
-				pp_class = self._preferences.POST_PROCESSORS[row[2]]
+				pp_class = self._tool_preferences.POST_PROCESSORS[row[2]]
 				tool.jobs.append(Job(row[0], row[1], pp_class))
 				
 			tool.extensions = []
@@ -199,7 +199,7 @@ class ConfigureToolDialog(GladeInterface):
 			commandRenderer.connect("edited", self._on_job_command_edited)
 
 			self._store_pp = Gtk.ListStore(str)
-			for p in self._preferences.POST_PROCESSORS.iterkeys():
+			for p in self._tool_preferences.POST_PROCESSORS.iterkeys():
 				self._store_pp.append([p])
 			
 			ppRenderer = Gtk.CellRendererCombo()
@@ -351,7 +351,7 @@ class ConfigureToolDialog(GladeInterface):
 	
 
 
-class PreferencesDialog(GladeInterface, IPreferencesMonitor):
+class PreferencesDialog(GladeInterface):
 	"""
 	This controls the configure dialog
 	"""
@@ -383,6 +383,7 @@ class PreferencesDialog(GladeInterface, IPreferencesMonitor):
 			#
 			# tools
 			#
+			self._tool_preferences = ToolPreferences()
 			
 			# grab widgets
 
@@ -398,8 +399,9 @@ class PreferencesDialog(GladeInterface, IPreferencesMonitor):
 			_insert_column_with_attributes(self._view_tool, -1, "File Extensions", Gtk.CellRendererText(), text=1)
 			
 			# init tool and listen to tool changes
-			self.__load_tools()
-			self._preferences.register_monitor(self)
+			self._load_tools()
+			self._tool_preferences.connect("tools-changed", self._on_tools_changed)
+
 			
 			# misc
 			check_hide_box = self.find_widget("checkHideBox")
@@ -458,11 +460,10 @@ class PreferencesDialog(GladeInterface, IPreferencesMonitor):
 		value = togglebutton.get_active()
 		self._preferences.set("HideBoxWarnings", value)
 	
-	def _on_tools_changed(self):
-		# see IPreferencesMonitor._on_tools_changed
-		self.__load_tools()
+	def _on_tools_changed(self, tools):
+		self._load_tools()
 	
-	def __load_tools(self):
+	def _load_tools(self):
 		# save cursor
 		store, iter = self._view_tool.get_selection().get_selected()
 		if iter is None:
@@ -473,7 +474,7 @@ class PreferencesDialog(GladeInterface, IPreferencesMonitor):
 		
 		# reload tools
 		self._store_tool.clear()
-		for tool in self._preferences.tools:
+		for tool in self._tool_preferences.tools:
 			self._store_tool.append(["<b>%s</b>" % tool.label, ", ".join(tool.extensions), tool])
 		
 		# restore cursor
@@ -527,7 +528,7 @@ class PreferencesDialog(GladeInterface, IPreferencesMonitor):
 		tool_2 = store.get_value(iter_next, 2)
 		
 		# swap tools in preferences
-		self._preferences.swap_tools(tool_1, tool_2)
+		self._tool_preferences.swap_tools(tool_1, tool_2)
 		
 		# adjust selection
 		self._view_tool.get_selection().select_path(str(index_next))
@@ -538,7 +539,7 @@ class PreferencesDialog(GladeInterface, IPreferencesMonitor):
 		tool = Tool("New Tool", [], "", [".tex"])
 		
 		if not dialog.run(tool) is None:
-			self._preferences.save_or_update_tool(tool)
+			self._tool_preferences.save_or_update_tool(tool)
 	
 	def _on_delete_bib_clicked(self, button):
 		pass

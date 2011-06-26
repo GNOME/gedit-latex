@@ -28,6 +28,19 @@ the project
 import logging
 from gi.repository import GdkPixbuf
 
+def singleton(cls):
+	"""
+	Singleton decorator that works with GObject derived types. The 'recommended'
+	python one - http://wiki.python.org/moin/PythonDecoratorLibrary#Singleton
+	does not (interacts badly with GObjectMeta
+	"""
+	instances = {}
+	def getinstance():
+		if cls not in instances:
+			instances[cls] = cls()
+		return instances[cls]
+	return getinstance
+
 def require(arg_name, *allowed_types):
 	"""
 	Type-checking decorator (see http://code.activestate.com/recipes/454322/)

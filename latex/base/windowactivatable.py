@@ -28,15 +28,16 @@ import string
 
 logging.basicConfig(level=logging.DEBUG, format="%(asctime)s %(levelname)s	%(name)s - %(message)s")
 
-from ..preferences import Preferences, IPreferencesMonitor
+from ..preferences import Preferences
 from ..preferences.dialog import PreferencesDialog
+from ..preferences.tools import ToolPreferences
 from ..tools import ToolAction
 from ..tools.views import ToolView
 from config import UI, WINDOW_SCOPE_VIEWS, EDITOR_SCOPE_VIEWS, ACTIONS
 from . import File, SideView, BottomView, WindowContext
 from decorators import GeditTabDecorator
 
-class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Configurable, IPreferencesMonitor):
+class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Configurable):
 	__gtype_name__ =  "LaTeXWindowActivatable"
 
 	"""
@@ -67,7 +68,8 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
 		Called when the window extension is activated
 		"""
 		self._preferences = Preferences()
-		self._preferences.register_monitor(self)
+		self._tool_preferences = ToolPreferences()
+		self._tool_preferences.connect("tools-changed", self._on_tools_changed)
 		
 		#
 		# initialize context object
@@ -97,7 +99,7 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
 		"""
 		# save preferences and stop listening
 		self._preferences.save()
-		self._preferences.remove_monitor(self)
+		self._tool_preferences.save()
 		
 		# destroy tab decorators
 		self._active_tab_decorator = None
@@ -259,7 +261,7 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
 		
 		i = 1					# counting tool actions
 		accel_counter = 1		# counting tool actions without custom accel
-		for tool in self._preferences.tools:
+		for tool in self._tool_preferences.tools:
 			# hopefully unique action name
 			name = "Tool%sAction" % i
 			
@@ -312,10 +314,6 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
 		self._save_action.activate()
 	
 	def _on_tools_changed(self):
-		# FIXME: tools reload doesn't work
-		# UPDATE: should work now
-		
-		# see IPreferencesMonitor._on_tools_changed
 		self._log.debug("_on_tools_changed")
 		
 		# remove tool actions and ui
