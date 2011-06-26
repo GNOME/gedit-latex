@@ -21,22 +21,28 @@
 """
 latex.actions
 """
-
-from logging import getLogger
 from gi.repository import Gtk
 
-from ..base import Action
-from ..util import IconAction
-from ..preferences import Preferences
+from logging import getLogger
 
+from ..base import Action, Template, File
+from ..base.resources import find_resource
+from ..preferences import Preferences
+from ..util import IconAction
+from ..issues import MockIssueHandler
+from ..tools import ToolRunner
+from .editor import LaTeXEditor
+from .parser import LaTeXParser, Node
+from .dialogs import UseBibliographyDialog, InsertGraphicsDialog, InsertTableDialog, \
+					InsertListingDialog, BuildImageDialog, SaveAsTemplateDialog, \
+					NewDocumentDialog, ChooseMasterDialog
+from . import LaTeXSource, PropertyFile
 
 class LaTeXAction(Action):
-	#extensions = [".tex"]
 	extensions = Preferences().get("LatexExtensions", ".tex").split(" ")
 
 
 class LaTeXIconAction(IconAction):
-	#extensions = [".tex"]
 	extensions = Preferences().get("LatexExtensions", ".tex").split(" ")
 
 
@@ -69,13 +75,6 @@ class LaTeXMenuAction(LaTeXAction):
 		pass
 
 
-from ..base import Template, File
-from ..base.resources import find_resource
-from . import LaTeXSource
-from dialogs import NewDocumentDialog
-from editor import LaTeXEditor
-
-
 class LaTeXNewAction(Action):
 	label = "New LaTeX Document..."
 	stock_id = Gtk.STOCK_NEW
@@ -96,10 +95,6 @@ class LaTeXNewAction(Action):
 			file = self._dialog.file
 			file.create(self._dialog.source)
 			context.activate_editor(file)
-
-
-from dialogs import ChooseMasterDialog
-from . import PropertyFile
 
 
 class LaTeXChooseMasterAction(LaTeXAction):
@@ -128,10 +123,6 @@ class LaTeXChooseMasterAction(LaTeXAction):
 			property_file.save()
 		
 		
-from parser import LaTeXParser, Node
-from ..issues import MockIssueHandler
-
-
 class LaTeXCloseEnvironmentAction(LaTeXIconAction):
 	_log = getLogger("LaTeXCloseEnvironmentAction")
 	
@@ -198,7 +189,6 @@ class LaTeXUseBibliographyAction(LaTeXIconAction):
 	
 	def activate(self, context):
 		if not self._dialog:
-			from dialogs import UseBibliographyDialog
 			self._dialog = UseBibliographyDialog()
 			
 		source = self._dialog.run_dialog(context.active_editor.edited_file)
@@ -209,8 +199,6 @@ class LaTeXUseBibliographyAction(LaTeXIconAction):
 			
 			editor.insert_at_position(source + "\n\n", LaTeXEditor.POSITION_BIBLIOGRAPHY)
 	
-
-from ..util import verbose
 
 class LaTeXFontFamilyAction(LaTeXIconAction):
 	menu_tool_action = True
@@ -408,7 +396,6 @@ class LaTeXGraphicsAction(LaTeXIconAction):
 	
 	def activate(self, context):
 		if not self.dialog:
-			from dialogs import InsertGraphicsDialog
 			self.dialog = InsertGraphicsDialog()
 		source = self.dialog.run(context.active_editor.edited_file)
 		if source:
@@ -425,7 +412,6 @@ class LaTeXTableAction(LaTeXIconAction):
 	
 	def activate(self, context):
 		if not self.dialog:
-			from dialogs import InsertTableDialog
 			self.dialog = InsertTableDialog()
 		source = self.dialog.run()
 		if source:
@@ -442,14 +428,10 @@ class LaTeXListingAction(LaTeXIconAction):
 	
 	def activate(self, context):
 		if not self.dialog:
-			from dialogs import InsertListingDialog
 			self.dialog = InsertListingDialog()
 		source = self.dialog.run(context.active_editor.edited_file)
 		if source:
 			context.active_editor.insert(source)
-
-
-from ..tools import ToolRunner
 
 
 class LaTeXBuildImageAction(LaTeXIconAction):
@@ -462,7 +444,6 @@ class LaTeXBuildImageAction(LaTeXIconAction):
 	
 	def activate(self, context):
 		if not self.dialog:
-			from dialogs import BuildImageDialog
 			self.dialog = BuildImageDialog()
 			
 		tool = self.dialog.run()
@@ -556,8 +537,6 @@ class LaTeXSaveAsTemplateAction(LaTeXAction):
 	stock_id = Gtk.STOCK_SAVE_AS
 	
 	def activate(self, context):
-		from dialogs import SaveAsTemplateDialog
-		
 		dialog = SaveAsTemplateDialog()
 		file = dialog.run()
 		
