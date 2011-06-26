@@ -187,7 +187,7 @@ class ToolView(BottomView, IStructuredIssueHandler):
 				icon = self._ICON_WARNING
 			elif issue.severity == Issue.SEVERITY_ERROR:
 				icon = self._ICON_ERROR
-			self._store.append(partition_id, [icon, issue.message, issue.file.basename, issue.start, issue])
+			self._store.append(partition_id, [icon, issue.message, issue.file.basename, str(issue.start), issue])
 			
 			self._log.debug(str(issue))
 			
