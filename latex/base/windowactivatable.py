@@ -460,12 +460,6 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
 				pass
 		
 		#
-		# save selection state
-		#
-		self._selected_bottom_views[tab_decorator] = self._get_selected_bottom_view()
-		self._selected_side_views[tab_decorator] = self._get_selected_side_view()
-		
-		#
 		# adjust editor-scope views
 		#
 		
@@ -571,40 +565,6 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
 		# update window context
 		#
 		self._window_context.window_scope_views = self._views
-		
-		#
-		# restore selection state
-		#
-		self._set_selected_bottom_view(self._selected_bottom_views[tab_decorator])
-		self._set_selected_side_view(self._selected_side_views[tab_decorator])
-
-	def _get_selected_bottom_view(self):
-		notebook = self.window.get_bottom_panel().get_children()[0].get_children()[0]
-		assert type(notebook) is Gtk.Notebook
-		
-		return notebook.get_current_page()
-	
-	def _get_selected_side_view(self):
-		notebook = self.window.get_side_panel().get_children()[1]
-		assert type(notebook) is Gtk.Notebook
-		
-		return notebook.get_current_page()
-	
-	def _set_selected_bottom_view(self, view):
-		notebook = self.window.get_bottom_panel().get_children()[0].get_children()[0]
-		assert type(notebook) is Gtk.Notebook
-		
-		self._log.debug("_set_selected_bottom_view: %s" % view)
-		
-		notebook.set_current_page(view)
-	
-	def _set_selected_side_view(self, view):
-		notebook = self.window.get_side_panel().get_children()[1]
-		assert type(notebook) is Gtk.Notebook
-		
-		self._log.debug("_set_selected_side_view: %s" % view)
-		
-		notebook.set_current_page(view)
 	
 	def _on_tab_added(self, window, tab):
 		"""
