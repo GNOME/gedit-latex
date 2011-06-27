@@ -59,48 +59,6 @@ class PreferencesSpinButtonProxy(object):
 	def _on_value_changed(self, spin_button):
 		self._preferences.set(self._key, spin_button.get_value_as_int())
 		
-
-class PreferencesColorProxy(object):
-	"""
-	This connects to a Gdk.Color and gets/sets the value of a certain
-	preference
-	"""
-	def __init__(self, widget, key):
-		"""
-		@param widget: the Gtk.Widget that serves as a proxy
-		@param key: the key of the preferences field to be managed
-		"""
-		self._widget = widget
-		self._key = key
-		self._preferences = Preferences()
-		
-		# init value
-		ok, color = Gdk.color_parse(self._preferences.get(key))
-		if ok:
-			self._widget.set_color(color)
-		
-		# listen to change
-		self._widget.connect("color-set", self._on_color_set)
-	
-	def _on_color_set(self, color_button):
-		self._preferences.set(self._key, self._color_to_hex(color_button.get_color()))
-	
-	def _color_to_hex(self, color):
-		"""
-		Convert the value of a Gdk.Color widget to a hex color value
-		
-		@param color: Gdk.Color
-		"""
-		
-		# Gdk.Color components have range 0-65535
-		
-		r = int((float(color.red) / 65535.0) * 255.0)
-		g = int((float(color.green) / 65535.0) * 255.0)
-		b = int((float(color.blue) / 65535.0) * 255.0)
-		
-		return "#%02x%02x%02x" % (r, g, b)
-
-
 class ConfigureToolDialog(GladeInterface):
 	"""
 	Wraps the dialog for setting up a Tool
@@ -417,15 +375,9 @@ class PreferencesDialog(GladeInterface):
 			
 			
 			#
-			# proxies for ColorButtons and SpinButtons
+			# proxies for SpinButtons
 			#
-			self._proxies = [ PreferencesColorProxy(self.find_widget("colorLight"), "light-foreground-color"),
-									PreferencesColorProxy(self.find_widget("colorWarning"), "warning-background-color"),
-									PreferencesColorProxy(self.find_widget("colorError"), "error-background-color"),
-									PreferencesColorProxy(self.find_widget("colorTemplateBackground"), "template-background-color"),
-									PreferencesColorProxy(self.find_widget("colorPlaceholderBackground"), "placeholder-background-color"),
-									PreferencesColorProxy(self.find_widget("colorPlaceholderForeground"), "placeholder-foreground-color"),
-									PreferencesSpinButtonProxy(self.find_widget("spinMaxBibSize"), "maximum-bibtex-size") ]
+			self._proxies = [PreferencesSpinButtonProxy(self.find_widget("spinMaxBibSize"), "maximum-bibtex-size")]
 			
 			#
 			# signals
