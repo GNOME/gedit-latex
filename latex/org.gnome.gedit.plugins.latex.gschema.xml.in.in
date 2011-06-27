@@ -1,0 +1,68 @@
+<schemalist>
+  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gedit.plugins.latex" path="/org/gnome/gedit/plugins/latex/">
+    <key name="maximum-bibtex-size" type="i">
+      <default>500</default>
+      <_summary>Maximum BibTeX Size</_summary>
+    </key>
+    <key name="outline-connect-to-editor" type="b">
+      <default>true</default>
+      <_summary>Connect Outline to Editor</_summary>
+    </key>
+    <key name="outline-show-labels" type="b">
+      <default>false</default>
+      <_summary>Show Labels in Outline</_summary>
+    </key>
+    <key name="outline-show-tables" type="b">
+      <default>true</default>
+      <_summary>Show Tables in Outline</_summary>
+    </key>
+    <key name="outline-show-graphics" type="b">
+      <default>true</default>
+      <_summary>Show Graphics in Outline</_summary>
+    </key>
+    <key name="issues-show-warnings" type="b">
+      <default>true</default>
+      <_summary>Show Warnings in Issues</_summary>
+    </key>
+    <key name="issues-show-tasks" type="b">
+      <default>true</default>
+      <_summary>Show Tasks in Issues</_summary>
+    </key>
+    <key name="hide-box-warnings" type="b">
+      <default>false</default>
+      <_summary>Hide Box Warnings</_summary>
+    </key>
+    <key name="show-latex-toolbar" type="b">
+      <default>true</default>
+      <_summary>Show LaTeX Toolbar</_summary>
+    </key>
+    <key name="expanded-symbol-groups" type="s">
+      <default>'Greek,Operators,Arrows,Special'</default>
+      <_summary>Exanded Symbol Groups</_summary>
+    </key>
+    <key name="latex-extensions" type="s">
+      <default>'.tex,.sty,.Rnw'</default>
+      <_summary>LaTeX Extensions</_summary>
+    </key>
+
+    <key name="light-foreground-color" type="s">
+      <default>'#957d47'</default>
+    </key>
+    <key name="error-background-color" type="s">
+      <default>'#ffdddd'</default>
+    </key>
+    <key name="warning-background-color" type="s">
+      <default>'#ffffcf'</default>
+    </key>
+    <key name="template-background-color" type="s">
+      <default>'#f2f7ff'</default>
+    </key>
+    <key name="placeholder-background-color" type="s">
+      <default>'#d6e4ff'</default>
+    </key>
+    <key name="placeholder-foreground-color" type="s">
+      <default>'#2a66e1'</default>
+    </key>
+
+  </schema>
+</schemalist>

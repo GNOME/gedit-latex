@@ -42,7 +42,7 @@ def _insert_column_with_attributes(view, pos, title, rend, **kwargs):
 	view.insert_column(tv, pos)
 
 class PreferencesSpinButtonProxy(object):
-	def __init__(self, widget, key, default_value):
+	def __init__(self, widget, key):
 		"""
 		@param widget: a SpinButton widget
 		@param key: 
@@ -52,7 +52,7 @@ class PreferencesSpinButtonProxy(object):
 		self._key = key
 		self._preferences = Preferences()
 		
-		self._widget.set_value(int(self._preferences.get(key, default_value)))
+		self._widget.set_value(int(self._preferences.get(key)))
 		
 		self._widget.connect("value-changed", self._on_value_changed)
 	
@@ -65,7 +65,7 @@ class PreferencesColorProxy(object):
 	This connects to a Gdk.Color and gets/sets the value of a certain
 	preference
 	"""
-	def __init__(self, widget, key, default_value):
+	def __init__(self, widget, key):
 		"""
 		@param widget: the Gtk.Widget that serves as a proxy
 		@param key: the key of the preferences field to be managed
@@ -75,7 +75,7 @@ class PreferencesColorProxy(object):
 		self._preferences = Preferences()
 		
 		# init value
-		ok, color = Gdk.color_parse(self._preferences.get(key, default_value))
+		ok, color = Gdk.color_parse(self._preferences.get(key))
 		if ok:
 			self._widget.set_color(color)
 		
@@ -405,27 +405,27 @@ class PreferencesDialog(GladeInterface):
 			
 			# misc
 			check_hide_box = self.find_widget("checkHideBox")
-			check_hide_box.set_active(self._preferences.get_bool("HideBoxWarnings", False))
+			check_hide_box.set_active(self._preferences.get_bool("hide-box-warnings"))
 			
 			
 			check_show_toolbar = self.find_widget("checkShowToolbar")
-			check_show_toolbar.set_active(self._preferences.get_bool("ShowLatexToolbar", True))
+			check_show_toolbar.set_active(self._preferences.get_bool("show-latex-toolbar"))
 			
 			
 			filechooser_tmp = self.find_widget("filechooserTemplates")
-			filechooser_tmp.set_filename(self._preferences.get("TemplateFolder", find_resource("templates", MODE_READWRITE)))
+			filechooser_tmp.set_filename(self._preferences.TEMPLATE_DIR)
 			
 			
 			#
 			# proxies for ColorButtons and SpinButtons
 			#
-			self._proxies = [ PreferencesColorProxy(self.find_widget("colorLight"), "LightForeground", "#957d47"),
-									PreferencesColorProxy(self.find_widget("colorWarning"), "WarningBackgroundColor", "#ffffcf"),
-									PreferencesColorProxy(self.find_widget("colorError"), "ErrorBackgroundColor", "#ffdddd"),
-									PreferencesColorProxy(self.find_widget("colorTemplateBackground"), "TemplateBackgroundColor", "#f2f7ff"),
-									PreferencesColorProxy(self.find_widget("colorPlaceholderBackground"), "PlaceholderBackgroundColor", "#d6e4ff"),
-									PreferencesColorProxy(self.find_widget("colorPlaceholderForeground"), "PlaceholderForegroundColor", "#2a66e1"),
-									PreferencesSpinButtonProxy(self.find_widget("spinMaxBibSize"), "MaximumBibTeXSize", 500) ]
+			self._proxies = [ PreferencesColorProxy(self.find_widget("colorLight"), "light-foreground-color"),
+									PreferencesColorProxy(self.find_widget("colorWarning"), "warning-background-color"),
+									PreferencesColorProxy(self.find_widget("colorError"), "error-background-color"),
+									PreferencesColorProxy(self.find_widget("colorTemplateBackground"), "template-background-color"),
+									PreferencesColorProxy(self.find_widget("colorPlaceholderBackground"), "placeholder-background-color"),
+									PreferencesColorProxy(self.find_widget("colorPlaceholderForeground"), "placeholder-foreground-color"),
+									PreferencesSpinButtonProxy(self.find_widget("spinMaxBibSize"), "maximum-bibtex-size") ]
 			
 			#
 			# signals
@@ -447,18 +447,16 @@ class PreferencesDialog(GladeInterface):
 	
 	def _on_show_toolbar_toggled(self, togglebutton):
 		value = togglebutton.get_active()
-		self._preferences.set("ShowLatexToolbar", value)
+		self._preferences.set("show-latex-toolbar", value)
 	
 	def _on_templates_dir_changed(self, filechooser):
 		folder = filechooser.get_filename()
 		if folder is None:
 			return
 		
-		self._preferences.set("TemplateFolder", folder)
-	
 	def _on_hide_box_toggled(self, togglebutton):
 		value = togglebutton.get_active()
-		self._preferences.set("HideBoxWarnings", value)
+		self._preferences.set("hide-box-warnings", value)
 	
 	def _on_tools_changed(self, tools):
 		self._load_tools()

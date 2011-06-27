@@ -404,8 +404,8 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
 		
 		# FIXME: a hack again...
 		# the toolbar should hide when it doesn't contain any visible items
-		latex_extensions = self._preferences.get("LatexExtensions", ".tex").split(" ")
-		show_toolbar = self._preferences.get_bool("ShowLatexToolbar", True)
+		latex_extensions = self._preferences.get("latex-extensions").split(",")
+		show_toolbar = self._preferences.get_bool("show-latex-toolbar")
 		if show_toolbar and extension in latex_extensions:
 			self._toolbar.show()
 		else:

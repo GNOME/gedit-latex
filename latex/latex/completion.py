@@ -237,7 +237,7 @@ class PrefixModelParser(object):
 	
 	def __init__(self, language_model):
 		self.__language_model = language_model
-		self.__light_foreground = Preferences().get("LightForeground", "#957d47")
+		self.__light_foreground = Preferences().get("light-foreground-color")
 	
 	def __create_proposals_from_commands(self, commands, overlap):
 		"""

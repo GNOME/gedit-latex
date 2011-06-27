@@ -238,7 +238,7 @@ class DetailsPopup(Gtk.Window):
 	def __init__(self):
 		Gtk.Window.__init__(self, type=Gtk.WindowType.POPUP)
 		
-		self._color = Preferences().get("LightForeground", "#7f7f7f")
+		self._color = Preferences().get("light-foreground-color")
 		
 		self._label = Gtk.Label()
 		self._label.set_use_markup(True)

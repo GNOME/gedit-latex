@@ -64,7 +64,7 @@ class BaseOutlineView(SideView):
 		
 		btn_follow = Gtk.ToggleToolButton.new_from_stock(Gtk.STOCK_CONNECT)
 		btn_follow.set_tooltip_text("Follow Editor")
-		btn_follow.set_active(self._preferences.get_bool("ConnectOutlineToEditor", True))
+		btn_follow.set_active(self._preferences.get_bool("outline-connect-to-editor"))
 		self._base_handlers[btn_follow] = btn_follow.connect("toggled", self._on_follow_toggled)
 		
 		btn_expand = Gtk.ToolButton.new_from_stock(Gtk.STOCK_ZOOM_IN)
@@ -129,7 +129,7 @@ class BaseOutlineView(SideView):
 	
 	def _on_follow_toggled(self, toggle_button):
 		value = toggle_button.get_active()
-		self._preferences.set("ConnectOutlineToEditor", value)
+		self._preferences.set("outline-connect-to-editor", value)
 	
 	def _on_expand_clicked(self, button):
 		self._view.expand_all()

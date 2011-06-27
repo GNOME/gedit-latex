@@ -60,9 +60,9 @@ PKG_CHECK_MODULES(GEDIT, [
 	gedit >= 3.0.0
 ])
 
-dnl ================================================================
-dnl GSettings stuff
-dnl ================================================================
+# ================================================================
+# GSettings stuff
+# ================================================================
 
 GLIB_GSETTINGS
 
@@ -75,6 +75,7 @@ AC_CONFIG_FILES([
 Makefile
 latex/gldefs.py
 latex/latex.plugin.desktop.in
+latex/org.gnome.gedit.plugins.latex.gschema.xml.in
 latex/Makefile
 latex/base/Makefile
 latex/bibtex/Makefile

@@ -39,11 +39,11 @@ from .dialogs import UseBibliographyDialog, InsertGraphicsDialog, InsertTableDia
 from . import LaTeXSource, PropertyFile
 
 class LaTeXAction(Action):
-	extensions = Preferences().get("LatexExtensions", ".tex").split(" ")
+	extensions = Preferences().get("latex-extensions").split(",")
 
 
 class LaTeXIconAction(IconAction):
-	extensions = Preferences().get("LatexExtensions", ".tex").split(" ")
+	extensions = Preferences().get("latex-extensions").split(",")
 
 
 class LaTeXTemplateAction(LaTeXIconAction):

@@ -106,7 +106,7 @@ class LaTeXSymbolMapView(SideView):
 		self.__load_collection(SymbolCollection())
 	
 	def __load_collection(self, collection):
-		self.__expanded_groups = set(self.__preferences.get("ExpandedSymbolGroups", "").split(","))
+		self.__expanded_groups = set(self.__preferences.get("expanded-symbol-groups", "").split(","))
 		
 		for group in collection.groups:
 			self.__add_group(group)
@@ -155,7 +155,7 @@ class LaTeXSymbolMapView(SideView):
 		else:
 			self.__expanded_groups.remove(group_label)
 		
-		self.__preferences.set("ExpandedSymbolGroups", ",".join(self.__expanded_groups))
+		self.__preferences.set("expanded-symbol-groups", ",".join(self.__expanded_groups))
 	
 	def __on_symbol_selected(self, icon_view):
 		"""
@@ -217,8 +217,8 @@ class LaTeXOutlineView(BaseOutlineView):
 		btn_tables.set_tooltip_text("Show tables")
 		self._toolbar.insert(btn_tables, -1)
 		
-		btn_graphics.set_active(Preferences().get_bool("ShowGraphicsInOutline", True))
-		btn_tables.set_active(Preferences().get_bool("ShowTablesInOutline", True))
+		btn_graphics.set_active(Preferences().get_bool("outline-show-graphics"))
+		btn_tables.set_active(Preferences().get_bool("outline-show-tables"))
 		
 		self._handlers[btn_graphics] = btn_graphics.connect("toggled", self._on_graphics_toggled)
 		self._handlers[btn_tables] = btn_tables.connect("toggled", self._on_tables_toggled)
@@ -242,7 +242,7 @@ class LaTeXOutlineView(BaseOutlineView):
 		"""
 		An outline node has been selected
 		"""
-		if Preferences().get_bool("ConnectOutlineToEditor", True):
+		if Preferences().get_bool("outline-connect-to-editor"):
 			if node.file == self._editor.edited_file:
 				self._editor.select(node.start, node.end)
 	
@@ -291,13 +291,13 @@ class LaTeXOutlineView(BaseOutlineView):
 		value = toggle_button.get_active()
 #		Settings().set("LatexOutlineTables", value)
 #		self.trigger("tablesToggled", value)
-		Preferences().set("ShowTablesInOutline", value)
+		Preferences().set("outline-show-tables", value)
 	
 	def _on_graphics_toggled(self, toggle_button):
 		value = toggle_button.get_active()
 #		Settings().set("LatexOutlineGraphics", value)
 #		self.trigger("graphicsToggled", value)
-		Preferences().set("ShowGraphicsInOutline", value)
+		Preferences().set("outline-show-graphics", value)
 	
 	def destroy(self):
 		for obj in self._handlers:
@@ -353,7 +353,7 @@ class OutlineConverter(object):
 		"""
 		value = node.value
 		
-		color = self._preferences.get("LightForeground", "#957d47")
+		color = self._preferences.get("light-foreground-color")
 		
 		if node.file and node.file != self._file:
 			value = "%s <span color='%s'>%s</span>" % (value, color, node.file.shortbasename)

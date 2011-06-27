@@ -150,8 +150,8 @@ from ..bibtex.views import BibTeXOutlineView
 #								 "BibTeXOutlineView" : BibTeXOutlineView} }
 
 from ..preferences import Preferences
-LATEX_EXTENSIONS = Preferences().get("LatexExtensions", ".tex").split(" ")
-BIBTEX_EXTENSIONS = Preferences().get("BibtexExtensions", ".bib").split(" ")
+LATEX_EXTENSIONS = Preferences().get("latex-extensions").split(",")
+BIBTEX_EXTENSIONS = [".bib"]
 
 WINDOW_SCOPE_VIEWS = {}
 EDITOR_SCOPE_VIEWS = {}

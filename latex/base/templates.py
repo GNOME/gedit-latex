@@ -289,10 +289,10 @@ class TemplateDelegate(object):
 		
 		# create tags
 		self._tag_template = self._text_buffer.create_tag("template", 
-						background=Preferences().get("TemplateBackgroundColor", "#f2f7ff"))
+						background=Preferences().get("template-background-color"))
 		self._tag_placeholder = self._text_buffer.create_tag("placeholder", 
-						background=Preferences().get("PlaceholderBackgroundColor", "#d6e4ff"), 
-						foreground=Preferences().get("PlaceholderForegroundColor", "#2a66e1"))
+						background=Preferences().get("placeholder-background-color"), 
+						foreground=Preferences().get("placeholder-foreground-color"))
 		
 		self._active = False
 	

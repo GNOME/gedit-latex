@@ -52,8 +52,8 @@ class IssueView(BottomView):
 		
 		self._preferences = Preferences()
 		self._preferences.connect("preferences-changed", self._on_preferences_changed)
-		self._show_tasks = self._preferences.get_bool("IssuesShowTasks", True)
-		self._show_warnings = self._preferences.get_bool("IssuesShowWarnings", True)
+		self._show_tasks = self._preferences.get_bool("issues-show-tasks")
+		self._show_warnings = self._preferences.get_bool("issues-show-warnings")
 		
 		self._context = context
 		
@@ -148,7 +148,7 @@ class IssueView(BottomView):
 		self._editor.select(issue.start, issue.end)
 	
 	def _on_preferences_changed(self, prefs, key, value):
-		if key == "IssuesShowWarnings" or key == "IssuesShowTasks":
+		if key == "issues-show-warnings" or key == "issues-show-tasks":
 			# update filter
 			self._store.clear()
 			for issue, local in self._issues:
@@ -156,11 +156,11 @@ class IssueView(BottomView):
 	
 	def __on_tasks_toggled(self, togglebutton):
 		self._show_tasks = togglebutton.get_active()
-		self._preferences.set("IssuesShowTasks", self._show_tasks)
+		self._preferences.set("issues-show-tasks", self._show_tasks)
 		
 	def __on_warnings_toggled(self, togglebutton):
 		self._show_warnings = togglebutton.get_active()
-		self._preferences.set("IssuesShowWarnings", self._show_warnings)
+		self._preferences.set("issues-show-warnings", self._show_warnings)
 	
 	def clear(self):
 		"""
@@ -196,8 +196,8 @@ class IssueView(BottomView):
 			message = issue.message
 			filename = escape(issue.file.basename)
 		else:
-			message = "<span color='%s'>%s</span>" % (self._preferences.get("LightForeground", "#7f7f7f"), issue.message)
-			filename = "<span color='%s'>%s</span>" % (self._preferences.get("LightForeground", "#7f7f7f"), issue.file.basename)
+			message = "<span color='%s'>%s</span>" % (self._preferences.get("light-foreground-color"), issue.message)
+			filename = "<span color='%s'>%s</span>" % (self._preferences.get("light-foreground-color"), issue.file.basename)
 		self._store.append([self._icons[issue.severity], message, filename, issue])
 		
 	def destroy(self):

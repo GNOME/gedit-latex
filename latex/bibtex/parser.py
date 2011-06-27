@@ -379,7 +379,7 @@ class BibTeXParser(object):
 		self._document = Document()
 		
 		# respect maximum BibTeX file size
-		max_size_kb = int(Preferences().get("MaximumBibTeXSize", 500))
+		max_size_kb = int(Preferences().get("maximum-bibtex-size"))
 		length = len(string)
 
 		if length > max_size_kb * 1024:

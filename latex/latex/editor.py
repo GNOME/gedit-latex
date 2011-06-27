@@ -52,7 +52,7 @@ class LaTeXEditor(Editor, IIssueHandler):
 	_log = getLogger("LaTeXEditor")
 	
 	#extensions = [".tex"]
-	extensions = Preferences().get("LatexExtensions", ".tex").split(" ")
+	extensions = Preferences().get("latex-extensions").split(",")
 	
 	dnd_extensions = [".png", ".pdf", ".bib", ".tex"]
 	
@@ -75,8 +75,8 @@ class LaTeXEditor(Editor, IIssueHandler):
 		self._preferences = Preferences()
 		self._preferences.connect("preferences-changed", self._on_preferences_changed)
 
-		self.register_marker_type("latex-error", self._preferences.get("ErrorBackgroundColor"))
-		self.register_marker_type("latex-warning", self._preferences.get("WarningBackgroundColor"))
+		self.register_marker_type("latex-error", self._preferences.get("error-background-color"))
+		self.register_marker_type("latex-warning", self._preferences.get("warning-background-color"))
 		
 		self._issue_view = context.find_view(self, "IssueView")
 		self._outline_view = context.find_view(self, "LaTeXOutlineView")
@@ -102,7 +102,7 @@ class LaTeXEditor(Editor, IIssueHandler):
 		self.__update_neighbors()
 	
 	def _on_preferences_changed(self, prefs, key, new_value):
-		if key in ["ShowLabelsInOutline", "ShowTablesInOutline", "ShowGraphicsInOutline"]:
+		if key in ["outline-show-labels", "outline-show-tables", "outline-show-graphics"]:
 			# regenerate outline model
 			if self._document_is_master:
 				self._outline = self._outline_generator.generate(self._document, self)
@@ -111,8 +111,8 @@ class LaTeXEditor(Editor, IIssueHandler):
 				# FIXME: self._document contains the full model of child and master
 				# so we may not use it for regenerating the outline here
 				self.__parse()
-		elif key == "ShowLatexToolbar":
-			show_toolbar = self._preferences.get_bool("ShowLatexToolbar", True)
+		elif key == "show-latex-toolbar":
+			show_toolbar = self._preferences.get_bool("show-latex-toolbar")
 			if show_toolbar:
 				self._window_context._window_decorator._toolbar.show()
 			else:
@@ -383,7 +383,7 @@ class LaTeXEditor(Editor, IIssueHandler):
 		"""
 		The cursor has moved
 		"""
-		if self._preferences.get_bool("ConnectOutlineToEditor", True):
+		if self._preferences.get_bool("outline-connect-to-editor"):
 			self._outline_view.select_path_by_offset(offset)
 		
 	@property

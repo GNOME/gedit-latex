@@ -124,10 +124,8 @@ class ToolAction(Action):
 		
 		if context.active_editor:
 			from ..preferences import Preferences		# FIXME: circ dep
-			
-			if Preferences().get("SaveBeforeTool", True):
-				# FIXME: find better way to save
-				context._window_decorator.save_file()
+			# FIXME: find better way to save
+			context._window_decorator.save_file()
 			
 			self._runner.run(context.active_editor.file, self._tool, tool_view)
 			self._log.debug("activate: " + str(context.active_editor.file))

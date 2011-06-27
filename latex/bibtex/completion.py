@@ -38,7 +38,7 @@ class BibTeXEntryTypeProposal(Proposal):
 	"""
 	icon = GdkPixbuf.Pixbuf.new_from_file(find_resource("icons/document.png"))
 	
-	_color = Preferences().get("LightForeground", "#957d47")
+	_color = Preferences().get("light-foreground-color")
 	
 	def __init__(self, overlap, type):
 		"""

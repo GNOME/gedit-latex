@@ -159,7 +159,7 @@ class OutlineConverter(object):
 		@param grouping: the grouping to use: GROUP_NONE|GROUP_TYPE|GROUP_AUTHOR|GROUP_YEAR
 		"""
 		
-		color = Preferences().get("LightForeground", "#7f7f7f")
+		color = Preferences().get("light-foreground-color")
 		
 		tree_store.clear()
 		

@@ -72,8 +72,8 @@ class BibTeXEditor(Editor, IIssueHandler, JobChangeListener):
 		self._file = file
 		self._context = context
 		
-		self.register_marker_type("bibtex-error", self._preferences.get("ErrorBackgroundColor"))
-		self.register_marker_type("bibtex-warning", self._preferences.get("WarningBackgroundColor"))
+		self.register_marker_type("bibtex-error", self._preferences.get("error-background-color"))
+		self.register_marker_type("bibtex-warning", self._preferences.get("warning-background-color"))
 		
 		self._issue_view = context.find_view(self, "IssueView")
 		self._parser = BibTeXParser()
@@ -192,7 +192,7 @@ class BibTeXEditor(Editor, IIssueHandler, JobChangeListener):
 		"""
 		The cursor has moved
 		"""
-		if self._preferences.get_bool("ConnectOutlineToEditor", True):
+		if self._preferences.get_bool("outline-connect-to-editor"):
 			self._outline_view.select_path_by_offset(offset)
 				
 	def destroy(self):

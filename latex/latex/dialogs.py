@@ -128,9 +128,9 @@ class ComboBoxProxy(AbstractProxy):
 		
 		if show_value:
 			if not value is None and len(value) > 0:
-				label_markup = "%s <span color='%s'>%s</span>" % (value, self._preferences.get("LightForeground"), label)
+				label_markup = "%s <span color='%s'>%s</span>" % (value, self._preferences.get("light-foreground-color"), label)
 			else:
-				label_markup = "<span color='%s'>%s</span>" % (self._preferences.get("LightForeground"), label)
+				label_markup = "<span color='%s'>%s</span>" % (self._preferences.get("light-foreground-color"), label)
 		else:
 			label_markup = label
 
@@ -336,10 +336,8 @@ class NewDocumentDialog(GladeInterface):
 			#
 			self._proxy_template = ComboBoxProxy(self.find_widget("comboTemplate"), "RecentTemplate")
 
-			#folder = Folder(find_resource("templates", MODE_READWRITE))
-			
-			folder = Folder(preferences.get("TemplateFolder", find_resource("templates", MODE_READWRITE)))
-			
+			folder = Folder(preferences.TEMPLATE_DIR)
+
 			templates = folder.files
 			templates.sort()
 			for template in templates:
@@ -1125,7 +1123,7 @@ class SaveAsTemplateDialog(GladeInterface):
 	_dialog = None
 	
 	def get_dialog(self):
-		self._folder = Preferences().get("TemplateFolder", find_resource("templates", MODE_READWRITE))
+		self._folder = Preferences().TEMPLATE_DIR
 		
 		if self._dialog is None:
 			self._dialog = self.find_widget("dialogSaveAsTemplate")

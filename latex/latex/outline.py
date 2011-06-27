@@ -100,9 +100,9 @@ class LaTeXOutlineGenerator(object):
 		"""
 		
 		# setup
-		self.cfgLabelsInTree = Preferences().get_bool("ShowLabelsInOutline", False)
-		self.cfgTablesInTree = Preferences().get_bool("ShowTablesInOutline", True)
-		self.cfgGraphicsInTree = Preferences().get_bool("ShowGraphicsInOutline", True)
+		self.cfgLabelsInTree = Preferences().get_bool("outline-show-labels")
+		self.cfgTablesInTree = Preferences().get_bool("outline-show-tables")
+		self.cfgGraphicsInTree = Preferences().get_bool("outline-show-graphics")
 		
 		self._outline = Outline()
 		self._stack = [self._outline.rootNode]

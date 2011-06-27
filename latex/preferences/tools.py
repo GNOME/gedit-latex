@@ -28,7 +28,20 @@ from ..base.resources import find_resource, MODE_READWRITE
 from ..tools import Tool, Job
 from ..tools.postprocess import GenericPostProcessor, RubberPostProcessor, LaTeXPostProcessor
 from ..util import singleton
-from . import str_to_bool
+
+def str_to_bool(x):
+	"""
+	Converts a string to a boolean value
+	"""
+	if type(x) is bool:
+		return x
+	elif type(x) is str or type(x) is unicode:
+		try:
+			return {"false" : False, "0" : False, "true" : True, "1" : True}[x.strip().lower()]
+		except KeyError:
+			print "str_to_bool: unsupported value %s" % x
+	else:
+		print "str_to_bool: unsupported type %s" % str(type(x))
 
 @singleton
 class ToolPreferences(GObject.GObject):

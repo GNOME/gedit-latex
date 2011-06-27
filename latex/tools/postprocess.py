@@ -172,7 +172,7 @@ class RubberPostProcessor(PostProcessor):
 		# FIXME: circ dep
 		from ..preferences import Preferences
 		
-		self._hide_box_warnings = Preferences().get_bool("HideBoxWarnings", False)
+		self._hide_box_warnings = Preferences().get_bool("hide-box-warnings")
 	
 	@property
 	def successful(self):
