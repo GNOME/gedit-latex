@@ -2,17 +2,31 @@ SUBDIRS = data latex po
 
 ACLOCAL_AMFLAGS = -I m4 ${ACLOCAL_FLAGS}
 
+plugindir = $(libdir)/gedit/plugins
+
+plugin_in_files = latex.plugin.desktop.in
+
+%.plugin: %.plugin.desktop.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po)
+	$(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
+
+plugin_DATA = $(plugin_in_files:.plugin.desktop.in=.plugin)
+
 EXTRA_DIST =			\
 	autogen.sh		\
 	gedit-latex.doap	\
 	intltool-extract.in 	\
 	intltool-merge.in 	\
-	intltool-update.in
+	intltool-update.in	\
+	$(plugin_in_files)
+
+CLEANFILES =			\
+	$(plugin_DATA)
 
 DISTCLEANFILES = 		\
 	intltool-extract 	\
 	intltool-merge 		\
-	intltool-update
+	intltool-update		\
+	$(plugin_DATA)
 
 MAINTAINERCLEANFILES = 		\
 	aclocal.m4		\
@@ -26,20 +40,5 @@ MAINTAINERCLEANFILES = 		\
 	mkinstalldirs		\
 	py-compile		\
 	`find "$(srcdir)" -type f -name Makefile.in -print`
-
-plugindir = $(libdir)/gedit/plugins
-
-plugin_in_files = latex.plugin.desktop.in
-
-%.plugin: %.plugin.desktop.in $(INTLTOOL_MERGE) $(wildcard $(top_srcdir)/po/*po)
-	$(INTLTOOL_MERGE) $(top_srcdir)/po $< $@ -d -u -c $(top_builddir)/po/.intltool-merge-cache
-
-plugin_DATA = $(plugin_in_files:.plugin.desktop.in=.plugin)
-
-EXTRA_DIST = $(plugin_in_files)
-
-CLEANFILES = $(plugin_DATA)
-
-DISTCLEANFILES = $(plugin_DATA)
 
 -include $(top_srcdir)/git.mk
