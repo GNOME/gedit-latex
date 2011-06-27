@@ -1,4 +1,4 @@
-SUBDIRS = latex po
+SUBDIRS = data latex po
 
 ACLOCAL_AMFLAGS = -I m4 ${ACLOCAL_FLAGS}
 
