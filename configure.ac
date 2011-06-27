@@ -73,8 +73,8 @@ AC_PATH_PROG(GLIB_GENMARSHAL, glib-genmarshal)
 
 AC_CONFIG_FILES([
 Makefile
+latex.plugin.desktop.in
 latex/gldefs.py
-latex/latex.plugin.desktop.in
 latex/org.gnome.gedit.plugins.latex.gschema.xml.in
 latex/Makefile
 latex/base/Makefile
