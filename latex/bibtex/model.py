@@ -105,4 +105,4 @@ class BibTeXModel(object):
         return self._types_list
 
 
-# ex:ts=8:et:
+# ex:ts=4:et:

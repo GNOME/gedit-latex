@@ -199,4 +199,4 @@ class ToolView(BottomView, IStructuredIssueHandler):
         BottomView.destroy(self)
 
 
-# ex:ts=8:et:
+# ex:ts=4:et:

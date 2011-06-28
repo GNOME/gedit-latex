@@ -95,4 +95,4 @@ except ImportError:
     _log.error("Failed to import D-Bus bindings")
 
 
-# ex:ts=8:et:
+# ex:ts=4:et:

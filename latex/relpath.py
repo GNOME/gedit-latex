@@ -88,4 +88,4 @@ def relpath(base, comp):
 
     return os.path.join(*rel_path)
 
-# ex:ts=8:et:
+# ex:ts=4:et:

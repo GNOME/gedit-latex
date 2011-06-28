@@ -574,4 +574,4 @@ class CompletionDistributor(object):
         self._log.debug("Properly destroyed %s" % self)
 
 
-# ex:ts=8:et:
+# ex:ts=4:et:

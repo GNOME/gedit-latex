@@ -66,4 +66,4 @@ class Preferences(GObject.GObject):
     def save(self):
         pass
 
-# ex:ts=8:et:
+# ex:ts=4:et:

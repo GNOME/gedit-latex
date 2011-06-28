@@ -233,4 +233,4 @@ class ToolPreferences(GObject.GObject):
             self.__tools_changed = False
 
 
-# ex:ts=8:et:
+# ex:ts=4:et:

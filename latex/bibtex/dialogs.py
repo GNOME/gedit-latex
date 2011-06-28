@@ -191,4 +191,4 @@ class InsertBibTeXEntryDialog(GladeInterface):
         tbl_optional.show_all()
         self._boxOptional.pack_start(tbl_optional, False)
 
-# ex:ts=8:et:
+# ex:ts=4:et:

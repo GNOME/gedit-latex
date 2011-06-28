@@ -172,4 +172,4 @@ from ..bibtex.editor import BibTeXEditor
 EDITORS = [LaTeXEditor, BibTeXEditor]
 
 
-# ex:ts=8:et:
+# ex:ts=4:et:
