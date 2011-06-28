@@ -11,7 +11,7 @@
 #
 # This program is distributed in the hope that it will be useful, but WITHOUT
 # ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-# FOR A PARTICULAR PURPOSE.  See the GNU General Public Licence for more 
+# FOR A PARTICULAR PURPOSE.  See the GNU General Public Licence for more
 # details.
 #
 # You should have received a copy of the GNU General Public Licence along with
@@ -30,29 +30,29 @@ from dialogs import InsertBibTeXEntryDialog
 
 
 class BibTeXMenuAction(Action):
-	extensions = [".bib"]
-	label = "BibTeX"
-	stock_id = None
-	accelerator = None
-	tooltip = None
-	
-	def activate(self, context):
-		pass
+    extensions = [".bib"]
+    label = "BibTeX"
+    stock_id = None
+    accelerator = None
+    tooltip = None
+
+    def activate(self, context):
+        pass
 
 
 class BibTeXNewEntryAction(Action):
-	extensions = [".bib"]
-	label = "New BibTeX Entry..."
-	stock_id = None
-	accelerator = None
-	tooltip = "Create a new BibTeX entry"
-	
-	_dialog = None
-	
-	def activate(self, context):
-		if not self._dialog:
-			self._dialog = InsertBibTeXEntryDialog()
-		
-		source = self._dialog.run()
-		if not source is None:
-			context.active_editor.append(source)
+    extensions = [".bib"]
+    label = "New BibTeX Entry..."
+    stock_id = None
+    accelerator = None
+    tooltip = "Create a new BibTeX entry"
+
+    _dialog = None
+
+    def activate(self, context):
+        if not self._dialog:
+            self._dialog = InsertBibTeXEntryDialog()
+
+        source = self._dialog.run()
+        if not source is None:
+            context.active_editor.append(source)

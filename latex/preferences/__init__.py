@@ -11,7 +11,7 @@
 #
 # This program is distributed in the hope that it will be useful, but WITHOUT
 # ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-# FOR A PARTICULAR PURPOSE.  See the GNU General Public Licence for more 
+# FOR A PARTICULAR PURPOSE.  See the GNU General Public Licence for more
 # details.
 #
 # You should have received a copy of the GNU General Public Licence along with
@@ -33,35 +33,35 @@ from ..util import singleton
 @singleton
 class Preferences(GObject.GObject):
 
-	__gsignals__ = {
-		"preferences-changed": (
-			GObject.SignalFlags.RUN_LAST, None, [str, str]),
-	}
+    __gsignals__ = {
+        "preferences-changed": (
+            GObject.SignalFlags.RUN_LAST, None, [str, str]),
+    }
 
-	"""
-	A simple map storing preferences as key-value-pairs
-	"""
-	
-	_log = logging.getLogger("Preferences")
-	
-	TEMPLATE_DIR = os.path.join(GLib.get_user_data_dir(), "gedit", "latex", "templates")
-	
-	def __init__(self):
-		GObject.GObject.__init__(self)
-		self._settings = Gio.Settings("org.gnome.gedit.plugins.latex")
-		self._log.debug("Constructed")
-	
-	def get(self, key, default=None):
-		if default:
-			return default
-		return self._settings[key]
-	
-	def get_bool(self, key):
-		return self._settings[key]
-	
-	def set(self, key, value):
-		self._settings[key] = value
-		self.emit("preferences-changed", str(key), str(value))
-	
-	def save(self):
-		pass
+    """
+    A simple map storing preferences as key-value-pairs
+    """
+
+    _log = logging.getLogger("Preferences")
+
+    TEMPLATE_DIR = os.path.join(GLib.get_user_data_dir(), "gedit", "latex", "templates")
+
+    def __init__(self):
+        GObject.GObject.__init__(self)
+        self._settings = Gio.Settings("org.gnome.gedit.plugins.latex")
+        self._log.debug("Constructed")
+
+    def get(self, key, default=None):
+        if default:
+            return default
+        return self._settings[key]
+
+    def get_bool(self, key):
+        return self._settings[key]
+
+    def set(self, key, value):
+        self._settings[key] = value
+        self.emit("preferences-changed", str(key), str(value))
+
+    def save(self):
+        pass

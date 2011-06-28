@@ -11,7 +11,7 @@
 #
 # This program is distributed in the hope that it will be useful, but WITHOUT
 # ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-# FOR A PARTICULAR PURPOSE.  See the GNU General Public Licence for more 
+# FOR A PARTICULAR PURPOSE.  See the GNU General Public Licence for more
 # details.
 #
 # You should have received a copy of the GNU General Public Licence along with
@@ -31,92 +31,91 @@ from gi.repository import GObject
 
 
 class Process(object):
-	"""
-	This runs a command in a child process and polls the output
-	"""
-	
-	__log = getLogger("Process")
-	
-	# intervall of polling stdout of the child process
-	__POLL_INTERVAL = 250
-	
-	def execute(self, command):
-		self.__log.debug("execute: %s" % command)
-		
-		# run child process
-		self.__process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, 
-										stderr=subprocess.PIPE)
-		
-		# unblock pipes
-		fcntl.fcntl(self.__process.stdout, fcntl.F_SETFL, os.O_NONBLOCK)
-		fcntl.fcntl(self.__process.stderr, fcntl.F_SETFL, os.O_NONBLOCK)
-		
-		# monitor process and pipes
-		self.__handlers = [ GObject.timeout_add(self.__POLL_INTERVAL, self.__on_stdout),
-							GObject.timeout_add(self.__POLL_INTERVAL, self.__on_stderr),
-							GObject.child_watch_add(self.__process.pid, self.__on_exit) ]
-	
-	def abort(self):
-		"""
-		Abort the running process
-		"""
-		if self.__process:
-			for handler in self.__handlers:
-				GObject.source_remove(handler)
-			
-			try:
-				os.kill(self.__process.pid, signal.SIGTERM)
-				
-				self._on_abort()
-			except OSError, e:
-				self.__log.error("Failed to abort process: %s" % e)
-			
-	def __on_stdout(self):
-		try:
-			s = self.__process.stdout.read()
-			if len(s):
-				self._on_stdout(s)
-		except IOError:
-			pass
-		return True
-	
-	def __on_stderr(self):
-		try:
-			s = self.__process.stderr.read()
-			if len(s):
-				self._on_stderr(s)
-		except IOError:
-			pass
-		return True
-	
-	def __on_exit(self, pid, condition):
-		for handler in self.__handlers:
-			GObject.source_remove(handler)
-		
-		# read remaining output
-		self.__on_stdout()
-		self.__on_stderr()
-		
-		self._on_exit(condition)
-		
-	def _on_stdout(self, text):
-		"""
-		To be overridden
-		"""
-		
-	def _on_stderr(self, text):
-		"""
-		To be overridden
-		"""
-	
-	def _on_abort(self):
-		"""
-		To be overridden
-		"""
-	
-	def _on_exit(self, condition):
-		"""
-		To be overridden
-		"""
-		
-		
+    """
+    This runs a command in a child process and polls the output
+    """
+
+    __log = getLogger("Process")
+
+    # intervall of polling stdout of the child process
+    __POLL_INTERVAL = 250
+
+    def execute(self, command):
+        self.__log.debug("execute: %s" % command)
+
+        # run child process
+        self.__process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE,
+                                        stderr=subprocess.PIPE)
+
+        # unblock pipes
+        fcntl.fcntl(self.__process.stdout, fcntl.F_SETFL, os.O_NONBLOCK)
+        fcntl.fcntl(self.__process.stderr, fcntl.F_SETFL, os.O_NONBLOCK)
+
+        # monitor process and pipes
+        self.__handlers = [ GObject.timeout_add(self.__POLL_INTERVAL, self.__on_stdout),
+                            GObject.timeout_add(self.__POLL_INTERVAL, self.__on_stderr),
+                            GObject.child_watch_add(self.__process.pid, self.__on_exit) ]
+
+    def abort(self):
+        """
+        Abort the running process
+        """
+        if self.__process:
+            for handler in self.__handlers:
+                GObject.source_remove(handler)
+
+            try:
+                os.kill(self.__process.pid, signal.SIGTERM)
+
+                self._on_abort()
+            except OSError, e:
+                self.__log.error("Failed to abort process: %s" % e)
+
+    def __on_stdout(self):
+        try:
+            s = self.__process.stdout.read()
+            if len(s):
+                self._on_stdout(s)
+        except IOError:
+            pass
+        return True
+
+    def __on_stderr(self):
+        try:
+            s = self.__process.stderr.read()
+            if len(s):
+                self._on_stderr(s)
+        except IOError:
+            pass
+        return True
+
+    def __on_exit(self, pid, condition):
+        for handler in self.__handlers:
+            GObject.source_remove(handler)
+
+        # read remaining output
+        self.__on_stdout()
+        self.__on_stderr()
+
+        self._on_exit(condition)
+
+    def _on_stdout(self, text):
+        """
+        To be overridden
+        """
+
+    def _on_stderr(self, text):
+        """
+        To be overridden
+        """
+
+    def _on_abort(self):
+        """
+        To be overridden
+        """
+
+    def _on_exit(self, condition):
+        """
+        To be overridden
+        """
+

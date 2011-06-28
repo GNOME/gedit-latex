@@ -11,7 +11,7 @@
 #
 # This program is distributed in the hope that it will be useful, but WITHOUT
 # ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-# FOR A PARTICULAR PURPOSE.  See the GNU General Public Licence for more 
+# FOR A PARTICULAR PURPOSE.  See the GNU General Public Licence for more
 # details.
 #
 # You should have received a copy of the GNU General Public Licence along with
@@ -42,56 +42,55 @@ BUS_NAME = 'org.gedit.LaTeXPlugin'
 OBJECT_PATH = '/org/gedit/LaTeXPlugin/InverseSearchService'
 
 try:
-	import dbus
-	import dbus.service
-	import dbus.glib	# attach D-Bus connections to main loop
-	
-	class InverseSearchService(dbus.service.Object):
-		"""
-		A D-Bus object listening for commands from xdvi. This is a delegate object
-		for GeditWindowDecorator.
-		
-		@deprecated: 
-		"""
-		
-		def __init__(self, context):
-			"""
-			Construct the service object
-			
-			@param context: a base.WindowContext instance
-			"""
-			bus_name = dbus.service.BusName(BUS_NAME, bus=dbus.SessionBus())
-			dbus.service.Object.__init__(self, bus_name, OBJECT_PATH)
-			
-			self._context = context
-			
-			_log.debug("Created service object %s" % OBJECT_PATH)
+    import dbus
+    import dbus.service
+    import dbus.glib    # attach D-Bus connections to main loop
 
-		@dbus.service.method('org.gedit.LaTeXPlugin.InverseSearchService')
-		def inverse_search(self, filename, line):
-			"""
-			A service call has been received
-			
-			@param filename: the filename
-			@param line: a line number counting from 1 (!)
-			"""
-			_log.debug("Received inverse DVI search call: %s %s" % (filename, line))
-			
-			file = File(filename)
-			
-			try:
-				self._context.activate_editor(file)
-				editor = self._context.active_editor
-				
-				assert type(editor) is LaTeXEditor
-				
-				editor.select_lines(line - 1)
-				
-			except KeyError:
-				_log.error("Could not activate tab for file %s" % filename)
-			
+    class InverseSearchService(dbus.service.Object):
+        """
+        A D-Bus object listening for commands from xdvi. This is a delegate object
+        for GeditWindowDecorator.
+
+        @deprecated:
+        """
+
+        def __init__(self, context):
+            """
+            Construct the service object
+
+            @param context: a base.WindowContext instance
+            """
+            bus_name = dbus.service.BusName(BUS_NAME, bus=dbus.SessionBus())
+            dbus.service.Object.__init__(self, bus_name, OBJECT_PATH)
+
+            self._context = context
+
+            _log.debug("Created service object %s" % OBJECT_PATH)
+
+        @dbus.service.method('org.gedit.LaTeXPlugin.InverseSearchService')
+        def inverse_search(self, filename, line):
+            """
+            A service call has been received
+
+            @param filename: the filename
+            @param line: a line number counting from 1 (!)
+            """
+            _log.debug("Received inverse DVI search call: %s %s" % (filename, line))
+
+            file = File(filename)
+
+            try:
+                self._context.activate_editor(file)
+                editor = self._context.active_editor
+
+                assert type(editor) is LaTeXEditor
+
+                editor.select_lines(line - 1)
+
+            except KeyError:
+                _log.error("Could not activate tab for file %s" % filename)
+
 except ImportError:
-	# TODO: popup a message
-	_log.error("Failed to import D-Bus bindings")
-			
-			
+    # TODO: popup a message
+    _log.error("Failed to import D-Bus bindings")
+

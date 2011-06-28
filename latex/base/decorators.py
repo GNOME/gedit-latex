@@ -11,7 +11,7 @@
 #
 # This program is distributed in the hope that it will be useful, but WITHOUT
 # ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-# FOR A PARTICULAR PURPOSE.  See the GNU General Public Licence for more 
+# FOR A PARTICULAR PURPOSE.  See the GNU General Public Licence for more
 # details.
 #
 # You should have received a copy of the GNU General Public Licence along with
@@ -34,175 +34,175 @@ from . import File
 # TODO: maybe create ActionDelegate for GeditWindowDecorator
 
 class GeditTabDecorator(object):
-	"""
-	This monitors the opened file and manages the Editor objects
-	according to the current file extension
-	"""
-	
-	_log = getLogger("GeditTabDecorator")
-	
-	def __init__(self, window_decorator, tab, init=False):
-		"""
-		Construct a GeditTabDecorator
-		
-		@param window_decorator: the parent GeditWindowDecorator
-		@param tab: the GeditTab to create this for
-		@param init: has to be True if this is created on plugin init to decorate 
-						already opened files
-		"""
-		self._window_decorator = window_decorator
-		self._tab = tab
-		self._text_buffer = tab.get_document()
-		self._text_view = tab.get_view()
-		
-		self._editor = None
-		self._file = None
-		
-		# initially check the editor instance
-		#
-		# this needs to be done, because when we init for already opened files
-		# (when plugin is activated in config) we get no "loaded" signal
-		if init:
-			self._adjust_editor()
-		
-		# listen to GeditDocument signals
-		self._signals_handlers = [
-				self._text_buffer.connect("loaded", self._on_load),
-				self._text_buffer.connect("saved", self._on_save)
-		]
-		
-		self._log.debug("Created %s" % self)
-		
-	@property
-	def tab(self):
-		return self._tab
-	
-	def _on_load(self, document, param):
-		"""
-		A file has been loaded
-		"""
-		self._log.debug("loaded")
-		
-		self._adjust_editor()
-	
-	def _on_save(self, document, param):
-		"""
-		The file has been saved
-		"""
-		self._log.debug("saved")
-		
-		if not self._adjust_editor():
-			# if the editor has not changed
-			if self._editor:
-				self._editor.on_save()
-	
-	def _adjust_editor(self):
-		"""
-		Check if the URI has changed and manage Editor object according to
-		file extension
-		
-		@return: True if the editor has changed
-		"""
-		location = self._text_buffer.get_location()
-		if location is None:
-			# this happends when the plugin is activated in a running Gedit
-			# and this decorator is created for the empty file
-			
-			self._log.debug("No file loaded")
-			
-			if self._window_decorator.window.get_active_view() == self._text_view:
-				self._window_decorator.adjust(self)
-			
-		else:
-			file = File(location.get_uri())
-			
-			if file == self._file:		# FIXME: != doesn't work for File...
-				return False
-			else:
-				self._log.debug("_adjust_editor: URI has changed")
-				
-				self._file = file
-				
-				# URI has changed - manage the editor instance
-				if self._editor:
-					# editor is present - destroy editor
-					self._editor.destroy()
-					self._editor = None
-	
-				# FIXME: comparing file extensions should be case-INsensitive... 
-				extension = file.extension
-				
-				# find Editor class for extension
-				editor_class = None
-				for clazz in EDITORS:
-					if extension in clazz.extensions:
-						editor_class = clazz
-						break
-				
-				if not editor_class is None:
-					# create instance
-					self._editor = editor_class.__new__(editor_class)
-					editor_class.__init__(self._editor, self, file)
-					
-					# The following doesn't work because the right expression is evaluated
-					# and then assigned to the left. This means that Editor.__init__ is
-					# running and reading _editor while _editor is None. That leads to
-					# 
-					# Traceback (most recent call last):
-					#   File "/home/michael/.gnome2/Gedit/plugins/GeditLaTeXPlugin/src/base/decorators.py", line 662, in _on_load
-					#     self._adjust_editor()
-					#   File "/home/michael/.gnome2/Gedit/plugins/GeditLaTeXPlugin/src/base/decorators.py", line 716, in _adjust_editor
-					#     self._editor = editor_class(self, file)
-					#   File "/home/michael/.gnome2/Gedit/plugins/GeditLaTeXPlugin/src/base/__init__.py", line 353, in __init__
-					#     self.init(file, self._window_context)
-					#   File "/home/michael/.gnome2/Gedit/plugins/GeditLaTeXPlugin/src/latex/editor.py", line 106, in init
-					#     self.__parse()
-					#   File "/home/michael/.gnome2/Gedit/plugins/GeditLaTeXPlugin/src/latex/editor.py", line 279, in __parse
-					#     self._outline_view.set_outline(self._outline)
-					#   File "/home/michael/.gnome2/Gedit/plugins/GeditLaTeXPlugin/src/latex/views.py", line 228, in set_outline
-					#     OutlineConverter().convert(self._store, outline, self._offset_map, self._context.active_editor.edited_file)
-					
-					#self._editor = editor_class(self, file)
-				else:
-					self._log.warning("No editor class found for extension %s" % extension)
-				
-				# tell WindowDecorator to adjust actions
-				# but only if this tab is the active tab
-				if self._window_decorator.window.get_active_view() == self._text_view:
-					self._window_decorator.adjust(self)
-	
-				# notify that URI has changed
-				return True
-	
-	@property
-	def file(self):
-		return self._file
-	
-	@property
-	def editor(self):
-		return self._editor
-	
-	@property
-	def extension(self):
-		"""
-		@return: the extension of the currently opened file
-		"""
-		if self._file is None:
-			return None
-		else:
-			return self._file.extension
-	
-	def destroy(self):
-		# disconnect from signals
-		for handler in self._signals_handlers:
-			self._text_buffer.disconnect(handler)
-		
-		# unreference the window decorator
-		del self._window_decorator
+    """
+    This monitors the opened file and manages the Editor objects
+    according to the current file extension
+    """
 
-		# destroy Editor instance
-		if not self._editor is None:
-			self._editor.destroy()
+    _log = getLogger("GeditTabDecorator")
 
-	def __del__(self):
-		self._log.debug("Properly destroyed %s" % self)
+    def __init__(self, window_decorator, tab, init=False):
+        """
+        Construct a GeditTabDecorator
+
+        @param window_decorator: the parent GeditWindowDecorator
+        @param tab: the GeditTab to create this for
+        @param init: has to be True if this is created on plugin init to decorate
+                        already opened files
+        """
+        self._window_decorator = window_decorator
+        self._tab = tab
+        self._text_buffer = tab.get_document()
+        self._text_view = tab.get_view()
+
+        self._editor = None
+        self._file = None
+
+        # initially check the editor instance
+        #
+        # this needs to be done, because when we init for already opened files
+        # (when plugin is activated in config) we get no "loaded" signal
+        if init:
+            self._adjust_editor()
+
+        # listen to GeditDocument signals
+        self._signals_handlers = [
+                self._text_buffer.connect("loaded", self._on_load),
+                self._text_buffer.connect("saved", self._on_save)
+        ]
+
+        self._log.debug("Created %s" % self)
+
+    @property
+    def tab(self):
+        return self._tab
+
+    def _on_load(self, document, param):
+        """
+        A file has been loaded
+        """
+        self._log.debug("loaded")
+
+        self._adjust_editor()
+
+    def _on_save(self, document, param):
+        """
+        The file has been saved
+        """
+        self._log.debug("saved")
+
+        if not self._adjust_editor():
+            # if the editor has not changed
+            if self._editor:
+                self._editor.on_save()
+
+    def _adjust_editor(self):
+        """
+        Check if the URI has changed and manage Editor object according to
+        file extension
+
+        @return: True if the editor has changed
+        """
+        location = self._text_buffer.get_location()
+        if location is None:
+            # this happends when the plugin is activated in a running Gedit
+            # and this decorator is created for the empty file
+
+            self._log.debug("No file loaded")
+
+            if self._window_decorator.window.get_active_view() == self._text_view:
+                self._window_decorator.adjust(self)
+
+        else:
+            file = File(location.get_uri())
+
+            if file == self._file:        # FIXME: != doesn't work for File...
+                return False
+            else:
+                self._log.debug("_adjust_editor: URI has changed")
+
+                self._file = file
+
+                # URI has changed - manage the editor instance
+                if self._editor:
+                    # editor is present - destroy editor
+                    self._editor.destroy()
+                    self._editor = None
+
+                # FIXME: comparing file extensions should be case-INsensitive...
+                extension = file.extension
+
+                # find Editor class for extension
+                editor_class = None
+                for clazz in EDITORS:
+                    if extension in clazz.extensions:
+                        editor_class = clazz
+                        break
+
+                if not editor_class is None:
+                    # create instance
+                    self._editor = editor_class.__new__(editor_class)
+                    editor_class.__init__(self._editor, self, file)
+
+                    # The following doesn't work because the right expression is evaluated
+                    # and then assigned to the left. This means that Editor.__init__ is
+                    # running and reading _editor while _editor is None. That leads to
+                    #
+                    # Traceback (most recent call last):
+                    #   File "/home/michael/.gnome2/Gedit/plugins/GeditLaTeXPlugin/src/base/decorators.py", line 662, in _on_load
+                    #     self._adjust_editor()
+                    #   File "/home/michael/.gnome2/Gedit/plugins/GeditLaTeXPlugin/src/base/decorators.py", line 716, in _adjust_editor
+                    #     self._editor = editor_class(self, file)
+                    #   File "/home/michael/.gnome2/Gedit/plugins/GeditLaTeXPlugin/src/base/__init__.py", line 353, in __init__
+                    #     self.init(file, self._window_context)
+                    #   File "/home/michael/.gnome2/Gedit/plugins/GeditLaTeXPlugin/src/latex/editor.py", line 106, in init
+                    #     self.__parse()
+                    #   File "/home/michael/.gnome2/Gedit/plugins/GeditLaTeXPlugin/src/latex/editor.py", line 279, in __parse
+                    #     self._outline_view.set_outline(self._outline)
+                    #   File "/home/michael/.gnome2/Gedit/plugins/GeditLaTeXPlugin/src/latex/views.py", line 228, in set_outline
+                    #     OutlineConverter().convert(self._store, outline, self._offset_map, self._context.active_editor.edited_file)
+
+                    #self._editor = editor_class(self, file)
+                else:
+                    self._log.warning("No editor class found for extension %s" % extension)
+
+                # tell WindowDecorator to adjust actions
+                # but only if this tab is the active tab
+                if self._window_decorator.window.get_active_view() == self._text_view:
+                    self._window_decorator.adjust(self)
+
+                # notify that URI has changed
+                return True
+
+    @property
+    def file(self):
+        return self._file
+
+    @property
+    def editor(self):
+        return self._editor
+
+    @property
+    def extension(self):
+        """
+        @return: the extension of the currently opened file
+        """
+        if self._file is None:
+            return None
+        else:
+            return self._file.extension
+
+    def destroy(self):
+        # disconnect from signals
+        for handler in self._signals_handlers:
+            self._text_buffer.disconnect(handler)
+
+        # unreference the window decorator
+        del self._window_decorator
+
+        # destroy Editor instance
+        if not self._editor is None:
+            self._editor.destroy()
+
+    def __del__(self):
+        self._log.debug("Properly destroyed %s" % self)

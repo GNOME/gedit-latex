@@ -11,7 +11,7 @@
 #
 # This program is distributed in the hope that it will be useful, but WITHOUT
 # ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-# FOR A PARTICULAR PURPOSE.  See the GNU General Public Licence for more 
+# FOR A PARTICULAR PURPOSE.  See the GNU General Public Licence for more
 # details.
 #
 # You should have received a copy of the GNU General Public Licence along with
@@ -30,205 +30,205 @@ from ..tools.postprocess import GenericPostProcessor, RubberPostProcessor, LaTeX
 from ..util import singleton
 
 def str_to_bool(x):
-	"""
-	Converts a string to a boolean value
-	"""
-	if type(x) is bool:
-		return x
-	elif type(x) is str or type(x) is unicode:
-		try:
-			return {"false" : False, "0" : False, "true" : True, "1" : True}[x.strip().lower()]
-		except KeyError:
-			print "str_to_bool: unsupported value %s" % x
-	else:
-		print "str_to_bool: unsupported type %s" % str(type(x))
+    """
+    Converts a string to a boolean value
+    """
+    if type(x) is bool:
+        return x
+    elif type(x) is str or type(x) is unicode:
+        try:
+            return {"false" : False, "0" : False, "true" : True, "1" : True}[x.strip().lower()]
+        except KeyError:
+            print "str_to_bool: unsupported value %s" % x
+    else:
+        print "str_to_bool: unsupported type %s" % str(type(x))
 
 @singleton
 class ToolPreferences(GObject.GObject):
 
-	__gsignals__ = {
-		"tools-changed": (
-			GObject.SignalFlags.RUN_LAST, None, []),
-	}
+    __gsignals__ = {
+        "tools-changed": (
+            GObject.SignalFlags.RUN_LAST, None, []),
+    }
 
-	_log = getLogger("ToolPreferences")
+    _log = getLogger("ToolPreferences")
 
-	# maps names to classes
-	POST_PROCESSORS = {"GenericPostProcessor" : GenericPostProcessor, 
-					   "LaTeXPostProcessor" : LaTeXPostProcessor, 
-					   "RubberPostProcessor" : RubberPostProcessor}
+    # maps names to classes
+    POST_PROCESSORS = {"GenericPostProcessor" : GenericPostProcessor,
+                       "LaTeXPostProcessor" : LaTeXPostProcessor,
+                       "RubberPostProcessor" : RubberPostProcessor}
 
-	def __init__(self):
-		GObject.GObject.__init__(self)
-		self.__tool_objects = None
-		self.__tool_ids = None
-		self.__tools_changed = False
-		self.__tools = ElementTree.parse(
-							find_resource("tools.xml", MODE_READWRITE)).getroot()
-		self._log.debug("Constructed")
+    def __init__(self):
+        GObject.GObject.__init__(self)
+        self.__tool_objects = None
+        self.__tool_ids = None
+        self.__tools_changed = False
+        self.__tools = ElementTree.parse(
+                            find_resource("tools.xml", MODE_READWRITE)).getroot()
+        self._log.debug("Constructed")
 
-	def __notify_tools_changed(self):
-		self.emit("tools-changed")
-	
-	@property
-	def tools(self):
-		"""
-		Return all Tools
-		"""
-		self.__tool_ids = {}
-		
-		tools = []
-		
-		for tool_element in self.__tools.findall("tool"):
-			jobs = []
-			for job_element in tool_element.findall("job"):
-				jobs.append(Job(job_element.text.strip(), str_to_bool(job_element.get("mustSucceed")), self.POST_PROCESSORS[job_element.get("postProcessor")]))
-			
-			assert not tool_element.get("extensions") is None
-			
-			extensions = tool_element.get("extensions").split()
-			accelerator = tool_element.get("accelerator")
-			id = tool_element.get("id")
-			tool = Tool(tool_element.get("label"), jobs, tool_element.get("description"), accelerator, extensions)
-			self.__tool_ids[tool] = id
-			
-			tools.append(tool)
-			
-		return tools
-	
-	def __find_tool_element(self, id):
-		"""
-		Find the tool element with the given id 
-		"""
-		for element in self.__tools.findall("tool"):
-			if element.get("id") == id:
-				return element
-		self._log.warning("<tool id='%s'> not found" % id)
-		return None
-	
-	def save_or_update_tool(self, tool):
-		"""
-		Save or update the XML subtree for the given Tool
-		
-		@param tool: a Tool object
-		"""
-		tool_element = None
-		if tool in self.__tool_ids:
-			# find tool tag
-			self._log.debug("Tool element found, updating...")
-			
-			id = self.__tool_ids[tool]
-			tool_element = self.__find_tool_element(id)
-		else:
-			# create new tool tag
-			self._log.debug("Creating new Tool...")
-			
-			id = str(uuid4())
-			self.__tool_ids[tool] = id
-			
-			tool_element = ElementTree.SubElement(self.__tools, "tool")
-			tool_element.set("id", id)
-		
-		tool_element.set("label", tool.label)
-		tool_element.set("description", tool.description)
-		tool_element.set("extensions", " ".join(tool.extensions))
-		if tool.accelerator is None:
-			if "accelerator" in tool_element.attrib.keys():
-				del tool_element.attrib["accelerator"]
-		else:
-			tool_element.set("accelerator", tool.accelerator)
-		
-		# remove all jobs
-		for job_element in tool_element.findall("job"):
-			tool_element.remove(job_element)
-			
-		# append new jobs
-		for job in tool.jobs:
-			job_element = ElementTree.SubElement(tool_element, "job")
-			job_element.set("mustSucceed", str(job.must_succeed))
-			job_element.set("postProcessor", job.post_processor.name)
-			job_element.text = job.command_template
-		
-		self.__tools_changed = True
-		self.__notify_tools_changed()
-	
-	def swap_tools(self, tool_1, tool_2):
-		"""
-		Swap the order of two Tools
-		"""
-		# grab their ids
-		id_1 = self.__tool_ids[tool_1]
-		id_2 = self.__tool_ids[tool_2]
-		
-		if id_1 == id_2:
-			self._log.warning("Two tools have the same id. Please modify tools.xml to have unique id's.")
-			return
-		
-		self._log.debug("Tool IDs are {%s: %s, %s, %s}" % (tool_1.label, id_1, tool_2.label, id_2))
-		
-		tool_element_1 = None
-		tool_element_2 = None
-		
-		# find the XML elements and current indexes of the tools
-		i = 0
-		for tool_element in self.__tools:
-			if tool_element.get("id") == id_1:
-				tool_element_1 = tool_element
-				index_1 = i
-			elif tool_element.get("id") == id_2:
-				tool_element_2 = tool_element
-				index_2 = i
-			
-			if not (tool_element_1 is None or tool_element_2 is None):
-				break
-			
-			i += 1
-		
-		self._log.debug("Found XML elements, indexes are {%s: %s, %s, %s}" % (tool_1.label, index_1, tool_2.label, index_2))
-		
-		# successively replace each of them by the other in the XML model
-		self.__tools.remove(tool_element_1)
-		self.__tools.insert(index_1, tool_element_2)
-		
-		self._log.debug("Replaced first tool by second in list")
-				
-		self.__tools.remove(tool_element_2)
-		self.__tools.insert(index_2, tool_element_1)
-		
-		self._log.debug("Replaced second tool by first in list")
-		
-		# notify changes
-		self.__tools_changed = True
-		self.__notify_tools_changed()
-	
-	def delete_tool(self, tool):
-		"""
-		Delete the given Tool
-		
-		@param tool: a Tool object
-		"""
-		try:
-			id = self.__tool_ids[tool]
-			tool_element = self.__find_tool_element(id)
-			self.__tools.remove(tool_element)
-			
-			del self.__tool_ids[tool]
-			
-			self.__tools_changed = True
-		except KeyError, e:
-			self._log.error("delete_tool: %s" % e)
-		
-		self.__notify_tools_changed()
+    def __notify_tools_changed(self):
+        self.emit("tools-changed")
 
-	def save(self):
-		"""
-		Save the preferences to XML
-		"""
-		if self.__tools_changed:
-			self._log.debug("Saving tools...")
-		
-			tree = ElementTree.ElementTree(self.__tools)
-			tree.write(find_resource("tools.xml", MODE_READWRITE), encoding="utf-8")
-			
-			self.__tools_changed = False
-	
+    @property
+    def tools(self):
+        """
+        Return all Tools
+        """
+        self.__tool_ids = {}
+
+        tools = []
+
+        for tool_element in self.__tools.findall("tool"):
+            jobs = []
+            for job_element in tool_element.findall("job"):
+                jobs.append(Job(job_element.text.strip(), str_to_bool(job_element.get("mustSucceed")), self.POST_PROCESSORS[job_element.get("postProcessor")]))
+
+            assert not tool_element.get("extensions") is None
+
+            extensions = tool_element.get("extensions").split()
+            accelerator = tool_element.get("accelerator")
+            id = tool_element.get("id")
+            tool = Tool(tool_element.get("label"), jobs, tool_element.get("description"), accelerator, extensions)
+            self.__tool_ids[tool] = id
+
+            tools.append(tool)
+
+        return tools
+
+    def __find_tool_element(self, id):
+        """
+        Find the tool element with the given id
+        """
+        for element in self.__tools.findall("tool"):
+            if element.get("id") == id:
+                return element
+        self._log.warning("<tool id='%s'> not found" % id)
+        return None
+
+    def save_or_update_tool(self, tool):
+        """
+        Save or update the XML subtree for the given Tool
+
+        @param tool: a Tool object
+        """
+        tool_element = None
+        if tool in self.__tool_ids:
+            # find tool tag
+            self._log.debug("Tool element found, updating...")
+
+            id = self.__tool_ids[tool]
+            tool_element = self.__find_tool_element(id)
+        else:
+            # create new tool tag
+            self._log.debug("Creating new Tool...")
+
+            id = str(uuid4())
+            self.__tool_ids[tool] = id
+
+            tool_element = ElementTree.SubElement(self.__tools, "tool")
+            tool_element.set("id", id)
+
+        tool_element.set("label", tool.label)
+        tool_element.set("description", tool.description)
+        tool_element.set("extensions", " ".join(tool.extensions))
+        if tool.accelerator is None:
+            if "accelerator" in tool_element.attrib.keys():
+                del tool_element.attrib["accelerator"]
+        else:
+            tool_element.set("accelerator", tool.accelerator)
+
+        # remove all jobs
+        for job_element in tool_element.findall("job"):
+            tool_element.remove(job_element)
+
+        # append new jobs
+        for job in tool.jobs:
+            job_element = ElementTree.SubElement(tool_element, "job")
+            job_element.set("mustSucceed", str(job.must_succeed))
+            job_element.set("postProcessor", job.post_processor.name)
+            job_element.text = job.command_template
+
+        self.__tools_changed = True
+        self.__notify_tools_changed()
+
+    def swap_tools(self, tool_1, tool_2):
+        """
+        Swap the order of two Tools
+        """
+        # grab their ids
+        id_1 = self.__tool_ids[tool_1]
+        id_2 = self.__tool_ids[tool_2]
+
+        if id_1 == id_2:
+            self._log.warning("Two tools have the same id. Please modify tools.xml to have unique id's.")
+            return
+
+        self._log.debug("Tool IDs are {%s: %s, %s, %s}" % (tool_1.label, id_1, tool_2.label, id_2))
+
+        tool_element_1 = None
+        tool_element_2 = None
+
+        # find the XML elements and current indexes of the tools
+        i = 0
+        for tool_element in self.__tools:
+            if tool_element.get("id") == id_1:
+                tool_element_1 = tool_element
+                index_1 = i
+            elif tool_element.get("id") == id_2:
+                tool_element_2 = tool_element
+                index_2 = i
+
+            if not (tool_element_1 is None or tool_element_2 is None):
+                break
+
+            i += 1
+
+        self._log.debug("Found XML elements, indexes are {%s: %s, %s, %s}" % (tool_1.label, index_1, tool_2.label, index_2))
+
+        # successively replace each of them by the other in the XML model
+        self.__tools.remove(tool_element_1)
+        self.__tools.insert(index_1, tool_element_2)
+
+        self._log.debug("Replaced first tool by second in list")
+
+        self.__tools.remove(tool_element_2)
+        self.__tools.insert(index_2, tool_element_1)
+
+        self._log.debug("Replaced second tool by first in list")
+
+        # notify changes
+        self.__tools_changed = True
+        self.__notify_tools_changed()
+
+    def delete_tool(self, tool):
+        """
+        Delete the given Tool
+
+        @param tool: a Tool object
+        """
+        try:
+            id = self.__tool_ids[tool]
+            tool_element = self.__find_tool_element(id)
+            self.__tools.remove(tool_element)
+
+            del self.__tool_ids[tool]
+
+            self.__tools_changed = True
+        except KeyError, e:
+            self._log.error("delete_tool: %s" % e)
+
+        self.__notify_tools_changed()
+
+    def save(self):
+        """
+        Save the preferences to XML
+        """
+        if self.__tools_changed:
+            self._log.debug("Saving tools...")
+
+            tree = ElementTree.ElementTree(self.__tools)
+            tree.write(find_resource("tools.xml", MODE_READWRITE), encoding="utf-8")
+
+            self.__tools_changed = False
+
