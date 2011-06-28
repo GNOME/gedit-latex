@@ -14,7 +14,7 @@ plugin_DATA = \
 	tools.xml
 
 EXTRA_DIST = \
-	plugin_DATA \
+	$(plugin_DATA) \
 	org.gnome.gedit.plugins.latex.gschema.xml.in.in
 
 CLEANFILES = $(gsettings_SCHEMAS)
