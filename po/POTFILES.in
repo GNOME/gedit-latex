@@ -1,5 +1,5 @@
-[type: gettext/glade]data/bibtex.xml
-[type: gettext/glade]data/org.gnome.gedit.plugins.latex.gschema.xml.in.in
+data/bibtex.xml
+data/org.gnome.gedit.plugins.latex.gschema.xml.in.in
 [type: gettext/glade]data/ui/build_image_dialog.ui
 [type: gettext/glade]data/ui/choose_master_dialog.ui
 [type: gettext/glade]data/ui/configure.ui
@@ -11,4 +11,4 @@
 [type: gettext/glade]data/ui/new_document_template_dialog.ui
 [type: gettext/glade]data/ui/save_as_template_dialog.ui
 [type: gettext/glade]data/ui/use_bibliography_dialog.ui
-[type: gettext/glade]latex.plugin.desktop.in.in
+latex.plugin.desktop.in.in
