@@ -1,6 +1,8 @@
 plugindir = $(datadir)/gedit/plugins/latex/icons
 
-plugin_DATA = \
+accentsdir = $(plugindir)/accents
+
+accents_DATA = \
 	accents/acute.png \
 	accents/bar.png \
 	accents/breve.png \
@@ -10,7 +12,11 @@ plugin_DATA = \
 	accents/grave.png \
 	accents/hat.png \
 	accents/tilde.png \
-	accents/vec.png \
+	accents/vec.png 
+
+arrowsdir = $(plugindir)/arrows
+
+arrows_DATA = \
 	arrows/hookleftarrow.png \
 	arrows/hookrightarrow.png \
 	arrows/leadsto.png \
@@ -35,7 +41,11 @@ plugin_DATA = \
 	arrows/rightharpoondown.png \
 	arrows/rightharpoonup.png \
 	arrows/rightleftarrows.png \
-	arrows/rightleftharpoons.png \
+	arrows/rightleftharpoons.png
+
+greekdir = $(plugindir)/greek
+
+greek_DATA = \
 	greek/alpha.png \
 	greek/beta.png \
 	greek/chi.png \
@@ -75,7 +85,11 @@ plugin_DATA = \
 	greek/vartheta.png \
 	greek/xi.png \
 	greek/Xi.png \
-	greek/zeta.png \
+	greek/zeta.png
+
+limitersdir = $(plugindir)/limiters
+
+limiters_DATA = \
 	limiters/langle.png \
 	limiters/lbrace.png \
 	limiters/lceil.png \
@@ -85,7 +99,11 @@ plugin_DATA = \
 	limiters/rceil.png \
 	limiters/rfloor.png \
 	limiters/vert.png \
-	limiters/Vert.png \
+	limiters/Vert.png
+
+operatorsdir = $(plugindir)/operators
+
+operators_DATA = \
 	operators/approx.png \
 	operators/ast.png \
 	operators/bullet.png \
@@ -128,7 +146,11 @@ plugin_DATA = \
 	operators/supset.png \
 	operators/times.png \
 	operators/uplus.png \
-	operators/varnothing.png \
+	operators/varnothing.png
+
+specialdir = $(plugindir)/special
+
+special_DATA = \
 	special/aleph.png \
 	special/angle.png \
 	special/cdots.png \
@@ -153,7 +175,9 @@ plugin_DATA = \
 	special/textregistered.png \
 	special/texttrademark.png \
 	special/vdots.png \
-	special/wp.png \
+	special/wp.png
+
+plugin_DATA = \
 	abort.png \
 	bb.png \
 	bf.png \
