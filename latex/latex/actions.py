@@ -553,3 +553,5 @@ class LaTeXSaveAsTemplateAction(LaTeXAction):
 
 
 
+
+# ex:ts=8:et:

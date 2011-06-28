@@ -86,3 +86,5 @@ class BibTeXValidator:
 
 
 
+
+# ex:ts=8:et:

@@ -708,3 +708,5 @@ class PrefixParser(object):
     def verbatim(self, value):
         pass
 
+
+# ex:ts=8:et:

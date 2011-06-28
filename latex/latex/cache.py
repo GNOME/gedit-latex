@@ -154,3 +154,5 @@ class LaTeXDocumentCache(object):
         return entry.document
 
 
+
+# ex:ts=8:et:

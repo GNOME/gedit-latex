@@ -372,3 +372,5 @@ class Environment(object):
         """
         return getdefaultlocale()[0]
 
+
+# ex:ts=8:et:

@@ -576,3 +576,5 @@ class CompletionDistributor(object):
     def __del__(self):
         self._log.debug("Properly destroyed %s" % self)
 
+
+# ex:ts=8:et:

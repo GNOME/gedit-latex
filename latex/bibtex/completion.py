@@ -124,3 +124,5 @@ class BibTeXCompletionHandler(ICompletionHandler):
         return proposals
 
 
+
+# ex:ts=8:et:

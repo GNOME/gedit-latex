@@ -107,3 +107,5 @@ def find_resource(relative_path, access_mode=MODE_READONLY):
 
         return path
 
+
+# ex:ts=8:et:

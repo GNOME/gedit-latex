@@ -1188,3 +1188,5 @@ class SaveAsTemplateDialog(GladeInterface):
         else:
             return None
 
+
+# ex:ts=8:et:

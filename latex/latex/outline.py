@@ -260,3 +260,5 @@ class LaTeXOutlineGenerator(object):
 
 
 
+
+# ex:ts=8:et:

@@ -319,3 +319,4 @@ class Lexer(object):
                     return Token(Token.TEXT, self._startOffset, "".join(self._text))
 
                 raise StopIteration
+# ex:ts=8:et:

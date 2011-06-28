@@ -518,3 +518,5 @@ class PreferencesDialog(GladeInterface):
 
 
 
+
+# ex:ts=8:et:

@@ -96,3 +96,5 @@ class LaTeXReferenceExpander(object):
                     self._log.error("Malformed reference command at %s" % node.start)
 
             self._expand(node)
+
+# ex:ts=8:et:

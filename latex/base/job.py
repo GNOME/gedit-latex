@@ -201,3 +201,5 @@ class JobManager(dbus.service.Object):
 
 job_manager = JobManager()
 
+
+# ex:ts=8:et:

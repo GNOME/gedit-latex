@@ -334,3 +334,5 @@ class OutlineOffsetMap(object):
         s += "\n</OutlineOffsetMap>"
         return s
 
+
+# ex:ts=8:et:

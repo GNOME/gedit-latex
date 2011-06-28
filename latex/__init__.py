@@ -19,3 +19,4 @@
 # Street, Fifth Floor, Boston, MA  02110-1301, USA
 
 from base.windowactivatable import LaTeXWindowActivatable
+# ex:ts=8:et:

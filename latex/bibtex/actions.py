@@ -56,3 +56,4 @@ class BibTeXNewEntryAction(Action):
         source = self._dialog.run()
         if not source is None:
             context.active_editor.append(source)
+# ex:ts=8:et:

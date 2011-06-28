@@ -71,3 +71,5 @@ class LanguagesParser(ContentHandler):
         self._languages = languages
         parse(filename, self)
 
+
+# ex:ts=8:et:

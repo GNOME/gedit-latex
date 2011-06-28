@@ -224,3 +224,5 @@ class RubberPostProcessor(PostProcessor):
             self._issues.append(Issue(escape(text), lineFrom, lineTo, File(filename), severity, Issue.POSITION_LINE))
 
 
+
+# ex:ts=8:et:

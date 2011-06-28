@@ -1365,3 +1365,5 @@ class Folder(File):
             self.__log.debug("files: %s" % e)
 
             return []
+
+# ex:ts=8:et:

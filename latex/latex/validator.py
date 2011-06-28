@@ -238,3 +238,5 @@ class LaTeXValidator(object):
         #~ print "Properly destroyed %s" % self
 
 
+
+# ex:ts=8:et:

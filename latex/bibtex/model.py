@@ -104,3 +104,5 @@ class BibTeXModel(object):
             self._types_list.sort()
         return self._types_list
 
+
+# ex:ts=8:et:

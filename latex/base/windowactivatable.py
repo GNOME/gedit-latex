@@ -634,3 +634,5 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
         decorator = GeditTabDecorator(self, tab, init)
         self._tab_decorators[tab] = decorator
         return decorator
+
+# ex:ts=8:et:

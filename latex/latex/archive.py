@@ -111,3 +111,5 @@ class LaTeXDependencyScanner:
             self._search(node)
 
 
+
+# ex:ts=8:et:

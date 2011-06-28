@@ -209,3 +209,5 @@ class BibTeXEditor(Editor, IIssueHandler, JobChangeListener):
         self._log.debug("Properly destroyed %s" % self)
 
 
+
+# ex:ts=8:et:

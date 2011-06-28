@@ -106,3 +106,4 @@ class PropertyFile(dict):
             self.__log.debug("Saved to %s" % filename)
         except IOError, e:
             self.__log.error("Error saving %s: %s" % (filename, e))
+# ex:ts=8:et:

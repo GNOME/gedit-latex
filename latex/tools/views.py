@@ -198,3 +198,5 @@ class ToolView(BottomView, IStructuredIssueHandler):
             obj.disconnect(self._handlers[obj])
         BottomView.destroy(self)
 
+
+# ex:ts=8:et:

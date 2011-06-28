@@ -87,3 +87,5 @@ def relpath(base, comp):
         rel_path.insert(0, os.pardir)
 
     return os.path.join(*rel_path)
+
+# ex:ts=8:et:
