@@ -58,7 +58,7 @@ class BibTeXEditor(Editor, IIssueHandler, JobChangeListener):
     @property
     def completion_handlers(self):
         self.__bibtex_completion_handler = BibTeXCompletionHandler()
-        return [ self.__bibtex_completion_handler ]
+        return [self.__bibtex_completion_handler]
 
     def __init__(self, tab_decorator, file):
         Editor.__init__(self, tab_decorator, file)
@@ -83,7 +83,6 @@ class BibTeXEditor(Editor, IIssueHandler, JobChangeListener):
         self._parse_job = ParseJob()
         self._parse_job.set_change_listener(self)
 
-
         # initially parse
         self.__parse()
 
@@ -94,7 +93,6 @@ class BibTeXEditor(Editor, IIssueHandler, JobChangeListener):
         Update models
         """
         self.__parse()
-
 
 #    def _on_state_changed(self, state):
 #        #
@@ -134,7 +132,6 @@ class BibTeXEditor(Editor, IIssueHandler, JobChangeListener):
 #        self._parse_job.set_argument([self._file, self.content])
 #        self._parse_job.schedule()
 
-
     @verbose
     def __parse(self):
         """
@@ -152,22 +149,26 @@ class BibTeXEditor(Editor, IIssueHandler, JobChangeListener):
 
 #        self.parse(self._file)
 
-        if BENCHMARK: t = time.clock()
+        if BENCHMARK:
+            t = time.clock()
 
         # parse document
         self._document = self._parser.parse(content, self._file, self)
 
-        if BENCHMARK: self._log.info("BibTeXParser.parse: %f" % (time.clock() - t))
+        if BENCHMARK:
+            self._log.info("BibTeXParser.parse: %f" % (time.clock() - t))
 
         self._log.debug("Parsed %s bytes of content" % len(content))
 
         # validate
-        if BENCHMARK: t = time.clock()
+        if BENCHMARK:
+            t = time.clock()
 
         self._validator.validate(self._document, self._file, self)
 
         # 0.11
-        if BENCHMARK: self._log.info("BibTeXValidator.validate: %f" % (time.clock() - t))
+        if BENCHMARK:
+            self._log.info("BibTeXValidator.validate: %f" % (time.clock() - t))
 
         self._outline_view.set_outline(self._document)
 

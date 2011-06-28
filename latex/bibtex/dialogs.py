@@ -99,8 +99,8 @@ class InsertBibTeXEntryDialog(GladeInterface):
 
             self._buttonOk = self.find_widget("buttonOk")
 
-            self.connect_signals({ "on_comboTypes_changed" : self._comboTypesChanged,
-                                "on_entryIdent_changed" : self._identChanged })
+            self.connect_signals({"on_comboTypes_changed": self._comboTypesChanged,
+                                "on_entryIdent_changed": self._identChanged})
 
             comboTypes.set_active(0)
 
