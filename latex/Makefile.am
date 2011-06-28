@@ -7,7 +7,6 @@ plugin_PYTHON = \
 	__init__.py \
 	issues.py \
 	outline.py \
-	relpath.py \
 	util.py \
 	views.py
 

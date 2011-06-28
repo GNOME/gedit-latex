@@ -991,9 +991,6 @@ from os import remove
 import os.path
 from glob import glob
 
-from ..relpath import relpath
-
-
 import re
 import urllib
 import urlparse
@@ -1266,9 +1263,7 @@ class File(object):
         @param allow_up_level: allow up-level references (../../) or not
         """
         if allow_up_level:
-            # TODO: os.path.relpath from Python 2.6 does the job
-
-            return relpath(base, self.path)
+            return os.path.relpath(self.path, base)
         else:
             # TODO: why do we need this?
 
