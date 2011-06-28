@@ -33,6 +33,7 @@ from . import File
 
 # TODO: maybe create ActionDelegate for GeditWindowDecorator
 
+
 class GeditTabDecorator(object):
     """
     This monitors the opened file and manages the Editor objects

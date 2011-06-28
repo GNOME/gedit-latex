@@ -29,7 +29,7 @@ class TemplateToken:
     """
     A token of a template expression
     """
-    LITERAL, PLACEHOLDER, CURSOR = 1,2,3
+    LITERAL, PLACEHOLDER, CURSOR = 1, 2, 3
 
     def __init__(self, type, value=None):
         self.type = type
@@ -40,7 +40,7 @@ class TemplateTokenizer:
     """
     A simple state machine for tokenizing a template expression
     """
-    _INIT, _LITERAL, _LITERAL_DOLLAR, _DOLLAR, _PLACEHOLDER = 1,2,3,4,5
+    _INIT, _LITERAL, _LITERAL_DOLLAR, _DOLLAR, _PLACEHOLDER = 1, 2, 3, 4, 5
 
     def __init__(self, expression):
         self._character_iter = iter(expression)
@@ -392,7 +392,6 @@ class TemplateDelegate(object):
 
                 self._placeholder_marks.append([markLeft, markRight])
 
-
             # highlight complete template area
             itStart = self._text_buffer.get_iter_at_offset(start)
             itEnd = self._text_buffer.get_iter_at_offset(start + len(self._compiler.plain))
@@ -409,7 +408,6 @@ class TemplateDelegate(object):
             else:
                 self._mark_final = self._text_buffer.create_mark(None, itEnd, True)
 
-
             self._selected_placeholder = 0
 
             self._activate()
@@ -425,7 +423,7 @@ class TemplateDelegate(object):
         self._handlers = [
                 self._text_view.connect("key-press-event", self._on_key_pressed),
                 self._text_view.connect_after("key-release-event", self._on_key_released),
-                self._text_view.connect("button-press-event", self._on_button_pressed) ]
+                self._text_view.connect("button-press-event", self._on_button_pressed)]
         self._active = True
 
     def _deactivate(self):
@@ -534,7 +532,6 @@ class TemplateDelegate(object):
                     self._update_duplicates()
             else:
                 self._leave_template(place_cursor=False)
-
 
     def _on_button_pressed(self, text_view, event):
         """

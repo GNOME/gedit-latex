@@ -37,8 +37,9 @@ from config import UI, WINDOW_SCOPE_VIEWS, EDITOR_SCOPE_VIEWS, ACTIONS
 from . import File, SideView, BottomView, WindowContext
 from decorators import GeditTabDecorator
 
+
 class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Configurable):
-    __gtype_name__ =  "LaTeXWindowActivatable"
+    __gtype_name__ = "LaTeXWindowActivatable"
 
     """
     This class
@@ -91,7 +92,7 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
         self._signal_handlers = [
                 self.window.connect("tab_added", self._on_tab_added),
                 self.window.connect("tab_removed", self._on_tab_removed),
-                self.window.connect("active_tab_changed", self._on_active_tab_changed) ]
+                self.window.connect("active_tab_changed", self._on_active_tab_changed)]
 
     def do_deactivate(self):
         """
@@ -251,7 +252,7 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
 
         # this is used for enable/disable actions by name
         # None stands for every extension
-        self._tool_action_extensions = { None : [] }
+        self._tool_action_extensions = {None: []}
 
         self._tool_action_group = Gtk.ActionGroup("LaTeXPluginToolActions")
 
@@ -294,7 +295,7 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
 
             i += 1
 
-        tool_ui = self._tool_ui_template.substitute({"items" : items_ui})
+        tool_ui = self._tool_ui_template.substitute({"items": items_ui})
 
         self._ui_manager.insert_action_group(self._tool_action_group, -1)
         self._tool_ui_id = self._ui_manager.add_ui_from_string(tool_ui)
@@ -376,15 +377,19 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
         side_views = self._window_side_views + self._side_views
         for view in side_views:
             self.window.get_side_panel().remove_item(view)
-            if view in self._side_views: self._side_views.remove(view)
-            if view in self._window_side_views: self._window_side_views.remove(view)
+            if view in self._side_views:
+                self._side_views.remove(view)
+            if view in self._window_side_views:
+                self._window_side_views.remove(view)
 
         # remove all bottom views
         bottom_views = self._window_bottom_views + self._bottom_views
         for view in bottom_views:
             self.window.get_bottom_panel().remove_item(view)
-            if view in self._bottom_views: self._bottom_views.remove(view)
-            if view in self._window_bottom_views: self._window_bottom_views.remove(view)
+            if view in self._bottom_views:
+                self._bottom_views.remove(view)
+            if view in self._window_bottom_views:
+                self._window_bottom_views.remove(view)
 
     def adjust(self, tab_decorator):
         """
@@ -430,7 +435,6 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
             for name in l:
                 self._tool_action_group.get_action(name).set_sensitive(False)
 
-
         # enable the actions for all extensions
         for name in self._action_extensions[None]:
             self._action_group.get_action(name).set_visible(True)
@@ -442,7 +446,6 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
                     self._action_group.get_action(name).set_visible(True)
             except KeyError:
                 pass
-
 
         # enable the tool actions that apply for all extensions
         for name in self._tool_action_extensions[None]:
@@ -492,16 +495,15 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
         # add AFTER.difference(BEFORE)
         i = 1
         for view in after_side_views.difference(before_side_views):
-            i+=1
+            i += 1
             self.window.get_side_panel().add_item(view, "after_side_view_id" + str(i), view.label, view.icon)
             self._side_views.append(view)
         i = 1
         for view in after_bottom_views.difference(before_bottom_views):
-            i+=1
+            i += 1
             print view.label, view.icon
-            self.window.get_bottom_panel().add_item(view, "bottom_view_id" + str(i),view.label, view.icon)
+            self.window.get_bottom_panel().add_item(view, "bottom_view_id" + str(i), view.label, view.icon)
             self._bottom_views.append(view)
-
 
         #
         # adjust window-scope views
@@ -551,7 +553,7 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
         i = 1
         for view in after_window_side_views.difference(before_window_side_views):
             i += 1
-            self.window.get_side_panel().add_item(view,"WHATView"+ str(i), view.label, view.icon)
+            self.window.get_side_panel().add_item(view, "WHATView" + str(i), view.label, view.icon)
             self._window_side_views.append(view)
 
         for view in after_window_bottom_views.difference(before_window_bottom_views):

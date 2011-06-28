@@ -47,7 +47,7 @@ class ProposalPopup(Gtk.Window):
 
     def __init__(self):
         if not '_ready' in dir(self):
-            Gtk.Window.__init__(self,type=Gtk.WindowType.POPUP)
+            Gtk.Window.__init__(self, type=Gtk.WindowType.POPUP)
             #self, Gtk.WindowType.POPUP)
 
             self._store = Gtk.ListStore(str, object, GdkPixbuf.Pixbuf)        # markup, Proposal instance
@@ -125,7 +125,7 @@ class ProposalPopup(Gtk.Window):
         for proposal in proposals:
             self._store.append([proposal.label, proposal, proposal.icon])
 
-        self._view.set_cursor(Gtk.TreePath.new_from_string("0"),None, False)
+        self._view.set_cursor(Gtk.TreePath.new_from_string("0"), None, False)
 
     def navigate(self, key):
         """
@@ -312,10 +312,8 @@ class CompletionDistributor(object):
     or more CompletionHandlers
     """
 
-
     # TODO: clearify and simplify states here!
     # TODO: auto-close (maybe...)
-
 
     _log = getLogger("CompletionDistributor")
 
@@ -327,13 +325,13 @@ class CompletionDistributor(object):
     _STATE_IDLE, _STATE_CTRL_PRESSED, _STATE_ACTIVE = 0, 1, 2
 
     # keys that abort completion
-    _ABORT_KEYS = [ "Escape", "Left", "Right", "Home", "End", "space", "Tab" ]
+    _ABORT_KEYS = ["Escape", "Left", "Right", "Home", "End", "space", "Tab"]
 
     # keys that are used to navigate in the popup
-    _NAVIGATION_KEYS = [ "Up", "Down", "Page_Up", "Page_Down" ]
+    _NAVIGATION_KEYS = ["Up", "Down", "Page_Up", "Page_Down"]
 
     # some characters have key constants that differ from their value
-    _SPECIAL_KEYS = {"@" : "at"}
+    _SPECIAL_KEYS = {"@": "at"}
 
     def __init__(self, editor, handlers):
         """
@@ -427,7 +425,6 @@ class CompletionDistributor(object):
 #        if key == "braceright":
 #            # TODO: self._autoClose(braceTyped=True)
 #            pass
-
 
         if self._state == self._STATE_ACTIVE:
             if key in self._NAVIGATION_KEYS or key in ["Control_L", "Control_R", "space"]:

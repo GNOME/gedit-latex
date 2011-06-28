@@ -114,7 +114,7 @@ UI = """
 from ..latex.actions import LaTeXMenuAction, LaTeXNewAction, LaTeXChooseMasterAction, \
         LaTeXItemizeAction, LaTeXEnumerateAction, LaTeXFontFamilyAction, LaTeXFontFamilyMenuAction, LaTeXBoldAction, \
         LaTeXItalicAction, LaTeXEmphasizeAction, LaTeXDescriptionAction, LaTeXStructureMenuAction, LaTeXPartAction, LaTeXChapterAction, \
-        LaTeXSectionAction, LaTeXSubsectionAction, LaTeXParagraphAction,LaTeXSubparagraphAction, LaTeXStructureAction, \
+        LaTeXSectionAction, LaTeXSubsectionAction, LaTeXParagraphAction, LaTeXSubparagraphAction, LaTeXStructureAction, \
         LaTeXGraphicsAction, LaTeXUseBibliographyAction, LaTeXTableAction, LaTeXListingAction, LaTeXJustifyLeftAction, \
         LaTeXJustifyCenterAction, LaTeXJustifyRightAction, LaTeXMathMenuAction, LaTeXMathAction, LaTeXDisplayMathAction, \
         LaTeXEquationAction, LaTeXUnEqnArrayAction, LaTeXEqnArrayAction, LaTeXUnderlineAction, LaTeXSmallCapitalsAction, \
@@ -123,16 +123,16 @@ from ..latex.actions import LaTeXMenuAction, LaTeXNewAction, LaTeXChooseMasterAc
 
 from ..bibtex.actions import BibTeXMenuAction, BibTeXNewEntryAction
 
-ACTIONS = [ LaTeXMenuAction, LaTeXNewAction, LaTeXChooseMasterAction,
+ACTIONS = [LaTeXMenuAction, LaTeXNewAction, LaTeXChooseMasterAction,
         LaTeXItemizeAction, LaTeXEnumerateAction, LaTeXFontFamilyAction, LaTeXFontFamilyMenuAction, LaTeXBoldAction,
         LaTeXItalicAction, LaTeXEmphasizeAction, LaTeXDescriptionAction, LaTeXStructureMenuAction, LaTeXPartAction, LaTeXChapterAction,
-        LaTeXSectionAction, LaTeXSubsectionAction, LaTeXParagraphAction,LaTeXSubparagraphAction, LaTeXStructureAction,
+        LaTeXSectionAction, LaTeXSubsectionAction, LaTeXParagraphAction, LaTeXSubparagraphAction, LaTeXStructureAction,
         LaTeXGraphicsAction, LaTeXUseBibliographyAction, LaTeXTableAction, LaTeXListingAction, LaTeXJustifyLeftAction,
         LaTeXJustifyCenterAction, LaTeXJustifyRightAction, LaTeXMathMenuAction, LaTeXMathAction, LaTeXDisplayMathAction,
         LaTeXEquationAction, LaTeXUnEqnArrayAction, LaTeXEqnArrayAction, LaTeXUnderlineAction, LaTeXSmallCapitalsAction,
         LaTeXRomanAction, LaTeXSansSerifAction, LaTeXTypewriterAction, LaTeXCloseEnvironmentAction, LaTeXBlackboardBoldAction,
         LaTeXCaligraphyAction, LaTeXFrakturAction, LaTeXBuildImageAction, LaTeXSaveAsTemplateAction,
-        BibTeXMenuAction, BibTeXNewEntryAction ]
+        BibTeXMenuAction, BibTeXNewEntryAction]
 
 # views
 
@@ -141,27 +141,27 @@ from ..latex.views import LaTeXSymbolMapView, LaTeXOutlineView
 from ..bibtex.views import BibTeXOutlineView
 
 
-#WINDOW_SCOPE_VIEWS = { ".tex" : {"LaTeXSymbolMapView" : LaTeXSymbolMapView } }
+#WINDOW_SCOPE_VIEWS = {".tex": {"LaTeXSymbolMapView": LaTeXSymbolMapView}}
 #
-#EDITOR_SCOPE_VIEWS = { ".tex" : {"IssueView" : IssueView,
-#                                 "LaTeXOutlineView" : LaTeXOutlineView},
+#EDITOR_SCOPE_VIEWS = {".tex": {"IssueView": IssueView,
+#                                 "LaTeXOutlineView": LaTeXOutlineView},
 #
-#                       ".bib" : {"IssueView" : IssueView,
-#                                 "BibTeXOutlineView" : BibTeXOutlineView} }
+#                       ".bib": {"IssueView": IssueView,
+#                                 "BibTeXOutlineView": BibTeXOutlineView}}
 
 from ..preferences import Preferences
-LATEX_EXTENSIONS = Preferences().get("latex-extensions").split(",")
+LATEX_EXTENSIONS = Preferences().get("latex-extensions").split(", ")
 BIBTEX_EXTENSIONS = [".bib"]
 
 WINDOW_SCOPE_VIEWS = {}
 EDITOR_SCOPE_VIEWS = {}
 
 for e in LATEX_EXTENSIONS:
-    WINDOW_SCOPE_VIEWS[e] = {"LaTeXSymbolMapView" : LaTeXSymbolMapView }
-    EDITOR_SCOPE_VIEWS[e] = {"IssueView" : IssueView, "LaTeXOutlineView" : LaTeXOutlineView}
+    WINDOW_SCOPE_VIEWS[e] = {"LaTeXSymbolMapView": LaTeXSymbolMapView}
+    EDITOR_SCOPE_VIEWS[e] = {"IssueView": IssueView, "LaTeXOutlineView": LaTeXOutlineView}
 
 for e in BIBTEX_EXTENSIONS:
-    EDITOR_SCOPE_VIEWS[e] = {"IssueView" : IssueView, "BibTeXOutlineView" : BibTeXOutlineView}
+    EDITOR_SCOPE_VIEWS[e] = {"IssueView": IssueView, "BibTeXOutlineView": BibTeXOutlineView}
 
 
 # editors
@@ -169,7 +169,7 @@ for e in BIBTEX_EXTENSIONS:
 from ..latex.editor import LaTeXEditor
 from ..bibtex.editor import BibTeXEditor
 
-EDITORS = [ LaTeXEditor, BibTeXEditor ]
+EDITORS = [LaTeXEditor, BibTeXEditor]
 
 
 # ex:ts=8:et:

@@ -153,7 +153,6 @@ class BottomView(View, Gtk.HBox):
         self._context = None
 
 
-
 class Template(object):
     """
     This one is exposed and should be used by the 'real' plugin code
@@ -171,11 +170,13 @@ class Template(object):
 
 from gi.repository import GObject
 
+
 class GeditLaTeXPlugin_MenuToolAction(Gtk.Action):
     __gtype_name__ = "GeditLaTeXPlugin_MenuToolAction"
 
     def do_create_tool_item(self):
         return Gtk.MenuToolButton()
+
 
 class Action(object):
     """
@@ -327,7 +328,6 @@ class Editor(object):
 
     __log = getLogger("Editor")
 
-
     class Marker(object):
         """
         Markers refer to and highlight a range of text in the TextBuffer decorated by
@@ -348,7 +348,6 @@ class Editor(object):
             self.type = type
             self.id = id
 
-
     class MarkerTypeRecord(object):
         """
         This used for managing Marker types
@@ -361,16 +360,13 @@ class Editor(object):
             self.anonymous = anonymous
             self.markers = []
 
-
     __PATTERN_INDENT = re.compile("[ \t]+")
-
 
     # A list of file extensions
     #
     # If one or more files with one of these extensions is dragged and dropped on the editor,
     # the Editor.drag_drop_received method is called. An empty list disables the dnd support.
     dnd_extensions = []
-
 
     def __init__(self, tab_decorator, file):
         self._tab_decorator = tab_decorator
@@ -397,21 +393,19 @@ class Editor(object):
         self._marker_types = {}    # {marker type -> MarkerTypeRecord object}
         self._markers = {}        # { marker id -> marker object }
 
-
         self._window_context = self._tab_decorator._window_decorator._window_context
         self._window_context.create_editor_views(self, file)
-
 
         self._offset = None        # used by move_cursor
 
         self.__view_signal_handlers = [
                 self._text_view.connect("button-press-event", self.__on_button_pressed),
                 self._text_view.connect("key-release-event", self.__on_key_released),
-                self._text_view.connect("button-release-event", self.__on_button_released) ]
+                self._text_view.connect("button-release-event", self.__on_button_released)]
 
         self.__buffer_change_timestamp = time.time()
         self.__buffer_signal_handlers = [
-                self._text_buffer.connect("changed", self.__on_buffer_changed) ]
+                self._text_buffer.connect("changed", self.__on_buffer_changed)]
 
         # dnd support
         if len(self.dnd_extensions) > 0:
@@ -730,7 +724,6 @@ class Editor(object):
         if end_offset > buffer_end_offset:
             self.__log.error("create_marker(): end offset out of range (%s > %s)" % (end_offset, buffer_end_offset))
 
-
         type_record = self._marker_types[marker_type]
 
         # hightlight
@@ -1004,6 +997,7 @@ import re
 import urllib
 import urlparse
 
+
 def fixurl(url):
     r"""From http://stackoverflow.com/questions/804336/best-way-to-convert-a-unicode-url-to-ascii-utf-8-percent-escaped-in-python/805166#805166 .
     Was named canonurl(). Comments added to the original are prefixed with ##.
@@ -1062,7 +1056,7 @@ def fixurl(url):
     # turn it into Unicode
     try:
         url = unicode(url, 'utf-8')
-    except Exception, exc: #UnicodeDecodeError, exc:
+    except Exception, exc:   # UnicodeDecodeError, exc:
         ## It often happens that the url is already "python unicode" encoded
         if not str(exc) == "decoding Unicode is not supported":
             return ''  # bad UTF-8 chars in URL
@@ -1282,7 +1276,7 @@ class File(object):
                 return self.path
             if self.path[:len(base)] == base:
                 # bases match, return relative part
-                return self.path[len(base)+1:]
+                return self.path[len(base) + 1:]
             return self.path
 
     def relativize_shortname(self, base):
@@ -1336,6 +1330,7 @@ class File(object):
             # returning NotImplemented is bad because we have to
             # compare None with File
             return False
+
 
 class Folder(File):
 
