@@ -967,6 +967,7 @@ class WindowContext(object):
         """
         Return a View object
         """
+        print self.editor_scope_views, editor, view_id
         try:
             return self.editor_scope_views[editor][view_id]
         except KeyError:
