@@ -47,8 +47,9 @@ _log = logging.getLogger("resources")
 #
 
 # TODO: switch to gedit.Plugin.get_data_dir()
-
-_PATH_SYSTEM = "/opt/gnome/lib64/gedit/plugins/latex"
+# FIXME: Since we support Gsettings, we need to install the plugin 
+# system wide.
+_PATH_SYSTEM = "/usr/share/gedit/plugins/latex"
 _PATH_USER = expanduser("~/.local/share/gedit/plugins/latex")
 
 # FHS-compliant location for pixmaps
