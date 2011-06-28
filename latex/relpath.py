@@ -88,4 +88,17 @@ def relpath(base, comp):
 
     return os.path.join(*rel_path)
 
+if __name__ == "__main__":
+    import os.path
+
+    base = "file:///foo/bar/baz/bob"
+    bits = ("file:///foo","/bar","/baz","/bob","/cheese","/cake","/..","/..","/..","/foob")
+
+    path = ""
+    for b in bits:
+        path += b
+        print os.path.relpath(path, base),
+        try: print " V ", relpath(base, path)
+        except: print ""
+
 # ex:ts=4:et:
