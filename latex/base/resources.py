@@ -20,58 +20,45 @@
 
 """
 base.resources
-
-Either the plugin is installed in ~/.gnome2/gedit/plugins/GeditLaTeXPlugin as
-described in INSTALL or it's installed system-wide, e.g. by a .deb package.
-For a system-wide installation everything but the pixmaps is copied to
-/usr/lib/gedit-2/plugins/GeditLaTeXPlugin. And FHS requires to place the
-pixmaps in /usr/share/gedit-2/plugins/GeditLaTeXPlugin.
-
-To be backward compatibale when it's installed system-wide, we have to
-look for pixmaps in _PATH_SYSTEM and _PATH_SHARE.
 """
 
 import logging
-from os import makedirs
-from os.path import expanduser, exists
-from shutil import copyfile
+import os.path
+import shutil
 
 from ..util import open_error
 
-
-logging.basicConfig(level=logging.DEBUG)
 _log = logging.getLogger("resources")
 
-#
-# init plugin resource locating
-#
-
-# TODO: switch to gedit.Plugin.get_data_dir()
-# FIXME: Since we support Gsettings, we need to install the plugin 
-# system wide.
+_PATH_ME = os.path.realpath(os.path.dirname(__file__))
 _PATH_SYSTEM = "/usr/share/gedit/plugins/latex"
-_PATH_USER = expanduser("~/.local/share/gedit/plugins/latex")
+_PATH_USER = os.path.expanduser("~/.local/share/gedit/plugins/latex")
+_PATH_SRCDIR = os.path.abspath(os.path.join(_PATH_ME,"..","..","data"))
 
-# FHS-compliant location for pixmaps
-_PATH_SHARE = "/usr/share/gedit-2/plugins/GeditLaTeXPlugin"
+# the order is important, for development it is useful to symlink
+# the plugin into ~/.local/share/gedit/plugin and run it. In that case
+# the first location to check for resources is the data dir in the
+# source directory
+#
+# beyond that case, by preferring the local copy to the system one, it
+# allows the user to customize things cleanly
+_PATH_RO_RESOURCES = [p for p in (
+	_PATH_SRCDIR, _PATH_USER, _PATH_SYSTEM) if os.path.exists(p)]
 
+_log.debug("RO locations: %s" % ",".join(_PATH_RO_RESOURCES ))
+_log.debug("RW location: %s" % _PATH_SYSTEM)
 
-_log.debug("Initializing resource locating")
-
-_installed_system_wide = exists(_PATH_SYSTEM)
+_installed_system_wide = os.path.exists(_PATH_SYSTEM)
 if _installed_system_wide:
 	# ensure that we have a user plugin dir
-	if not exists(_PATH_USER):
+	if not os.path.exists(_PATH_USER):
 		_log.debug("Creating %s" % _PATH_USER)
-		makedirs(_PATH_USER)
-	
-	PLUGIN_PATH = _PATH_SYSTEM	# only used by build to expand $plugin
+		os.makedirs(_PATH_USER)
+	PLUGIN_PATH = _PATH_SYSTEM      # FIXME: only used by build to expand $plugin
 else:
-	PLUGIN_PATH = _PATH_USER	# only used by build to expand $plugin
-
+	PLUGIN_PATH = _PATH_USER
 
 MODE_READONLY, MODE_READWRITE = 1, 2
-
 
 def find_resource(relative_path, access_mode=MODE_READONLY):
 	"""
@@ -83,36 +70,40 @@ def find_resource(relative_path, access_mode=MODE_READONLY):
 	
 	@return: the full filename of the resource
 	"""
+	_log.debug("Finding: %s (%d)" % (relative_path, access_mode))
 	if access_mode == MODE_READONLY:
-		#
-		# locate a system-wide resource for read-only access
-		#
-		if _installed_system_wide:
-			path = "%s/%s" % (_PATH_SYSTEM, relative_path)
-			
-			if not exists(path):
-				# second chance: look in _PATH_SHARE
-				path = "%s/%s" % (_PATH_SHARE, relative_path)
-		else:
-			path = "%s/%s" % (_PATH_USER, relative_path)
-		
-		if not exists(path):
-			_log.warning("File not found: %s" % path)
-		
-		return path
+		# locate a resource for read-only access. Prefer user files
+		# to system ones. See comment above
+		for p in _PATH_RO_RESOURCES:
+			path = "%s/%s" % (p, relative_path)
+			if os.path.exists(path):
+				return path
+
+		_log.critical("File not found: %s" % path)
+		return None
 	
 	elif access_mode == MODE_READWRITE:
-		#
 		# locate a user-specific resource for read/write access
-		#
 		path = "%s/%s" % (_PATH_USER, relative_path)
-	
-		if _installed_system_wide and not exists(path):
+		if os.path.exists(path):
+			return path
+
+		if _installed_system_wide:
 			# resource doesn't exist yet in the user's directory
-			# copy the system-wide version		
-			try:
-				copyfile("%s/%s" % (_PATH_SYSTEM, relative_path), path)
-			except IOError:
-				_log.warning("Failed to copy resource to user directory: %s" % relative_path)
+			# copy the system-wide version
+			rw_source = "%s/%s" % (_PATH_SYSTEM, relative_path)
+		else:
+			# we are in the sourcedir
+			rw_source = "%s/%s" % (_PATH_SRCDIR, relative_path)
+
+		try:
+			_log.info("Copying file to user path %s -> %s" % (rw_source, path))
+			assert(rw_source != path)
+			shutil.copyfile(rw_source, path)
+		except IOError:
+			_log.critical("Failed to copy resource to user directory: %s -> %s" % (rw_source, path))
+		except AssertionError:
+			_log.critical("Source and dest are the same. Bad programmer")
+
 		return path
 
