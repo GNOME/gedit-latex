@@ -1,4 +1,4 @@
-plugindir = $(libdir)/gedit/plugins/latex/templates
+plugindir = $(datadir)/gedit/plugins/latex/templates
 
 plugin_DATA = \
 	Default.template \

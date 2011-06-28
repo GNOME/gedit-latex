@@ -74,18 +74,18 @@ AC_PATH_PROG(GLIB_GENMARSHAL, glib-genmarshal)
 AC_CONFIG_FILES([
 Makefile
 data/Makefile
+data/icons/Makefile
+data/templates/Makefile
+data/ui/Makefile
 data/org.gnome.gedit.plugins.latex.gschema.xml.in
 latex.plugin.desktop.in
 latex/gldefs.py
 latex/Makefile
 latex/base/Makefile
 latex/bibtex/Makefile
-latex/icons/Makefile
 latex/latex/Makefile
 latex/preferences/Makefile
-latex/templates/Makefile
 latex/tools/Makefile
-latex/ui/Makefile
 latex/util/Makefile
 po/Makefile.in])
 

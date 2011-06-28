@@ -1,4 +1,4 @@
-plugindir = $(libdir)/gedit/plugins/latex/ui
+plugindir = $(datadir)/gedit/plugins/latex/ui
 
 plugin_DATA = \
 	build_image_dialog.ui \

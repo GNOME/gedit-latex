@@ -1,4 +1,4 @@
-SUBDIRS = base bibtex icons latex preferences templates tools ui util
+SUBDIRS = base bibtex latex preferences tools util
 
 plugindir = $(libdir)/gedit/plugins/latex
 
@@ -10,12 +10,5 @@ plugin_PYTHON = \
 	relpath.py \
 	util.py \
 	views.py
-
-plugin_DATA = \
-	bibtex.xml \
-	latex.xml \
-	listings.xml \
-	symbols.xml \
-	tools.xml
 
 -include $(top_srcdir)/git.mk

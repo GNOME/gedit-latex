@@ -1,4 +1,4 @@
-plugindir = $(libdir)/gedit/plugins/latex/icons
+plugindir = $(datadir)/gedit/plugins/latex/icons
 
 plugin_DATA = \
 	accents/acute.png \
