@@ -21,4 +21,4 @@ CLEANFILES = $(gsettings_SCHEMAS)
 
 DISTCLEANFILES = $(gsettings_SCHEMAS)
 
-include $(top_srcdir)/git.mk
+-include $(top_srcdir)/git.mk
