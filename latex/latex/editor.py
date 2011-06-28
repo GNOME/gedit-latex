@@ -361,7 +361,7 @@ class LaTeXEditor(Editor, IIssueHandler):
 
                 property_file["MasterFilename"] = master_filename
                 property_file.save()
-                return File(master_filename)
+                return File.create_from_relative_path(master_filename, self._file.dirname)
             else:
                 # no master file chosen
                 return None
