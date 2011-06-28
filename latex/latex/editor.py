@@ -360,10 +360,9 @@ class LaTeXEditor(Editor, IIssueHandler, IPreferencesMonitor):
 			if master_filename:
 				# relativize the master filename
 				master_filename = File(master_filename).relativize(self._file.dirname, True)
-				
 				property_file["MasterFilename"] = master_filename
 				property_file.save()
-				return File(master_filename)
+				return File.create_from_relative_path(master_filename, self._file.dirname)
 			else:
 				# no master file chosen
 				return None
