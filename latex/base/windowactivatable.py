@@ -283,12 +283,15 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
             gtk_action = Gtk.Action(name, action.label, action.tooltip, action.stock_id)
             self._action_handlers[gtk_action] = gtk_action.connect("activate", lambda gtk_action, action: action.activate(self._window_context), action)
 
-            if not tool.accelerator is None and len(tool.accelerator) > 0:
-                # TODO: validate accelerator!
-                self._tool_action_group.add_action_with_accel(gtk_action, tool.accelerator)
-            else:
-                self._tool_action_group.add_action_with_accel(gtk_action, "<Ctrl><Alt>%s" % accel_counter)
+            accelerator = None
+            if tool.accelerator and len(tool.accelerator) > 0:
+                key,mods = Gtk.accelerator_parse(tool.accelerator)
+                if Gtk.accelerator_valid(key,mods):
+                    accelerator = tool.accelerator
+            if not accelerator:
+                accelerator = "<Ctrl><Alt>%s" % accel_counter
                 accel_counter += 1
+            self._tool_action_group.add_action_with_accel(gtk_action, accelerator)
 
             # add UI definition
             items_ui += """<menuitem action="%s" />""" % name
