@@ -142,8 +142,8 @@ class ProposalPopup(Gtk.Window):
         else:
             return
 
-        path = self._view.get_cursor()[0]
-        index = path[0]
+        path,column = self._view.get_cursor()
+        index = int(path.to_string()[0])
         max = self._store.iter_n_children(None)
 
         index += d
@@ -153,7 +153,10 @@ class ProposalPopup(Gtk.Window):
         elif index >= max:
             index = max - 1
 
-        self._view.set_cursor(index)
+        self._view.set_cursor(
+                Gtk.TreePath.new_from_string("%d" % index),
+                column,
+                False)
 
         self._update_details_popup()
 
@@ -180,7 +183,9 @@ class ProposalPopup(Gtk.Window):
         contains details.
         """
         try:
-            index = self._view.get_cursor()[0][0]
+            path,column = self._view.get_cursor()
+            index = int(path.to_string()[0])
+
             proposal = self._store[index][1]
 
 #            self._log.debug("proposal.details: " + str(proposal.details))
