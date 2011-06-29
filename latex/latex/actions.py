@@ -433,6 +433,26 @@ class LaTeXListingAction(LaTeXIconAction):
         if source:
             context.active_editor.insert(source)
 
+class LaTeXBuildAction(LaTeXIconAction):
+    menu_tool_action = True
+
+    label = "Build"
+    accelerator = None
+    tooltip = "Build"
+    stock_id = Gtk.STOCK_CONVERT
+
+    def activate(self, context):
+        pass
+
+
+class LaTeXBuildMenuAction(LaTeXAction):
+    label = "Build"
+    accelerator = None
+    tooltip = "Build"
+    stock_id = None
+
+    def activate(self, context):
+        pass
 
 class LaTeXBuildImageAction(LaTeXIconAction):
     label = "Build Image"

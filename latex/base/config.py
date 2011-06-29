@@ -105,7 +105,12 @@ UI = """
             <toolitem action="LaTeXListingAction" />
             <toolitem action="LaTeXUseBibliographyAction" />
             <separator />
-            <toolitem action="LaTeXBuildImageAction" />
+            <toolitem action="LaTeXBuildAction">
+                <menu action="LaTeXBuildMenuAction">
+					<menuitem action="LaTeXBuildImageAction" />
+					<placeholder name="LaTeXBuildPlaceholder_1" />
+                </menu>
+            </toolitem>				
         </toolbar>
     </ui>"""
 
@@ -119,7 +124,8 @@ from ..latex.actions import LaTeXMenuAction, LaTeXNewAction, LaTeXChooseMasterAc
         LaTeXJustifyCenterAction, LaTeXJustifyRightAction, LaTeXMathMenuAction, LaTeXMathAction, LaTeXDisplayMathAction, \
         LaTeXEquationAction, LaTeXUnEqnArrayAction, LaTeXEqnArrayAction, LaTeXUnderlineAction, LaTeXSmallCapitalsAction, \
         LaTeXRomanAction, LaTeXSansSerifAction, LaTeXTypewriterAction, LaTeXCloseEnvironmentAction, LaTeXBlackboardBoldAction, \
-        LaTeXCaligraphyAction, LaTeXFrakturAction, LaTeXBuildImageAction, LaTeXSaveAsTemplateAction
+        LaTeXCaligraphyAction, LaTeXFrakturAction, LaTeXBuildImageAction, LaTeXSaveAsTemplateAction, \
+        LaTeXBuildAction, LaTeXBuildMenuAction
 
 from ..bibtex.actions import BibTeXMenuAction, BibTeXNewEntryAction
 
@@ -132,6 +138,7 @@ ACTIONS = [LaTeXMenuAction, LaTeXNewAction, LaTeXChooseMasterAction,
         LaTeXEquationAction, LaTeXUnEqnArrayAction, LaTeXEqnArrayAction, LaTeXUnderlineAction, LaTeXSmallCapitalsAction,
         LaTeXRomanAction, LaTeXSansSerifAction, LaTeXTypewriterAction, LaTeXCloseEnvironmentAction, LaTeXBlackboardBoldAction,
         LaTeXCaligraphyAction, LaTeXFrakturAction, LaTeXBuildImageAction, LaTeXSaveAsTemplateAction,
+        LaTeXBuildAction, LaTeXBuildMenuAction,
         BibTeXMenuAction, BibTeXNewEntryAction]
 
 # views

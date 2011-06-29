@@ -52,13 +52,20 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
 
     _log = logging.getLogger("LaTeXWindowActivatable")
 
-    # ui definition template for hooking tools in Gedit's ui
+    # ui definition template for hooking tools in Gedit's ui.
     _tool_ui_template = string.Template("""<ui>
             <menubar name="MenuBar">
                 <menu name="ToolsMenu" action="Tools">
                     <placeholder name="ToolsOps_1">$items</placeholder>
                 </menu>
             </menubar>
+			<toolbar name="LaTeXToolbar">
+				<toolitem action="LaTeXBuildAction">
+					<menu action="LaTeXBuildMenuAction">
+						<placeholder name="LaTeXBuildPlaceholder_1">$items</placeholder>
+					</menu>
+				</toolitem>
+            </toolbar>
         </ui>""")
 
     def __init__(self):
@@ -214,6 +221,7 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
         self._toolbar = self._ui_manager.get_widget("/LaTeXToolbar")
         self._toolbar.set_style(Gtk.ToolbarStyle.BOTH_HORIZ)
 
+        # FIXME: Adding a new toolbar to gedit is not really public API
         self._main_box = self.window.get_children()[0]
         self._main_box.pack_start(self._toolbar, False, True, 0)
         self._main_box.reorder_child(self._toolbar, 2)
@@ -245,20 +253,12 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
          - hook them in the window UI
          - create a map from extensions to lists of ToolActions
         """
-
-        # add a MenuToolButton with the tools menu to the toolbar afterwards
-        # FIXME: this is quite hacky
-        menu = Gtk.Menu()
-
-        # this is used for enable/disable actions by name
-        # None stands for every extension
-        self._tool_action_extensions = {None: []}
-
-        self._tool_action_group = Gtk.ActionGroup("LaTeXPluginToolActions")
-
         items_ui = ""
-
         self._action_handlers = {}
+
+        # this is used for enable/disable actions by name (None = every extension)
+        self._tool_action_extensions = {None: []}
+        self._tool_action_group = Gtk.ActionGroup("LaTeXPluginToolActions")
 
         i = 1                    # counting tool actions
         accel_counter = 1        # counting tool actions without custom accel
@@ -286,26 +286,15 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
                 self._tool_action_group.add_action_with_accel(gtk_action, "<Ctrl><Alt>%s" % accel_counter)
                 accel_counter += 1
 
-            # add to MenuToolBar menu
-            # FIXME: GtkWarning: gtk_accel_label_set_accel_closure: assertion `gtk_accel_group_from_accel_closure (accel_closure) != NULL' failed
-            menu.add(gtk_action.create_menu_item())
-
             # add UI definition
             items_ui += """<menuitem action="%s" />""" % name
-
             i += 1
 
         tool_ui = self._tool_ui_template.substitute({"items": items_ui})
-
+        
         self._ui_manager.insert_action_group(self._tool_action_group, -1)
         self._tool_ui_id = self._ui_manager.add_ui_from_string(tool_ui)
-
-        # add a MenuToolButton with the tools menu to the toolbar
-        self._menu_tool_button = Gtk.MenuToolButton.new_from_stock(Gtk.STOCK_CONVERT)
-        self._menu_tool_button.set_menu(menu)
-        self._menu_tool_button.show_all()
-        self._toolbar.insert(self._menu_tool_button, -1)
-
+        
     def save_file(self):
         """
         Trigger the 'Save' action
@@ -323,9 +312,6 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
             gtk_action.disconnect(self._action_handlers[gtk_action])
             self._tool_action_group.remove_action(gtk_action)
         self._ui_manager.remove_action_group(self._tool_action_group)
-
-        # remove MenuToolButton
-        self._toolbar.remove(self._menu_tool_button)
 
         # re-init tool actions
         self._init_tool_actions()
