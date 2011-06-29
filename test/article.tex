@@ -1,0 +1,47 @@
+\documentclass[12pt]{book}
+\usepackage{graphicx}
+\usepackage{caption}
+
+\title{Test Document}
+\author{Knuth}
+\date{April 2011}
+
+\newcommand{\testcite}[1]{\cite{#1}}
+\newcommand{\testref}[1]{(\ref{#1})}
+\newcommand{\testfoo}{FOO}
+\newcommand{\teste}[1]{\ensuremath{\times 10^{#1}}}
+
+\begin{document}
+\maketitle
+
+\chapter{Main Stuff}
+\section{foo}
+bar pleas see \ref{fig:fixme}
+
+\section{bar}
+baz.
+
+Lets enjoy \teste{12}. Lets complete complete. Lets \testcite{dijkstra68}
+
+\section{baz}
+I like \cite{dijkstra76}
+
+\begin{figure}
+    \centering
+	\includegraphics[scale=1.00]{FIXME}
+	\caption{Indeed}
+	\label{fig:fixme}
+\end{figure}
+
+\section{cake}
+\subsection{chips}
+\subsubsection{candy}
+
+lets use a \testcite{dijkstra68}
+
+\include{chap2}
+
+\bibliography{article}
+\bibliographystyle{IEEEtran}
+
+\end{document}
