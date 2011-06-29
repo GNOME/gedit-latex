@@ -145,8 +145,6 @@ class ProposalPopup(Gtk.Window):
 		path, column = self._view.get_cursor()
 		index = int(path.to_string())
 		max = self._store.iter_n_children(None)
-		print path, column 
-		print "Navigate", index, d, max	
 		index += d
 		
 		if index < 0:
