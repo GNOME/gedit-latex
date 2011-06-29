@@ -143,7 +143,7 @@ class ProposalPopup(Gtk.Window):
             return
 
         path,column = self._view.get_cursor()
-        index = int(path.to_string()[0])
+        index = int(path.to_string())
         max = self._store.iter_n_children(None)
 
         index += d
@@ -184,7 +184,7 @@ class ProposalPopup(Gtk.Window):
         """
         try:
             path,column = self._view.get_cursor()
-            index = int(path.to_string()[0])
+            index = int(path.to_string())
 
             proposal = self._store[index][1]
 
