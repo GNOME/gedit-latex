@@ -24,6 +24,7 @@ latex.model
 The LaTeX language model used for code completion.
 """
 
+import copy
 from logging import getLogger
 
 from ..base.resources import Resources
@@ -168,21 +169,30 @@ class LanguageModel(object):
         except KeyError:
             self.__log.error("fill_placeholder: placeholder '%s' not registered" % name)
 
-    def set_newcommands(self, newcommands):
+    def set_newcommands(self, outlinenodes):
 
-        # TODO: use sets
-
-        self.__log.debug("set_newcommands: " + ",".join([c.name for c in newcommands]))
-
+        self.__log.debug("set newcommands: %s" % ",".join([o.value for o in outlinenodes]))
         for name in self.__newcommands:
             self.commands.__delitem__(name)
 
-        for command in newcommands:
-            self.commands[command.name] = command
-
+        for o in outlinenodes:
+            #if this is a redefinition of an existing node then use that node as
+            #the completion helper
+            if o.oldcmd and o.oldcmd in self.commands:
+                self.__log.info("Detected redefined \\newcommand: %s -> %s" % (o.value, o.oldcmd))
+                #copy the old command so we retain its argument completion but change
+                #the display name
+                old = copy.copy(self.commands[o.oldcmd])
+                old.name = o.value
+                self.commands[o.value] = old
+            else:
+                #add a generic completer
+                command = Command(None, o.value)
+                for i in range(o.numOfArgs):
+                    command.children.append(MandatoryArgument(None, "#%s" % (i + 1)))
+                self.commands[command.name] = command
 
 from xml import sax
-
 
 class LanguageModelParser(sax.ContentHandler):
     """

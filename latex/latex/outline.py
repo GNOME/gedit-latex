@@ -36,7 +36,7 @@ class OutlineNode(list):
 
     ROOT, STRUCTURE, LABEL, NEWCOMMAND, REFERENCE, GRAPHICS, PACKAGE, TABLE, NEWENVIRONMENT = range(9)
 
-    def __init__(self, type, start=None, end=None, value=None, level=None, foreign=False, numOfArgs=None, file=None):
+    def __init__(self, type, start=None, end=None, value=None, level=None, foreign=False, numOfArgs=None, file=None, **kwargs):
         """
         numOfArgs        only used for NEWCOMMAND type
         """
@@ -48,6 +48,8 @@ class OutlineNode(list):
         self.foreign = foreign
         self.numOfArgs = numOfArgs
         self.file = file
+
+        self.oldcmd = kwargs.get("oldcmd")
 
     @property
     def xml(self):
@@ -229,7 +231,22 @@ class LaTeXOutlineGenerator(object):
                         except Exception:
                             issue_handler.issue(Issue("Malformed newcommand", node.start, node.end, node.file, Issue.SEVERITY_ERROR))
                             nArgs = 0
-                        ncNode = OutlineNode(OutlineNode.NEWCOMMAND, node.start, node.lastEnd, name, numOfArgs=nArgs, file=node.file)
+
+                        #if the command has only one argument, be smart and see if it is a redefinition of an
+                        #existing latex command
+                        oldcmd = None
+                        if nArgs == 1:
+                            oldcommandnode = None
+                            newcommandsnode = node.filter(Node.MANDATORY_ARGUMENT)[1]
+                            #find the command that takes the '#1' argument
+                            for i in newcommandsnode.filter(Node.COMMAND):
+                                for j in i.filter(Node.MANDATORY_ARGUMENT):
+                                    if j.innerText == "#1":
+                                        oldcommandnode = i
+                            if oldcommandnode:
+                                oldcmd = i.value
+
+                        ncNode = OutlineNode(OutlineNode.NEWCOMMAND, node.start, node.lastEnd, name, numOfArgs=nArgs, file=node.file, oldcmd=oldcmd)
                         self._outline.newcommands.append(ncNode)
                     except IndexError:
                         issue_handler.issue(Issue("Malformed command", node.start, node.lastEnd, node.file, Issue.SEVERITY_ERROR))

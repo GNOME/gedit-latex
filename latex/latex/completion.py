@@ -133,13 +133,7 @@ class LaTeXCompletionHandler(ICompletionHandler):
         self._language_model.fill_placeholder("Colors", color_choices)
 
         # newcommands
-        newcommands = []
-        for n in outline.newcommands:
-            command = Command(None, n.value)
-            for i in range(n.numOfArgs):
-                command.children.append(MandatoryArgument(None, "#%s" % (i + 1)))
-            newcommands.append(command)
-        self._language_model.set_newcommands(newcommands)
+        self._language_model.set_newcommands(outline.newcommands)
 
         # newenvironments
         newenvironments = []
