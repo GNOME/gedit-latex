@@ -1,6 +1,7 @@
 plugindir = $(datadir)/gedit/plugins/latex/ui
 
 plugin_DATA = \
+	ui.builder \
 	build_image_dialog.ui \
 	choose_master_dialog.ui \
 	configure.ui \

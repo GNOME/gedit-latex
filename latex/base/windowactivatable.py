@@ -33,10 +33,10 @@ from ..preferences.dialog import PreferencesDialog
 from ..preferences.tools import ToolPreferences
 from ..tools import ToolAction
 from ..tools.views import ToolView
-from config import UI, WINDOW_SCOPE_VIEWS, EDITOR_SCOPE_VIEWS, ACTIONS
+from .config import WINDOW_SCOPE_VIEWS, EDITOR_SCOPE_VIEWS, ACTIONS
+from .decorators import GeditTabDecorator
+from .resources import find_resource
 from . import File, SideView, BottomView, WindowContext
-from decorators import GeditTabDecorator
-
 
 class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Configurable):
     __gtype_name__ = "LaTeXWindowActivatable"
@@ -216,7 +216,7 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
 
         # merge ui
         self._ui_manager.insert_action_group(self._action_group, -1)
-        self._ui_id = self._ui_manager.add_ui_from_string(UI)
+        self._ui_id = self._ui_manager.add_ui_from_file(find_resource("ui/ui.builder"))
 
         # hook the toolbar
         self._toolbar = self._ui_manager.get_widget("/LaTeXToolbar")
