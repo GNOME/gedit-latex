@@ -24,7 +24,7 @@ base.resources
 """
 
 import logging
-import os
+import os.path
 import errno
 
 _log = logging.getLogger("resources")

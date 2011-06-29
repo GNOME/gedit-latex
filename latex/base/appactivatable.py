@@ -16,13 +16,11 @@
 #    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
 import sys
-import os
-
-import glib
-
-from gi.repository import Gedit, GObject
-from resources import Resources
+import os.path
 import platform
+
+from gi.repository import GLib, Gedit, GObject
+from resources import Resources
 
 class LaTeXAppActivatable(GObject.Object, Gedit.AppActivatable):
     __gtype_name__ = "GeditLaTeXAppActivatable"
@@ -36,8 +34,15 @@ class LaTeXAppActivatable(GObject.Object, Gedit.AppActivatable):
         if platform.platform() == 'Windows':
             latexdir = os.path.expanduser('~/gedit/latex')
         else:
-            latexdir = os.path.join(glib.get_user_config_dir(), 'gedit/latex')
+            latexdir = os.path.join(GLib.get_user_config_dir(), 'gedit/latex')
 
-        Resources().set_dirs(latexdir, self.plugin_info.get_data_dir())
+        #check if running from srcdir and if so, prefer that for all data files
+        me = os.path.realpath(os.path.dirname(__file__))
+        if os.path.exists(os.path.join(me, "..", "..", "configure.ac")):
+            sysdir = os.path.abspath(os.path.join(me, "..", "..", "data"))
+        else:
+            sysdir = self.plugin_info.get_data_dir()
+
+        Resources().set_dirs(latexdir, sysdir)
 
 # vi:ex:ts=4:et
