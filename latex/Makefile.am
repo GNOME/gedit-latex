@@ -6,6 +6,9 @@ plugindir = $(libdir)/gedit/plugins
 
 pluginlatexdir = $(plugindir)/latex
 
+preferences.xml:
+	cp preferences.xml.sample preferences.xml
+
 pluginlatex_PYTHON = \
 	gldefs.py \
 	__init__.py \
@@ -19,7 +22,7 @@ pluginlatex_DATA = \
 	bibtex.xml \
 	latex.xml \
 	listings.xml \
-	preferences.xml.sample \
+	preferences.xml \
 	symbols.xml \
 	tools.xml
 
