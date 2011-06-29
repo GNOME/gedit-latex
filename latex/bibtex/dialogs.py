@@ -156,7 +156,7 @@ class InsertBibTeXEntryDialog(GladeInterface):
             child.destroy()
 
         tbl_required.show_all()
-        self._boxRequired.pack_start(tbl_required, False)
+        self._boxRequired.pack_start(tbl_required, False, False, 0)
 
         # optional fields
 
@@ -189,6 +189,6 @@ class InsertBibTeXEntryDialog(GladeInterface):
             child.destroy()
 
         tbl_optional.show_all()
-        self._boxOptional.pack_start(tbl_optional, False)
+        self._boxOptional.pack_start(tbl_optional, False, False, 0)
 
 # ex:ts=4:et:
