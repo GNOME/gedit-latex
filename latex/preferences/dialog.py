@@ -67,7 +67,7 @@ class ConfigureToolDialog(GladeInterface):
     _dialog = None
 
     def __init__(self):
-        super(GladeInterface, self,).__init__()
+        GladeInterface.__init__(self)
         self.filename = Resources().get_ui_file("configure_tool.ui")
 
     def run(self, tool):
@@ -321,7 +321,7 @@ class PreferencesDialog(GladeInterface):
     _dialog = None
 
     def __init__(self):
-        super(GladeInterface, self,).__init__()
+        GladeInterface.__init__(self)
         self.filename = Resources().get_ui_file("configure.ui")
 
     @property

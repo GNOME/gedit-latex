@@ -176,10 +176,9 @@ class GladeInterface(object):
 
     __log = logging.getLogger("GladeInterface")
 
-    filename = None
-
     def __init__(self):
         self.__tree = None
+        self.filename = None
 
     def __get_tree(self):
         if not self.__tree:

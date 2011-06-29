@@ -35,7 +35,7 @@ class InsertBibTeXEntryDialog(GladeInterface):
     _dialog = None
 
     def __init__(self):
-        super(GladeInterface, self).__init__()
+        GladeInterface.__init__(self)
         self.filename = Resources().get_ui_file("insert_bibtex_entry.ui")
 
     def run(self):

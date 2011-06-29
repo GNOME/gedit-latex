@@ -160,7 +160,7 @@ class ChooseMasterDialog(GladeInterface):
     """
 
     def __init__(self):
-        super(GladeInterface, self).__init__()
+        GladeInterface.__init__(self)
         self.filename = Resources().get_ui_file("choose_master_dialog.ui")
 
     def run(self, folder):
@@ -317,7 +317,7 @@ class NewDocumentDialog(GladeInterface):
     dialog = None
 
     def __init__(self):
-        super(GladeInterface, self).__init__()
+        GladeInterface.__init__(self)
         self.filename = Resources().get_ui_file("new_document_template_dialog.ui")
 
     def get_dialog(self):
@@ -578,7 +578,7 @@ class UseBibliographyDialog(GladeInterface, PreviewRenderer):
     dialog = None
 
     def __init__(self):
-        super(GladeInterface, self).__init__()
+        GladeInterface.__init__(self)
         self.filename = Resources().get_ui_file("use_bibliography_dialog.ui")
 
     def run_dialog(self, edited_file):
@@ -682,7 +682,7 @@ class InsertGraphicsDialog(GladeInterface):
     _dialog = None
 
     def __init__(self):
-        super(GladeInterface, self).__init__()
+        GladeInterface.__init__(self)
         self.filename = Resources().get_ui_file("insert_graphics_dialog.ui")
 
     def run(self, edited_file):
@@ -803,7 +803,7 @@ class InsertTableDialog(GladeInterface):
     _dialog = None
 
     def __init__(self):
-        super(GladeInterface, self).__init__()
+        GladeInterface.__init__(self)
         self.filename = Resources().get_ui_file("insert_table_dialog.ui")
 
     def run(self):
@@ -923,7 +923,7 @@ class InsertListingDialog(GladeInterface):
     _dialog = None
 
     def __init__(self):
-        super(GladeInterface, self).__init__()
+        GladeInterface.__init__(self)
         self.filename = Resources().get_ui_file("insert_listing_dialog.ui")
 
     def run(self, edited_file):
@@ -1063,7 +1063,7 @@ class BuildImageDialog(GladeInterface):
     _generator = ImageToolGenerator()
 
     def __init__(self):
-        super(GladeInterface, self).__init__()
+        GladeInterface.__init__(self)
         self.filename = Resources().get_ui_file("build_image_dialog.ui")
 
     def run(self):
@@ -1144,7 +1144,7 @@ class SaveAsTemplateDialog(GladeInterface):
     _dialog = None
 
     def __init__(self):
-        super(GladeInterface, self).__init__()
+        GladeInterface.__init__(self)
         self.filename = Resources().get_ui_file("save_as_template_dialog.ui")
 
     def get_dialog(self):
