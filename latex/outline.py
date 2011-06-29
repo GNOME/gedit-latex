@@ -158,7 +158,7 @@ class BaseOutlineView(SideView):
         self._expanded_paths = []
         self._view.map_expanded_rows(self._save_state_map_function,None)
 
-    def _save_state_map_function(self, view, path):
+    def _save_state_map_function(self, view, path, user_data=None):
         """
         Mapping function for saving the current expand state
         """
