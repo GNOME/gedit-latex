@@ -411,14 +411,12 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
 
         self._log.debug("---------- ADJUST: %s" % (extension))
 
-        if self._toolbar:
-            # FIXME: the toolbar should hide when it doesn't contain any visible items
-            latex_extensions = self._preferences.get("latex-extensions").split(",")
-            show_toolbar = self._preferences.get_bool("show-latex-toolbar")
-            if show_toolbar and extension in latex_extensions:
-                self._toolbar.show()
-            else:
-                self._toolbar.hide()
+        latex_extensions = self._preferences.get("latex-extensions").split(",")
+        show_toolbar = self._preferences.get_bool("show-latex-toolbar")
+        if show_toolbar and extension in latex_extensions:
+            self.show_toolbar()
+        else:
+            self.hide_toolbar()
 
         #
         # adjust actions
