@@ -59,7 +59,7 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
                     <placeholder name="ToolsOps_1">$items</placeholder>
                 </menu>
             </menubar>
-			<toolbar name="LaTeXToolbar">
+			<toolbar name="$toolbar_name">
 				<toolitem action="LaTeXBuildAction">
 					<menu action="LaTeXBuildMenuAction">
 						<placeholder name="LaTeXBuildPlaceholder_1">$items</placeholder>
@@ -130,7 +130,8 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
         self._window_context.window_scope_views = {}
 
         # remove toolbar
-        self._toolbar.destroy()
+        if self._toolbar:
+            self._toolbar.destroy()
 
         # remove tool actions
         self._ui_manager.remove_ui(self._tool_ui_id)
@@ -219,12 +220,15 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
 
         # hook the toolbar
         self._toolbar = self._ui_manager.get_widget("/LaTeXToolbar")
-        self._toolbar.set_style(Gtk.ToolbarStyle.BOTH_HORIZ)
-
-        # FIXME: Adding a new toolbar to gedit is not really public API
-        self._main_box = self.window.get_children()[0]
-        self._main_box.pack_start(self._toolbar, False, True, 0)
-        self._main_box.reorder_child(self._toolbar, 2)
+        if self._toolbar:
+            self._toolbar_name = "LaTeXToolbar"
+            self._toolbar.set_style(Gtk.ToolbarStyle.BOTH_HORIZ)
+            # FIXME: Adding a new toolbar to gedit is not really public API
+            self._main_box = self.window.get_children()[0]
+            self._main_box.pack_start(self._toolbar, False, True, 0)
+            self._main_box.reorder_child(self._toolbar, 2)
+        else:
+            self._toolbar_name = "ToolBar"
 
     def _init_tab_decorators(self):
         """
@@ -290,7 +294,9 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
             items_ui += """<menuitem action="%s" />""" % name
             i += 1
 
-        tool_ui = self._tool_ui_template.substitute({"items": items_ui})
+        tool_ui = self._tool_ui_template.substitute({
+                            "items": items_ui,
+                            "toolbar_name": self._toolbar_name})
         
         self._ui_manager.insert_action_group(self._tool_action_group, -1)
         self._tool_ui_id = self._ui_manager.add_ui_from_string(tool_ui)
@@ -348,7 +354,8 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
         """
         Called if there are no more tabs after tab_removed
         """
-        self._toolbar.hide()
+        if self._toolbar:
+            self._toolbar.hide()
 
         # disable all actions
         for name in self._action_objects.iterkeys():
@@ -393,14 +400,14 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
 
         self._log.debug("---------- ADJUST: %s" % (extension))
 
-        # FIXME: a hack again...
-        # the toolbar should hide when it doesn't contain any visible items
-        latex_extensions = self._preferences.get("latex-extensions").split(",")
-        show_toolbar = self._preferences.get_bool("show-latex-toolbar")
-        if show_toolbar and extension in latex_extensions:
-            self._toolbar.show()
-        else:
-            self._toolbar.hide()
+        if self._toolbar:
+            # FIXME: the toolbar should hide when it doesn't contain any visible items
+            latex_extensions = self._preferences.get("latex-extensions").split(",")
+            show_toolbar = self._preferences.get_bool("show-latex-toolbar")
+            if show_toolbar and extension in latex_extensions:
+                self._toolbar.show()
+            else:
+                self._toolbar.hide()
 
         #
         # adjust actions
