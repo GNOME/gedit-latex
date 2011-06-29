@@ -56,7 +56,7 @@ class LaTeXCommandProposal(Proposal):
 
     @property
     def icon(self):
-        return self.icon
+        return self._icon
 
     @property
     def overlap(self):
