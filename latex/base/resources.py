@@ -47,6 +47,13 @@ class Resources(Singleton):
         self.userdir = userdir
         self.systemdir = systemdir
 
+        # Make sure dir exists
+        try:
+            os.makedirs(userdir)
+        except OSError, e:
+            if e.errno != errno.EEXIST:
+                raise
+
     def get_user_dir(self):
         return self.userdir
 
