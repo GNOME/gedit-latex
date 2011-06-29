@@ -114,9 +114,9 @@ class LaTeXEditor(Editor, IIssueHandler):
         elif key == "show-latex-toolbar":
             show_toolbar = self._preferences.get_bool("show-latex-toolbar")
             if show_toolbar:
-                self._window_context._window_decorator._toolbar.show()
+                self._window_context._window_decorator.show_toolbar()
             else:
-                self._window_context._window_decorator._toolbar.hide()
+                self._window_context._window_decorator.hide_toolbar()
 
     def drag_drop_received(self, files):
         # see base.Editor.drag_drop_received

@@ -309,6 +309,14 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
         """
         self._save_action.activate()
 
+    def show_toolbar(self):
+        if self._toolbar:
+            self._toolbar.show()
+
+    def hide_toolbar(self):
+        if self._toolbar:
+            self._toolbar.hide()
+
     def _on_tools_changed(self):
         self._log.debug("_on_tools_changed")
 
