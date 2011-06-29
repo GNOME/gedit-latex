@@ -26,7 +26,7 @@ from gi.repository import Gtk
 from logging import getLogger
 
 from ..base import Action, Template, File
-from ..base.resources import find_resource
+from ..base.resources import Resources
 from ..preferences import Preferences
 from ..util import IconAction
 from ..issues import MockIssueHandler
@@ -58,7 +58,7 @@ class LaTeXTemplateAction(LaTeXIconAction):
 
     @property
     def icon(self):
-        return File(find_resource("icons/%s.png" % self.icon_name))
+        return File(Resources().get_icon("%s.png" % self.icon_name))
 
     def activate(self, context):
         context.active_editor.insert(LaTeXSource(Template(self.template_source), self.packages))
@@ -127,9 +127,12 @@ class LaTeXCloseEnvironmentAction(LaTeXIconAction):
     _log = getLogger("LaTeXCloseEnvironmentAction")
 
     label = "Close Nearest Environment"
-    icon = File(find_resource("icons/close_env.png"))
     accelerator = "<Ctrl><Alt>E"
     tooltip = "Close the nearest TeX environment at left of the cursor"
+
+    @property
+    def icon(self):
+        return File(Resources().get_icon("close_env.png"))
 
     def activate(self, context):
         # FIXME: use the document model of the Editor
@@ -181,11 +184,14 @@ class LaTeXUseBibliographyAction(LaTeXIconAction):
     _log = getLogger("LaTeXUseBibliographyAction")
 
     label = "Use Bibliography..."
-    icon = File(find_resource("icons/bib.png"))
     accelerator = None
     tooltip = "Use Bibliography"
 
     _dialog = None
+
+    @property
+    def icon(self):
+        return File(Resources().get_icon("bib.png"))
 
     def activate(self, context):
         if not self._dialog:
@@ -206,11 +212,13 @@ class LaTeXFontFamilyAction(LaTeXIconAction):
     label = "Font Family"
     accelerator = None
     tooltip = "Font Family"
-    icon = File(find_resource("icons/bf.png"))
+
+    @property
+    def icon(self):
+        return File(Resources().get_icon("bf.png"))
 
     def activate(self, context):
         pass
-
 
 class LaTeXFontFamilyMenuAction(LaTeXAction):
     label = "Font Family"
@@ -328,7 +336,10 @@ class LaTeXStructureAction(LaTeXIconAction):
     label = "Structure"
     accelerator = None
     tooltip = "Structure"
-    icon = File(find_resource("icons/section.png"))
+
+    @property
+    def icon(self):
+        return File(Resources().get_icon("section.png"))
 
     def activate(self, context):
         pass
@@ -390,9 +401,12 @@ class LaTeXGraphicsAction(LaTeXIconAction):
     label = "Insert Graphics"
     accelerator = None
     tooltip = "Insert Graphics"
-    icon = File(find_resource("icons/graphics.png"))
 
     dialog = None
+
+    @property
+    def icon(self):
+        return File(Resources().get_icon("graphics.png"))
 
     def activate(self, context):
         if not self.dialog:
@@ -406,9 +420,12 @@ class LaTeXTableAction(LaTeXIconAction):
     label = "Insert Table or Matrix"
     accelerator = None
     tooltip = "Insert Table or Matrix"
-    icon = File(find_resource("icons/table.png"))
 
     dialog = None
+
+    @property
+    def icon(self):
+        return File(Resources().get_icon("table.png"))
 
     def activate(self, context):
         if not self.dialog:
@@ -422,9 +439,12 @@ class LaTeXListingAction(LaTeXIconAction):
     label = "Insert Source Code Listing"
     accelerator = None
     tooltip = "Insert Source Code Listing"
-    icon = File(find_resource("icons/listing.png"))
 
     dialog = None
+
+    @property
+    def icon(self):
+        return File(Resources().get_icon("listing.png"))
 
     def activate(self, context):
         if not self.dialog:
@@ -458,9 +478,12 @@ class LaTeXBuildImageAction(LaTeXIconAction):
     label = "Build Image"
     accelerator = None
     tooltip = "Build an image from the LaTeX document"
-    icon = File(find_resource("icons/build-image.png"))
 
     dialog = None
+
+    @property
+    def icon(self):
+        return File(Resources().get_icon("build-image.png"))
 
     def activate(self, context):
         if not self.dialog:

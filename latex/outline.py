@@ -29,7 +29,7 @@ from gi.repository import Gtk, GdkPixbuf
 
 from base import View, SideView
 from preferences import Preferences
-from base.resources import find_resource
+from base.resources import Resources
 
 
 class BaseOutlineView(SideView):
@@ -50,7 +50,7 @@ class BaseOutlineView(SideView):
     @property
     def icon(self):
         image = Gtk.Image()
-        image.set_from_file(find_resource("icons/outline.png"))
+        image.set_from_file(Resources().get_icon("outline.png"))
         return image
 
     def init(self, context):

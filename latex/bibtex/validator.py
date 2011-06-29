@@ -23,7 +23,6 @@ bibtex.validator
 """
 from logging import getLogger
 
-from ..base.resources import find_resource
 from ..issues import Issue
 from model import BibTeXModel
 

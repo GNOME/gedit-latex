@@ -1,6 +1,7 @@
 plugindir = $(libdir)/gedit/plugins/latex/base
 
 plugin_PYTHON = \
+	appactivatable.py \
 	completion.py \
 	config.py \
 	decorators.py \

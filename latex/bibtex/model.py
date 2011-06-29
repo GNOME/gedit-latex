@@ -25,7 +25,7 @@ The model of BibTeX read from an XML file.
 """
 import xml.etree.ElementTree as ElementTree
 
-from ..base.resources import find_resource
+from ..base.resources import Resources
 
 
 class Type(object):
@@ -65,7 +65,7 @@ class BibTeXModel(object):
             self._types = {}
 
             # parse bibtex.xml
-            self._bibtex = ElementTree.parse(find_resource("bibtex.xml")).getroot()
+            self._bibtex = ElementTree.parse(Resources().get_data_file("bibtex.xml")).getroot()
 
             for field_e in self._bibtex.findall("fields/field"):
                 id = field_e.get("id")

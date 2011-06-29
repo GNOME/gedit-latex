@@ -3,6 +3,7 @@
 # This file is part of the Gedit LaTeX Plugin
 #
 # Copyright (C) 2010 Michael Zeising
+#               2011 Ignacio Casal Quinteiro
 #
 # This program is free software; you can redistribute it and/or modify it under
 # the terms of the GNU General Public Licence as published by the Free Software
@@ -23,89 +24,45 @@ base.resources
 """
 
 import logging
-import os.path
-import shutil
-
-from ..util import open_error
+import os
 
 _log = logging.getLogger("resources")
 
-_PATH_ME = os.path.realpath(os.path.dirname(__file__))
-_PATH_SYSTEM = "/usr/share/gedit/plugins/latex"
-_PATH_USER = os.path.expanduser("~/.local/share/gedit/plugins/latex")
-_PATH_SRCDIR = os.path.abspath(os.path.join(_PATH_ME,"..","..","data"))
+class Singleton(object):
+    _instance = None
 
-# the order is important, for development it is useful to symlink
-# the plugin into ~/.local/share/gedit/plugin and run it. In that case
-# the first location to check for resources is the data dir in the
-# source directory
-#
-# beyond that case, by preferring the local copy to the system one, it
-# allows the user to customize things cleanly
-_PATH_RO_RESOURCES = [p for p in (
-    _PATH_SRCDIR, _PATH_USER, _PATH_SYSTEM) if os.path.exists(p)]
+    def __new__(cls, *args, **kwargs):
+        if not cls._instance:
+            cls._instance = super(Singleton, cls).__new__(
+                     cls, *args, **kwargs)
+            cls._instance.__init_once__()
 
-_log.debug("RO locations: %s" % ",".join(_PATH_RO_RESOURCES ))
-_log.debug("RW location: %s" % _PATH_SYSTEM)
+        return cls._instance
 
-_installed_system_wide = os.path.exists(_PATH_SYSTEM)
-if _installed_system_wide:
-    # ensure that we have a user plugin dir
-    if not os.path.exists(_PATH_USER):
-        _log.debug("Creating %s" % _PATH_USER)
-        os.makedirs(_PATH_USER)
-    PLUGIN_PATH = _PATH_SYSTEM      # FIXME: only used by build to expand $plugin
-else:
-    PLUGIN_PATH = _PATH_USER
+class Resources(Singleton):
+    def __init_once__(self):
+        pass
 
-MODE_READONLY, MODE_READWRITE = 1, 2
+    def set_dirs(self, userdir, systemdir):
+        self.userdir = userdir
+        self.systemdir = systemdir
 
-def find_resource(relative_path, access_mode=MODE_READONLY):
-    """
-    This locates a resource used by the plugin. The access mode determines where to
-    search for the relative path.
+    def get_user_dir(self):
+        return self.userdir
 
-    @param relative_path: a relative path like 'icons/smiley.png'
-    @param access_mode: MODE_READONLY|MODE_READWRITE
+    def get_system_dir(self):
+        return self.systemdir
 
-    @return: the full filename of the resource
-    """
-    _log.debug("Finding: %s (%d)" % (relative_path, access_mode))
-    if access_mode == MODE_READONLY:
-        # locate a resource for read-only access. Prefer user files
-        # to system ones. See comment above
-        for p in _PATH_RO_RESOURCES:
-            path = "%s/%s" % (p, relative_path)
-            if os.path.exists(path):
-                return path
+    def get_user_file(self, user_file):
+        return os.path.join(self.userdir, user_file)
 
-        _log.critical("File not found: %s" % path)
-        return None
+    def get_ui_file(self, ui_name):
+        return os.path.join(self.systemdir, "ui", ui_name)
 
-    elif access_mode == MODE_READWRITE:
-        # locate a user-specific resource for read/write access
-        path = "%s/%s" % (_PATH_USER, relative_path)
-        if os.path.exists(path):
-            return path
+    def get_icon(self, icon_name):
+        return os.path.join(self.systemdir, "icons", icon_name)
 
-        if _installed_system_wide:
-            # resource doesn't exist yet in the user's directory
-            # copy the system-wide version
-            rw_source = "%s/%s" % (_PATH_SYSTEM, relative_path)
-        else:
-            # we are in the sourcedir
-            rw_source = "%s/%s" % (_PATH_SRCDIR, relative_path)
-
-        try:
-            _log.info("Copying file to user path %s -> %s" % (rw_source, path))
-            assert(rw_source != path)
-            shutil.copyfile(rw_source, path)
-        except IOError:
-            _log.critical("Failed to copy resource to user directory: %s -> %s" % (rw_source, path))
-        except AssertionError:
-            _log.critical("Source and dest are the same. Bad programmer")
-
-        return path
-
+    def get_data_file(self, data_name):
+        return os.path.join(self.systemdir, data_name)
 
 # ex:ts=4:et:

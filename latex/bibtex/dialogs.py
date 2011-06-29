@@ -26,14 +26,17 @@ from logging import getLogger
 from gi.repository import Gtk
 
 from ..util import GladeInterface
-from ..base.resources import find_resource
+from ..base.resources import Resources
 from model import BibTeXModel
 
 
 class InsertBibTeXEntryDialog(GladeInterface):
 
-    filename = find_resource("ui/insert_bibtex_entry.ui")
     _dialog = None
+
+    def __init__(self):
+        super(GladeInterface, self).__init__()
+        self.filename = Resources().get_ui_file("insert_bibtex_entry.ui")
 
     def run(self):
         dialog = self._getDialog()

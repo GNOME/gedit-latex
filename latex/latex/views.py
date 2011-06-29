@@ -25,14 +25,13 @@ LaTeX-specific views
 """
 
 from gi.repository import Gtk, GdkPixbuf
-#from Gtk.gdk import Pixbuf, pixbuf_new_from_file
 from gobject import GError
 from logging import getLogger
 import xml.etree.ElementTree as ElementTree
 
 from ..preferences import Preferences
 from ..base import View, SideView
-from ..base.resources import find_resource, MODE_READWRITE
+from ..base.resources import Resources
 from ..base.templates import Template
 from ..issues import Issue
 
@@ -65,7 +64,7 @@ class SymbolCollection(object):
 
 
     def __init__(self):
-        filename = find_resource("symbols.xml")
+        filename = Resources().get_data_file("symbols.xml")
 
         self.groups = []
 
@@ -73,7 +72,7 @@ class SymbolCollection(object):
         for group_el in symbols_el.findall("group"):
             group = self.Group(group_el.get("label"))
             for symbol_el in group_el.findall("symbol"):
-                symbol = self.Symbol(Template(symbol_el.text.strip()), find_resource("icons/%s" % symbol_el.get("icon")))
+                symbol = self.Symbol(Template(symbol_el.text.strip()), Resources().get_icon("%s" % symbol_el.get("icon")))
                 group.symbols.append(symbol)
             self.groups.append(group)
 
@@ -198,7 +197,7 @@ class LaTeXOutlineView(BaseOutlineView):
     @property
     def icon(self):
         image = Gtk.Image()
-        image.set_from_file(find_resource("icons/outline.png"))
+        image.set_from_file(Resources().get_icon("outline.png"))
         return image
 
     def init(self, context):
@@ -208,12 +207,12 @@ class LaTeXOutlineView(BaseOutlineView):
 
         # additional toolbar buttons
         btn_graphics = Gtk.ToggleToolButton()
-        btn_graphics.set_icon_widget(Gtk.Image.new_from_file(find_resource("icons/tree_includegraphics.png")))
+        btn_graphics.set_icon_widget(Gtk.Image.new_from_file(Resources().get_icon("tree_includegraphics.png")))
         btn_graphics.set_tooltip_text("Show graphics")
         self._toolbar.insert(btn_graphics, -1)
 
         btn_tables = Gtk.ToggleToolButton()
-        btn_tables.set_icon_widget(Gtk.Image.new_from_file(find_resource("icons/tree_table.png")))
+        btn_tables.set_icon_widget(Gtk.Image.new_from_file(Resources().get_icon("tree_table.png")))
         btn_tables.set_tooltip_text("Show tables")
         self._toolbar.insert(btn_tables, -1)
 
@@ -313,20 +312,19 @@ class OutlineConverter(object):
     This creates a Gtk.TreeStore object from a LaTeX outline model
     """
 
-    _ICON_LABEL = GdkPixbuf.Pixbuf.new_from_file(find_resource("icons/label.png"))
-    _ICON_TABLE = GdkPixbuf.Pixbuf.new_from_file(find_resource("icons/tree_table.png"))
-    _ICON_GRAPHICS = GdkPixbuf.Pixbuf.new_from_file(find_resource("icons/tree_includegraphics.png"))
-
-    _LEVEL_ICONS = { 1 : GdkPixbuf.Pixbuf.new_from_file(find_resource("icons/tree_part.png")),
-                2 : GdkPixbuf.Pixbuf.new_from_file(find_resource("icons/tree_chapter.png")),
-                3 : GdkPixbuf.Pixbuf.new_from_file(find_resource("icons/tree_section.png")),
-                4 : GdkPixbuf.Pixbuf.new_from_file(find_resource("icons/tree_subsection.png")),
-                5 : GdkPixbuf.Pixbuf.new_from_file(find_resource("icons/tree_subsubsection.png")),
-                6 : GdkPixbuf.Pixbuf.new_from_file(find_resource("icons/tree_paragraph.png")),
-                7 : GdkPixbuf.Pixbuf.new_from_file(find_resource("icons/tree_paragraph.png")) }
-
     def __init__(self):
         self._preferences = Preferences()
+        self._ICON_LABEL = GdkPixbuf.Pixbuf.new_from_file(Resources().get_icon("label.png"))
+        self._ICON_TABLE = GdkPixbuf.Pixbuf.new_from_file(Resources().get_icon("tree_table.png"))
+        self._ICON_GRAPHICS = GdkPixbuf.Pixbuf.new_from_file(Resources().get_icon("tree_includegraphics.png"))
+
+        self._LEVEL_ICONS = { 1 : GdkPixbuf.Pixbuf.new_from_file(Resources().get_icon("tree_part.png")),
+                    2 : GdkPixbuf.Pixbuf.new_from_file(Resources().get_icon("tree_chapter.png")),
+                    3 : GdkPixbuf.Pixbuf.new_from_file(Resources().get_icon("tree_section.png")),
+                    4 : GdkPixbuf.Pixbuf.new_from_file(Resources().get_icon("tree_subsection.png")),
+                    5 : GdkPixbuf.Pixbuf.new_from_file(Resources().get_icon("tree_subsubsection.png")),
+                    6 : GdkPixbuf.Pixbuf.new_from_file(Resources().get_icon("tree_paragraph.png")),
+                    7 : GdkPixbuf.Pixbuf.new_from_file(Resources().get_icon("tree_paragraph.png")) }
 
     def convert(self, tree_store, outline, offset_map, file):
         """

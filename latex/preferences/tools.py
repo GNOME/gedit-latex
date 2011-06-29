@@ -23,8 +23,9 @@ from gi.repository import GObject
 from logging import getLogger
 from uuid import uuid4
 import xml.etree.ElementTree as ElementTree
+import os
 
-from ..base.resources import find_resource, MODE_READWRITE
+from ..base.resources import Resources
 from ..tools import Tool, Job
 from ..tools.postprocess import GenericPostProcessor, RubberPostProcessor, LaTeXPostProcessor
 from ..util import singleton
@@ -63,8 +64,12 @@ class ToolPreferences(GObject.GObject):
         self.__tool_objects = None
         self.__tool_ids = None
         self.__tools_changed = False
-        self.__tools = ElementTree.parse(
-                            find_resource("tools.xml", MODE_READWRITE)).getroot()
+
+        filename = Resources().get_user_file("tools.xml")
+        if not os.path.exists(filename):
+            filename = Resources().get_data_file("tools.xml")
+
+        self.__tools = ElementTree.parse(filename).getroot()
         self._log.debug("Constructed")
 
     def __notify_tools_changed(self):
@@ -228,7 +233,7 @@ class ToolPreferences(GObject.GObject):
             self._log.debug("Saving tools...")
 
             tree = ElementTree.ElementTree(self.__tools)
-            tree.write(find_resource("tools.xml", MODE_READWRITE), encoding="utf-8")
+            tree.write(Resources().get_user_file("tools.xml"), encoding="utf-8")
 
             self.__tools_changed = False
 

@@ -27,6 +27,8 @@ It can be used for cleaning up, converting files, for building PDFs etc.
 
 from logging import getLogger
 
+from ..base.resources import Resources
+
 
 class Tool(object):
     """
@@ -137,8 +139,6 @@ from os import chdir
 from util import Process
 from string import Template
 
-from ..base.resources import PLUGIN_PATH
-
 
 class ToolRunner(Process):
     """
@@ -183,7 +183,7 @@ class ToolRunner(Process):
             command = command_template.safe_substitute({"filename" : self._file.path,
                                                         "shortname" : self._file.shortname,
                                                         "directory" : self._file.dirname,
-                                                        "plugin_path" : PLUGIN_PATH})
+                                                        "plugin_path" : Resources().get_system_dir()})
 
             self._issue_handler.set_partition_state(self._issue_partitions[self._job], "running")
 

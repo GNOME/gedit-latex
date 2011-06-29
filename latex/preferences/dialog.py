@@ -26,7 +26,7 @@ from logging import getLogger
 from gi.repository import Gtk
 from gi.repository import Gdk
 
-from ..base.resources import find_resource, MODE_READWRITE
+from ..base.resources import Resources
 from ..util import GladeInterface
 from ..tools import Tool, Job
 
@@ -64,9 +64,11 @@ class ConfigureToolDialog(GladeInterface):
     Wraps the dialog for setting up a Tool
     """
 
-    filename = find_resource("ui/configure_tool.ui")
-
     _dialog = None
+
+    def __init__(self):
+        super(GladeInterface, self,).__init__()
+        self.filename = Resources().get_ui_file("configure_tool.ui")
 
     def run(self, tool):
         """
@@ -316,8 +318,11 @@ class PreferencesDialog(GladeInterface):
 
     _log = getLogger("PreferencesWizard")
 
-    filename = find_resource("ui/configure.ui")
     _dialog = None
+
+    def __init__(self):
+        super(GladeInterface, self,).__init__()
+        self.filename = Resources().get_ui_file("configure.ui")
 
     @property
     def dialog(self):

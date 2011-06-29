@@ -32,7 +32,7 @@ from logging import getLogger
 import time
 
 from ..outline import OutlineOffsetMap, BaseOutlineView
-from ..base.resources import find_resource
+from ..base.resources import Resources
 from ..preferences import Preferences
 from parser import Entry
 
@@ -143,11 +143,12 @@ class OutlineConverter(object):
     grouping feature
     """
 
-    _ICON_ENTRY = GdkPixbuf.Pixbuf.new_from_file(find_resource("icons/document.png"))
-    _ICON_FIELD = GdkPixbuf.Pixbuf.new_from_file(find_resource("icons/field.png"))
-    _ICON_AUTHOR = GdkPixbuf.Pixbuf.new_from_file(find_resource("icons/users.png"))
-    _ICON_YEAR = GdkPixbuf.Pixbuf.new_from_file(find_resource("icons/calendar.png"))
-    _ICON_TYPE = GdkPixbuf.Pixbuf.new_from_file(find_resource("icons/documents.png"))
+    def __init__(self):
+        self._ICON_ENTRY = GdkPixbuf.Pixbuf.new_from_file(Resources().get_icon("document.png"))
+        self._ICON_FIELD = GdkPixbuf.Pixbuf.new_from_file(Resources().get_icon("field.png"))
+        self._ICON_AUTHOR = GdkPixbuf.Pixbuf.new_from_file(Resources().get_icon("users.png"))
+        self._ICON_YEAR = GdkPixbuf.Pixbuf.new_from_file(Resources().get_icon("calendar.png"))
+        self._ICON_TYPE = GdkPixbuf.Pixbuf.new_from_file(Resources().get_icon("documents.png"))
 
     def convert(self, tree_store, document, offset_map, grouping=GROUP_NONE):
         """

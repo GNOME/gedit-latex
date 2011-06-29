@@ -32,7 +32,7 @@ from gi.repository import Gtk, GdkPixbuf
 
 from ..preferences import Preferences
 from ..util import GladeInterface
-from ..base.resources import find_resource, MODE_READWRITE
+from ..base.resources import Resources
 from ..base import Template, File, Folder
 
 from .preview import PreviewRenderer, ImageToolGenerator
@@ -158,7 +158,10 @@ class ChooseMasterDialog(GladeInterface):
     """
     Dialog for choosing a master file to a LaTeX fragment file
     """
-    filename = find_resource("ui/choose_master_dialog.ui")
+
+    def __init__(self):
+        super(GladeInterface, self).__init__()
+        self.filename = Resources().get_ui_file("choose_master_dialog.ui")
 
     def run(self, folder):
         """
@@ -182,7 +185,6 @@ class NewDocumentDialog(GladeInterface):
     """
     Dialog for creating the body of a new LaTeX document
     """
-    filename = find_resource("ui/new_document_template_dialog.ui")
 
     _log = logging.getLogger("NewDocumentWizard")
 
@@ -313,6 +315,10 @@ class NewDocumentDialog(GladeInterface):
     }
 
     dialog = None
+
+    def __init__(self):
+        super(GladeInterface, self).__init__()
+        self.filename = Resources().get_ui_file("new_document_template_dialog.ui")
 
     def get_dialog(self):
         """
@@ -555,7 +561,6 @@ class UseBibliographyDialog(GladeInterface, PreviewRenderer):
     """
     Dialog for inserting a reference to a bibliography
     """
-    filename = find_resource("ui/use_bibliography_dialog.ui")
 
     _log = logging.getLogger("UseBibliographyWizard")
 
@@ -571,6 +576,10 @@ class UseBibliographyDialog(GladeInterface, PreviewRenderer):
     year=1968 }"""
 
     dialog = None
+
+    def __init__(self):
+        super(GladeInterface, self).__init__()
+        self.filename = Resources().get_ui_file("use_bibliography_dialog.ui")
 
     def run_dialog(self, edited_file):
         """
@@ -670,8 +679,11 @@ class UseBibliographyDialog(GladeInterface, PreviewRenderer):
 class InsertGraphicsDialog(GladeInterface):
 
     _PREVIEW_WIDTH, _PREVIEW_HEIGHT = 128, 128
-    filename = find_resource("ui/insert_graphics_dialog.ui")
     _dialog = None
+
+    def __init__(self):
+        super(GladeInterface, self).__init__()
+        self.filename = Resources().get_ui_file("insert_graphics_dialog.ui")
 
     def run(self, edited_file):
         """
@@ -788,8 +800,11 @@ class InsertTableDialog(GladeInterface):
     This is used to include tables and matrices
     """
 
-    filename = find_resource("ui/insert_table_dialog.ui")
     _dialog = None
+
+    def __init__(self):
+        super(GladeInterface, self).__init__()
+        self.filename = Resources().get_ui_file("insert_table_dialog.ui")
 
     def run(self):
         dialog = self.__get_dialog()
@@ -861,7 +876,7 @@ class InsertTableDialog(GladeInterface):
                         ("dvbars", "Double Vertical Bars", "Vmatrix")]
 
             for d in delimiters:
-                pixbuf = GdkPixbuf.Pixbuf.new_from_file(find_resource("icons/%s.png" % d[0]))
+                pixbuf = GdkPixbuf.Pixbuf.new_from_file(Resources().get_icon("%s.png" % d[0]))
                 self._storeDelims.append([pixbuf, d[1], d[2]])
 
             self._comboDelims = self.find_widget("comboDelims")
@@ -905,8 +920,11 @@ class InsertListingDialog(GladeInterface):
     """
     """
 
-    filename = find_resource("ui/insert_listing_dialog.ui")
     _dialog = None
+
+    def __init__(self):
+        super(GladeInterface, self).__init__()
+        self.filename = Resources().get_ui_file("insert_listing_dialog.ui")
 
     def run(self, edited_file):
         """
@@ -960,7 +978,7 @@ class InsertListingDialog(GladeInterface):
             #
             self._languages = []
             parser = LanguagesParser()
-            parser.parse(self._languages, find_resource("listings.xml"))
+            parser.parse(self._languages, Resources().get_data_file("listings.xml"))
 
             recentLanguage = Preferences().get("RecentListingLanguage", "Java")
 
@@ -1041,9 +1059,12 @@ class BuildImageDialog(GladeInterface):
     Render the document to an image
     """
 
-    filename = find_resource("ui/build_image_dialog.ui")
     _dialog = None
     _generator = ImageToolGenerator()
+
+    def __init__(self):
+        super(GladeInterface, self).__init__()
+        self.filename = Resources().get_ui_file("build_image_dialog.ui")
 
     def run(self):
         dialog = self._getDialog()
@@ -1119,8 +1140,12 @@ class BuildImageDialog(GladeInterface):
 
 
 class SaveAsTemplateDialog(GladeInterface):
-    filename = find_resource("ui/save_as_template_dialog.ui")
+
     _dialog = None
+
+    def __init__(self):
+        super(GladeInterface, self).__init__()
+        self.filename = Resources().get_ui_file("save_as_template_dialog.ui")
 
     def get_dialog(self):
         self._folder = Preferences().TEMPLATE_DIR

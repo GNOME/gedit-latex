@@ -26,7 +26,7 @@ from logging import getLogger
 from gi.repository import Gdk, GdkPixbuf
 
 from ..preferences import Preferences
-from ..base.resources import find_resource
+from ..base.resources import Resources
 from ..base import ICompletionHandler, Proposal, Template
 from ..issues import MockIssueHandler
 from model import BibTeXModel
@@ -36,7 +36,6 @@ from parser import BibTeXParser
 class BibTeXEntryTypeProposal(Proposal):
     """
     """
-    icon = GdkPixbuf.Pixbuf.new_from_file(find_resource("icons/document.png"))
 
     _color = Preferences().get("light-foreground-color")
 
@@ -49,6 +48,7 @@ class BibTeXEntryTypeProposal(Proposal):
         self._type = type
         self._details = None
         self._source = None
+        self._icon = GdkPixbuf.Pixbuf.new_from_file(Resources().get_icon("document.png"))
 
     def _generate(self):
         """
@@ -78,6 +78,10 @@ class BibTeXEntryTypeProposal(Proposal):
         if not self._details:
             self._generate()
         return self._details
+
+    @property
+    def icon(self):
+        return self._icon
 
     @property
     def overlap(self):

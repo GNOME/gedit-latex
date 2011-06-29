@@ -27,7 +27,6 @@ from gi.repository import GObject, Gio, GLib
 import os.path
 import logging
 
-from ..base.resources import find_resource, MODE_READWRITE
 from ..util import singleton
 
 @singleton

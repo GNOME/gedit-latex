@@ -27,7 +27,7 @@ LaTeX-specific completion classes
 from logging import getLogger
 from gi.repository import Gdk, GdkPixbuf
 
-from ..base.resources import find_resource
+from ..base.resources import Resources
 from ..base import ICompletionHandler, Proposal, Template
 
 
@@ -35,12 +35,12 @@ class LaTeXCommandProposal(Proposal):
     """
     A proposal inserting a Template when activated
     """
-    icon = GdkPixbuf.Pixbuf.new_from_file(find_resource("icons/i_command.png"))
 
     def __init__(self, overlap, template, label):
         self._template = template
         self._label = label
         self._overlap = overlap
+        self._icon = GdkPixbuf.Pixbuf.new_from_file(Resources().get_icon("i_command.png"))
 
     @property
     def source(self):
@@ -55,6 +55,10 @@ class LaTeXCommandProposal(Proposal):
         return None
 
     @property
+    def icon(self):
+        return self.icon
+
+    @property
     def overlap(self):
         return self._overlap
 
@@ -63,13 +67,13 @@ class LaTeXChoiceProposal(Proposal):
     """
     A proposal inserting a simple string when activated
     """
-    icon = GdkPixbuf.Pixbuf.new_from_file(find_resource("icons/i_choice.png"))
 
     def __init__(self, overlap, source, label, details):
         self._source = source
         self._details = details
         self._overlap = overlap
         self._label = label
+        self._icon = GdkPixbuf.Pixbuf.new_from_file(Resources().get_icon("i_choice.png"))
 
     @property
     def source(self):
@@ -82,6 +86,10 @@ class LaTeXChoiceProposal(Proposal):
     @property
     def details(self):
         return self._details
+
+    @property
+    def icon(self):
+        return self._icon
 
     @property
     def overlap(self):

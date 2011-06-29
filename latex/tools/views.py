@@ -28,7 +28,7 @@ from logging import getLogger
 from gi.repository import Gtk, GdkPixbuf
 
 
-from ..base.resources import find_resource
+from ..base.resources import Resources
 from ..base import View, BottomView
 from ..issues import Issue, IStructuredIssueHandler
 
@@ -43,16 +43,15 @@ class ToolView(BottomView, IStructuredIssueHandler):
     icon = Gtk.Image.new_from_stock(Gtk.STOCK_CONVERT, Gtk.IconSize.MENU)
     scope = View.SCOPE_WINDOW
 
-    _ICON_RUN = GdkPixbuf.Pixbuf.new_from_file(find_resource("icons/run.png"))
-    _ICON_FAIL = GdkPixbuf.Pixbuf.new_from_file(find_resource("icons/error.png"))
-    _ICON_SUCCESS = GdkPixbuf.Pixbuf.new_from_file(find_resource("icons/okay.png"))
-    _ICON_ERROR = GdkPixbuf.Pixbuf.new_from_file(find_resource("icons/error.png"))
-    _ICON_WARNING = GdkPixbuf.Pixbuf.new_from_file(find_resource("icons/warning.png"))
-    _ICON_ABORT = GdkPixbuf.Pixbuf.new_from_file(find_resource("icons/abort.png"))
-
     def __init__(self, context):
         BottomView.__init__(self, context)
         self._handlers = {}
+        self._ICON_RUN = GdkPixbuf.Pixbuf.new_from_file(Resources().get_icon("run.png"))
+        self._ICON_FAIL = GdkPixbuf.Pixbuf.new_from_file(Resources().get_icon("error.png"))
+        self._ICON_SUCCESS = GdkPixbuf.Pixbuf.new_from_file(Resources().get_icon("okay.png"))
+        self._ICON_ERROR = GdkPixbuf.Pixbuf.new_from_file(Resources().get_icon("error.png"))
+        self._ICON_WARNING = GdkPixbuf.Pixbuf.new_from_file(Resources().get_icon("warning.png"))
+        self._ICON_ABORT = GdkPixbuf.Pixbuf.new_from_file(Resources().get_icon("abort.png"))
 
     def init(self, context):
         self._log.debug("init")

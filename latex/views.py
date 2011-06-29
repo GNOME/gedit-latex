@@ -26,7 +26,7 @@ from gi.repository import Gtk, GdkPixbuf
 from logging import getLogger
 
 from preferences import Preferences
-from base.resources import find_resource
+from base.resources import Resources
 from base import View, BottomView
 from issues import Issue
 from util import escape
@@ -57,10 +57,10 @@ class IssueView(BottomView):
 
         self._context = context
 
-        self._icons = { Issue.SEVERITY_WARNING : GdkPixbuf.Pixbuf.new_from_file(find_resource("icons/warning.png")),
-                        Issue.SEVERITY_ERROR : GdkPixbuf.Pixbuf.new_from_file(find_resource("icons/error.png")),
+        self._icons = { Issue.SEVERITY_WARNING : GdkPixbuf.Pixbuf.new_from_file(Resources().get_icon("warning.png")),
+                        Issue.SEVERITY_ERROR : GdkPixbuf.Pixbuf.new_from_file(Resources().get_icon("error.png")),
                            Issue.SEVERITY_INFO : None,
-                           Issue.SEVERITY_TASK : GdkPixbuf.Pixbuf.new_from_file(find_resource("icons/task.png")) }
+                           Issue.SEVERITY_TASK : GdkPixbuf.Pixbuf.new_from_file(Resources().get_icon("task.png")) }
 
         self._store = Gtk.ListStore(GdkPixbuf.Pixbuf, str, str, object)
 
@@ -100,7 +100,7 @@ class IssueView(BottomView):
         self._button_warnings = Gtk.ToggleToolButton()
         self._button_warnings.set_tooltip_text("Show/Hide Warnings")
         image = Gtk.Image()
-        image.set_from_file(find_resource("icons/warning.png"))
+        image.set_from_file(Resources().get_icon("warning.png"))
         self._button_warnings.set_icon_widget(image)
         self._button_warnings.set_active(self._show_warnings)
         self._handlers[self._button_warnings] = self._button_warnings.connect("toggled", self.__on_warnings_toggled)
@@ -108,7 +108,7 @@ class IssueView(BottomView):
         self._button_tasks = Gtk.ToggleToolButton()
         self._button_tasks.set_tooltip_text("Show/Hide Tasks")
         imageTask = Gtk.Image()
-        imageTask.set_from_file(find_resource("icons/task.png"))
+        imageTask.set_from_file(Resources().get_icon("task.png"))
         self._button_tasks.set_icon_widget(imageTask)
         self._button_tasks.set_active(self._show_tasks)
         self._handlers[self._button_tasks] = self._button_tasks.connect("toggled", self.__on_tasks_toggled)

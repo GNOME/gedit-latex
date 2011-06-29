@@ -26,6 +26,8 @@ The LaTeX language model used for code completion.
 
 from logging import getLogger
 
+from ..base.resources import Resources
+
 
 class Element(object):
     """
@@ -241,7 +243,6 @@ class LanguageModelParser(sax.ContentHandler):
 from copy import deepcopy
 import pickle
 
-from ..base.resources import find_resource, MODE_READWRITE
 from ..base import File
 
 
@@ -268,8 +269,8 @@ class LanguageModelFactory(object):
             if pickled_object:
                 self.__language_model = pickled_object
             else:
-                pkl_filename = find_resource("latex.pkl", MODE_READWRITE)
-                xml_filename = find_resource("latex.xml")
+                pkl_filename = Resources().get_user_file("latex.pkl")
+                xml_filename = Resources().get_data_file("latex.xml")
 
                 self.__language_model = LanguageModel()
                 parser = LanguageModelParser()
@@ -280,8 +281,8 @@ class LanguageModelFactory(object):
             self._ready = True
 
     def __find_pickled_object(self):
-        pkl_file = File(find_resource("latex.pkl", MODE_READWRITE))
-        xml_file = File(find_resource("latex.xml"))
+        pkl_file = File(Resources().get_user_file("latex.pkl"))
+        xml_file = File(Resources().get_data_file("latex.xml"))
 
         if pkl_file.exists:
             if xml_file.mtime > pkl_file.mtime:
