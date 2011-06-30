@@ -128,7 +128,7 @@ class ConfigureToolDialog(GladeInterface):
             #
             # build the dialog
             #
-            self._preferences = Preferences()
+            self._tool_preferences = ToolPreferences()
 
             self._dialog = self.find_widget("dialogConfigureTool")
             self._button_okay = self.find_widget("buttonOkay")
