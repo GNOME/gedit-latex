@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: gedit-latex master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gedit&keywords=I18N+L10N&component=Plugins\n"
-"POT-Creation-Date: 2011-06-24 20:28+0000\n"
-"PO-Revision-Date: 2011-06-25 12:47+0200\n"
+"POT-Creation-Date: 2011-06-25 10:49+0000\n"
+"PO-Revision-Date: 2011-06-30 09:51+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -47,7 +47,7 @@ msgstr "Editor"
 
 #: ../latex/bibtex.xml.h:8
 msgid "How Published"
-msgstr ""
+msgstr "Medio de publicación"
 
 #: ../latex/bibtex.xml.h:9
 msgid "ISBN"
@@ -95,7 +95,7 @@ msgstr "Páginas"
 
 #: ../latex/bibtex.xml.h:20
 msgid "Publisher"
-msgstr ""
+msgstr "Editorial"
 
 #: ../latex/bibtex.xml.h:21
 msgid "School"
@@ -146,7 +146,7 @@ msgstr "<b>Formato de imagen</b>"
 
 #: ../latex/ui/build_image_dialog.ui.h:3
 msgid "<b>Rendering</b>"
-msgstr ""
+msgstr "<b>Renderizando</b>"
 
 #: ../latex/ui/build_image_dialog.ui.h:4
 msgid "Antialiasing:"
@@ -154,7 +154,7 @@ msgstr "Alisado:"
 
 #: ../latex/ui/build_image_dialog.ui.h:5
 msgid "Attempt to render tight bounding box"
-msgstr ""
+msgstr "Intento de renderizar el ajuste de la caja delimitadora"
 
 #: ../latex/ui/build_image_dialog.ui.h:6
 msgid "Color Mode:"
@@ -174,11 +174,11 @@ msgstr "PNG"
 
 #: ../latex/ui/build_image_dialog.ui.h:10
 msgid "Render to Image"
-msgstr ""
+msgstr "Renderizar a imagen"
 
 #: ../latex/ui/build_image_dialog.ui.h:11
 msgid "Render whole page(s)"
-msgstr ""
+msgstr "Renderizar página/s completa/s"
 
 #: ../latex/ui/build_image_dialog.ui.h:12
 msgid "Resolution:"
@@ -194,7 +194,7 @@ msgstr "Seleccionar el documento maestro"
 
 #: ../latex/ui/configure.ui.h:1
 msgid "<b><i>rubber</i> Post-Processor</b>"
-msgstr ""
+msgstr "<b>Postprocesador <i>rubber</i></b>"
 
 #: ../latex/ui/configure.ui.h:2
 msgid "<b>BibTeX</b>"
@@ -234,7 +234,7 @@ msgstr "Carpeta:"
 
 #: ../latex/ui/configure.ui.h:12
 msgid "Hide Box Warnings"
-msgstr ""
+msgstr "Ocultar cajas de advertencia"
 
 #: ../latex/ui/configure.ui.h:13
 msgid "KB"
@@ -242,11 +242,11 @@ msgstr "KiB"
 
 #: ../latex/ui/configure.ui.h:14
 msgid "Light Foreground:"
-msgstr ""
+msgstr "Primer plano claro:"
 
 #: ../latex/ui/configure.ui.h:15
 msgid "Maximum Parsed File Size:"
-msgstr ""
+msgstr "Tamaño máximo del archivo analizado:"
 
 #: ../latex/ui/configure.ui.h:16
 msgid "Miscellaneous"
@@ -254,19 +254,19 @@ msgstr "Misceláneo"
 
 #: ../latex/ui/configure.ui.h:17
 msgid "Placeholder Background:"
-msgstr ""
+msgstr "Marcador de posición del fondo:"
 
 #: ../latex/ui/configure.ui.h:18
 msgid "Placeholder Foreground:"
-msgstr ""
+msgstr "Marcador de posición del primer plano:"
 
 #: ../latex/ui/configure.ui.h:19
 msgid "Show LaTeX Toolbar when editing LaTeX files"
-msgstr ""
+msgstr "Mostrar la barra de herramientas de LaTeX al editar archivos LaTeX"
 
 #: ../latex/ui/configure.ui.h:20
 msgid "Template Background:"
-msgstr ""
+msgstr "Fondo de la plantilla:"
 
 #: ../latex/ui/configure.ui.h:21
 msgid "Toolbar"
@@ -294,7 +294,7 @@ msgstr "<b>Descripción</b>"
 
 #: ../latex/ui/configure_tool.ui.h:4
 msgid "<b>_File Extensions</b>"
-msgstr ""
+msgstr "<b>_Extensiones de archivos</b>"
 
 #: ../latex/ui/configure_tool.ui.h:5
 msgid "<b>_Jobs</b>"
@@ -309,24 +309,28 @@ msgid ""
 "Remember to run all commands in batch mode (e.g. append <tt>-interaction "
 "batchmode</tt> to <tt>latex</tt>)"
 msgstr ""
+"Recordar ejecutar todos los comandos en modo de proceso por lotes (ej. "
+"añadir <tt>-interaction batchmode</tt> a <tt>latex</tt>"
 
 #: ../latex/ui/configure_tool.ui.h:8
 msgid ""
 "Valid placeholders are <tt>$filename</tt>, <tt>$shortname</tt>, <tt>"
 "$directory</tt>"
 msgstr ""
+"Los marcadores de posición válidos son <tt>$filename</tt>, <tt>$shortname</"
+"tt>, <tt>$directory</tt>"
 
 #: ../latex/ui/configure_tool.ui.h:9
 msgid "_Generated"
-msgstr ""
+msgstr "_Generado"
 
 #: ../latex/ui/configure_tool.ui.h:10
 msgid "_User Defined:"
-msgstr ""
+msgstr "Definido por el _usuario:"
 
 #: ../latex/ui/insert_bibtex_entry.ui.h:1
 msgid "Create Bibliography Entry"
-msgstr ""
+msgstr "Crear entrada bibliográfica"
 
 #: ../latex/ui/insert_bibtex_entry.ui.h:2
 msgid "Optional Fields"
@@ -393,7 +397,7 @@ msgstr "_Rotar:"
 
 #: ../latex/ui/insert_graphics_dialog.ui.h:13
 msgid "_Spread over two Columns"
-msgstr ""
+msgstr "_Distribuir sobre dos columnas"
 
 #: ../latex/ui/insert_graphics_dialog.ui.h:14
 msgid "_Width:"
@@ -405,7 +409,7 @@ msgstr "fig:"
 
 #: ../latex/ui/insert_listing_dialog.ui.h:1
 msgid "Insert Source Code Listing"
-msgstr ""
+msgstr "Insertar listado de código fuente"
 
 #: ../latex/ui/insert_listing_dialog.ui.h:2
 msgid "Load From _File:"
@@ -413,11 +417,11 @@ msgstr "C_argar desde archivo:"
 
 #: ../latex/ui/insert_listing_dialog.ui.h:3
 msgid "Programming _Language:"
-msgstr ""
+msgstr "_Lenguaje de programación:"
 
 #: ../latex/ui/insert_listing_dialog.ui.h:4
 msgid "_Dialect:"
-msgstr ""
+msgstr "_Dialecto:"
 
 #: ../latex/ui/insert_table_dialog.ui.h:1
 msgid "C_olumns:"
@@ -449,7 +453,7 @@ msgstr "_Tabla"
 
 #: ../latex/ui/insert_table_dialog.ui.h:10
 msgid "tab:"
-msgstr ""
+msgstr "pestaña:"
 
 #: ../latex/ui/new_document_template_dialog.ui.h:1
 msgid ".tex"
@@ -461,7 +465,7 @@ msgstr "<b>Personalización del idioma</b>"
 
 #: ../latex/ui/new_document_template_dialog.ui.h:3
 msgid "<b>Meta Information</b>"
-msgstr ""
+msgstr "<b>Metainformación</b>"
 
 #: ../latex/ui/new_document_template_dialog.ui.h:4
 msgid "<b>Style and Layout</b>"
@@ -473,7 +477,7 @@ msgstr "Tamaño base de la tipografía:"
 
 #: ../latex/ui/new_document_template_dialog.ui.h:6
 msgid "C_ustom:"
-msgstr ""
+msgstr "P_ersonalizado:"
 
 #: ../latex/ui/new_document_template_dialog.ui.h:7
 msgid "Date:"
@@ -481,11 +485,11 @@ msgstr "Fecha:"
 
 #: ../latex/ui/new_document_template_dialog.ui.h:8
 msgid "De_fault"
-msgstr ""
+msgstr "_Predeterminado"
 
 #: ../latex/ui/new_document_template_dialog.ui.h:9
 msgid "Default F_ont Family:"
-msgstr ""
+msgstr "_Familia  tipográfica predeterminada:"
 
 #: ../latex/ui/new_document_template_dialog.ui.h:10
 msgid "Di_rectory:"
@@ -493,7 +497,7 @@ msgstr "Ca_rpeta:"
 
 #: ../latex/ui/new_document_template_dialog.ui.h:11
 msgid "Document _Class:"
-msgstr ""
+msgstr "_Clase del documento:"
 
 #: ../latex/ui/new_document_template_dialog.ui.h:12
 msgid "Include PDF _Metadata"
@@ -513,7 +517,7 @@ msgstr "_Hoy"
 
 #: ../latex/ui/new_document_template_dialog.ui.h:16
 msgid "U_ser Defined:"
-msgstr ""
+msgstr "Definido por el _usuario:"
 
 #: ../latex/ui/new_document_template_dialog.ui.h:17
 msgid "_Author:"
@@ -521,7 +525,7 @@ msgstr "_Autor:"
 
 #: ../latex/ui/new_document_template_dialog.ui.h:18
 msgid "_Babel Package:"
-msgstr ""
+msgstr "Paquete _Babel:"
 
 #: ../latex/ui/new_document_template_dialog.ui.h:19
 msgid "_Input Encoding:"
@@ -570,11 +574,11 @@ msgstr "Archivo de _bibliografía:"
 
 #: ../latex/ui/use_bibliography_dialog.ui.h:2
 msgid "Refresh Style Preview"
-msgstr ""
+msgstr "Actualizar vista previa del estilo"
 
 #: ../latex/ui/use_bibliography_dialog.ui.h:3
 msgid "Style Preview:"
-msgstr ""
+msgstr "Vista previa del estilo:"
 
 #: ../latex/ui/use_bibliography_dialog.ui.h:4
 msgid "Use Bibliography"
