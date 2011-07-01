@@ -308,7 +308,9 @@ class TemplateDelegate(object):
 		expression = template.expression.replace("\n", "\n%s" % self._editor.indentation)
 		
 		self._compiler.compile(expression)
+		self._text_buffer.begin_user_action()
 		self._do_insert()
+		self._text_buffer.end_user_action()
 	
 	def _do_insert(self):
 		if len(self._compiler.placeholders) == 0:
