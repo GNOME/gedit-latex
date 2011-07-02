@@ -34,6 +34,7 @@ from ..base import View, SideView
 from ..base.resources import Resources
 from ..base.templates import Template
 from ..issues import Issue
+from ..gldefs import _
 
 
 class SymbolCollection(object):
@@ -82,7 +83,7 @@ class LaTeXSymbolMapView(SideView):
     """
     __log = getLogger("LaTeXSymbolMapView")
 
-    label = "Symbols"
+    label = _("Symbols")
     icon = Gtk.Image.new_from_stock(Gtk.STOCK_INDEX,Gtk.IconSize.MENU)
     scope = View.SCOPE_WINDOW
 
@@ -187,7 +188,7 @@ class LaTeXOutlineView(BaseOutlineView):
 
     _log = getLogger("LaTeXOutlineView")
 
-    label = "Outline"
+    label = _("Outline")
     scope = View.SCOPE_EDITOR
 
     def __init__(self, context, editor):
@@ -208,12 +209,12 @@ class LaTeXOutlineView(BaseOutlineView):
         # additional toolbar buttons
         btn_graphics = Gtk.ToggleToolButton()
         btn_graphics.set_icon_widget(Gtk.Image.new_from_file(Resources().get_icon("tree_includegraphics.png")))
-        btn_graphics.set_tooltip_text("Show graphics")
+        btn_graphics.set_tooltip_text(_("Show graphics"))
         self._toolbar.insert(btn_graphics, -1)
 
         btn_tables = Gtk.ToggleToolButton()
         btn_tables.set_icon_widget(Gtk.Image.new_from_file(Resources().get_icon("tree_table.png")))
-        btn_tables.set_tooltip_text("Show tables")
+        btn_tables.set_tooltip_text(_("Show tables"))
         self._toolbar.insert(btn_tables, -1)
 
         btn_graphics.set_active(Preferences().get_bool("outline-show-graphics"))
@@ -379,9 +380,5 @@ class OutlineConverter(object):
 
         for child in node:
             self._append(parent, child)
-
-
-
-
 
 # ex:ts=4:et:
