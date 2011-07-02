@@ -88,12 +88,12 @@ class ToolView(BottomView, IStructuredIssueHandler):
 
         # toolbar
 
-        self._buttonCancel = Gtk.ToolButton(icon_name=Gtk.STOCK_STOP)
+        self._buttonCancel = Gtk.ToolButton(stock_id=Gtk.STOCK_STOP)
         self._buttonCancel.set_sensitive(False)
         self._buttonCancel.set_tooltip_text("Abort Job")
         self._handlers[self._buttonCancel] = self._buttonCancel.connect("clicked", self._on_abort_clicked)
 
-        self._buttonDetails = Gtk.ToolButton(icon_name=Gtk.STOCK_INFO)
+        self._buttonDetails = Gtk.ToolButton(stock_id=Gtk.STOCK_INFO)
         self._buttonDetails.set_sensitive(False)
         self._buttonDetails.set_tooltip_text("Show Detailed Output")
         self._handlers[self._buttonDetails] = self._buttonDetails.connect("clicked", self._on_details_clicked)
