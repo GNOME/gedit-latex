@@ -1,0 +1,638 @@
+# German translation for gedit-latex.
+# Copyright (C) 2011 gedit-latex's COPYRIGHT HOLDER
+# This file is distributed under the same license as the gedit-latex package.
+#
+# outline	- Entwurf/Gliederung
+#
+# Mario Blättermann <mariobl@freenet.de>, 2011.
+# Christian Kirbach <Christian.Kirbach@googlemail.com>, 2011.
+# Wolfgang Stöggl <c72578@yahoo.de>, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: gedit-latex master\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=gedit&keywords=I18N+L10N&component=Plugins\n"
+"POT-Creation-Date: 2011-07-01 08:20+0000\n"
+"PO-Revision-Date: 2011-07-02 18:40+0200\n"
+"Last-Translator: Wolfgang Stoeggl <c72578@yahoo.de>\n"
+"Language-Team: German <gnome-de@gnome.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Language: German\n"
+"X-Poedit-Country: GERMANY\n"
+
+#: ../data/bibtex.xml.h:1
+msgid "Address"
+msgstr "Adresse"
+
+#: ../data/bibtex.xml.h:2
+msgid "Author"
+msgstr "Autor"
+
+#: ../data/bibtex.xml.h:3
+msgid "Book Title"
+msgstr "Buchtitel"
+
+#: ../data/bibtex.xml.h:4
+msgid "Chapter"
+msgstr "Kapitel"
+
+#: ../data/bibtex.xml.h:5
+msgid "Cross Reference"
+msgstr "Querverweis"
+
+#: ../data/bibtex.xml.h:6
+msgid "Edition"
+msgstr "Ausgabe"
+
+#: ../data/bibtex.xml.h:7
+msgid "Editor"
+msgstr "Herausgeber"
+
+#: ../data/bibtex.xml.h:8
+msgid "How Published"
+msgstr "Veröffentlichungsart"
+
+#: ../data/bibtex.xml.h:9
+msgid "ISBN"
+msgstr "ISBN"
+
+#: ../data/bibtex.xml.h:10
+msgid "ISSN"
+msgstr "ISSN"
+
+#: ../data/bibtex.xml.h:11
+msgid "Institution"
+msgstr "Institution"
+
+# Auch gängig als »Zeitschrift«
+#: ../data/bibtex.xml.h:12
+msgid "Journal"
+msgstr "Journal"
+
+#: ../data/bibtex.xml.h:13
+msgid "Key"
+msgstr "Schlüssel"
+
+#: ../data/bibtex.xml.h:14
+msgid "Location"
+msgstr "Ort"
+
+#: ../data/bibtex.xml.h:15
+msgid "Month"
+msgstr "Monat"
+
+#: ../data/bibtex.xml.h:16
+msgid "Note"
+msgstr "Anmerkung"
+
+# Die Nummer eines Journals, bzw. einer Zeitschrift
+#: ../data/bibtex.xml.h:17
+msgid "Number"
+msgstr "Nummer"
+
+#: ../data/bibtex.xml.h:18
+msgid "Organization"
+msgstr "Organisation"
+
+#: ../data/bibtex.xml.h:19
+msgid "Pages"
+msgstr "Seiten"
+
+#: ../data/bibtex.xml.h:20
+msgid "Publisher"
+msgstr "Verlag"
+
+#: ../data/bibtex.xml.h:21
+msgid "School"
+msgstr "Schule"
+
+#: ../data/bibtex.xml.h:22
+msgid "Series"
+msgstr "Reihe"
+
+#: ../data/bibtex.xml.h:23
+msgid "Title"
+msgstr "Titel"
+
+#: ../data/bibtex.xml.h:24
+msgid "Type"
+msgstr "Typ"
+
+#: ../data/bibtex.xml.h:25
+msgid "URL"
+msgstr "Adresse"
+
+#: ../data/bibtex.xml.h:26
+msgid "Volume"
+msgstr "Band"
+
+#: ../data/bibtex.xml.h:27
+msgid "Year"
+msgstr "Jahr"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:1
+msgid "Connect Outline to Editor"
+msgstr "Entwurf mit dem Editor verbinden"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:2
+msgid "Exanded Symbol Groups"
+msgstr "Erweiterte Symbolgruppen"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:3
+#: ../data/ui/configure.ui.h:6
+msgid "Hide Box Warnings"
+msgstr "Box-Warnungen verbergen"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:4
+msgid "LaTeX Extensions"
+msgstr "LaTeX-Erweiterungen"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:5
+msgid "Maximum BibTeX Size"
+msgstr "Maximale BibTeX-Größe"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:6
+msgid "Show Graphics in Outline"
+msgstr "Grafiken in Entwurf zeigen"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:7
+msgid "Show LaTeX Toolbar"
+msgstr "LaTeX-Werkzeugleiste anzeigen"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:8
+msgid "Show Labels in Outline"
+msgstr "Beschriftungen in Entwurf zeigen"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:9
+msgid "Show Tables in Outline"
+msgstr "Tabellen in Entwurf zeigen"
+
+# Überprüfen
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:10
+msgid "Show Tasks in Issues"
+msgstr "Aufgaben bei Problemen anzeigen"
+
+# Überprüfen
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:11
+msgid "Show Warnings in Issues"
+msgstr "Warnungen bei Problemen anzeigen"
+
+#: ../data/ui/build_image_dialog.ui.h:1
+msgid "<b>Area</b>"
+msgstr "<b>Bereich</b>"
+
+#: ../data/ui/build_image_dialog.ui.h:2
+msgid "<b>Image Format</b>"
+msgstr "<b>Bildformat</b>"
+
+#: ../data/ui/build_image_dialog.ui.h:3
+msgid "<b>Rendering</b>"
+msgstr "<b>Darstellung</b>"
+
+#: ../data/ui/build_image_dialog.ui.h:4
+msgid "Antialiasing:"
+msgstr "Kantenglättung:"
+
+#
+#: ../data/ui/build_image_dialog.ui.h:5
+msgid "Attempt to render tight bounding box"
+msgstr "Falls möglich, eine enge Umrandungsbox erstellen"
+
+#: ../data/ui/build_image_dialog.ui.h:6
+msgid "Color Mode:"
+msgstr "Farbmodus:"
+
+#: ../data/ui/build_image_dialog.ui.h:7
+msgid "GIF"
+msgstr "GIF"
+
+#: ../data/ui/build_image_dialog.ui.h:8
+msgid "JPEG"
+msgstr "JPEG"
+
+#: ../data/ui/build_image_dialog.ui.h:9
+msgid "PNG"
+msgstr "PNG"
+
+#: ../data/ui/build_image_dialog.ui.h:10
+msgid "Render to Image"
+msgstr "Als Bild ausgeben"
+
+#: ../data/ui/build_image_dialog.ui.h:11
+msgid "Render whole page(s)"
+msgstr "Gesamte Seite(n) darstellen"
+
+#: ../data/ui/build_image_dialog.ui.h:12
+msgid "Resolution:"
+msgstr "Auflösung:"
+
+#: ../data/ui/choose_master_dialog.ui.h:1
+msgid "Filename:"
+msgstr "Dateiname:"
+
+#: ../data/ui/choose_master_dialog.ui.h:2
+msgid "Select Master Document"
+msgstr "Master-Dokument auswählen"
+
+#: ../data/ui/configure.ui.h:1
+msgid "<b><i>rubber</i> Post-Processor</b>"
+msgstr "<b><i>rubber</i>-Nachbearbeitung</b>"
+
+#: ../data/ui/configure.ui.h:2
+msgid "<b>BibTeX</b>"
+msgstr "<b>BibTeX</b>"
+
+#: ../data/ui/configure.ui.h:3
+msgid "<b>LaTeX Toolbar</b>"
+msgstr "<b>LaTeX-Werkzeugleiste</b>"
+
+#: ../data/ui/configure.ui.h:4
+msgid "<b>Templates</b>"
+msgstr "<b>Vorlagen</b>"
+
+#: ../data/ui/configure.ui.h:5
+msgid "Folder:"
+msgstr "Ordner:"
+
+#: ../data/ui/configure.ui.h:7
+msgid "KB"
+msgstr "kB"
+
+#: ../data/ui/configure.ui.h:8
+msgid "Maximum Parsed File Size:"
+msgstr "Maximal verarbeitete Dateigröße:"
+
+#: ../data/ui/configure.ui.h:9
+msgid "Miscellaneous"
+msgstr "Verschiedenes"
+
+#: ../data/ui/configure.ui.h:10
+msgid "Show LaTeX Toolbar when editing LaTeX files"
+msgstr "LaTeX-Werkzeugleiste beim Bearbeiten von LaTeX-Dateien anzeigen"
+
+#: ../data/ui/configure.ui.h:11
+msgid "Tools"
+msgstr "Werkzeuge"
+
+#: ../data/ui/configure_tool.ui.h:1
+msgid "<Ctrl><Alt>1"
+msgstr "<Strg><Alt>1"
+
+#: ../data/ui/configure_tool.ui.h:2
+msgid "<b>Accelerator</b>"
+msgstr "<b>Tastenkürzel</b>"
+
+#: ../data/ui/configure_tool.ui.h:3
+msgid "<b>_Description</b>"
+msgstr "<b>_Beschreibung</b>"
+
+#: ../data/ui/configure_tool.ui.h:4
+msgid "<b>_File Extensions</b>"
+msgstr "<b>Datei_endungen</b>"
+
+#: ../data/ui/configure_tool.ui.h:5
+msgid "<b>_Jobs</b>"
+msgstr "<b>_Aufträge</b>"
+
+#
+#: ../data/ui/configure_tool.ui.h:6
+msgid "<b>_Label</b>"
+msgstr "<b>Be_zeichnung</b>"
+
+#: ../data/ui/configure_tool.ui.h:7
+msgid ""
+"Remember to run all commands in batch mode (e.g. append <tt>-interaction "
+"batchmode</tt> to <tt>latex</tt>)"
+msgstr ""
+"Alle Befehle im Stapelverarbeitungsmodus ausführen (z.B. <tt>-interaction "
+"batchmode</tt> an <tt>latex</tt> anhängen)"
+
+#: ../data/ui/configure_tool.ui.h:8
+msgid ""
+"Valid placeholders are <tt>$filename</tt>, <tt>$shortname</tt>, <tt>"
+"$directory</tt>"
+msgstr ""
+"Gültige Platzhalter sind <tt>$filename</tt>, <tt>$shortname</tt>, <tt>"
+"$directory</tt>"
+
+#: ../data/ui/configure_tool.ui.h:9
+msgid "_Generated"
+msgstr "_Erstellt"
+
+#: ../data/ui/configure_tool.ui.h:10
+msgid "_User Defined:"
+msgstr "Ben_utzerdefiniert:"
+
+#: ../data/ui/insert_bibtex_entry.ui.h:1
+msgid "Create Bibliography Entry"
+msgstr "Bibliografischen Eintrag erstellen"
+
+#: ../data/ui/insert_bibtex_entry.ui.h:2
+msgid "Optional Fields"
+msgstr "Optionale Felder"
+
+#: ../data/ui/insert_bibtex_entry.ui.h:3
+msgid "Required Fields"
+msgstr "Notwendige Felder"
+
+#: ../data/ui/insert_bibtex_entry.ui.h:4
+msgid "_Identifier:"
+msgstr "_Kennung:"
+
+#: ../data/ui/insert_bibtex_entry.ui.h:5
+msgid "_Type:"
+msgstr "_Typ:"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:2
+#, no-c-format
+msgid "% _of"
+msgstr "% v_on"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:3
+msgid "&#xB0; CCW"
+msgstr "° gegen den Uhrzeigersinn"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:4
+msgid "Flip _Horizontally"
+msgstr "_Horizontal spiegeln"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:5
+msgid "Floating _Object"
+msgstr "Gleit_objekt"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:6
+msgid "Image Size"
+msgstr "Bildgröße"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:7
+msgid "Insert Graphics"
+msgstr "Grafik einfügen"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:8
+msgid "Text Width"
+msgstr "Textbreite"
+
+# \caption{…} für Abbildungen und Tabellen
+#: ../data/ui/insert_graphics_dialog.ui.h:9
+#: ../data/ui/insert_table_dialog.ui.h:4
+msgid "_Caption:"
+msgstr "_Beschriftung:"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:10
+msgid "_File:"
+msgstr "_Datei:"
+
+# \label{…}, Nummer der Abbildung oder Tabelle. Für Querverweise mit \ref{…}.
+#: ../data/ui/insert_graphics_dialog.ui.h:11
+#: ../data/ui/insert_table_dialog.ui.h:6
+msgid "_Label:"
+msgstr "_Nummer:"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:12
+msgid "_Rotate:"
+msgstr "D_rehen:"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:13
+msgid "_Spread over two Columns"
+msgstr "Über zwei _Spalten verteilen"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:14
+msgid "_Width:"
+msgstr "B_reite:"
+
+# Vordefinierter Text für die Nummerierung von Abbildungen. \label{…}
+#: ../data/ui/insert_graphics_dialog.ui.h:15
+msgid "fig:"
+msgstr "Abb:"
+
+#: ../data/ui/insert_listing_dialog.ui.h:1
+msgid "Insert Source Code Listing"
+msgstr "Quellcode-Listing einfügen"
+
+#: ../data/ui/insert_listing_dialog.ui.h:2
+msgid "Load From _File:"
+msgstr "Aus _Datei laden:"
+
+#: ../data/ui/insert_listing_dialog.ui.h:3
+msgid "Programming _Language:"
+msgstr "Programmiers_prache:"
+
+#: ../data/ui/insert_listing_dialog.ui.h:4
+msgid "_Dialect:"
+msgstr "_Dialekt:"
+
+#: ../data/ui/insert_table_dialog.ui.h:1
+msgid "C_olumns:"
+msgstr "_Spalten:"
+
+#: ../data/ui/insert_table_dialog.ui.h:2
+msgid "Insert Table or Matrix"
+msgstr "Tabelle oder Matrix einfügen"
+
+#: ../data/ui/insert_table_dialog.ui.h:3
+msgid "Type:"
+msgstr "Typ:"
+
+#: ../data/ui/insert_table_dialog.ui.h:5
+msgid "_Floating Object"
+msgstr "Gleit_objekt"
+
+#: ../data/ui/insert_table_dialog.ui.h:7
+msgid "_Matrix:"
+msgstr "_Matrix:"
+
+#: ../data/ui/insert_table_dialog.ui.h:8
+msgid "_Rows:"
+msgstr "_Zeilen:"
+
+#: ../data/ui/insert_table_dialog.ui.h:9
+msgid "_Table"
+msgstr "_Tabelle"
+
+# Vordefinierter Text für die Nummerierung von Tabellen. \label{…}
+#: ../data/ui/insert_table_dialog.ui.h:10
+msgid "tab:"
+msgstr "Tab:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:1
+msgid ".tex"
+msgstr ".tex"
+
+#: ../data/ui/new_document_template_dialog.ui.h:2
+msgid "<b>Language Customization</b>"
+msgstr "<b>Anpassung der Sprache</b>"
+
+#: ../data/ui/new_document_template_dialog.ui.h:3
+msgid "<b>Meta Information</b>"
+msgstr "<b>Metadaten</b>"
+
+#: ../data/ui/new_document_template_dialog.ui.h:4
+msgid "<b>Style and Layout</b>"
+msgstr "<b>Stil und Layout</b>"
+
+#: ../data/ui/new_document_template_dialog.ui.h:5
+msgid "Base Font Size:"
+msgstr "Basis-Schriftgröße:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:6
+msgid "C_ustom:"
+msgstr "_Benutzerdefiniert:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:7
+msgid "Date:"
+msgstr "Datum:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:8
+msgid "De_fault"
+msgstr "_Vorgabe"
+
+#: ../data/ui/new_document_template_dialog.ui.h:9
+msgid "Default F_ont Family:"
+msgstr "V_oreingestellte Schriftfamilie:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:10
+msgid "Di_rectory:"
+msgstr "O_rdner:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:11
+msgid "Document _Class:"
+msgstr "Dokument_klasse:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:12
+msgid "Include PDF _Metadata"
+msgstr "PDF-_Metadaten einschließen"
+
+#: ../data/ui/new_document_template_dialog.ui.h:13
+msgid "New LaTeX Document"
+msgstr "Neues LaTeX-Dokument"
+
+#: ../data/ui/new_document_template_dialog.ui.h:14
+msgid "T_emplate:"
+msgstr "_Vorlage:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:15
+msgid "To_day"
+msgstr "_Heute"
+
+#: ../data/ui/new_document_template_dialog.ui.h:16
+msgid "U_ser Defined:"
+msgstr "Ben_utzerdefiniert:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:17
+msgid "_Author:"
+msgstr "_Autor:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:18
+msgid "_Babel Package:"
+msgstr "_Babel-Paket:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:19
+msgid "_Input Encoding:"
+msgstr "E_ingabekodierung:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:20
+msgid "_Landscape"
+msgstr "_Querformat"
+
+#: ../data/ui/new_document_template_dialog.ui.h:21
+#: ../data/ui/save_as_template_dialog.ui.h:3
+msgid "_Name:"
+msgstr "_Name:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:22
+msgid "_Paper:"
+msgstr "_Papier:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:23
+msgid "_Title:"
+msgstr "_Titel:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:24
+msgid "document"
+msgstr "Dokument"
+
+# "Punkt"?
+#: ../data/ui/new_document_template_dialog.ui.h:25
+msgid "pt"
+msgstr "pt"
+
+#: ../data/ui/save_as_template_dialog.ui.h:1
+msgid "Please specify a name for the new template."
+msgstr "Bitte geben Sie einen Namen für die Vorlage ein."
+
+#: ../data/ui/save_as_template_dialog.ui.h:2
+msgid "Save As Template"
+msgstr "Als Vorlage speichern"
+
+#: ../data/ui/save_as_template_dialog.ui.h:4
+msgid "label"
+msgstr "Beschriftung"
+
+#: ../data/ui/use_bibliography_dialog.ui.h:1
+msgid "Bibliography _File:"
+msgstr "Bibliografie_datei:"
+
+#: ../data/ui/use_bibliography_dialog.ui.h:2
+msgid "Refresh Style Preview"
+msgstr "Stilvorschau aktualisieren"
+
+#: ../data/ui/use_bibliography_dialog.ui.h:3
+msgid "Style Preview:"
+msgstr "Stilvorschau:"
+
+#: ../data/ui/use_bibliography_dialog.ui.h:4
+msgid "Use Bibliography"
+msgstr "Bibliografie verwenden"
+
+#: ../data/ui/use_bibliography_dialog.ui.h:5
+msgid "_Style:"
+msgstr "_Stil:"
+
+#: ../latex.plugin.desktop.in.in.h:1
+msgid ""
+"A plugin that assists you in handling LaTeX documents and BibTeX "
+"bibliographies"
+msgstr ""
+"Ein Plugin, das Sie bei der Verarbeitung von LaTeX-Dokumenten und BibTeX-"
+"Bibliografien unterstützt"
+
+#: ../latex.plugin.desktop.in.in.h:2
+msgid "LaTeX Plugin"
+msgstr "LaTeX-Plugin"
+
+#~ msgid "Bibliographies"
+#~ msgstr "Bibliografien"
+
+#~ msgid "Toolbar"
+#~ msgstr "Werkzeugleiste"
+
+#~ msgid "<b>General</b>"
+#~ msgstr "<b>Allgemein</b>"
+
+#~ msgid "<b>Markers</b>"
+#~ msgstr "<b>Markierungen</b>"
+
+#~ msgid "<b>Template</b>"
+#~ msgstr "<b>Vorlage</b>"
+
+#~ msgid "Error:"
+#~ msgstr "Fehler:"
+
+#~ msgid "Light Foreground:"
+#~ msgstr "Heller Vordergrund:"
+
+#~ msgid "Placeholder Background:"
+#~ msgstr "Platzhalter-Hintergrund:"
+
+#~ msgid "Placeholder Foreground:"
+#~ msgstr "Platzhalter-Vordergrund:"
+
+#~ msgid "Template Background:"
+#~ msgstr "Vorlagen-Hintergrund:"
+
+#~ msgid "Warning:"
+#~ msgstr "Warnung:"
