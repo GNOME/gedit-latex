@@ -59,12 +59,12 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
                     <placeholder name="ToolsOps_1">$items</placeholder>
                 </menu>
             </menubar>
-			<toolbar name="$toolbar_name">
-				<toolitem action="LaTeXBuildAction">
-					<menu action="LaTeXBuildMenuAction">
-						<placeholder name="LaTeXBuildPlaceholder_1">$items</placeholder>
-					</menu>
-				</toolitem>
+            <toolbar name="$toolbar_name">
+                <toolitem action="LaTeXBuildAction">
+                    <menu action="LaTeXBuildMenuAction">
+                        <placeholder name="LaTeXBuildPlaceholder_1">$items</placeholder>
+                    </menu>
+                </toolitem>
             </toolbar>
         </ui>""")
 
