@@ -35,6 +35,7 @@ from ..outline import OutlineOffsetMap, BaseOutlineView
 from ..base.resources import Resources
 from ..preferences import Preferences
 from parser import Entry
+from ..gldefs import _
 
 
 GROUP_NONE, GROUP_TYPE, GROUP_AUTHOR, GROUP_YEAR = 1, 2, 3, 4
@@ -58,10 +59,10 @@ class BibTeXOutlineView(BaseOutlineView):
 
         # add grouping controls to toolbar
 
-        self._item_none = Gtk.RadioMenuItem.new_with_label((), "No Grouping")
-        self._item_type = Gtk.RadioMenuItem.new_with_label((self._item_none,), "Group by Type")
-        self._item_author = Gtk.RadioMenuItem.new_with_label((self._item_none,), "Group by Author")
-        self._item_year = Gtk.RadioMenuItem.new_with_label((self._item_none,), "Group by Year")
+        self._item_none = Gtk.RadioMenuItem.new_with_label((), _("No Grouping"))
+        self._item_type = Gtk.RadioMenuItem.new_with_label((self._item_none,), _("Group by Type"))
+        self._item_author = Gtk.RadioMenuItem.new_with_label((self._item_none,), _("Group by Author"))
+        self._item_year = Gtk.RadioMenuItem.new_with_label((self._item_none,), _("Group by Year"))
 
         self._preferences = Preferences()
 
@@ -199,7 +200,7 @@ class OutlineConverter(object):
         elif grouping == GROUP_YEAR:
             # group by year
 
-            NO_YEAR_IDENT = "<i>n/a</i>"
+            NO_YEAR_IDENT = _("<i>n/a</i>")
 
             groups = {}
 
@@ -239,7 +240,7 @@ class OutlineConverter(object):
 
         elif grouping == GROUP_AUTHOR:
 
-            NA_IDENT = "Unknown Author"
+            NA_IDENT = _("Unknown Author")
 
             groups = {}
 
@@ -291,9 +292,5 @@ class OutlineConverter(object):
 
                 for field in entry.fields:
                     tree_store.append(parent, ["<span color='%s'>%s</span> %s" % (color, escape(field.name), field.valueMarkup), self._ICON_FIELD, field])
-
-
-
-
 
 # ex:ts=4:et:
