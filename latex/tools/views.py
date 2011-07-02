@@ -88,22 +88,22 @@ class ToolView(BottomView, IStructuredIssueHandler):
 
         # toolbar
 
-        self._buttonCancel = Gtk.ToolButton(stock_id=Gtk.STOCK_STOP)
-        self._buttonCancel.set_sensitive(False)
-        self._buttonCancel.set_tooltip_text("Abort Job")
-        self._handlers[self._buttonCancel] = self._buttonCancel.connect("clicked", self._on_abort_clicked)
+        self._button_cancel = Gtk.ToolButton(stock_id=Gtk.STOCK_STOP)
+        self._button_cancel.set_sensitive(False)
+        self._button_cancel.set_tooltip_text("Abort Job")
+        self._handlers[self._button_cancel] = self._button_cancel.connect("clicked", self._on_abort_clicked)
 
-        self._buttonDetails = Gtk.ToolButton(stock_id=Gtk.STOCK_INFO)
-        self._buttonDetails.set_sensitive(False)
-        self._buttonDetails.set_tooltip_text("Show Detailed Output")
-        self._handlers[self._buttonDetails] = self._buttonDetails.connect("clicked", self._on_details_clicked)
+        self._button_details = Gtk.ToolButton(stock_id=Gtk.STOCK_INFO)
+        self._button_details.set_sensitive(False)
+        self._button_details.set_tooltip_text("Show Detailed Output")
+        self._handlers[self._button_details] = self._button_details.connect("clicked", self._on_details_clicked)
 
         self._toolbar = Gtk.Toolbar()
         self._toolbar.set_style(Gtk.ToolbarStyle.ICONS)
-        self._toolbar.set_icon_size(Gtk.IconSize.SMALL_TOOLBAR)        # FIXME: deprecated???
+        self._toolbar.set_icon_size(Gtk.IconSize.SMALL_TOOLBAR)
         self._toolbar.set_orientation(Gtk.Orientation.VERTICAL)
-        self._toolbar.insert(self._buttonCancel, -1)
-        self._toolbar.insert(self._buttonDetails, -1)
+        self._toolbar.insert(self._button_cancel, -1)
+        self._toolbar.insert(self._button_details, -1)
 
         self.pack_start(self._toolbar, False, False, 0)
 
