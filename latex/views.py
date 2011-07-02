@@ -30,6 +30,7 @@ from base.resources import Resources
 from base import View, BottomView
 from issues import Issue
 from util import escape
+from gldefs import _
 
 
 class IssueView(BottomView):
@@ -38,7 +39,7 @@ class IssueView(BottomView):
 
     _log = getLogger("IssueView")
 
-    label = "Issues"
+    label = _("Issues")
     icon = Gtk.Image.new_from_stock(Gtk.STOCK_DIALOG_INFO, Gtk.IconSize.MENU)
     scope = View.SCOPE_EDITOR
 
@@ -59,15 +60,15 @@ class IssueView(BottomView):
 
         self._icons = { Issue.SEVERITY_WARNING : GdkPixbuf.Pixbuf.new_from_file(Resources().get_icon("warning.png")),
                         Issue.SEVERITY_ERROR : GdkPixbuf.Pixbuf.new_from_file(Resources().get_icon("error.png")),
-                           Issue.SEVERITY_INFO : None,
-                           Issue.SEVERITY_TASK : GdkPixbuf.Pixbuf.new_from_file(Resources().get_icon("task.png")) }
+                        Issue.SEVERITY_INFO : None,
+                        Issue.SEVERITY_TASK : GdkPixbuf.Pixbuf.new_from_file(Resources().get_icon("task.png")) }
 
         self._store = Gtk.ListStore(GdkPixbuf.Pixbuf, str, str, object)
 
         self._view = Gtk.TreeView(model=self._store)
 
         column = Gtk.TreeViewColumn()
-        column.set_title("Message")
+        column.set_title(_("Message"))
 
         pixbuf_renderer = Gtk.CellRendererPixbuf()
         column.pack_start(pixbuf_renderer, False)
@@ -80,7 +81,7 @@ class IssueView(BottomView):
         self._view.append_column(column)
 
         column = Gtk.TreeViewColumn()
-        column.set_title("File")
+        column.set_title(_("File"))
         text_renderer2 = Gtk.CellRendererText()
         column.pack_start(text_renderer2, True)
         column.add_attribute(text_renderer2, "markup", 2)
@@ -98,7 +99,7 @@ class IssueView(BottomView):
         # toolbar
 
         self._button_warnings = Gtk.ToggleToolButton()
-        self._button_warnings.set_tooltip_text("Show/Hide Warnings")
+        self._button_warnings.set_tooltip_text(_("Show/Hide Warnings"))
         image = Gtk.Image()
         image.set_from_file(Resources().get_icon("warning.png"))
         self._button_warnings.set_icon_widget(image)
@@ -106,7 +107,7 @@ class IssueView(BottomView):
         self._handlers[self._button_warnings] = self._button_warnings.connect("toggled", self.__on_warnings_toggled)
 
         self._button_tasks = Gtk.ToggleToolButton()
-        self._button_tasks.set_tooltip_text("Show/Hide Tasks")
+        self._button_tasks.set_tooltip_text(_("Show/Hide Tasks"))
         imageTask = Gtk.Image()
         imageTask.set_from_file(Resources().get_icon("task.png"))
         self._button_tasks.set_icon_widget(imageTask)
