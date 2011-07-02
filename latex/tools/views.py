@@ -27,35 +27,27 @@ from logging import getLogger
 from gi.repository import Gtk, GdkPixbuf
 
 from ..base.resources import Resources
-from ..base import View, BottomView
+from ..base import PanelView
 from ..issues import Issue, IStructuredIssueHandler
 from ..gldefs import _
 
 
-class ToolView(BottomView, IStructuredIssueHandler):
+class ToolView(PanelView, IStructuredIssueHandler):
     """
     """
 
     _log = getLogger("ToolView")
 
-    label = _("Tools")
-    icon = Gtk.Image.new_from_stock(Gtk.STOCK_CONVERT, Gtk.IconSize.MENU)
-    scope = View.SCOPE_WINDOW
-
     def __init__(self, context):
-        BottomView.__init__(self, context)
+        PanelView.__init__(self, context)
         self._handlers = {}
+
         self._ICON_RUN = GdkPixbuf.Pixbuf.new_from_file(Resources().get_icon("run.png"))
         self._ICON_FAIL = GdkPixbuf.Pixbuf.new_from_file(Resources().get_icon("error.png"))
         self._ICON_SUCCESS = GdkPixbuf.Pixbuf.new_from_file(Resources().get_icon("okay.png"))
         self._ICON_ERROR = GdkPixbuf.Pixbuf.new_from_file(Resources().get_icon("error.png"))
         self._ICON_WARNING = GdkPixbuf.Pixbuf.new_from_file(Resources().get_icon("warning.png"))
         self._ICON_ABORT = GdkPixbuf.Pixbuf.new_from_file(Resources().get_icon("abort.png"))
-
-    def init(self, context):
-        self._log.debug("init")
-
-        self._context = context
 
         self._scroll = Gtk.ScrolledWindow()
         self._scroll.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
@@ -114,6 +106,13 @@ class ToolView(BottomView, IStructuredIssueHandler):
         ctx.set_junction_sides(Gtk.JunctionSides.LEFT | Gtk.JunctionSides.RIGHT)
         ctx.add_class(Gtk.STYLE_CLASS_PRIMARY_TOOLBAR)
 
+        self.show_all()
+
+    def get_label(self):
+        return _("Tools")
+
+    def get_icon(self):
+        return Gtk.Image.new_from_stock(Gtk.STOCK_CONVERT, Gtk.IconSize.MENU)
 
     def _on_abort_clicked(self, button):
         self._abort_method.__call__()
@@ -190,11 +189,5 @@ class ToolView(BottomView, IStructuredIssueHandler):
             self._log.debug(str(issue))
 
         self._view.expand_all()
-
-    def destroy(self):
-        for obj in self._handlers:
-            obj.disconnect(self._handlers[obj])
-        BottomView.destroy(self)
-
 
 # ex:ts=4:et:

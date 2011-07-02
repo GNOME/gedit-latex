@@ -27,131 +27,42 @@ These classes form the interface exposed by the plugin base layer.
 from logging import getLogger
 from gi.repository import Gtk, Gdk
 
-
-class View(object):
+#FIXME: this should probably be just a Gtk.Orientable iface
+# HORIZONTAL: means Bottom Panel
+# VERTICAL: means Side Panel
+class PanelView(Gtk.Box):
     """
-    Base class for a view
+    Base class for a View
     """
 
-    _log = getLogger("View")
+    _log = getLogger("PanelView")
 
-    # TODO: this doesn't belong to the interface of base
-    # TODO: call destroy()
+    SCOPE_WINDOW = 0
+    SCOPE_EDITOR = 1
 
-    SCOPE_WINDOW, SCOPE_EDITOR = 0, 1
+    def __init__(self, context):
+        Gtk.Box.__init__(self)
+        self._context = context
 
-    #
     # these should be overriden by subclasses
-    #
 
     # a label string used for this view
-    label = ""
+    def get_label(self):
+        raise NotImplementedError
 
     # an icon for this view (Gtk.Image or a stock_id string)
-    icon = None
+    def get_icon(self):
+        return None
 
-    # the scope of this View:
-    #     SCOPE_WINDOW: the View is created with the window and the same instance is passed to every Editor
+    # FIXME: this doesn't seems to be used, should we remove it?
+    # the scope of this PanelView:
+    #    SCOPE_WINDOW: the View is created with the window and the same instance is passed to every Editor
     #    SCOPE_EDITOR: the View is created with the Editor and destroyed with it
-    scope = SCOPE_WINDOW
-
-    def init(self, context):
-        """
-        To be overridden
-        """
-
-    def destroy(self):
-        """
-        To be overridden
-        """
+    def get_scope(self):
+        return self.SCOPE_WINDOW
 
     def __del__(self):
         self._log.debug("Properly destroyed %s" % self)
-
-
-class SideView(View, Gtk.VBox):
-    """
-    """
-    def __init__(self, context):
-        GObject.GObject.__init__(self)
-
-        self._context = context
-        self._initialized = False
-
-        # connect to expose event and init() on first expose
-        self._expose_handler = self.connect("draw", self._on_expose_event)
-
-    def _on_expose_event(self, *args):
-        """
-        The View has been exposed for the first time
-        """
-        self._do_init()
-
-    def _do_init(self):
-        self.disconnect(self._expose_handler)
-        self.init(self._context)
-        self.show_all()
-        self._initialized = True
-
-    def assure_init(self):
-        """
-        This may be called by the subclassing instance to assure that the View
-        has been initialized.
-
-        This is necessary because methods of the instance may be called before
-        init() as the View is initialized on the first exposure.
-        """
-        if not self._initialized:
-            self._do_init()
-
-    def destroy(self):
-        if not self._initialized:
-            self.disconnect(self._expose_handler)
-        Gtk.VBox.destroy(self)
-        self._context = None
-
-
-class BottomView(View, Gtk.HBox):
-    """
-    """
-    def __init__(self, context):
-        GObject.GObject.__init__(self)
-
-        self._context = context
-        self._initialized = False
-
-        # connect to expose event and init() on first expose
-        self._expose_handler = self.connect("draw", self._on_expose_event)
-
-    def _on_expose_event(self, *args):
-        """
-        The View has been exposed for the first time
-        """
-        self._do_init()
-
-    def _do_init(self):
-        self.disconnect(self._expose_handler)
-        self.init(self._context)
-        self.show_all()
-        self._initialized = True
-
-    def assure_init(self):
-        """
-        This may be called by the subclassing instance to assure that the View
-        has been initialized.
-
-        This is necessary because methods of the instance may be called before
-        init() as the View is initialized on the first exposure.
-        """
-        if not self._initialized:
-            self._do_init()
-
-    def destroy(self):
-        if not self._initialized:
-            self.disconnect(self._expose_handler)
-        Gtk.HBox.destroy(self)
-        self._context = None
-
 
 class Template(object):
     """

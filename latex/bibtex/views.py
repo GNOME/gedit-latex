@@ -52,9 +52,6 @@ class BibTeXOutlineView(BaseOutlineView):
         BaseOutlineView.__init__(self, context, editor)
         self._handlers = {}
 
-    def init(self, context):
-        BaseOutlineView.init(self, context)
-
         self._grouping = GROUP_NONE
 
         # add grouping controls to toolbar
@@ -94,6 +91,8 @@ class BibTeXOutlineView(BaseOutlineView):
 
         self._toolbar.insert(tool_button, -1)
 
+        self.show_all()
+
     def _on_grouping_toggled(self, toggle_button):
         if self._item_none.get_active():
             self._grouping = GROUP_NONE
@@ -131,11 +130,6 @@ class BibTeXOutlineView(BaseOutlineView):
         """
         if isinstance(node, Entry):
             self._editor.select(node.start, node.end)
-
-    def destroy(self):
-        for obj in self._handlers:
-            obj.disconnect(self._handlers[obj])
-        BaseOutlineView.destroy(self)
 
 
 class OutlineConverter(object):

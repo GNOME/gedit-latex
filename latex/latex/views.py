@@ -30,7 +30,7 @@ from logging import getLogger
 import xml.etree.ElementTree as ElementTree
 
 from ..preferences import Preferences
-from ..base import View, SideView
+from ..base import PanelView
 from ..base.resources import Resources
 from ..base.templates import Template
 from ..issues import Issue
@@ -78,40 +78,46 @@ class SymbolCollection(object):
             self.groups.append(group)
 
 
-class LaTeXSymbolMapView(SideView):
+class LaTeXSymbolMapView(PanelView):
     """
     """
-    __log = getLogger("LaTeXSymbolMapView")
+    _log = getLogger("LaTeXSymbolMapView")
 
-    label = _("Symbols")
-    icon = Gtk.Image.new_from_stock(Gtk.STOCK_INDEX,Gtk.IconSize.MENU)
-    scope = View.SCOPE_WINDOW
+    def __init__(self, context):
+        PanelView.__init__(self, context)
 
-    def init(self, context):
-        self.__log.debug("init")
+        self._log.debug("init")
 
-        self.__context = context
-        self.__preferences = Preferences()
+        self.set_orientation(Gtk.Orientation.VERTICAL)
+
+        self._preferences = Preferences()
 
         scrolled = Gtk.ScrolledWindow()
         scrolled.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
         scrolled.set_shadow_type(Gtk.ShadowType.NONE)
 
-        self.__box = Gtk.VBox()
-        scrolled.add_with_viewport(self.__box)
+        self._box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+        self._box.set_vexpand(True)
+        scrolled.add_with_viewport(self._box)
 
         self.add(scrolled)
         self.show_all()
 
-        self.__load_collection(SymbolCollection())
+        self._load_collection(SymbolCollection())
 
-    def __load_collection(self, collection):
-        self.__expanded_groups = set(self.__preferences.get("expanded-symbol-groups", "").split(","))
+    def get_label(self):
+        return _("Symbols")
+
+    def get_icon(self):
+        return Gtk.Image.new_from_stock(Gtk.STOCK_INDEX,Gtk.IconSize.MENU)
+
+    def _load_collection(self, collection):
+        self._expanded_groups = set(self._preferences.get("expanded-symbol-groups", "").split(","))
 
         for group in collection.groups:
-            self.__add_group(group)
+            self._add_group(group)
 
-    def __add_group(self, group):
+    def _add_group(self, group):
         model = Gtk.ListStore(GdkPixbuf.Pixbuf, str, object)        # icon, tooltip, Template
 
         for symbol in group.symbols:
@@ -123,7 +129,7 @@ class LaTeXSymbolMapView(SideView):
         view = Gtk.IconView(model=model)
         view.set_pixbuf_column(0)
         view.set_selection_mode(Gtk.SelectionMode.SINGLE)
-        view.connect("selection-changed", self.__on_symbol_selected)
+        view.connect("selection-changed", self._on_symbol_selected)
         view.set_item_width(-1)
         view.set_spacing(0)
         view.set_column_spacing(0)
@@ -139,25 +145,25 @@ class LaTeXSymbolMapView(SideView):
         expander.add(view)
         expander.show_all()
 
-        if group.label in self.__expanded_groups:
+        if group.label in self._expanded_groups:
             expander.set_expanded(True)
 
-        expander.connect("notify::expanded", self.__on_group_expanded, group.label)
+        expander.connect("notify::expanded", self._on_group_expanded, group.label)
 
-        self.__box.pack_start(expander, False, False, 0)
+        self._box.pack_start(expander, False, False, 0)
 
-    def __on_group_expanded(self, expander, paramSpec, group_label):
+    def _on_group_expanded(self, expander, paramSpec, group_label):
         """
         The Expander for a symbol group has been expanded
         """
         if expander.get_expanded():
-            self.__expanded_groups.add(group_label)
+            self._expanded_groups.add(group_label)
         else:
-            self.__expanded_groups.remove(group_label)
+            self._expanded_groups.remove(group_label)
 
-        self.__preferences.set("expanded-symbol-groups", ",".join(self.__expanded_groups))
+        self._preferences.set("expanded-symbol-groups", ",".join(self._expanded_groups))
 
-    def __on_symbol_selected(self, icon_view):
+    def _on_symbol_selected(self, icon_view):
         """
         A symbol has been selected
 
@@ -167,7 +173,7 @@ class LaTeXSymbolMapView(SideView):
             path = icon_view.get_selected_items()[0]
             template = icon_view.get_model()[path][2]
 
-            self.__context.active_editor.insert(template)
+            self._context.active_editor.insert(template)
 
             icon_view.unselect_all()
         except IndexError:
@@ -188,21 +194,9 @@ class LaTeXOutlineView(BaseOutlineView):
 
     _log = getLogger("LaTeXOutlineView")
 
-    label = _("Outline")
-    scope = View.SCOPE_EDITOR
-
     def __init__(self, context, editor):
         BaseOutlineView.__init__(self, context, editor)
         self._handlers = {}
-
-    @property
-    def icon(self):
-        image = Gtk.Image()
-        image.set_from_file(Resources().get_icon("outline.png"))
-        return image
-
-    def init(self, context):
-        BaseOutlineView.init(self, context)
 
         self._offset_map = OutlineOffsetMap()
 
@@ -223,13 +217,13 @@ class LaTeXOutlineView(BaseOutlineView):
         self._handlers[btn_graphics] = btn_graphics.connect("toggled", self._on_graphics_toggled)
         self._handlers[btn_tables] = btn_tables.connect("toggled", self._on_tables_toggled)
 
+        self.show_all()
+
     def set_outline(self, outline):
         """
         Load a new outline model
         """
         self._log.debug("set_outline")
-
-        self.assure_init()
 
         self._save_state()
 
@@ -298,11 +292,6 @@ class LaTeXOutlineView(BaseOutlineView):
 #        Settings().set("LatexOutlineGraphics", value)
 #        self.trigger("graphicsToggled", value)
         Preferences().set("outline-show-graphics", value)
-
-    def destroy(self):
-        for obj in self._handlers:
-            obj.disconnect(self._handlers[obj])
-        BaseOutlineView.destroy(self)
 
 
 from os.path import basename

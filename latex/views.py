@@ -27,36 +27,29 @@ from logging import getLogger
 
 from preferences import Preferences
 from base.resources import Resources
-from base import View, BottomView
+from base import PanelView
 from issues import Issue
 from util import escape
 from gldefs import _
 
 
-class IssueView(BottomView):
+class IssueView(PanelView):
     """
     """
 
     _log = getLogger("IssueView")
 
-    label = _("Issues")
-    icon = Gtk.Image.new_from_stock(Gtk.STOCK_DIALOG_INFO, Gtk.IconSize.MENU)
-    scope = View.SCOPE_EDITOR
-
     def __init__(self, context, editor):
-        BottomView.__init__(self, context)
-        self._editor = editor
-        self._handlers = {}
-
-    def init(self, context):
+        PanelView.__init__(self, context)
         self._log.debug("init")
 
+        self._editor = editor
+        self._handlers = {}
         self._preferences = Preferences()
+
         self._preferences.connect("preferences-changed", self._on_preferences_changed)
         self._show_tasks = self._preferences.get_bool("issues-show-tasks")
         self._show_warnings = self._preferences.get_bool("issues-show-warnings")
-
-        self._context = context
 
         self._icons = { Issue.SEVERITY_WARNING : GdkPixbuf.Pixbuf.new_from_file(Resources().get_icon("warning.png")),
                         Issue.SEVERITY_ERROR : GdkPixbuf.Pixbuf.new_from_file(Resources().get_icon("error.png")),
@@ -97,7 +90,6 @@ class IssueView(BottomView):
         self.pack_start(self._scr, True, True, 0)
 
         # toolbar
-
         self._button_warnings = Gtk.ToggleToolButton()
         self._button_warnings.set_tooltip_text(_("Show/Hide Warnings"))
         image = Gtk.Image()
@@ -133,7 +125,18 @@ class IssueView(BottomView):
 
         self._issues = []
 
+        self.show_all()
+
         self._log.debug("init finished")
+
+    def get_label(self):
+        return _("Issues")
+
+    def get_icon(self):
+        return Gtk.Image.new_from_stock(Gtk.STOCK_DIALOG_INFO, Gtk.IconSize.MENU)
+
+    def get_scope(self):
+        return self.SCOPE_EDITOR
 
     def _on_row_activated(self, view, path, column):
         """
@@ -153,7 +156,7 @@ class IssueView(BottomView):
             # update filter
             self._store.clear()
             for issue, local in self._issues:
-                self.__append_issue_filtered(issue, local)
+                self._append_issue_filtered(issue, local)
 
     def __on_tasks_toggled(self, togglebutton):
         self._show_tasks = togglebutton.get_active()
@@ -167,7 +170,6 @@ class IssueView(BottomView):
         """
         Remove all issues from the view
         """
-        self.assure_init()
         self._store.clear()
         self._issues = []
 
@@ -178,21 +180,20 @@ class IssueView(BottomView):
         @param issue: the Issue object
         @param local: indicates whether the Issue occured in the edited file or not
         """
-        self.assure_init()
         self._issues.append((issue, local))
-        self.__append_issue_filtered(issue, local)
+        self._append_issue_filtered(issue, local)
 
-    def __append_issue_filtered(self, issue, local):
+    def _append_issue_filtered(self, issue, local):
         if issue.severity == Issue.SEVERITY_WARNING:
             if self._show_warnings:
-                self.__do_append_issue(issue, local)
+                self._do_append_issue(issue, local)
         elif issue.severity == Issue.SEVERITY_TASK:
             if self._show_tasks:
-                self.__do_append_issue(issue, local)
+                self._do_append_issue(issue, local)
         else:
-            self.__do_append_issue(issue, local)
+            self._do_append_issue(issue, local)
 
-    def __do_append_issue(self, issue, local):
+    def _do_append_issue(self, issue, local):
         if local:
             message = issue.message
             filename = escape(issue.file.basename)
@@ -200,12 +201,5 @@ class IssueView(BottomView):
             message = "<span color='%s'>%s</span>" % (self._preferences.get("light-foreground-color"), issue.message)
             filename = "<span color='%s'>%s</span>" % (self._preferences.get("light-foreground-color"), issue.file.basename)
         self._store.append([self._icons[issue.severity], message, filename, issue])
-
-    def destroy(self):
-        del self._editor
-        for obj in self._handlers:
-            obj.disconnect(self._handlers[obj])
-        BottomView.destroy(self)
-
 
 # ex:ts=4:et:

@@ -27,52 +27,40 @@ Classes used for creating an outline view of LaTeX and BibTeX files
 from logging import getLogger
 from gi.repository import Gtk, GdkPixbuf
 
-from base import View, SideView
+from base import PanelView
 from preferences import Preferences
 from base.resources import Resources
+from gldefs import _
 
-
-class BaseOutlineView(SideView):
+class BaseOutlineView(PanelView):
     """
     Base class for the BibTeX and LaTeX outline views
     """
 
     __log = getLogger("BaseOutlineView")
 
-    label = "Outline"
-    scope = View.SCOPE_EDITOR
-
     def __init__(self, context, editor):
-        SideView.__init__(self, context)
+        PanelView.__init__(self, context)
         self._editor = editor
         self._base_handlers = {}
 
-    @property
-    def icon(self):
-        image = Gtk.Image()
-        image.set_from_file(Resources().get_icon("outline.png"))
-        return image
-
-    def init(self, context):
-        self._log.debug("init")
-
-        self._context = context
+        self.set_orientation(Gtk.Orientation.VERTICAL)
 
         self._preferences = Preferences()
 
         # toolbar
 
         btn_follow = Gtk.ToggleToolButton.new_from_stock(Gtk.STOCK_CONNECT)
-        btn_follow.set_tooltip_text("Follow Editor")
+        btn_follow.set_tooltip_text(_("Follow Editor"))
         btn_follow.set_active(self._preferences.get_bool("outline-connect-to-editor"))
         self._base_handlers[btn_follow] = btn_follow.connect("toggled", self._on_follow_toggled)
 
         btn_expand = Gtk.ToolButton.new_from_stock(Gtk.STOCK_ZOOM_IN)
-        btn_expand.set_tooltip_text("Expand All")
+        btn_expand.set_tooltip_text(_("Expand All"))
         self._base_handlers[btn_expand] = btn_expand.connect("clicked", self._on_expand_clicked)
 
         btn_collapse = Gtk.ToolButton.new_from_stock(Gtk.STOCK_ZOOM_OUT)
-        btn_collapse.set_tooltip_text("Collapse All")
+        btn_collapse.set_tooltip_text(_("Collapse All"))
         self._base_handlers[btn_collapse] = btn_collapse.connect("clicked", self._on_collapse_clicked)
 
         self._toolbar = Gtk.Toolbar()
@@ -114,18 +102,17 @@ class BaseOutlineView(SideView):
 
         self.pack_start(scrolled, True, True, 0)
 
-        # theme like gtk3
-        ctx = scrolled.get_style_context()
-        ctx.set_junction_sides(Gtk.JunctionSides.TOP)
-
-        ctx = self._toolbar.get_style_context()
-        ctx.set_junction_sides(Gtk.JunctionSides.TOP | Gtk.JunctionSides.BOTTOM)
-        ctx.add_class("inline-toolbar")
-
         # this holds a list of the currently expanded paths
         self._expandedPaths = None
 
-        self.show_all()
+    def get_label(self):
+        return _("Outline")
+
+    def get_icon(self):
+        return Gtk.Image.new_from_file(Resources().get_icon("outline.png"))
+
+    def get_scope(self):
+        return self.SCOPE_EDITOR
 
     def _on_follow_toggled(self, toggle_button):
         value = toggle_button.get_active()
@@ -143,8 +130,6 @@ class BaseOutlineView(SideView):
 
         Called by the Editor
         """
-        self.assure_init()
-
         try:
             path = self._offset_map.lookup(offset)
             self._select_path(path)
@@ -225,13 +210,6 @@ class BaseOutlineView(SideView):
 
         To be overridden
         """
-
-    def destroy(self):
-        self._view.disconnect(self._cursor_changed_id)
-        for obj in self._base_handlers:
-            obj.disconnect(self._base_handlers[obj])
-        del self._editor
-        SideView.destroy(self)
 
 
 class Item(object):
@@ -333,6 +311,5 @@ class OutlineOffsetMap(object):
             s += "\n\t%s : %s" % (o, self._map[o])
         s += "\n</OutlineOffsetMap>"
         return s
-
 
 # ex:ts=4:et:

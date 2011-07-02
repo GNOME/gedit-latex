@@ -36,7 +36,7 @@ from ..tools.views import ToolView
 from .config import WINDOW_SCOPE_VIEWS, EDITOR_SCOPE_VIEWS, ACTIONS
 from .decorators import GeditTabDecorator
 from .resources import Resources
-from . import File, SideView, BottomView, WindowContext
+from . import File, PanelView, WindowContext
 
 class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Configurable):
     __gtype_name__ = "LaTeXWindowActivatable"
@@ -181,7 +181,7 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
         self._views["ToolView"] = tool_view
         #fixme put the id!
         bottom_panel = self.window.get_bottom_panel()
-        bottom_panel.add_item(tool_view, "ToolViewid", tool_view.label, tool_view.icon)
+        bottom_panel.add_item(tool_view, "ToolViewid", tool_view.get_label(), tool_view.get_icon())
         #self._window_bottom_views.append(tool_view)
 
         # update window context
@@ -478,10 +478,11 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
         if tab_decorator.editor:
             editor_views = self._window_context.editor_scope_views[tab_decorator.editor]
             for id, view in editor_views.iteritems():
-                if isinstance(view, BottomView):
-                    after_bottom_views.add(view)
-                elif isinstance(view, SideView):
-                    after_side_views.add(view)
+                if isinstance(view, PanelView):
+                    if view.get_orientation() == Gtk.Orientation.HORIZONTAL:
+                        after_bottom_views.add(view)
+                    else:
+                        after_side_views.add(view)
                 else:
                     raise RuntimeError("Invalid view type: %s" % view)
 
@@ -498,13 +499,12 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
         i = 1
         for view in after_side_views.difference(before_side_views):
             i += 1
-            self.window.get_side_panel().add_item(view, "after_side_view_id" + str(i), view.label, view.icon)
+            self.window.get_side_panel().add_item(view, "after_side_view_id" + str(i), view.get_label(), view.get_icon())
             self._side_views.append(view)
         i = 1
         for view in after_bottom_views.difference(before_bottom_views):
             i += 1
-            print view.label, view.icon
-            self.window.get_bottom_panel().add_item(view, "bottom_view_id" + str(i), view.label, view.icon)
+            self.window.get_bottom_panel().add_item(view, "bottom_view_id" + str(i), view.get_label(), view.get_icon())
             self._bottom_views.append(view)
 
         #
@@ -533,10 +533,11 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
                     clazz.__init__(view, self._window_context)
                     self._views[id] = view
 
-                if isinstance(view, BottomView):
-                    after_window_bottom_views.add(view)
-                elif isinstance(view, SideView):
-                    after_window_side_views.add(view)
+                if isinstance(view, PanelView):
+                    if view.get_orientation() == Gtk.Orientation.HORIZONTAL:
+                        after_window_bottom_views.add(view)
+                    else:
+                        after_window_side_views.add(view)
                 else:
                     raise RuntimeError("Invalid view type: %s" % view)
         except KeyError:
@@ -555,11 +556,11 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
         i = 1
         for view in after_window_side_views.difference(before_window_side_views):
             i += 1
-            self.window.get_side_panel().add_item(view, "WHATView" + str(i), view.label, view.icon)
+            self.window.get_side_panel().add_item(view, "WHATView" + str(i), view.get_label(), view.get_icon())
             self._window_side_views.append(view)
 
         for view in after_window_bottom_views.difference(before_window_bottom_views):
-            self.window.get_bottom_panel().add_item(view, view.label, view.icon)
+            self.window.get_bottom_panel().add_item(view, view.get_label(), view.get_icon())
             self._window_bottom_views.append(view)
 
         #
