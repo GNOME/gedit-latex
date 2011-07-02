@@ -113,7 +113,7 @@ class ToolView(BottomView, IStructuredIssueHandler):
 
         ctx = self._toolbar.get_style_context()
         ctx.set_junction_sides(Gtk.JunctionSides.LEFT | Gtk.JunctionSides.RIGHT)
-        ctx.add_class("inline-toolbar")
+        ctx.add_class(Gtk.STYLE_CLASS_PRIMARY_TOOLBAR)
 
 
     def _on_abort_clicked(self, button):
