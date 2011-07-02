@@ -29,6 +29,7 @@ from gi.repository import Gtk, GdkPixbuf
 from ..base.resources import Resources
 from ..base import View, BottomView
 from ..issues import Issue, IStructuredIssueHandler
+from ..gldefs import _
 
 
 class ToolView(BottomView, IStructuredIssueHandler):
@@ -37,7 +38,7 @@ class ToolView(BottomView, IStructuredIssueHandler):
 
     _log = getLogger("ToolView")
 
-    label = "Tools"
+    label = _("Tools")
     icon = Gtk.Image.new_from_stock(Gtk.STOCK_CONVERT, Gtk.IconSize.MENU)
     scope = View.SCOPE_WINDOW
 
@@ -64,7 +65,7 @@ class ToolView(BottomView, IStructuredIssueHandler):
 
         self._view = Gtk.TreeView(model=self._store)
 
-        column = Gtk.TreeViewColumn("Job")
+        column = Gtk.TreeViewColumn(_("Job"))
 
         pixbuf_renderer = Gtk.CellRendererPixbuf()
         column.pack_start(pixbuf_renderer, False)
@@ -75,8 +76,8 @@ class ToolView(BottomView, IStructuredIssueHandler):
         column.add_attribute(text_renderer, "markup", 1)
 
         self._view.append_column(column)
-        self._view.append_column(Gtk.TreeViewColumn("File", Gtk.CellRendererText(), text=2))
-        self._view.append_column(Gtk.TreeViewColumn("Line", Gtk.CellRendererText(), text=3))
+        self._view.append_column(Gtk.TreeViewColumn(_("File"), Gtk.CellRendererText(), text=2))
+        self._view.append_column(Gtk.TreeViewColumn(_("Line"), Gtk.CellRendererText(), text=3))
 
         self._handlers[self._view] = self._view.connect("row-activated", self._on_row_activated)
 
@@ -88,12 +89,12 @@ class ToolView(BottomView, IStructuredIssueHandler):
 
         self._button_cancel = Gtk.ToolButton(stock_id=Gtk.STOCK_STOP)
         self._button_cancel.set_sensitive(False)
-        self._button_cancel.set_tooltip_text("Abort Job")
+        self._button_cancel.set_tooltip_text(_("Abort Job"))
         self._handlers[self._button_cancel] = self._button_cancel.connect("clicked", self._on_abort_clicked)
 
         self._button_details = Gtk.ToolButton(stock_id=Gtk.STOCK_INFO)
         self._button_details.set_sensitive(False)
-        self._button_details.set_tooltip_text("Show Detailed Output")
+        self._button_details.set_tooltip_text(_("Show Detailed Output"))
         self._handlers[self._button_details] = self._button_details.connect("clicked", self._on_details_clicked)
 
         self._toolbar = Gtk.Toolbar()
