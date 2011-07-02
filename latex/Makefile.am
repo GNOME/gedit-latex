@@ -10,4 +10,10 @@ plugin_PYTHON = \
 	util.py \
 	views.py
 
+DISTCLEANFILES = \
+	gldefs.py
+
+EXTRA_DIST = \
+	gldefs.py.in
+
 -include $(top_srcdir)/git.mk
