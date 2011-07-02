@@ -129,7 +129,7 @@ class IssueView(BottomView):
 
         ctx = toolbar.get_style_context()
         ctx.set_junction_sides(Gtk.JunctionSides.LEFT | Gtk.JunctionSides.RIGHT)
-        ctx.add_class("inline-toolbar")
+        ctx.add_class(Gtk.STYLE_CLASS_PRIMARY_TOOLBAR)
 
         self._issues = []
 
