@@ -555,13 +555,15 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
         # add AFTER.difference(BEFORE)
         i = 1
         for view in after_window_side_views.difference(before_window_side_views):
-            i += 1
-            self.window.get_side_panel().add_item(view, "WHATView" + str(i), view.get_label(), view.get_icon())
+            self.window.get_side_panel().add_item(view, "SidePanelId_" + str(i), view.get_label(), view.get_icon())
             self._window_side_views.append(view)
+            i += 1
 
+        i = 1
         for view in after_window_bottom_views.difference(before_window_bottom_views):
-            self.window.get_bottom_panel().add_item(view, view.get_label(), view.get_icon())
+            self.window.get_bottom_panel().add_item(view, "BottomPanelId_" + str(i), view.get_label(), view.get_icon())
             self._window_bottom_views.append(view)
+            i += 1
 
         #
         # update window context
