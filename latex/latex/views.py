@@ -118,7 +118,6 @@ class LaTeXSymbolMapView(PanelView):
             self._add_group(group)
 
     def _add_group(self, group):
-        #FIXME use a TreeStore
         model = Gtk.ListStore(GdkPixbuf.Pixbuf, str, object)        # icon, tooltip, Template
 
         for symbol in group.symbols:
@@ -131,6 +130,7 @@ class LaTeXSymbolMapView(PanelView):
         view.set_pixbuf_column(0)
         view.set_selection_mode(Gtk.SelectionMode.SINGLE)
         view.connect("item-activated", self._on_symbol_activated)
+        view.connect("focus-out-event", self._on_focus_out_event)
         view.set_item_width(-1)
         view.set_spacing(0)
         view.set_column_spacing(0)
@@ -173,6 +173,9 @@ class LaTeXSymbolMapView(PanelView):
         """
         template = icon_view.get_model()[path][2]
         self._context.active_editor.insert(template)
+
+    def _on_focus_out_event(self, icon_view, event):
+        icon_view.unselect_all()
 
 from os import system
 
