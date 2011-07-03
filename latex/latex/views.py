@@ -118,6 +118,7 @@ class LaTeXSymbolMapView(PanelView):
             self._add_group(group)
 
     def _add_group(self, group):
+        #FIXME use a TreeStore
         model = Gtk.ListStore(GdkPixbuf.Pixbuf, str, object)        # icon, tooltip, Template
 
         for symbol in group.symbols:
@@ -129,7 +130,7 @@ class LaTeXSymbolMapView(PanelView):
         view = Gtk.IconView(model=model)
         view.set_pixbuf_column(0)
         view.set_selection_mode(Gtk.SelectionMode.SINGLE)
-        view.connect("selection-changed", self._on_symbol_selected)
+        view.connect("item-activated", self._on_symbol_activated)
         view.set_item_width(-1)
         view.set_spacing(0)
         view.set_column_spacing(0)
@@ -137,7 +138,7 @@ class LaTeXSymbolMapView(PanelView):
         view.set_columns(-1)
         view.set_text_column(-1)
 
-        view.set_tooltip_column(1)        # this requires PyGTK 2.12
+        view.set_tooltip_column(1)
 
         view.show()
 
@@ -163,22 +164,15 @@ class LaTeXSymbolMapView(PanelView):
 
         self._preferences.set("expanded-symbol-groups", ",".join(self._expanded_groups))
 
-    def _on_symbol_selected(self, icon_view):
+    def _on_symbol_activated(self, icon_view, path):
         """
-        A symbol has been selected
+        A symbol has been activated
 
         @param icon_view: the Gtk.IconView
+        @param path: the Gtk.TreePath to the item
         """
-        try:
-            path = icon_view.get_selected_items()[0]
-            template = icon_view.get_model()[path][2]
-
-            self._context.active_editor.insert(template)
-
-            icon_view.unselect_all()
-        except IndexError:
-            pass                # must be caught after unselect_all()
-
+        template = icon_view.get_model()[path][2]
+        self._context.active_editor.insert(template)
 
 from os import system
 
