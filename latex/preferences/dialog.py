@@ -369,18 +369,6 @@ class PreferencesDialog(GladeInterface, IPreferencesMonitor):
 			self._dialog = self.find_widget("notebook1")
 			
 			#
-			# recent bibliographies
-			#
-			self._storeBibs = Gtk.ListStore(str)
-			
-#			for bib in self._preferences.bibliographies:
-#				self._storeBibs.append([bib.filename])
-				
-			self._viewBibs = self.find_widget("treeviewBibs")
-			self._viewBibs.set_model(self._storeBibs)
-			_insert_column_with_attributes(self._viewBibs, -1, "Filename", Gtk.CellRendererText(), text=0)
-			
-			#
 			# tools
 			#
 			
