@@ -25,7 +25,7 @@ latex.validator
 from logging import getLogger
 from os.path import exists
 
-from ..base import File
+from ..base.file import File
 from ..issues import Issue
 from ..util import escape
 from parser import Node

@@ -69,7 +69,7 @@ class Outline(object):
         self.newenvironments = []    # OutlineNode objects
 
 
-from ..base import File
+from ..base.file import File
 from ..preferences import Preferences
 
 

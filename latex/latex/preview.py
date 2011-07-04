@@ -22,7 +22,7 @@
 latex.preview
 """
 
-from ..base import File
+from ..base.file import File
 from ..tools import Tool, Job, ToolRunner
 from ..tools.postprocess import RubberPostProcessor, GenericPostProcessor
 from ..issues import MockStructuredIssueHandler

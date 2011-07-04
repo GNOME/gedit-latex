@@ -5,6 +5,7 @@ plugin_PYTHON = \
 	completion.py \
 	config.py \
 	decorators.py \
+	file.py \
 	__init__.py \
 	job.py \
 	resources.py \

@@ -36,7 +36,8 @@ from ..tools.views import ToolView
 from .config import WINDOW_SCOPE_VIEWS, EDITOR_SCOPE_VIEWS, ACTIONS
 from .decorators import GeditTabDecorator
 from .resources import Resources
-from . import File, PanelView, WindowContext
+from . import PanelView, WindowContext
+from .file import File
 
 class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Configurable):
     __gtype_name__ = "LaTeXWindowActivatable"

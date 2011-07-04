@@ -179,7 +179,7 @@ class TeXResource(object):
 
 from os.path import expanduser
 
-from ..base import File
+from ..base.file import File
 
 
 class Environment(object):

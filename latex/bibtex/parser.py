@@ -47,7 +47,7 @@ BibTeX parser and object model
 #    sys.path.append("/home/michael/.gnome2/gedit/plugins")
 #
 #    from issues import MockIssueHandler
-#    from base import File
+#    from base.file import File
 #
 #    model = BibTeXParser().parse_async(open(filename).read(), filename)
 #else:

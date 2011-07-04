@@ -179,7 +179,7 @@ class LaTeXSymbolMapView(PanelView):
 
 from os import system
 
-from ..base import File
+from ..base.file import File
 from ..outline import OutlineOffsetMap, BaseOutlineView
 from outline import OutlineNode
 

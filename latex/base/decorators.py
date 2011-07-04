@@ -29,7 +29,7 @@ from logging import getLogger
 from gi.repository import Gedit, Gtk, Gio
 
 from config import EDITORS
-from . import File
+from .file import File
 
 # TODO: maybe create ActionDelegate for GeditWindowDecorator
 

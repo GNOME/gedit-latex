@@ -37,7 +37,7 @@ from logging import getLogger
 from xml.dom import minidom
 from xml.parsers.expat import ExpatError
 
-from ..base import File
+from ..base.file import File
 
 
 class PropertyFile(dict):

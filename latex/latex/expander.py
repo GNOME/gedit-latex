@@ -24,7 +24,7 @@ latex.expander
 
 from logging import getLogger
 
-from ..base import File
+from ..base.file import File
 from cache import LaTeXDocumentCache
 from parser import Node
 
