@@ -19,8 +19,10 @@
 # Street, Fifth Floor, Boston, MA  02110-1301, USA
 
 from os import remove
-import os.path
 from glob import glob
+
+import logging
+import os.path
 
 import re
 import urllib
@@ -51,7 +53,7 @@ class File(object):
     def is_absolute(path):
         return os.path.isabs(path)
 
-    __log = getLogger("File")
+    __log = logging.getLogger("File")
 
     _DEFAULT_SCHEME = "file://"
 
@@ -263,7 +265,7 @@ class Folder(File):
     #
     # FIXME: but basically a Folder is a File so this class should not be needed
 
-    __log = getLogger("Folder")
+    __log = logging.getLogger("Folder")
 
     @property
     def files(self):
