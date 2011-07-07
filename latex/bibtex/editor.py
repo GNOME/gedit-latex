@@ -24,7 +24,7 @@ bibtex.editor
 
 from logging import getLogger
 
-from ..base import Editor
+from ..base.editor import Editor
 from ..preferences import Preferences
 from ..issues import Issue, IIssueHandler, MockIssueHandler
 from ..util import verbose
