@@ -77,6 +77,7 @@ class ConfigureToolDialog(GladeInterface):
         dialog = self._get_dialog()
 
         self._tool = tool
+        
 
         # load Tool
         self._entry_label.set_text(tool.label)
@@ -232,20 +233,20 @@ class ConfigureToolDialog(GladeInterface):
         """
         The command template has been edited
         """
-        self._store_job.set(self._store_job.get_iter_from_string(path), 0, text)
+        self._store_job.set_value(self._store_job.get_iter_from_string(path), 0, text)
 
     def _on_job_pp_edited(self, renderer, path, text):
         """
         Another post processor has been selected
         """
-        self._store_job.set(self._store_job.get_iter_from_string(path), 2, text)
+        self._store_job.set_value(self._store_job.get_iter_from_string(path), 2, text)
 
     def _on_must_succeed_toggled(self, renderer, path):
         """
         The 'must succeed' flag has been toggled
         """
         value = self._store_job.get(self._store_job.get_iter_from_string(path), 1)[0]
-        self._store_job.set(self._store_job.get_iter_from_string(path), 1, not value)
+        self._store_job.set_value(self._store_job.get_iter_from_string(path), 1, not value)
 
     def _on_add_job_clicked(self, button):
         """
@@ -475,7 +476,7 @@ class PreferencesDialog(GladeInterface):
     def _on_new_tool_clicked(self, button):
         dialog = ConfigureToolDialog()
 
-        tool = Tool("New Tool", [], "", [".tex"])
+        tool = Tool("New Tool", [], "", None, [".tex"])
 
         if not dialog.run(tool) is None:
             self._tool_preferences.save_or_update_tool(tool)
