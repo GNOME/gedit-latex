@@ -132,7 +132,6 @@ class ToolView(PanelView, IStructuredIssueHandler):
                 self._log.error("No Editor object for calling select_lines")
 
     def clear(self):
-        self.assure_init()
         self._store.clear()
 
     def set_abort_enabled(self, enabled, method):

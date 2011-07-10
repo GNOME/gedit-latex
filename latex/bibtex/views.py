@@ -119,7 +119,6 @@ class BibTeXOutlineView(BaseOutlineView):
         """
         self._outline = outline
 
-        self.assure_init()
         self._save_state()
         self._update()
         self._restore_state()
