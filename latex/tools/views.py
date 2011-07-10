@@ -138,7 +138,7 @@ class ToolView(PanelView, IStructuredIssueHandler):
         # see issues.IStructuredIssueHandler.set_abort_enabled
 
         self._abort_method = method
-        self._buttonCancel.set_sensitive(enabled)
+        self._button_cancel.set_sensitive(enabled)
 
     def add_partition(self, label, state, parent_partition_id=None):
         """
