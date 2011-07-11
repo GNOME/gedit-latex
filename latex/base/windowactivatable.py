@@ -297,6 +297,7 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
             # add UI definition
             items_ui += """<menuitem action="%s" />""" % name
             i += 1
+        items_ui +="""<separator/>"""
 
         tool_ui = self._tool_ui_template.substitute({
                             "items": items_ui,
