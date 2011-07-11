@@ -26,7 +26,7 @@ It can be used for cleaning up, converting files, for building PDFs etc.
 """
 
 from logging import getLogger
-
+from gi.repository import Gedit
 from ..base.resources import Resources
 
 
@@ -122,17 +122,22 @@ class ToolAction(Action):
     def activate(self, context):
         self._log.debug("activate: %s" % self._tool)
 
-        tool_view = context.find_view(None, "ToolView")
-
         if context.active_editor:
-            from ..preferences import Preferences        # FIXME: circ dep
-            # FIXME: find better way to save
+            doc = Gedit.App.get_default().get_active_window().get_active_document()
+            self.saving_id = doc.connect("saved",self.run_tool,context,doc)
             context._window_decorator.save_file()
-
-            self._runner.run(context.active_editor.file, self._tool, tool_view)
-            self._log.debug("activate: " + str(context.active_editor.file))
         else:
             self._log.error("No active editor")
+
+    def run_tool(self, document, other, context, doc):
+        tool_view = context.find_view(None, "ToolView")
+
+        self._runner.run(context.active_editor.file, self._tool, tool_view)
+        self._log.debug("activate: " + str(context.active_editor.file))
+
+        # destroy the save listener, or else we get a compile on any save
+        doc.disconnect(self.saving_id)
+
 
 
 from os import chdir
