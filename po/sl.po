@@ -8,14 +8,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gedit-latex master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gedit&keywords=I18N+L10N&component=Plugins\n"
-"POT-Creation-Date: 2011-07-02 16:43+0000\n"
-"PO-Revision-Date: 2011-07-02 20:31+0100\n"
+"POT-Creation-Date: 2011-07-13 20:58+0000\n"
+"PO-Revision-Date: 2011-07-14 08:28+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n%100==4 ? 3 : 0);\n"
 "X-Poedit-Language: Slovenian\n"
 "X-Poedit-Country: SLOVENIA\n"
@@ -50,9 +50,8 @@ msgid "Editor"
 msgstr "Urednik"
 
 #: ../data/bibtex.xml.h:8
-#, fuzzy
 msgid "How Published"
-msgstr "Objava"
+msgstr "Kako je predmet objavljen"
 
 #: ../data/bibtex.xml.h:9
 msgid "ISBN"
@@ -131,9 +130,8 @@ msgid "Year"
 msgstr "Leto"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:1
-#, fuzzy
 msgid "Connect Outline to Editor"
-msgstr "Povezava z oddaljenim ciljem"
+msgstr "Poveži izris z urejevalnikom"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:2
 msgid "Exanded Symbol Groups"
@@ -153,33 +151,28 @@ msgid "Maximum BibTeX Size"
 msgstr "Največja velikost BibTeX"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:6
-#, fuzzy
 msgid "Show Graphics in Outline"
-msgstr "Pokaži v glavnem oknu"
+msgstr "Pokaži grafične predmete v orisu"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:7
 msgid "Show LaTeX Toolbar"
 msgstr "Pokaži orodno vrstico LaTeX"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:8
-#, fuzzy
 msgid "Show Labels in Outline"
-msgstr "Pokaži v glavnem oknu"
+msgstr "Pokaži oznake v orisu"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:9
-#, fuzzy
 msgid "Show Tables in Outline"
-msgstr "Število preglednic v dokumentu."
+msgstr "Pokaži razpredelnice v orisu"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:10
-#, fuzzy
 msgid "Show Tasks in Issues"
-msgstr "Pokaži v glavnem oknu"
+msgstr "Pokaži naloge med opomini"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:11
-#, fuzzy
 msgid "Show Warnings in Issues"
-msgstr "Pokaži v glavnem oknu"
+msgstr "Pokaži opozorila med opomini"
 
 #: ../data/ui/build_image_dialog.ui.h:1
 msgid "<b>Area</b>"
@@ -238,9 +231,8 @@ msgid "Select Master Document"
 msgstr "Izbor glavnega dokumenta"
 
 #: ../data/ui/configure.ui.h:1
-#, fuzzy
 msgid "<b><i>rubber</i> Post-Processor</b>"
-msgstr "Procesor čelnega vmesnika"
+msgstr "<b><i>rubber</i> poopravilnik</b>"
 
 #: ../data/ui/configure.ui.h:2
 msgid "<b>BibTeX</b>"
@@ -263,9 +255,8 @@ msgid "KB"
 msgstr "KB"
 
 #: ../data/ui/configure.ui.h:8
-#, fuzzy
 msgid "Maximum Parsed File Size:"
-msgstr "Prekoračena omejitev dolžine datoteke"
+msgstr "Največja razčlenjena velikost datoteke:"
 
 #: ../data/ui/configure.ui.h:9
 msgid "Miscellaneous"
@@ -353,9 +344,8 @@ msgid "Flip _Horizontally"
 msgstr "Zrcali _vodoravno"
 
 #: ../data/ui/insert_graphics_dialog.ui.h:5
-#, fuzzy
 msgid "Floating _Object"
-msgstr "Predmet vsebuje"
+msgstr "_Plavajoči predmet"
 
 #: ../data/ui/insert_graphics_dialog.ui.h:6
 msgid "Image Size"
@@ -388,9 +378,8 @@ msgid "_Rotate:"
 msgstr "_Zavrti:"
 
 #: ../data/ui/insert_graphics_dialog.ui.h:13
-#, fuzzy
 msgid "_Spread over two Columns"
-msgstr "Poravnaj stolpce po potenci števila dva"
+msgstr "_Razpeto preko dveh stolpcev"
 
 #: ../data/ui/insert_graphics_dialog.ui.h:14
 msgid "_Width:"
@@ -401,9 +390,8 @@ msgid "fig:"
 msgstr "fig:"
 
 #: ../data/ui/insert_listing_dialog.ui.h:1
-#, fuzzy
 msgid "Insert Source Code Listing"
-msgstr "Poglej izvorno kodo strani"
+msgstr "Vstavi izpis izvorne kode"
 
 #: ../data/ui/insert_listing_dialog.ui.h:2
 msgid "Load From _File:"
@@ -422,18 +410,16 @@ msgid "C_olumns:"
 msgstr "Stolp_ci:"
 
 #: ../data/ui/insert_table_dialog.ui.h:2
-#, fuzzy
 msgid "Insert Table or Matrix"
-msgstr "Programnik razpredelnice (ali vrsta)"
+msgstr "Vstavi razpredelnico ali matriko"
 
 #: ../data/ui/insert_table_dialog.ui.h:3
 msgid "Type:"
 msgstr "Vrsta:"
 
 #: ../data/ui/insert_table_dialog.ui.h:5
-#, fuzzy
 msgid "_Floating Object"
-msgstr "Predmet vsebuje"
+msgstr "_Plavajoči predmet"
 
 #: ../data/ui/insert_table_dialog.ui.h:7
 msgid "_Matrix:"
@@ -448,9 +434,8 @@ msgid "_Table"
 msgstr "_Razpredelnica"
 
 #: ../data/ui/insert_table_dialog.ui.h:10
-#, fuzzy
 msgid "tab:"
-msgstr "Tabulator"
+msgstr "zavihek:"
 
 #: ../data/ui/new_document_template_dialog.ui.h:1
 msgid ".tex"
