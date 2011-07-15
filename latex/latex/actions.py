@@ -25,7 +25,9 @@ from gi.repository import Gtk
 
 from logging import getLogger
 
-from ..base import Action, Template, File
+from ..base import Template
+from ..base.action import Action
+from ..base.file import File
 from ..base.resources import Resources
 from ..preferences import Preferences
 from ..util import IconAction

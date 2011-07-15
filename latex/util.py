@@ -205,7 +205,7 @@ class GladeInterface(object):
 from uuid import uuid1
 from gi.repository import Gtk, Gdk
 
-from base import Action
+from base.action import Action
 
 
 class IconAction(Action):

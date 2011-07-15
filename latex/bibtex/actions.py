@@ -25,7 +25,7 @@ latex.actions
 from logging import getLogger
 from gi.repository import Gtk
 
-from ..base import Action
+from ..base.action import Action
 from dialogs import InsertBibTeXEntryDialog
 
 
@@ -56,4 +56,5 @@ class BibTeXNewEntryAction(Action):
         source = self._dialog.run()
         if not source is None:
             context.active_editor.append(source)
+
 # ex:ts=4:et:

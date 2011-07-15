@@ -26,8 +26,9 @@ It can be used for cleaning up, converting files, for building PDFs etc.
 """
 
 from logging import getLogger
-from gi.repository import Gedit
+from gi.repository import Gtk, Gedit
 from ..base.resources import Resources
+from ..base.action import Action
 
 
 class Tool(object):
@@ -85,11 +86,6 @@ class Job(object):
     @property
     def post_processor(self):
         return self._post_processor
-
-
-from gi.repository import Gtk
-
-from ..base import Action
 
 
 class ToolAction(Action):
@@ -271,8 +267,5 @@ class ToolRunner(Process):
 
         To be overridden by subclass
         """
-
-
-
 
 # ex:ts=4:et:
