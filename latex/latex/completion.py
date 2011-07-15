@@ -28,7 +28,8 @@ from logging import getLogger
 from gi.repository import Gdk, GdkPixbuf
 
 from ..base.resources import Resources
-from ..base import ICompletionHandler, Proposal, Template
+from ..base import Template
+from ..base.completion import ICompletionHandler, Proposal
 
 
 class LaTeXCommandProposal(Proposal):
