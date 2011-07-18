@@ -109,14 +109,15 @@ class LaTeXPostProcessor(PostProcessor):
     _PATTERN = pattern = re.compile(r"(^! (?P<text>.*?)$)|(^l\.(?P<line>[0-9]+))", re.MULTILINE)
 
     def __init__(self):
-        pass
+        self._successful = False
 
     def process(self, file, stdout, stderr, condition):
         self._file = file
+        self._successful = not bool(condition)
 
     @property
     def successful(self):
-        return True
+        return self._successful
 
     @property
     def summary(self):
