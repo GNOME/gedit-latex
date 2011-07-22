@@ -38,7 +38,7 @@
     </key>
     <key name="expanded-symbol-groups" type="s">
       <default>'Greek,Operators,Arrows,Special'</default>
-      <_summary>Exanded Symbol Groups</_summary>
+      <_summary>Expanded Symbol Groups</_summary>
     </key>
     <key name="latex-extensions" type="s">
       <default>'.tex,.sty,.Rnw'</default>
