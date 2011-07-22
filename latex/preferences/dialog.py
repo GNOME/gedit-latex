@@ -409,7 +409,7 @@ class PreferencesDialog(GladeInterface):
         if iter is None:
             restore_cursor = False
         else:
-            path = store.get_string_from_iter(iter)
+            path = store.get_path(iter)
             restore_cursor = True
 
         # reload tools
@@ -419,7 +419,7 @@ class PreferencesDialog(GladeInterface):
 
         # restore cursor
         if restore_cursor:
-            self._view_tool.set_cursor(path)
+            self._view_tool.set_cursor(path, None, False)
 
     def _on_configure_tool_clicked(self, button):
         store, it = self._view_tool.get_selection().get_selected()
@@ -428,7 +428,7 @@ class PreferencesDialog(GladeInterface):
         dialog = ConfigureToolDialog()
 
         if not dialog.run(tool) is None:
-            self._preferences.save_or_update_tool(tool)
+            self._tool_preferences.save_or_update_tool(tool)
 
     def _on_delete_tool_clicked(self, button):
         store, it = self._view_tool.get_selection().get_selected()

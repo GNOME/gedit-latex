@@ -321,7 +321,7 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
         if self._toolbar:
             self._toolbar.hide()
 
-    def _on_tools_changed(self):
+    def _on_tools_changed(self, tools):
         self._log.debug("_on_tools_changed")
 
         # remove tool actions and ui
