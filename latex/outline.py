@@ -147,7 +147,7 @@ class BaseOutlineView(PanelView):
         """
         Mapping function for saving the current expand state
         """
-        self._expanded_paths.append(path)
+        self._expanded_paths.append(path.to_string())
 
     def _restore_state(self):
         """
@@ -157,9 +157,7 @@ class BaseOutlineView(PanelView):
 
         if self._expanded_paths:
             for path in self._expanded_paths:
-                self._view.expand_to_path(path)
-#        else:
-#            self._view.expand_to_path((0,))
+                self._view.expand_to_path(Gtk.TreePath.new_from_string(path))
 
     def _on_cursor_changed(self, view):
         store, it = view.get_selection().get_selected()
