@@ -159,6 +159,10 @@ class ToolRunner(Process):
         self._stderr_text = ""
         self._job_iter = iter(tool.jobs)
 
+        # add alert to the statusbar
+        self._statusbar = Gedit.App.get_default().get_active_window().get_statusbar()
+        self._msg_id = self._statusbar.push(1,'Compiling document ...')
+
         # init the IStructuredIssueHandler
         self._issue_handler = issue_handler
         self._issue_handler.clear()
@@ -238,6 +242,9 @@ class ToolRunner(Process):
 
         # show issues
         self._issue_handler.append_issues(self._issue_partitions[self._job], post_processor.issues)
+
+        # remove alert
+        self._statusbar.remove(1,self._msg_id)
 
         if post_processor.successful:
             self._issue_handler.set_partition_state(self._issue_partitions[self._job], "succeeded")
