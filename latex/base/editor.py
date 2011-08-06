@@ -19,13 +19,15 @@
 # Street, Fifth Floor, Boston, MA  02110-1301, USA
 
 import re
-from uuid import uuid1
 import time
+from uuid import uuid1
+from logging import getLogger
 
 from gi.repository import GObject, Gtk, Gdk
+
 from .completion import CompletionDistributor
 from .templates import TemplateDelegate
-from logging import getLogger
+from . import Template
 
 class Editor(object):
     """
