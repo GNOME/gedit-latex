@@ -4,6 +4,9 @@
       <default>500</default>
       <_summary>Maximum BibTeX Size</_summary>
     </key>
+    <key name="bibtex-outline-grouping" type="i">
+      <default>1</default>
+    </key>
     <key name="outline-connect-to-editor" type="b">
       <default>true</default>
       <_summary>Connect Outline to Editor</_summary>

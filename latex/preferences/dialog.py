@@ -353,11 +353,11 @@ class PreferencesDialog(GladeInterface):
 
             # misc
             check_hide_box = self.find_widget("checkHideBox")
-            check_hide_box.set_active(self._preferences.get_bool("hide-box-warnings"))
+            check_hide_box.set_active(self._preferences.get("hide-box-warnings"))
 
 
             check_show_toolbar = self.find_widget("checkShowToolbar")
-            check_show_toolbar.set_active(self._preferences.get_bool("show-latex-toolbar"))
+            check_show_toolbar.set_active(self._preferences.get("show-latex-toolbar"))
 
 
             filechooser_tmp = self.find_widget("filechooserTemplates")

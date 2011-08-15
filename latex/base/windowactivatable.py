@@ -107,7 +107,6 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
         Called when the window extension is deactivated
         """
         # save preferences and stop listening
-        self._preferences.save()
         self._tool_preferences.save()
 
         # destroy tab decorators
@@ -414,7 +413,7 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
         self._log.debug("---------- ADJUST: %s" % (extension))
 
         latex_extensions = self._preferences.get("latex-extensions").split(",")
-        show_toolbar = self._preferences.get_bool("show-latex-toolbar")
+        show_toolbar = self._preferences.get ("show-latex-toolbar")
         if show_toolbar and extension in latex_extensions:
             self.show_toolbar()
         else:

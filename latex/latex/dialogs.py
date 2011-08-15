@@ -100,7 +100,10 @@ class ComboBoxProxy(AbstractProxy):
         self._options = []
 
     def restore(self, default):
-        restored_value = self._preferences.get(self._key, default)
+        if default != None:
+            restored_value = default
+        else:
+            restored_value = self._preferences.get(self._key)
         restored_index = 0
         i = 0
         for value, label in self._options:
@@ -147,8 +150,12 @@ class EntryProxy(AbstractProxy):
     def __init__(self, widget, key):
         AbstractProxy.__init__(self, widget, key)
 
-    def restore(self, default):
-        self._widget.set_text(self._preferences.get(self._key, default))
+    def restore(self, default=None):
+        if default != None:
+            txt = default
+        else:
+            txt = self._preferences.get(self._key, default)
+        self._widget.set_text(txt)
 
     @property
     def value(self):
@@ -356,7 +363,7 @@ class NewDocumentDialog(GladeInterface):
             #
             self._entry_title = self.find_widget("entryTitle")
             self._entry_author = self.find_widget("entryAuthor")
-            self._entry_author.set_text(preferences.get("RecentAuthor", environment.username))
+            self._entry_author.set_text(environment.username)
             self._radio_date_custom = self.find_widget("radioCustom")
             self._entry_date = self.find_widget("entryDate")
 
@@ -381,7 +388,7 @@ class NewDocumentDialog(GladeInterface):
 
 
             self._check_landscape = self.find_widget("checkLandscape")
-            self._check_landscape.set_active(preferences.get_bool("RecentPaperLandscape", False))
+            self._check_landscape.set_active(False)
 
             #
             # font size

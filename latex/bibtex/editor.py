@@ -193,7 +193,7 @@ class BibTeXEditor(Editor, IIssueHandler, JobChangeListener):
         """
         The cursor has moved
         """
-        if self._preferences.get_bool("outline-connect-to-editor"):
+        if self._preferences.get("outline-connect-to-editor"):
             self._outline_view.select_path_by_offset(offset)
 
     def destroy(self):

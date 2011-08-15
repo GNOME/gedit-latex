@@ -52,7 +52,7 @@ class BaseOutlineView(PanelView):
 
         btn_follow = Gtk.ToggleToolButton.new_from_stock(Gtk.STOCK_CONNECT)
         btn_follow.set_tooltip_text(_("Follow Editor"))
-        btn_follow.set_active(self._preferences.get_bool("outline-connect-to-editor"))
+        btn_follow.set_active(self._preferences.get("outline-connect-to-editor"))
         self._base_handlers[btn_follow] = btn_follow.connect("toggled", self._on_follow_toggled)
 
         btn_expand = Gtk.ToolButton.new_from_stock(Gtk.STOCK_ZOOM_IN)

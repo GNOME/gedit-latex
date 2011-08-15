@@ -63,7 +63,7 @@ class BibTeXOutlineView(BaseOutlineView):
 
         self._preferences = Preferences()
 
-        grouping = self._preferences.get("BibtexOutlineGrouping", GROUP_NONE)
+        grouping = self._preferences.get("bibtex-outline-grouping")
         if grouping == GROUP_NONE:
             self._item_none.set_active(True)
         elif grouping == GROUP_TYPE:

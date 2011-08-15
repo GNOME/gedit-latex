@@ -38,7 +38,7 @@ from .parser import LaTeXParser, Node
 from .dialogs import UseBibliographyDialog, InsertGraphicsDialog, InsertTableDialog, \
                     InsertListingDialog, BuildImageDialog, SaveAsTemplateDialog, \
                     NewDocumentDialog, ChooseMasterDialog
-from . import LaTeXSource, PropertyFile
+from . import LaTeXSource
 
 class LaTeXAction(Action):
     extensions = Preferences().get("latex-extensions").split(",")
@@ -111,19 +111,7 @@ class LaTeXChooseMasterAction(LaTeXAction):
         editor = context.active_editor
         assert type(editor) is LaTeXEditor
 
-        file = editor._file        # FIXME: access to private member
-
-        # load property file
-        property_file = PropertyFile(file)
-
-        master_filename = ChooseMasterDialog().run(file.dirname)
-        if master_filename:
-            # relativize the master filename
-            master_filename = File(master_filename).relativize(file.dirname, True)
-
-            property_file["MasterFilename"] = master_filename
-            property_file.save()
-
+        editor.choose_master_file()
 
 class LaTeXCloseEnvironmentAction(LaTeXIconAction):
     _log = getLogger("LaTeXCloseEnvironmentAction")

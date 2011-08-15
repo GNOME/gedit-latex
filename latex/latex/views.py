@@ -112,7 +112,7 @@ class LaTeXSymbolMapView(PanelView):
         return Gtk.Image.new_from_stock(Gtk.STOCK_INDEX,Gtk.IconSize.MENU)
 
     def _load_collection(self, collection):
-        self._expanded_groups = set(self._preferences.get("expanded-symbol-groups", "").split(","))
+        self._expanded_groups = set(self._preferences.get("expanded-symbol-groups").split(","))
 
         for group in collection.groups:
             self._add_group(group)
@@ -208,8 +208,8 @@ class LaTeXOutlineView(BaseOutlineView):
         btn_tables.set_tooltip_text(_("Show tables"))
         self._toolbar.insert(btn_tables, -1)
 
-        btn_graphics.set_active(Preferences().get_bool("outline-show-graphics"))
-        btn_tables.set_active(Preferences().get_bool("outline-show-tables"))
+        btn_graphics.set_active(Preferences().get("outline-show-graphics"))
+        btn_tables.set_active(Preferences().get("outline-show-tables"))
 
         self._handlers[btn_graphics] = btn_graphics.connect("toggled", self._on_graphics_toggled)
         self._handlers[btn_tables] = btn_tables.connect("toggled", self._on_tables_toggled)
@@ -233,7 +233,7 @@ class LaTeXOutlineView(BaseOutlineView):
         """
         An outline node has been selected
         """
-        if Preferences().get_bool("outline-connect-to-editor"):
+        if Preferences().get("outline-connect-to-editor"):
             if node.file == self._editor.edited_file:
                 self._editor.select(node.start, node.end)
 

@@ -44,15 +44,14 @@ from validator import LaTeXValidator
 
 from dialogs import ChooseMasterDialog
 
-from . import LaTeXSource, PropertyFile
-from ..preferences import Preferences
+from . import LaTeXSource
+from ..preferences import Preferences, DocumentPreferences
 
 
 class LaTeXEditor(Editor, IIssueHandler):
 
     _log = getLogger("LaTeXEditor")
 
-    #extensions = [".tex"]
     extensions = Preferences().get("latex-extensions").split(",")
 
     dnd_extensions = [".png", ".pdf", ".bib", ".tex"]
@@ -73,7 +72,7 @@ class LaTeXEditor(Editor, IIssueHandler):
         self._file = file
         self._context = context
 
-        self._preferences = Preferences()
+        self._preferences = DocumentPreferences(self._file)
         self._preferences.connect("preferences-changed", self._on_preferences_changed)
 
         self.register_marker_type("latex-error", self._preferences.get("error-background-color"))
@@ -86,8 +85,6 @@ class LaTeXEditor(Editor, IIssueHandler):
         self._outline_generator = LaTeXOutlineGenerator()
         self._validator = LaTeXValidator()
         self._document = None
-
-        self._document_dirty = True
 
         # if the document is no master we display an info message on the packages to
         # include - _ensured_packages holds the already mentioned packages to not
@@ -113,7 +110,7 @@ class LaTeXEditor(Editor, IIssueHandler):
                 # so we may not use it for regenerating the outline here
                 self.__parse()
         elif key == "show-latex-toolbar":
-            show_toolbar = self._preferences.get_bool("show-latex-toolbar")
+            show_toolbar = self._preferences.get("show-latex-toolbar")
             if show_toolbar:
                 self._window_context._window_decorator.show_toolbar()
             else:
@@ -262,6 +259,9 @@ class LaTeXEditor(Editor, IIssueHandler):
                 del self._document
             self._document = self._parser.parse(self.content, self._file, self)
 
+            # update document preferences
+            self._preferences.parse_content(self.content)
+
             if BENCHMARK: self._log.info("LaTeXParser.parse: %f" % (time.clock() - t))
 
             # create a copy that won't be expanded (e.g. for spell check)
@@ -330,41 +330,35 @@ class LaTeXEditor(Editor, IIssueHandler):
 
             #print self._document.xml
 
+    def choose_master_file(self):
+        master_filename = ChooseMasterDialog().run(self._file.dirname)
+        if master_filename:
+            # relativize the master filename
+            master_filename = File(master_filename).relativize(self._file.dirname, True)
+            self._preferences.set("document-master-filename", master_filename)
+        return master_filename
+
     @property
-    #@returns(File)
     def __master_file(self):
         """
         Find the LaTeX master of this child
 
         @return: base.File
         """
-        # TODO: cache result
-
-        property_file = PropertyFile(self._file)
-        try:
-            #return File(property_file["MasterFilename"])
-
-            path = property_file["MasterFilename"]
-            # the property file may contain absolute and relative paths
-            # because we switched in 0.2rc2
+        path = self._preferences.get("document-master-filename")
+        if path != None:
             if File.is_absolute(path):
                 self._log.debug("Path is absolute")
                 return File(path)
             else:
                 self._log.debug("Path is relative")
                 return File.create_from_relative_path(path, self._file.dirname)
-        except KeyError:        # master filename not found
-            # ask user
-            master_filename = ChooseMasterDialog().run(self._file.dirname)
+        else:
+            # master filename not found, ask user
+            master_filename = self.choose_master_file()
             if master_filename:
-                # relativize the master filename
-                master_filename = File(master_filename).relativize(self._file.dirname, True)
-
-                property_file["MasterFilename"] = master_filename
-                property_file.save()
                 return File.create_from_relative_path(master_filename, self._file.dirname)
             else:
-                # no master file chosen
                 return None
 
     def issue(self, issue):
@@ -384,7 +378,7 @@ class LaTeXEditor(Editor, IIssueHandler):
         """
         The cursor has moved
         """
-        if self._preferences.get_bool("outline-connect-to-editor"):
+        if self._preferences.get("outline-connect-to-editor"):
             self._outline_view.select_path_by_offset(offset)
 
     @property

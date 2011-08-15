@@ -48,8 +48,8 @@ class IssueView(PanelView):
         self._preferences = Preferences()
 
         self._preferences.connect("preferences-changed", self._on_preferences_changed)
-        self._show_tasks = self._preferences.get_bool("issues-show-tasks")
-        self._show_warnings = self._preferences.get_bool("issues-show-warnings")
+        self._show_tasks = self._preferences.get("issues-show-tasks")
+        self._show_warnings = self._preferences.get("issues-show-warnings")
 
         self._icons = { Issue.SEVERITY_WARNING : GdkPixbuf.Pixbuf.new_from_file(Resources().get_icon("warning.png")),
                         Issue.SEVERITY_ERROR : GdkPixbuf.Pixbuf.new_from_file(Resources().get_icon("error.png")),
