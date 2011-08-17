@@ -460,12 +460,16 @@ class LaTeXMathMenuAction(LaTeXMenuAction):
 
 
 class LaTeXMathAction(LaTeXTemplateAction):
-    menu_tool_action = True
-
     label = "Mathematical Environment"
     tooltip = "Mathematical Environment"
     icon_name = "math"
     template_source = "$ $_ $"
+
+
+class LaTeXMathActionDefault(LaTeXMathAction):
+    menu_tool_action = True
+    label = "Math"
+    tooltip = "Math"
 
 
 class LaTeXDisplayMathAction(LaTeXTemplateAction):

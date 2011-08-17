@@ -63,7 +63,7 @@
             </menu>
         </toolitem>
         <separator />
-        <toolitem action="LaTeXMathAction">
+        <toolitem action="LaTeXMathActionDefault">
             <menu action="LaTeXMathMenuAction">
                 <menuitem action="LaTeXMathAction" />
                 <menuitem action="LaTeXDisplayMathAction" />
