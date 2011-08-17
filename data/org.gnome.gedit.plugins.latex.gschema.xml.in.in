@@ -47,6 +47,14 @@
       <default>'.tex,.sty,.Rnw'</default>
       <_summary>LaTeX Extensions</_summary>
     </key>
+    <key name="graphics-extensions" type="s">
+      <default>'.eps,.pdf,.jpg,.jpeg,.gif,.png'</default>
+      <_summary>Graphics File Extensions</_summary>
+    </key>
+    <key name="graphics-paths" type="s">
+      <default>'.'</default>
+      <_summary>Paths Relative to .tex File to Look for Graphics</_summary>
+    </key>
 
     <key name="light-foreground-color" type="s">
       <default>'#957d47'</default>

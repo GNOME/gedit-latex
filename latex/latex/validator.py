@@ -21,6 +21,7 @@
 """
 latex.validator
 """
+import os.path
 
 from logging import getLogger
 from os.path import exists
@@ -31,6 +32,7 @@ from ..util import escape
 from parser import Node
 from environment import Environment
 
+LOG = getLogger(__name__)
 
 class LaTeXValidator(object):
     """
@@ -41,24 +43,28 @@ class LaTeXValidator(object):
      * unclosed environments, also "\[" and "\]"
     """
 
-    _log = getLogger("LaTeXValidator")
-
     def __init__(self):
         self._environment = Environment()
 
-    def validate(self, document_node, outline, issue_handler):
+    def validate(self, document_node, outline, issue_handler, document_preferences):
         """
         Validate a LaTeX document
 
         @param document_node: the root node of the document tree
         @param outline: a LaTeX outline object
         @param issue_handler: an object implementing IIssueHandler
+        @param document_preferences: a DocumentPreferences object, so we can query the
+               graphics file extensions, etc
         """
 
-        self._log.debug("validate")
+        LOG.debug("Validating")
 
         #~ # TODO: this is dangerous, the outline object could be outdated
         #~ self._outline = outline
+
+        # cache some settings now to save time
+        self._potential_graphics_extensions = [""] + document_preferences.get("graphics-extensions").split(",")
+        self._potential_graphics_paths = document_preferences.get("graphics-paths").split(",")
 
         # prepare a map for checking labels
         self._labels = {}
@@ -140,20 +146,22 @@ class LaTeXValidator(object):
                         # check referenced image file
                         target = node.firstOfType(Node.MANDATORY_ARGUMENT).innerText
                         if len(target) > 0:
-                            if File.is_absolute(target):
-                                filename = target
-                            else:
-                                file = File.create_from_relative_path(target, node.file.dirname)
-                                filename = file.path
-
-                            # an image may be specified without the extension
-                            potential_extensions = ["", ".eps", ".pdf", ".jpg", ".jpeg", ".gif", ".png"]
-
                             found = False
-                            for ext in potential_extensions:
-                                if exists(filename + ext):
-                                    found = True
-                                    break
+
+                            if File.is_absolute(target):
+                                for ext in self._potential_graphics_extensions:
+                                    if exists(target + ext):
+                                        found = True
+                                        break
+                            else:
+                                for p in self._potential_graphics_paths:
+                                    if found: break
+                                    for ext in self._potential_graphics_extensions:
+                                        if found: break
+                                        filename = os.path.abspath(os.path.join(node.file.dirname, p, target) + ext)
+                                        print filename
+                                        if os.path.exists(filename):
+                                            found = True
 
                             if not found:
                                 issue_handler.issue(Issue("Image <b>%s</b> could not be found" % escape(target), node.start, node.lastEnd, node.file, Issue.SEVERITY_WARNING))

@@ -287,7 +287,7 @@ class LaTeXEditor(Editor, IIssueHandler):
                 self._outline_view.set_outline(self._outline)
 
                 # validate
-                self._validator.validate(self._document, self._outline, self)
+                self._validator.validate(self._document, self._outline, self, self._preferences)
             else:
                 self._log.debug("Document is not a master")
 
@@ -318,7 +318,9 @@ class LaTeXEditor(Editor, IIssueHandler):
                 self._outline = self._outline_generator.generate(self._document, self)
 
                 # validate
-                self._validator.validate(self._document, self._outline, self)
+                prefs = DocumentPreferences(master_file)
+                prefs.parse_content(master_content)
+                self._validator.validate(self._document, self._outline, self, prefs)
 
             # pass outline to completion
             self.__latex_completion_handler.set_outline(self._outline)
@@ -335,7 +337,7 @@ class LaTeXEditor(Editor, IIssueHandler):
         if master_filename:
             # relativize the master filename
             master_filename = File(master_filename).relativize(self._file.dirname, True)
-            self._preferences.set("document-master-filename", master_filename)
+            self._preferences.set("master-filename", master_filename)
         return master_filename
 
     @property
@@ -345,7 +347,7 @@ class LaTeXEditor(Editor, IIssueHandler):
 
         @return: base.File
         """
-        path = self._preferences.get("document-master-filename")
+        path = self._preferences.get("master-filename")
         if path != None:
             if File.is_absolute(path):
                 self._log.debug("Path is absolute")

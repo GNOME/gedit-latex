@@ -101,12 +101,17 @@ class Preferences(_Preferences):
 
 class DocumentPreferences(_Preferences):
     """
-    Similar to @Preferences, but treats keys starting with 'document-' differently
-    """
+    Similar to @Preferences, but first tries to **GET** keys from the current
+    document. Searches for lines of the following
 
-    KEYS = dict([(k,True) for k in (
-        "document-master-filename",
-    )])
+    % gedit:key-name = value
+
+    If that fails, it also looks in a .filename.ini file for key-name = value
+    lines. If that fails, look in the system settings.
+
+    When **SETTING** keys, they do not persist if they were previously defined in
+    the document text, otherwise, they are set in the .ini file.
+    """
 
     def __init__(self, file):
         _Preferences.__init__(self)
@@ -123,7 +128,7 @@ class DocumentPreferences(_Preferences):
         self.emit("preferences-changed", key, value)
 
     def _is_docpref(self,key):
-        return key.startswith("document-") and key in self.KEYS
+        return key in self._modelines
 
     def parse_content(self, content, max_lines=100):
         """ Parses txt content from the document looking for modelines """
