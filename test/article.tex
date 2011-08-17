@@ -1,5 +1,6 @@
 
-% gedit:graphics-paths = .
+% gedit:extra-issue-commands = testissue
+
 
 \documentclass[12pt]{book}
 \usepackage{graphicx}
@@ -13,10 +14,12 @@
 \newcommand{\testref}[1]{(\ref{#1})}
 \newcommand{\testfoo}{FOO}
 \newcommand{\teste}[1]{\ensuremath{\times 10^{#1}}}
+\newcommand{\testissue}[1]{\textbf{#1}}
 
 \begin{document}
 \maketitle
 
+\testissue{need to fix this}
 
 \chapter{Main Stuff}
 \section{foo}

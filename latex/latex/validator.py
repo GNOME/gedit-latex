@@ -65,6 +65,7 @@ class LaTeXValidator(object):
         # cache some settings now to save time
         self._potential_graphics_extensions = [""] + document_preferences.get("graphics-extensions").split(",")
         self._potential_graphics_paths = document_preferences.get("graphics-paths").split(",")
+        self._extra_issue_commands = set([c for c in document_preferences.get("extra-issue-commands").split(",") if len(c)])
 
         # prepare a map for checking labels
         self._labels = {}
@@ -238,6 +239,10 @@ class LaTeXValidator(object):
                                 issue_handler.issue(Issue("Bibliography style <b>%s</b> could not be found" % escape(value), node.start, node.lastEnd, node.file, Issue.SEVERITY_WARNING))
                     except IndexError:
                         issue_handler.issue(Issue("Malformed command", node.start, node.lastEnd, node.file, Issue.SEVERITY_ERROR))
+
+                elif node.value in self._extra_issue_commands:
+                    text = node.firstOfType(Node.MANDATORY_ARGUMENT).innerText
+                    issue_handler.issue(Issue(text, node.start, node.lastEnd, node.file, Issue.SEVERITY_TASK))
 
             if recurse:
                 self._run(node, issue_handler)

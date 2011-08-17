@@ -55,6 +55,10 @@
       <default>'.'</default>
       <_summary>Paths Relative to .tex File to Look for Graphics</_summary>
     </key>
+    <key name="extra-issue-commands" type="s">
+      <default>'fxnote'</default>
+      <_summary>Extra LaTeX commands used to mark issues, such as \fxnote{foo}</_summary>
+    </key>
 
     <key name="light-foreground-color" type="s">
       <default>'#957d47'</default>
