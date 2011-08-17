@@ -214,21 +214,27 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
                 else:
                     self._action_extensions[extension] = [clazz.__name__]
 
+        toolbar_mode = self._preferences.get("toolbar-mode")
+
         # merge ui
         self._ui_manager.insert_action_group(self._action_group, -1)
-        self._ui_id = self._ui_manager.add_ui_from_file(Resources().get_ui_file("ui.builder"))
+        self._ui_id = self._ui_manager.add_ui_from_file(Resources().get_ui_file("ui-toolbar-%s.builder" % toolbar_mode))
 
-        # hook the toolbar
-        self._toolbar = self._ui_manager.get_widget("/LaTeXToolbar")
-        if self._toolbar:
+        if toolbar_mode == "normal":
+            self._toolbar = self._ui_manager.get_widget("/LaTeXToolbar")
             self._toolbar_name = "LaTeXToolbar"
             self._toolbar.set_style(Gtk.ToolbarStyle.BOTH_HORIZ)
             # FIXME: Adding a new toolbar to gedit is not really public API
             self._main_box = self.window.get_children()[0]
             self._main_box.pack_start(self._toolbar, False, True, 0)
             self._main_box.reorder_child(self._toolbar, 2)
-        else:
+        elif toolbar_mode == "combined":
+            self._toolbar = None
             self._toolbar_name = "ToolBar"
+        else:
+            self._toolbar = None
+            self._toolbar_name = ""
+            self._log.info("Toolbar disabled")    
 
     def _init_tab_decorators(self):
         """
@@ -413,11 +419,6 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
         self._log.debug("---------- ADJUST: %s" % (extension))
 
         latex_extensions = self._preferences.get("latex-extensions").split(",")
-        show_toolbar = self._preferences.get ("show-latex-toolbar")
-        if show_toolbar and extension in latex_extensions:
-            self.show_toolbar()
-        else:
-            self.hide_toolbar()
 
         #
         # adjust actions

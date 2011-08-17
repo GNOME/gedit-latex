@@ -1,4 +1,9 @@
 <schemalist>
+  <enum id='org.gnome.gedit.plugins.latex.ToolbarMode'>
+    <value nick='normal' value='0'/>
+    <value nick='combined' value='1'/>
+    <value nick='disabled' value='2'/>
+  </enum>
   <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gedit.plugins.latex" path="/org/gnome/gedit/plugins/latex/">
     <key name="maximum-bibtex-size" type="i">
       <default>500</default>
@@ -35,9 +40,9 @@
       <default>false</default>
       <_summary>Hide Box Warnings</_summary>
     </key>
-    <key name="show-latex-toolbar" type="b">
-      <default>true</default>
-      <_summary>Show LaTeX Toolbar</_summary>
+   <key name="toolbar-mode" enum="org.gnome.gedit.plugins.latex.ToolbarMode">
+      <default>'normal'</default>
+      <_summary>Show LaTeX Toolbar below (normal), combined with the main toolbar, or disabled</_summary>
     </key>
     <key name="expanded-symbol-groups" type="s">
       <default>'Greek,Operators,Arrows,Special'</default>

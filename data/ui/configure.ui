@@ -280,37 +280,6 @@
           </packing>
         </child>
         <child>
-          <object class="GtkLabel" id="label12">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="xalign">0</property>
-            <property name="label" translatable="yes">&lt;b&gt;LaTeX Toolbar&lt;/b&gt;</property>
-            <property name="use_markup">True</property>
-          </object>
-          <packing>
-            <property name="right_attach">2</property>
-            <property name="top_attach">8</property>
-            <property name="bottom_attach">9</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkCheckButton" id="checkShowToolbar">
-            <property name="label" translatable="yes">Show LaTeX Toolbar when editing LaTeX files</property>
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">False</property>
-            <property name="use_action_appearance">False</property>
-            <property name="draw_indicator">True</property>
-            <signal name="toggled" handler="on_checkShowToolbar_toggled" swapped="no"/>
-          </object>
-          <packing>
-            <property name="right_attach">2</property>
-            <property name="top_attach">9</property>
-            <property name="bottom_attach">10</property>
-            <property name="x_options">GTK_FILL</property>
-          </packing>
-        </child>
-        <child>
           <object class="GtkLabel" id="label13">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
@@ -324,6 +293,18 @@
             <property name="bottom_attach">3</property>
             <property name="x_options">GTK_FILL</property>
           </packing>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+        <child>
+          <placeholder/>
         </child>
         <child>
           <placeholder/>

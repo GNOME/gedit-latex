@@ -355,11 +355,6 @@ class PreferencesDialog(GladeInterface):
             check_hide_box = self.find_widget("checkHideBox")
             check_hide_box.set_active(self._preferences.get("hide-box-warnings"))
 
-
-            check_show_toolbar = self.find_widget("checkShowToolbar")
-            check_show_toolbar.set_active(self._preferences.get("show-latex-toolbar"))
-
-
             filechooser_tmp = self.find_widget("filechooserTemplates")
             filechooser_tmp.set_filename(self._preferences.TEMPLATE_DIR)
 
@@ -382,14 +377,9 @@ class PreferencesDialog(GladeInterface):
                                    "on_buttonConfigureTool_clicked" : self._on_configure_tool_clicked,
                                    "on_buttonDeleteTool_clicked" : self._on_delete_tool_clicked,
                                    "on_checkHideBox_toggled" : self._on_hide_box_toggled,
-                                   "on_filechooserTemplates_selection_changed" : self._on_templates_dir_changed,
-                                   "on_checkShowToolbar_toggled" : self._on_show_toolbar_toggled })
+                                   "on_filechooserTemplates_selection_changed" : self._on_templates_dir_changed})
 
         return self._dialog
-
-    def _on_show_toolbar_toggled(self, togglebutton):
-        value = togglebutton.get_active()
-        self._preferences.set("show-latex-toolbar", value)
 
     def _on_templates_dir_changed(self, filechooser):
         folder = filechooser.get_filename()
