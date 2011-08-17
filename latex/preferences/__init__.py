@@ -151,7 +151,10 @@ class DocumentPreferences(_Preferences):
             LOG.debug("Get document pref: %s (modelines: %s)" % (key,",".join(self._modelines.keys())))
             return self._modelines.get(key, self._cp.get(key))
         else:
-            return self._sysprefs.get(key)
+            try:
+                return self._sysprefs.get(key)
+            except KeyError:
+                return None
 
     def set(self, key, value):
         if self._is_docpref(key):

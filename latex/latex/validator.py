@@ -241,7 +241,10 @@ class LaTeXValidator(object):
                         issue_handler.issue(Issue("Malformed command", node.start, node.lastEnd, node.file, Issue.SEVERITY_ERROR))
 
                 elif node.value in self._extra_issue_commands:
-                    text = node.firstOfType(Node.MANDATORY_ARGUMENT).innerText
+                    try:
+                        text = node.firstOfType(Node.MANDATORY_ARGUMENT).innerText
+                    except IndexError:
+                        text = node.value
                     issue_handler.issue(Issue(text, node.start, node.lastEnd, node.file, Issue.SEVERITY_TASK))
 
             if recurse:
