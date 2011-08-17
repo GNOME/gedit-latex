@@ -26,11 +26,8 @@ from gi.repository import Gtk
 from logging import getLogger
 
 from ..base import Template
-from ..base.action import Action
-from ..base.file import File
-from ..base.resources import Resources
+from ..base.action import Action, IconAction
 from ..preferences import Preferences
-from ..util import IconAction
 from ..issues import MockIssueHandler
 from ..tools import ToolRunner
 from .editor import LaTeXEditor
@@ -39,6 +36,8 @@ from .dialogs import UseBibliographyDialog, InsertGraphicsDialog, InsertTableDia
                     InsertListingDialog, BuildImageDialog, SaveAsTemplateDialog, \
                     NewDocumentDialog, ChooseMasterDialog
 from . import LaTeXSource
+
+LOG = getLogger(__name__)
 
 class LaTeXAction(Action):
     extensions = Preferences().get("latex-extensions").split(",")
@@ -53,21 +52,14 @@ class LaTeXTemplateAction(LaTeXIconAction):
     Utility base class for quickly defining Actions inserting a LaTeX template
     """
     accelerator = None
-
-    icon_name = None
     template_source = None
     packages = []
-
-    @property
-    def icon(self):
-        return File(Resources().get_icon("%s.png" % self.icon_name))
 
     def activate(self, context):
         context.active_editor.insert(LaTeXSource(Template(self.template_source), self.packages))
 
 
 class LaTeXMenuAction(LaTeXAction):
-
     label = "LaTeX"
     stock_id = None
     accelerator = None
@@ -83,25 +75,23 @@ class LaTeXNewAction(Action):
     accelerator = "<Ctrl><Alt>N"
     tooltip = "Create a new LaTeX document"
 
-    _dialog = None
+    dialog = None
 
     def activate(self, context):
-        if not self._dialog:
-            self._dialog = NewDocumentDialog()
+        if not self.dialog:
+            self.dialog = NewDocumentDialog()
 
         # we may not open the empty file and insert a Temlate here
         # because WindowContext.activate_editor calls gedit.Window.create_tab_from_uri
         # which is async
 
-        if self._dialog.run() == 1:
-            file = self._dialog.file
-            file.create(self._dialog.source)
+        if self.dialog.run() == 1:
+            file = self.dialog.file
+            file.create(self.dialog.source)
             context.activate_editor(file)
 
 
 class LaTeXChooseMasterAction(LaTeXAction):
-    _log = getLogger("LaTeXChooseMasterAction")
-
     label = "Choose Master Document..."
     stock_id = None
     accelerator = None
@@ -114,25 +104,18 @@ class LaTeXChooseMasterAction(LaTeXAction):
         editor.choose_master_file()
 
 class LaTeXCloseEnvironmentAction(LaTeXIconAction):
-    _log = getLogger("LaTeXCloseEnvironmentAction")
-
     label = "Close Nearest Environment"
     accelerator = "<Ctrl><Alt>E"
     tooltip = "Close the nearest TeX environment at left of the cursor"
-
-    @property
-    def icon(self):
-        return File(Resources().get_icon("close_env.png"))
+    icon_name = "close_env"
 
     def activate(self, context):
         # FIXME: use the document model of the Editor
 
         editor = context.active_editor
-
         assert type(editor) is LaTeXEditor
 
         # push environments on stack and find nearest one to close
-
         try:
             self._stack = []
             self._find_open_environments(LaTeXParser().parse(editor.content_at_left_of_cursor, None, MockIssueHandler()))
@@ -140,9 +123,9 @@ class LaTeXCloseEnvironmentAction(LaTeXIconAction):
             if len(self._stack) > 0:
                 editor.insert("\\end{%s}" % self._stack[-1])
             else:
-                self._log.debug("No environment to close")
+                LOG.debug("No environment to close")
         except ValueError:
-            self._log.debug("Environments are malformed")
+            LOG.info("Environments are malformed")
 
     def _find_open_environments(self, parent_node):
         for node in parent_node:
@@ -171,26 +154,20 @@ class LaTeXCloseEnvironmentAction(LaTeXIconAction):
 
 
 class LaTeXUseBibliographyAction(LaTeXIconAction):
-    _log = getLogger("LaTeXUseBibliographyAction")
-
     label = "Use Bibliography..."
     accelerator = None
     tooltip = "Use Bibliography"
+    icon_name = "bib"
 
-    _dialog = None
-
-    @property
-    def icon(self):
-        return File(Resources().get_icon("bib.png"))
+    dialog = None
 
     def activate(self, context):
-        if not self._dialog:
-            self._dialog = UseBibliographyDialog()
+        if not self.dialog:
+            self.dialog = UseBibliographyDialog()
 
-        source = self._dialog.run_dialog(context.active_editor.edited_file)
+        source = self.dialog.run_dialog(context.active_editor.edited_file)
         if source:
             editor = context.active_editor
-
             assert type(editor) is LaTeXEditor
 
             editor.insert_at_position(source + "\n\n", LaTeXEditor.POSITION_BIBLIOGRAPHY)
@@ -202,10 +179,7 @@ class LaTeXFontFamilyAction(LaTeXIconAction):
     label = "Font Family"
     accelerator = None
     tooltip = "Font Family"
-
-    @property
-    def icon(self):
-        return File(Resources().get_icon("bf.png"))
+    icon_name = "bf"
 
     def activate(self, context):
         pass
@@ -326,10 +300,7 @@ class LaTeXStructureAction(LaTeXIconAction):
     label = "Structure"
     accelerator = None
     tooltip = "Structure"
-
-    @property
-    def icon(self):
-        return File(Resources().get_icon("section.png"))
+    icon_name = "section"
 
     def activate(self, context):
         pass
@@ -391,12 +362,9 @@ class LaTeXGraphicsAction(LaTeXIconAction):
     label = "Insert Graphics"
     accelerator = None
     tooltip = "Insert Graphics"
+    icon_name = "graphics"
 
     dialog = None
-
-    @property
-    def icon(self):
-        return File(Resources().get_icon("graphics.png"))
 
     def activate(self, context):
         if not self.dialog:
@@ -410,12 +378,9 @@ class LaTeXTableAction(LaTeXIconAction):
     label = "Insert Table or Matrix"
     accelerator = None
     tooltip = "Insert Table or Matrix"
+    icon_name = "table"
 
     dialog = None
-
-    @property
-    def icon(self):
-        return File(Resources().get_icon("table.png"))
 
     def activate(self, context):
         if not self.dialog:
@@ -429,12 +394,9 @@ class LaTeXListingAction(LaTeXIconAction):
     label = "Insert Source Code Listing"
     accelerator = None
     tooltip = "Insert Source Code Listing"
+    icon_name = "listing"
 
     dialog = None
-
-    @property
-    def icon(self):
-        return File(Resources().get_icon("listing.png"))
 
     def activate(self, context):
         if not self.dialog:
@@ -468,12 +430,9 @@ class LaTeXBuildImageAction(LaTeXIconAction):
     label = "Build Image"
     accelerator = None
     tooltip = "Build an image from the LaTeX document"
+    icon_name = "build-image"
 
     dialog = None
-
-    @property
-    def icon(self):
-        return File(Resources().get_icon("build-image.png"))
 
     def activate(self, context):
         if not self.dialog:
@@ -578,13 +537,5 @@ class LaTeXSaveAsTemplateAction(LaTeXAction):
         fo = open(file.path, "w")
         fo.write(content)
         fo.close
-
-
-
-
-
-
-
-
 
 # ex:ts=4:et:

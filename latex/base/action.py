@@ -18,7 +18,11 @@
 # this program; if not, write to the Free Software Foundation, Inc., 51 Franklin
 # Street, Fifth Floor, Boston, MA  02110-1301, USA
 
-from gi.repository import Gtk
+from uuid import uuid1
+from gi.repository import Gtk, GdkPixbuf
+
+from ..base.file import File
+from ..base.resources import Resources
 
 class GeditLaTeXPlugin_MenuToolAction(Gtk.Action):
     __gtype_name__ = "GeditLaTeXPlugin_MenuToolAction"
@@ -34,7 +38,7 @@ class Action(object):
     menu_tool_action = False    # if True a MenuToolAction is created and hooked for this action
                                 # instead of Gtk.Action
 
-    extensions = [None]            # a list of file extensions for which this action should be enabled
+    extensions = [None]         # a list of file extensions for which this action should be enabled
                                 # [None] indicates that this action is to be enabled for all extensions
 
     def __init__(self, *args, **kwargs):
@@ -82,7 +86,49 @@ class Action(object):
         self._internal_action.disconnect(self._handler)
         action_group.remove_action(self._internal_action)
 
-    #~ def __del__(self):
-        #~ print "Properly destroyed Action %s" % self
+
+class IconAction(Action):
+    """
+    A utility class for creating actions with a custom icon instead of
+    a gtk stock id.
+
+    The subclass must provide a field 'icon'.
+    """
+
+    icon_name = None   
+    __stock_id = None
+
+    def __init__(self, *args, **kwargs):
+        self.__icon_factory = kwargs["icon_factory"]
+        self.__icon = None
+
+    @property
+    def icon(self):
+        """
+        Return a File object for the icon to use
+        """
+        if not self.__icon:
+            assert(self.icon_name)
+            self.__icon = File(Resources().get_icon("%s.png" % self.icon_name)) 
+        return self.__icon
+
+    def __init_stock_id(self):
+        #
+        # generate a new stock id
+        #
+        self.__stock_id = str(uuid1())
+        self.__icon_factory.add(
+                self.__stock_id,
+                Gtk.IconSet.new_from_pixbuf(
+                    GdkPixbuf.Pixbuf.new_from_file(self.icon.path)))
+
+    @property
+    def stock_id(self):
+        if self.icon:
+            if not self.__stock_id:
+                self.__init_stock_id()
+            return self.__stock_id
+        else:
+            return None
 
 # ex:ts=4:et:
