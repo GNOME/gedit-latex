@@ -184,14 +184,10 @@ class LaTeXFontFamilyAction(LaTeXIconAction):
     def activate(self, context):
         pass
 
-class LaTeXFontFamilyMenuAction(LaTeXAction):
-    label = "Font Family"
-    accelerator = None
-    tooltip = "Font Family"
-    stock_id = None
 
-    def activate(self, context):
-        pass
+class LaTeXFontFamilyMenuAction(LaTeXMenuAction):
+    label = "Font Family"
+    tooltip = "Font Family"
 
 
 class LaTeXBoldAction(LaTeXTemplateAction):
@@ -306,14 +302,9 @@ class LaTeXStructureAction(LaTeXIconAction):
         pass
 
 
-class LaTeXStructureMenuAction(LaTeXAction):
+class LaTeXStructureMenuAction(LaTeXMenuAction):
     label = "Structure"
-    accelerator = None
     tooltip = "Structure"
-    stock_id = None
-
-    def activate(self, context):
-        pass
 
 
 class LaTeXPartAction(LaTeXTemplateAction):
@@ -417,14 +408,10 @@ class LaTeXBuildAction(LaTeXIconAction):
         pass
 
 
-class LaTeXBuildMenuAction(LaTeXAction):
+class LaTeXBuildMenuAction(LaTeXMenuAction):
     label = "Build"
-    accelerator = None
     tooltip = "Build"
-    stock_id = None
 
-    def activate(self, context):
-        pass
 
 class LaTeXBuildImageAction(LaTeXIconAction):
     label = "Build Image"
@@ -467,14 +454,9 @@ class LaTeXJustifyRightAction(LaTeXTemplateAction):
     template_source = "\\begin{flushright}$_\\end{flushright}"
 
 
-class LaTeXMathMenuAction(LaTeXAction):
+class LaTeXMathMenuAction(LaTeXMenuAction):
     label = "Math"
-    accelerator = None
     tooltip = "Math"
-    stock_id = None
-
-    def activate(self, context):
-        pass
 
 
 class LaTeXMathAction(LaTeXTemplateAction):
