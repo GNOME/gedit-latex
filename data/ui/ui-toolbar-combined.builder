@@ -51,10 +51,13 @@
                 <menuitem action="LaTeXJustifyRightAction" />
             </menu>
         </toolitem>
-        <separator />
-        <toolitem action="LaTeXItemizeAction" />
-        <toolitem action="LaTeXEnumerateAction" />
-        <toolitem action="LaTeXDescriptionAction" />
+        <toolitem action="LaTeXListActionDefault">
+            <menu action="LaTeXListMenuAction">
+                <menuitem action="LaTeXItemizeAction" />
+                <menuitem action="LaTeXEnumerateAction" />
+                <menuitem action="LaTeXDescriptionAction" />
+            </menu>
+        </toolitem>
         <separator />
         <toolitem action="LaTeXStructureActionDefault">
             <menu action="LaTeXStructureMenuAction">

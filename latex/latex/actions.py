@@ -269,11 +269,22 @@ class LaTeXFrakturAction(LaTeXTemplateAction):
     template_source = "\ensuremath{\mathfrak{$_}}"
 
 
+class LaTeXListMenuAction(LaTeXMenuAction):
+    label = "List"
+    tooltip = "List"
+
+
 class LaTeXItemizeAction(LaTeXTemplateAction):
     label = "Itemize"
     tooltip = "Itemize"
     icon_name = "itemize"
     template_source = "\\begin{itemize}\n\t\\item $_\n\\end{itemize}"
+
+
+class LaTeXListActionDefault(LaTeXItemizeAction):
+    menu_tool_action = True
+    label = "List"
+    tooltip = "List"
 
 
 class LaTeXEnumerateAction(LaTeXTemplateAction):
