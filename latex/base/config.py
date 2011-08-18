@@ -29,6 +29,7 @@ from ..latex.actions import LaTeXMenuAction, LaTeXNewAction, LaTeXChooseMasterAc
         LaTeXItalicAction, LaTeXEmphasizeAction, LaTeXDescriptionAction, LaTeXStructureMenuAction, LaTeXPartAction, LaTeXChapterAction, \
         LaTeXSectionAction, LaTeXSubsectionAction, LaTeXParagraphAction, LaTeXSubparagraphAction, LaTeXStructureActionDefault, \
         LaTeXGraphicsAction, LaTeXUseBibliographyAction, LaTeXTableAction, LaTeXListingAction, LaTeXJustifyLeftAction, \
+        LaTeXJustifyMenuAction, LaTeXJustifyActionDefault, \
         LaTeXJustifyCenterAction, LaTeXJustifyRightAction, LaTeXMathMenuAction, LaTeXMathActionDefault, LaTeXMathAction, LaTeXDisplayMathAction, \
         LaTeXEquationAction, LaTeXUnEqnArrayAction, LaTeXEqnArrayAction, LaTeXUnderlineAction, LaTeXSmallCapitalsAction, \
         LaTeXRomanAction, LaTeXSansSerifAction, LaTeXTypewriterAction, LaTeXCloseEnvironmentAction, LaTeXBlackboardBoldAction, \
@@ -42,6 +43,7 @@ ACTIONS = [LaTeXMenuAction, LaTeXNewAction, LaTeXChooseMasterAction,
         LaTeXItalicAction, LaTeXEmphasizeAction, LaTeXDescriptionAction, LaTeXStructureMenuAction, LaTeXPartAction, LaTeXChapterAction,
         LaTeXSectionAction, LaTeXSubsectionAction, LaTeXParagraphAction, LaTeXSubparagraphAction, LaTeXStructureActionDefault,
         LaTeXGraphicsAction, LaTeXUseBibliographyAction, LaTeXTableAction, LaTeXListingAction, LaTeXJustifyLeftAction,
+        LaTeXJustifyMenuAction, LaTeXJustifyActionDefault,
         LaTeXJustifyCenterAction, LaTeXJustifyRightAction, LaTeXMathMenuAction, LaTeXMathActionDefault, LaTeXMathAction, LaTeXDisplayMathAction,
         LaTeXEquationAction, LaTeXUnEqnArrayAction, LaTeXEqnArrayAction, LaTeXUnderlineAction, LaTeXSmallCapitalsAction,
         LaTeXRomanAction, LaTeXSansSerifAction, LaTeXTypewriterAction, LaTeXCloseEnvironmentAction, LaTeXBlackboardBoldAction,

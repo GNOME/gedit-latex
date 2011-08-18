@@ -44,9 +44,13 @@
                 <menuitem action="LaTeXFrakturAction" />
             </menu>
         </toolitem>
-        <toolitem action="LaTeXJustifyLeftAction" />
-        <toolitem action="LaTeXJustifyCenterAction" />
-        <toolitem action="LaTeXJustifyRightAction" />
+        <toolitem action="LaTeXJustifyActionDefault">
+            <menu action="LaTeXJustifyMenuAction">
+                <menuitem action="LaTeXJustifyLeftAction" />
+                <menuitem action="LaTeXJustifyCenterAction" />
+                <menuitem action="LaTeXJustifyRightAction" />
+            </menu>
+        </toolitem>
         <separator />
         <toolitem action="LaTeXItemizeAction" />
         <toolitem action="LaTeXEnumerateAction" />

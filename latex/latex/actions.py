@@ -425,6 +425,11 @@ class LaTeXBuildImageAction(LaTeXIconAction):
                 ToolRunner().run(context.active_editor.file, tool, tool_view)
 
 
+class LaTeXJustifyMenuAction(LaTeXMenuAction):
+    label = "Justify"
+    tooltip = "Justify"
+
+
 class LaTeXJustifyLeftAction(LaTeXTemplateAction):
     label = "Justify Left"
     tooltip = "Justify Left"
@@ -437,6 +442,12 @@ class LaTeXJustifyCenterAction(LaTeXTemplateAction):
     tooltip = "Justify Center"
     icon_name = "justify-center"
     template_source = "\\begin{center}$_\\end{center}"
+
+
+class LaTeXJustifyActionDefault(LaTeXJustifyCenterAction):
+    menu_tool_action = True
+    label = "Justify"
+    tooltip = "Justify"
 
 
 class LaTeXJustifyRightAction(LaTeXTemplateAction):
