@@ -27,7 +27,7 @@ base.config
 from ..latex.actions import LaTeXMenuAction, LaTeXNewAction, LaTeXChooseMasterAction, \
         LaTeXItemizeAction, LaTeXEnumerateAction, LaTeXFontFamilyAction, LaTeXFontFamilyMenuAction, LaTeXBoldAction, \
         LaTeXItalicAction, LaTeXEmphasizeAction, LaTeXDescriptionAction, LaTeXStructureMenuAction, LaTeXPartAction, LaTeXChapterAction, \
-        LaTeXSectionAction, LaTeXSubsectionAction, LaTeXParagraphAction, LaTeXSubparagraphAction, LaTeXStructureAction, \
+        LaTeXSectionAction, LaTeXSubsectionAction, LaTeXParagraphAction, LaTeXSubparagraphAction, LaTeXStructureActionDefault, \
         LaTeXGraphicsAction, LaTeXUseBibliographyAction, LaTeXTableAction, LaTeXListingAction, LaTeXJustifyLeftAction, \
         LaTeXJustifyCenterAction, LaTeXJustifyRightAction, LaTeXMathMenuAction, LaTeXMathActionDefault, LaTeXMathAction, LaTeXDisplayMathAction, \
         LaTeXEquationAction, LaTeXUnEqnArrayAction, LaTeXEqnArrayAction, LaTeXUnderlineAction, LaTeXSmallCapitalsAction, \
@@ -40,7 +40,7 @@ from ..bibtex.actions import BibTeXMenuAction, BibTeXNewEntryAction
 ACTIONS = [LaTeXMenuAction, LaTeXNewAction, LaTeXChooseMasterAction,
         LaTeXItemizeAction, LaTeXEnumerateAction, LaTeXFontFamilyAction, LaTeXFontFamilyMenuAction, LaTeXBoldAction,
         LaTeXItalicAction, LaTeXEmphasizeAction, LaTeXDescriptionAction, LaTeXStructureMenuAction, LaTeXPartAction, LaTeXChapterAction,
-        LaTeXSectionAction, LaTeXSubsectionAction, LaTeXParagraphAction, LaTeXSubparagraphAction, LaTeXStructureAction,
+        LaTeXSectionAction, LaTeXSubsectionAction, LaTeXParagraphAction, LaTeXSubparagraphAction, LaTeXStructureActionDefault,
         LaTeXGraphicsAction, LaTeXUseBibliographyAction, LaTeXTableAction, LaTeXListingAction, LaTeXJustifyLeftAction,
         LaTeXJustifyCenterAction, LaTeXJustifyRightAction, LaTeXMathMenuAction, LaTeXMathActionDefault, LaTeXMathAction, LaTeXDisplayMathAction,
         LaTeXEquationAction, LaTeXUnEqnArrayAction, LaTeXEqnArrayAction, LaTeXUnderlineAction, LaTeXSmallCapitalsAction,

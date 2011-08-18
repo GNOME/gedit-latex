@@ -289,23 +289,9 @@ class LaTeXDescriptionAction(LaTeXTemplateAction):
     icon_name = "description"
     template_source = "\\begin{description}\n\t\\item[$_]\n\\end{description}"
 
-
-class LaTeXStructureAction(LaTeXIconAction):
-    menu_tool_action = True
-
-    label = "Structure"
-    accelerator = None
-    tooltip = "Structure"
-    icon_name = "section"
-
-    def activate(self, context):
-        pass
-
-
 class LaTeXStructureMenuAction(LaTeXMenuAction):
     label = "Structure"
     tooltip = "Structure"
-
 
 class LaTeXPartAction(LaTeXTemplateAction):
     label = "Part"
@@ -326,6 +312,12 @@ class LaTeXSectionAction(LaTeXTemplateAction):
     tooltip = "Section"
     icon_name = "section"
     template_source = "\\section{$_}"
+
+
+class LaTeXStructureActionDefault(LaTeXSectionAction):
+    menu_tool_action = True
+    label = "Structure"
+    tooltip = "Structure"
 
 
 class LaTeXSubsectionAction(LaTeXTemplateAction):

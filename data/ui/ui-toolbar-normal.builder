@@ -51,7 +51,7 @@
         <toolitem action="LaTeXEnumerateAction" />
         <toolitem action="LaTeXDescriptionAction" />
         <separator />
-        <toolitem action="LaTeXStructureAction">
+        <toolitem action="LaTeXStructureActionDefault">
             <menu action="LaTeXStructureMenuAction">
                 <menuitem action="LaTeXPartAction" />
                 <menuitem action="LaTeXChapterAction" />
