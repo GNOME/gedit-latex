@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: gedit-latex master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gedit&keywords=I18N+L10N&component=Plugins\n"
-"POT-Creation-Date: 2011-07-22 12:10+0000\n"
-"PO-Revision-Date: 2011-07-30 20:42+0100\n"
+"POT-Creation-Date: 2011-08-17 12:47+0000\n"
+"PO-Revision-Date: 2011-08-19 10:26+0100\n"
 "Last-Translator: Mario Blättermann <mariobl@freenet.de>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -143,41 +143,57 @@ msgid "Expanded Symbol Groups"
 msgstr "Erweiterte Symbolgruppen"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:3
-#: ../data/ui/configure.ui.h:6
+msgid "Extra LaTeX commands used to mark issues, such as \\fxnote{foo}"
+msgstr ""
+"Zusätzliche LaTeX-Befehle zum Markieren von Objekten, z.B. \\fxnote{foo}"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:4
+msgid "Graphics File Extensions"
+msgstr "Erweiterungen für Grafikdateien"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:5
+#: ../data/ui/configure.ui.h:5
 msgid "Hide Box Warnings"
 msgstr "Box-Warnungen verbergen"
 
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:4
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:6
 msgid "LaTeX Extensions"
 msgstr "LaTeX-Erweiterungen"
 
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:5
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:7
 msgid "Maximum BibTeX Size"
 msgstr "Maximale BibTeX-Größe"
 
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:6
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:8
+msgid "Paths Relative to .tex File to Look for Graphics"
+msgstr "Pfade relativ zur *.tex-Datei zum Suchen nach Grafiken"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:9
 msgid "Show Graphics in Outline"
 msgstr "Grafiken in Entwurf zeigen"
 
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:7
-msgid "Show LaTeX Toolbar"
-msgstr "LaTeX-Werkzeugleiste anzeigen"
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:10
+msgid ""
+"Show LaTeX Toolbar below (normal), combined with the main toolbar, or disabled"
+msgstr ""
+"LaTeX-Werkzeugleiste unten anzeigen (normal), kombiniert mit der "
+"Hauptwerkzeugleiste oder deaktiviert"
 
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:8
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:11
 msgid "Show Labels in Outline"
 msgstr "Beschriftungen in Entwurf zeigen"
 
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:9
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:12
 msgid "Show Tables in Outline"
 msgstr "Tabellen in Entwurf zeigen"
 
 # Überprüfen
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:10
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:13
 msgid "Show Tasks in Issues"
 msgstr "Aufgaben bei Problemen anzeigen"
 
 # Überprüfen
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:11
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:14
 msgid "Show Warnings in Issues"
 msgstr "Warnungen bei Problemen anzeigen"
 
@@ -247,34 +263,26 @@ msgid "<b>BibTeX</b>"
 msgstr "<b>BibTeX</b>"
 
 #: ../data/ui/configure.ui.h:3
-msgid "<b>LaTeX Toolbar</b>"
-msgstr "<b>LaTeX-Werkzeugleiste</b>"
-
-#: ../data/ui/configure.ui.h:4
 msgid "<b>Templates</b>"
 msgstr "<b>Vorlagen</b>"
 
-#: ../data/ui/configure.ui.h:5
+#: ../data/ui/configure.ui.h:4
 msgid "Folder:"
 msgstr "Ordner:"
 
-#: ../data/ui/configure.ui.h:7
+#: ../data/ui/configure.ui.h:6
 msgid "KB"
 msgstr "kB"
 
-#: ../data/ui/configure.ui.h:8
+#: ../data/ui/configure.ui.h:7
 msgid "Maximum Parsed File Size:"
 msgstr "Maximal verarbeitete Dateigröße:"
 
-#: ../data/ui/configure.ui.h:9
+#: ../data/ui/configure.ui.h:8
 msgid "Miscellaneous"
 msgstr "Verschiedenes"
 
-#: ../data/ui/configure.ui.h:10
-msgid "Show LaTeX Toolbar when editing LaTeX files"
-msgstr "LaTeX-Werkzeugleiste beim Bearbeiten von LaTeX-Dateien anzeigen"
-
-#: ../data/ui/configure.ui.h:11
+#: ../data/ui/configure.ui.h:9
 msgid "Tools"
 msgstr "Werkzeuge"
 
@@ -603,6 +611,15 @@ msgstr ""
 #: ../latex.plugin.desktop.in.in.h:2
 msgid "LaTeX Plugin"
 msgstr "LaTeX-Plugin"
+
+#~ msgid "Show LaTeX Toolbar"
+#~ msgstr "LaTeX-Werkzeugleiste anzeigen"
+
+#~ msgid "<b>LaTeX Toolbar</b>"
+#~ msgstr "<b>LaTeX-Werkzeugleiste</b>"
+
+#~ msgid "Show LaTeX Toolbar when editing LaTeX files"
+#~ msgstr "LaTeX-Werkzeugleiste beim Bearbeiten von LaTeX-Dateien anzeigen"
 
 #~ msgid "Bibliographies"
 #~ msgstr "Bibliografien"
