@@ -83,7 +83,7 @@ class LaTeXSymbolMapView(PanelView):
     """
     _log = getLogger("LaTeXSymbolMapView")
 
-    def __init__(self, context):
+    def __init__(self, context, editor):
         PanelView.__init__(self, context)
 
         self._log.debug("init")

@@ -76,8 +76,7 @@ WINDOW_SCOPE_VIEWS = {}
 EDITOR_SCOPE_VIEWS = {}
 
 for e in LATEX_EXTENSIONS:
-    WINDOW_SCOPE_VIEWS[e] = {"LaTeXSymbolMapView": LaTeXSymbolMapView}
-    EDITOR_SCOPE_VIEWS[e] = {"IssueView": IssueView, "LaTeXOutlineView": LaTeXOutlineView}
+    EDITOR_SCOPE_VIEWS[e] = {"IssueView": IssueView, "LaTeXOutlineView": LaTeXOutlineView, "LaTeXSymbolMapView": LaTeXSymbolMapView}
 
 for e in BIBTEX_EXTENSIONS:
     EDITOR_SCOPE_VIEWS[e] = {"IssueView": IssueView, "BibTeXOutlineView": BibTeXOutlineView}
