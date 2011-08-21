@@ -126,19 +126,30 @@ class Placeholder(Element):
     children = property(get_children, set_children)
 
 
+#LanguageModel is pickled to save startup time...
+#using pickle is dangerous. If you add or change the instance members of this class
+#that need to persis through pickle, then INCREMENT THE VERSION
+LANGUAGE_MODEL_VERSION = 1
+
 class LanguageModel(object):
     """
     """
+
+    REF_CMDS = set(("ref","eqref","pageref"))
 
     __log = getLogger("LanguageModel")
 
     def __init__(self):
         self.commands = {}            # maps command names to Command elements
+        self.VERSION = LANGUAGE_MODEL_VERSION
 
         self.__placeholders = {}
         self.__newcommands = []
 
-        self.__log.debug("init")
+        #some latex specific helpers.
+        self.__new_ref_commands = {}
+
+        self.__log.debug("LanguageModel init")
 
     def find_command(self, prefix):
         """
@@ -169,11 +180,17 @@ class LanguageModel(object):
         except KeyError:
             self.__log.error("fill_placeholder: placeholder '%s' not registered" % name)
 
-    def set_newcommands(self, outlinenodes):
+    def is_ref_command(self, cmd_name):
+        return (cmd_name in self.REF_CMDS) or (cmd_name in self.__new_ref_commands) 
 
-        self.__log.debug("set newcommands: %s" % ",".join([o.value for o in outlinenodes]))
+    def set_newcommands(self, outlinenodes):
+        self.__log.debug("Set newcommands")
+
+        #remove old state
+        self.__new_ref_commands = {}
         for name in self.__newcommands:
-            self.commands.__delitem__(name)
+            del(self.commands[name])
+        self.__newcommands = []
 
         for o in outlinenodes:
             #if this is a redefinition of an existing node then use that node as
@@ -184,13 +201,21 @@ class LanguageModel(object):
                 #the display name
                 old = copy.copy(self.commands[o.oldcmd])
                 old.name = o.value
+
                 self.commands[o.value] = old
+                self.__newcommands.append(o.value)
+
+                if o.oldcmd in self.REF_CMDS:
+                    self.__new_ref_commands[o.value] = 1
+
             else:
                 #add a generic completer
                 command = Command(None, o.value)
                 for i in range(o.numOfArgs):
                     command.children.append(MandatoryArgument(None, "#%s" % (i + 1)))
+
                 self.commands[command.name] = command
+                self.__newcommands.append(command.name)
 
 from xml import sax
 
@@ -277,16 +302,19 @@ class LanguageModelFactory(object):
             pickled_object = self.__find_pickled_object()
 
             if pickled_object:
-                self.__language_model = pickled_object
+                self.__log.debug("Pickled object loaded")
+                self.language_model = pickled_object
             else:
+                self.__log.debug("No pickled object loaded")
                 pkl_filename = Resources().get_user_file("latex.pkl")
                 xml_filename = Resources().get_data_file("latex.xml")
 
-                self.__language_model = LanguageModel()
+                self.language_model = LanguageModel()
                 parser = LanguageModelParser()
-                parser.parse(xml_filename, self.__language_model)
+                parser.parse(xml_filename, self.language_model)
 
-                pickle.dump(self.__language_model, open(pkl_filename, 'w'))
+                pickle.dump(self.language_model, open(pkl_filename, 'w'))
+                self.__log.info("Pickling language model")
 
             self._ready = True
 
@@ -299,18 +327,17 @@ class LanguageModelFactory(object):
                 self.__log.debug("Pickled object and XML file have different modification times")
             else:
                 try:
-                    self.__log.debug("Pickled object found: %s" % pkl_file.path)
-                    return pickle.load(open(pkl_file.path))
+                    obj = pickle.load(open(pkl_file.path))
+                    if obj.VERSION == LANGUAGE_MODEL_VERSION:
+                        return obj
+                    else:
+                        self.__log.info("Language model obsolete")
                 except:
-                    return None
-        else:
-            self.__log.debug("No pickled object found")
+                    self.__log.info("Invalid language model", exc_info=True)
+
         return None
 
-    def create_language_model(self):
-        """
-        Return a new LanguageModel
-        """
-        return deepcopy(self.__language_model)
+    def get_language_model(self):
+        return self.language_model
 
 # ex:ts=4:et:

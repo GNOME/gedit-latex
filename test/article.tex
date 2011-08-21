@@ -42,11 +42,15 @@ I like \cite{dijkstra76}
 	\label{fig:fixme}
 \end{figure}
 
-\section{cake}
-\subsection{chips}
-\subsubsection{candy}
+\section{cake}\label{sec:foo}
+\subsection{chips}\label{sec:bar}
+\subsubsection{candy}\label{sec:baz}
 
 lets use a \testcite{dijkstra68}
+
+see \ref{sec:foo}.
+
+also see \testref{sec:bar}
 
 \include{chap2}
 \include{chap3}

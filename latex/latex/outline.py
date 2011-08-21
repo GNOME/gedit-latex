@@ -61,15 +61,21 @@ class OutlineNode(list):
 
 
 class Outline(object):
+
     def __init__(self):
         self.rootNode = OutlineNode(OutlineNode.ROOT, level=0)
         self.labels = []            # OutlineNode objects
         self.bibliographies = []    # File objects
         self.colors = []
-        self.packages = []            # OutlineNode objects
+        self.packages = []           # OutlineNode objects
         self.newcommands = []        # OutlineNode objects
         self.newenvironments = []    # OutlineNode objects
 
+        self.new_ref_commands = {}
+
+    REF_CMDS = set(("ref","eqref","pageref"))
+    def is_ref_command(self, cmd_name):
+        return (cmd_name in REF_CMDS) or (cmd_name in self.new_ref_commands) 
 
 from ..base.file import File
 from ..preferences import Preferences
@@ -270,12 +276,6 @@ class LaTeXOutlineGenerator(object):
                     childForeign = True
 
             self._walk(node, issue_handler, childForeign)
-
-    #~ def __del__(self):
-        #~ print "Properly destroyed %s" % self
-
-
-
 
 
 # ex:ts=4:et:

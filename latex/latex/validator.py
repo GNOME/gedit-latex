@@ -29,8 +29,10 @@ from os.path import exists
 from ..base.file import File
 from ..issues import Issue
 from ..util import escape
+
 from parser import Node
 from environment import Environment
+from model import LanguageModelFactory
 
 LOG = getLogger(__name__)
 
@@ -45,6 +47,8 @@ class LaTeXValidator(object):
 
     def __init__(self):
         self._environment = Environment()
+        #the the language_model singleton
+        self._language_model = LanguageModelFactory().get_language_model()
 
     def validate(self, document_node, outline, issue_handler, document_preferences):
         """
@@ -131,7 +135,7 @@ class LaTeXValidator(object):
                     except IndexError:
                         issue_handler.issue(Issue("Environment <b>%s</b> has no beginning" % escape(environ), node.start, node.end, node.file, Issue.SEVERITY_ERROR))
 
-                elif node.value == "ref" or node.value == "eqref" or node.value == "pageref":
+                elif self._language_model.is_ref_command(node.value):
                     # mark label as used
                     try:
                         label = node.firstOfType(Node.MANDATORY_ARGUMENT).innerText

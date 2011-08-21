@@ -114,8 +114,8 @@ class LaTeXCompletionHandler(ICompletionHandler):
 
     def __init__(self):
         self._log.debug("init")
-
-        self._language_model = LanguageModelFactory().create_language_model()
+        #get the language_model singleton
+        self._language_model = LanguageModelFactory().get_language_model()
         self._bibtex_document_cache = BibTeXDocumentCache()
 
     def set_outline(self, outline):
@@ -218,9 +218,6 @@ class LaTeXCompletionHandler(ICompletionHandler):
             self._log.debug(e)
 
         return []
-
-    def __del__(self):
-        self._log.debug("Properly destroyed %s" % self)
 
 
 from ..preferences import Preferences

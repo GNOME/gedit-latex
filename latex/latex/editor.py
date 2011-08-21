@@ -24,6 +24,8 @@ latex.editor
 
 BENCHMARK = True
 
+from copy import deepcopy
+
 from gi.repository import Gtk
 from gi.repository import Gdk
 from logging import getLogger
@@ -32,15 +34,14 @@ if BENCHMARK: import time
 
 from ..base.editor import Editor
 from ..base.file import File
-from completion import LaTeXCompletionHandler
 from ..issues import Issue, IIssueHandler
 from ..util import verbose, open_error
-from copy import deepcopy
 
 from parser import LaTeXParser
 from expander import LaTeXReferenceExpander
 from outline import LaTeXOutlineGenerator
 from validator import LaTeXValidator
+from completion import LaTeXCompletionHandler
 
 from dialogs import ChooseMasterDialog
 
@@ -59,7 +60,6 @@ class LaTeXEditor(Editor, IIssueHandler):
     @property
     def completion_handlers(self):
         self.__latex_completion_handler = LaTeXCompletionHandler()
-
         return [ self.__latex_completion_handler ]
 
     def init(self, file, context):
