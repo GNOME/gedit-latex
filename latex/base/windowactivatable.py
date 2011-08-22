@@ -33,7 +33,7 @@ from ..preferences.dialog import PreferencesDialog
 from ..preferences.tools import ToolPreferences
 from ..tools import ToolAction
 from ..tools.views import ToolView
-from .config import WINDOW_SCOPE_VIEWS, EDITOR_SCOPE_VIEWS, ACTIONS
+from .config import EDITOR_SCOPE_VIEWS, ACTIONS
 from .decorators import GeditTabDecorator
 from .resources import Resources
 from . import PanelView, WindowContext
@@ -123,12 +123,6 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
         # remove all views
         self.disable()
 
-        # destroy all window scope views
-        # (the editor scope views are destroyed by the editor)
-        for i in self._window_context.window_scope_views:
-            self._window_context.window_scope_views[i].destroy()
-        self._window_context.window_scope_views = {}
-
         # remove toolbar
         if self._toolbar:
             self._toolbar.destroy()
@@ -165,10 +159,6 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
         self._side_views = []
         self._bottom_views = []
 
-        # currently hooked window-scope views
-        self._window_side_views = []
-        self._window_bottom_views = []
-
         # caches window-scope View instances
         self._views = {}
 
@@ -184,8 +174,6 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
         bottom_panel.add_item(tool_view, "ToolViewid", tool_view.get_label(), tool_view.get_icon())
         #self._window_bottom_views.append(tool_view)
 
-        # update window context
-        self._window_context.window_scope_views = self._views
 
     def _init_actions(self):
         """
@@ -384,24 +372,6 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
             for name in l:
                 self._tool_action_group.get_action(name).set_sensitive(False)
 
-        # remove all side views
-        side_views = self._window_side_views + self._side_views
-        for view in side_views:
-            self.window.get_side_panel().remove_item(view)
-            if view in self._side_views:
-                self._side_views.remove(view)
-            if view in self._window_side_views:
-                self._window_side_views.remove(view)
-
-        # remove all bottom views
-        bottom_views = self._window_bottom_views + self._bottom_views
-        for view in bottom_views:
-            self.window.get_bottom_panel().remove_item(view)
-            if view in self._bottom_views:
-                self._bottom_views.remove(view)
-            if view in self._window_bottom_views:
-                self._window_bottom_views.remove(view)
-
     def adjust(self, tab_decorator):
         """
         Adjust actions and views according to the currently active TabDecorator
@@ -508,69 +478,6 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
             i += 1
             self.window.get_bottom_panel().add_item(view, "bottom_view_id" + str(i), view.get_label(), view.get_icon())
             self._bottom_views.append(view)
-
-        #
-        # adjust window-scope views
-        #
-
-        # determine set of side/bottom views BEFORE
-
-        before_window_side_views = set(self._window_side_views)
-        before_window_bottom_views = set(self._window_bottom_views)
-
-        # determine set of side/bottom views AFTER
-
-        after_window_side_views = set()
-        after_window_bottom_views = set()
-
-        try:
-            for id, clazz in WINDOW_SCOPE_VIEWS[extension].iteritems():
-
-                # find or create View instance
-                view = None
-                try:
-                    view = self._views[id]
-                except KeyError:
-                    view = clazz.__new__(clazz)
-                    clazz.__init__(view, self._window_context)
-                    self._views[id] = view
-
-                if isinstance(view, PanelView):
-                    if view.get_orientation() == Gtk.Orientation.HORIZONTAL:
-                        after_window_bottom_views.add(view)
-                    else:
-                        after_window_side_views.add(view)
-                else:
-                    raise RuntimeError("Invalid view type: %s" % view)
-        except KeyError:
-            self._log.debug("No window-scope views for this extension")
-
-        # remove BEFORE.difference(AFTER)
-        for view in before_window_side_views.difference(after_window_side_views):
-            self.window.get_side_panel().remove_item(view)
-            self._window_side_views.remove(view)
-
-        for view in before_window_bottom_views.difference(after_window_bottom_views):
-            self.window.get_bottom_panel().remove_item(view)
-            self._window_bottom_views.remove(view)
-
-        # add AFTER.difference(BEFORE)
-        i = 1
-        for view in after_window_side_views.difference(before_window_side_views):
-            self.window.get_side_panel().add_item(view, "SidePanelId_" + str(i), view.get_label(), view.get_icon())
-            self._window_side_views.append(view)
-            i += 1
-
-        i = 1
-        for view in after_window_bottom_views.difference(before_window_bottom_views):
-            self.window.get_bottom_panel().add_item(view, "BottomPanelId_" + str(i), view.get_label(), view.get_icon())
-            self._window_bottom_views.append(view)
-            i += 1
-
-        #
-        # update window context
-        #
-        self._window_context.window_scope_views = self._views
 
     def _on_tab_added(self, window, tab):
         """

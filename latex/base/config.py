@@ -23,7 +23,6 @@ base.config
 """
 
 # actions
-
 from ..latex.actions import LaTeXMenuAction, LaTeXNewAction, LaTeXChooseMasterAction, \
         LaTeXListMenuAction, LaTeXListActionDefault, \
         LaTeXItemizeAction, LaTeXEnumerateAction, LaTeXFontFamilyAction, LaTeXFontFamilyMenuAction, LaTeXBoldAction, \
@@ -54,25 +53,15 @@ ACTIONS = [LaTeXMenuAction, LaTeXNewAction, LaTeXChooseMasterAction,
         BibTeXMenuAction, BibTeXNewEntryAction]
 
 # views
-
 from ..views import IssueView
 from ..latex.views import LaTeXSymbolMapView, LaTeXOutlineView
 from ..bibtex.views import BibTeXOutlineView
 
 
-#WINDOW_SCOPE_VIEWS = {".tex": {"LaTeXSymbolMapView": LaTeXSymbolMapView}}
-#
-#EDITOR_SCOPE_VIEWS = {".tex": {"IssueView": IssueView,
-#                                 "LaTeXOutlineView": LaTeXOutlineView},
-#
-#                       ".bib": {"IssueView": IssueView,
-#                                 "BibTeXOutlineView": BibTeXOutlineView}}
-
 from ..preferences import Preferences
 LATEX_EXTENSIONS = Preferences().get("latex-extensions").split(",")
 BIBTEX_EXTENSIONS = [".bib"]
 
-WINDOW_SCOPE_VIEWS = {}
 EDITOR_SCOPE_VIEWS = {}
 
 for e in LATEX_EXTENSIONS:
@@ -83,7 +72,6 @@ for e in BIBTEX_EXTENSIONS:
 
 
 # editors
-
 from ..latex.editor import LaTeXEditor
 from ..bibtex.editor import BibTeXEditor
 

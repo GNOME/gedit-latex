@@ -38,7 +38,6 @@ class PanelView(Gtk.Box):
 
     _log = getLogger("PanelView")
 
-    SCOPE_WINDOW = 0
     SCOPE_EDITOR = 1
 
     def __init__(self, context):
@@ -54,16 +53,6 @@ class PanelView(Gtk.Box):
     # an icon for this view (Gtk.Image or a stock_id string)
     def get_icon(self):
         return None
-
-    # FIXME: this doesn't seems to be used, should we remove it?
-    # the scope of this PanelView:
-    #    SCOPE_WINDOW: the View is created with the window and the same instance is passed to every Editor
-    #    SCOPE_EDITOR: the View is created with the Editor and destroyed with it
-    def get_scope(self):
-        return self.SCOPE_WINDOW
-
-    def __del__(self):
-        self._log.debug("Properly destroyed %s" % self)
 
 class Template(object):
     """
@@ -103,7 +92,6 @@ class WindowContext(object):
         self._window_decorator = window_decorator
         self._editor_scope_view_classes = editor_scope_view_classes
 
-        self.window_scope_views = {}    # maps view ids to View objects
         self.editor_scope_views = {}    # maps Editor object to a map from ID to View object
 
         self._log.debug("init")
@@ -155,7 +143,7 @@ class WindowContext(object):
         try:
             return self.editor_scope_views[editor][view_id]
         except KeyError:
-            return self.window_scope_views[view_id]
+            self._log.critical("Unknown view id: %s" % view_id)
 
     def set_action_enabled(self, action_id, enabled):
         """
