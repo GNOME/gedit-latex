@@ -24,9 +24,13 @@ base
 These classes form the interface exposed by the plugin base layer.
 """
 
-from logging import getLogger
+import logging
+
 from gi.repository import Gtk, Gdk
+
 from .file import File
+
+LOG = logging.getLogger(__name__)
 
 #FIXME: this should probably be just a Gtk.Orientable iface
 # HORIZONTAL: means Bottom Panel
@@ -35,8 +39,6 @@ class PanelView(Gtk.Box):
     """
     Base class for a View
     """
-
-    _log = getLogger("PanelView")
 
     SCOPE_EDITOR = 1
 
@@ -82,8 +84,6 @@ class WindowContext(object):
     This also creates and destroys the View instances.
     """
 
-    _log = getLogger("WindowContext")
-
     def __init__(self, window_decorator, editor_scope_view_classes):
         """
         @param window_decorator: the GeditWindowDecorator this context corresponds to
@@ -93,8 +93,6 @@ class WindowContext(object):
         self._editor_scope_view_classes = editor_scope_view_classes
 
         self.editor_scope_views = {}    # maps Editor object to a map from ID to View object
-
-        self._log.debug("init")
 
     def create_editor_views(self, editor, file):
         """
@@ -109,9 +107,9 @@ class WindowContext(object):
                 # create View instance and add it to the map
                 self.editor_scope_views[editor][id] = clazz(self, editor)
 
-                self._log.debug("Created view " + id)
+                LOG.debug("Created view " + id)
         except KeyError:
-            self._log.debug("No views for %s" % file.extension)
+            LOG.debug("No views for %s" % file.extension)
 
     ###
     # public interface
@@ -139,11 +137,12 @@ class WindowContext(object):
         """
         Return a View object
         """
-        print self.editor_scope_views, editor, view_id
         try:
             return self.editor_scope_views[editor][view_id]
         except KeyError:
-            self._log.critical("Unknown view id: %s" % view_id)
+            LOG.critical("Unknown view id: %s (we have: %s)" % (
+                    view_id,
+                    ",".join(self.editor_scope_views.get(editor,{}).keys())))
 
     def set_action_enabled(self, action_id, enabled):
         """
@@ -155,7 +154,5 @@ class WindowContext(object):
         # unreference the window decorator
         del self._window_decorator
 
-    def __del__(self):
-        self._log.debug("Properly destroyed %s" % self)
 
 # ex:ts=4:et:

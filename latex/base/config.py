@@ -56,7 +56,7 @@ ACTIONS = [LaTeXMenuAction, LaTeXNewAction, LaTeXChooseMasterAction,
 from ..views import IssueView
 from ..latex.views import LaTeXSymbolMapView, LaTeXOutlineView
 from ..bibtex.views import BibTeXOutlineView
-
+from ..tools.views import ToolView
 
 from ..preferences import Preferences
 LATEX_EXTENSIONS = Preferences().get("latex-extensions").split(",")
@@ -65,10 +65,10 @@ BIBTEX_EXTENSIONS = [".bib"]
 EDITOR_SCOPE_VIEWS = {}
 
 for e in LATEX_EXTENSIONS:
-    EDITOR_SCOPE_VIEWS[e] = {"IssueView": IssueView, "LaTeXOutlineView": LaTeXOutlineView, "LaTeXSymbolMapView": LaTeXSymbolMapView}
+    EDITOR_SCOPE_VIEWS[e] = {"IssueView": IssueView, "LaTeXOutlineView": LaTeXOutlineView, "LaTeXSymbolMapView": LaTeXSymbolMapView, "ToolView": ToolView}
 
 for e in BIBTEX_EXTENSIONS:
-    EDITOR_SCOPE_VIEWS[e] = {"IssueView": IssueView, "BibTeXOutlineView": BibTeXOutlineView}
+    EDITOR_SCOPE_VIEWS[e] = {"IssueView": IssueView, "BibTeXOutlineView": BibTeXOutlineView, "ToolView": ToolView}
 
 
 # editors

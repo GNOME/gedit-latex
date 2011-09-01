@@ -32,7 +32,6 @@ from ..preferences import Preferences
 from ..preferences.dialog import PreferencesDialog
 from ..preferences.tools import ToolPreferences
 from ..tools import ToolAction
-from ..tools.views import ToolView
 from .config import EDITOR_SCOPE_VIEWS, ACTIONS
 from .decorators import GeditTabDecorator
 from .resources import Resources
@@ -158,22 +157,6 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
         # currently hooked editor-scope views
         self._side_views = []
         self._bottom_views = []
-
-        # caches window-scope View instances
-        self._views = {}
-
-        #
-        # init the ToolView, it's always present
-        #
-        # TODO: position is ignored
-        #
-        tool_view = ToolView(self._window_context)
-        self._views["ToolView"] = tool_view
-        #fixme put the id!
-        bottom_panel = self.window.get_bottom_panel()
-        bottom_panel.add_item(tool_view, "ToolViewid", tool_view.get_label(), tool_view.get_icon())
-        #self._window_bottom_views.append(tool_view)
-
 
     def _init_actions(self):
         """
