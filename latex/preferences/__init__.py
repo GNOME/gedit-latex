@@ -46,13 +46,19 @@ class _DocumentConfigParser(ConfigParser.RawConfigParser):
         except ConfigParser.DuplicateSectionError:
             pass
 
-    def get(self, key):
+    def __getitem__(self, key):
         try:
             return ConfigParser.RawConfigParser.get(self,self.SECTION, key)
         except ConfigParser.NoOptionError:
-            return None
+            raise KeyError
 
-    def set(self,key,value):
+    def get(self, key, default=None):
+        try:
+            return self.__getitem__(key)
+        except KeyError:
+            return default
+
+    def set(self, key, value):
         ConfigParser.RawConfigParser.set(self, self.SECTION, key, value)
 
     def save(self):
@@ -88,14 +94,14 @@ class Preferences(_Preferences):
         _Preferences.__init__(self)
         self._settings = Gio.Settings("org.gnome.gedit.plugins.latex")
         
-        LOG.debug("Prefs singleton constructed")
+        LOG.debug("Pref singleton constructed")
 
     def get(self, key):
-        LOG.debug("Prefs get: %s" % key)
+        LOG.debug("Get pref: %s" % key)
         return self._settings[key]
 
     def set(self, key, value):
-        LOG.debug("Prefs set: %s = %s" % (key,value))
+        LOG.debug("Set pref: %s = %s" % (key,value))
         self._settings[key] = value
         self.emit("preferences-changed", str(key), str(value))
 
@@ -124,11 +130,10 @@ class DocumentPreferences(_Preferences):
         self._re = re.compile("^\s*%+\s*gedit:(.*)\s*=\s*(.*)")
         self._modelines = {}
 
+        LOG.debug("Document preferences for %s" % file.basename)
+
     def _on_prefs_changed(self, p, key, value):
         self.emit("preferences-changed", key, value)
-
-    def _is_docpref(self,key):
-        return key in self._modelines
 
     def parse_content(self, content, max_lines=100):
         """ Parses txt content from the document looking for modelines """
@@ -140,29 +145,43 @@ class DocumentPreferences(_Preferences):
                 break
             try:
                 key,val = self._re.match(l).groups()
-                LOG.debug("Detected preference modeline: %s = %s" % (key,val))
+                LOG.debug("Document %s prefs modeline: %s = %s" % (self._file.basename,key,val))
                 self._modelines[key.strip()] = val
             except AttributeError:
                 pass
             i = i+1
 
     def get(self, key):
-        if self._is_docpref(key):
-            LOG.debug("Get document pref: %s (modelines: %s)" % (key,",".join(self._modelines.keys())))
-            return self._modelines.get(key, self._cp.get(key))
-        else:
+        try:
+            val = self._modelines[key]
+            method = "modeline"
+        except KeyError:
             try:
-                return self._sysprefs.get(key)
+                val = self._cp[key]
+                method = "configfile"
             except KeyError:
-                return None
+                try:
+                    val = self._sysprefs.get(key)
+                    method = "system"
+                except KeyError:
+                    val = None
+                    method = "none"
+
+        LOG.debug("Get doc %s pref: %s = %s (from: %s)" % (self._file.basename,key,val,method))
+
+        return val
 
     def set(self, key, value):
-        if self._is_docpref(key):
-            LOG.debug("Set document pref")
+        try:
+            self._sysprefs.set(key, value)
+            method = "system"
+        except KeyError:
             self._cp.set(key,value)
             self._cp.save()
             self.emit("preferences-changed", key, value)
-        else:
-            self._sysprefs.set(key, value)
+            method = "configfile"
+
+        LOG.debug("Set doc %s pref: %s = %s (from: %s)" % (self._file.basename,key,value,method))
+            
 
 # ex:ts=4:et:
