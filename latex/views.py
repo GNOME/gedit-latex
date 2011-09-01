@@ -135,9 +135,6 @@ class IssueView(PanelView):
     def get_icon(self):
         return Gtk.Image.new_from_stock(Gtk.STOCK_DIALOG_INFO, Gtk.IconSize.MENU)
 
-    def get_scope(self):
-        return self.SCOPE_EDITOR
-
     def _on_row_activated(self, view, path, column):
         """
         A row has been double-clicked on

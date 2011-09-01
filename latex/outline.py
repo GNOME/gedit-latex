@@ -111,9 +111,6 @@ class BaseOutlineView(PanelView):
     def get_icon(self):
         return Gtk.Image.new_from_file(Resources().get_icon("outline.png"))
 
-    def get_scope(self):
-        return self.SCOPE_EDITOR
-
     def _on_follow_toggled(self, toggle_button):
         value = toggle_button.get_active()
         self._preferences.set("outline-connect-to-editor", value)
