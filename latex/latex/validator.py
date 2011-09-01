@@ -164,7 +164,6 @@ class LaTeXValidator(object):
                                     for ext in self._potential_graphics_extensions:
                                         if found: break
                                         filename = os.path.abspath(os.path.join(node.file.dirname, p, target) + ext)
-                                        print filename
                                         if os.path.exists(filename):
                                             found = True
 
@@ -253,10 +252,5 @@ class LaTeXValidator(object):
 
             if recurse:
                 self._run(node, issue_handler)
-
-    #~ def __del__(self):
-        #~ print "Properly destroyed %s" % self
-
-
 
 # ex:ts=4:et:
