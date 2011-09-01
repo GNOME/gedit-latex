@@ -18,12 +18,21 @@
 # this program; if not, write to the Free Software Foundation, Inc., 51 Franklin
 # Street, Fifth Floor, Boston, MA  02110-1301, USA
 
+import logging
+
+logging.basicConfig(
+    level=logging.DEBUG,
+    format="%(levelname)-8s:%(name)-30s: %(message)s (l.%(lineno)d)")
+
 from gi.repository import Gio
 
 if "org.gnome.gedit.plugins.latex" not in Gio.Settings.list_schemas():
+    logging.critical("Could not find GSettings schema: org.gnome.gedit.plugins.latex")
     raise Exception("Plugin schema not installed")
 
 from base.appactivatable import LaTeXAppActivatable
 from base.windowactivatable import LaTeXWindowActivatable
+
+
 
 # ex:ts=4:et:

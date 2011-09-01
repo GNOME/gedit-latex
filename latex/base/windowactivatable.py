@@ -22,11 +22,10 @@
 This is searched by gedit for a class extending gedit.Plugin
 """
 
-from gi.repository import Gedit, GObject, Gio, Gtk, PeasGtk
 import logging
 import string
 
-logging.basicConfig(level=logging.DEBUG, format="%(asctime)s %(levelname)s    %(name)s - %(message)s")
+from gi.repository import Gedit, GObject, Gio, Gtk, PeasGtk
 
 from ..preferences import Preferences
 from ..preferences.dialog import PreferencesDialog
@@ -37,6 +36,8 @@ from .decorators import GeditTabDecorator
 from .resources import Resources
 from . import PanelView, WindowContext
 from .file import File
+
+LOG = logging.getLogger(__name__)
 
 class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Configurable):
     __gtype_name__ = "LaTeXWindowActivatable"
@@ -49,8 +50,6 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
     """
 
     window = GObject.property(type=Gedit.Window)
-
-    _log = logging.getLogger("LaTeXWindowActivatable")
 
     # ui definition template for hooking tools in Gedit's ui.
     _tool_ui_template = string.Template("""<ui>
@@ -205,7 +204,7 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
         else:
             self._toolbar = None
             self._toolbar_name = ""
-            self._log.info("Toolbar disabled")    
+            LOG.info("Toolbar disabled")    
 
     def _init_tab_decorators(self):
         """
@@ -222,10 +221,10 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
             if view is active_view:
                 self._active_tab_decorator = decorator
 
-        self._log.debug("_init_tab_decorators: initialized %s decorators" % len(views))
+        LOG.debug("_init_tab_decorators: initialized %s decorators" % len(views))
 
         if len(views) > 0 and not self._active_tab_decorator:
-            self._log.warning("_init_tab_decorators: no active decorator found")
+            LOG.warning("_init_tab_decorators: no active decorator found")
 
     def _init_tool_actions(self):
         """
@@ -299,7 +298,7 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
             self._toolbar.hide()
 
     def _on_tools_changed(self, tools):
-        self._log.debug("_on_tools_changed")
+        LOG.debug("_on_tools_changed")
 
         # remove tool actions and ui
         self._ui_manager.remove_ui(self._tool_ui_id)
@@ -332,12 +331,12 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
         gfile = Gio.file_new_for_uri(uri)
 
         if Gedit.utils_is_valid_location(gfile):
-            self._log.debug("GeditWindow.create_tab_from_uri(%s)" % uri)
+            LOG.debug("GeditWindow.create_tab_from_uri(%s)" % uri)
             self.window.create_tab_from_location(
                             gfile, Gedit.encoding_get_current(),
                             1, 1, False, True)
         else:
-            self._log.error("Gedit.utils.uri_is_valid(%s) = False" % uri)
+            LOG.error("Gedit.utils.uri_is_valid(%s) = False" % uri)
 
     def disable(self):
         """
@@ -369,7 +368,7 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
 
         extension = tab_decorator.extension
 
-        self._log.debug("---------- ADJUST: %s" % (extension))
+        LOG.debug("---------- ADJUST: %s" % (extension))
 
         latex_extensions = self._preferences.get("latex-extensions").split(",")
 
@@ -469,10 +468,10 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
         @param window: Gedit.Window object
         @param tab: Gedit.Tab object
         """
-        self._log.debug("tab_added")
+        LOG.debug("tab_added")
 
         if tab in self._tab_decorators:
-            self._log.warning("There is already a decorator for tab %s" % tab)
+            LOG.warning("There is already a decorator for tab %s" % tab)
             return
 
         self._create_tab_decorator(tab)
@@ -484,7 +483,7 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
         @param window: GeditWindow
         @param tab: the closed GeditTab
         """
-        self._log.debug("tab_removed")
+        LOG.debug("tab_removed")
 
         # As we don't call GeditWindowDecorator.adjust() if the new
         # tab is not the active one (for example, when opening several
@@ -512,7 +511,7 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
         @param window: the GeditWindow
         @param tab: the activated GeditTab
         """
-        self._log.debug("active_tab_changed")
+        LOG.debug("active_tab_changed")
 
         if tab in self._tab_decorators.keys():
             decorator = self._tab_decorators[tab]
