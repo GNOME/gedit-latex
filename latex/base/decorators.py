@@ -25,7 +25,8 @@ These classes are 'attached' to the according Gedit objects. They form the
 extension point.
 """
 
-from logging import getLogger
+import logging
+
 from gi.repository import Gedit, Gtk, Gio
 
 from config import EDITORS
@@ -33,14 +34,13 @@ from .file import File
 
 # TODO: maybe create ActionDelegate for GeditWindowDecorator
 
+LOG = logging.getLogger(__name__)
 
 class GeditTabDecorator(object):
     """
     This monitors the opened file and manages the Editor objects
     according to the current file extension
     """
-
-    _log = getLogger("GeditTabDecorator")
 
     def __init__(self, window_decorator, tab, init=False):
         """
@@ -72,7 +72,7 @@ class GeditTabDecorator(object):
                 self._text_buffer.connect("saved", self._on_save)
         ]
 
-        self._log.debug("Created %s" % self)
+        LOG.debug("created %s" % self)
 
     @property
     def tab(self):
@@ -82,7 +82,7 @@ class GeditTabDecorator(object):
         """
         A file has been loaded
         """
-        self._log.debug("loaded")
+        LOG.debug("file loaded")
 
         self._adjust_editor()
 
@@ -90,7 +90,7 @@ class GeditTabDecorator(object):
         """
         The file has been saved
         """
-        self._log.debug("saved")
+        LOG.debug("saved")
 
         if not self._adjust_editor():
             # if the editor has not changed
@@ -109,7 +109,7 @@ class GeditTabDecorator(object):
             # this happends when the plugin is activated in a running Gedit
             # and this decorator is created for the empty file
 
-            self._log.debug("No file loaded")
+            LOG.debug("no file loaded")
 
             if self._window_decorator.window.get_active_view() == self._text_view:
                 self._window_decorator.adjust(self)
@@ -120,7 +120,7 @@ class GeditTabDecorator(object):
             if file == self._file:        # FIXME: != doesn't work for File...
                 return False
             else:
-                self._log.debug("_adjust_editor: URI has changed")
+                LOG.debug("adjust_editor: URI has changed")
 
                 self._file = file
 
@@ -165,7 +165,7 @@ class GeditTabDecorator(object):
 
                     #self._editor = editor_class(self, file)
                 else:
-                    self._log.warning("No editor class found for extension %s" % extension)
+                    LOG.info("No editor class found for extension %s" % extension)
 
                 # tell WindowDecorator to adjust actions
                 # but only if this tab is the active tab
@@ -204,8 +204,5 @@ class GeditTabDecorator(object):
         # destroy Editor instance
         if not self._editor is None:
             self._editor.destroy()
-
-    def __del__(self):
-        self._log.debug("Properly destroyed %s" % self)
 
 # ex:ts=4:et:

@@ -25,10 +25,11 @@ The LaTeX language model used for code completion.
 """
 
 import copy
-from logging import getLogger
+import logging
 
 from ..base.resources import Resources
 
+LOG = logging.getLogger(__name__)
 
 class Element(object):
     """
@@ -137,8 +138,6 @@ class LanguageModel(object):
 
     REF_CMDS = set(("ref","eqref","pageref"))
 
-    __log = getLogger("LanguageModel")
-
     def __init__(self):
         self.commands = {}            # maps command names to Command elements
         self.VERSION = LANGUAGE_MODEL_VERSION
@@ -148,8 +147,6 @@ class LanguageModel(object):
 
         #some latex specific helpers.
         self.__new_ref_commands = {}
-
-        self.__log.debug("LanguageModel init")
 
     def find_command(self, prefix):
         """
@@ -173,18 +170,16 @@ class LanguageModel(object):
         Attach child elements to a placeholder
         """
         try:
-            #self.__log.debug("fill_placeholder: name=%s, child_elements=%s" % (name, child_elements))
-
             for placeholder in self.__placeholders[name]:
                 placeholder.children = child_elements
         except KeyError:
-            self.__log.error("fill_placeholder: placeholder '%s' not registered" % name)
+            LOG.info("fill_placeholder: placeholder '%s' not registered" % name)
 
     def is_ref_command(self, cmd_name):
         return (cmd_name in self.REF_CMDS) or (cmd_name in self.__new_ref_commands) 
 
     def set_newcommands(self, outlinenodes):
-        self.__log.debug("Set newcommands")
+        LOG.debug("set newcommands")
 
         #remove old state
         self.__new_ref_commands = {}
@@ -196,7 +191,7 @@ class LanguageModel(object):
             #if this is a redefinition of an existing node then use that node as
             #the completion helper
             if o.oldcmd and o.oldcmd in self.commands:
-                self.__log.info("Detected redefined \\newcommand: %s -> %s" % (o.value, o.oldcmd))
+                LOG.info("Detected redefined \\newcommand: %s -> %s" % (o.value, o.oldcmd))
                 #copy the old command so we retain its argument completion but change
                 #the display name
                 old = copy.copy(self.commands[o.oldcmd])
@@ -226,15 +221,13 @@ class LanguageModelParser(sax.ContentHandler):
 
     # TODO: this should be a simple state machine
 
-    __log = getLogger("LanguageModelParser")
-
     def parse(self, filename, language_model):
         self.__language_model = language_model
 
         self.__command = None
         self.__argument = None
 
-        self.__log.debug("Parsing %s" % filename)
+        LOG.debug("parsing %s" % filename)
 
         sax.parse(filename, self)
 
@@ -289,8 +282,6 @@ class LanguageModelFactory(object):
     of this object is returned. Otherwise the XML file must be parsed.
     """
 
-    __log = getLogger("LanguageModelFactory")
-
     def __new__(cls):
         if not '_instance' in cls.__dict__:
             cls._instance = object.__new__(cls)
@@ -302,10 +293,10 @@ class LanguageModelFactory(object):
             pickled_object = self.__find_pickled_object()
 
             if pickled_object:
-                self.__log.debug("Pickled object loaded")
+                LOG.debug("language model: pickled object loaded")
                 self.language_model = pickled_object
             else:
-                self.__log.debug("No pickled object loaded")
+                LOG.debug("language model: no pickled object loaded")
                 pkl_filename = Resources().get_user_file("latex.pkl")
                 xml_filename = Resources().get_data_file("latex.xml")
 
@@ -314,7 +305,7 @@ class LanguageModelFactory(object):
                 parser.parse(xml_filename, self.language_model)
 
                 pickle.dump(self.language_model, open(pkl_filename, 'w'))
-                self.__log.info("Pickling language model")
+                LOG.info("Pickling language model")
 
             self._ready = True
 
@@ -324,16 +315,16 @@ class LanguageModelFactory(object):
 
         if pkl_file.exists:
             if xml_file.mtime > pkl_file.mtime:
-                self.__log.debug("Pickled object and XML file have different modification times")
+                LOG.debug("Pickled object and XML file have different modification times")
             else:
                 try:
                     obj = pickle.load(open(pkl_file.path))
                     if obj.VERSION == LANGUAGE_MODEL_VERSION:
                         return obj
                     else:
-                        self.__log.info("Language model obsolete")
+                        LOG.info("Language model obsolete")
                 except:
-                    self.__log.info("Invalid language model", exc_info=True)
+                    LOG.info("Invalid language model", exc_info=True)
 
         return None
 

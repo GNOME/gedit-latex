@@ -25,11 +25,14 @@ A tool is what we called a 'build profile' before. 'Tool' is more generic.
 It can be used for cleaning up, converting files, for building PDFs etc.
 """
 
-from logging import getLogger
+import logging
+
 from gi.repository import Gtk, Gedit
+
 from ..base.resources import Resources
 from ..base.action import Action
 
+LOG = logging.getLogger(__name__)
 
 class Tool(object):
     """
@@ -93,8 +96,6 @@ class ToolAction(Action):
     This hooks Tools in the UI. A ToolAction is instantiated for each registered Tool.
     """
 
-    _log = getLogger("ToolAction")
-
     def __init__(self, tool):
         self._tool = tool
         self._runner = ToolRunner()
@@ -116,20 +117,20 @@ class ToolAction(Action):
         return self._tool.description
 
     def activate(self, context):
-        self._log.debug("activate: %s" % self._tool)
+        LOG.debug("tool activate: %s" % self._tool)
 
         if context.active_editor:
             doc = Gedit.App.get_default().get_active_window().get_active_document()
             self.saving_id = doc.connect("saved",self.run_tool,context,doc)
             context._window_decorator.save_file()
         else:
-            self._log.error("No active editor")
+            LOG.error("tool activate: no active editor")
 
     def run_tool(self, document, other, context, doc):
         tool_view = context.find_view(None, "ToolView")
 
         self._runner.run(context.active_editor.file, self._tool, tool_view)
-        self._log.debug("activate: " + str(context.active_editor.file))
+        LOG.debug("run tool on: %s" % context.active_editor.file)
 
         # destroy the save listener, or else we get a compile on any save
         doc.disconnect(self.saving_id)
@@ -145,8 +146,6 @@ class ToolRunner(Process):
     """
     This runs a Tool in a subprocess
     """
-
-    _log = getLogger("ToolRunner")
 
     def run(self, file, tool, issue_handler):
         """
@@ -206,19 +205,18 @@ class ToolRunner(Process):
     def _on_stdout(self, text):
         """
         """
-        self._log.error("_stdout: " + text)
+        LOG.debug("tool stdout: " + text)
         self._stdout_text += text
 
     def _on_stderr(self, text):
         """
         """
-        self._log.debug("_stderr: " + text)
+        LOG.debug("tool stderr: " + text)
         self._stderr_text += text
 
     def _on_abort(self):
         """
         """
-        self._log.debug("_abort")
         # disable abort
         self._issue_handler.set_abort_enabled(False, None)
         # mark Tool and all Jobs as aborted
@@ -230,7 +228,7 @@ class ToolRunner(Process):
     def _on_exit(self, condition):
         """
         """
-        self._log.debug("_exit")
+        LOG.debug("tool exit")
 
         assert self._job
 
