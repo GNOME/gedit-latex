@@ -22,7 +22,10 @@
 bibtex.editor
 """
 
-from logging import getLogger
+BENCHMARK = True
+
+import logging
+if BENCHMARK: import time
 
 from ..base.editor import Editor
 from ..preferences import Preferences
@@ -35,12 +38,7 @@ from parser import BibTeXParser
 from completion import BibTeXCompletionHandler
 from validator import BibTeXValidator
 
-
-BENCHMARK = True
-
-if BENCHMARK:
-    import time
-
+LOG = logging.getLogger(__name__)
 
 class ParseJob(Job):
     def _run(self, arguments):
@@ -52,7 +50,6 @@ class ParseJob(Job):
 
 class BibTeXEditor(Editor, IIssueHandler, JobChangeListener):
 
-    _log = getLogger("BibTeXEditor")
     extensions = [".bib"]
 
     @property
@@ -65,7 +62,7 @@ class BibTeXEditor(Editor, IIssueHandler, JobChangeListener):
         self._parse_job = None
 
     def init(self, file, context):
-        self._log.debug("init(%s)" % file)
+        LOG.debug("init(%s)" % file)
 
         self._preferences = Preferences()
 
@@ -136,7 +133,7 @@ class BibTeXEditor(Editor, IIssueHandler, JobChangeListener):
     def __parse(self):
         """
         """
-        self._log.debug("__parse")
+        LOG.debug("__parse")
 
         content = self.content
 
@@ -156,9 +153,9 @@ class BibTeXEditor(Editor, IIssueHandler, JobChangeListener):
         self._document = self._parser.parse(content, self._file, self)
 
         if BENCHMARK:
-            self._log.info("BibTeXParser.parse: %f" % (time.clock() - t))
+            LOG.info("BibTeXParser.parse: %f" % (time.clock() - t))
 
-        self._log.debug("Parsed %s bytes of content" % len(content))
+        LOG.debug("Parsed %s bytes of content" % len(content))
 
         # validate
         if BENCHMARK:
@@ -168,7 +165,7 @@ class BibTeXEditor(Editor, IIssueHandler, JobChangeListener):
 
         # 0.11
         if BENCHMARK:
-            self._log.info("BibTeXValidator.validate: %f" % (time.clock() - t))
+            LOG.info("BibTeXValidator.validate: %f" % (time.clock() - t))
 
         self._outline_view.set_outline(self._document)
 
@@ -205,10 +202,5 @@ class BibTeXEditor(Editor, IIssueHandler, JobChangeListener):
             self._parse_job.set_change_listener(None)
 
         Editor.destroy(self)
-
-    def __del__(self):
-        self._log.debug("Properly destroyed %s" % self)
-
-
 
 # ex:ts=4:et:

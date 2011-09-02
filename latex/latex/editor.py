@@ -24,13 +24,11 @@ latex.editor
 
 BENCHMARK = True
 
-from copy import deepcopy
+import logging
+if BENCHMARK: import time
 
 from gi.repository import Gtk
 from gi.repository import Gdk
-from logging import getLogger
-
-if BENCHMARK: import time
 
 from ..base.editor import Editor
 from ..base.file import File
@@ -48,10 +46,9 @@ from dialogs import ChooseMasterDialog
 from . import LaTeXSource
 from ..preferences import Preferences, DocumentPreferences
 
+LOG = logging.getLogger(__name__)
 
 class LaTeXEditor(Editor, IIssueHandler):
-
-    _log = getLogger("LaTeXEditor")
 
     extensions = Preferences().get("latex-extensions").split(",")
 
@@ -67,7 +64,7 @@ class LaTeXEditor(Editor, IIssueHandler):
         @param file: base.File
         @param context: base.WindowContext
         """
-        self._log.debug("init(%s)" % file)
+        LOG.debug("init(%s)" % file)
 
         self._file = file
         self._context = context
@@ -115,7 +112,7 @@ class LaTeXEditor(Editor, IIssueHandler):
 
         # TODO: we need to insert the source at the drop location - so pass it here
 
-        self._log.debug("drag_drop: %s" % files)
+        LOG.debug("drag_drop: %s" % files)
 
 #        if len(files) == 1:
 #            file = files[0]
@@ -167,7 +164,7 @@ class LaTeXEditor(Editor, IIssueHandler):
         self.__parse()    # ensure up-to-date document model
 
         if not self._document_is_master:
-            self._log.debug("ensure_packages: document is not a master")
+            LOG.debug("ensure_packages: document is not a master")
 
             # find the packages that haven't already been mentioned
             info_packages = [p for p in packages if not p in self._ensured_packages]
@@ -236,7 +233,7 @@ class LaTeXEditor(Editor, IIssueHandler):
             # content has changed so document model may be dirty
             self._change_reference = self.current_timestamp
 
-            self._log.debug("Parsing document...")
+            LOG.debug("Parsing document...")
 
             # reset highlight
             self.remove_markers("latex-error")
@@ -256,12 +253,9 @@ class LaTeXEditor(Editor, IIssueHandler):
             # update document preferences
             self._preferences.parse_content(self.content)
 
-            if BENCHMARK: self._log.info("LaTeXParser.parse: %f" % (time.clock() - t))
+            if BENCHMARK: LOG.info("LaTeXParser.parse: %f" % (time.clock() - t))
 
-            # create a copy that won't be expanded (e.g. for spell check)
-            #self._local_document = deepcopy(self._document)
-
-            self._log.debug("Parsed %s bytes of content" % len(self.content))
+            LOG.debug("Parsed %s bytes of content" % len(self.content))
 
             # FIXME: the LaTeXChooseMasterAction enabled state has to be updated on tab change, too!
 
@@ -283,7 +277,7 @@ class LaTeXEditor(Editor, IIssueHandler):
                 # validate
                 self._validator.validate(self._document, self._outline, self, self._preferences)
             else:
-                self._log.debug("Document is not a master")
+                LOG.debug("Document is not a master")
 
                 self._context.set_action_enabled("LaTeXChooseMasterAction", True)
                 self._document_is_master = False
@@ -322,9 +316,7 @@ class LaTeXEditor(Editor, IIssueHandler):
             # pass neighbor files to completion
             self.__update_neighbors()
 
-            self._log.debug("Parsing finished")
-
-            #print self._document.xml
+            LOG.debug("Parsing finished")
 
     def choose_master_file(self):
         master_filename = ChooseMasterDialog().run(self._file.dirname)
@@ -344,10 +336,10 @@ class LaTeXEditor(Editor, IIssueHandler):
         path = self._preferences.get("master-filename")
         if path != None:
             if File.is_absolute(path):
-                self._log.debug("Path is absolute")
+                LOG.debug("master path is absolute")
                 return File(path)
             else:
-                self._log.debug("Path is relative")
+                LOG.debug("master path is relative")
                 return File.create_from_relative_path(path, self._file.dirname)
         else:
             # master filename not found, ask user
@@ -406,9 +398,5 @@ class LaTeXEditor(Editor, IIssueHandler):
         del self._document
 
         Editor.destroy(self)
-
-    def __del__(self):
-        self._log.debug("Properly destroyed %s" % self)
-
 
 # ex:ts=4:et:

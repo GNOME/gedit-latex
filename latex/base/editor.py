@@ -20,14 +20,16 @@
 
 import re
 import time
-from uuid import uuid1
-from logging import getLogger
+import logging
+import uuid
 
 from gi.repository import GObject, Gtk, Gdk
 
 from .completion import CompletionDistributor
 from .templates import TemplateDelegate
 from . import Template
+
+LOG = logging.getLogger(__name__)
 
 class Editor(object):
     """
@@ -37,8 +39,6 @@ class Editor(object):
      - change monitoring
      - drag'n'drop support
     """
-
-    __log = getLogger("Editor")
 
     class Marker(object):
         """
@@ -145,7 +145,7 @@ class Editor(object):
         @param info: an integer ID for the drag
         @param timestamp: the time of the drag event
         """
-        self.__log.debug("drag-data-received")
+        LOG.debug("drag-data-received")
 
         files = []
         match = False
@@ -186,7 +186,7 @@ class Editor(object):
             x, y = text_view.window_to_buffer_coords(Gtk.TextWindowType.WIDGET, x, y)
             it = text_view.get_iter_at_location(x, y)
 
-            self.__log.debug("Right button pressed at offset %s" % it.get_offset())
+            LOG.debug("Right button pressed at offset %s" % it.get_offset())
 
             #
             # find Marker at this position
@@ -195,17 +195,17 @@ class Editor(object):
                 for mark in it.get_marks():
                     name = mark.get_name()
 
-                    self.__log.debug("Found TextMark '%s' at offset %s" % (name, it.get_offset()))
+                    LOG.debug("Found TextMark '%s' at offset %s" % (name, it.get_offset()))
 
                     if name:
                         if name in self._markers.keys():
                             marker = self._markers[name]
                             return self.on_marker_activated(marker, event)
                         else:
-                            self.__log.warning("No marker found for TextMark '%s'" % name)
+                            LOG.warning("No marker found for TextMark '%s'" % name)
                     else:
                         # FIXME: this is not safe - use another symbol for right boundaries!
-                        self.__log.debug("Unnamed TextMark found, outside of any Markers")
+                        LOG.debug("Unnamed TextMark found, outside of any Markers")
                         return
 
                 # move left by one char and continue
@@ -312,7 +312,7 @@ class Editor(object):
         """
         This may be overridden to catch special types like LaTeXSource
         """
-        self.__log.debug("insert(%s)" % source)
+        LOG.debug("insert(%s)" % source)
 
         if type(source) is Template:
             self._template_delegate.insert(source)
@@ -428,13 +428,13 @@ class Editor(object):
 
         # check offsets
         if start_offset < 0:
-            self.__log.error("create_marker(): start offset out of range (%s < 0)" % start_offset)
+            LOG.error("create_marker(): start offset out of range (%s < 0)" % start_offset)
             return
 
         buffer_end_offset = self._text_buffer.get_end_iter().get_offset()
 
         if end_offset > buffer_end_offset:
-            self.__log.error("create_marker(): end offset out of range (%s > %s)" % (end_offset, buffer_end_offset))
+            LOG.error("create_marker(): end offset out of range (%s > %s)" % (end_offset, buffer_end_offset))
 
         type_record = self._marker_types[marker_type]
 
@@ -457,7 +457,7 @@ class Editor(object):
             return None
         else:
             # create unique marker id
-            id = str(uuid1())
+            id = str(uuid.uuid1())
 
             # create Marker object and put into map
             left_mark = self._text_buffer.create_mark(id, left, True)
@@ -573,7 +573,6 @@ class Editor(object):
         """
         The edited file has been closed or saved as another file
         """
-        self.__log.debug("destroy")
 
         # disconnect signal handlers
         for handler in self.__view_signal_handlers:
@@ -606,8 +605,5 @@ class Editor(object):
 
         # unreference the window context
         del self._window_context
-
-    def __del__(self):
-        self._log.debug("Properly destroyed %s" % self)
 
 # ex:ts=4:et:
