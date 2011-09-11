@@ -127,7 +127,7 @@ class ToolAction(Action):
             LOG.error("tool activate: no active editor")
 
     def run_tool(self, document, other, context, doc):
-        tool_view = context.find_view(None, "ToolView")
+        tool_view = context.find_view(context.active_editor, "ToolView")
 
         self._runner.run(context.active_editor.file, self._tool, tool_view)
         LOG.debug("run tool on: %s" % context.active_editor.file)
