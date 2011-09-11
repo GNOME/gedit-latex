@@ -28,7 +28,6 @@ import logging
 import xml.etree.ElementTree as ElementTree
 
 from gi.repository import Gtk, GdkPixbuf
-from gobject import GError
 
 from ..preferences import Preferences
 from ..base import PanelView
@@ -119,7 +118,7 @@ class LaTeXSymbolMapView(PanelView):
         for symbol in group.symbols:
             try:
                 model.append([GdkPixbuf.Pixbuf.new_from_file(symbol.icon), str(symbol.template), symbol.template])
-            except GError, s:
+            except:
                 LOG.error("Could not add symbol group %s to model" % symbol, exc_info=True)
 
         view = Gtk.IconView(model=model)
