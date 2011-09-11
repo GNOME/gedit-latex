@@ -18,17 +18,19 @@
 # this program; if not, write to the Free Software Foundation, Inc., 51 Franklin
 # Street, Fifth Floor, Boston, MA  02110-1301, USA
 
-from gi.repository import GObject
-
-from logging import getLogger
-from uuid import uuid4
+import logging
+import uuid
 import xml.etree.ElementTree as ElementTree
 import os
+
+from gi.repository import GObject
 
 from ..base.resources import Resources
 from ..tools import Tool, Job
 from ..tools.postprocess import GenericPostProcessor, RubberPostProcessor, LaTeXPostProcessor
 from ..util import singleton
+
+LOG = logging.getLogger(__name__)
 
 def str_to_bool(x):
     """
@@ -40,9 +42,9 @@ def str_to_bool(x):
         try:
             return {"false" : False, "0" : False, "true" : True, "1" : True}[x.strip().lower()]
         except KeyError:
-            print "str_to_bool: unsupported value %s" % x
+            LOG.error("str_to_bool: unsupported value %s" % x)
     else:
-        print "str_to_bool: unsupported type %s" % str(type(x))
+        LOG.error("str_to_bool: unsupported type %s" % type(x))
 
 @singleton
 class ToolPreferences(GObject.GObject):
@@ -51,8 +53,6 @@ class ToolPreferences(GObject.GObject):
         "tools-changed": (
             GObject.SignalFlags.RUN_LAST, None, []),
     }
-
-    _log = getLogger("ToolPreferences")
 
     # maps names to classes
     POST_PROCESSORS = {"GenericPostProcessor" : GenericPostProcessor,
@@ -70,7 +70,7 @@ class ToolPreferences(GObject.GObject):
             filename = Resources().get_data_file("tools.xml")
 
         self.__tools = ElementTree.parse(filename).getroot()
-        self._log.debug("Constructed")
+        LOG.debug("ToolPreferences constructed")
 
     def __notify_tools_changed(self):
         self.emit("tools-changed")
@@ -108,7 +108,7 @@ class ToolPreferences(GObject.GObject):
         for element in self.__tools.findall("tool"):
             if element.get("id") == id:
                 return element
-        self._log.warning("<tool id='%s'> not found" % id)
+        LOG.warning("<tool id='%s'> not found" % id)
         return None
 
     def save_or_update_tool(self, tool):
@@ -120,15 +120,15 @@ class ToolPreferences(GObject.GObject):
         tool_element = None
         if tool in self.__tool_ids:
             # find tool tag
-            self._log.debug("Tool element found, updating...")
+            LOG.debug("Tool element found, updating...")
 
             id = self.__tool_ids[tool]
             tool_element = self.__find_tool_element(id)
         else:
             # create new tool tag
-            self._log.debug("Creating new Tool...")
+            LOG.debug("Creating new Tool...")
 
-            id = str(uuid4())
+            id = str(uuit.uuid4())
             self.__tool_ids[tool] = id
 
             tool_element = ElementTree.SubElement(self.__tools, "tool")
@@ -166,10 +166,10 @@ class ToolPreferences(GObject.GObject):
         id_2 = self.__tool_ids[tool_2]
 
         if id_1 == id_2:
-            self._log.warning("Two tools have the same id. Please modify tools.xml to have unique id's.")
+            LOG.warning("Two tools have the same id. Please modify tools.xml to have unique id's.")
             return
 
-        self._log.debug("Tool IDs are {%s: %s, %s, %s}" % (tool_1.label, id_1, tool_2.label, id_2))
+        LOG.debug("Tool IDs are {%s: %s, %s, %s}" % (tool_1.label, id_1, tool_2.label, id_2))
 
         tool_element_1 = None
         tool_element_2 = None
@@ -189,18 +189,18 @@ class ToolPreferences(GObject.GObject):
 
             i += 1
 
-        self._log.debug("Found XML elements, indexes are {%s: %s, %s, %s}" % (tool_1.label, index_1, tool_2.label, index_2))
+        LOG.debug("Found XML elements, indexes are {%s: %s, %s, %s}" % (tool_1.label, index_1, tool_2.label, index_2))
 
         # successively replace each of them by the other in the XML model
         self.__tools.remove(tool_element_1)
         self.__tools.insert(index_1, tool_element_2)
 
-        self._log.debug("Replaced first tool by second in list")
+        LOG.debug("Replaced first tool by second in list")
 
         self.__tools.remove(tool_element_2)
         self.__tools.insert(index_2, tool_element_1)
 
-        self._log.debug("Replaced second tool by first in list")
+        LOG.debug("Replaced second tool by first in list")
 
         # notify changes
         self.__tools_changed = True
@@ -221,7 +221,7 @@ class ToolPreferences(GObject.GObject):
 
             self.__tools_changed = True
         except KeyError, e:
-            self._log.error("delete_tool: %s" % e)
+            LOG.error("delete_tool: %s" % e)
 
         self.__notify_tools_changed()
 
@@ -230,7 +230,7 @@ class ToolPreferences(GObject.GObject):
         Save the preferences to XML
         """
         if self.__tools_changed:
-            self._log.debug("Saving tools...")
+            LOG.debug("Saving tools...")
 
             tree = ElementTree.ElementTree(self.__tools)
             tree.write(Resources().get_user_file("tools.xml"), encoding="utf-8")

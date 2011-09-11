@@ -22,7 +22,7 @@
 base.views
 """
 
-from logging import getLogger
+import logging
 
 from gi.repository import Gtk, GdkPixbuf
 
@@ -31,12 +31,11 @@ from ..base import PanelView
 from ..issues import Issue, IStructuredIssueHandler
 from ..gldefs import _
 
+LOG = logging.getLogger(__name__)
 
 class ToolView(PanelView, IStructuredIssueHandler):
     """
     """
-
-    _log = getLogger("ToolView")
 
     def __init__(self, context, editor):
         PanelView.__init__(self, context)
@@ -129,7 +128,7 @@ class ToolView(PanelView, IStructuredIssueHandler):
             if self._context.active_editor:
                 self._context.active_editor.select_lines(issue.start)
             else:
-                self._log.error("No Editor object for calling select_lines")
+                LOG.error("No Editor object for calling select_lines")
 
     def clear(self):
         self._store.clear()
@@ -185,7 +184,7 @@ class ToolView(PanelView, IStructuredIssueHandler):
                 icon = self._ICON_ERROR
             self._store.append(partition_id, [icon, issue.message, issue.file.basename, str(issue.start), issue])
 
-            self._log.debug(str(issue))
+            LOG.debug("Issue: %s" % issue)
 
         self._view.expand_all()
 

@@ -22,26 +22,26 @@
 tools.util
 """
 
-from logging import getLogger
+import logging
 import os
 import signal
 import subprocess
 import fcntl
+
 from gi.repository import GObject
 
+LOG = logging.getLogger(__name__)
 
 class Process(object):
     """
     This runs a command in a child process and polls the output
     """
 
-    __log = getLogger("Process")
-
     # intervall of polling stdout of the child process
     __POLL_INTERVAL = 250
 
     def execute(self, command):
-        self.__log.debug("execute: %s" % command)
+        LOG.debug("execute: %s" % command)
 
         # run child process
         self.__process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE,
@@ -69,7 +69,7 @@ class Process(object):
 
                 self._on_abort()
             except OSError, e:
-                self.__log.error("Failed to abort process: %s" % e)
+                LOG.error("Failed to abort process: %s" % e)
 
     def __on_stdout(self):
         try:

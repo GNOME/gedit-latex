@@ -34,7 +34,6 @@ from . import Preferences
 from .tools import ToolPreferences
 
 def _insert_column_with_attributes(view, pos, title, rend, **kwargs):
-    print kwargs
     tv = Gtk.TreeViewColumn(title)
     tv.pack_start(rend, True)
     for k in kwargs:

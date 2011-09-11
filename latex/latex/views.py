@@ -24,10 +24,11 @@ latex.views
 LaTeX-specific views
 """
 
+import logging
+import xml.etree.ElementTree as ElementTree
+
 from gi.repository import Gtk, GdkPixbuf
 from gobject import GError
-from logging import getLogger
-import xml.etree.ElementTree as ElementTree
 
 from ..preferences import Preferences
 from ..base import PanelView
@@ -36,14 +37,12 @@ from ..base.templates import Template
 from ..issues import Issue
 from ..gldefs import _
 
+LOG = logging.getLogger(__name__)
 
 class SymbolCollection(object):
     """
     A collection of symbols read from an XML file
     """
-
-    _log = getLogger("SymbolCollection")
-
 
     class Group(object):
         def __init__(self, label):
@@ -81,12 +80,9 @@ class SymbolCollection(object):
 class LaTeXSymbolMapView(PanelView):
     """
     """
-    _log = getLogger("LaTeXSymbolMapView")
 
     def __init__(self, context, editor):
         PanelView.__init__(self, context)
-
-        self._log.debug("init")
 
         self.set_orientation(Gtk.Orientation.VERTICAL)
 
@@ -124,7 +120,7 @@ class LaTeXSymbolMapView(PanelView):
             try:
                 model.append([GdkPixbuf.Pixbuf.new_from_file(symbol.icon), str(symbol.template), symbol.template])
             except GError, s:
-                print s
+                LOG.error("Could not add symbol group %s to model" % symbol, exc_info=True)
 
         view = Gtk.IconView(model=model)
         view.set_pixbuf_column(0)
@@ -189,8 +185,6 @@ class LaTeXOutlineView(BaseOutlineView):
     A View showing an outline of the edited LaTeX document
     """
 
-    _log = getLogger("LaTeXOutlineView")
-
     def __init__(self, context, editor):
         BaseOutlineView.__init__(self, context, editor)
         self._handlers = {}
@@ -220,7 +214,7 @@ class LaTeXOutlineView(BaseOutlineView):
         """
         Load a new outline model
         """
-        self._log.debug("set_outline")
+        LOG.debug("LatexOutline: set outline")
 
         self._save_state()
 
@@ -268,7 +262,7 @@ class LaTeXOutlineView(BaseOutlineView):
                     break
 
             if not found:
-                self._log.error("File not found: %s" % filename)
+                LOG.error("LatexOutline: File not found: %s" % filename)
                 return
 
             system("gnome-open %s" % f.uri)

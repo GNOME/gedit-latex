@@ -22,7 +22,8 @@
 bibtex.completion
 """
 
-from logging import getLogger
+import logging
+
 from gi.repository import Gdk, GdkPixbuf
 
 from ..preferences import Preferences
@@ -33,6 +34,7 @@ from ..issues import MockIssueHandler
 from model import BibTeXModel
 from parser import BibTeXParser
 
+LOG = logging.getLogger(__name__)
 
 class BibTeXEntryTypeProposal(Proposal):
     """
@@ -93,8 +95,6 @@ class BibTeXCompletionHandler(ICompletionHandler):
     """
     This implements the BibTeX-specific code completion
     """
-    _log = getLogger("BibTeXCompletionHandler")
-
     trigger_keys = ["@"]
     prefix_delimiters = ["@"]
 
@@ -104,7 +104,7 @@ class BibTeXCompletionHandler(ICompletionHandler):
         self._issue_handler = MockIssueHandler()
 
     def complete(self, prefix):
-        self._log.debug("complete: '%s'" % prefix)
+        LOG.debug("BibTex complete: '%s'" % prefix)
 
         proposals = []
 

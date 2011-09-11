@@ -63,13 +63,6 @@ from xml.sax.saxutils import escape
 from ..issues import Issue, MockIssueHandler
 from ..preferences import Preferences
 
-
-#    import sys
-#    import os
-#
-#    print "======== sys.path=%s, cwd=%s" % (sys.path, os.getcwd())
-
-
 class Token(object):
     """
     A BibTeX token
@@ -416,9 +409,6 @@ class BibTeXParser(object):
             callables[self._state].__call__(token, file, issue_handler)
 
         return self._document
-
-    #~ def __del__(self):
-        #~ print "properly destroyed %s" % self
 
 #
 # BibTeX object model

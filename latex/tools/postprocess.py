@@ -22,7 +22,7 @@
 tools.postprocess
 """
 
-from logging import getLogger
+import logging
 import re
 
 from ..issues import Issue
@@ -70,7 +70,7 @@ class GenericPostProcessor(PostProcessor):
     This just interprets the exit condition of the process
     """
 
-    _log = getLogger("GenericPostProcessor")
+    _log = logging.getLogger(__name__ + ".GenericPostProcessor")
 
     name = "GenericPostProcessor"
 
@@ -102,7 +102,7 @@ class LaTeXPostProcessor(PostProcessor):
     default error format (NOT using "-file-line-error")
     """
 
-    _log = getLogger("LatexPostProcessor")
+    _log = logging.getLogger(__name__ + ".LatexPostProcessor")
 
     name = "LaTeXPostProcessor"
 
@@ -159,7 +159,7 @@ class RubberPostProcessor(PostProcessor):
     This is a post-processor for rubber
     """
 
-    _log = getLogger("RubberPostProcessor")
+    _log = logging.getLogger(__name__ + ".RubberPostProcessor")
 
     name = "RubberPostProcessor"
 
