@@ -4,7 +4,7 @@ AC_PREREQ([2.63])
 
 m4_define(gedit_latex_major_version,  3)
 m4_define(gedit_latex_minor_version,  1)
-m4_define(gedit_latex_micro_version,  0)
+m4_define(gedit_latex_micro_version,  1)
 m4_define(gedit_latex_version, gedit_latex_major_version.gedit_latex_minor_version.gedit_latex_micro_version)
 
 AC_INIT([gedit-latex],

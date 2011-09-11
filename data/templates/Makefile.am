@@ -5,4 +5,5 @@ plugin_DATA = \
 	KOMA_Letter_2.template \
 	Slides.template
 
+EXTRA_DIST = $(plugin_DATA)
 -include $(top_srcdir)/git.mk

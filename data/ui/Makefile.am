@@ -16,4 +16,6 @@ plugin_DATA = \
 	save_as_template_dialog.ui \
 	use_bibliography_dialog.ui
 
+EXTRA_DIST = $(plugin_DATA)
+
 -include $(top_srcdir)/git.mk

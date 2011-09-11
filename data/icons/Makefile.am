@@ -242,4 +242,12 @@ plugin_DATA = \
 	vbars.png \
 	warning.png
 
+EXTRA_DIST= 	$(accents_DATA) \
+		$(arrows_DATA) \
+		$(plugin_DATA) \
+		$(special_DATA) \
+		$(greek_DATA) \
+		$(limiters_DATA) \
+		$(operators_DATA) 
+
 -include $(top_srcdir)/git.mk

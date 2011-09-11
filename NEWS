@@ -1,0 +1,58 @@
+gedit-latex 3.1.1
+=================
+
+New and updated translations
+================
+
+
+th (Akom Chotiphantawanon)
+fr (Bruno Brouard)
+es (Daniel Mustieles)
+gl (Fran Dieguez)
+da (Kenneth Nielsen, Joe Hansen)
+nb (Kjartan Maraas)
+cs (Marek Černocký)
+de (Mario Blättermann,Wolfgang Stöggl)
+sl (Matej Urbančič)
+zh (Yinghua Wang)
+ru (Yuri Myasoedov)
+
+
+New Features
+============
+- Port to gobject-introspection and Gtk+3 (José Aliste, Ignacio Casal, John Stowers).
+- Port to  Gsettings (John Stowers, Ignacio Casal).
+- Use Autotools (Ignacio Casal).
+- Port to GtkBuilder (José Aliste).
+- Make plugin translatable (Ignacio Casal)
+- Misc code cleaning (José Aliste, Ignacio Casal, John Stowers)
+- Logging cleanup (John Stowers)
+- Handle newcommands (John Stowers)
+- Add per-document preferences (John Stowers)
+
+Dropped features
+================
+- Custom spellchecker (replaced by spellcheck-plugin)
+- LaTeX forward search (replaced by gedit-synctex)
+- Livepreview (to be added back)
+- Snippets (replaced by snippets plugin)
+- Color prefs UI
+
+Bugfixes
+========
+
+- Finish the save operation before start compilation (Lucas David-Roesler)
+- Make the LaTeX postprocessor depend on the compiler exit status (Lucas David-Roesler)
+- Add alert to the statusbar while the document is compiling (Lucas David-Roesler)
+- symbols: make the activation by double click, this make it more similar to gucharmap (Ignacio Casal)
+- symbols: unselect icon when the focus is lost (Ignacio Casal)
+- Fix generating the POT file (Daniel Mustieles)
+- Remove translatable attribute from gtk stock strings (Claude Paroz)
+- Fix master document: use relative path (John Stowers)
+
+
+gedit-latex-0.2rc3
+==================
+
+This is the base release for the move to GNOME git repositories. 
+
