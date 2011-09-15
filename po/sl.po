@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gedit-latex master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gedit&keywords=I18N+L10N&component=Plugins\n"
-"POT-Creation-Date: 2011-07-13 20:58+0000\n"
-"PO-Revision-Date: 2011-07-14 08:28+0100\n"
+"POT-Creation-Date: 2011-08-17 12:47+0000\n"
+"PO-Revision-Date: 2011-09-15 22:25+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -134,43 +134,57 @@ msgid "Connect Outline to Editor"
 msgstr "Poveži izris z urejevalnikom"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:2
-msgid "Exanded Symbol Groups"
+#| msgid "Exanded Symbol Groups"
+msgid "Expanded Symbol Groups"
 msgstr "Razširjene skupine simbolov"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:3
-#: ../data/ui/configure.ui.h:6
+msgid "Extra LaTeX commands used to mark issues, such as \\fxnote{foo}"
+msgstr "Dodatni ukazi LaTeX za označevanje težav, kot je \\fxnote{foo}"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:4
+#| msgid "LaTeX Extensions"
+msgid "Graphics File Extensions"
+msgstr "Končnice grafičnih datotek"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:5
+#: ../data/ui/configure.ui.h:5
 msgid "Hide Box Warnings"
 msgstr "Skrij opozorila okna"
 
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:4
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:6
 msgid "LaTeX Extensions"
 msgstr "Razširitve LaTeX"
 
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:5
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:7
 msgid "Maximum BibTeX Size"
 msgstr "Največja velikost BibTeX"
 
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:6
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:8
+msgid "Paths Relative to .tex File to Look for Graphics"
+msgstr "Relativne poti glede na datoteko .tex za iskanje grafike"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:9
 msgid "Show Graphics in Outline"
 msgstr "Pokaži grafične predmete v orisu"
 
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:7
-msgid "Show LaTeX Toolbar"
-msgstr "Pokaži orodno vrstico LaTeX"
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:10
+msgid "Show LaTeX Toolbar below (normal), combined with the main toolbar, or disabled"
+msgstr "Pokaži orodno vrstico LaTeX spodaj (navadno), združeno z glavno orodno vrstico, ali onemogočeno"
 
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:8
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:11
 msgid "Show Labels in Outline"
 msgstr "Pokaži oznake v orisu"
 
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:9
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:12
 msgid "Show Tables in Outline"
 msgstr "Pokaži razpredelnice v orisu"
 
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:10
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:13
 msgid "Show Tasks in Issues"
 msgstr "Pokaži naloge med opomini"
 
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:11
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:14
 msgid "Show Warnings in Issues"
 msgstr "Pokaži opozorila med opomini"
 
@@ -239,34 +253,26 @@ msgid "<b>BibTeX</b>"
 msgstr "<b>BibTeX</b>"
 
 #: ../data/ui/configure.ui.h:3
-msgid "<b>LaTeX Toolbar</b>"
-msgstr "<b>Orodna vrstica LaTeX</b>"
-
-#: ../data/ui/configure.ui.h:4
 msgid "<b>Templates</b>"
 msgstr "<b>Predloge</b>"
 
-#: ../data/ui/configure.ui.h:5
+#: ../data/ui/configure.ui.h:4
 msgid "Folder:"
 msgstr "Mapa:"
 
-#: ../data/ui/configure.ui.h:7
+#: ../data/ui/configure.ui.h:6
 msgid "KB"
 msgstr "KB"
 
-#: ../data/ui/configure.ui.h:8
+#: ../data/ui/configure.ui.h:7
 msgid "Maximum Parsed File Size:"
 msgstr "Največja razčlenjena velikost datoteke:"
 
-#: ../data/ui/configure.ui.h:9
+#: ../data/ui/configure.ui.h:8
 msgid "Miscellaneous"
 msgstr "Razno"
 
-#: ../data/ui/configure.ui.h:10
-msgid "Show LaTeX Toolbar when editing LaTeX files"
-msgstr "Pokaži orodno vrstico vstavka LaTeX med urejanjem te vrste datotek."
-
-#: ../data/ui/configure.ui.h:11
+#: ../data/ui/configure.ui.h:9
 msgid "Tools"
 msgstr "Orodja"
 
@@ -578,39 +584,3 @@ msgstr "Vstavek ni omogoča upravljanje z dokumenti LaTeX in bibliografskimi vno
 msgid "LaTeX Plugin"
 msgstr "Vstavek LaTeX"
 
-#~ msgid "<b>General</b>"
-#~ msgstr "<b>Splošno</b>"
-
-#, fuzzy
-#~ msgid "<b>Markers</b>"
-#~ msgstr "Oznake"
-
-#~ msgid "<b>Template</b>"
-#~ msgstr "<b>Predloga</b>"
-
-#~ msgid "Bibliographies"
-#~ msgstr "Bibliografije"
-
-#~ msgid "Error:"
-#~ msgstr "Napaka:"
-
-#, fuzzy
-#~ msgid "Light Foreground:"
-#~ msgstr "<span foreground=\"%s\" >%s%s</span>"
-
-#, fuzzy
-#~ msgid "Placeholder Background:"
-#~ msgstr "Lastnosti ozadja"
-
-#, fuzzy
-#~ msgid "Placeholder Foreground:"
-#~ msgstr "<span foreground=\"%s\" >%s%s</span>"
-
-#~ msgid "Template Background:"
-#~ msgstr "Ozadje predloge:"
-
-#~ msgid "Toolbar"
-#~ msgstr "Orodna vrstica"
-
-#~ msgid "Warning:"
-#~ msgstr "Opozorilo:"
