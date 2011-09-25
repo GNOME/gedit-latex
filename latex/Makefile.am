@@ -3,6 +3,7 @@ SUBDIRS = base bibtex latex preferences tools util
 plugindir = $(libdir)/gedit/plugins/latex
 
 plugin_PYTHON = \
+	appactivatable.py \
 	gldefs.py \
 	__init__.py \
 	issues.py \
