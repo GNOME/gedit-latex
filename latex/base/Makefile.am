@@ -9,7 +9,6 @@ plugin_PYTHON = \
 	file.py \
 	__init__.py \
 	job.py \
-	resources.py \
 	templates.py \
 	windowactivatable.py
 

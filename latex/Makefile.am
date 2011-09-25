@@ -8,6 +8,7 @@ plugin_PYTHON = \
 	__init__.py \
 	issues.py \
 	outline.py \
+	resources.py \
 	util.py \
 	views.py
 

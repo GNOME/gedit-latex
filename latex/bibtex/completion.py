@@ -27,7 +27,7 @@ import logging
 from gi.repository import Gdk, GdkPixbuf
 
 from ..preferences import Preferences
-from ..base.resources import Resources
+from ..resources import Resources
 from ..base import Template
 from ..base.completion import ICompletionHandler, Proposal
 from ..issues import MockIssueHandler

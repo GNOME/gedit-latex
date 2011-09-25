@@ -27,7 +27,7 @@ The LaTeX language model used for code completion.
 import copy
 import logging
 
-from ..base.resources import Resources
+from ..resources import Resources
 
 LOG = logging.getLogger(__name__)
 

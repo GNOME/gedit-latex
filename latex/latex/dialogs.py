@@ -32,7 +32,7 @@ from gi.repository import Gtk, GdkPixbuf
 
 from ..preferences import Preferences
 from ..util import GladeInterface
-from ..base.resources import Resources
+from ..resources import Resources
 from ..base.file import File, Folder
 from ..base import Template
 

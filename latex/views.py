@@ -26,7 +26,7 @@ from gi.repository import Gtk, GdkPixbuf
 from logging import getLogger
 
 from preferences import Preferences
-from base.resources import Resources
+from resources import Resources
 from base import PanelView
 from issues import Issue
 from util import escape

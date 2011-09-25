@@ -25,7 +25,7 @@ import os
 
 from gi.repository import GObject
 
-from ..base.resources import Resources
+from ..resources import Resources
 from ..tools import Tool, Job
 from ..tools.postprocess import GenericPostProcessor, RubberPostProcessor, LaTeXPostProcessor
 from ..util import singleton

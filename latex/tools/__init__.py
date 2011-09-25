@@ -29,7 +29,7 @@ import logging
 
 from gi.repository import Gtk, Gedit
 
-from ..base.resources import Resources
+from ..resources import Resources
 from ..base.action import Action
 
 LOG = logging.getLogger(__name__)

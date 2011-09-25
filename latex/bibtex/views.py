@@ -25,14 +25,13 @@ The BibTeX outline view
 """
 
 from gi.repository import Gtk, GdkPixbuf
-#from Gtk.gdk import Pixbuf, GdkPixbuf.Pixbuf.new_from_file
 from xml.sax.saxutils import escape
 from logging import getLogger
 
 import time
 
 from ..outline import OutlineOffsetMap, BaseOutlineView
-from ..base.resources import Resources
+from ..resources import Resources
 from ..preferences import Preferences
 from parser import Entry
 from ..gldefs import _

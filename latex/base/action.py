@@ -22,7 +22,7 @@ from uuid import uuid1
 from gi.repository import Gtk, GdkPixbuf
 
 from ..base.file import File
-from ..base.resources import Resources
+from ..resources import Resources
 
 class GeditLaTeXPlugin_MenuToolAction(Gtk.Action):
     __gtype_name__ = "GeditLaTeXPlugin_MenuToolAction"

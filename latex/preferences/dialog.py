@@ -26,7 +26,7 @@ from logging import getLogger
 from gi.repository import Gtk
 from gi.repository import Gdk
 
-from ..base.resources import Resources
+from ..resources import Resources
 from ..util import GladeInterface
 from ..tools import Tool, Job
 

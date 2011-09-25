@@ -20,7 +20,7 @@
 # Street, Fifth Floor, Boston, MA  02110-1301, USA
 
 """
-base.resources
+resources
 """
 
 import logging

@@ -26,7 +26,7 @@ from logging import getLogger
 from gi.repository import Gtk
 
 from ..util import GladeInterface
-from ..base.resources import Resources
+from ..resources import Resources
 from model import BibTeXModel
 
 

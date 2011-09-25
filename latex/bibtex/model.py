@@ -25,7 +25,7 @@ The model of BibTeX read from an XML file.
 """
 import xml.etree.ElementTree as ElementTree
 
-from ..base.resources import Resources
+from ..resources import Resources
 
 
 class Type(object):

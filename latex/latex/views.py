@@ -31,7 +31,7 @@ from gi.repository import Gtk, GdkPixbuf
 
 from ..preferences import Preferences
 from ..base import PanelView
-from ..base.resources import Resources
+from ..resources import Resources
 from ..base.templates import Template
 from ..issues import Issue
 from ..gldefs import _

@@ -29,7 +29,7 @@ from gi.repository import Gtk, GdkPixbuf
 
 from base import PanelView
 from preferences import Preferences
-from base.resources import Resources
+from resources import Resources
 from gldefs import _
 
 class BaseOutlineView(PanelView):
