@@ -9,6 +9,8 @@ plugin_PYTHON = \
 	issues.py \
 	outline.py \
 	resources.py \
+	singleton.py \
+	snippetmanager.py \
 	util.py \
 	views.py
 

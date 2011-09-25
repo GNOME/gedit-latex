@@ -26,19 +26,9 @@ resources
 import logging
 import os.path
 import errno
+from singleton import Singleton
 
 _log = logging.getLogger("resources")
-
-class Singleton(object):
-    _instance = None
-
-    def __new__(cls, *args, **kwargs):
-        if not cls._instance:
-            cls._instance = super(Singleton, cls).__new__(
-                     cls, *args, **kwargs)
-            cls._instance.__init_once__()
-
-        return cls._instance
 
 class Resources(Singleton):
     def __init_once__(self):

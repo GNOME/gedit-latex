@@ -28,12 +28,17 @@ import logging
 import xml.etree.ElementTree as ElementTree
 
 from gi.repository import Gtk, GdkPixbuf
+from os import system
+from os.path import basename
 
 from ..preferences import Preferences
 from ..base import PanelView
+from ..base.file import File
 from ..resources import Resources
-from ..base.templates import Template
+from ..snippetmanager import SnippetManager
 from ..issues import Issue
+from ..outline import OutlineOffsetMap, BaseOutlineView
+from outline import OutlineNode
 from ..gldefs import _
 
 LOG = logging.getLogger(__name__)
@@ -53,12 +58,12 @@ class SymbolCollection(object):
 
 
     class Symbol(object):
-        def __init__(self, template, icon):
+        def __init__(self, snippet, icon):
             """
-            @param template: a Template instance
+            @param snippet: a snippet to insert
             @param icon: an icon filename
             """
-            self.template = template
+            self.snippet = snippet
             self.icon = icon
 
 
@@ -71,7 +76,7 @@ class SymbolCollection(object):
         for group_el in symbols_el.findall("group"):
             group = self.Group(group_el.get("label"))
             for symbol_el in group_el.findall("symbol"):
-                symbol = self.Symbol(Template(symbol_el.text.strip()), Resources().get_icon("%s" % symbol_el.get("icon")))
+                symbol = self.Symbol(symbol_el.text.strip(), Resources().get_icon("%s" % symbol_el.get("icon")))
                 group.symbols.append(symbol)
             self.groups.append(group)
 
@@ -113,11 +118,11 @@ class LaTeXSymbolMapView(PanelView):
             self._add_group(group)
 
     def _add_group(self, group):
-        model = Gtk.ListStore(GdkPixbuf.Pixbuf, str, object)        # icon, tooltip, Template
+        model = Gtk.ListStore(GdkPixbuf.Pixbuf, str)        # icon, snippet
 
         for symbol in group.symbols:
             try:
-                model.append([GdkPixbuf.Pixbuf.new_from_file(symbol.icon), str(symbol.template), symbol.template])
+                model.append([GdkPixbuf.Pixbuf.new_from_file(symbol.icon), symbol.snippet])
             except:
                 LOG.error("Could not add symbol group %s to model" % symbol, exc_info=True)
 
@@ -166,17 +171,11 @@ class LaTeXSymbolMapView(PanelView):
         @param icon_view: the Gtk.IconView
         @param path: the Gtk.TreePath to the item
         """
-        template = icon_view.get_model()[path][2]
-        self._context.active_editor.insert(template)
+        snippet = icon_view.get_model()[path][1]
+        SnippetManager().insert_at_cursor(self._context.active_editor, snippet)
 
     def _on_focus_out_event(self, icon_view, event):
         icon_view.unselect_all()
-
-from os import system
-
-from ..base.file import File
-from ..outline import OutlineOffsetMap, BaseOutlineView
-from outline import OutlineNode
 
 
 class LaTeXOutlineView(BaseOutlineView):
@@ -282,9 +281,6 @@ class LaTeXOutlineView(BaseOutlineView):
 #        Settings().set("LatexOutlineGraphics", value)
 #        self.trigger("graphicsToggled", value)
         Preferences().set("outline-show-graphics", value)
-
-
-from os.path import basename
 
 
 class OutlineConverter(object):
