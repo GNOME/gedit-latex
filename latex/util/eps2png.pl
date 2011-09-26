@@ -1,5 +1,3 @@
-#!/usr/bin/perl
-
 my $RCS_Id = '$Id: eps2png.pl,v 2.6 2008/03/27 15:07:11 jv Exp $ ';
 
 # Author          : Johan Vromans
