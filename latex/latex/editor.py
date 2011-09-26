@@ -27,7 +27,7 @@ BENCHMARK = True
 import logging
 if BENCHMARK: import time
 
-from gi.repository import Gtk
+from gi.repository import Gtk, GObject
 from gi.repository import Gdk
 
 from ..base.editor import Editor
@@ -93,7 +93,7 @@ class LaTeXEditor(Editor, IIssueHandler):
         #
         self._change_reference = self.initial_timestamp
 
-        self.__parse()
+        GObject.idle_add(self.__parse)
         self.__update_neighbors()
 
     def _on_preferences_changed(self, prefs, key, new_value):

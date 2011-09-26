@@ -27,7 +27,7 @@ extension point.
 
 import logging
 
-from gi.repository import Gedit, Gtk, Gio
+from gi.repository import Gedit, Gtk, Gio, GObject
 
 from config import EDITORS
 from .file import File
@@ -112,7 +112,7 @@ class GeditTabDecorator(object):
             LOG.debug("no file loaded")
 
             if self._window_decorator.window.get_active_view() == self._text_view:
-                self._window_decorator.adjust(self)
+                GObject.idle_add(self._window_decorator.adjust, self)
 
         else:
             file = File(location.get_uri())
@@ -170,7 +170,7 @@ class GeditTabDecorator(object):
                 # tell WindowDecorator to adjust actions
                 # but only if this tab is the active tab
                 if self._window_decorator.window.get_active_view() == self._text_view:
-                    self._window_decorator.adjust(self)
+                    GObject.idle_add(self._window_decorator.adjust,self)
 
                 # notify that URI has changed
                 return True

@@ -311,7 +311,7 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
         self._init_tool_actions()
 
         # re-adjust action states
-        self.adjust(self._active_tab_decorator)
+        GObject.idle_add(self.adjust,self._active_tab_decorator)
 
     def activate_tab(self, file):
         """
@@ -365,7 +365,6 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
         """
 
         # TODO: improve and simplify this!
-
         extension = tab_decorator.extension
 
         LOG.debug("---------- ADJUST: %s" % (extension))
@@ -523,7 +522,7 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
         self._active_tab_decorator = decorator
 
         # adjust actions and views
-        self.adjust(decorator)
+        GObject.idle_add(self.adjust,decorator)
 
     def _create_tab_decorator(self, tab, init=False):
         """
