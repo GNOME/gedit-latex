@@ -1,3 +1,17 @@
+gedit-latex 3.2.0
+=================
+
+Updated translations
+====================
+
+sl (Matej Urbančič, Martin Srebotnjak)
+
+Bugfixes
+========
+
+Fix slowness when loading and changing tabs (José Aliste)
+
+
 gedit-latex 3.1.1
 =================
 
