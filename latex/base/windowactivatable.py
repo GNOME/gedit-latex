@@ -32,7 +32,7 @@ from ..preferences.dialog import PreferencesDialog
 from ..preferences.tools import ToolPreferences
 from ..tools import ToolAction
 from .config import EDITOR_SCOPE_VIEWS, ACTIONS
-from .decorators import GeditTabDecorator
+from .tabdecorator import GeditTabDecorator
 from ..resources import Resources
 from . import PanelView, WindowContext
 from .file import File

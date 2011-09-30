@@ -4,11 +4,11 @@ plugin_PYTHON = \
 	action.py \
 	completion.py \
 	config.py \
-	decorators.py \
 	editor.py \
 	file.py \
 	__init__.py \
 	job.py \
+	tabdecorator.py \
 	templates.py \
 	windowactivatable.py
 
