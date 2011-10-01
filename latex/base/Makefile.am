@@ -9,7 +9,6 @@ plugin_PYTHON = \
 	__init__.py \
 	job.py \
 	tabdecorator.py \
-	templates.py \
-	windowactivatable.py
+	templates.py
 
 -include $(top_srcdir)/git.mk

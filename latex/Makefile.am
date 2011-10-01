@@ -12,7 +12,8 @@ plugin_PYTHON = \
 	singleton.py \
 	snippetmanager.py \
 	util.py \
-	views.py
+	views.py \
+	windowactivatable.py
 
 DISTCLEANFILES = \
 	gldefs.py

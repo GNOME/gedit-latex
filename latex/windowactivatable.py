@@ -27,15 +27,15 @@ import string
 
 from gi.repository import Gedit, GObject, Gio, Gtk, PeasGtk
 
-from ..preferences import Preferences
-from ..preferences.dialog import PreferencesDialog
-from ..preferences.tools import ToolPreferences
-from ..tools import ToolAction
-from .config import EDITOR_SCOPE_VIEWS, ACTIONS
-from .tabdecorator import GeditTabDecorator
-from ..resources import Resources
-from . import PanelView, WindowContext
-from .file import File
+from .preferences import Preferences
+from .preferences.dialog import PreferencesDialog
+from .preferences.tools import ToolPreferences
+from .tools import ToolAction
+from .base.config import EDITOR_SCOPE_VIEWS, ACTIONS
+from .base.tabdecorator import GeditTabDecorator
+from .resources import Resources
+from .base import PanelView, WindowContext
+from .base.file import File
 
 LOG = logging.getLogger(__name__)
 
