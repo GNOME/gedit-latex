@@ -2,7 +2,6 @@ plugindir = $(libdir)/gedit/plugins/latex/latex
 
 plugin_PYTHON = \
 	actions.py \
-	archive.py \
 	cache.py \
 	completion.py \
 	dialogs.py \
