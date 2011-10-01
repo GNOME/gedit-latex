@@ -10,7 +10,6 @@ plugin_PYTHON = \
 	environment.py \
 	expander.py \
 	__init__.py \
-	inversesearch.py \
 	lexer.py \
 	listing.py \
 	model.py \
