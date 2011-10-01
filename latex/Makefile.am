@@ -4,6 +4,7 @@ plugindir = $(libdir)/gedit/plugins/latex
 
 plugin_PYTHON = \
 	appactivatable.py \
+	file.py \
 	gldefs.py \
 	__init__.py \
 	issues.py \

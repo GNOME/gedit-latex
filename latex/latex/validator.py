@@ -26,7 +26,7 @@ import os.path
 from logging import getLogger
 from os.path import exists
 
-from ..base.file import File
+from ..file import File
 from ..issues import Issue
 from ..util import escape
 

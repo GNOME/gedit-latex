@@ -33,7 +33,7 @@ from os.path import basename
 
 from ..preferences import Preferences
 from ..base import PanelView
-from ..base.file import File
+from ..file import File
 from ..resources import Resources
 from ..snippetmanager import SnippetManager
 from ..issues import Issue

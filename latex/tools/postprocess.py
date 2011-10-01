@@ -188,7 +188,7 @@ class RubberPostProcessor(PostProcessor):
         return self._summary
 
     def process(self, file, stdout, stderr, condition):
-        from ..base.file import File        # FIXME: this produces a circ dep on toplevel
+        from ..file import File        # FIXME: this produces a circ dep on toplevel
 
         self._issues = []
 

@@ -271,7 +271,7 @@ class LanguageModelParser(sax.ContentHandler):
 from copy import deepcopy
 import pickle
 
-from ..base.file import File
+from ..file import File
 
 
 class LanguageModelFactory(object):

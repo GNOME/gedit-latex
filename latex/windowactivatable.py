@@ -31,11 +31,11 @@ from .preferences import Preferences
 from .preferences.dialog import PreferencesDialog
 from .preferences.tools import ToolPreferences
 from .tools import ToolAction
+from .resources import Resources
+from .file import File
 from .base.config import EDITOR_SCOPE_VIEWS, ACTIONS
 from .base.tabdecorator import GeditTabDecorator
-from .resources import Resources
 from .base import PanelView, WindowContext
-from .base.file import File
 
 LOG = logging.getLogger(__name__)
 

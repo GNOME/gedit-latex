@@ -77,7 +77,7 @@ class Outline(object):
     def is_ref_command(self, cmd_name):
         return (cmd_name in REF_CMDS) or (cmd_name in self.new_ref_commands) 
 
-from ..base.file import File
+from ..file import File
 from ..preferences import Preferences
 
 

@@ -5,7 +5,6 @@ plugin_PYTHON = \
 	completion.py \
 	config.py \
 	editor.py \
-	file.py \
 	__init__.py \
 	job.py \
 	tabdecorator.py \

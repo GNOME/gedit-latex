@@ -28,7 +28,7 @@ import logging
 
 from gi.repository import Gtk, Gdk
 
-from .file import File
+from ..file import File
 
 LOG = logging.getLogger(__name__)
 

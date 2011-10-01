@@ -31,7 +31,7 @@ from gi.repository import Gtk, GObject
 from gi.repository import Gdk
 
 from ..base.editor import Editor
-from ..base.file import File
+from ..file import File
 from ..issues import Issue, IIssueHandler
 from ..util import verbose, open_error
 

@@ -34,7 +34,7 @@ from logging import getLogger
 _log = getLogger("latex.inversesearch")
 
 
-from ..base.file import File
+from ..file import File
 from editor import LaTeXEditor
 
 
