@@ -30,7 +30,7 @@ if BENCHMARK: import time
 from gi.repository import Gtk, GObject
 from gi.repository import Gdk
 
-from ..base.editor import Editor
+from ..editor import Editor
 from ..file import File
 from ..issues import Issue, IIssueHandler
 from ..util import verbose, open_error

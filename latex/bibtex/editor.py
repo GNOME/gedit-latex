@@ -27,7 +27,7 @@ BENCHMARK = True
 import logging
 if BENCHMARK: import time
 
-from ..base.editor import Editor
+from ..editor import Editor
 from ..preferences import Preferences
 from ..issues import Issue, IIssueHandler, MockIssueHandler
 from ..util import verbose
