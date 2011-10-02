@@ -31,7 +31,7 @@ if "org.gnome.gedit.plugins.latex" not in Gio.Settings.list_schemas():
     raise Exception("Plugin schema not installed")
 
 from appactivatable import LaTeXAppActivatable
-from base.windowactivatable import LaTeXWindowActivatable
+from windowactivatable import LaTeXWindowActivatable
 
 
 

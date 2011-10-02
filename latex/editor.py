@@ -25,9 +25,9 @@ import uuid
 
 from gi.repository import GObject, Gtk, Gdk
 
-from .completion import CompletionDistributor
-from .templates import TemplateDelegate
-from . import Template
+from .base.completion import CompletionDistributor
+from .base.templates import TemplateDelegate
+from .base import Template
 
 LOG = logging.getLogger(__name__)
 
