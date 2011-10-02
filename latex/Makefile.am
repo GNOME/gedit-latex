@@ -9,6 +9,7 @@ plugin_PYTHON = \
 	gldefs.py \
 	__init__.py \
 	issues.py \
+	job.py \
 	outline.py \
 	panelview.py \
 	resources.py \

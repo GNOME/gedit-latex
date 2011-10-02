@@ -32,7 +32,7 @@ from ..preferences import Preferences
 from ..issues import Issue, IIssueHandler, MockIssueHandler
 from ..util import verbose
 
-from ..base.job import Job, JobChangeListener, JobManager
+from ..job import Job, JobChangeListener, JobManager
 
 from parser import BibTeXParser
 from completion import BibTeXCompletionHandler
