@@ -32,7 +32,7 @@ from os import system
 from os.path import basename
 
 from ..preferences import Preferences
-from ..base import PanelView
+from ..panelview import PanelView
 from ..file import File
 from ..resources import Resources
 from ..snippetmanager import SnippetManager

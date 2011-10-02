@@ -10,6 +10,7 @@ plugin_PYTHON = \
 	__init__.py \
 	issues.py \
 	outline.py \
+	panelview.py \
 	resources.py \
 	singleton.py \
 	snippetmanager.py \

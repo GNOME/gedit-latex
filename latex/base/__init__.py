@@ -26,35 +26,11 @@ These classes form the interface exposed by the plugin base layer.
 
 import logging
 
-from gi.repository import Gtk, Gdk
+from gi.repository import GObject, Gtk, Gdk
 
 from ..file import File
 
 LOG = logging.getLogger(__name__)
-
-#FIXME: this should probably be just a Gtk.Orientable iface
-# HORIZONTAL: means Bottom Panel
-# VERTICAL: means Side Panel
-class PanelView(Gtk.Box):
-    """
-    Base class for a View
-    """
-
-    SCOPE_EDITOR = 1
-
-    def __init__(self, context):
-        Gtk.Box.__init__(self)
-        self._context = context
-
-    # these should be overriden by subclasses
-
-    # a label string used for this view
-    def get_label(self):
-        raise NotImplementedError
-
-    # an icon for this view (Gtk.Image or a stock_id string)
-    def get_icon(self):
-        return None
 
 class Template(object):
     """
@@ -69,9 +45,6 @@ class Template(object):
 
     def __str__(self):
         return self._expression
-
-
-from gi.repository import GObject
 
 
 class WindowContext(object):

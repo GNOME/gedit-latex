@@ -27,7 +27,7 @@ import logging
 from gi.repository import Gtk, GdkPixbuf
 
 from ..resources import Resources
-from ..base import PanelView
+from ..panelview import PanelView
 from ..issues import Issue, IStructuredIssueHandler
 from ..gldefs import _
 

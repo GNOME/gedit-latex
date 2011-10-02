@@ -27,7 +27,7 @@ Classes used for creating an outline view of LaTeX and BibTeX files
 from logging import getLogger
 from gi.repository import Gtk, GdkPixbuf
 
-from base import PanelView
+from panelview import PanelView
 from preferences import Preferences
 from resources import Resources
 from gldefs import _

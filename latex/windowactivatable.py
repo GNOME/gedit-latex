@@ -33,9 +33,10 @@ from .preferences.tools import ToolPreferences
 from .tools import ToolAction
 from .resources import Resources
 from .file import File
+from .panelview import PanelView
 from .base.config import EDITOR_SCOPE_VIEWS, ACTIONS
 from .base.tabdecorator import GeditTabDecorator
-from .base import PanelView, WindowContext
+from .base import WindowContext
 
 LOG = logging.getLogger(__name__)
 

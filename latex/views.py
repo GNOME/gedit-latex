@@ -27,7 +27,7 @@ from logging import getLogger
 
 from preferences import Preferences
 from resources import Resources
-from base import PanelView
+from panelview import PanelView
 from issues import Issue
 from util import escape
 from gldefs import _
