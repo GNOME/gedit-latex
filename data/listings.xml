@@ -19,146 +19,146 @@ this program; if not, write to the Free Software Foundation, Inc., 51 Franklin
 Street, Fifth Floor, Boston, MA  02110-1301, USA
 -->
 <languages>
-	<language name="ABAP">
-		<dialect name="R/2 4.3" />
-		<dialect name="R/2 5.0" />
-		<dialect name="R/3 3.1" />
-		<dialect name="R/3 4.6C" />
-		<dialect name="R/3 6.10" default="true" />
-	</language>
-	<language name="ACSL" />
-	<language name="Ada">
-		<dialect name="83" />
-		<dialect name="95" default="true" />
-	</language>
-	<language name="Algol">
-		<dialect name="60" />
-		<dialect name="68" default="true" />
-	</language>
-	<language name="Assembler">
-		<dialect name="x86masm" default="true" />
-	</language>
-	<language name="Basic">
-		<dialect name="Visual" />
-	</language>
-	<language name="C">
-		<dialect name="ANSI" default="true" />
-		<dialect name="Objective" />
-		<dialect name="Sharp" />
-	</language>
-	<language name="C++">
-		<dialect name="ANSI" />
-		<dialect name="GNU" />
-		<dialect name="ISO" default="true" />
-		<dialect name="Visual" />
-	</language>
-	<language name="Caml">
-		<dialect name="light" default="true" />
-		<dialect name="Objective" />
-	</language>
-	<language name="Clean" />
-	<language name="Cobol">
-		<dialect name="1974" />
-		<dialect name="1985" default="true" />
-		<dialect name="ibm" />
-	</language>
-	<language name="csh" />
-	<language name="Delphi" />
-	<language name="Eiffel" />
-	<language name="Elan" />
-	<language name="erlang" />
-	<language name="Euphoria" />
-	<language name="Fortran">
-		<dialect name="77" />
-		<dialect name="90" />
-		<dialect name="95" default="true" />
-	</language>
-	<language name="GCL" />
-	<language name="Haskell" />
-	<language name="HTML" />
-	<language name="IDL">
-		<no-dialect />
-		<dialect name="CORBA" />
-	</language>
-	<language name="Java">
-		<no-dialect />
-		<dialect name="AspectJ" />
-	</language>
-	<language name="ksh" />
-	<language name="Lisp">
-		<no-dialect />
-		<dialect name="Auto" />
-	</language>
-	<language name="Logo" />
-	<language name="make">
-		<no-dialect />
-		<dialect name="gnu" />
-	</language>
-	<language name="Mathematica">
-		<dialect name="1.0" />
-		<dialect name="3.0" default="true" />
-	</language>
-	<language name="Matlab" />
-	<language name="Mercury" />
-	<language name="MetaPost" />
-	<language name="Miranda" />
-	<language name="Mizar" />
-	<language name="ML" />
-	<language name="MuPAD" />
-	<language name="NASTRAN" />
-	<language name="Oberon-2" />
-	<language name="OCL">
-		<dialect name="decorative" />
-		<dialect name="OMG" default="true" />
-	</language>
-	<language name="Octave" />
-	<language name="Pascal">
-		<dialect name="Borland6" />
-		<dialect name="Standard" default="true" />
-		<dialect name="XSC" />
-	</language>
-	<language name="Perl" />
-	<language name="PHP" />
-	<language name="PL/I" />
-	<language name="POV" />
-	<language name="Prolog" />
-	<language name="Python" />
-	<language name="R" />
-	<language name="Reduce" />
-	<language name="Ruby" />
-	<language name="S">
-		<no-dialect />
-		<dialect name="PLUS" />
-	</language>
-	<language name="SAS" />
-	<language name="Scilab" />
-	<language name="SHELXL" />
-	<language name="Simula">
-		<dialect name="67" default="true" />
-		<dialect name="CII" />
-		<dialect name="DEC" />
-		<dialect name="IBM" />
-	</language>
-	<language name="SQL" />
-	<language name="tcl">
-		<no-dialect />
-		<dialect name="tk" />
-	</language>
-	<language name="TeX">
-		<dialect name="AlLaTeX" />
-		<dialect name="common" />
-		<dialect name="LaTeX" />
-		<dialect name="plain" default="true" />
-		<dialect name="primitive" />
-	</language>
-	<language name="VBScript" />
-	<language name="Verilog" />
-	<language name="VHDL">
-		<no-dialect />
-		<dialect name="AMS" />
-	</language>
-	<language name="VRML">
-		<dialect name="97" default="true" />
-	</language>
-	<language name="XML" />
+  <language name="ABAP">
+    <dialect name="R/2 4.3" />
+    <dialect name="R/2 5.0" />
+    <dialect name="R/3 3.1" />
+    <dialect name="R/3 4.6C" />
+    <dialect name="R/3 6.10" default="true" />
+  </language>
+  <language name="ACSL" />
+  <language name="Ada">
+    <dialect name="83" />
+    <dialect name="95" default="true" />
+  </language>
+  <language name="Algol">
+    <dialect name="60" />
+    <dialect name="68" default="true" />
+  </language>
+  <language name="Assembler">
+    <dialect name="x86masm" default="true" />
+  </language>
+  <language name="Basic">
+    <dialect name="Visual" />
+  </language>
+  <language name="C">
+    <dialect name="ANSI" default="true" />
+    <dialect name="Objective" />
+    <dialect name="Sharp" />
+  </language>
+  <language name="C++">
+    <dialect name="ANSI" />
+    <dialect name="GNU" />
+    <dialect name="ISO" default="true" />
+    <dialect name="Visual" />
+  </language>
+  <language name="Caml">
+    <dialect name="light" default="true" />
+    <dialect name="Objective" />
+  </language>
+  <language name="Clean" />
+  <language name="Cobol">
+    <dialect name="1974" />
+    <dialect name="1985" default="true" />
+    <dialect name="ibm" />
+  </language>
+  <language name="csh" />
+  <language name="Delphi" />
+  <language name="Eiffel" />
+  <language name="Elan" />
+  <language name="erlang" />
+  <language name="Euphoria" />
+  <language name="Fortran">
+    <dialect name="77" />
+    <dialect name="90" />
+    <dialect name="95" default="true" />
+  </language>
+  <language name="GCL" />
+  <language name="Haskell" />
+  <language name="HTML" />
+  <language name="IDL">
+    <no-dialect />
+    <dialect name="CORBA" />
+  </language>
+  <language name="Java">
+    <no-dialect />
+    <dialect name="AspectJ" />
+  </language>
+  <language name="ksh" />
+  <language name="Lisp">
+    <no-dialect />
+    <dialect name="Auto" />
+  </language>
+  <language name="Logo" />
+  <language name="make">
+    <no-dialect />
+    <dialect name="gnu" />
+  </language>
+  <language name="Mathematica">
+    <dialect name="1.0" />
+    <dialect name="3.0" default="true" />
+  </language>
+  <language name="Matlab" />
+  <language name="Mercury" />
+  <language name="MetaPost" />
+  <language name="Miranda" />
+  <language name="Mizar" />
+  <language name="ML" />
+  <language name="MuPAD" />
+  <language name="NASTRAN" />
+  <language name="Oberon-2" />
+  <language name="OCL">
+    <dialect name="decorative" />
+    <dialect name="OMG" default="true" />
+  </language>
+  <language name="Octave" />
+  <language name="Pascal">
+    <dialect name="Borland6" />
+    <dialect name="Standard" default="true" />
+    <dialect name="XSC" />
+  </language>
+  <language name="Perl" />
+  <language name="PHP" />
+  <language name="PL/I" />
+  <language name="POV" />
+  <language name="Prolog" />
+  <language name="Python" />
+  <language name="R" />
+  <language name="Reduce" />
+  <language name="Ruby" />
+  <language name="S">
+    <no-dialect />
+    <dialect name="PLUS" />
+  </language>
+  <language name="SAS" />
+  <language name="Scilab" />
+  <language name="SHELXL" />
+  <language name="Simula">
+    <dialect name="67" default="true" />
+    <dialect name="CII" />
+    <dialect name="DEC" />
+    <dialect name="IBM" />
+  </language>
+  <language name="SQL" />
+  <language name="tcl">
+    <no-dialect />
+    <dialect name="tk" />
+  </language>
+  <language name="TeX">
+    <dialect name="AlLaTeX" />
+    <dialect name="common" />
+    <dialect name="LaTeX" />
+    <dialect name="plain" default="true" />
+    <dialect name="primitive" />
+  </language>
+  <language name="VBScript" />
+  <language name="Verilog" />
+  <language name="VHDL">
+    <no-dialect />
+    <dialect name="AMS" />
+  </language>
+  <language name="VRML">
+    <dialect name="97" default="true" />
+  </language>
+  <language name="XML" />
 </languages>
