@@ -25,7 +25,6 @@ from gi.repository import Gtk
 
 from logging import getLogger
 
-from ..template import Template
 from ..action import Action, IconAction
 from ..preferences import Preferences
 from ..issues import MockIssueHandler
@@ -49,14 +48,14 @@ class LaTeXIconAction(IconAction):
 
 class LaTeXTemplateAction(LaTeXIconAction):
     """
-    Utility base class for quickly defining Actions inserting a LaTeX template
+    Utility base class for quickly defining Actions inserting a LaTeX snippet
     """
     accelerator = None
-    template_source = None
+    snippet_source = None
     packages = []
 
     def activate(self, context):
-        context.active_editor.insert(LaTeXSource(Template(self.template_source), self.packages))
+        context.active_editor.insert(LaTeXSource(self.snippet_source, self.packages))
 
 
 class LaTeXMenuAction(LaTeXAction):
@@ -194,56 +193,56 @@ class LaTeXBoldAction(LaTeXTemplateAction):
     label = "Bold"
     tooltip = "Bold"
     icon_name = "bf"
-    template_source = "\\textbf{$_}"
+    snippet_source = "\\textbf{$0}"
 
 
 class LaTeXItalicAction(LaTeXTemplateAction):
     label = "Italic"
     tooltip = "Italic"
     icon_name = "it"
-    template_source = "\\textit{$_}"
+    snippet_source = "\\textit{$0}"
 
 
 class LaTeXEmphasizeAction(LaTeXTemplateAction):
     label = "Emphasize"
     tooltip = "Emphasize"
     icon_name = "it"
-    template_source = "\\emph{$_}"
+    snippet_source = "\\emph{$0}"
 
 
 class LaTeXUnderlineAction(LaTeXTemplateAction):
     label = "Underline"
     tooltip = "Underline"
     icon_name = "underline"
-    template_source = "\\underline{$_}"
+    snippet_source = "\\underline{$0}"
 
 
 class LaTeXSmallCapitalsAction(LaTeXTemplateAction):
     label = "Small Capitals"
     tooltip = "Small Capitals"
     icon_name = "sc"
-    template_source = "\\textsc{$_}"
+    snippet_source = "\\textsc{$0}"
 
 
 class LaTeXRomanAction(LaTeXTemplateAction):
     label = "Roman"
     tooltip = "Roman"
     icon_name = "rm"
-    template_source = "\\textrm{$_}"
+    snippet_source = "\\textrm{$0}"
 
 
 class LaTeXSansSerifAction(LaTeXTemplateAction):
     label = "Sans Serif"
     tooltip = "Sans Serif"
     icon_name = "sf"
-    template_source = "\\textsf{$_}"
+    snippet_source = "\\textsf{$0}"
 
 
 class LaTeXTypewriterAction(LaTeXTemplateAction):
     label = "Typewriter"
     tooltip = "Typewriter"
     icon_name = "tt"
-    template_source = "\\texttt{$_}"
+    snippet_source = "\\texttt{$0}"
 
 
 class LaTeXBlackboardBoldAction(LaTeXTemplateAction):
@@ -251,14 +250,14 @@ class LaTeXBlackboardBoldAction(LaTeXTemplateAction):
     tooltip = "Blackboard Bold"
     icon_name = "bb"
     packages = ["amsmath"]
-    template_source = "\ensuremath{\mathbb{$_}}"
+    snippet_source = "\ensuremath{\mathbb{$0}}"
 
 
 class LaTeXCaligraphyAction(LaTeXTemplateAction):
     label = "Caligraphy"
     tooltip = "Caligraphy"
     icon_name = "cal"
-    template_source = "\ensuremath{\mathcal{$_}}"
+    snippet_source = "\ensuremath{\mathcal{$0}}"
 
 
 class LaTeXFrakturAction(LaTeXTemplateAction):
@@ -266,7 +265,7 @@ class LaTeXFrakturAction(LaTeXTemplateAction):
     tooltip = "Fraktur"
     icon_name = "frak"
     packages = ["amsmath"]
-    template_source = "\ensuremath{\mathfrak{$_}}"
+    snippet_source = "\ensuremath{\mathfrak{$0}}"
 
 
 class LaTeXListMenuAction(LaTeXMenuAction):
@@ -278,7 +277,7 @@ class LaTeXItemizeAction(LaTeXTemplateAction):
     label = "Itemize"
     tooltip = "Itemize"
     icon_name = "itemize"
-    template_source = "\\begin{itemize}\n\t\\item $_\n\\end{itemize}"
+    snippet_source = "\\begin{itemize}\n\t\\item $0\n\\end{itemize}"
 
 
 class LaTeXListActionDefault(LaTeXItemizeAction):
@@ -291,14 +290,14 @@ class LaTeXEnumerateAction(LaTeXTemplateAction):
     label = "Enumerate"
     tooltip = "Enumerate"
     icon_name = "enumerate"
-    template_source = "\\begin{enumerate}\n\t\\item $_\n\\end{enumerate}"
+    snippet_source = "\\begin{enumerate}\n\t\\item $0\n\\end{enumerate}"
 
 
 class LaTeXDescriptionAction(LaTeXTemplateAction):
     label = "Description"
     tooltip = "Description"
     icon_name = "description"
-    template_source = "\\begin{description}\n\t\\item[$_]\n\\end{description}"
+    snippet_source = "\\begin{description}\n\t\\item[$0]\n\\end{description}"
 
 class LaTeXStructureMenuAction(LaTeXMenuAction):
     label = "Structure"
@@ -308,21 +307,21 @@ class LaTeXPartAction(LaTeXTemplateAction):
     label = "Part"
     tooltip = "Part"
     icon_name = "part"
-    template_source = "\\part{$_}"
+    snippet_source = "\\part{$0}"
 
 
 class LaTeXChapterAction(LaTeXTemplateAction):
     label = "Chapter"
     tooltip = "Chapter"
     icon_name = "chapter"
-    template_source = "\\chapter{$_}"
+    snippet_source = "\\chapter{$0}"
 
 
 class LaTeXSectionAction(LaTeXTemplateAction):
     label = "Section"
     tooltip = "Section"
     icon_name = "section"
-    template_source = "\\section{$_}"
+    snippet_source = "\\section{$0}"
 
 
 class LaTeXStructureActionDefault(LaTeXSectionAction):
@@ -335,21 +334,21 @@ class LaTeXSubsectionAction(LaTeXTemplateAction):
     label = "Subsection"
     tooltip = "Subsection"
     icon_name = "subsection"
-    template_source = "\\subsection{$_}"
+    snippet_source = "\\subsection{$0}"
 
 
 class LaTeXParagraphAction(LaTeXTemplateAction):
     label = "Paragraph"
     tooltip = "Paragraph"
     icon_name = "paragraph"
-    template_source = "\\paragraph{$_}"
+    snippet_source = "\\paragraph{$0}"
 
 
 class LaTeXSubparagraphAction(LaTeXTemplateAction):
     label = "Subparagraph"
     tooltip = "Subparagraph"
     icon_name = "paragraph"
-    template_source = "\\subparagraph{$_}"
+    snippet_source = "\\subparagraph{$0}"
 
 
 class LaTeXGraphicsAction(LaTeXIconAction):
@@ -445,14 +444,14 @@ class LaTeXJustifyLeftAction(LaTeXTemplateAction):
     label = "Justify Left"
     tooltip = "Justify Left"
     icon_name = "justify-left"
-    template_source = "\\begin{flushleft}$_\\end{flushleft}"
+    snippet_source = "\\begin{flushleft}$0\\end{flushleft}"
 
 
 class LaTeXJustifyCenterAction(LaTeXTemplateAction):
     label = "Justify Center"
     tooltip = "Justify Center"
     icon_name = "justify-center"
-    template_source = "\\begin{center}$_\\end{center}"
+    snippet_source = "\\begin{center}$0\\end{center}"
 
 
 class LaTeXJustifyActionDefault(LaTeXJustifyCenterAction):
@@ -465,7 +464,7 @@ class LaTeXJustifyRightAction(LaTeXTemplateAction):
     label = "Justify Right"
     tooltip = "Justify Right"
     icon_name = "justify-right"
-    template_source = "\\begin{flushright}$_\\end{flushright}"
+    snippet_source = "\\begin{flushright}$0\\end{flushright}"
 
 
 class LaTeXMathMenuAction(LaTeXMenuAction):
@@ -477,7 +476,7 @@ class LaTeXMathAction(LaTeXTemplateAction):
     label = "Mathematical Environment"
     tooltip = "Mathematical Environment"
     icon_name = "math"
-    template_source = "$ $_ $"
+    snippet_source = "$ $0 $"
 
 
 class LaTeXMathActionDefault(LaTeXMathAction):
@@ -490,15 +489,15 @@ class LaTeXDisplayMathAction(LaTeXTemplateAction):
     label = "Centered Formula"
     tooltip = "Centered Formula"
     icon_name = "displaymath"
-    template_source = "\\[ $_ \\]"
+    snippet_source = "\\[ $0 \\]"
 
 
 class LaTeXEquationAction(LaTeXTemplateAction):
     label = "Numbered Equation"
     tooltip = "Numbered Equation"
     icon_name = "equation"
-    template_source = """\\begin{equation}
-    $_
+    snippet_source = """\\begin{equation}
+    $0
 \\end{equation}"""
 
 
@@ -507,8 +506,8 @@ class LaTeXUnEqnArrayAction(LaTeXTemplateAction):
     tooltip = "Array of Equations"
     icon_name = "uneqnarray"
     packages = ["amsmath"]
-    template_source = """\\begin{align*}
-    $_
+    snippet_source = """\\begin{align*}
+    $0
 \\end{align*}"""
 
 
@@ -517,8 +516,8 @@ class LaTeXEqnArrayAction(LaTeXTemplateAction):
     tooltip = "Numbered Array of Equations"
     icon_name = "eqnarray"
     packages = ["amsmath"]
-    template_source = """\\begin{align}
-    $_
+    snippet_source = """\\begin{align}
+    $0
 \\end{align}"""
 
 

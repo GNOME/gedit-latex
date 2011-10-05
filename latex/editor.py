@@ -26,8 +26,6 @@ import uuid
 from gi.repository import GObject, Gtk, Gdk
 
 from .completion import CompletionDistributor
-from .templates import TemplateDelegate
-from .template import Template
 from .snippetmanager import SnippetManager
 
 LOG = logging.getLogger(__name__)
@@ -86,9 +84,6 @@ class Editor(object):
         self._file = file
         self._text_buffer = tab_decorator.tab.get_document()
         self._text_view = tab_decorator.tab.get_view()
-
-        # create template delegate
-        self._template_delegate = TemplateDelegate(self)
 
         # hook completion handlers of the subclassing Editor
         completion_handlers = self.completion_handlers
@@ -315,10 +310,7 @@ class Editor(object):
         """
         LOG.debug("insert(%s)" % source)
 
-        if type(source) is Template:
-            self._template_delegate.insert(source)
-        else:
-            SnippetManager().insert_at_cursor(self, str(source))
+        SnippetManager().insert_at_cursor(self, str(source))
 
         # grab the focus again (necessary e.g. after symbol insert)
         self._text_view.grab_focus()
@@ -586,10 +578,6 @@ class Editor(object):
         table = self._text_buffer.get_tag_table()
         for tag in self._tags:
             table.remove(tag)
-
-        # destroy the template delegate
-        self._template_delegate.destroy()
-        del self._template_delegate
 
         # destroy the views associated to this editor
         for i in self._window_context.editor_scope_views[self]:
