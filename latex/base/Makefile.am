@@ -5,7 +5,6 @@ plugin_PYTHON = \
 	completion.py \
 	config.py \
 	__init__.py \
-	tabdecorator.py \
-	templates.py
+	tabdecorator.py
 
 -include $(top_srcdir)/git.mk

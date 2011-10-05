@@ -19,11 +19,15 @@
 # Street, Fifth Floor, Boston, MA  02110-1301, USA
 
 """
-base.templates
+templates
 """
 
 from logging import getLogger
 
+from gi.repository import Gdk
+from .template import Template
+from .preferences import Preferences
+from .util import verbose
 
 class TemplateToken:
     """
@@ -163,9 +167,6 @@ class MalformedTemplateException(Exception):
     """
 
 
-from ..util import verbose
-
-
 class TemplateCompiler(object):
     """
     @deprecated: use TemplateTokenizer
@@ -261,11 +262,6 @@ class TemplateCompiler(object):
             # if everything went fine we should end up in DEFAULT state
             # or in INDENT  - but never in PLACEHOLDER
             raise MalformedTemplateException("Illegal state: %s" % state)
-
-
-from gi.repository import Gdk
-from ..template import Template
-from ..preferences import Preferences
 
 
 class TemplateDelegate(object):
