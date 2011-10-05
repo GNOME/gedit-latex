@@ -1,4 +1,4 @@
-SUBDIRS = base bibtex latex preferences tools util
+SUBDIRS = bibtex latex preferences tools util
 
 plugindir = $(libdir)/gedit/plugins/latex
 
@@ -23,7 +23,8 @@ plugin_PYTHON = \
 	templates.py \
 	util.py \
 	views.py \
-	windowactivatable.py
+	windowactivatable.py \
+	windowcontext.py
 
 DISTCLEANFILES = \
 	gldefs.py

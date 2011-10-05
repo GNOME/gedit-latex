@@ -77,7 +77,6 @@ data/org.gnome.gedit.plugins.latex.gschema.xml.in
 latex.plugin.desktop.in
 latex/gldefs.py
 latex/Makefile
-latex/base/Makefile
 latex/bibtex/Makefile
 latex/latex/Makefile
 latex/preferences/Makefile

@@ -36,7 +36,7 @@ from .file import File
 from .panelview import PanelView
 from .config import EDITOR_SCOPE_VIEWS, ACTIONS
 from .tabdecorator import GeditTabDecorator
-from .base import WindowContext
+from .windowcontext import WindowContext
 
 LOG = logging.getLogger(__name__)
 
