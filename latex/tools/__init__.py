@@ -30,7 +30,7 @@ import logging
 from gi.repository import Gtk, Gedit
 
 from ..resources import Resources
-from ..base.action import Action
+from ..action import Action
 
 LOG = logging.getLogger(__name__)
 

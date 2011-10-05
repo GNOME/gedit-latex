@@ -21,8 +21,8 @@
 from uuid import uuid1
 from gi.repository import Gtk, GdkPixbuf
 
-from ..file import File
-from ..resources import Resources
+from .file import File
+from .resources import Resources
 
 class GeditLaTeXPlugin_MenuToolAction(Gtk.Action):
     __gtype_name__ = "GeditLaTeXPlugin_MenuToolAction"

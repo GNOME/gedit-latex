@@ -25,7 +25,7 @@ latex.actions
 from logging import getLogger
 from gi.repository import Gtk
 
-from ..base.action import Action
+from ..action import Action
 from dialogs import InsertBibTeXEntryDialog
 
 
