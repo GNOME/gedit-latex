@@ -29,8 +29,8 @@ import logging
 
 from gi.repository import Gedit, Gtk, Gio, GObject
 
-from config import EDITORS
-from ..file import File
+from .base.config import EDITORS
+from .file import File
 
 # TODO: maybe create ActionDelegate for GeditWindowDecorator
 

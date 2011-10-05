@@ -16,6 +16,7 @@ plugin_PYTHON = \
 	resources.py \
 	singleton.py \
 	snippetmanager.py \
+	tabdecorator.py \
 	template.py \
 	templates.py \
 	util.py \
