@@ -173,15 +173,15 @@ Street, Fifth Floor, Boston, MA  02110-1301, USA
 		<symbol icon="special/oint.png">\oint</symbol>
 	</group>
 	<group label="Accents">
-		<symbol icon="accents/dot.png">\dot{$_}</symbol>
-		<symbol icon="accents/ddot.png">\ddot{$_}</symbol>
-		<symbol icon="accents/bar.png">\bar{$_}</symbol>
-		<symbol icon="accents/tilde.png">\tilde{$_}</symbol>
-		<symbol icon="accents/vec.png">\vec{$_}</symbol>
-		<symbol icon="accents/hat.png">\hat{$_}</symbol>
-		<symbol icon="accents/acute.png">\acute{$_}</symbol>
-		<symbol icon="accents/grave.png">\grave{$_}</symbol>
-		<symbol icon="accents/breve.png">\breve{$_}</symbol>
-		<symbol icon="accents/check.png">\check{$_}</symbol>
+		<symbol icon="accents/dot.png">\dot{$0}</symbol>
+		<symbol icon="accents/ddot.png">\ddot{$0}</symbol>
+		<symbol icon="accents/bar.png">\bar{$0}</symbol>
+		<symbol icon="accents/tilde.png">\tilde{$0}</symbol>
+		<symbol icon="accents/vec.png">\vec{$0}</symbol>
+		<symbol icon="accents/hat.png">\hat{$0}</symbol>
+		<symbol icon="accents/acute.png">\acute{$0}</symbol>
+		<symbol icon="accents/grave.png">\grave{$0}</symbol>
+		<symbol icon="accents/breve.png">\breve{$0}</symbol>
+		<symbol icon="accents/check.png">\check{$0}</symbol>
 	</group>
 </symbols>
