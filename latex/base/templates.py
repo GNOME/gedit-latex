@@ -264,7 +264,7 @@ class TemplateCompiler(object):
 
 
 from gi.repository import Gdk
-from . import Template
+from ..template import Template
 from ..preferences import Preferences
 
 

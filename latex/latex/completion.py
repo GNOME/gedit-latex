@@ -28,7 +28,7 @@ from logging import getLogger
 from gi.repository import Gdk, GdkPixbuf
 
 from ..resources import Resources
-from ..base import Template
+from ..template import Template
 from ..base.completion import ICompletionHandler, Proposal
 
 

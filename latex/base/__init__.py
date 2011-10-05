@@ -32,20 +32,6 @@ from ..file import File
 
 LOG = logging.getLogger(__name__)
 
-class Template(object):
-    """
-    This one is exposed and should be used by the 'real' plugin code
-    """
-    def __init__(self, expression):
-        self._expression = expression
-
-    @property
-    def expression(self):
-        return self._expression
-
-    def __str__(self):
-        return self._expression
-
 
 class WindowContext(object):
     """

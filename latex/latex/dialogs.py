@@ -34,7 +34,7 @@ from ..preferences import Preferences
 from ..util import GladeInterface
 from ..resources import Resources
 from ..file import File, Folder
-from ..base import Template
+from ..template import Template
 
 from .preview import PreviewRenderer, ImageToolGenerator
 from .environment import Environment

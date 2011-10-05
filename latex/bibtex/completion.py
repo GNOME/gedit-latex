@@ -28,7 +28,7 @@ from gi.repository import Gdk, GdkPixbuf
 
 from ..preferences import Preferences
 from ..resources import Resources
-from ..base import Template
+from ..template import Template
 from ..base.completion import ICompletionHandler, Proposal
 from ..issues import MockIssueHandler
 from model import BibTeXModel

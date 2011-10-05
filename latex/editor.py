@@ -27,7 +27,7 @@ from gi.repository import GObject, Gtk, Gdk
 
 from .base.completion import CompletionDistributor
 from .base.templates import TemplateDelegate
-from .base import Template
+from .template import Template
 
 LOG = logging.getLogger(__name__)
 

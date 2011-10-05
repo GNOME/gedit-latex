@@ -25,7 +25,7 @@ from gi.repository import Gtk
 
 from logging import getLogger
 
-from ..base import Template
+from ..template import Template
 from ..base.action import Action, IconAction
 from ..preferences import Preferences
 from ..issues import MockIssueHandler

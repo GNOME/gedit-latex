@@ -15,6 +15,7 @@ plugin_PYTHON = \
 	resources.py \
 	singleton.py \
 	snippetmanager.py \
+	template.py \
 	util.py \
 	views.py \
 	windowactivatable.py
