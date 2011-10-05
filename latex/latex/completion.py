@@ -29,7 +29,7 @@ from gi.repository import Gdk, GdkPixbuf
 
 from ..resources import Resources
 from ..template import Template
-from ..base.completion import ICompletionHandler, Proposal
+from ..completion import ICompletionHandler, Proposal
 
 
 class LaTeXCommandProposal(Proposal):

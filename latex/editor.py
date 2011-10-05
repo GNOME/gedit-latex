@@ -25,7 +25,7 @@ import uuid
 
 from gi.repository import GObject, Gtk, Gdk
 
-from .base.completion import CompletionDistributor
+from .completion import CompletionDistributor
 from .templates import TemplateDelegate
 from .template import Template
 

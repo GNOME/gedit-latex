@@ -2,7 +2,6 @@ plugindir = $(libdir)/gedit/plugins/latex/base
 
 plugin_PYTHON = \
 	action.py \
-	completion.py \
 	config.py \
 	__init__.py \
 	tabdecorator.py

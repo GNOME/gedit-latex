@@ -25,7 +25,7 @@ base.completion
 from logging import getLogger
 from gi.repository import GObject, Gtk, Gdk, GdkPixbuf
 
-from ..preferences import Preferences
+from .preferences import Preferences
 
 
 class ICompletionHandler(object):
