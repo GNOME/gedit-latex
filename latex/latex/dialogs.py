@@ -34,7 +34,6 @@ from ..preferences import Preferences
 from ..util import GladeInterface
 from ..resources import Resources
 from ..file import File, Folder
-from ..template import Template
 
 from .preview import PreviewRenderer, ImageToolGenerator
 from .environment import Environment
@@ -862,7 +861,7 @@ class InsertTableDialog(GladeInterface):
                 s = "\\begin{%s}%s\n\\end{%s}" % (environ, self.__build_table_body(rows, cols, "\t\t"), environ)
                 packages = ["amsmath"]
 
-            source = LaTeXSource(Template(s), packages)
+            source = LaTeXSource(s, packages)
 
         dialog.hide()
 
@@ -967,9 +966,9 @@ class InsertListingDialog(GladeInterface):
                 source = "%s\\lstinputlisting%s{%s}" % (lstset, options, relative_filename)
 
             else:
-                source = "%s\\begin{lstlisting}%s\n\t$_\n\\end{lstlisting}" % (lstset, options)
+                source = "%s\\begin{lstlisting}%s\n\t$0\n\\end{lstlisting}" % (lstset, options)
 
-            source = LaTeXSource(Template(source), ["listings"])
+            source = LaTeXSource(source, ["listings"])
 
         dialog.hide()
 

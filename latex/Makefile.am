@@ -19,8 +19,6 @@ plugin_PYTHON = \
 	singleton.py \
 	snippetmanager.py \
 	tabdecorator.py \
-	template.py \
-	templates.py \
 	util.py \
 	views.py \
 	windowactivatable.py \
