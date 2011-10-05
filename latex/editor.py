@@ -28,6 +28,7 @@ from gi.repository import GObject, Gtk, Gdk
 from .completion import CompletionDistributor
 from .templates import TemplateDelegate
 from .template import Template
+from .snippetmanager import SnippetManager
 
 LOG = logging.getLogger(__name__)
 
@@ -317,7 +318,7 @@ class Editor(object):
         if type(source) is Template:
             self._template_delegate.insert(source)
         else:
-            self._text_buffer.insert_at_cursor(str(source))
+            SnippetManager().insert_at_cursor(self, str(source))
 
         # grab the focus again (necessary e.g. after symbol insert)
         self._text_view.grab_focus()

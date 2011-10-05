@@ -28,7 +28,6 @@ from gi.repository import Gdk, GdkPixbuf
 
 from ..preferences import Preferences
 from ..resources import Resources
-from ..template import Template
 from ..completion import ICompletionHandler, Proposal
 from ..issues import MockIssueHandler
 from model import BibTeXModel
@@ -55,16 +54,16 @@ class BibTeXEntryTypeProposal(Proposal):
 
     def _generate(self):
         """
-        Generate Template and details string
+        Generate snippet and details string
         """
-        template = "@%s{${Identifier}" % self._type.name
+        snippet = "@%s{${Identifier}" % self._type.name
         self._details = "@%s{<span color='%s'>Identifier</span>" % (self._type.name, self._color)
         for field in self._type.required_fields:
-            template += ",\n\t%s = {${%s}}" % (field.name, field.label)
+            snippet += ",\n\t%s = {${%s}}" % (field.name, field.label)
             self._details += ",\n\t%s = {<span color='%s'>%s</span>}" % (field.name, self._color, field.label)
-        template += "\n}"
+        snippet += "\n}"
         self._details += "\n}"
-        self._source = Template(template)
+        self._source = snippet
 
     @property
     def source(self):

@@ -28,7 +28,6 @@ from logging import getLogger
 from gi.repository import Gdk, GdkPixbuf
 
 from ..resources import Resources
-from ..template import Template
 from ..completion import ICompletionHandler, Proposal
 
 
@@ -37,15 +36,15 @@ class LaTeXCommandProposal(Proposal):
     A proposal inserting a Template when activated
     """
 
-    def __init__(self, overlap, template, label):
-        self._template = template
+    def __init__(self, overlap, snippet, label):
+        self._snippet = snippet
         self._label = label
         self._overlap = overlap
         self._icon = GdkPixbuf.Pixbuf.new_from_file(Resources().get_icon("i_command.png"))
 
     @property
     def source(self):
-        return self._template
+        return self._snippet
 
     @property
     def label(self):
@@ -247,15 +246,15 @@ class PrefixModelParser(object):
 
         for command in commands:
             label = command.name
-            templateSource = "\\" + command.name
+            snippet = "\\" + command.name
 
             for argument in command.children:
                 if type(argument) is MandatoryArgument:
                     label += "{<span color='%s'>%s</span>}" % (self.__light_foreground, argument.label)
-                    templateSource += "{${%s}}" % argument.label
+                    snippet += "{${%s}}" % argument.label
                 elif type(argument) is OptionalArgument:
                     label += "[<span color='%s'>%s</span>]" % (self.__light_foreground, argument.label)
-                    templateSource += "[${%s}]" % argument.label
+                    snippet += "[${%s}]" % argument.label
 
             if command.package:
                 label += " <small><b>%s</b></small>" % command.package
@@ -266,7 +265,7 @@ class PrefixModelParser(object):
                 packages = []
             else:
                 packages = [command.package]
-            proposal = LaTeXCommandProposal(overlap, LaTeXSource(Template(templateSource), packages), label)
+            proposal = LaTeXCommandProposal(overlap, LaTeXSource(snippet, packages), label)
             proposals.append(proposal)
 
         return proposals
