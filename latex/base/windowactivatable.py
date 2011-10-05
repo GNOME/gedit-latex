@@ -414,6 +414,11 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
             except KeyError:
                 pass
 
+        if extension:
+            self.show_toolbar()
+        else:
+            self.hide_toolbar()
+
         #
         # adjust editor-scope views
         #
@@ -522,7 +527,7 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
         self._active_tab_decorator = decorator
 
         # adjust actions and views
-        GObject.idle_add(self.adjust,decorator)
+        GObject.idle_add(self.adjust, decorator)
 
     def _create_tab_decorator(self, tab, init=False):
         """
