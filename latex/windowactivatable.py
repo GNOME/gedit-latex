@@ -34,7 +34,7 @@ from .tools import ToolAction
 from .resources import Resources
 from .file import File
 from .panelview import PanelView
-from .base.config import EDITOR_SCOPE_VIEWS, ACTIONS
+from .config import EDITOR_SCOPE_VIEWS, ACTIONS
 from .tabdecorator import GeditTabDecorator
 from .base import WindowContext
 

@@ -23,7 +23,7 @@ base.config
 """
 
 # actions
-from ..latex.actions import LaTeXMenuAction, LaTeXNewAction, LaTeXChooseMasterAction, \
+from .latex.actions import LaTeXMenuAction, LaTeXNewAction, LaTeXChooseMasterAction, \
         LaTeXListMenuAction, LaTeXListActionDefault, \
         LaTeXItemizeAction, LaTeXEnumerateAction, LaTeXFontFamilyAction, LaTeXFontFamilyMenuAction, LaTeXBoldAction, \
         LaTeXItalicAction, LaTeXEmphasizeAction, LaTeXDescriptionAction, LaTeXStructureMenuAction, LaTeXPartAction, LaTeXChapterAction, \
@@ -36,7 +36,7 @@ from ..latex.actions import LaTeXMenuAction, LaTeXNewAction, LaTeXChooseMasterAc
         LaTeXCaligraphyAction, LaTeXFrakturAction, LaTeXBuildImageAction, LaTeXSaveAsTemplateAction, \
         LaTeXBuildAction, LaTeXBuildMenuAction
 
-from ..bibtex.actions import BibTeXMenuAction, BibTeXNewEntryAction
+from .bibtex.actions import BibTeXMenuAction, BibTeXNewEntryAction
 
 ACTIONS = [LaTeXMenuAction, LaTeXNewAction, LaTeXChooseMasterAction,
         LaTeXListMenuAction, LaTeXListActionDefault,
@@ -53,12 +53,12 @@ ACTIONS = [LaTeXMenuAction, LaTeXNewAction, LaTeXChooseMasterAction,
         BibTeXMenuAction, BibTeXNewEntryAction]
 
 # views
-from ..views import IssueView
-from ..latex.views import LaTeXSymbolMapView, LaTeXOutlineView
-from ..bibtex.views import BibTeXOutlineView
-from ..tools.views import ToolView
+from .views import IssueView
+from .latex.views import LaTeXSymbolMapView, LaTeXOutlineView
+from .bibtex.views import BibTeXOutlineView
+from .tools.views import ToolView
 
-from ..preferences import Preferences
+from .preferences import Preferences
 LATEX_EXTENSIONS = Preferences().get("latex-extensions").split(",")
 BIBTEX_EXTENSIONS = [".bib"]
 
@@ -72,8 +72,8 @@ for e in BIBTEX_EXTENSIONS:
 
 
 # editors
-from ..latex.editor import LaTeXEditor
-from ..bibtex.editor import BibTeXEditor
+from .latex.editor import LaTeXEditor
+from .bibtex.editor import BibTeXEditor
 
 EDITORS = [LaTeXEditor, BibTeXEditor]
 
