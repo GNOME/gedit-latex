@@ -43,15 +43,15 @@ class WindowContext(object):
     This also creates and destroys the View instances.
     """
 
-    def __init__(self, window_decorator, editor_scope_view_classes):
+    def __init__(self, window_decorator, editor_view_classes):
         """
         @param window_decorator: the GeditWindowDecorator this context corresponds to
-        @param editor_scope_view_classes: a map from extension to list of View classes
+        @param editor_view_classes: a map from extension to list of View classes
         """
         self._window_decorator = window_decorator
-        self._editor_scope_view_classes = editor_scope_view_classes
+        self._editor_view_classes = editor_view_classes
 
-        self.editor_scope_views = {}    # maps Editor object to a map from ID to View object
+        self.editor_views = {}    # maps Editor object to a map from ID to View object
 
     def create_editor_views(self, editor, file):
         """
@@ -60,11 +60,11 @@ class WindowContext(object):
 
         Called by Editor base class
         """
-        self.editor_scope_views[editor] = {}
+        self.editor_views[editor] = {}
         try:
-            for id, clazz in self._editor_scope_view_classes[file.extension].iteritems():
+            for id, clazz in self._editor_view_classes[file.extension].iteritems():
                 # create View instance and add it to the map
-                self.editor_scope_views[editor][id] = clazz(self, editor)
+                self.editor_views[editor][id] = clazz(self, editor)
 
                 LOG.debug("Created view " + id)
         except KeyError:
@@ -97,11 +97,11 @@ class WindowContext(object):
         Return a View object
         """
         try:
-            return self.editor_scope_views[editor][view_id]
+            return self.editor_views[editor][view_id]
         except KeyError:
             LOG.critical("Unknown view id: %s (we have: %s)" % (
                     view_id,
-                    ",".join(self.editor_scope_views.get(editor,{}).keys())))
+                    ",".join(self.editor_views.get(editor,{}).keys())))
 
     def set_action_enabled(self, action_id, enabled):
         """

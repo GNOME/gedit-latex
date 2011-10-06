@@ -34,7 +34,7 @@ from .tools import ToolAction
 from .resources import Resources
 from .file import File
 from .panelview import PanelView
-from .config import EDITOR_SCOPE_VIEWS, ACTIONS
+from .config import EDITOR_VIEWS, ACTIONS
 from .tabdecorator import GeditTabDecorator
 from .windowcontext import WindowContext
 
@@ -82,7 +82,7 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
         #
         # initialize context object
         #
-        self._window_context = WindowContext(self, EDITOR_SCOPE_VIEWS)
+        self._window_context = WindowContext(self, EDITOR_VIEWS)
 
         # the order is important!
         self._init_actions()
@@ -154,7 +154,7 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
         self._selected_bottom_views = {}
         self._selected_side_views = {}
 
-        # currently hooked editor-scope views
+        # currently hooked editor views
         self._side_views = []
         self._bottom_views = []
 
@@ -421,7 +421,7 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
             self.hide_toolbar()
 
         #
-        # adjust editor-scope views
+        # adjust editor views
         #
 
         # determine set of side/bottom views BEFORE
@@ -435,7 +435,7 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
         after_bottom_views = set()
 
         if tab_decorator.editor:
-            editor_views = self._window_context.editor_scope_views[tab_decorator.editor]
+            editor_views = self._window_context.editor_views[tab_decorator.editor]
             for id, view in editor_views.iteritems():
                 if isinstance(view, PanelView):
                     if view.get_orientation() == Gtk.Orientation.HORIZONTAL:

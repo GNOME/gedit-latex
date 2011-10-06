@@ -580,9 +580,9 @@ class Editor(object):
             table.remove(tag)
 
         # destroy the views associated to this editor
-        for i in self._window_context.editor_scope_views[self]:
-            self._window_context.editor_scope_views[self][i].destroy()
-        del self._window_context.editor_scope_views[self]
+        for i in self._window_context.editor_views[self]:
+            self._window_context.editor_views[self][i].destroy()
+        del self._window_context.editor_views[self]
 
         # unreference the tab decorator
         del self._tab_decorator

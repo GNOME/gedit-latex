@@ -62,13 +62,13 @@ from .preferences import Preferences
 LATEX_EXTENSIONS = Preferences().get("latex-extensions").split(",")
 BIBTEX_EXTENSIONS = [".bib"]
 
-EDITOR_SCOPE_VIEWS = {}
+EDITOR_VIEWS = {}
 
 for e in LATEX_EXTENSIONS:
-    EDITOR_SCOPE_VIEWS[e] = {"IssueView": IssueView, "LaTeXOutlineView": LaTeXOutlineView, "LaTeXSymbolMapView": LaTeXSymbolMapView, "ToolView": ToolView}
+    EDITOR_VIEWS[e] = {"IssueView": IssueView, "LaTeXOutlineView": LaTeXOutlineView, "LaTeXSymbolMapView": LaTeXSymbolMapView, "ToolView": ToolView}
 
 for e in BIBTEX_EXTENSIONS:
-    EDITOR_SCOPE_VIEWS[e] = {"IssueView": IssueView, "BibTeXOutlineView": BibTeXOutlineView, "ToolView": ToolView}
+    EDITOR_VIEWS[e] = {"IssueView": IssueView, "BibTeXOutlineView": BibTeXOutlineView, "ToolView": ToolView}
 
 
 # editors
