@@ -14,6 +14,7 @@ data/org.gnome.gedit.plugins.latex.gschema.xml.in.in
 latex.plugin.desktop.in.in
 latex/bibtex/actions.py
 latex/bibtex/views.py
+latex/latex/actions.py
 latex/latex/views.py
 latex/outline.py
 latex/tools/views.py

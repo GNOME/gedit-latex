@@ -29,6 +29,7 @@ from ..action import Action, IconAction
 from ..preferences import Preferences
 from ..issues import MockIssueHandler
 from ..tools import ToolRunner
+from ..gldefs import _
 from .editor import LaTeXEditor
 from .parser import LaTeXParser, Node
 from .dialogs import UseBibliographyDialog, InsertGraphicsDialog, InsertTableDialog, \
@@ -59,7 +60,7 @@ class LaTeXTemplateAction(LaTeXIconAction):
 
 
 class LaTeXMenuAction(LaTeXAction):
-    label = "LaTeX"
+    label = _("LaTeX")
     stock_id = None
     accelerator = None
     tooltip = None
@@ -69,10 +70,10 @@ class LaTeXMenuAction(LaTeXAction):
 
 
 class LaTeXNewAction(Action):
-    label = "New LaTeX Document..."
+    label = _("New LaTeX Document...")
     stock_id = Gtk.STOCK_NEW
     accelerator = "<Ctrl><Alt>N"
-    tooltip = "Create a new LaTeX document"
+    tooltip = _("Create a new LaTeX document")
 
     dialog = None
 
@@ -91,7 +92,7 @@ class LaTeXNewAction(Action):
 
 
 class LaTeXChooseMasterAction(LaTeXAction):
-    label = "Choose Master Document..."
+    label = _("Choose Master Document...")
     stock_id = None
     accelerator = None
     tooltip = None
@@ -103,9 +104,9 @@ class LaTeXChooseMasterAction(LaTeXAction):
         editor.choose_master_file()
 
 class LaTeXCloseEnvironmentAction(LaTeXIconAction):
-    label = "Close Nearest Environment"
+    label = _("Close Nearest Environment")
     accelerator = "<Ctrl><Alt>E"
-    tooltip = "Close the nearest TeX environment at left of the cursor"
+    tooltip = _("Close the nearest TeX environment at left of the cursor")
     icon_name = "close_env"
 
     def activate(self, context):
@@ -153,9 +154,9 @@ class LaTeXCloseEnvironmentAction(LaTeXIconAction):
 
 
 class LaTeXUseBibliographyAction(LaTeXIconAction):
-    label = "Use Bibliography..."
+    label = _("Use Bibliography...")
     accelerator = None
-    tooltip = "Use Bibliography"
+    tooltip = _("Use Bibliography")
     icon_name = "bib"
 
     dialog = None
@@ -175,9 +176,9 @@ class LaTeXUseBibliographyAction(LaTeXIconAction):
 class LaTeXFontFamilyAction(LaTeXIconAction):
     menu_tool_action = True
 
-    label = "Font Family"
+    label = _("Font Family")
     accelerator = None
-    tooltip = "Font Family"
+    tooltip = _("Font Family")
     icon_name = "bf"
 
     def activate(self, context):
@@ -185,176 +186,176 @@ class LaTeXFontFamilyAction(LaTeXIconAction):
 
 
 class LaTeXFontFamilyMenuAction(LaTeXMenuAction):
-    label = "Font Family"
-    tooltip = "Font Family"
+    label = _("Font Family")
+    tooltip = _("Font Family")
 
 
 class LaTeXBoldAction(LaTeXTemplateAction):
-    label = "Bold"
-    tooltip = "Bold"
+    label = _("Bold")
+    tooltip = _("Bold")
     icon_name = "bf"
     snippet_source = "\\textbf{$0}"
 
 
 class LaTeXItalicAction(LaTeXTemplateAction):
-    label = "Italic"
-    tooltip = "Italic"
+    label = _("Italic")
+    tooltip = _("Italic")
     icon_name = "it"
     snippet_source = "\\textit{$0}"
 
 
 class LaTeXEmphasizeAction(LaTeXTemplateAction):
-    label = "Emphasize"
-    tooltip = "Emphasize"
+    label = _("Emphasize")
+    tooltip = _("Emphasize")
     icon_name = "it"
     snippet_source = "\\emph{$0}"
 
 
 class LaTeXUnderlineAction(LaTeXTemplateAction):
-    label = "Underline"
-    tooltip = "Underline"
+    label = _("Underline")
+    tooltip = _("Underline")
     icon_name = "underline"
     snippet_source = "\\underline{$0}"
 
 
 class LaTeXSmallCapitalsAction(LaTeXTemplateAction):
-    label = "Small Capitals"
-    tooltip = "Small Capitals"
+    label = _("Small Capitals")
+    tooltip = _("Small Capitals")
     icon_name = "sc"
     snippet_source = "\\textsc{$0}"
 
 
 class LaTeXRomanAction(LaTeXTemplateAction):
-    label = "Roman"
-    tooltip = "Roman"
+    label = _("Roman")
+    tooltip = _("Roman")
     icon_name = "rm"
     snippet_source = "\\textrm{$0}"
 
 
 class LaTeXSansSerifAction(LaTeXTemplateAction):
-    label = "Sans Serif"
-    tooltip = "Sans Serif"
+    label = _("Sans Serif")
+    tooltip = _("Sans Serif")
     icon_name = "sf"
     snippet_source = "\\textsf{$0}"
 
 
 class LaTeXTypewriterAction(LaTeXTemplateAction):
-    label = "Typewriter"
-    tooltip = "Typewriter"
+    label = _("Typewriter")
+    tooltip = _("Typewriter")
     icon_name = "tt"
     snippet_source = "\\texttt{$0}"
 
 
 class LaTeXBlackboardBoldAction(LaTeXTemplateAction):
-    label = "Blackboard Bold"
-    tooltip = "Blackboard Bold"
+    label = _("Blackboard Bold")
+    tooltip = _("Blackboard Bold")
     icon_name = "bb"
     packages = ["amsmath"]
     snippet_source = "\ensuremath{\mathbb{$0}}"
 
 
 class LaTeXCaligraphyAction(LaTeXTemplateAction):
-    label = "Caligraphy"
-    tooltip = "Caligraphy"
+    label = _("Caligraphy")
+    tooltip = _("Caligraphy")
     icon_name = "cal"
     snippet_source = "\ensuremath{\mathcal{$0}}"
 
 
 class LaTeXFrakturAction(LaTeXTemplateAction):
-    label = "Fraktur"
-    tooltip = "Fraktur"
+    label = _("Fraktur")
+    tooltip = _("Fraktur")
     icon_name = "frak"
     packages = ["amsmath"]
     snippet_source = "\ensuremath{\mathfrak{$0}}"
 
 
 class LaTeXListMenuAction(LaTeXMenuAction):
-    label = "List"
-    tooltip = "List"
+    label = _("List")
+    tooltip = _("List")
 
 
 class LaTeXItemizeAction(LaTeXTemplateAction):
-    label = "Itemize"
-    tooltip = "Itemize"
+    label = _("Itemize")
+    tooltip = _("Itemize")
     icon_name = "itemize"
     snippet_source = "\\begin{itemize}\n\t\\item $0\n\\end{itemize}"
 
 
 class LaTeXListActionDefault(LaTeXItemizeAction):
     menu_tool_action = True
-    label = "List"
-    tooltip = "List"
+    label = _("List")
+    tooltip = _("List")
 
 
 class LaTeXEnumerateAction(LaTeXTemplateAction):
-    label = "Enumerate"
-    tooltip = "Enumerate"
+    label = _("Enumerate")
+    tooltip = _("Enumerate")
     icon_name = "enumerate"
     snippet_source = "\\begin{enumerate}\n\t\\item $0\n\\end{enumerate}"
 
 
 class LaTeXDescriptionAction(LaTeXTemplateAction):
-    label = "Description"
-    tooltip = "Description"
+    label = _("Description")
+    tooltip = _("Description")
     icon_name = "description"
     snippet_source = "\\begin{description}\n\t\\item[$0]\n\\end{description}"
 
 class LaTeXStructureMenuAction(LaTeXMenuAction):
-    label = "Structure"
-    tooltip = "Structure"
+    label = _("Structure")
+    tooltip = _("Structure")
 
 class LaTeXPartAction(LaTeXTemplateAction):
-    label = "Part"
-    tooltip = "Part"
+    label = _("Part")
+    tooltip = _("Part")
     icon_name = "part"
     snippet_source = "\\part{$0}"
 
 
 class LaTeXChapterAction(LaTeXTemplateAction):
-    label = "Chapter"
-    tooltip = "Chapter"
+    label = _("Chapter")
+    tooltip = _("Chapter")
     icon_name = "chapter"
     snippet_source = "\\chapter{$0}"
 
 
 class LaTeXSectionAction(LaTeXTemplateAction):
-    label = "Section"
-    tooltip = "Section"
+    label = _("Section")
+    tooltip = _("Section")
     icon_name = "section"
     snippet_source = "\\section{$0}"
 
 
 class LaTeXStructureActionDefault(LaTeXSectionAction):
     menu_tool_action = True
-    label = "Structure"
-    tooltip = "Structure"
+    label = _("Structure")
+    tooltip = _("Structure")
 
 
 class LaTeXSubsectionAction(LaTeXTemplateAction):
-    label = "Subsection"
-    tooltip = "Subsection"
+    label = _("Subsection")
+    tooltip = _("Subsection")
     icon_name = "subsection"
     snippet_source = "\\subsection{$0}"
 
 
 class LaTeXParagraphAction(LaTeXTemplateAction):
-    label = "Paragraph"
-    tooltip = "Paragraph"
+    label = _("Paragraph")
+    tooltip = _("Paragraph")
     icon_name = "paragraph"
     snippet_source = "\\paragraph{$0}"
 
 
 class LaTeXSubparagraphAction(LaTeXTemplateAction):
-    label = "Subparagraph"
-    tooltip = "Subparagraph"
+    label = _("Subparagraph")
+    tooltip = _("Subparagraph")
     icon_name = "paragraph"
     snippet_source = "\\subparagraph{$0}"
 
 
 class LaTeXGraphicsAction(LaTeXIconAction):
-    label = "Insert Graphics"
+    label = _("Insert Graphics")
     accelerator = None
-    tooltip = "Insert Graphics"
+    tooltip = _("Insert Graphics")
     icon_name = "graphics"
 
     dialog = None
@@ -368,9 +369,9 @@ class LaTeXGraphicsAction(LaTeXIconAction):
 
 
 class LaTeXTableAction(LaTeXIconAction):
-    label = "Insert Table or Matrix"
+    label = _("Insert Table or Matrix")
     accelerator = None
-    tooltip = "Insert Table or Matrix"
+    tooltip = _("Insert Table or Matrix")
     icon_name = "table"
 
     dialog = None
@@ -384,9 +385,9 @@ class LaTeXTableAction(LaTeXIconAction):
 
 
 class LaTeXListingAction(LaTeXIconAction):
-    label = "Insert Source Code Listing"
+    label = _("Insert Source Code Listing")
     accelerator = None
-    tooltip = "Insert Source Code Listing"
+    tooltip = _("Insert Source Code Listing")
     icon_name = "listing"
 
     dialog = None
@@ -401,9 +402,9 @@ class LaTeXListingAction(LaTeXIconAction):
 class LaTeXBuildAction(LaTeXIconAction):
     menu_tool_action = True
 
-    label = "Build"
+    label = _("Build")
     accelerator = None
-    tooltip = "Build"
+    tooltip = _("Build")
     stock_id = Gtk.STOCK_CONVERT
 
     def activate(self, context):
@@ -411,14 +412,14 @@ class LaTeXBuildAction(LaTeXIconAction):
 
 
 class LaTeXBuildMenuAction(LaTeXMenuAction):
-    label = "Build"
-    tooltip = "Build"
+    label = _("Build")
+    tooltip = _("Build")
 
 
 class LaTeXBuildImageAction(LaTeXIconAction):
-    label = "Build Image"
+    label = _("Build Image")
     accelerator = None
-    tooltip = "Build an image from the LaTeX document"
+    tooltip = _("Build an image from the LaTeX document")
     icon_name = "build-image"
 
     dialog = None
@@ -436,65 +437,65 @@ class LaTeXBuildImageAction(LaTeXIconAction):
 
 
 class LaTeXJustifyMenuAction(LaTeXMenuAction):
-    label = "Justify"
-    tooltip = "Justify"
+    label = _("Justify")
+    tooltip = _("Justify")
 
 
 class LaTeXJustifyLeftAction(LaTeXTemplateAction):
-    label = "Justify Left"
-    tooltip = "Justify Left"
+    label = _("Justify Left")
+    tooltip = _("Justify Left")
     icon_name = "justify-left"
     snippet_source = "\\begin{flushleft}$0\\end{flushleft}"
 
 
 class LaTeXJustifyCenterAction(LaTeXTemplateAction):
-    label = "Justify Center"
-    tooltip = "Justify Center"
+    label = _("Justify Center")
+    tooltip = _("Justify Center")
     icon_name = "justify-center"
     snippet_source = "\\begin{center}$0\\end{center}"
 
 
 class LaTeXJustifyActionDefault(LaTeXJustifyCenterAction):
     menu_tool_action = True
-    label = "Justify"
-    tooltip = "Justify"
+    label = _("Justify")
+    tooltip = _("Justify")
 
 
 class LaTeXJustifyRightAction(LaTeXTemplateAction):
-    label = "Justify Right"
-    tooltip = "Justify Right"
+    label = _("Justify Right")
+    tooltip = _("Justify Right")
     icon_name = "justify-right"
     snippet_source = "\\begin{flushright}$0\\end{flushright}"
 
 
 class LaTeXMathMenuAction(LaTeXMenuAction):
-    label = "Math"
-    tooltip = "Math"
+    label = _("Math")
+    tooltip = _("Math")
 
 
 class LaTeXMathAction(LaTeXTemplateAction):
-    label = "Mathematical Environment"
-    tooltip = "Mathematical Environment"
+    label = _("Mathematical Environment")
+    tooltip = _("Mathematical Environment")
     icon_name = "math"
     snippet_source = "$ $0 $"
 
 
 class LaTeXMathActionDefault(LaTeXMathAction):
     menu_tool_action = True
-    label = "Math"
-    tooltip = "Math"
+    label = _("Math")
+    tooltip = _("Math")
 
 
 class LaTeXDisplayMathAction(LaTeXTemplateAction):
-    label = "Centered Formula"
-    tooltip = "Centered Formula"
+    label = _("Centered Formula")
+    tooltip = _("Centered Formula")
     icon_name = "displaymath"
     snippet_source = "\\[ $0 \\]"
 
 
 class LaTeXEquationAction(LaTeXTemplateAction):
-    label = "Numbered Equation"
-    tooltip = "Numbered Equation"
+    label = _("Numbered Equation")
+    tooltip = _("Numbered Equation")
     icon_name = "equation"
     snippet_source = """\\begin{equation}
     $0
@@ -502,8 +503,8 @@ class LaTeXEquationAction(LaTeXTemplateAction):
 
 
 class LaTeXUnEqnArrayAction(LaTeXTemplateAction):
-    label = "Array of Equations"
-    tooltip = "Array of Equations"
+    label = _("Array of Equations")
+    tooltip = _("Array of Equations")
     icon_name = "uneqnarray"
     packages = ["amsmath"]
     snippet_source = """\\begin{align*}
@@ -512,8 +513,8 @@ class LaTeXUnEqnArrayAction(LaTeXTemplateAction):
 
 
 class LaTeXEqnArrayAction(LaTeXTemplateAction):
-    label = "Numbered Array of Equations"
-    tooltip = "Numbered Array of Equations"
+    label = _("Numbered Array of Equations")
+    tooltip = _("Numbered Array of Equations")
     icon_name = "eqnarray"
     packages = ["amsmath"]
     snippet_source = """\\begin{align}
@@ -522,9 +523,9 @@ class LaTeXEqnArrayAction(LaTeXTemplateAction):
 
 
 class LaTeXSaveAsTemplateAction(LaTeXAction):
-    label = "Save As Template..."
+    label = _("Save As Template...")
     accelerator = None
-    tooltip = "Save the current document as a template"
+    tooltip = _("Save the current document as a template")
     stock_id = Gtk.STOCK_SAVE_AS
 
     def activate(self, context):
