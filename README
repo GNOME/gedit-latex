@@ -1,15 +1,15 @@
 General Information
 ===================
 
-This is version 3.2.0 of gedit-latex. gedit-latex is a plugin that provides
+This is version 3.3.1 of gedit-latex. gedit-latex is a plugin that provides
 features to ease the edition of latex documents.
 
 Installation
 ============
 
 Due to a limitation on reading Settings, the plugin currently must
-be installed in the same prefix as Gedit. For instance if you are using
-Gedit 3 from your distribution, you need to do
+be installed in the same prefix as gedit. For instance if you are using
+gedit 3 from your distribution, you need to do
 
 ./configure --prefix=/usr
 make
