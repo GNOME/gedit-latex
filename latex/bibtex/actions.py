@@ -26,12 +26,13 @@ from logging import getLogger
 from gi.repository import Gtk
 
 from ..action import Action
+from ..gldefs import _
 from dialogs import InsertBibTeXEntryDialog
 
 
 class BibTeXMenuAction(Action):
     extensions = [".bib"]
-    label = "BibTeX"
+    label = _("BibTeX")
     stock_id = None
     accelerator = None
     tooltip = None
@@ -42,10 +43,10 @@ class BibTeXMenuAction(Action):
 
 class BibTeXNewEntryAction(Action):
     extensions = [".bib"]
-    label = "New BibTeX Entry..."
+    label = _("New BibTeX Entry...")
     stock_id = None
     accelerator = None
-    tooltip = "Create a new BibTeX entry"
+    tooltip = _("Create a new BibTeX entry")
 
     _dialog = None
 
