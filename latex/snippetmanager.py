@@ -21,7 +21,7 @@ from gi.repository import Gtk, Gedit
 from singleton import Singleton
 import logging
 
-_log = logging.getLogger("snippet manager")
+LOG = logging.getLogger(__name__)
 
 
 class SnippetManager(Singleton):
@@ -37,12 +37,14 @@ class SnippetManager(Singleton):
             # FIXME: we miss the iter
             bus.send('/plugins/snippets', 'parse-and-activate',
                      trigger=text, view=view)
+            LOG.info("Inserted using snippets plugin")
         else:
             buf = view.get_buffer()
 
             buf.begin_user_action()
             buf.insert(iter, text)
             buf.end_user_action()
+            LOG.info("Inserted without snippets plugin")
 
     def insert_at_cursor(self, editor, text):
         buf = editor.tab_decorator.tab.get_document()
