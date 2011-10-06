@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: gedit-latex master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gedit&keywords=I18N+L10N&component=Plugins\n"
-"POT-Creation-Date: 2011-08-17 12:47+0000\n"
-"PO-Revision-Date: 2011-08-19 10:26+0100\n"
+"POT-Creation-Date: 2011-10-06 11:03+0000\n"
+"PO-Revision-Date: 2011-10-06 21:53+0100\n"
 "Last-Translator: Mario Blättermann <mariobl@freenet.de>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -36,7 +36,8 @@ msgstr "Autor"
 msgid "Book Title"
 msgstr "Buchtitel"
 
-#: ../data/bibtex.xml.h:4
+#: ../data/bibtex.xml.h:4 ../latex/latex/actions.py:315
+#: ../latex/latex/actions.py:316
 msgid "Chapter"
 msgstr "Kapitel"
 
@@ -282,7 +283,7 @@ msgstr "Maximal verarbeitete Dateigröße:"
 msgid "Miscellaneous"
 msgstr "Verschiedenes"
 
-#: ../data/ui/configure.ui.h:9
+#: ../data/ui/configure.ui.h:9 ../latex/tools/views.py:111
 msgid "Tools"
 msgstr "Werkzeuge"
 
@@ -376,7 +377,8 @@ msgstr "Gleit_objekt"
 msgid "Image Size"
 msgstr "Bildgröße"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:7
+#: ../data/ui/insert_graphics_dialog.ui.h:7 ../latex/latex/actions.py:356
+#: ../latex/latex/actions.py:358
 msgid "Insert Graphics"
 msgstr "Grafik einfügen"
 
@@ -417,7 +419,8 @@ msgstr "B_reite:"
 msgid "fig:"
 msgstr "Abb:"
 
-#: ../data/ui/insert_listing_dialog.ui.h:1
+#: ../data/ui/insert_listing_dialog.ui.h:1 ../latex/latex/actions.py:388
+#: ../latex/latex/actions.py:390
 msgid "Insert Source Code Listing"
 msgstr "Quellcode-Listing einfügen"
 
@@ -437,7 +440,8 @@ msgstr "_Dialekt:"
 msgid "C_olumns:"
 msgstr "_Spalten:"
 
-#: ../data/ui/insert_table_dialog.ui.h:2
+#: ../data/ui/insert_table_dialog.ui.h:2 ../latex/latex/actions.py:372
+#: ../latex/latex/actions.py:374
 msgid "Insert Table or Matrix"
 msgstr "Tabelle oder Matrix einfügen"
 
@@ -592,7 +596,7 @@ msgstr "Stilvorschau aktualisieren"
 msgid "Style Preview:"
 msgstr "Stilvorschau:"
 
-#: ../data/ui/use_bibliography_dialog.ui.h:4
+#: ../data/ui/use_bibliography_dialog.ui.h:4 ../latex/latex/actions.py:159
 msgid "Use Bibliography"
 msgstr "Bibliografie verwenden"
 
@@ -611,6 +615,290 @@ msgstr ""
 #: ../latex.plugin.desktop.in.in.h:2
 msgid "LaTeX Plugin"
 msgstr "LaTeX-Plugin"
+
+#: ../latex/bibtex/actions.py:35
+msgid "BibTeX"
+msgstr "BibTeX"
+
+#: ../latex/bibtex/actions.py:46
+msgid "New BibTeX Entry..."
+msgstr "Neuer BibTeX-Eintrag …"
+
+#: ../latex/bibtex/actions.py:49
+msgid "Create a new BibTeX entry"
+msgstr "Einen neuen BibTeX-Eintrag erstellen"
+
+#. add grouping controls to toolbar
+#: ../latex/bibtex/views.py:58
+msgid "No Grouping"
+msgstr "Keine Gruppierung"
+
+#: ../latex/bibtex/views.py:59
+msgid "Group by Type"
+msgstr "Nach Typ gruppieren"
+
+#: ../latex/bibtex/views.py:60
+msgid "Group by Author"
+msgstr "Nach Autor gruppieren"
+
+#: ../latex/bibtex/views.py:61
+msgid "Group by Year"
+msgstr "Nach Jahr gruppieren"
+
+#. group by year
+#: ../latex/bibtex/views.py:195
+msgid "<i>n/a</i>"
+msgstr "<i>n.v.</i>"
+
+#: ../latex/bibtex/views.py:235
+msgid "Unknown Author"
+msgstr "Unbekannter Autor"
+
+#: ../latex/latex/actions.py:63
+msgid "LaTeX"
+msgstr "LaTeX"
+
+#: ../latex/latex/actions.py:73
+msgid "New LaTeX Document..."
+msgstr "Neues LaTeX-Dokument …"
+
+#: ../latex/latex/actions.py:76
+msgid "Create a new LaTeX document"
+msgstr "Ein neues LaTeX-Dokument anlegen"
+
+#: ../latex/latex/actions.py:95
+msgid "Choose Master Document..."
+msgstr "Master-Dokument auswählen …"
+
+#: ../latex/latex/actions.py:107
+msgid "Close Nearest Environment"
+msgstr ""
+
+#: ../latex/latex/actions.py:109
+msgid "Close the nearest TeX environment at left of the cursor"
+msgstr ""
+
+#: ../latex/latex/actions.py:157
+msgid "Use Bibliography..."
+msgstr "Bibliografie verwenden …"
+
+#: ../latex/latex/actions.py:179 ../latex/latex/actions.py:181
+#: ../latex/latex/actions.py:189 ../latex/latex/actions.py:190
+msgid "Font Family"
+msgstr "Schriftfamilie"
+
+#: ../latex/latex/actions.py:194 ../latex/latex/actions.py:195
+msgid "Bold"
+msgstr "Fett"
+
+#: ../latex/latex/actions.py:201 ../latex/latex/actions.py:202
+msgid "Italic"
+msgstr "Kursiv"
+
+#: ../latex/latex/actions.py:208 ../latex/latex/actions.py:209
+msgid "Emphasize"
+msgstr ""
+
+#: ../latex/latex/actions.py:215 ../latex/latex/actions.py:216
+msgid "Underline"
+msgstr "Unterstrichen"
+
+#: ../latex/latex/actions.py:222 ../latex/latex/actions.py:223
+msgid "Small Capitals"
+msgstr "Kleine Großbuchstaben"
+
+#: ../latex/latex/actions.py:229 ../latex/latex/actions.py:230
+msgid "Roman"
+msgstr ""
+
+#: ../latex/latex/actions.py:236 ../latex/latex/actions.py:237
+msgid "Sans Serif"
+msgstr "Sans Serif"
+
+#: ../latex/latex/actions.py:243 ../latex/latex/actions.py:244
+msgid "Typewriter"
+msgstr "Schreibmaschine"
+
+#: ../latex/latex/actions.py:250 ../latex/latex/actions.py:251
+msgid "Blackboard Bold"
+msgstr ""
+
+#: ../latex/latex/actions.py:258 ../latex/latex/actions.py:259
+msgid "Caligraphy"
+msgstr "Kalligrafie"
+
+#: ../latex/latex/actions.py:265 ../latex/latex/actions.py:266
+msgid "Fraktur"
+msgstr "Fraktur"
+
+#: ../latex/latex/actions.py:273 ../latex/latex/actions.py:274
+#: ../latex/latex/actions.py:286 ../latex/latex/actions.py:287
+msgid "List"
+msgstr "Liste"
+
+#: ../latex/latex/actions.py:278 ../latex/latex/actions.py:279
+msgid "Itemize"
+msgstr ""
+
+#: ../latex/latex/actions.py:291 ../latex/latex/actions.py:292
+msgid "Enumerate"
+msgstr ""
+
+#: ../latex/latex/actions.py:298 ../latex/latex/actions.py:299
+msgid "Description"
+msgstr "Beschreibung"
+
+#: ../latex/latex/actions.py:304 ../latex/latex/actions.py:305
+#: ../latex/latex/actions.py:330 ../latex/latex/actions.py:331
+msgid "Structure"
+msgstr "Struktur"
+
+#: ../latex/latex/actions.py:308 ../latex/latex/actions.py:309
+msgid "Part"
+msgstr "Teil"
+
+#: ../latex/latex/actions.py:322 ../latex/latex/actions.py:323
+msgid "Section"
+msgstr "Abschnitt"
+
+#: ../latex/latex/actions.py:335 ../latex/latex/actions.py:336
+msgid "Subsection"
+msgstr "Unterabschnitt"
+
+#: ../latex/latex/actions.py:342 ../latex/latex/actions.py:343
+msgid "Paragraph"
+msgstr "Absatz"
+
+#: ../latex/latex/actions.py:349 ../latex/latex/actions.py:350
+msgid "Subparagraph"
+msgstr "Unterabsatz"
+
+#: ../latex/latex/actions.py:405 ../latex/latex/actions.py:407
+#: ../latex/latex/actions.py:415 ../latex/latex/actions.py:416
+msgid "Build"
+msgstr ""
+
+#: ../latex/latex/actions.py:420
+msgid "Build Image"
+msgstr ""
+
+#: ../latex/latex/actions.py:422
+msgid "Build an image from the LaTeX document"
+msgstr ""
+
+#: ../latex/latex/actions.py:440 ../latex/latex/actions.py:441
+#: ../latex/latex/actions.py:460 ../latex/latex/actions.py:461
+msgid "Justify"
+msgstr "Ausrichten"
+
+#: ../latex/latex/actions.py:445 ../latex/latex/actions.py:446
+msgid "Justify Left"
+msgstr "Links ausrichten"
+
+#: ../latex/latex/actions.py:452 ../latex/latex/actions.py:453
+msgid "Justify Center"
+msgstr "Mittig ausrichten"
+
+#: ../latex/latex/actions.py:465 ../latex/latex/actions.py:466
+msgid "Justify Right"
+msgstr "Rechts ausrichten"
+
+#: ../latex/latex/actions.py:472 ../latex/latex/actions.py:473
+#: ../latex/latex/actions.py:485 ../latex/latex/actions.py:486
+msgid "Math"
+msgstr "Mathematik"
+
+#: ../latex/latex/actions.py:477 ../latex/latex/actions.py:478
+msgid "Mathematical Environment"
+msgstr "Mathematische Umgebung"
+
+#: ../latex/latex/actions.py:490 ../latex/latex/actions.py:491
+msgid "Centered Formula"
+msgstr "Zentrierte Formel"
+
+#: ../latex/latex/actions.py:497 ../latex/latex/actions.py:498
+msgid "Numbered Equation"
+msgstr "Nummerierte Gleichung"
+
+#: ../latex/latex/actions.py:506 ../latex/latex/actions.py:507
+msgid "Array of Equations"
+msgstr "Matrix von Gleichungen"
+
+#: ../latex/latex/actions.py:516 ../latex/latex/actions.py:517
+msgid "Numbered Array of Equations"
+msgstr "Nummerierte Menge von Gleichungen"
+
+#: ../latex/latex/actions.py:526
+msgid "Save As Template..."
+msgstr "Als Vorlage speichern …"
+
+#: ../latex/latex/actions.py:528
+msgid "Save the current document as a template"
+msgstr "Das aktuelle Dokument als Vorlage speichern"
+
+#: ../latex/latex/views.py:109
+msgid "Symbols"
+msgstr "Symbole"
+
+#: ../latex/latex/views.py:195
+msgid "Show graphics"
+msgstr "Grafiken anzeigen"
+
+#: ../latex/latex/views.py:200
+msgid "Show tables"
+msgstr "Tabellen anzeigen"
+
+#: ../latex/outline.py:54
+msgid "Follow Editor"
+msgstr ""
+
+#: ../latex/outline.py:59
+msgid "Expand All"
+msgstr "Alle ausklappen"
+
+#: ../latex/outline.py:63
+msgid "Collapse All"
+msgstr "Alle einklappen"
+
+#: ../latex/outline.py:109
+msgid "Outline"
+msgstr "Umriss"
+
+#: ../latex/tools/views.py:59
+msgid "Job"
+msgstr "Auftrag"
+
+#: ../latex/tools/views.py:70 ../latex/views.py:77
+msgid "File"
+msgstr "Datei"
+
+#: ../latex/tools/views.py:71
+msgid "Line"
+msgstr "Linie"
+
+#: ../latex/tools/views.py:83
+msgid "Abort Job"
+msgstr "Auftrag abbrechen"
+
+#: ../latex/tools/views.py:88
+msgid "Show Detailed Output"
+msgstr "Detaillierte Ausgabe anzeigen"
+
+#: ../latex/views.py:64
+msgid "Message"
+msgstr "Meldung"
+
+#: ../latex/views.py:94
+msgid "Show/Hide Warnings"
+msgstr "Warnungen anzeigen/verbergen"
+
+#: ../latex/views.py:102
+msgid "Show/Hide Tasks"
+msgstr "Aufgaben anzeigen/verbergen"
+
+#: ../latex/views.py:133
+msgid "Issues"
+msgstr ""
 
 #~ msgid "Show LaTeX Toolbar"
 #~ msgstr "LaTeX-Werkzeugleiste anzeigen"
