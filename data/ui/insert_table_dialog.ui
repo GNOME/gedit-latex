@@ -83,8 +83,6 @@
             <property name="can_focus">False</property>
             <property name="row_spacing">6</property>
             <property name="column_spacing">6</property>
-            <property name="n_rows">6</property>
-            <property name="n_columns">4</property>
             <child>
               <object class="GtkLabel" id="label27">
                 <property name="visible">True</property>
