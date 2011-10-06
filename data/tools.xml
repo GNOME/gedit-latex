@@ -1,15 +1,15 @@
 <tools>
   <tool description="Create a PDF from LaTeX source" extensions=".tex" id="1" label="LaTeX → PDF">
     <job mustSucceed="True" postProcessor="RubberPostProcessor">rubber --inplace --maxerr -1 --short --force --warn all --pdf "$filename"</job>
-    <job mustSucceed="True" postProcessor="GenericPostProcessor">gnome-open "$shortname.pdf"</job>
+    <job mustSucceed="True" postProcessor="GenericPostProcessor">gvfs-open "$shortname.pdf"</job>
   </tool>
   <tool description="Create a PostScript from LaTeX source" extensions=".tex" id="3" label="LaTeX → PS">
     <job mustSucceed="true" postProcessor="RubberPostProcessor">rubber --inplace --maxerr -1 --short --force --warn all --ps "$filename"</job>
-    <job mustSucceed="true" postProcessor="GenericPostProcessor">gnome-open "$shortname.ps"</job>
+    <job mustSucceed="true" postProcessor="GenericPostProcessor">gvfs-open "$shortname.ps"</job>
   </tool>
   <tool description="Create a DVI from LaTeX source" extensions=".tex" id="4" label="LaTeX → DVI">
     <job mustSucceed="true" postProcessor="RubberPostProcessor">rubber --inplace --maxerr -1 --short --force --warn all "$filename"</job>
-    <job mustSucceed="true" postProcessor="GenericPostProcessor">gnome-open "$shortname.dvi"</job>
+    <job mustSucceed="true" postProcessor="GenericPostProcessor">gvfs-open "$shortname.dvi"</job>
   </tool>
   <tool description="Create a DVI with source specials from LaTeX source" extensions=".tex" id="5" label="LaTeX → DVI (Source Specials)">
     <job mustSucceed="true" postProcessor="LaTeXPostProcessor">latex -interaction batchmode -src "$filename"</job>
@@ -19,7 +19,7 @@
   <tool description="Process R Sweave file and create a PDF from the resulting LaTeX source" extensions=".Rnw" id="6" label="R Sweave → PDF">
     <job mustSucceed="true" postProcessor="GenericPostProcessor">R CMD Sweave "$shortname.Rnw"</job>
     <job mustSucceed="true" postProcessor="RubberPostProcessor">rubber --inplace --maxerr -1 --short --force --warn all --pdf "$shortname.tex"</job>
-    <job mustSucceed="true" postProcessor="GenericPostProcessor">gnome-open "$shortname.pdf"</job>
+    <job mustSucceed="true" postProcessor="GenericPostProcessor">gvfs-open "$shortname.pdf"</job>
   </tool>
   <tool description="Remove LaTeX build files" extensions=".tex" id="7" label="Cleanup LaTeX Build Files">
     <job mustSucceed="False" postProcessor="GenericPostProcessor">rm -f "$directory"/*.aux "$directory"/*.log "$directory"/*.toc "$directory"/*.bbl "$directory"/*.blg</job>

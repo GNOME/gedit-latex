@@ -236,7 +236,7 @@ class LaTeXOutlineView(BaseOutlineView):
         @param node: an instance of latex.outline.OutlineNode
         """
         if node.type == OutlineNode.GRAPHICS:
-            # use 'gnome-open' to open the graphics file
+            # use 'gvfs-open' to open the graphics file
 
             target = node.value
 
@@ -263,7 +263,7 @@ class LaTeXOutlineView(BaseOutlineView):
                 LOG.error("LatexOutline: File not found: %s" % filename)
                 return
 
-            system("gnome-open %s" % f.uri)
+            system("gvfs-open %s" % f.uri)
 
         else:
             # open/activate the referenced file, if the node is 'foreign'
