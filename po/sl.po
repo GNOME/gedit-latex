@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gedit-latex master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gedit&keywords=I18N+L10N&component=Plugins\n"
-"POT-Creation-Date: 2011-08-17 12:47+0000\n"
-"PO-Revision-Date: 2011-09-17 10:32+0100\n"
+"POT-Creation-Date: 2011-10-05 21:33+0000\n"
+"PO-Revision-Date: 2011-10-06 09:37+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
@@ -134,7 +134,6 @@ msgid "Connect Outline to Editor"
 msgstr "Poveži izris z urejevalnikom"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:2
-#| msgid "Exanded Symbol Groups"
 msgid "Expanded Symbol Groups"
 msgstr "Razširjene skupine simbolov"
 
@@ -143,7 +142,6 @@ msgid "Extra LaTeX commands used to mark issues, such as \\fxnote{foo}"
 msgstr "Dodatni ukazi LaTeX za označevanje težav, kot je \\fxnote{foo}"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:4
-#| msgid "LaTeX Extensions"
 msgid "Graphics File Extensions"
 msgstr "Končnice grafičnih datotek"
 
@@ -273,6 +271,7 @@ msgid "Miscellaneous"
 msgstr "Razno"
 
 #: ../data/ui/configure.ui.h:9
+#: ../latex/tools/views.py:111
 msgid "Tools"
 msgstr "Orodja"
 
@@ -583,4 +582,95 @@ msgstr "Vstavek ni omogoča upravljanje z dokumenti LaTeX in bibliografskimi vno
 #: ../latex.plugin.desktop.in.in.h:2
 msgid "LaTeX Plugin"
 msgstr "Vstavek LaTeX"
+
+#. add grouping controls to toolbar
+#: ../latex/bibtex/views.py:58
+msgid "No Grouping"
+msgstr "Brez združevanja"
+
+#: ../latex/bibtex/views.py:59
+msgid "Group by Type"
+msgstr "Združi po vrsti"
+
+#: ../latex/bibtex/views.py:60
+msgid "Group by Author"
+msgstr "Združi po avtorju"
+
+#: ../latex/bibtex/views.py:61
+msgid "Group by Year"
+msgstr "Združi po letu"
+
+#. group by year
+#: ../latex/bibtex/views.py:195
+msgid "<i>n/a</i>"
+msgstr "<i>n/a</i>"
+
+#: ../latex/bibtex/views.py:235
+msgid "Unknown Author"
+msgstr "Neznan avtor"
+
+#: ../latex/latex/views.py:109
+msgid "Symbols"
+msgstr "Simboli"
+
+#: ../latex/latex/views.py:195
+msgid "Show graphics"
+msgstr "Pokaži grafične predmete"
+
+#: ../latex/latex/views.py:200
+msgid "Show tables"
+msgstr "Pokaži razpredelnice"
+
+#: ../latex/outline.py:54
+msgid "Follow Editor"
+msgstr "Sledi urejevalniku"
+
+#: ../latex/outline.py:59
+msgid "Expand All"
+msgstr "Razširi vse"
+
+#: ../latex/outline.py:63
+msgid "Collapse All"
+msgstr "Zloži vse"
+
+#: ../latex/outline.py:109
+msgid "Outline"
+msgstr "Oris"
+
+#: ../latex/tools/views.py:59
+msgid "Job"
+msgstr "Posel"
+
+#: ../latex/tools/views.py:70
+#: ../latex/views.py:77
+msgid "File"
+msgstr "Datoteka"
+
+#: ../latex/tools/views.py:71
+msgid "Line"
+msgstr "Črta"
+
+#: ../latex/tools/views.py:83
+msgid "Abort Job"
+msgstr "Prekliči posel"
+
+#: ../latex/tools/views.py:88
+msgid "Show Detailed Output"
+msgstr "Pokaži podrobni izpis"
+
+#: ../latex/views.py:64
+msgid "Message"
+msgstr "Sporočilo"
+
+#: ../latex/views.py:94
+msgid "Show/Hide Warnings"
+msgstr "Pokaži/Skrij opozorila"
+
+#: ../latex/views.py:102
+msgid "Show/Hide Tasks"
+msgstr "Pokaži/Skrij naloge"
+
+#: ../latex/views.py:133
+msgid "Issues"
+msgstr "Izdaje"
 
