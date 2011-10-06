@@ -8,14 +8,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gedit-latex master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gedit&keywords=I18N+L10N&component=Plugins\n"
-"POT-Creation-Date: 2011-10-05 21:33+0000\n"
-"PO-Revision-Date: 2011-10-06 09:37+0100\n"
+"POT-Creation-Date: 2011-10-06 13:56+0000\n"
+"PO-Revision-Date: 2011-10-06 19:18+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n%100==4 ? 3 : 0);\n"
 "X-Poedit-Language: Slovenian\n"
 "X-Poedit-Country: SLOVENIA\n"
@@ -34,6 +34,8 @@ msgid "Book Title"
 msgstr "Naslov knjige"
 
 #: ../data/bibtex.xml.h:4
+#: ../latex/latex/actions.py:315
+#: ../latex/latex/actions.py:316
 msgid "Chapter"
 msgstr "Poglavje"
 
@@ -357,6 +359,8 @@ msgid "Image Size"
 msgstr "Velikost slike"
 
 #: ../data/ui/insert_graphics_dialog.ui.h:7
+#: ../latex/latex/actions.py:356
+#: ../latex/latex/actions.py:358
 msgid "Insert Graphics"
 msgstr "Vstavi grafične predmete"
 
@@ -395,6 +399,8 @@ msgid "fig:"
 msgstr "fig:"
 
 #: ../data/ui/insert_listing_dialog.ui.h:1
+#: ../latex/latex/actions.py:388
+#: ../latex/latex/actions.py:390
 msgid "Insert Source Code Listing"
 msgstr "Vstavi izpis izvorne kode"
 
@@ -415,6 +421,8 @@ msgid "C_olumns:"
 msgstr "Stolp_ci:"
 
 #: ../data/ui/insert_table_dialog.ui.h:2
+#: ../latex/latex/actions.py:372
+#: ../latex/latex/actions.py:374
 msgid "Insert Table or Matrix"
 msgstr "Vstavi razpredelnico ali matriko"
 
@@ -568,6 +576,7 @@ msgid "Style Preview:"
 msgstr "Predogled sloga:"
 
 #: ../data/ui/use_bibliography_dialog.ui.h:4
+#: ../latex/latex/actions.py:159
 msgid "Use Bibliography"
 msgstr "Uporabi bibliografijo"
 
@@ -582,6 +591,18 @@ msgstr "Vstavek ni omogoča upravljanje z dokumenti LaTeX in bibliografskimi vno
 #: ../latex.plugin.desktop.in.in.h:2
 msgid "LaTeX Plugin"
 msgstr "Vstavek LaTeX"
+
+#: ../latex/bibtex/actions.py:35
+msgid "BibTeX"
+msgstr "BibTeX"
+
+#: ../latex/bibtex/actions.py:46
+msgid "New BibTeX Entry..."
+msgstr "Nov vnos BibTeX ..."
+
+#: ../latex/bibtex/actions.py:49
+msgid "Create a new BibTeX entry"
+msgstr "Ustvari nov vnos BibTeX"
 
 #. add grouping controls to toolbar
 #: ../latex/bibtex/views.py:58
@@ -601,13 +622,234 @@ msgid "Group by Year"
 msgstr "Združi po letu"
 
 #. group by year
-#: ../latex/bibtex/views.py:195
+#: ../latex/bibtex/views.py:199
 msgid "<i>n/a</i>"
 msgstr "<i>n/a</i>"
 
-#: ../latex/bibtex/views.py:235
+#: ../latex/bibtex/views.py:242
 msgid "Unknown Author"
 msgstr "Neznan avtor"
+
+#: ../latex/latex/actions.py:63
+msgid "LaTeX"
+msgstr "LaTeX"
+
+#: ../latex/latex/actions.py:73
+msgid "New LaTeX Document..."
+msgstr "Nov dokument LaTeX ..."
+
+#: ../latex/latex/actions.py:76
+msgid "Create a new LaTeX document"
+msgstr "Ustvari nov dokument LaTeX"
+
+#: ../latex/latex/actions.py:95
+msgid "Choose Master Document..."
+msgstr "Izbor glavnega dokumenta ..."
+
+#: ../latex/latex/actions.py:107
+msgid "Close Nearest Environment"
+msgstr "Zapri najbližje okolje"
+
+#: ../latex/latex/actions.py:109
+msgid "Close the nearest TeX environment at left of the cursor"
+msgstr "Zapri najbližje okolje TeX na levi od kazalke"
+
+#: ../latex/latex/actions.py:157
+msgid "Use Bibliography..."
+msgstr "Uporabi bibliografijo ..."
+
+#: ../latex/latex/actions.py:179
+#: ../latex/latex/actions.py:181
+#: ../latex/latex/actions.py:189
+#: ../latex/latex/actions.py:190
+msgid "Font Family"
+msgstr "Družina pisav"
+
+#: ../latex/latex/actions.py:194
+#: ../latex/latex/actions.py:195
+msgid "Bold"
+msgstr "Krepko"
+
+#: ../latex/latex/actions.py:201
+#: ../latex/latex/actions.py:202
+msgid "Italic"
+msgstr "Ležeče"
+
+#: ../latex/latex/actions.py:208
+#: ../latex/latex/actions.py:209
+msgid "Emphasize"
+msgstr "Poudarjanje"
+
+#: ../latex/latex/actions.py:215
+#: ../latex/latex/actions.py:216
+msgid "Underline"
+msgstr "Podčrtano"
+
+#: ../latex/latex/actions.py:222
+#: ../latex/latex/actions.py:223
+msgid "Small Capitals"
+msgstr "Manjše velike črke"
+
+#: ../latex/latex/actions.py:229
+#: ../latex/latex/actions.py:230
+msgid "Roman"
+msgstr "Klasična pisava"
+
+#: ../latex/latex/actions.py:236
+#: ../latex/latex/actions.py:237
+msgid "Sans Serif"
+msgstr "Sans Serif"
+
+#: ../latex/latex/actions.py:243
+#: ../latex/latex/actions.py:244
+msgid "Typewriter"
+msgstr "Pisalni stroj"
+
+#: ../latex/latex/actions.py:250
+#: ../latex/latex/actions.py:251
+msgid "Blackboard Bold"
+msgstr "Tabelno krepko"
+
+#: ../latex/latex/actions.py:258
+#: ../latex/latex/actions.py:259
+msgid "Caligraphy"
+msgstr "Kaligrafija"
+
+#: ../latex/latex/actions.py:265
+#: ../latex/latex/actions.py:266
+msgid "Fraktur"
+msgstr "Gotica"
+
+#: ../latex/latex/actions.py:273
+#: ../latex/latex/actions.py:274
+#: ../latex/latex/actions.py:286
+#: ../latex/latex/actions.py:287
+msgid "List"
+msgstr "Seznam"
+
+#: ../latex/latex/actions.py:278
+#: ../latex/latex/actions.py:279
+msgid "Itemize"
+msgstr "Opredmetenje"
+
+#: ../latex/latex/actions.py:291
+#: ../latex/latex/actions.py:292
+msgid "Enumerate"
+msgstr "Oštevilčenje"
+
+#: ../latex/latex/actions.py:298
+#: ../latex/latex/actions.py:299
+msgid "Description"
+msgstr "Opis"
+
+#: ../latex/latex/actions.py:304
+#: ../latex/latex/actions.py:305
+#: ../latex/latex/actions.py:330
+#: ../latex/latex/actions.py:331
+msgid "Structure"
+msgstr "Zgradba"
+
+#: ../latex/latex/actions.py:308
+#: ../latex/latex/actions.py:309
+msgid "Part"
+msgstr "Del"
+
+#: ../latex/latex/actions.py:322
+#: ../latex/latex/actions.py:323
+msgid "Section"
+msgstr "Odsek"
+
+#: ../latex/latex/actions.py:335
+#: ../latex/latex/actions.py:336
+msgid "Subsection"
+msgstr "Pododsek"
+
+#: ../latex/latex/actions.py:342
+#: ../latex/latex/actions.py:343
+msgid "Paragraph"
+msgstr "Odstavek"
+
+#: ../latex/latex/actions.py:349
+#: ../latex/latex/actions.py:350
+msgid "Subparagraph"
+msgstr "Podrejeni odstavek"
+
+#: ../latex/latex/actions.py:405
+#: ../latex/latex/actions.py:407
+#: ../latex/latex/actions.py:415
+#: ../latex/latex/actions.py:416
+msgid "Build"
+msgstr "Izgradi"
+
+#: ../latex/latex/actions.py:420
+msgid "Build Image"
+msgstr "Izgradi sliko"
+
+#: ../latex/latex/actions.py:422
+msgid "Build an image from the LaTeX document"
+msgstr "Izgradi sliko iz dokumenta LaTeX"
+
+#: ../latex/latex/actions.py:440
+#: ../latex/latex/actions.py:441
+#: ../latex/latex/actions.py:460
+#: ../latex/latex/actions.py:461
+msgid "Justify"
+msgstr "Poravnaj obojestransko"
+
+#: ../latex/latex/actions.py:445
+#: ../latex/latex/actions.py:446
+msgid "Justify Left"
+msgstr "Poravnaj na levo"
+
+#: ../latex/latex/actions.py:452
+#: ../latex/latex/actions.py:453
+msgid "Justify Center"
+msgstr "Poravnaj na sredini"
+
+#: ../latex/latex/actions.py:465
+#: ../latex/latex/actions.py:466
+msgid "Justify Right"
+msgstr "Poravnaj na desno"
+
+#: ../latex/latex/actions.py:472
+#: ../latex/latex/actions.py:473
+#: ../latex/latex/actions.py:485
+#: ../latex/latex/actions.py:486
+msgid "Math"
+msgstr "Matematika"
+
+#: ../latex/latex/actions.py:477
+#: ../latex/latex/actions.py:478
+msgid "Mathematical Environment"
+msgstr "Matematično okolje"
+
+#: ../latex/latex/actions.py:490
+#: ../latex/latex/actions.py:491
+msgid "Centered Formula"
+msgstr "Sredinjena formula"
+
+#: ../latex/latex/actions.py:497
+#: ../latex/latex/actions.py:498
+msgid "Numbered Equation"
+msgstr "Oštevilčena enačba"
+
+#: ../latex/latex/actions.py:506
+#: ../latex/latex/actions.py:507
+msgid "Array of Equations"
+msgstr "Matrika enačb"
+
+#: ../latex/latex/actions.py:516
+#: ../latex/latex/actions.py:517
+msgid "Numbered Array of Equations"
+msgstr "Oštevilčena matrika enačb"
+
+#: ../latex/latex/actions.py:526
+msgid "Save As Template..."
+msgstr "Shrani kot predlogo ..."
+
+#: ../latex/latex/actions.py:528
+msgid "Save the current document as a template"
+msgstr "Shrani trenutni dokument kot predlogo"
 
 #: ../latex/latex/views.py:109
 msgid "Symbols"
