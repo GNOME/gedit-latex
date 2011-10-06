@@ -55,7 +55,7 @@ class BibTeXOutlineView(BaseOutlineView):
 
         # add grouping controls to toolbar
 
-        self._item_none = Gtk.RadioMenuItem.new_with_label((), _("No Grouping"))
+        self._item_none = Gtk.RadioMenuItem.new_with_label(None, _("No Grouping"))
         self._item_type = Gtk.RadioMenuItem.new_with_label((self._item_none,), _("Group by Type"))
         self._item_author = Gtk.RadioMenuItem.new_with_label((self._item_none,), _("Group by Author"))
         self._item_year = Gtk.RadioMenuItem.new_with_label((self._item_none,), _("Group by Year"))
@@ -108,7 +108,8 @@ class BibTeXOutlineView(BaseOutlineView):
     def _update(self):
         #t = time.clock()
         self._offset_map = OutlineOffsetMap()
-        OutlineConverter().convert(self._store, self._outline, self._offset_map, self._grouping)
+        OutlineConverter().convert(self._store, self._outline,
+                                   self._offset_map, self._grouping)
         #dt = time.clock() - t
         #self._log.debug("OutlineConverter.convert: %fs" % dt)
 
@@ -178,7 +179,9 @@ class OutlineConverter(object):
             for entryType in entryTypes:
                 entries = groups[entryType]
 
-                parentType = tree_store.append(None, ["%s <span color='%s'>%s</span>" % (escape(entryType), color, len(entries)), self._ICON_TYPE, None])
+                parentType = tree_store.append(None, ["%s <span color='%s'>%s</span>" % (escape(entryType),
+                                                                                         color, len(entries)),
+                                                      self._ICON_TYPE, None])
 
                 for entry in entries:
                     parentEntry = tree_store.append(parentType, [escape(entry.key), self._ICON_ENTRY, entry])
@@ -186,8 +189,9 @@ class OutlineConverter(object):
                     offset_map.put(entry.start, tree_store.get_path(parentEntry))
 
                     for field in entry.fields:
-                        tree_store.append(parentEntry, ["<span color='%s'>%s</span> %s" % (color, escape(field.name), field.valueMarkup),
-                                            self._ICON_FIELD, field])
+                        tree_store.append(parentEntry, ["<span color='%s'>%s</span> %s" % (color, escape(field.name),
+                                                                                           field.valueMarkup),
+                                                        self._ICON_FIELD, field])
 
         elif grouping == GROUP_YEAR:
             # group by year
@@ -218,17 +222,20 @@ class OutlineConverter(object):
             for year in years:
                 entries = groups[year]
 
-                parentYear = tree_store.append(None, ["%s <span color='%s'>%s</span>" % (year, color, len(entries)), self._ICON_YEAR, None])
+                parentYear = tree_store.append(None, ["%s <span color='%s'>%s</span>" % (year, color, len(entries)),
+                                                      self._ICON_YEAR, None])
 
                 for entry in entries:
-                    parentEntry = tree_store.append(parentYear, ["%s <span color='%s'>%s</span>" % (escape(entry.key), color, escape(entry.type)),
-                                                             self._ICON_ENTRY, entry])
+                    parentEntry = tree_store.append(parentYear, ["%s <span color='%s'>%s</span>" % (escape(entry.key),
+                                                                                                    color, escape(entry.type)),
+                                                                 self._ICON_ENTRY, entry])
 
                     offset_map.put(entry.start, tree_store.get_path(parentEntry))
 
                     for field in entry.fields:
-                        tree_store.append(parentEntry, ["<span color='%s'>%s</span> %s" % (color, escape(field.name), field.valueMarkup),
-                                            self._ICON_FIELD, field])
+                        tree_store.append(parentEntry, ["<span color='%s'>%s</span> %s" % (color, escape(field.name),
+                                                                                           field.valueMarkup),
+                                                        self._ICON_FIELD, field])
 
         elif grouping == GROUP_AUTHOR:
 
@@ -262,27 +269,34 @@ class OutlineConverter(object):
             for author in authors:
                 entries = groups[author]
 
-                parent = tree_store.append(None, ["%s <span color='%s'>%s</span>" % (escape(author), color, len(entries)), self._ICON_AUTHOR, None])
+                parent = tree_store.append(None, ["%s <span color='%s'>%s</span>" % (escape(author), color, len(entries)),
+                                                  self._ICON_AUTHOR, None])
 
                 for entry in entries:
-                    parentEntry = tree_store.append(parent, ["%s <span color='%s'>%s</span>" % (escape(entry.key), color, escape(entry.type)),
+                    parentEntry = tree_store.append(parent, ["%s <span color='%s'>%s</span>" % (escape(entry.key),
+                                                                                                color, escape(entry.type)),
                                                              self._ICON_ENTRY, entry])
 
                     offset_map.put(entry.start, tree_store.get_path(parentEntry))
 
                     for field in entry.fields:
-                        tree_store.append(parentEntry, ["<span color='%s'>%s</span> %s" % (color, escape(field.name), field.valueMarkup),
-                                            self._ICON_FIELD, field])
+                        tree_store.append(parentEntry, ["<span color='%s'>%s</span> %s" % (color, escape(field.name),
+                                                                                           field.valueMarkup),
+                                                        self._ICON_FIELD, field])
 
         else:
             # no grouping, display entries and fields in a tree
 
             for entry in document.entries:
-                parent = tree_store.append(None, ["%s <span color='%s'>%s</span>" % (escape(entry.key), color, escape(entry.type)), self._ICON_ENTRY, entry])
+                parent = tree_store.append(None, ["%s <span color='%s'>%s</span>" % (escape(entry.key),
+                                                                                     color, escape(entry.type)),
+                                                  self._ICON_ENTRY, entry])
 
                 offset_map.put(entry.start, tree_store.get_path(parent))
 
                 for field in entry.fields:
-                    tree_store.append(parent, ["<span color='%s'>%s</span> %s" % (color, escape(field.name), field.valueMarkup), self._ICON_FIELD, field])
+                    tree_store.append(parent, ["<span color='%s'>%s</span> %s" % (color, escape(field.name),
+                                                                                  field.valueMarkup),
+                                               self._ICON_FIELD, field])
 
 # ex:ts=4:et:
