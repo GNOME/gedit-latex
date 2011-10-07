@@ -4,9 +4,6 @@
             <placeholder name="FileOps_1">
                 <menuitem action="LaTeXNewAction" />
             </placeholder>
-            <placeholder name="FileOps_3">
-                <menuitem action="LaTeXSaveAsTemplateAction" />
-            </placeholder>
         </menu>
         <placeholder name="ExtraMenu_1">
             <menu action="LaTeXMenuAction">

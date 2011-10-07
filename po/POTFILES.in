@@ -9,7 +9,6 @@ data/org.gnome.gedit.plugins.latex.gschema.xml.in.in
 [type: gettext/glade]data/ui/insert_listing_dialog.ui
 [type: gettext/glade]data/ui/insert_table_dialog.ui
 [type: gettext/glade]data/ui/new_document_template_dialog.ui
-[type: gettext/glade]data/ui/save_as_template_dialog.ui
 [type: gettext/glade]data/ui/use_bibliography_dialog.ui
 latex.plugin.desktop.in.in
 latex/bibtex/actions.py

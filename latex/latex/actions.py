@@ -33,7 +33,7 @@ from ..gldefs import _
 from .editor import LaTeXEditor
 from .parser import LaTeXParser, Node
 from .dialogs import UseBibliographyDialog, InsertGraphicsDialog, InsertTableDialog, \
-                    InsertListingDialog, BuildImageDialog, SaveAsTemplateDialog, \
+                    InsertListingDialog, BuildImageDialog, \
                     NewDocumentDialog, ChooseMasterDialog
 from . import LaTeXSource
 
@@ -520,22 +520,5 @@ class LaTeXEqnArrayAction(LaTeXTemplateAction):
     snippet_source = """\\begin{align}
     $0
 \\end{align}"""
-
-
-class LaTeXSaveAsTemplateAction(LaTeXAction):
-    label = _("Save As Template...")
-    accelerator = None
-    tooltip = _("Save the current document as a template")
-    stock_id = Gtk.STOCK_SAVE_AS
-
-    def activate(self, context):
-        dialog = SaveAsTemplateDialog()
-        file = dialog.run()
-
-        content = context.active_editor.content
-
-        fo = open(file.path, "w")
-        fo.write(content)
-        fo.close
 
 # ex:ts=4:et:

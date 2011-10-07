@@ -33,7 +33,7 @@ from .latex.actions import LaTeXMenuAction, LaTeXNewAction, LaTeXChooseMasterAct
         LaTeXJustifyCenterAction, LaTeXJustifyRightAction, LaTeXMathMenuAction, LaTeXMathActionDefault, LaTeXMathAction, LaTeXDisplayMathAction, \
         LaTeXEquationAction, LaTeXUnEqnArrayAction, LaTeXEqnArrayAction, LaTeXUnderlineAction, LaTeXSmallCapitalsAction, \
         LaTeXRomanAction, LaTeXSansSerifAction, LaTeXTypewriterAction, LaTeXCloseEnvironmentAction, LaTeXBlackboardBoldAction, \
-        LaTeXCaligraphyAction, LaTeXFrakturAction, LaTeXBuildImageAction, LaTeXSaveAsTemplateAction, \
+        LaTeXCaligraphyAction, LaTeXFrakturAction, LaTeXBuildImageAction, \
         LaTeXBuildAction, LaTeXBuildMenuAction
 
 from .bibtex.actions import BibTeXMenuAction, BibTeXNewEntryAction
@@ -48,7 +48,7 @@ ACTIONS = [LaTeXMenuAction, LaTeXNewAction, LaTeXChooseMasterAction,
         LaTeXJustifyCenterAction, LaTeXJustifyRightAction, LaTeXMathMenuAction, LaTeXMathActionDefault, LaTeXMathAction, LaTeXDisplayMathAction,
         LaTeXEquationAction, LaTeXUnEqnArrayAction, LaTeXEqnArrayAction, LaTeXUnderlineAction, LaTeXSmallCapitalsAction,
         LaTeXRomanAction, LaTeXSansSerifAction, LaTeXTypewriterAction, LaTeXCloseEnvironmentAction, LaTeXBlackboardBoldAction,
-        LaTeXCaligraphyAction, LaTeXFrakturAction, LaTeXBuildImageAction, LaTeXSaveAsTemplateAction,
+        LaTeXCaligraphyAction, LaTeXFrakturAction, LaTeXBuildImageAction,
         LaTeXBuildAction, LaTeXBuildMenuAction,
         BibTeXMenuAction, BibTeXNewEntryAction]
 

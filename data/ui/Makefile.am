@@ -13,7 +13,6 @@ plugin_DATA = \
 	insert_listing_dialog.ui \
 	insert_table_dialog.ui \
 	new_document_template_dialog.ui \
-	save_as_template_dialog.ui \
 	use_bibliography_dialog.ui
 
 EXTRA_DIST = $(plugin_DATA)
