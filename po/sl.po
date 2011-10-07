@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gedit-latex master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gedit&keywords=I18N+L10N&component=Plugins\n"
-"POT-Creation-Date: 2011-10-06 13:56+0000\n"
-"PO-Revision-Date: 2011-10-06 19:18+0100\n"
+"POT-Creation-Date: 2011-10-07 09:55+0000\n"
+"PO-Revision-Date: 2011-10-07 18:45+0100\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
 "Language: \n"
@@ -343,60 +343,60 @@ msgid "% _of"
 msgstr "% _od"
 
 #: ../data/ui/insert_graphics_dialog.ui.h:3
-msgid "&#xB0; CCW"
-msgstr "&#xB0; CCW"
-
-#: ../data/ui/insert_graphics_dialog.ui.h:4
 msgid "Flip _Horizontally"
 msgstr "Zrcali _vodoravno"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:5
+#: ../data/ui/insert_graphics_dialog.ui.h:4
 msgid "Floating _Object"
 msgstr "_Plavajoči predmet"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:6
+#: ../data/ui/insert_graphics_dialog.ui.h:5
 msgid "Image Size"
 msgstr "Velikost slike"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:7
+#: ../data/ui/insert_graphics_dialog.ui.h:6
 #: ../latex/latex/actions.py:356
 #: ../latex/latex/actions.py:358
 msgid "Insert Graphics"
 msgstr "Vstavi grafične predmete"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:8
+#: ../data/ui/insert_graphics_dialog.ui.h:7
 msgid "Text Width"
 msgstr "Širina besedila"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:9
+#: ../data/ui/insert_graphics_dialog.ui.h:8
 #: ../data/ui/insert_table_dialog.ui.h:4
 msgid "_Caption:"
 msgstr "_Naslov:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:10
+#: ../data/ui/insert_graphics_dialog.ui.h:9
 msgid "_File:"
 msgstr "_Datoteka:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:11
+#: ../data/ui/insert_graphics_dialog.ui.h:10
 #: ../data/ui/insert_table_dialog.ui.h:6
 msgid "_Label:"
 msgstr "_Naziv:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:12
+#: ../data/ui/insert_graphics_dialog.ui.h:11
 msgid "_Rotate:"
 msgstr "_Zavrti:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:13
+#: ../data/ui/insert_graphics_dialog.ui.h:12
 msgid "_Spread over two Columns"
 msgstr "_Razpeto preko dveh stolpcev"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:14
+#: ../data/ui/insert_graphics_dialog.ui.h:13
 msgid "_Width:"
 msgstr "_Širina:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:15
+#: ../data/ui/insert_graphics_dialog.ui.h:14
 msgid "fig:"
 msgstr "fig:"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:15
+msgid "° CCW"
+msgstr "° obratno urinemu kazalcu"
 
 #: ../data/ui/insert_listing_dialog.ui.h:1
 #: ../latex/latex/actions.py:388
@@ -531,7 +531,6 @@ msgid "_Landscape"
 msgstr "_Ležeče"
 
 #: ../data/ui/new_document_template_dialog.ui.h:21
-#: ../data/ui/save_as_template_dialog.ui.h:3
 msgid "_Name:"
 msgstr "_Ime:"
 
@@ -550,18 +549,6 @@ msgstr "dokument"
 #: ../data/ui/new_document_template_dialog.ui.h:25
 msgid "pt"
 msgstr "točk"
-
-#: ../data/ui/save_as_template_dialog.ui.h:1
-msgid "Please specify a name for the new template."
-msgstr "Določite ime novi predlogi."
-
-#: ../data/ui/save_as_template_dialog.ui.h:2
-msgid "Save As Template"
-msgstr "Shrani kot predlogo"
-
-#: ../data/ui/save_as_template_dialog.ui.h:4
-msgid "label"
-msgstr "oznaka"
 
 #: ../data/ui/use_bibliography_dialog.ui.h:1
 msgid "Bibliography _File:"
@@ -843,14 +830,6 @@ msgstr "Matrika enačb"
 msgid "Numbered Array of Equations"
 msgstr "Oštevilčena matrika enačb"
 
-#: ../latex/latex/actions.py:526
-msgid "Save As Template..."
-msgstr "Shrani kot predlogo ..."
-
-#: ../latex/latex/actions.py:528
-msgid "Save the current document as a template"
-msgstr "Shrani trenutni dokument kot predlogo"
-
 #: ../latex/latex/views.py:109
 msgid "Symbols"
 msgstr "Simboli"
@@ -916,3 +895,20 @@ msgstr "Pokaži/Skrij naloge"
 msgid "Issues"
 msgstr "Izdaje"
 
+#~ msgid "&#xB0; CCW"
+#~ msgstr "&#xB0; CCW"
+
+#~ msgid "Please specify a name for the new template."
+#~ msgstr "Določite ime novi predlogi."
+
+#~ msgid "Save As Template"
+#~ msgstr "Shrani kot predlogo"
+
+#~ msgid "label"
+#~ msgstr "oznaka"
+
+#~ msgid "Save As Template..."
+#~ msgstr "Shrani kot predlogo ..."
+
+#~ msgid "Save the current document as a template"
+#~ msgstr "Shrani trenutni dokument kot predlogo"
