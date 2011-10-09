@@ -354,9 +354,6 @@ class PreferencesDialog(GladeInterface):
             check_hide_box = self.find_widget("checkHideBox")
             check_hide_box.set_active(self._preferences.get("hide-box-warnings"))
 
-            filechooser_tmp = self.find_widget("filechooserTemplates")
-            filechooser_tmp.set_filename(self._preferences.TEMPLATE_DIR)
-
 
             #
             # proxies for SpinButtons
@@ -375,15 +372,9 @@ class PreferencesDialog(GladeInterface):
                                    "on_buttonMoveDownTool_clicked" : self._on_tool_down_clicked,
                                    "on_buttonConfigureTool_clicked" : self._on_configure_tool_clicked,
                                    "on_buttonDeleteTool_clicked" : self._on_delete_tool_clicked,
-                                   "on_checkHideBox_toggled" : self._on_hide_box_toggled,
-                                   "on_filechooserTemplates_selection_changed" : self._on_templates_dir_changed})
+                                   "on_checkHideBox_toggled" : self._on_hide_box_toggled})
 
         return self._dialog
-
-    def _on_templates_dir_changed(self, filechooser):
-        folder = filechooser.get_filename()
-        if folder is None:
-            return
 
     def _on_hide_box_toggled(self, togglebutton):
         value = togglebutton.get_active()
@@ -492,10 +483,5 @@ class PreferencesDialog(GladeInterface):
         self._button_delete_tool.set_sensitive(True)
         self._button_move_up_tool.set_sensitive(True)
         self._button_configure_tool.set_sensitive(True)
-
-
-
-
-
 
 # ex:ts=4:et:

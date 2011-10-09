@@ -12,6 +12,7 @@
         <property name="can_focus">False</property>
         <child>
           <object class="GtkScrolledWindow" id="scrolledwindow5">
+            <property name="height_request">200</property>
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="hexpand">True</property>
@@ -168,102 +169,6 @@
           </packing>
         </child>
         <child>
-          <object class="GtkLabel" id="label21">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="xalign">1</property>
-            <property name="label" translatable="yes">Maximum Parsed File Size:</property>
-          </object>
-          <packing>
-            <property name="left_attach">0</property>
-            <property name="top_attach">1</property>
-            <property name="width">1</property>
-            <property name="height">1</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkHBox" id="hbox3">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="spacing">5</property>
-            <child>
-              <object class="GtkSpinButton" id="spinMaxBibSize">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="invisible_char">●</property>
-                <property name="invisible_char_set">True</property>
-                <property name="numeric">True</property>
-              </object>
-              <packing>
-                <property name="expand">True</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel" id="label22">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="label" translatable="yes">KB</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="left_attach">1</property>
-            <property name="top_attach">1</property>
-            <property name="width">1</property>
-            <property name="height">1</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkLabel" id="label23">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="xalign">0</property>
-            <property name="label" translatable="yes">&lt;b&gt;Templates&lt;/b&gt;</property>
-            <property name="use_markup">True</property>
-          </object>
-          <packing>
-            <property name="left_attach">0</property>
-            <property name="top_attach">2</property>
-            <property name="width">1</property>
-            <property name="height">1</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkLabel" id="label24">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="xalign">1</property>
-            <property name="label" translatable="yes">Folder:</property>
-          </object>
-          <packing>
-            <property name="left_attach">0</property>
-            <property name="top_attach">3</property>
-            <property name="width">1</property>
-            <property name="height">1</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkFileChooserButton" id="filechooserTemplates">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="action">select-folder</property>
-            <signal name="selection-changed" handler="on_filechooserTemplates_selection_changed" swapped="no"/>
-          </object>
-          <packing>
-            <property name="left_attach">1</property>
-            <property name="top_attach">3</property>
-            <property name="width">1</property>
-            <property name="height">1</property>
-          </packing>
-        </child>
-        <child>
           <object class="GtkLabel" id="label25">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
@@ -274,40 +179,96 @@
           </object>
           <packing>
             <property name="left_attach">0</property>
-            <property name="top_attach">4</property>
+            <property name="top_attach">2</property>
             <property name="width">1</property>
             <property name="height">1</property>
           </packing>
         </child>
         <child>
-          <object class="GtkCheckButton" id="checkHideBox">
-            <property name="label" translatable="yes">Hide Box Warnings</property>
+          <object class="GtkAlignment" id="alignment1">
             <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">False</property>
-            <property name="use_action_appearance">False</property>
-            <property name="xalign">0</property>
-            <property name="draw_indicator">True</property>
-            <signal name="toggled" handler="on_checkHideBox_toggled" swapped="no"/>
+            <property name="can_focus">False</property>
+            <property name="left_padding">12</property>
+            <child>
+              <object class="GtkGrid" id="grid3">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <child>
+                  <object class="GtkLabel" id="label21">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="xalign">0</property>
+                    <property name="label" translatable="yes">Maximum Parsed File Size:</property>
+                  </object>
+                  <packing>
+                    <property name="left_attach">0</property>
+                    <property name="top_attach">0</property>
+                    <property name="width">1</property>
+                    <property name="height">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkSpinButton" id="spinMaxBibSize">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="invisible_char">●</property>
+                    <property name="invisible_char_set">True</property>
+                    <property name="numeric">True</property>
+                  </object>
+                  <packing>
+                    <property name="left_attach">1</property>
+                    <property name="top_attach">0</property>
+                    <property name="width">1</property>
+                    <property name="height">1</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="label22">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">KB</property>
+                  </object>
+                  <packing>
+                    <property name="left_attach">2</property>
+                    <property name="top_attach">0</property>
+                    <property name="width">1</property>
+                    <property name="height">1</property>
+                  </packing>
+                </child>
+              </object>
+            </child>
           </object>
           <packing>
             <property name="left_attach">0</property>
-            <property name="top_attach">5</property>
+            <property name="top_attach">1</property>
             <property name="width">1</property>
             <property name="height">1</property>
           </packing>
         </child>
         <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-        <child>
-          <placeholder/>
+          <object class="GtkAlignment" id="alignment2">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="left_padding">12</property>
+            <child>
+              <object class="GtkCheckButton" id="checkHideBox">
+                <property name="label" translatable="yes">Hide Box Warnings</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="use_action_appearance">False</property>
+                <property name="xalign">0</property>
+                <property name="draw_indicator">True</property>
+                <signal name="toggled" handler="on_checkHideBox_toggled" swapped="no"/>
+              </object>
+            </child>
+          </object>
+          <packing>
+            <property name="left_attach">0</property>
+            <property name="top_attach">3</property>
+            <property name="width">1</property>
+            <property name="height">1</property>
+          </packing>
         </child>
       </object>
       <packing>
