@@ -56,6 +56,9 @@ class IssueView(PanelView):
                         Issue.SEVERITY_INFO : None,
                         Issue.SEVERITY_TASK : GdkPixbuf.Pixbuf.new_from_file(Resources().get_icon("task.png")) }
 
+        grid = Gtk.Grid()
+        self.add(grid)
+
         self._store = Gtk.ListStore(GdkPixbuf.Pixbuf, str, str, object)
 
         self._view = Gtk.TreeView(model=self._store)
@@ -86,8 +89,10 @@ class IssueView(PanelView):
         self._scr.add(self._view)
         self._scr.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
         self._scr.set_shadow_type(Gtk.ShadowType.IN)
+        self._scr.set_hexpand(True)
+        self._scr.set_vexpand(True)
 
-        self.pack_start(self._scr, True, True, 0)
+        grid.add(self._scr)
 
         # toolbar
         self._button_warnings = Gtk.ToggleToolButton()
@@ -112,8 +117,9 @@ class IssueView(PanelView):
         toolbar.set_icon_size(Gtk.IconSize.MENU)
         toolbar.insert(self._button_warnings, -1)
         toolbar.insert(self._button_tasks, -1)
+        toolbar.set_vexpand(True)
 
-        self.pack_start(toolbar, False, False, 0)
+        grid.add(toolbar)
 
         # theme like gtk3
         ctx = self._scr.get_style_context()

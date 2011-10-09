@@ -92,15 +92,20 @@ class LaTeXSymbolMapView(PanelView):
 
         self._preferences = Preferences()
 
+        grid = Gtk.Grid()
+        grid.set_orientation(Gtk.Orientation.VERTICAL)
+        self.add(grid)
+
         scrolled = Gtk.ScrolledWindow()
-        scrolled.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
+        scrolled.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
         scrolled.set_shadow_type(Gtk.ShadowType.NONE)
 
-        self._box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
-        self._box.set_vexpand(True)
-        scrolled.add_with_viewport(self._box)
+        self._grid = Gtk.Grid()
+        self._grid.set_orientation(Gtk.Orientation.VERTICAL)
+        scrolled.add_with_viewport(self._grid)
+        scrolled.set_vexpand(True)
 
-        self.add(scrolled)
+        grid.add(scrolled)
         self.show_all()
 
         self._load_collection(SymbolCollection())
@@ -143,6 +148,8 @@ class LaTeXSymbolMapView(PanelView):
         view.show()
 
         expander = Gtk.Expander(label=group.label)
+        expander.set_hexpand(True)
+        expander.set_vexpand(True)
         expander.add(view)
         expander.show_all()
 
@@ -151,7 +158,7 @@ class LaTeXSymbolMapView(PanelView):
 
         expander.connect("notify::expanded", self._on_group_expanded, group.label)
 
-        self._box.pack_start(expander, False, False, 0)
+        self._grid.add(expander)
 
     def _on_group_expanded(self, expander, paramSpec, group_label):
         """

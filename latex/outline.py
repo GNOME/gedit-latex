@@ -48,6 +48,10 @@ class BaseOutlineView(PanelView):
 
         self._preferences = Preferences()
 
+        grid = Gtk.Grid()
+        grid.set_orientation(Gtk.Orientation.VERTICAL)
+        self.add(grid)
+
         # toolbar
 
         btn_follow = Gtk.ToggleToolButton.new_from_stock(Gtk.STOCK_CONNECT)
@@ -71,8 +75,9 @@ class BaseOutlineView(PanelView):
         self._toolbar.insert(btn_expand, -1)
         self._toolbar.insert(btn_collapse, -1)
         self._toolbar.insert(Gtk.SeparatorToolItem(), -1)
+        self._toolbar.set_hexpand(True)
 
-        self.pack_start(self._toolbar, False, True, 0)
+        grid.add(self._toolbar)
 
         # tree view
 
@@ -99,8 +104,9 @@ class BaseOutlineView(PanelView):
         scrolled = Gtk.ScrolledWindow()
         scrolled.add(self._view)
         scrolled.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
+        scrolled.set_vexpand(True)
 
-        self.pack_start(scrolled, True, True, 0)
+        grid.add(scrolled)
 
         # this holds a list of the currently expanded paths
         self._expandedPaths = None

@@ -20,21 +20,43 @@
 
 import logging
 
-from gi.repository import Gtk
+from gi.repository import GObject, Gtk
 
-LOG = logging.getLogger(__name__)
-
-#FIXME: this should probably be just a Gtk.Orientable iface
-# HORIZONTAL: means Bottom Panel
-# VERTICAL: means Side Panel
-class PanelView(Gtk.Box):
+class PanelView(Gtk.Bin, Gtk.Orientable):
     """
     Base class for a View
     """
 
+    orientation = GObject.property(type=Gtk.Orientation, default=Gtk.Orientation.HORIZONTAL)
+
     def __init__(self, context):
-        Gtk.Box.__init__(self)
+        Gtk.Bin.__init__(self)
         self._context = context
+
+    def _get_size(self, orientation):
+        minimum, maximum = 0, 0
+        child = self.get_child()
+
+        if child is not None and child.get_visible():
+            if orientation == Gtk.Orientation.HORIZONTAL:
+                minimum, maximum = child.get_preferred_width()
+            else:
+                minimum, maximum = child.get_preferred_height()
+
+        return minimum, maximum
+
+    def do_get_preferred_width(self):
+        return self._get_size(Gtk.Orientation.HORIZONTAL)
+
+    def do_get_preferred_height(self):
+        return self._get_size(Gtk.Orientation.VERTICAL)
+
+    def do_size_allocate(self, allocation):
+        Gtk.Bin.do_size_allocate(self, allocation)
+
+        child = self.get_child()
+        if child is not None and child.get_visible():
+            child.size_allocate(allocation)
 
     # these should be overriden by subclasses
 

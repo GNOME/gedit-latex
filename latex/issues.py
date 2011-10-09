@@ -148,7 +148,4 @@ class Issue(object):
     def __str__(self):
         return "Issue{'%s', %s, %s, %s, %s}" % (self.message, self.start, self.end, self.file, self.severity)
 
-
-
-
 # ex:ts=4:et:

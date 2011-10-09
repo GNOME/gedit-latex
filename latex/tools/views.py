@@ -48,6 +48,9 @@ class ToolView(PanelView, IStructuredIssueHandler):
         self._ICON_WARNING = GdkPixbuf.Pixbuf.new_from_file(Resources().get_icon("warning.png"))
         self._ICON_ABORT = GdkPixbuf.Pixbuf.new_from_file(Resources().get_icon("abort.png"))
 
+        grid = Gtk.Grid()
+        self.add(grid)
+
         self._scroll = Gtk.ScrolledWindow()
         self._scroll.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
         self._scroll.set_shadow_type(Gtk.ShadowType.IN)
@@ -73,8 +76,9 @@ class ToolView(PanelView, IStructuredIssueHandler):
         self._handlers[self._view] = self._view.connect("row-activated", self._on_row_activated)
 
         self._scroll.add(self._view)
+        self._scroll.set_hexpand(True)
 
-        self.pack_start(self._scroll, True, True, 0)
+        grid.add(self._scroll)
 
         # toolbar
 
@@ -94,8 +98,9 @@ class ToolView(PanelView, IStructuredIssueHandler):
         self._toolbar.set_orientation(Gtk.Orientation.VERTICAL)
         self._toolbar.insert(self._button_cancel, -1)
         self._toolbar.insert(self._button_details, -1)
+        self._toolbar.set_vexpand(True)
 
-        self.pack_start(self._toolbar, False, False, 0)
+        grid.add(self._toolbar)
 
         # theme like gtk3
         ctx = self._scroll.get_style_context()
