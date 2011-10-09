@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: gedit-latex master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gedit&keywords=I18N+L10N&component=Plugins\n"
-"POT-Creation-Date: 2011-08-17 12:47+0000\n"
-"PO-Revision-Date: 2011-08-20 11:18+0200\n"
+"POT-Creation-Date: 2011-10-07 09:55+0000\n"
+"PO-Revision-Date: 2011-10-09 12:21+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -29,7 +29,8 @@ msgstr "Autor"
 msgid "Book Title"
 msgstr "Título del libro"
 
-#: ../data/bibtex.xml.h:4
+#: ../data/bibtex.xml.h:4 ../latex/latex/actions.py:315
+#: ../latex/latex/actions.py:316
 msgid "Chapter"
 msgstr "Capítulo"
 
@@ -140,7 +141,6 @@ msgstr ""
 "«\\fxnote{foo}»"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:4
-#| msgid "LaTeX Extensions"
 msgid "Graphics File Extensions"
 msgstr "Extensiones de archivos de gráficos"
 
@@ -273,7 +273,7 @@ msgstr "Tamaño máximo del archivo analizado:"
 msgid "Miscellaneous"
 msgstr "Misceláneo"
 
-#: ../data/ui/configure.ui.h:9
+#: ../data/ui/configure.ui.h:9 ../latex/tools/views.py:111
 msgid "Tools"
 msgstr "Herramientas"
 
@@ -351,60 +351,62 @@ msgid "% _of"
 msgstr "% _de"
 
 #: ../data/ui/insert_graphics_dialog.ui.h:3
-msgid "&#xB0; CCW"
-msgstr "&#xB0; CCW"
-
-#: ../data/ui/insert_graphics_dialog.ui.h:4
 msgid "Flip _Horizontally"
 msgstr "Voltear _horizontalmente"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:5
+#: ../data/ui/insert_graphics_dialog.ui.h:4
 msgid "Floating _Object"
 msgstr "_Objeto flotante"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:6
+#: ../data/ui/insert_graphics_dialog.ui.h:5
 msgid "Image Size"
 msgstr "Tamaño de la imagen"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:7
+#: ../data/ui/insert_graphics_dialog.ui.h:6 ../latex/latex/actions.py:356
+#: ../latex/latex/actions.py:358
 msgid "Insert Graphics"
 msgstr "Gráficos insertados"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:8
+#: ../data/ui/insert_graphics_dialog.ui.h:7
 msgid "Text Width"
 msgstr "Anchura del texto"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:9
+#: ../data/ui/insert_graphics_dialog.ui.h:8
 #: ../data/ui/insert_table_dialog.ui.h:4
 msgid "_Caption:"
 msgstr "_Descripción:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:10
+#: ../data/ui/insert_graphics_dialog.ui.h:9
 msgid "_File:"
 msgstr "_Archivo:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:11
+#: ../data/ui/insert_graphics_dialog.ui.h:10
 #: ../data/ui/insert_table_dialog.ui.h:6
 msgid "_Label:"
 msgstr "_Etiqueta:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:12
+#: ../data/ui/insert_graphics_dialog.ui.h:11
 msgid "_Rotate:"
 msgstr "_Rotar:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:13
+#: ../data/ui/insert_graphics_dialog.ui.h:12
 msgid "_Spread over two Columns"
 msgstr "_Distribuir sobre dos columnas"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:14
+#: ../data/ui/insert_graphics_dialog.ui.h:13
 msgid "_Width:"
 msgstr "A_nchura:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:15
+#: ../data/ui/insert_graphics_dialog.ui.h:14
 msgid "fig:"
 msgstr "fig:"
 
-#: ../data/ui/insert_listing_dialog.ui.h:1
+#: ../data/ui/insert_graphics_dialog.ui.h:15
+msgid "° CCW"
+msgstr "° antihorario"
+
+#: ../data/ui/insert_listing_dialog.ui.h:1 ../latex/latex/actions.py:388
+#: ../latex/latex/actions.py:390
 msgid "Insert Source Code Listing"
 msgstr "Insertar listado de código fuente"
 
@@ -424,7 +426,8 @@ msgstr "_Dialecto:"
 msgid "C_olumns:"
 msgstr "C_olumnas:"
 
-#: ../data/ui/insert_table_dialog.ui.h:2
+#: ../data/ui/insert_table_dialog.ui.h:2 ../latex/latex/actions.py:372
+#: ../latex/latex/actions.py:374
 msgid "Insert Table or Matrix"
 msgstr "Insertar tabla o matriz"
 
@@ -533,7 +536,6 @@ msgid "_Landscape"
 msgstr "_Apaisado"
 
 #: ../data/ui/new_document_template_dialog.ui.h:21
-#: ../data/ui/save_as_template_dialog.ui.h:3
 msgid "_Name:"
 msgstr "_Nombre:"
 
@@ -553,18 +555,6 @@ msgstr "documento"
 msgid "pt"
 msgstr "pt"
 
-#: ../data/ui/save_as_template_dialog.ui.h:1
-msgid "Please specify a name for the new template."
-msgstr "Introduzca un nombre para la plantilla nueva."
-
-#: ../data/ui/save_as_template_dialog.ui.h:2
-msgid "Save As Template"
-msgstr "Guardar como plantilla"
-
-#: ../data/ui/save_as_template_dialog.ui.h:4
-msgid "label"
-msgstr "etiqueta"
-
 #: ../data/ui/use_bibliography_dialog.ui.h:1
 msgid "Bibliography _File:"
 msgstr "Archivo de _bibliografía:"
@@ -577,7 +567,7 @@ msgstr "Actualizar vista previa del estilo"
 msgid "Style Preview:"
 msgstr "Vista previa del estilo:"
 
-#: ../data/ui/use_bibliography_dialog.ui.h:4
+#: ../data/ui/use_bibliography_dialog.ui.h:4 ../latex/latex/actions.py:159
 msgid "Use Bibliography"
 msgstr "Usar bibliografía"
 
@@ -595,6 +585,318 @@ msgstr ""
 #: ../latex.plugin.desktop.in.in.h:2
 msgid "LaTeX Plugin"
 msgstr "Complemento LaTeX"
+
+#: ../latex/bibtex/actions.py:35
+#| msgid "<b>BibTeX</b>"
+msgid "BibTeX"
+msgstr "BibTeX"
+
+#: ../latex/bibtex/actions.py:46
+msgid "New BibTeX Entry..."
+msgstr ""
+
+#: ../latex/bibtex/actions.py:49
+#, fuzzy
+#| msgid "Create Bibliography Entry"
+msgid "Create a new BibTeX entry"
+msgstr "Crear entrada bibliográfica"
+
+#. add grouping controls to toolbar
+#: ../latex/bibtex/views.py:58
+msgid "No Grouping"
+msgstr ""
+
+#: ../latex/bibtex/views.py:59
+msgid "Group by Type"
+msgstr "Agrupar por tipo"
+
+#: ../latex/bibtex/views.py:60
+msgid "Group by Author"
+msgstr "Agrupar por autor"
+
+#: ../latex/bibtex/views.py:61
+msgid "Group by Year"
+msgstr "Agrupar por año"
+
+#. group by year
+#: ../latex/bibtex/views.py:199
+msgid "<i>n/a</i>"
+msgstr "<i>n/d</i>"
+
+#: ../latex/bibtex/views.py:242
+#| msgid "Author"
+msgid "Unknown Author"
+msgstr "Autor desconocido"
+
+#: ../latex/latex/actions.py:63
+msgid "LaTeX"
+msgstr "LaTeX"
+
+#: ../latex/latex/actions.py:73
+#, fuzzy
+#| msgid "New LaTeX Document"
+msgid "New LaTeX Document..."
+msgstr "Documento LaTeX nuevo"
+
+#: ../latex/latex/actions.py:76
+#| msgid "New LaTeX Document"
+msgid "Create a new LaTeX document"
+msgstr "Crear un documento LaTeX nuevo"
+
+#: ../latex/latex/actions.py:95
+#, fuzzy
+#| msgid "Select Master Document"
+msgid "Choose Master Document..."
+msgstr "Seleccionar el documento maestro"
+
+#: ../latex/latex/actions.py:107
+msgid "Close Nearest Environment"
+msgstr ""
+
+#: ../latex/latex/actions.py:109
+msgid "Close the nearest TeX environment at left of the cursor"
+msgstr ""
+
+#: ../latex/latex/actions.py:157
+#, fuzzy
+#| msgid "Use Bibliography"
+msgid "Use Bibliography..."
+msgstr "Usar bibliografía"
+
+#: ../latex/latex/actions.py:179 ../latex/latex/actions.py:181
+#: ../latex/latex/actions.py:189 ../latex/latex/actions.py:190
+#| msgid "Default F_ont Family:"
+msgid "Font Family"
+msgstr "Familia tipográfica"
+
+#: ../latex/latex/actions.py:194 ../latex/latex/actions.py:195
+msgid "Bold"
+msgstr "Negrita"
+
+#: ../latex/latex/actions.py:201 ../latex/latex/actions.py:202
+msgid "Italic"
+msgstr "Cursiva"
+
+#: ../latex/latex/actions.py:208 ../latex/latex/actions.py:209
+msgid "Emphasize"
+msgstr "Enfatizar"
+
+#: ../latex/latex/actions.py:215 ../latex/latex/actions.py:216
+msgid "Underline"
+msgstr "Subrayar"
+
+#: ../latex/latex/actions.py:222 ../latex/latex/actions.py:223
+msgid "Small Capitals"
+msgstr ""
+
+#: ../latex/latex/actions.py:229 ../latex/latex/actions.py:230
+msgid "Roman"
+msgstr ""
+
+#: ../latex/latex/actions.py:236 ../latex/latex/actions.py:237
+msgid "Sans Serif"
+msgstr ""
+
+#: ../latex/latex/actions.py:243 ../latex/latex/actions.py:244
+msgid "Typewriter"
+msgstr ""
+
+#: ../latex/latex/actions.py:250 ../latex/latex/actions.py:251
+msgid "Blackboard Bold"
+msgstr ""
+
+#: ../latex/latex/actions.py:258 ../latex/latex/actions.py:259
+#| msgid "Use Bibliography"
+msgid "Caligraphy"
+msgstr "Caligrafía"
+
+#: ../latex/latex/actions.py:265 ../latex/latex/actions.py:266
+msgid "Fraktur"
+msgstr ""
+
+#: ../latex/latex/actions.py:273 ../latex/latex/actions.py:274
+#: ../latex/latex/actions.py:286 ../latex/latex/actions.py:287
+msgid "List"
+msgstr "Lista"
+
+#: ../latex/latex/actions.py:278 ../latex/latex/actions.py:279
+msgid "Itemize"
+msgstr ""
+
+#: ../latex/latex/actions.py:291 ../latex/latex/actions.py:292
+#| msgid "_Generated"
+msgid "Enumerate"
+msgstr "Enumerar"
+
+#: ../latex/latex/actions.py:298 ../latex/latex/actions.py:299
+#| msgid "<b>_Description</b>"
+msgid "Description"
+msgstr "Descripción"
+
+#: ../latex/latex/actions.py:304 ../latex/latex/actions.py:305
+#: ../latex/latex/actions.py:330 ../latex/latex/actions.py:331
+msgid "Structure"
+msgstr "Estructura"
+
+#: ../latex/latex/actions.py:308 ../latex/latex/actions.py:309
+msgid "Part"
+msgstr "Parte"
+
+#: ../latex/latex/actions.py:322 ../latex/latex/actions.py:323
+#| msgid "Location"
+msgid "Section"
+msgstr "Sección"
+
+#: ../latex/latex/actions.py:335 ../latex/latex/actions.py:336
+msgid "Subsection"
+msgstr "Subsección"
+
+#: ../latex/latex/actions.py:342 ../latex/latex/actions.py:343
+msgid "Paragraph"
+msgstr "Párrafo"
+
+#: ../latex/latex/actions.py:349 ../latex/latex/actions.py:350
+msgid "Subparagraph"
+msgstr "Subpárrafo"
+
+#: ../latex/latex/actions.py:405 ../latex/latex/actions.py:407
+#: ../latex/latex/actions.py:415 ../latex/latex/actions.py:416
+msgid "Build"
+msgstr "Construir"
+
+#: ../latex/latex/actions.py:420
+msgid "Build Image"
+msgstr "Construir imagen"
+
+#: ../latex/latex/actions.py:422
+msgid "Build an image from the LaTeX document"
+msgstr ""
+
+#: ../latex/latex/actions.py:440 ../latex/latex/actions.py:441
+#: ../latex/latex/actions.py:460 ../latex/latex/actions.py:461
+msgid "Justify"
+msgstr "Justificar"
+
+#: ../latex/latex/actions.py:445 ../latex/latex/actions.py:446
+msgid "Justify Left"
+msgstr ""
+
+#: ../latex/latex/actions.py:452 ../latex/latex/actions.py:453
+msgid "Justify Center"
+msgstr ""
+
+#: ../latex/latex/actions.py:465 ../latex/latex/actions.py:466
+msgid "Justify Right"
+msgstr ""
+
+#: ../latex/latex/actions.py:472 ../latex/latex/actions.py:473
+#: ../latex/latex/actions.py:485 ../latex/latex/actions.py:486
+#, fuzzy
+#| msgid "Month"
+msgid "Math"
+msgstr "Mes"
+
+#: ../latex/latex/actions.py:477 ../latex/latex/actions.py:478
+msgid "Mathematical Environment"
+msgstr "Entorno matemático"
+
+#: ../latex/latex/actions.py:490 ../latex/latex/actions.py:491
+msgid "Centered Formula"
+msgstr "Fórmula centrada"
+
+#: ../latex/latex/actions.py:497 ../latex/latex/actions.py:498
+msgid "Numbered Equation"
+msgstr "Ecuación numerada"
+
+#: ../latex/latex/actions.py:506 ../latex/latex/actions.py:507
+msgid "Array of Equations"
+msgstr "Conjunto de ecuaciones"
+
+#: ../latex/latex/actions.py:516 ../latex/latex/actions.py:517
+msgid "Numbered Array of Equations"
+msgstr "Conjunto de ecuaciones numeradas"
+
+#: ../latex/latex/views.py:109
+msgid "Symbols"
+msgstr "Símbolos"
+
+#: ../latex/latex/views.py:195
+#| msgid "Show Graphics in Outline"
+msgid "Show graphics"
+msgstr "Mostrar gráficos"
+
+#: ../latex/latex/views.py:200
+#| msgid "Show Tables in Outline"
+msgid "Show tables"
+msgstr "Mostrar tablas"
+
+#: ../latex/outline.py:54
+#, fuzzy
+#| msgid "Editor"
+msgid "Follow Editor"
+msgstr "Editor"
+
+#: ../latex/outline.py:59
+msgid "Expand All"
+msgstr "Expandir todo"
+
+#: ../latex/outline.py:63
+msgid "Collapse All"
+msgstr "Contraer todo"
+
+#: ../latex/outline.py:109
+msgid "Outline"
+msgstr "Esquema"
+
+#: ../latex/tools/views.py:59
+msgid "Job"
+msgstr "Trabajo"
+
+#: ../latex/tools/views.py:70 ../latex/views.py:77
+#| msgid "_File:"
+msgid "File"
+msgstr "Archivo"
+
+#: ../latex/tools/views.py:71
+msgid "Line"
+msgstr "Línea"
+
+#: ../latex/tools/views.py:83
+msgid "Abort Job"
+msgstr "Cancelar trabajo"
+
+#: ../latex/tools/views.py:88
+msgid "Show Detailed Output"
+msgstr "Mostrar salida detallada"
+
+#: ../latex/views.py:64
+msgid "Message"
+msgstr "Mensaje"
+
+#: ../latex/views.py:94
+#| msgid "Hide Box Warnings"
+msgid "Show/Hide Warnings"
+msgstr "Mostrar/ocultar advertencias"
+
+#: ../latex/views.py:102
+msgid "Show/Hide Tasks"
+msgstr "Mostrar/ocultar tareas"
+
+#: ../latex/views.py:133
+msgid "Issues"
+msgstr ""
+
+#~ msgid "&#xB0; CCW"
+#~ msgstr "&#xB0; CCW"
+
+#~ msgid "Please specify a name for the new template."
+#~ msgstr "Introduzca un nombre para la plantilla nueva."
+
+#~ msgid "Save As Template"
+#~ msgstr "Guardar como plantilla"
+
+#~ msgid "label"
+#~ msgstr "etiqueta"
 
 #~ msgid "Show LaTeX Toolbar"
 #~ msgstr "Mostrar la barra de herramientas de LaTeX"
