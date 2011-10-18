@@ -261,7 +261,7 @@ class BibTeXParser(object):
         if token.type == Token.QUOTE:
             self._state = self._QUOTED_STRING_VALUE
 
-    def _on_quoted_string_value(self, token):
+    def _on_quoted_string_value(self, token, file, issue_handler):
         if token.type == Token.TEXT:
             self._constant.value = token.value
             self._document.constants.append(self._constant)
