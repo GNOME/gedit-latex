@@ -1,3 +1,18 @@
+gedit-latex 3.2.1
+=================
+
+Updated translations
+====================
+
+se (Daniel Nylander)
+
+Bugfixes
+========
+
+Show/hide toolbar when properly (Ignacio Casal Quinteiro).
+Prevent crash of bibtex parser on quoted strings (Sven (Sbte)).
+
+
 gedit-latex 3.2.0
 =================
 
