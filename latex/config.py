@@ -65,10 +65,10 @@ BIBTEX_EXTENSIONS = [".bib"]
 EDITOR_VIEWS = {}
 
 for e in LATEX_EXTENSIONS:
-    EDITOR_VIEWS[e] = {"IssueView": IssueView, "LaTeXOutlineView": LaTeXOutlineView, "LaTeXSymbolMapView": LaTeXSymbolMapView, "ToolView": ToolView}
+    EDITOR_VIEWS[e] = {"ToolView": ToolView, "IssueView": IssueView, "LaTeXOutlineView": LaTeXOutlineView, "LaTeXSymbolMapView": LaTeXSymbolMapView}
 
 for e in BIBTEX_EXTENSIONS:
-    EDITOR_VIEWS[e] = {"IssueView": IssueView, "BibTeXOutlineView": BibTeXOutlineView, "ToolView": ToolView}
+    EDITOR_VIEWS[e] = {"ToolView": ToolView, "IssueView": IssueView, "BibTeXOutlineView": BibTeXOutlineView}
 
 
 # editors
