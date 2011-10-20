@@ -424,47 +424,44 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
         # adjust editor views
         #
 
-        # determine set of side/bottom views BEFORE
-
-        before_side_views = set(self._side_views)
-        before_bottom_views = set(self._bottom_views)
-
-        # determine set of side/bottom views AFTER
-
-        after_side_views = set()
-        after_bottom_views = set()
+        side_views = []
+        bottom_views = []
 
         if tab_decorator.editor:
             editor_views = self._window_context.editor_views[tab_decorator.editor]
             for id, view in editor_views.iteritems():
                 if isinstance(view, PanelView):
                     if view.get_orientation() == Gtk.Orientation.HORIZONTAL:
-                        after_bottom_views.add(view)
+                        bottom_views.append(view)
                     else:
-                        after_side_views.add(view)
+                        side_views.append(view)
                 else:
                     raise RuntimeError("Invalid view type: %s" % view)
 
-        # remove BEFORE.difference(AFTER)
-        for view in before_side_views.difference(after_side_views):
-            self.window.get_side_panel().remove_item(view)
-            self._side_views.remove(view)
+        for view in self._side_views:
+            view.hide()
 
-        for view in before_bottom_views.difference(after_bottom_views):
-            self.window.get_bottom_panel().remove_item(view)
-            self._bottom_views.remove(view)
+        for view in self._bottom_views:
+            view.hide()
 
-        # add AFTER.difference(BEFORE)
-        i = 1
-        for view in after_side_views.difference(before_side_views):
-            i += 1
-            self.window.get_side_panel().add_item(view, "after_side_view_id" + str(i), view.get_label(), view.get_icon())
-            self._side_views.append(view)
-        i = 1
-        for view in after_bottom_views.difference(before_bottom_views):
-            i += 1
-            self.window.get_bottom_panel().add_item(view, "bottom_view_id" + str(i), view.get_label(), view.get_icon())
-            self._bottom_views.append(view)
+        # show all current views
+        i = len(self._side_views)
+        for view in side_views:
+            if view in self._side_views:
+                view.show()
+            else:
+                self.window.get_side_panel().add_item(view, "after_side_view_id" + str(i), view.get_label(), view.get_icon())
+                self._side_views.append(view)
+                i += 1
+
+        i = len(self._bottom_views)
+        for view in bottom_views:
+            if view in self._bottom_views:
+                view.show()
+            else:
+                self.window.get_bottom_panel().add_item(view, "bottom_view_id" + str(i), view.get_label(), view.get_icon())
+                self._bottom_views.append(view)
+                i += 1
 
     def _on_tab_added(self, window, tab):
         """
