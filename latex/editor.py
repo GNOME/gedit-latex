@@ -27,6 +27,7 @@ from gi.repository import GObject, Gtk, Gdk
 
 from .completion import CompletionDistributor
 from .snippetmanager import SnippetManager
+from .file import File
 
 LOG = logging.getLogger(__name__)
 
