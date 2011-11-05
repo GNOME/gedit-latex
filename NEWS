@@ -1,4 +1,23 @@
 =================
+gedit-latex 3.3.2
+=================
+
+New features and fixes
+======================
+- Prevent crash of bibtex parser on quoted strings. (Sven (Sbte))
+- Initial port to GtkGrid (Ignacio Casal Quinteiro)
+- Use gvfs-open instead of deprecated gnome-open (Vincent Untz)
+- Misc bugfixes
+
+Updated translations
+====================
+- de (Mario Blättermann)
+- eo (Kristjan SCHMIDT)
+- es (Daniel Mustieles)
+- sl (Matej Urbančič)
+- sv (Daniel Nylander)
+
+=================
 gedit-latex 3.3.1
 =================
 
