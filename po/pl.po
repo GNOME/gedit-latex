@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: gedit-latex\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-11-13 04:58+0100\n"
-"PO-Revision-Date: 2011-11-13 04:59+0100\n"
+"PO-Revision-Date: 2011-11-13 07:48+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <gnomepl@aviary.pl>\n"
 "Language: pl\n"
@@ -250,7 +250,7 @@ msgstr "Wybiera główny dokument"
 
 #: ../data/ui/configure.ui.h:1
 msgid "<b><i>rubber</i> Post-Processor</b>"
-msgstr "<b><i>rubber</i> Postprocesor</b>"
+msgstr "<b>Postprocesor <i>rubber</i></b>"
 
 #: ../data/ui/configure.ui.h:2
 msgid "<b>BibTeX</b>"
