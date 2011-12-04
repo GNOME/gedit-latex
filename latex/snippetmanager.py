@@ -35,7 +35,7 @@ class SnippetManager(Singleton):
 
         if bus.is_registered('/plugins/snippets', 'parse-and-activate'):
             bus.send('/plugins/snippets', 'parse-and-activate',
-                     trigger=text, iter=iter, view=view)
+                     snippet=text, iter=iter, view=view)
             LOG.info("Inserted using snippets plugin")
         else:
             buf = view.get_buffer()
