@@ -1,6 +1,7 @@
 # Spanish translation for gedit-latex.
 # Copyright (C) 2011 gedit-latex's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gedit-latex package.
+# Nicolás Satragno <nsatragno@gmail.com>, 2011.
 # Daniel Mustieles <daniel.mustieles@gmail.com>, 2011.
 #
 msgid ""
@@ -8,8 +9,8 @@ msgstr ""
 "Project-Id-Version: gedit-latex master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gedit&keywords=I18N+L10N&component=Plugins\n"
-"POT-Creation-Date: 2011-12-04 10:50+0000\n"
-"PO-Revision-Date: 2011-12-23 14:58+0100\n"
+"POT-Creation-Date: 2011-12-23 14:01+0000\n"
+"PO-Revision-Date: 2011-12-28 10:09+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -587,14 +588,13 @@ msgid "New BibTeX Entry..."
 msgstr "Nueva entrada BibTeX…"
 
 #: ../latex/bibtex/actions.py:49
-#| msgid "Create Bibliography Entry"
 msgid "Create a new BibTeX entry"
 msgstr "Crear entrada BibTeX nueva"
 
 #. add grouping controls to toolbar
 #: ../latex/bibtex/views.py:58
 msgid "No Grouping"
-msgstr ""
+msgstr "No agrupar"
 
 #: ../latex/bibtex/views.py:59
 msgid "Group by Type"
@@ -622,7 +622,6 @@ msgid "LaTeX"
 msgstr "LaTeX"
 
 #: ../latex/latex/actions.py:73
-#| msgid "New LaTeX Document"
 msgid "New LaTeX Document..."
 msgstr "Documento LaTeX nuevo…"
 
@@ -631,20 +630,18 @@ msgid "Create a new LaTeX document"
 msgstr "Crear un documento LaTeX nuevo"
 
 #: ../latex/latex/actions.py:95
-#| msgid "Select Master Document"
 msgid "Choose Master Document..."
 msgstr "Seleccionar el documento maestro…"
 
 #: ../latex/latex/actions.py:107
 msgid "Close Nearest Environment"
-msgstr ""
+msgstr "Cerrar el entorno más cercano"
 
 #: ../latex/latex/actions.py:109
 msgid "Close the nearest TeX environment at left of the cursor"
-msgstr ""
+msgstr "Cerrar el entorno TeX más cercano a la izquierda del puntero"
 
 #: ../latex/latex/actions.py:157
-#| msgid "Use Bibliography"
 msgid "Use Bibliography..."
 msgstr "Usar bibliografía…"
 
@@ -671,7 +668,7 @@ msgstr "Subrayar"
 
 #: ../latex/latex/actions.py:222 ../latex/latex/actions.py:223
 msgid "Small Capitals"
-msgstr ""
+msgstr "Mayúsculas pequeñas"
 
 #: ../latex/latex/actions.py:229 ../latex/latex/actions.py:230
 msgid "Roman"
@@ -685,26 +682,33 @@ msgstr "Sans Serif"
 msgid "Typewriter"
 msgstr "Teletipo"
 
+# Fuente de esta traducción:
+# http://es.wikipedia.org/wiki/Blackboard_bold
+# Nicolás
 #: ../latex/latex/actions.py:250 ../latex/latex/actions.py:251
 msgid "Blackboard Bold"
-msgstr ""
+msgstr "Negrita de pizarra"
 
 #: ../latex/latex/actions.py:258 ../latex/latex/actions.py:259
 msgid "Caligraphy"
 msgstr "Caligrafía"
 
+# Parece ser que es un tipo de letra gótica, y que va el original en alemán.
+# Nicolás.
 #: ../latex/latex/actions.py:265 ../latex/latex/actions.py:266
 msgid "Fraktur"
-msgstr ""
+msgstr "Fraktur"
 
 #: ../latex/latex/actions.py:273 ../latex/latex/actions.py:274
 #: ../latex/latex/actions.py:286 ../latex/latex/actions.py:287
 msgid "List"
 msgstr "Lista"
 
+# Supongo que se refiere a los puntitos azules que se usan para separar items (Viñetas).
+# Listar es lo más cercano que logré. Nicolás.
 #: ../latex/latex/actions.py:278 ../latex/latex/actions.py:279
 msgid "Itemize"
-msgstr ""
+msgstr "Listar"
 
 #: ../latex/latex/actions.py:291 ../latex/latex/actions.py:292
 msgid "Enumerate"
@@ -771,10 +775,8 @@ msgstr "Justificar a la derecha"
 
 #: ../latex/latex/actions.py:472 ../latex/latex/actions.py:473
 #: ../latex/latex/actions.py:485 ../latex/latex/actions.py:486
-#, fuzzy
-#| msgid "Month"
 msgid "Math"
-msgstr "Mes"
+msgstr "Matemáticas"
 
 #: ../latex/latex/actions.py:477 ../latex/latex/actions.py:478
 msgid "Mathematical Environment"
@@ -809,7 +811,6 @@ msgid "Show tables"
 msgstr "Mostrar tablas"
 
 #: ../latex/outline.py:58
-#| msgid "Editor"
 msgid "Follow Editor"
 msgstr "Seguir al editor"
 
@@ -859,7 +860,7 @@ msgstr "Mostrar/ocultar tareas"
 
 #: ../latex/views.py:139
 msgid "Issues"
-msgstr ""
+msgstr "Problemas"
 
 #~ msgid "<b>Templates</b>"
 #~ msgstr "<b>Plantillas</b>"
