@@ -18,10 +18,15 @@
 # this program; if not, write to the Free Software Foundation, Inc., 51 Franklin
 # Street, Fifth Floor, Boston, MA  02110-1301, USA
 
-import logging
+import logging, os
+
+if os.getenv("GEDIT_LATEX_PLUGIN_DEBUG") is not None:
+    log_level = logging.DEBUG
+else:
+    log_level = logging.ERROR
 
 logging.basicConfig(
-    level=logging.DEBUG,
+    level=log_level,
     format="%(levelname)-8s:%(name)-30s: %(message)s (l.%(lineno)d)")
 
 from gi.repository import Gio
@@ -32,7 +37,5 @@ if "org.gnome.gedit.plugins.latex" not in Gio.Settings.list_schemas():
 
 from appactivatable import LaTeXAppActivatable
 from windowactivatable import LaTeXWindowActivatable
-
-
 
 # ex:ts=4:et:
