@@ -45,4 +45,4 @@ class LaTeXAppActivatable(GObject.Object, Gedit.AppActivatable):
 
         Resources().set_dirs(latexdir, sysdir)
 
-# vi:ex:ts=4:et
+# ex:ts=4:et
