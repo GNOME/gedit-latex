@@ -32,17 +32,17 @@ class LaTeXAppActivatable(GObject.Object, Gedit.AppActivatable):
 
     def do_activate(self):
         if platform.platform() == 'Windows':
-            latexdir = os.path.expanduser('~/gedit/latex')
+            userdir = os.path.expanduser('~/gedit/latex')
         else:
-            latexdir = os.path.join(GLib.get_user_config_dir(), 'gedit/latex')
+            userdir = os.path.join(GLib.get_user_config_dir(), 'gedit/latex')
 
         #check if running from srcdir and if so, prefer that for all data files
         me = os.path.realpath(os.path.dirname(__file__))
-        if os.path.exists(os.path.join(me, "..", "..", "configure.ac")):
-            sysdir = os.path.abspath(os.path.join(me, "..", "..", "data"))
+        if os.path.exists(os.path.join(me, "..", "configure.ac")):
+            sysdir = os.path.abspath(os.path.join(me, "..", "data"))
         else:
             sysdir = self.plugin_info.get_data_dir()
 
-        Resources().set_dirs(latexdir, sysdir)
+        Resources().set_dirs(userdir, sysdir)
 
 # ex:ts=4:et
