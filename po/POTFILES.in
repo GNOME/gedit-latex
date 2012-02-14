@@ -1,3 +1,4 @@
+latex.plugin.desktop.in.in
 data/bibtex.xml
 data/org.gnome.gedit.plugins.latex.gschema.xml.in.in
 [type: gettext/glade]data/ui/build_image_dialog.ui
@@ -10,10 +11,10 @@ data/org.gnome.gedit.plugins.latex.gschema.xml.in.in
 [type: gettext/glade]data/ui/insert_table_dialog.ui
 [type: gettext/glade]data/ui/new_document_template_dialog.ui
 [type: gettext/glade]data/ui/use_bibliography_dialog.ui
-latex.plugin.desktop.in.in
 latex/bibtex/actions.py
 latex/bibtex/views.py
 latex/latex/actions.py
+latex/latex/environment.py
 latex/latex/views.py
 latex/outline.py
 latex/tools/views.py
