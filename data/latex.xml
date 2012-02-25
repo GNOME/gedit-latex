@@ -806,7 +806,6 @@ TODO:
       <choice name="listings" />
       <choice name="inputenc" />
       <choice name="graphicx" />
-      <choice name="graphics" />
     </argument>
   </command>
 
