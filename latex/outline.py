@@ -163,12 +163,15 @@ class BaseOutlineView(PanelView):
                 self._view.expand_to_path(Gtk.TreePath.new_from_string(path))
 
     def _on_cursor_changed(self, view):
-        store, it = view.get_selection().get_selected()
+        selection = view.get_selection()
+        if not selection:
+            return
+
+        store, it = selection.get_selected()
         if not it:
             return
 
         outline_node = store.get_value(it, 2)
-
         self._on_node_selected(outline_node)
 
     def _on_row_activated(self, view, path, column):
