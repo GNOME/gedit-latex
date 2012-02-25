@@ -26,6 +26,9 @@ TODO:
 -->
 <commands>
   <!-- hyperref -->
+  <command name="url" package="hyperref">
+    <argument label="URL" />
+  </command>
   <command name="href" package="hyperref">
     <argument label="URL" />
     <argument label="Text" />
