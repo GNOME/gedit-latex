@@ -847,13 +847,94 @@ TODO:
   </command>
 
   <command name="cite">
-    <!--<argument label="Specification" type="optional" />-->
     <argument label="Key">
       <placeholder key="Bibitems" />
     </argument>
   </command>
 
   <command name="nocite">
+    <argument label="Key">
+      <placeholder key="Bibitems" />
+    </argument>
+  </command>
+
+  <!-- BibTeX via natbib -->
+
+  <command name="citet" package="natbib">
+    <argument label="Note" type="optional" />
+    <argument label="Key">
+      <placeholder key="Bibitems" />
+    </argument>
+  </command>
+
+  <command name="Citet" package="natbib">
+    <argument label="Note" type="optional" />
+    <argument label="Key">
+      <placeholder key="Bibitems" />
+    </argument>
+  </command>
+
+  <command name="citep" package="natbib">
+    <argument label="Note" type="optional" />
+    <argument label="Key">
+      <placeholder key="Bibitems" />
+    </argument>
+  </command>
+
+  <command name="Citep" package="natbib">
+    <argument label="Note" type="optional" />
+    <argument label="Key">
+      <placeholder key="Bibitems" />
+    </argument>
+  </command>
+
+  <command name="citealt" package="natbib">
+    <argument label="Note" type="optional" />
+    <argument label="Key">
+      <placeholder key="Bibitems" />
+    </argument>
+  </command>
+
+  <command name="Citealt" package="natbib">
+    <argument label="Note" type="optional" />
+    <argument label="Key">
+      <placeholder key="Bibitems" />
+    </argument>
+  </command>
+
+  <command name="citealp" package="natbib">
+    <argument label="Note" type="optional" />
+    <argument label="Key">
+      <placeholder key="Bibitems" />
+    </argument>
+  </command>
+
+  <command name="Citealp" package="natbib">
+    <argument label="Note" type="optional" />
+    <argument label="Key">
+      <placeholder key="Bibitems" />
+    </argument>
+  </command>
+
+  <command name="citeauthor" package="natbib">
+    <argument label="Key">
+      <placeholder key="Bibitems" />
+    </argument>
+  </command>
+
+  <command name="Citeauthor" package="natbib">
+    <argument label="Key">
+      <placeholder key="Bibitems" />
+    </argument>
+  </command>
+
+  <command name="citeyear" package="natbib">
+    <argument label="Key">
+      <placeholder key="Bibitems" />
+    </argument>
+  </command>
+
+  <command name="Citeyear" package="natbib">
     <argument label="Key">
       <placeholder key="Bibitems" />
     </argument>
