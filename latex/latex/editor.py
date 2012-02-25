@@ -215,6 +215,8 @@ class LaTeXEditor(Editor, IIssueHandler):
         # know the edited file and the Editor should call an update() method of the handler
         # when the file is saved.
 
+        #FIXME: Look in graphicspath here, and in subdirs.
+
         tex_files = self._file.find_neighbors(".tex")
         bib_files = self._file.find_neighbors(".bib")
 
