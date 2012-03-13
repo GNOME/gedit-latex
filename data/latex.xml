@@ -964,6 +964,68 @@ TODO:
     </argument>
   </command>
 
+  <!-- referencing via cleverref-->
+
+  <command name="cref" package="cleverref">
+    <argument label="Name">
+      <placeholder key="Labels" />
+    </argument>
+  </command>
+
+  <command name="Cref" package="cleverref">
+    <argument label="Name">
+      <placeholder key="Labels" />
+    </argument>
+  </command>
+
+  <command name="crefrange" package="cleverref">
+    <argument label="Name1">
+      <placeholder key="Labels" />
+    </argument>
+    <argument label="Name2">
+      <placeholder key="Labels" />
+    </argument>
+  </command>
+
+  <command name="Crefrange" package="cleverref">
+    <argument label="Name1">
+      <placeholder key="Labels" />
+    </argument>
+    <argument label="Name2">
+      <placeholder key="Labels" />
+    </argument>
+  </command>
+
+  <command name="cpageref" package="cleverref">
+    <argument label="Name">
+      <placeholder key="Labels" />
+    </argument>
+  </command>
+
+  <command name="Cpageref" package="cleverref">
+    <argument label="Name">
+      <placeholder key="Labels" />
+    </argument>
+  </command>
+
+  <command name="cpagerefrange" package="cleverref">
+    <argument label="Name1">
+      <placeholder key="Labels" />
+    </argument>
+    <argument label="Name2">
+      <placeholder key="Labels" />
+    </argument>
+  </command>
+
+  <command name="Cpagerefrange" package="cleverref">
+    <argument label="Name1">
+      <placeholder key="Labels" />
+    </argument>
+    <argument label="Name2">
+      <placeholder key="Labels" />
+    </argument>
+  </command>
+
   <!-- symbols -->
 
   <command name="imath" />
