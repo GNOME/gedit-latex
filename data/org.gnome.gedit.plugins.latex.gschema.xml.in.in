@@ -41,7 +41,7 @@
       <_summary>Hide Box Warnings</_summary>
     </key>
    <key name="toolbar-mode" enum="org.gnome.gedit.plugins.latex.ToolbarMode">
-      <default>'normal'</default>
+      <default>'combined'</default>
       <_summary>Show LaTeX Toolbar below (normal), combined with the main toolbar, or disabled</_summary>
     </key>
     <key name="expanded-symbol-groups" type="s">
