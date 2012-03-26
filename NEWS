@@ -1,4 +1,25 @@
 =================
+gedit-latex 3.4.0
+=================
+
+New features and fixes
+======================
+- Combined toolbar by default (John Stowers)
+- Support cleverref (John Stowers)
+- Support natbib (John Stowers)
+- Do not print debug log messages to stdout by default (José Aliste)
+- Misc bugfixes
+
+Updated translations
+====================
+- cs (Marek Černocký)
+- de (Mario Blättermann)
+- es (Daniel Mustieles)
+- gl (Fran Dieguez)
+- pl (Piotr Drąg)
+- sl (Matej Urbančič)
+
+=================
 gedit-latex 3.3.2
 =================
 
