@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: gedit-latex master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gedit&keywords=I18N+L10N&component=Plugins\n"
-"POT-Creation-Date: 2012-02-14 18:29+0000\n"
+"POT-Creation-Date: 2012-02-16 11:19+0000\n"
 "PO-Revision-Date: 2012-02-16 12:17+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
@@ -276,7 +276,7 @@ msgstr "Tamaño máximo del archivo analizado:"
 
 #: ../data/ui/configure.ui.h:5
 msgid "KB"
-msgstr "KiB"
+msgstr "KB"
 
 #: ../data/ui/configure.ui.h:7
 msgid "Miscellaneous"
