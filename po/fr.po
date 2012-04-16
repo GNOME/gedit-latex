@@ -389,7 +389,7 @@ msgstr "_Rotation :"
 
 #: ../data/ui/insert_graphics_dialog.ui.h:10
 msgid "° CCW"
-msgstr "° sens horaire"
+msgstr "° sens anti-horaire"
 
 #: ../data/ui/insert_graphics_dialog.ui.h:11
 msgid "Flip _Horizontally"
