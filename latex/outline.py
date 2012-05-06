@@ -184,15 +184,13 @@ class BaseOutlineView(PanelView):
         """
         Expand a path and select the last node
         """
-        # disconnect from 'cursor-changed'
-        self._view.disconnect(self._cursor_changed_id)
+        selection = self._view.get_selection()
+        if not selection:
+            return
 
         # select path
         self._view.expand_to_path(path)
-        self._view.set_cursor(path, None, False)
-
-        # connect to 'cursor-changed' again
-        self._cursor_changed_id = self._view.connect("cursor-changed", self._on_cursor_changed)
+        selection.select_path(path)
 
     #
     # methods to be overridden by the subclass
