@@ -5,166 +5,174 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug."
-"cgi?product=gedit&keywords=I18N+L10N&component=Plugins\n"
-"POT-Creation-Date: 2011-09-27 01:51+0000\n"
-"PO-Revision-Date: 2011-09-29 17:52+0300\n"
-"Last-Translator: Rūdofls Mazurs <rudolfs.mazurs@gmail.com>\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-05-16 22:00+0300\n"
+"PO-Revision-Date: 2012-05-14 03:25+0300\n"
+"Last-Translator: Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>\n"
 "Language-Team: Latvian <lata-l10n@googlegroups.com>\n"
+"Language: lv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: lv\n"
-"X-Generator: Lokalize 1.2\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
+"X-Generator: Lokalize 1.2\n"
+
+#: ../latex.plugin.desktop.in.in.h:1
+msgid "LaTeX Plugin"
+msgstr "LaTeX spraudnis"
+
+#: ../latex.plugin.desktop.in.in.h:2
+msgid ""
+"A plugin that assists you in handling LaTeX documents and BibTeX "
+"bibliographies"
+msgstr ""
+"Spraudnis, kas jums palīdz apstrādāt LaTeX dokumentus un BibTeX "
+"bibliogrāfijas"
 
 #: ../data/bibtex.xml.h:1
-msgid "Address"
-msgstr "Adrese"
+msgid "Title"
+msgstr "Virsraksts"
 
 #: ../data/bibtex.xml.h:2
-msgid "Author"
-msgstr "Autors"
-
-#: ../data/bibtex.xml.h:3
 msgid "Book Title"
 msgstr "Grāmatas nosaukums"
 
+#: ../data/bibtex.xml.h:3
+msgid "Author"
+msgstr "Autors"
+
 #: ../data/bibtex.xml.h:4
-msgid "Chapter"
-msgstr "Nodaļa"
-
-#: ../data/bibtex.xml.h:5
-msgid "Cross Reference"
-msgstr "Mijnorāde"
-
-#: ../data/bibtex.xml.h:6
-msgid "Edition"
-msgstr "Izdevums"
-
-#: ../data/bibtex.xml.h:7
 msgid "Editor"
 msgstr "Redaktors"
 
-#: ../data/bibtex.xml.h:8
-msgid "How Published"
-msgstr "Kā publicēts"
+#: ../data/bibtex.xml.h:5
+msgid "Pages"
+msgstr "Lapas"
 
-#: ../data/bibtex.xml.h:9
-msgid "ISBN"
-msgstr "ISBN"
-
-#: ../data/bibtex.xml.h:10
-msgid "ISSN"
-msgstr "ISSN"
-
-#: ../data/bibtex.xml.h:11
-msgid "Institution"
-msgstr "Institūcija"
-
-#: ../data/bibtex.xml.h:12
+#: ../data/bibtex.xml.h:6
 msgid "Journal"
 msgstr "Žurnāls"
 
-#: ../data/bibtex.xml.h:13
-msgid "Key"
-msgstr "Atslēga"
+#: ../data/bibtex.xml.h:7
+msgid "Volume"
+msgstr "Sējums"
 
-#: ../data/bibtex.xml.h:14
-msgid "Location"
-msgstr "Vieta"
+#: ../data/bibtex.xml.h:8
+msgid "Number"
+msgstr "Numurs"
 
-#: ../data/bibtex.xml.h:15
+#: ../data/bibtex.xml.h:9
 msgid "Month"
 msgstr "Mēnesis"
 
+#: ../data/bibtex.xml.h:10
+msgid "Year"
+msgstr "Gads"
+
+#: ../data/bibtex.xml.h:11
+msgid "ISSN"
+msgstr "ISSN"
+
+#: ../data/bibtex.xml.h:12
+msgid "Series"
+msgstr "Sērija"
+
+#: ../data/bibtex.xml.h:13
+msgid "Edition"
+msgstr "Izdevums"
+
+#: ../data/bibtex.xml.h:14
+msgid "Publisher"
+msgstr "Izdevējs"
+
+#: ../data/bibtex.xml.h:15
+msgid "Address"
+msgstr "Adrese"
+
 #: ../data/bibtex.xml.h:16
-msgid "Note"
-msgstr "Piezīme"
+msgid "ISBN"
+msgstr "ISBN"
 
 #: ../data/bibtex.xml.h:17
-msgid "Number"
-msgstr "Numurs"
+msgid "How Published"
+msgstr "Kā publicēts"
 
 #: ../data/bibtex.xml.h:18
 msgid "Organization"
 msgstr "Organizācija"
 
 #: ../data/bibtex.xml.h:19
-msgid "Pages"
-msgstr "Lapas"
+msgid "Location"
+msgstr "Vieta"
 
 #: ../data/bibtex.xml.h:20
-msgid "Publisher"
-msgstr "Izdevējs"
-
-#: ../data/bibtex.xml.h:21
-msgid "School"
-msgstr "Skola"
-
-#: ../data/bibtex.xml.h:22
-msgid "Series"
-msgstr "Sērija"
-
-#: ../data/bibtex.xml.h:23
-msgid "Title"
-msgstr "Virsraksts"
-
-#: ../data/bibtex.xml.h:24
-msgid "Type"
-msgstr "Tips"
-
-#: ../data/bibtex.xml.h:25
 msgid "URL"
 msgstr "URL"
 
+#: ../data/bibtex.xml.h:21
+msgid "Note"
+msgstr "Piezīme"
+
+#: ../data/bibtex.xml.h:22
+msgid "Type"
+msgstr "Tips"
+
+#: ../data/bibtex.xml.h:23 ../latex/latex/actions.py:315
+#: ../latex/latex/actions.py:316
+msgid "Chapter"
+msgstr "Nodaļa"
+
+#: ../data/bibtex.xml.h:24
+msgid "Key"
+msgstr "Atslēga"
+
+#: ../data/bibtex.xml.h:25
+msgid "School"
+msgstr "Skola"
+
 #: ../data/bibtex.xml.h:26
-msgid "Volume"
-msgstr "Sējums"
+msgid "Institution"
+msgstr "Institūcija"
 
 #: ../data/bibtex.xml.h:27
-msgid "Year"
-msgstr "Gads"
+msgid "Cross Reference"
+msgstr "Mijnorāde"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:1
-msgid "Connect Outline to Editor"
-msgstr "Savienoties ar struktūras redaktoru"
-
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:2
-msgid "Expanded Symbol Groups"
-msgstr "Paplašinātās simbolu grupas"
-
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:3
-msgid "Extra LaTeX commands used to mark issues, such as \\fxnote{foo}"
-msgstr "Papildu LaTeX komandas, ar ko marķēt problēmas, piemēram \\fxnote{foo}"
-
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:4
-msgid "Graphics File Extensions"
-msgstr "Grafisko failu paplašinājumi"
-
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:5
-#: ../data/ui/configure.ui.h:5
-msgid "Hide Box Warnings"
-msgstr "Slēpt lauku brīdinājumus"
-
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:6
-msgid "LaTeX Extensions"
-msgstr "LaTeX paplašinājumi"
-
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:7
 msgid "Maximum BibTeX Size"
 msgstr "Maksimālais BibTeX izmērs"
 
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:8
-msgid "Paths Relative to .tex File to Look for Graphics"
-msgstr "Ceļš (relatīvs pret. tex failu), kurā meklēt ilustrācijas"
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:2
+msgid "Connect Outline to Editor"
+msgstr "Savienoties ar struktūras redaktoru"
 
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:9
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:3
+msgid "Show Labels in Outline"
+msgstr "Struktūrā rādīt etiķetes"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:4
+msgid "Show Tables in Outline"
+msgstr "Struktūrā rādīt tabulas"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:5
 msgid "Show Graphics in Outline"
 msgstr "Struktūrā rādīt ilustrācijas"
 
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:10
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:6
+msgid "Show Warnings in Issues"
+msgstr "Problēmās rādīt brīdinājumus"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:7
+msgid "Show Tasks in Issues"
+msgstr "Problēmās rādīt uzdevumus"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:8
+#: ../data/ui/configure.ui.h:6
+msgid "Hide Box Warnings"
+msgstr "Slēpt lauku brīdinājumus"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:9
 msgid ""
 "Show LaTeX Toolbar below (normal), combined with the main toolbar, or "
 "disabled"
@@ -172,135 +180,107 @@ msgstr ""
 "Rādīt LaTeX rīkjoslu zemāk (normāli), kombinētu ar galveno rīkjoslu, vai "
 "deaktivēt"
 
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:10
+msgid "Expanded Symbol Groups"
+msgstr "Paplašinātās simbolu grupas"
+
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:11
-msgid "Show Labels in Outline"
-msgstr "Struktūrā rādīt etiķetes"
+msgid "LaTeX Extensions"
+msgstr "LaTeX paplašinājumi"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:12
-msgid "Show Tables in Outline"
-msgstr "Struktūrā rādīt tabulas"
+msgid "Graphics File Extensions"
+msgstr "Grafisko failu paplašinājumi"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:13
-msgid "Show Tasks in Issues"
-msgstr "Problēmās rādīt uzdevumus"
+msgid "Paths Relative to .tex File to Look for Graphics"
+msgstr "Ceļš (relatīvs pret. tex failu), kurā meklēt ilustrācijas"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:14
-msgid "Show Warnings in Issues"
-msgstr "Problēmās rādīt brīdinājumus"
+msgid "Extra LaTeX commands used to mark issues, such as \\fxnote{foo}"
+msgstr "Papildu LaTeX komandas, ar ko marķēt problēmas, piemēram \\fxnote{foo}"
 
 #: ../data/ui/build_image_dialog.ui.h:1
-msgid "<b>Area</b>"
-msgstr "<b>Laukums</b>"
+msgid "Render to Image"
+msgstr "Attēlot uz attēlu"
 
 #: ../data/ui/build_image_dialog.ui.h:2
 msgid "<b>Image Format</b>"
 msgstr "<b>Attēla formāts</b>"
 
 #: ../data/ui/build_image_dialog.ui.h:3
-msgid "<b>Rendering</b>"
-msgstr "<b>Attēlošana</b>"
-
-#: ../data/ui/build_image_dialog.ui.h:4
-msgid "Antialiasing:"
-msgstr "Nogludināšana:"
-
-#: ../data/ui/build_image_dialog.ui.h:5
-msgid "Attempt to render tight bounding box"
-msgstr "Mēģināt attēlot ciešu ierobežojošo lauku"
-
-#: ../data/ui/build_image_dialog.ui.h:6
-msgid "Color Mode:"
-msgstr "Krāsu režīms:"
-
-#: ../data/ui/build_image_dialog.ui.h:7
-msgid "GIF"
-msgstr "GIF"
-
-#: ../data/ui/build_image_dialog.ui.h:8
-msgid "JPEG"
-msgstr "JPEG"
-
-#: ../data/ui/build_image_dialog.ui.h:9
 msgid "PNG"
 msgstr "PNG"
 
+#: ../data/ui/build_image_dialog.ui.h:4
+msgid "Color Mode:"
+msgstr "Krāsu režīms:"
+
+#: ../data/ui/build_image_dialog.ui.h:5
+msgid "JPEG"
+msgstr "JPEG"
+
+#: ../data/ui/build_image_dialog.ui.h:6
+msgid "GIF"
+msgstr "GIF"
+
+#: ../data/ui/build_image_dialog.ui.h:7
+msgid "<b>Rendering</b>"
+msgstr "<b>Attēlošana</b>"
+
+#: ../data/ui/build_image_dialog.ui.h:8
+msgid "<b>Area</b>"
+msgstr "<b>Laukums</b>"
+
+#: ../data/ui/build_image_dialog.ui.h:9
+msgid "Antialiasing:"
+msgstr "Nogludināšana:"
+
 #: ../data/ui/build_image_dialog.ui.h:10
-msgid "Render to Image"
-msgstr "Attēlot uz attēlu"
+msgid "Resolution:"
+msgstr "Izšķirtspēja:"
 
 #: ../data/ui/build_image_dialog.ui.h:11
 msgid "Render whole page(s)"
 msgstr "Attēlot visu(-as) lapu(-as)"
 
 #: ../data/ui/build_image_dialog.ui.h:12
-msgid "Resolution:"
-msgstr "Izšķirtspēja:"
+msgid "Attempt to render tight bounding box"
+msgstr "Mēģināt attēlot ciešu ierobežojošo lauku"
 
 #: ../data/ui/choose_master_dialog.ui.h:1
-msgid "Filename:"
-msgstr "Faila nosaukums:"
-
-#: ../data/ui/choose_master_dialog.ui.h:2
 msgid "Select Master Document"
 msgstr "Izvēlieties galveno dokumentu"
 
-#: ../data/ui/configure.ui.h:1
-msgid "<b><i>rubber</i> Post-Processor</b>"
-msgstr "<b><i>rubber</i> pēcprocesors</b>"
+#: ../data/ui/choose_master_dialog.ui.h:2
+msgid "Filename:"
+msgstr "Faila nosaukums:"
+
+#: ../data/ui/configure.ui.h:1 ../latex/tools/views.py:116
+msgid "Tools"
+msgstr "Rīki"
 
 #: ../data/ui/configure.ui.h:2
 msgid "<b>BibTeX</b>"
 msgstr "<b>BibTeX</b>"
 
 #: ../data/ui/configure.ui.h:3
-msgid "<b>Templates</b>"
-msgstr "<b>Sagataves</b>"
+msgid "<b><i>rubber</i> Post-Processor</b>"
+msgstr "<b><i>rubber</i> pēcprocesors</b>"
 
 #: ../data/ui/configure.ui.h:4
-msgid "Folder:"
-msgstr "Mape:"
+msgid "Maximum Parsed File Size:"
+msgstr "Maksimālais parsētā faila izmērs:"
 
-#: ../data/ui/configure.ui.h:6
+#: ../data/ui/configure.ui.h:5
 msgid "KB"
 msgstr "KB"
 
 #: ../data/ui/configure.ui.h:7
-msgid "Maximum Parsed File Size:"
-msgstr "Maksimālais parsētā faila izmērs:"
-
-#: ../data/ui/configure.ui.h:8
 msgid "Miscellaneous"
 msgstr "Dažādi"
 
-#: ../data/ui/configure.ui.h:9
-msgid "Tools"
-msgstr "Rīki"
-
 #: ../data/ui/configure_tool.ui.h:1
-msgid "<Ctrl><Alt>1"
-msgstr "<Ctrl><Alt>1"
-
-#: ../data/ui/configure_tool.ui.h:2
-msgid "<b>Accelerator</b>"
-msgstr "<b>Paātrinātājs</b>"
-
-#: ../data/ui/configure_tool.ui.h:3
-msgid "<b>_Description</b>"
-msgstr "<b>_Apraksts</b>"
-
-#: ../data/ui/configure_tool.ui.h:4
-msgid "<b>_File Extensions</b>"
-msgstr "<b>_Faila paplašinājums</b>"
-
-#: ../data/ui/configure_tool.ui.h:5
-msgid "<b>_Jobs</b>"
-msgstr "<b>_Darbi</b>"
-
-#: ../data/ui/configure_tool.ui.h:6
-msgid "<b>_Label</b>"
-msgstr "<b>_Etiķete</b>"
-
-#: ../data/ui/configure_tool.ui.h:7
 msgid ""
 "Remember to run all commands in batch mode (e.g. append <tt>-interaction "
 "batchmode</tt> to <tt>latex</tt>)"
@@ -308,33 +288,57 @@ msgstr ""
 "Atcerieties izpildīt visas komandas pakešu režīmā (piem., pievienot "
 "<tt>-interaction batchmode</tt> pie <tt>latex</tt>)"
 
-#: ../data/ui/configure_tool.ui.h:8
+#: ../data/ui/configure_tool.ui.h:2
+msgid "<b>_Label</b>"
+msgstr "<b>_Etiķete</b>"
+
+#: ../data/ui/configure_tool.ui.h:3
 msgid ""
 "Valid placeholders are <tt>$filename</tt>, <tt>$shortname</tt>, <tt>"
 "$directory</tt>"
 msgstr ""
-"Derīgi vietturi ir <tt>$filename</tt>, <tt>$shortname</tt> un <tt>"
-"$directory</tt>"
+"Derīgi vietturi ir <tt>$filename</tt>, <tt>$shortname</tt> un "
+"<tt>$directory</tt>"
 
-#: ../data/ui/configure_tool.ui.h:9
+#: ../data/ui/configure_tool.ui.h:4
+msgid "<b>_Jobs</b>"
+msgstr "<b>_Darbi</b>"
+
+#: ../data/ui/configure_tool.ui.h:5
+msgid "<b>_Description</b>"
+msgstr "<b>_Apraksts</b>"
+
+#: ../data/ui/configure_tool.ui.h:6
+msgid "<b>_File Extensions</b>"
+msgstr "<b>_Faila paplašinājums</b>"
+
+#: ../data/ui/configure_tool.ui.h:7
 msgid "_Generated"
 msgstr "Ģe_nerēts"
 
-#: ../data/ui/configure_tool.ui.h:10
+#: ../data/ui/configure_tool.ui.h:8
 msgid "_User Defined:"
 msgstr "_Lietotāja noteikts:"
+
+#: ../data/ui/configure_tool.ui.h:9
+msgid "<Ctrl><Alt>1"
+msgstr "<Ctrl><Alt>1"
+
+#: ../data/ui/configure_tool.ui.h:10
+msgid "<b>Accelerator</b>"
+msgstr "<b>Paātrinātājs</b>"
 
 #: ../data/ui/insert_bibtex_entry.ui.h:1
 msgid "Create Bibliography Entry"
 msgstr "Izveidot bibliogrāfijas ierakstu"
 
 #: ../data/ui/insert_bibtex_entry.ui.h:2
-msgid "Optional Fields"
-msgstr "Neobligātie lauki"
-
-#: ../data/ui/insert_bibtex_entry.ui.h:3
 msgid "Required Fields"
 msgstr "Nepieciešamie lauki"
+
+#: ../data/ui/insert_bibtex_entry.ui.h:3
+msgid "Optional Fields"
+msgstr "Neobligātie lauki"
 
 #: ../data/ui/insert_bibtex_entry.ui.h:4
 msgid "_Identifier:"
@@ -344,66 +348,68 @@ msgstr "_Identifikators:"
 msgid "_Type:"
 msgstr "_Tips:"
 
+#: ../data/ui/insert_graphics_dialog.ui.h:1 ../latex/latex/actions.py:356
+#: ../latex/latex/actions.py:358
+msgid "Insert Graphics"
+msgstr "Ievietot attēlu"
+
 #: ../data/ui/insert_graphics_dialog.ui.h:2
+msgid "_File:"
+msgstr "_Fails:"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:3
+#: ../data/ui/insert_table_dialog.ui.h:7
+msgid "_Caption:"
+msgstr "_Paraksts:"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:4
+#: ../data/ui/insert_table_dialog.ui.h:8
+msgid "_Label:"
+msgstr "_Etiķete:"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:5
+msgid "fig:"
+msgstr "att.:"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:6
+msgid "_Width:"
+msgstr "_Platums:"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:8
 #, no-c-format
 msgid "% _of"
 msgstr "% n_o"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:3
-msgid "&#xB0; CCW"
-msgstr "&#xB0; (pret pulkst.)"
-
-#: ../data/ui/insert_graphics_dialog.ui.h:4
-msgid "Flip _Horizontally"
-msgstr "Apmest _horizontāli"
-
-#: ../data/ui/insert_graphics_dialog.ui.h:5
-msgid "Floating _Object"
-msgstr "Peldošs _objekts"
-
-#: ../data/ui/insert_graphics_dialog.ui.h:6
-msgid "Image Size"
-msgstr "Attēla izmērs"
-
-#: ../data/ui/insert_graphics_dialog.ui.h:7
-msgid "Insert Graphics"
-msgstr "Ievietot attēlu"
-
-#: ../data/ui/insert_graphics_dialog.ui.h:8
-msgid "Text Width"
-msgstr "Teksta platums"
-
 #: ../data/ui/insert_graphics_dialog.ui.h:9
-#: ../data/ui/insert_table_dialog.ui.h:4
-msgid "_Caption:"
-msgstr "_Paraksts:"
-
-#: ../data/ui/insert_graphics_dialog.ui.h:10
-msgid "_File:"
-msgstr "_Fails:"
-
-#: ../data/ui/insert_graphics_dialog.ui.h:11
-#: ../data/ui/insert_table_dialog.ui.h:6
-msgid "_Label:"
-msgstr "_Etiķete:"
-
-#: ../data/ui/insert_graphics_dialog.ui.h:12
 msgid "_Rotate:"
 msgstr "Pag_riezt:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:13
+#: ../data/ui/insert_graphics_dialog.ui.h:10
+msgid "° CCW"
+msgstr "° pret pulksteni"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:11
+msgid "Flip _Horizontally"
+msgstr "Apmest _horizontāli"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:12
 msgid "_Spread over two Columns"
 msgstr "_Izklāt uz divām kolonnām"
 
+#: ../data/ui/insert_graphics_dialog.ui.h:13
+msgid "Floating _Object"
+msgstr "Peldošs _objekts"
+
 #: ../data/ui/insert_graphics_dialog.ui.h:14
-msgid "_Width:"
-msgstr "_Platums:"
+msgid "Image Size"
+msgstr "Attēla izmērs"
 
 #: ../data/ui/insert_graphics_dialog.ui.h:15
-msgid "fig:"
-msgstr "att.:"
+msgid "Text Width"
+msgstr "Teksta platums"
 
-#: ../data/ui/insert_listing_dialog.ui.h:1
+#: ../data/ui/insert_listing_dialog.ui.h:1 ../latex/latex/actions.py:388
+#: ../latex/latex/actions.py:390
 msgid "Insert Source Code Listing"
 msgstr "Ievietot pirmkoda izdruka"
 
@@ -419,179 +425,541 @@ msgstr "Programmēšanas va_loda:"
 msgid "_Dialect:"
 msgstr "_Dialekts:"
 
-#: ../data/ui/insert_table_dialog.ui.h:1
-msgid "C_olumns:"
-msgstr "K_olonnas:"
-
-#: ../data/ui/insert_table_dialog.ui.h:2
+#: ../data/ui/insert_table_dialog.ui.h:1 ../latex/latex/actions.py:372
+#: ../latex/latex/actions.py:374
 msgid "Insert Table or Matrix"
 msgstr "Ievietot tabulu vai matricu"
 
-#: ../data/ui/insert_table_dialog.ui.h:3
+#: ../data/ui/insert_table_dialog.ui.h:2
 msgid "Type:"
 msgstr "Tips:"
 
-#: ../data/ui/insert_table_dialog.ui.h:5
-msgid "_Floating Object"
-msgstr "_Peldošs objekts"
-
-#: ../data/ui/insert_table_dialog.ui.h:7
-msgid "_Matrix:"
-msgstr "_Matrica:"
-
-#: ../data/ui/insert_table_dialog.ui.h:8
-msgid "_Rows:"
-msgstr "_Rindas:"
-
-#: ../data/ui/insert_table_dialog.ui.h:9
+#: ../data/ui/insert_table_dialog.ui.h:3
 msgid "_Table"
 msgstr "_Tabula"
 
-#: ../data/ui/insert_table_dialog.ui.h:10
+#: ../data/ui/insert_table_dialog.ui.h:4
+msgid "_Matrix:"
+msgstr "_Matrica:"
+
+#: ../data/ui/insert_table_dialog.ui.h:5
+msgid "_Rows:"
+msgstr "_Rindas:"
+
+#: ../data/ui/insert_table_dialog.ui.h:6
+msgid "C_olumns:"
+msgstr "K_olonnas:"
+
+#: ../data/ui/insert_table_dialog.ui.h:9
 msgid "tab:"
 msgstr "tab:"
 
+#: ../data/ui/insert_table_dialog.ui.h:10
+msgid "_Floating Object"
+msgstr "_Peldošs objekts"
+
 #: ../data/ui/new_document_template_dialog.ui.h:1
-msgid ".tex"
-msgstr ".tex"
-
-#: ../data/ui/new_document_template_dialog.ui.h:2
-msgid "<b>Language Customization</b>"
-msgstr "<b>Valodas pielāgošana</b>"
-
-#: ../data/ui/new_document_template_dialog.ui.h:3
-msgid "<b>Meta Information</b>"
-msgstr "<b>Meta informācija</b>"
-
-#: ../data/ui/new_document_template_dialog.ui.h:4
-msgid "<b>Style and Layout</b>"
-msgstr "<b>Stils un izkārtojums</b>"
-
-#: ../data/ui/new_document_template_dialog.ui.h:5
-msgid "Base Font Size:"
-msgstr "Bāzes fonta izmērs:"
-
-#: ../data/ui/new_document_template_dialog.ui.h:6
-msgid "C_ustom:"
-msgstr "_Pielāgots:"
-
-#: ../data/ui/new_document_template_dialog.ui.h:7
-msgid "Date:"
-msgstr "Datums:"
-
-#: ../data/ui/new_document_template_dialog.ui.h:8
-msgid "De_fault"
-msgstr "No_klusētais"
-
-#: ../data/ui/new_document_template_dialog.ui.h:9
-msgid "Default F_ont Family:"
-msgstr "Noklusētā f_ontu saime:"
-
-#: ../data/ui/new_document_template_dialog.ui.h:10
-msgid "Di_rectory:"
-msgstr "Di_rektorija:"
-
-#: ../data/ui/new_document_template_dialog.ui.h:11
-msgid "Document _Class:"
-msgstr "Dokumenta _klase:"
-
-#: ../data/ui/new_document_template_dialog.ui.h:12
-msgid "Include PDF _Metadata"
-msgstr "Iekļaut PDF _metadatus"
-
-#: ../data/ui/new_document_template_dialog.ui.h:13
 msgid "New LaTeX Document"
 msgstr "Jauns LaTeX dokuments"
 
-#: ../data/ui/new_document_template_dialog.ui.h:14
+#: ../data/ui/new_document_template_dialog.ui.h:2
 msgid "T_emplate:"
 msgstr "Sagatav_e:"
 
-#: ../data/ui/new_document_template_dialog.ui.h:15
-msgid "To_day"
-msgstr "Šo_diena"
+#: ../data/ui/new_document_template_dialog.ui.h:3
+msgid "document"
+msgstr "dokuments"
 
-#: ../data/ui/new_document_template_dialog.ui.h:16
-msgid "U_ser Defined:"
-msgstr "Lietotāja noteikt_s:"
+#: ../data/ui/new_document_template_dialog.ui.h:4
+msgid ".tex"
+msgstr ".tex"
 
-#: ../data/ui/new_document_template_dialog.ui.h:17
-msgid "_Author:"
-msgstr "_Autors:"
+#: ../data/ui/new_document_template_dialog.ui.h:5
+msgid "Di_rectory:"
+msgstr "Di_rektorija:"
 
-#: ../data/ui/new_document_template_dialog.ui.h:18
-msgid "_Babel Package:"
-msgstr "_Babel pakotne:"
-
-#: ../data/ui/new_document_template_dialog.ui.h:19
-msgid "_Input Encoding:"
-msgstr "_Ievades kodējums:"
-
-#: ../data/ui/new_document_template_dialog.ui.h:20
-msgid "_Landscape"
-msgstr "_Ainava"
-
-#: ../data/ui/new_document_template_dialog.ui.h:21
-#: ../data/ui/save_as_template_dialog.ui.h:3
+#: ../data/ui/new_document_template_dialog.ui.h:6
 msgid "_Name:"
 msgstr "_Nosaukums:"
 
-#: ../data/ui/new_document_template_dialog.ui.h:22
+#: ../data/ui/new_document_template_dialog.ui.h:7
+msgid "_Babel Package:"
+msgstr "_Babel pakotne:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:8
+msgid "_Input Encoding:"
+msgstr "_Ievades kodējums:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:9
+msgid "<b>Language Customization</b>"
+msgstr "<b>Valodas pielāgošana</b>"
+
+#: ../data/ui/new_document_template_dialog.ui.h:10
+msgid "_Landscape"
+msgstr "_Ainava"
+
+#: ../data/ui/new_document_template_dialog.ui.h:11
 msgid "_Paper:"
 msgstr "_Papīrs:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:12
+msgid "De_fault"
+msgstr "No_klusētais"
+
+#: ../data/ui/new_document_template_dialog.ui.h:13
+msgid "U_ser Defined:"
+msgstr "Lietotāja noteikt_s:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:14
+msgid "pt"
+msgstr "pt"
+
+#: ../data/ui/new_document_template_dialog.ui.h:15
+msgid "Base Font Size:"
+msgstr "Bāzes fonta izmērs:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:16
+msgid "Document _Class:"
+msgstr "Dokumenta _klase:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:17
+msgid "<b>Style and Layout</b>"
+msgstr "<b>Stils un izkārtojums</b>"
+
+#: ../data/ui/new_document_template_dialog.ui.h:18
+msgid "Include PDF _Metadata"
+msgstr "Iekļaut PDF _metadatus"
+
+#: ../data/ui/new_document_template_dialog.ui.h:19
+msgid "Date:"
+msgstr "Datums:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:20
+msgid "To_day"
+msgstr "Šo_diena"
+
+#: ../data/ui/new_document_template_dialog.ui.h:21
+msgid "C_ustom:"
+msgstr "_Pielāgots:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:22
+msgid "_Author:"
+msgstr "_Autors:"
 
 #: ../data/ui/new_document_template_dialog.ui.h:23
 msgid "_Title:"
 msgstr "Virsraks_ts:"
 
 #: ../data/ui/new_document_template_dialog.ui.h:24
-msgid "document"
-msgstr "dokuments"
+msgid "<b>Meta Information</b>"
+msgstr "<b>Meta informācija</b>"
 
 #: ../data/ui/new_document_template_dialog.ui.h:25
-msgid "pt"
-msgstr "pt"
+msgid "Default F_ont Family:"
+msgstr "Noklusētā f_ontu saime:"
 
-#: ../data/ui/save_as_template_dialog.ui.h:1
-msgid "Please specify a name for the new template."
-msgstr "Lūdzu, norādiet jaunās sagataves nosaukumu."
-
-#: ../data/ui/save_as_template_dialog.ui.h:2
-msgid "Save As Template"
-msgstr "Saglabāt kā sagatavi"
-
-#: ../data/ui/save_as_template_dialog.ui.h:4
-msgid "label"
-msgstr "etiķete"
-
-#: ../data/ui/use_bibliography_dialog.ui.h:1
-msgid "Bibliography _File:"
-msgstr "Bibliogrāfijas _fails:"
-
-#: ../data/ui/use_bibliography_dialog.ui.h:2
-msgid "Refresh Style Preview"
-msgstr "Atsvaidzināt stila priekšskatījumu"
-
-#: ../data/ui/use_bibliography_dialog.ui.h:3
-msgid "Style Preview:"
-msgstr "Stila priekšskatījums:"
-
-#: ../data/ui/use_bibliography_dialog.ui.h:4
+#: ../data/ui/use_bibliography_dialog.ui.h:1 ../latex/latex/actions.py:159
 msgid "Use Bibliography"
 msgstr "Lietot bibliogrāfiju"
 
-#: ../data/ui/use_bibliography_dialog.ui.h:5
+#: ../data/ui/use_bibliography_dialog.ui.h:2
+msgid "Bibliography _File:"
+msgstr "Bibliogrāfijas _fails:"
+
+#: ../data/ui/use_bibliography_dialog.ui.h:3
 msgid "_Style:"
 msgstr "_Stils:"
 
-#: ../latex.plugin.desktop.in.in.h:1
-msgid ""
-"A plugin that assists you in handling LaTeX documents and BibTeX "
-"bibliographies"
-msgstr ""
-"Spraudnis, kas jums palīdz apstrādāt LaTeX dokumentus un BibTeX bibliogrāfijas"
+#: ../data/ui/use_bibliography_dialog.ui.h:4
+msgid "Style Preview:"
+msgstr "Stila priekšskatījums:"
 
-#: ../latex.plugin.desktop.in.in.h:2
-msgid "LaTeX Plugin"
-msgstr "LaTeX spraudnis"
+#: ../data/ui/use_bibliography_dialog.ui.h:5
+msgid "Refresh Style Preview"
+msgstr "Atsvaidzināt stila priekšskatījumu"
 
+#: ../latex/bibtex/actions.py:35
+msgid "BibTeX"
+msgstr "BibTeX"
+
+#: ../latex/bibtex/actions.py:46
+msgid "New BibTeX Entry..."
+msgstr "Jauns BibTeX ieraksts..."
+
+#: ../latex/bibtex/actions.py:49
+msgid "Create a new BibTeX entry"
+msgstr "Izveidot jaunu BibTeX ierakstu"
+
+#. add grouping controls to toolbar
+#: ../latex/bibtex/views.py:58
+msgid "No Grouping"
+msgstr "Nav grupēšanas"
+
+#: ../latex/bibtex/views.py:59
+msgid "Group by Type"
+msgstr "Grupēt pēc tipa"
+
+#: ../latex/bibtex/views.py:60
+msgid "Group by Author"
+msgstr "Grupēt pēc autora"
+
+#: ../latex/bibtex/views.py:61
+msgid "Group by Year"
+msgstr "Grupēt pēc gada"
+
+#. group by year
+#: ../latex/bibtex/views.py:199
+msgid "<i>n/a</i>"
+msgstr "<i>n/p</i>"
+
+#: ../latex/bibtex/views.py:242
+msgid "Unknown Author"
+msgstr "Nezināms autors"
+
+#: ../latex/latex/actions.py:63
+msgid "LaTeX"
+msgstr "LaTeX"
+
+#: ../latex/latex/actions.py:73
+msgid "New LaTeX Document..."
+msgstr "Jauns LaTeX dokuments..."
+
+#: ../latex/latex/actions.py:76
+msgid "Create a new LaTeX document"
+msgstr "Izveidot jaunu LaTeX dokumentu"
+
+#: ../latex/latex/actions.py:95
+msgid "Choose Master Document..."
+msgstr "Izvēlieties galveno dokumentu..."
+
+#: ../latex/latex/actions.py:107
+msgid "Close Nearest Environment"
+msgstr "Aizvērt tuvāko vidi"
+
+#: ../latex/latex/actions.py:109
+msgid "Close the nearest TeX environment at left of the cursor"
+msgstr "Aizvērt tuvāko TeX vidi pa kreisi no kursora"
+
+#: ../latex/latex/actions.py:157
+msgid "Use Bibliography..."
+msgstr "Lietot bibliogrāfiju..."
+
+#: ../latex/latex/actions.py:179 ../latex/latex/actions.py:181
+#: ../latex/latex/actions.py:189 ../latex/latex/actions.py:190
+msgid "Font Family"
+msgstr "Fontu saime"
+
+#: ../latex/latex/actions.py:194 ../latex/latex/actions.py:195
+msgid "Bold"
+msgstr "Treknraksts"
+
+#: ../latex/latex/actions.py:201 ../latex/latex/actions.py:202
+msgid "Italic"
+msgstr "Kursīvs"
+
+#: ../latex/latex/actions.py:208 ../latex/latex/actions.py:209
+msgid "Emphasize"
+msgstr "Uzsvars"
+
+#: ../latex/latex/actions.py:215 ../latex/latex/actions.py:216
+msgid "Underline"
+msgstr "Pasvītrots"
+
+#: ../latex/latex/actions.py:222 ../latex/latex/actions.py:223
+msgid "Small Capitals"
+msgstr "Samazināti lielie burti"
+
+#: ../latex/latex/actions.py:229 ../latex/latex/actions.py:230
+msgid "Roman"
+msgstr "Latīņu"
+
+#: ../latex/latex/actions.py:236 ../latex/latex/actions.py:237
+msgid "Sans Serif"
+msgstr "Bezrēdzes fonts"
+
+#: ../latex/latex/actions.py:243 ../latex/latex/actions.py:244
+msgid "Typewriter"
+msgstr "Rakstāmmašīna"
+
+#: ../latex/latex/actions.py:250 ../latex/latex/actions.py:251
+msgid "Blackboard Bold"
+msgstr "Tāfeles treknraksts"
+
+#: ../latex/latex/actions.py:258 ../latex/latex/actions.py:259
+msgid "Caligraphy"
+msgstr "Kaligrāfija"
+
+#: ../latex/latex/actions.py:265 ../latex/latex/actions.py:266
+msgid "Fraktur"
+msgstr "Fraktura"
+
+#: ../latex/latex/actions.py:273 ../latex/latex/actions.py:274
+#: ../latex/latex/actions.py:286 ../latex/latex/actions.py:287
+msgid "List"
+msgstr "Saraksts"
+
+#: ../latex/latex/actions.py:278 ../latex/latex/actions.py:279
+msgid "Itemize"
+msgstr "Aizzīmēt"
+
+#: ../latex/latex/actions.py:291 ../latex/latex/actions.py:292
+msgid "Enumerate"
+msgstr "Uzskaitīt"
+
+#: ../latex/latex/actions.py:298 ../latex/latex/actions.py:299
+msgid "Description"
+msgstr "Apraksts"
+
+#: ../latex/latex/actions.py:304 ../latex/latex/actions.py:305
+#: ../latex/latex/actions.py:330 ../latex/latex/actions.py:331
+msgid "Structure"
+msgstr "Struktūra"
+
+#: ../latex/latex/actions.py:308 ../latex/latex/actions.py:309
+msgid "Part"
+msgstr "Daļa"
+
+#: ../latex/latex/actions.py:322 ../latex/latex/actions.py:323
+msgid "Section"
+msgstr "Sadaļa"
+
+#: ../latex/latex/actions.py:335 ../latex/latex/actions.py:336
+msgid "Subsection"
+msgstr "Apakšsadaļa"
+
+#: ../latex/latex/actions.py:342 ../latex/latex/actions.py:343
+msgid "Paragraph"
+msgstr "Rindkopa"
+
+#: ../latex/latex/actions.py:349 ../latex/latex/actions.py:350
+msgid "Subparagraph"
+msgstr "Apakšrindkopa"
+
+#: ../latex/latex/actions.py:405 ../latex/latex/actions.py:407
+#: ../latex/latex/actions.py:415 ../latex/latex/actions.py:416
+msgid "Build"
+msgstr "Būvējums"
+
+#: ../latex/latex/actions.py:420
+msgid "Build Image"
+msgstr "Būvējuma attēls"
+
+#: ../latex/latex/actions.py:422
+msgid "Build an image from the LaTeX document"
+msgstr "Būvējiet attēlu no LaTeX dokumenta"
+
+#: ../latex/latex/actions.py:440 ../latex/latex/actions.py:441
+#: ../latex/latex/actions.py:460 ../latex/latex/actions.py:461
+msgid "Justify"
+msgstr "Abpuslīdzināt"
+
+#: ../latex/latex/actions.py:445 ../latex/latex/actions.py:446
+msgid "Justify Left"
+msgstr "Līdzināt pie kreisās"
+
+#: ../latex/latex/actions.py:452 ../latex/latex/actions.py:453
+msgid "Justify Center"
+msgstr "Līdzināt vidū"
+
+#: ../latex/latex/actions.py:465 ../latex/latex/actions.py:466
+msgid "Justify Right"
+msgstr "Līdzināt pie labās"
+
+#: ../latex/latex/actions.py:472 ../latex/latex/actions.py:473
+#: ../latex/latex/actions.py:485 ../latex/latex/actions.py:486
+msgid "Math"
+msgstr "Matemātika"
+
+#: ../latex/latex/actions.py:477 ../latex/latex/actions.py:478
+msgid "Mathematical Environment"
+msgstr "Matemātikas vide"
+
+#: ../latex/latex/actions.py:490 ../latex/latex/actions.py:491
+msgid "Centered Formula"
+msgstr "Centrēta formula"
+
+#: ../latex/latex/actions.py:497 ../latex/latex/actions.py:498
+msgid "Numbered Equation"
+msgstr "Numurēts vienādojums"
+
+#: ../latex/latex/actions.py:506 ../latex/latex/actions.py:507
+msgid "Array of Equations"
+msgstr "Vienādojumu masīvs"
+
+#: ../latex/latex/actions.py:516 ../latex/latex/actions.py:517
+msgid "Numbered Array of Equations"
+msgstr "Numurēts vienādojumu masīvs"
+
+#: ../latex/latex/environment.py:141
+msgid "Book of abstracts"
+msgstr "Anotāciju grāmata"
+
+#: ../latex/latex/environment.py:142
+msgid "Article"
+msgstr "Raksts"
+
+#: ../latex/latex/environment.py:143
+msgid "Article (AMS)"
+msgstr "Raksts (AMS)"
+
+#: ../latex/latex/environment.py:144
+msgid "Book (AMS)"
+msgstr "Grāmata (AMS)"
+
+#: ../latex/latex/environment.py:145
+msgid "AMS Documentation"
+msgstr "AMS dokumentācija"
+
+#: ../latex/latex/environment.py:146
+msgid "Proceedings (AMS)"
+msgstr "Tēzes (AMS)"
+
+#: ../latex/latex/environment.py:147
+msgid "Report"
+msgstr "Atskaite"
+
+#: ../latex/latex/environment.py:148
+msgid "Beamer slides"
+msgstr "Beamer slaidi"
+
+#: ../latex/latex/environment.py:149
+msgid "Belgian letter"
+msgstr "Beļģu vēstule"
+
+#: ../latex/latex/environment.py:150
+msgid "Book"
+msgstr "Grāmata"
+
+#: ../latex/latex/environment.py:151
+msgid "Flashcard"
+msgstr "Atmiņas kartes"
+
+#: ../latex/latex/environment.py:152
+msgid "Proceedings (IAG)"
+msgstr "Tēzes (IAG)"
+
+#: ../latex/latex/environment.py:153
+msgid "Letter"
+msgstr "Vēstule"
+
+#: ../latex/latex/environment.py:154
+msgid "LaTeX News"
+msgstr "LaTeX ziņas"
+
+#: ../latex/latex/environment.py:155
+msgid "LaTeX Documentation"
+msgstr "LaTeX dokumentācija"
+
+#: ../latex/latex/environment.py:156
+msgid "LaTeX Guide"
+msgstr "LaTeX rokasgrāmata"
+
+#: ../latex/latex/environment.py:157
+msgid "Proceedings"
+msgstr "Tēzes"
+
+#: ../latex/latex/environment.py:158
+msgid "Article (KOMA-Script)"
+msgstr "Raksts (KOMA raksts)"
+
+#: ../latex/latex/environment.py:159 ../latex/latex/environment.py:163
+msgid "Report (KOMA-Script)"
+msgstr "Atskaite (KOMA raksts)"
+
+#: ../latex/latex/environment.py:160
+msgid "Book (KOMA-Script)"
+msgstr "Grāmata (KOMA raksts)"
+
+#: ../latex/latex/environment.py:161
+msgid "Letter (KOMA-Script)"
+msgstr "Vēstule (KOMA raksts)"
+
+#: ../latex/latex/environment.py:162
+msgid "Letter 2 (KOMA-Script)"
+msgstr "Vēstule 2 (KOMA raksts)"
+
+#: ../latex/latex/environment.py:164
+msgid "Slides"
+msgstr "Slaidi"
+
+#: ../latex/latex/views.py:114
+msgid "Symbols"
+msgstr "Simboli"
+
+#: ../latex/latex/views.py:202
+msgid "Show graphics"
+msgstr "Rādīt ilustrācijas"
+
+#: ../latex/latex/views.py:207
+msgid "Show tables"
+msgstr "Rādīt tabulas"
+
+#: ../latex/outline.py:58
+msgid "Follow Editor"
+msgstr "Sekot redaktoram"
+
+#: ../latex/outline.py:63
+msgid "Expand All"
+msgstr "Izvērst visu"
+
+#: ../latex/outline.py:67
+msgid "Collapse All"
+msgstr "Sakļaut visu"
+
+#: ../latex/outline.py:115
+msgid "Outline"
+msgstr "Struktūra"
+
+#: ../latex/tools/views.py:62
+msgid "Job"
+msgstr "Uzdevums"
+
+#: ../latex/tools/views.py:73 ../latex/views.py:80
+msgid "File"
+msgstr "Fails"
+
+#: ../latex/tools/views.py:74
+msgid "Line"
+msgstr "Rinda"
+
+#: ../latex/tools/views.py:87
+msgid "Abort Job"
+msgstr "Pārtraukt darbu"
+
+#: ../latex/tools/views.py:92
+msgid "Show Detailed Output"
+msgstr "Rādīt detalizētu izvadu"
+
+#: ../latex/views.py:67
+msgid "Message"
+msgstr "Ziņojums"
+
+#: ../latex/views.py:99
+msgid "Show/Hide Warnings"
+msgstr "Rādīt/slēpt brīdinājumus"
+
+#: ../latex/views.py:107
+msgid "Show/Hide Tasks"
+msgstr "Rādīt/slēpt uzdevumus"
+
+#: ../latex/views.py:139
+msgid "Issues"
+msgstr "Problēmas"
+
+#~ msgid "<b>Templates</b>"
+#~ msgstr "<b>Sagataves</b>"
+
+#~ msgid "Folder:"
+#~ msgstr "Mape:"
+
+#~ msgid "&#xB0; CCW"
+#~ msgstr "&#xB0; (pret pulkst.)"
+
+#~ msgid "Please specify a name for the new template."
+#~ msgstr "Lūdzu, norādiet jaunās sagataves nosaukumu."
+
+#~ msgid "Save As Template"
+#~ msgstr "Saglabāt kā sagatavi"
+
+#~ msgid "label"
+#~ msgstr "etiķete"
