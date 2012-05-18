@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gedit-latex\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-03-18 20:53+0100\n"
-"PO-Revision-Date: 2012-03-18 20:54+0100\n"
+"POT-Creation-Date: 2012-05-18 19:01+0200\n"
+"PO-Revision-Date: 2012-05-18 19:02+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <gnomepl@aviary.pl>\n"
 "Language: pl\n"
@@ -534,30 +534,34 @@ msgid "Include PDF _Metadata"
 msgstr "Dołączenie _metadanych PDF"
 
 #: ../data/ui/new_document_template_dialog.ui.h:19
+msgid "This adds metadata to the document. Requires package <tt>ifpdf</tt>."
+msgstr "Dodaje metadane do dokumentu. Wymaga pakietu <tt>ifpdf</tt>."
+
+#: ../data/ui/new_document_template_dialog.ui.h:20
 msgid "Date:"
 msgstr "Data:"
 
-#: ../data/ui/new_document_template_dialog.ui.h:20
+#: ../data/ui/new_document_template_dialog.ui.h:21
 msgid "To_day"
 msgstr "_Dzisiaj"
 
-#: ../data/ui/new_document_template_dialog.ui.h:21
+#: ../data/ui/new_document_template_dialog.ui.h:22
 msgid "C_ustom:"
 msgstr "_Własne:"
 
-#: ../data/ui/new_document_template_dialog.ui.h:22
+#: ../data/ui/new_document_template_dialog.ui.h:23
 msgid "_Author:"
 msgstr "_Autor:"
 
-#: ../data/ui/new_document_template_dialog.ui.h:23
+#: ../data/ui/new_document_template_dialog.ui.h:24
 msgid "_Title:"
 msgstr "_Tytuł:"
 
-#: ../data/ui/new_document_template_dialog.ui.h:24
+#: ../data/ui/new_document_template_dialog.ui.h:25
 msgid "<b>Meta Information</b>"
 msgstr "<b>Metainformacje</b>"
 
-#: ../data/ui/new_document_template_dialog.ui.h:25
+#: ../data/ui/new_document_template_dialog.ui.h:26
 msgid "Default F_ont Family:"
 msgstr "Domyślna rodzina _czcionek:"
 
