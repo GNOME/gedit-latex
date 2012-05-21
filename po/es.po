@@ -10,8 +10,8 @@ msgstr ""
 "Project-Id-Version: gedit-latex master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gedit&keywords=I18N+L10N&component=Plugins\n"
-"POT-Creation-Date: 2012-02-16 11:19+0000\n"
-"PO-Revision-Date: 2012-02-16 12:17+0100\n"
+"POT-Creation-Date: 2012-05-18 16:58+0000\n"
+"PO-Revision-Date: 2012-05-21 10:59+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español <gnome-es-list@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -533,30 +533,34 @@ msgid "Include PDF _Metadata"
 msgstr "Incluir _metadatos PDF"
 
 #: ../data/ui/new_document_template_dialog.ui.h:19
+msgid "This adds metadata to the document. Requires package <tt>ifpdf</tt>."
+msgstr "Esto añade metadatos al documento. Necesita el paquete <tt>ifpdf</tt>."
+
+#: ../data/ui/new_document_template_dialog.ui.h:20
 msgid "Date:"
 msgstr "Fecha:"
 
-#: ../data/ui/new_document_template_dialog.ui.h:20
+#: ../data/ui/new_document_template_dialog.ui.h:21
 msgid "To_day"
 msgstr "_Hoy"
 
-#: ../data/ui/new_document_template_dialog.ui.h:21
+#: ../data/ui/new_document_template_dialog.ui.h:22
 msgid "C_ustom:"
 msgstr "P_ersonalizado:"
 
-#: ../data/ui/new_document_template_dialog.ui.h:22
+#: ../data/ui/new_document_template_dialog.ui.h:23
 msgid "_Author:"
 msgstr "_Autor:"
 
-#: ../data/ui/new_document_template_dialog.ui.h:23
+#: ../data/ui/new_document_template_dialog.ui.h:24
 msgid "_Title:"
 msgstr "_Título:"
 
-#: ../data/ui/new_document_template_dialog.ui.h:24
+#: ../data/ui/new_document_template_dialog.ui.h:25
 msgid "<b>Meta Information</b>"
 msgstr "<b>Metainformación</b>"
 
-#: ../data/ui/new_document_template_dialog.ui.h:25
+#: ../data/ui/new_document_template_dialog.ui.h:26
 msgid "Default F_ont Family:"
 msgstr "_Familia  tipográfica predeterminada:"
 
