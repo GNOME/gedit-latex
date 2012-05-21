@@ -8,14 +8,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gedit-latex master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gedit&keywords=I18N+L10N&component=Plugins\n"
-"POT-Creation-Date: 2012-02-25 18:44+0000\n"
-"PO-Revision-Date: 2012-02-28 21:17+0100\n"
-"Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
+"POT-Creation-Date: 2012-05-18 16:58+0000\n"
+"PO-Revision-Date: 2012-05-20 11:25+0100\n"
+"Last-Translator: filmsi\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n%100==4 ? 3 : 0);\n"
 "X-Poedit-Language: Slovenian\n"
 "X-Poedit-Country: SLOVENIA\n"
@@ -523,30 +523,34 @@ msgid "Include PDF _Metadata"
 msgstr "Vključi metapodatke PDF"
 
 #: ../data/ui/new_document_template_dialog.ui.h:19
+msgid "This adds metadata to the document. Requires package <tt>ifpdf</tt>."
+msgstr "Dokumentu doda metapodatke. Potrebujete paket "
+
+#: ../data/ui/new_document_template_dialog.ui.h:20
 msgid "Date:"
 msgstr "Datum:"
 
-#: ../data/ui/new_document_template_dialog.ui.h:20
+#: ../data/ui/new_document_template_dialog.ui.h:21
 msgid "To_day"
 msgstr "_Danes"
 
-#: ../data/ui/new_document_template_dialog.ui.h:21
+#: ../data/ui/new_document_template_dialog.ui.h:22
 msgid "C_ustom:"
 msgstr "Po _meri:"
 
-#: ../data/ui/new_document_template_dialog.ui.h:22
+#: ../data/ui/new_document_template_dialog.ui.h:23
 msgid "_Author:"
 msgstr "_Avtor:"
 
-#: ../data/ui/new_document_template_dialog.ui.h:23
+#: ../data/ui/new_document_template_dialog.ui.h:24
 msgid "_Title:"
 msgstr "_Naslov:"
 
-#: ../data/ui/new_document_template_dialog.ui.h:24
+#: ../data/ui/new_document_template_dialog.ui.h:25
 msgid "<b>Meta Information</b>"
 msgstr "<b>Metapodatki</b>"
 
-#: ../data/ui/new_document_template_dialog.ui.h:25
+#: ../data/ui/new_document_template_dialog.ui.h:26
 msgid "Default F_ont Family:"
 msgstr "Privzeta _družina pisave:"
 
@@ -980,26 +984,3 @@ msgstr "Pokaži/Skrij naloge"
 msgid "Issues"
 msgstr "Izdaje"
 
-#~ msgid "<b>Templates</b>"
-#~ msgstr "<b>Predloge</b>"
-
-#~ msgid "Folder:"
-#~ msgstr "Mapa:"
-
-#~ msgid "&#xB0; CCW"
-#~ msgstr "&#xB0; CCW"
-
-#~ msgid "Please specify a name for the new template."
-#~ msgstr "Določite ime novi predlogi."
-
-#~ msgid "Save As Template"
-#~ msgstr "Shrani kot predlogo"
-
-#~ msgid "label"
-#~ msgstr "oznaka"
-
-#~ msgid "Save As Template..."
-#~ msgstr "Shrani kot predlogo ..."
-
-#~ msgid "Save the current document as a template"
-#~ msgstr "Shrani trenutni dokument kot predlogo"
