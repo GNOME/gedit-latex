@@ -1,22 +1,23 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Rūdofls Mazurs <rudolfs.mazurs@gmail.com>, 2011.
+# Rūdofls Mazurs <rudolfs.mazurs@gmail.com>, 2011, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-16 22:00+0300\n"
-"PO-Revision-Date: 2012-05-14 03:25+0300\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=gedit&keywords=I18N+L10N&component=Plugins\n"
+"POT-Creation-Date: 2012-05-16 19:01+0000\n"
+"PO-Revision-Date: 2012-05-22 22:35+0300\n"
 "Last-Translator: Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>\n"
 "Language-Team: Latvian <lata-l10n@googlegroups.com>\n"
-"Language: lv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: lv\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
-"X-Generator: Lokalize 1.2\n"
+"X-Generator: Lokalize 1.4\n"
 
 #: ../latex.plugin.desktop.in.in.h:1
 msgid "LaTeX Plugin"
@@ -285,8 +286,8 @@ msgid ""
 "Remember to run all commands in batch mode (e.g. append <tt>-interaction "
 "batchmode</tt> to <tt>latex</tt>)"
 msgstr ""
-"Atcerieties izpildīt visas komandas pakešu režīmā (piem., pievienot "
-"<tt>-interaction batchmode</tt> pie <tt>latex</tt>)"
+"Atcerieties izpildīt visas komandas pakešu režīmā (piem., pievienot <tt>-"
+"interaction batchmode</tt> pie <tt>latex</tt>)"
 
 #: ../data/ui/configure_tool.ui.h:2
 msgid "<b>_Label</b>"
@@ -297,8 +298,8 @@ msgid ""
 "Valid placeholders are <tt>$filename</tt>, <tt>$shortname</tt>, <tt>"
 "$directory</tt>"
 msgstr ""
-"Derīgi vietturi ir <tt>$filename</tt>, <tt>$shortname</tt> un "
-"<tt>$directory</tt>"
+"Derīgi vietturi ir <tt>$filename</tt>, <tt>$shortname</tt> un <tt>"
+"$directory</tt>"
 
 #: ../data/ui/configure_tool.ui.h:4
 msgid "<b>_Jobs</b>"
@@ -411,7 +412,7 @@ msgstr "Teksta platums"
 #: ../data/ui/insert_listing_dialog.ui.h:1 ../latex/latex/actions.py:388
 #: ../latex/latex/actions.py:390
 msgid "Insert Source Code Listing"
-msgstr "Ievietot pirmkoda izdruka"
+msgstr "Ievietot pirmkoda izdruku"
 
 #: ../data/ui/insert_listing_dialog.ui.h:2
 msgid "Load From _File:"
@@ -464,7 +465,7 @@ msgstr "Jauns LaTeX dokuments"
 
 #: ../data/ui/new_document_template_dialog.ui.h:2
 msgid "T_emplate:"
-msgstr "Sagatav_e:"
+msgstr "Veidn_e:"
 
 #: ../data/ui/new_document_template_dialog.ui.h:3
 msgid "document"
@@ -691,7 +692,7 @@ msgstr "Kaligrāfija"
 
 #: ../latex/latex/actions.py:265 ../latex/latex/actions.py:266
 msgid "Fraktur"
-msgstr "Fraktura"
+msgstr "Fraktūra"
 
 #: ../latex/latex/actions.py:273 ../latex/latex/actions.py:274
 #: ../latex/latex/actions.py:286 ../latex/latex/actions.py:287
@@ -936,11 +937,11 @@ msgstr "Ziņojums"
 
 #: ../latex/views.py:99
 msgid "Show/Hide Warnings"
-msgstr "Rādīt/slēpt brīdinājumus"
+msgstr "Rādīt / slēpt brīdinājumus"
 
 #: ../latex/views.py:107
 msgid "Show/Hide Tasks"
-msgstr "Rādīt/slēpt uzdevumus"
+msgstr "Rādīt / slēpt uzdevumus"
 
 #: ../latex/views.py:139
 msgid "Issues"
