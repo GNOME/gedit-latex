@@ -268,8 +268,10 @@ class ConfigureToolDialog(GladeInterface):
         self._button_add_extension.set_sensitive(len(self._entry_new_extension.get_text()) > 0)
 
     def _on_job_cursor_changed(self, tree_view):
-        store, iter = tree_view.get_selection().get_selected()
-        if not iter:
+        selection = tree_view.get_selection()
+        if selection:
+            store, iter = tree_view.get_selection().get_selected()
+        if not selection or not iter:
             return
         self._button_remove_job.set_sensitive(True)
 
@@ -277,8 +279,10 @@ class ConfigureToolDialog(GladeInterface):
         self._button_job_up.set_sensitive(not first_row_selected)
 
     def _on_extension_cursor_changed(self, tree_view):
-        store, it = tree_view.get_selection().get_selected()
-        if not it:
+        selection = tree_view.get_selection()
+        if selection:
+            store, it = tree_view.get_selection().get_selected()
+        if not selection or not it:
             return
         self._button_remove_extension.set_sensitive(True)
 
@@ -385,8 +389,10 @@ class PreferencesDialog(GladeInterface):
 
     def _load_tools(self):
         # save cursor
-        store, iter = self._view_tool.get_selection().get_selected()
-        if iter is None:
+        selection = self._view_tool.get_selection()
+        if selection:
+            store, iter = self._view_tool.get_selection().get_selected()
+        if not selection or iter is None:
             restore_cursor = False
         else:
             path = store.get_path(iter)
@@ -474,8 +480,10 @@ class PreferencesDialog(GladeInterface):
         """
         The cursor in the tools view has changed
         """
-        store, it = treeView.get_selection().get_selected()
-        if not it:
+        selection = treeView.get_selection()
+        if selection:
+            store, it = treeView.get_selection().get_selected()
+        if not selection or not it:
             return
 
         self._profile = store.get_value(it, 1)
