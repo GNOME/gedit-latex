@@ -128,7 +128,7 @@ class ToolPreferences(GObject.GObject):
             # create new tool tag
             LOG.debug("Creating new Tool...")
 
-            id = str(uuit.uuid4())
+            id = unicode(uuid.uuid4())
             self.__tool_ids[tool] = id
 
             tool_element = ElementTree.SubElement(self.__tools, "tool")
