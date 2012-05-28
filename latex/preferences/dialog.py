@@ -414,7 +414,7 @@ class PreferencesDialog(GladeInterface):
         store, it = self._view_tool.get_selection().get_selected()
         tool = store.get_value(it, 2)
 
-        self._preferences.delete_tool(tool)
+        self._tool_preferences.delete_tool(tool)
 
     def _on_tool_up_clicked(self, button):
         """
@@ -429,7 +429,7 @@ class PreferencesDialog(GladeInterface):
         iter_previous = store.get_iter_from_string(str(index_previous))
         tool_2 = store.get_value(iter_previous, 2)
 
-        self._preferences.swap_tools(tool_1, tool_2)
+        self._tool_preferences.swap_tools(tool_1, tool_2)
 
         # adjust selection
         self._view_tool.get_selection().select_path(str(index_previous))
