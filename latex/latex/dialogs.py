@@ -919,7 +919,7 @@ class InsertTableDialog(GladeInterface):
             colList = []
             for j in range(cols):
                 colList.append("${%s%s}" % (i + 1, j + 1))
-            s += "\n" + indent + " & ".join(colList) + " \\\\"
+            s += "\n" + indent + " & ".join(colList) + " \\\\\\\\"
         return s
 
 
