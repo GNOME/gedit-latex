@@ -120,9 +120,10 @@ class ToolAction(Action):
         LOG.debug("tool activate: %s" % self._tool)
 
         if context.active_editor:
-            doc = Gedit.App.get_default().get_active_window().get_active_document()
+            decorator = context._window_decorator
+            doc = decorator.window.get_active_document()
             self.saving_id = doc.connect("saved",self.run_tool,context,doc)
-            context._window_decorator.save_file()
+            decorator.save_file()
         else:
             LOG.error("tool activate: no active editor")
 
