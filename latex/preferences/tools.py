@@ -87,7 +87,8 @@ class ToolPreferences(GObject.GObject):
         for tool_element in self.__tools.findall("tool"):
             jobs = []
             for job_element in tool_element.findall("job"):
-                jobs.append(Job(job_element.text.strip(), str_to_bool(job_element.get("mustSucceed")), self.POST_PROCESSORS[job_element.get("postProcessor")]))
+                command = '' if job_element.text is None else job_element.text.strip()
+                jobs.append(Job(command, str_to_bool(job_element.get("mustSucceed")), self.POST_PROCESSORS[job_element.get("postProcessor")]))
 
             assert not tool_element.get("extensions") is None
 
