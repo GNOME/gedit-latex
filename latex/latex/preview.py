@@ -28,7 +28,7 @@ from ..tools.postprocess import RubberPostProcessor, GenericPostProcessor
 from ..issues import MockStructuredIssueHandler
 from environment import Environment
 
-from gi.repository import Gdk, GdkPixbuf
+from gi.repository import GdkPixbuf
 
 class ImageToolGenerator(object):
     """

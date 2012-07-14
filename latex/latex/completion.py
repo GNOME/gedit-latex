@@ -25,7 +25,7 @@ LaTeX-specific completion classes
 """
 
 from logging import getLogger
-from gi.repository import Gdk, GdkPixbuf
+from gi.repository import GdkPixbuf
 
 from ..resources import Resources
 from ..completion import ICompletionHandler, Proposal
@@ -96,7 +96,7 @@ class LaTeXChoiceProposal(Proposal):
         return self._overlap
 
 
-from model import LanguageModelFactory, Command, Choice, MandatoryArgument, OptionalArgument
+from model import LanguageModelFactory, Choice, MandatoryArgument, OptionalArgument
 from parser import PrefixParser, Node
 
 from ..bibtex.cache import BibTeXDocumentCache

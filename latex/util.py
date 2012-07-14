@@ -26,7 +26,6 @@ the project
 """
 
 import logging
-from gi.repository import GdkPixbuf
 
 def singleton(cls):
     """

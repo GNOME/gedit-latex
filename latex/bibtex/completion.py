@@ -24,7 +24,7 @@ bibtex.completion
 
 import logging
 
-from gi.repository import Gdk, GdkPixbuf
+from gi.repository import GdkPixbuf
 
 from ..preferences import Preferences
 from ..resources import Resources

@@ -27,13 +27,11 @@ BENCHMARK = True
 import logging
 if BENCHMARK: import time
 
-from gi.repository import Gtk, GObject
-from gi.repository import Gdk
+from gi.repository import GObject
 
 from ..editor import Editor
 from ..file import File
 from ..issues import Issue, IIssueHandler
-from ..util import verbose, open_error
 
 from parser import LaTeXParser
 from expander import LaTeXReferenceExpander

@@ -28,8 +28,6 @@ from gi.repository import Gtk, GdkPixbuf
 from xml.sax.saxutils import escape
 from logging import getLogger
 
-import time
-
 from ..outline import OutlineOffsetMap, BaseOutlineView
 from ..resources import Resources
 from ..preferences import Preferences

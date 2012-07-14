@@ -34,7 +34,7 @@ from .editor import LaTeXEditor
 from .parser import LaTeXParser, Node
 from .dialogs import UseBibliographyDialog, InsertGraphicsDialog, InsertTableDialog, \
                     InsertListingDialog, BuildImageDialog, \
-                    NewDocumentDialog, ChooseMasterDialog
+                    NewDocumentDialog
 from . import LaTeXSource
 
 LOG = getLogger(__name__)

@@ -23,10 +23,6 @@ latex.outline
 """
 
 from logging import getLogger
-from gi.repository import Gtk
-from gi.repository import Gdk
-from os.path import basename
-
 
 from parser import Node
 from ..issues import Issue
@@ -75,7 +71,7 @@ class Outline(object):
 
     REF_CMDS = set(("ref","eqref","pageref"))
     def is_ref_command(self, cmd_name):
-        return (cmd_name in REF_CMDS) or (cmd_name in self.new_ref_commands) 
+        return (cmd_name in self.REF_CMDS) or (cmd_name in self.new_ref_commands) 
 
 from ..file import File
 from ..preferences import Preferences

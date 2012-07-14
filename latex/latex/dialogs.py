@@ -25,7 +25,6 @@ latex.dialogs
 import logging
 import tempfile
 import os.path
-import time
 import string
 
 from gi.repository import Gtk, GdkPixbuf

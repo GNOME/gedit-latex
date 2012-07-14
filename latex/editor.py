@@ -23,7 +23,7 @@ import time
 import logging
 import uuid
 
-from gi.repository import GObject, Gtk, Gdk
+from gi.repository import Gtk, Gdk
 
 from .completion import CompletionDistributor
 from .snippetmanager import SnippetManager

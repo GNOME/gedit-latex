@@ -26,8 +26,6 @@ These classes form the interface exposed by the plugin base layer.
 
 import logging
 
-from gi.repository import GObject, Gtk, Gdk
-
 from .file import File
 
 LOG = logging.getLogger(__name__)

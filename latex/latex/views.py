@@ -36,7 +36,6 @@ from ..panelview import PanelView
 from ..file import File
 from ..resources import Resources
 from ..snippetmanager import SnippetManager
-from ..issues import Issue
 from ..outline import OutlineOffsetMap, BaseOutlineView
 from outline import OutlineNode
 from ..gldefs import _

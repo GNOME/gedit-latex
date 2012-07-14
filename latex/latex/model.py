@@ -268,7 +268,6 @@ class LanguageModelParser(sax.ContentHandler):
             self.__language_model.register_placeholder(placeholder)
 
 
-from copy import deepcopy
 import pickle
 
 from ..file import File

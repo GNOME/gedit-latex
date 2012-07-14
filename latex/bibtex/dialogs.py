@@ -22,7 +22,6 @@
 latex.dialogs
 """
 
-from logging import getLogger
 from gi.repository import Gtk
 
 from ..util import GladeInterface

@@ -24,9 +24,6 @@ latex.parser
 LaTeX parser and object model
 """
 
-from logging import getLogger
-from os.path import exists
-from os import popen, system
 from re import compile
 
 from ..util import verbose, escape

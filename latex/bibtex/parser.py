@@ -55,12 +55,9 @@ BibTeX parser and object model
 #    # normal package code...
 #    #
 
-
-from logging import getLogger
-from os.path import getmtime
 from xml.sax.saxutils import escape
 
-from ..issues import Issue, MockIssueHandler
+from ..issues import Issue
 from ..preferences import Preferences
 
 class Token(object):

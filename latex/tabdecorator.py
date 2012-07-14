@@ -27,7 +27,7 @@ extension point.
 
 import logging
 
-from gi.repository import Gedit, Gtk, Gio, GObject
+from gi.repository import GObject
 
 from .config import EDITORS
 from .file import File

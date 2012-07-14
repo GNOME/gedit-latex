@@ -22,9 +22,6 @@
 latex.actions
 """
 
-from logging import getLogger
-from gi.repository import Gtk
-
 from ..action import Action
 from ..gldefs import _
 from dialogs import InsertBibTeXEntryDialog
