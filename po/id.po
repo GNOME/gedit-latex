@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: gedit-latex gnome-3-2\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gedit&keywords=I18N+L10N&component=Plugins\n"
 "POT-Creation-Date: 2012-05-13 15:28+0000\n"
-"PO-Revision-Date: 2012-06-04 15:43+0700\n"
+"PO-Revision-Date: 2012-07-22 17:08+0700\n"
 "Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: Indonesian <gnome@i15n.org>\n"
 "MIME-Version: 1.0\n"
@@ -170,15 +170,15 @@ msgstr ""
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:11
 msgid "LaTeX Extensions"
-msgstr ""
+msgstr "Ekstensi LaTeX"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:12
 msgid "Graphics File Extensions"
-msgstr ""
+msgstr "Ekstensi Berkas Grafis"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:13
 msgid "Paths Relative to .tex File to Look for Graphics"
-msgstr ""
+msgstr "Path Relatif ke Berkas .tex untuk Mencari Grafis"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:14
 msgid "Extra LaTeX commands used to mark issues, such as \\fxnote{foo}"
@@ -186,7 +186,7 @@ msgstr ""
 
 #: ../data/ui/build_image_dialog.ui.h:1
 msgid "Render to Image"
-msgstr ""
+msgstr "Render ke Gambar"
 
 #: ../data/ui/build_image_dialog.ui.h:2
 msgid "Attempt to render tight bounding box"
@@ -194,11 +194,11 @@ msgstr ""
 
 #: ../data/ui/build_image_dialog.ui.h:3
 msgid "Render whole page(s)"
-msgstr ""
+msgstr "Render seluruh halaman"
 
 #: ../data/ui/build_image_dialog.ui.h:4
 msgid "<b>Area</b>"
-msgstr ""
+msgstr "<b>Area</b>"
 
 #: ../data/ui/build_image_dialog.ui.h:5
 msgid "Resolution:"
@@ -206,11 +206,11 @@ msgstr "Resolusi:"
 
 #: ../data/ui/build_image_dialog.ui.h:6
 msgid "Antialiasing:"
-msgstr ""
+msgstr "Antialias:"
 
 #: ../data/ui/build_image_dialog.ui.h:7
 msgid "<b>Rendering</b>"
-msgstr ""
+msgstr "<b>Perenderan</b>"
 
 #: ../data/ui/build_image_dialog.ui.h:8
 msgid "GIF"
@@ -246,7 +246,7 @@ msgstr "Perkakas"
 
 #: ../data/ui/configure.ui.h:2
 msgid "Maximum Parsed File Size:"
-msgstr ""
+msgstr "Ukuran Maksimum Berkas Yang Diurai:"
 
 #: ../data/ui/configure.ui.h:3
 msgid "KB"
@@ -294,7 +294,7 @@ msgstr "<b>_Deskripsi</b>"
 
 #: ../data/ui/configure_tool.ui.h:6
 msgid "<b>_File Extensions</b>"
-msgstr ""
+msgstr "<b>Ekstensi _Berkas</b>"
 
 #: ../data/ui/configure_tool.ui.h:7
 msgid "_Generated"
@@ -314,15 +314,15 @@ msgstr "<b>Akselerator</b>"
 
 #: ../data/ui/insert_bibtex_entry.ui.h:1
 msgid "Create Bibliography Entry"
-msgstr ""
+msgstr "Buat Entri Bibliografi"
 
 #: ../data/ui/insert_bibtex_entry.ui.h:2
 msgid "Required Fields"
-msgstr ""
+msgstr "Ruas Yang Diperlukan"
 
 #: ../data/ui/insert_bibtex_entry.ui.h:3
 msgid "Optional Fields"
-msgstr ""
+msgstr "Ruas Opsional"
 
 #: ../data/ui/insert_bibtex_entry.ui.h:4
 msgid "_Identifier:"
@@ -354,7 +354,7 @@ msgstr "Puta_r:"
 
 #: ../data/ui/insert_graphics_dialog.ui.h:6
 msgid "Flip _Horizontally"
-msgstr ""
+msgstr "Balikkan Secara _Horisontal"
 
 #: ../data/ui/insert_graphics_dialog.ui.h:7
 msgid "_File:"
@@ -417,23 +417,23 @@ msgstr "Tipe:"
 
 #: ../data/ui/insert_table_dialog.ui.h:3
 msgid "_Table"
-msgstr ""
+msgstr "_Tabel"
 
 #: ../data/ui/insert_table_dialog.ui.h:4
 msgid "_Matrix:"
-msgstr ""
+msgstr "_Matriks:"
 
 #: ../data/ui/insert_table_dialog.ui.h:5
 msgid "_Rows:"
-msgstr ""
+msgstr "Ba_ris:"
 
 #: ../data/ui/insert_table_dialog.ui.h:6
 msgid "C_olumns:"
-msgstr ""
+msgstr "K_olom:"
 
 #: ../data/ui/insert_table_dialog.ui.h:9
 msgid "tab:"
-msgstr ""
+msgstr "tab:"
 
 #: ../data/ui/insert_table_dialog.ui.h:10
 msgid "_Floating Object"
@@ -441,11 +441,11 @@ msgstr ""
 
 #: ../data/ui/new_document_template_dialog.ui.h:1
 msgid "New LaTeX Document"
-msgstr ""
+msgstr "Dokumen LaTeX Baru"
 
 #: ../data/ui/new_document_template_dialog.ui.h:2
 msgid "T_emplate:"
-msgstr ""
+msgstr "T_emplat:"
 
 #: ../data/ui/new_document_template_dialog.ui.h:3
 msgid "document"
@@ -466,11 +466,11 @@ msgstr "_Nama:"
 
 #: ../data/ui/new_document_template_dialog.ui.h:7
 msgid "_Babel Package:"
-msgstr ""
+msgstr "Paket _Babel:"
 
 #: ../data/ui/new_document_template_dialog.ui.h:8
 msgid "_Input Encoding:"
-msgstr ""
+msgstr "Pengkodean _Masukan:"
 
 #: ../data/ui/new_document_template_dialog.ui.h:9
 msgid "<b>Language Customization</b>"
@@ -490,7 +490,7 @@ msgstr ""
 
 #: ../data/ui/new_document_template_dialog.ui.h:13
 msgid "U_ser Defined:"
-msgstr ""
+msgstr "Didefini_sikan Oleh Pengguna:"
 
 #: ../data/ui/new_document_template_dialog.ui.h:14
 msgid "pt"
@@ -498,15 +498,15 @@ msgstr ""
 
 #: ../data/ui/new_document_template_dialog.ui.h:15
 msgid "Base Font Size:"
-msgstr ""
+msgstr "Ukuran Fonta Basis:"
 
 #: ../data/ui/new_document_template_dialog.ui.h:16
 msgid "Document _Class:"
-msgstr ""
+msgstr "_Kelas Dokumen:"
 
 #: ../data/ui/new_document_template_dialog.ui.h:17
 msgid "<b>Style and Layout</b>"
-msgstr ""
+msgstr "<b>Gaya dan Tata Letak</b>"
 
 #: ../data/ui/new_document_template_dialog.ui.h:18
 msgid "Include PDF _Metadata"
@@ -518,11 +518,11 @@ msgstr "Tanggal:"
 
 #: ../data/ui/new_document_template_dialog.ui.h:20
 msgid "To_day"
-msgstr ""
+msgstr "H_ari ini"
 
 #: ../data/ui/new_document_template_dialog.ui.h:21
 msgid "C_ustom:"
-msgstr ""
+msgstr "G_ubahan:"
 
 #: ../data/ui/new_document_template_dialog.ui.h:22
 msgid "_Author:"
@@ -538,15 +538,15 @@ msgstr "<b>Informasi Meta</b>"
 
 #: ../data/ui/new_document_template_dialog.ui.h:25
 msgid "Default F_ont Family:"
-msgstr ""
+msgstr "Keluarga F_onta Baku:"
 
 #: ../data/ui/save_as_template_dialog.ui.h:1
 msgid "Save As Template"
-msgstr ""
+msgstr "Simpan Sebagai Templat"
 
 #: ../data/ui/save_as_template_dialog.ui.h:3
 msgid "Please specify a name for the new template."
-msgstr ""
+msgstr "Silakan nyatakan nama bagi templat baru."
 
 #: ../data/ui/save_as_template_dialog.ui.h:4
 msgid "label"
@@ -554,29 +554,29 @@ msgstr "label"
 
 #: ../data/ui/use_bibliography_dialog.ui.h:1
 msgid "Use Bibliography"
-msgstr ""
+msgstr "Pakai Bibliografi"
 
 #: ../data/ui/use_bibliography_dialog.ui.h:2
 msgid "Bibliography _File:"
-msgstr ""
+msgstr "Berkas Bibliogra_fi:"
 
 #: ../data/ui/use_bibliography_dialog.ui.h:3
 msgid "_Style:"
-msgstr ""
+msgstr "_Gaya:"
 
 #: ../data/ui/use_bibliography_dialog.ui.h:4
 msgid "Style Preview:"
-msgstr ""
+msgstr "Pratilik Gaya:"
 
 #: ../data/ui/use_bibliography_dialog.ui.h:5
 msgid "Refresh Style Preview"
-msgstr ""
+msgstr "Segarkan Pratilik Gaya"
 
 #: ../latex.plugin.desktop.in.in.h:1
 msgid "LaTeX Plugin"
-msgstr ""
+msgstr "Plugin LaTeX"
 
 #: ../latex.plugin.desktop.in.in.h:2
 msgid "A plugin that assists you in handling LaTeX documents and BibTeX bibliographies"
-msgstr ""
+msgstr "Plugin yang membantu Anda menangani dokumen LaTeX dan bibliografi BibTeX"
 
