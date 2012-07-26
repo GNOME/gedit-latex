@@ -1,241 +1,256 @@
 # Chinese (China) translation for gedit-latex.
 # Copyright (C) 2011 gedit-latex's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gedit-latex package.
-# Yinghua_Wang <wantinghard@gmail.com>, 2011.
+# Wylmer Wang <wantinghard@gmail.com>, 2011, 2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gedit-latex master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gedit&keywords=I18N+L10N&component=Plugins\n"
-"POT-Creation-Date: 2011-07-22 12:10+0000\n"
-"PO-Revision-Date: 2011-07-28 20:11+0800\n"
-"Last-Translator: Yinghua Wang <wangtinghard@gmail.com>\n"
+"POT-Creation-Date: 2012-07-22 10:10+0000\n"
+"PO-Revision-Date: 2012-06-29 15:39+0800\n"
+"Last-Translator: Wylmer Wang <wantinghard@gmail.com>\n"
 "Language-Team: Chinese (China) <i18n-zh@googlegroups.com>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../data/bibtex.xml.h:1
-msgid "Address"
-msgstr "地址"
+msgid "Title"
+msgstr "标题"
 
 #: ../data/bibtex.xml.h:2
-msgid "Author"
-msgstr "作者"
-
-#: ../data/bibtex.xml.h:3
 msgid "Book Title"
 msgstr "书标题"
 
+#: ../data/bibtex.xml.h:3
+msgid "Author"
+msgstr "作者"
+
 #: ../data/bibtex.xml.h:4
-msgid "Chapter"
-msgstr "章"
-
-#: ../data/bibtex.xml.h:5
-msgid "Cross Reference"
-msgstr "交叉引用"
-
-#: ../data/bibtex.xml.h:6
-msgid "Edition"
-msgstr "版本"
-
-#: ../data/bibtex.xml.h:7
 msgid "Editor"
 msgstr "编辑"
 
-#: ../data/bibtex.xml.h:8
-msgid "How Published"
-msgstr "出版方式"
+#: ../data/bibtex.xml.h:5
+msgid "Pages"
+msgstr "页数"
 
-#: ../data/bibtex.xml.h:9
-msgid "ISBN"
-msgstr "ISBN"
-
-#: ../data/bibtex.xml.h:10
-msgid "ISSN"
-msgstr "ISSN"
-
-#: ../data/bibtex.xml.h:11
-msgid "Institution"
-msgstr "机构"
-
-#: ../data/bibtex.xml.h:12
+#: ../data/bibtex.xml.h:6
 msgid "Journal"
 msgstr "杂志"
 
-#: ../data/bibtex.xml.h:13
-msgid "Key"
-msgstr ""
+#: ../data/bibtex.xml.h:7
+msgid "Volume"
+msgstr "卷"
 
-#: ../data/bibtex.xml.h:14
-msgid "Location"
-msgstr "位置"
+#: ../data/bibtex.xml.h:8
+msgid "Number"
+msgstr "号码"
 
-#: ../data/bibtex.xml.h:15
+#: ../data/bibtex.xml.h:9
 msgid "Month"
 msgstr "月份"
 
+#: ../data/bibtex.xml.h:10
+msgid "Year"
+msgstr "年份"
+
+#: ../data/bibtex.xml.h:11
+msgid "ISSN"
+msgstr "ISSN"
+
+#: ../data/bibtex.xml.h:12
+msgid "Series"
+msgstr "系列"
+
+#: ../data/bibtex.xml.h:13
+msgid "Edition"
+msgstr "版本"
+
+#: ../data/bibtex.xml.h:14
+msgid "Publisher"
+msgstr "出版者"
+
+#: ../data/bibtex.xml.h:15
+msgid "Address"
+msgstr "地址"
+
 #: ../data/bibtex.xml.h:16
-msgid "Note"
-msgstr "注"
+msgid "ISBN"
+msgstr "ISBN"
 
 #: ../data/bibtex.xml.h:17
-msgid "Number"
-msgstr "号码"
+msgid "How Published"
+msgstr "出版方式"
 
 #: ../data/bibtex.xml.h:18
 msgid "Organization"
 msgstr "组织"
 
 #: ../data/bibtex.xml.h:19
-msgid "Pages"
-msgstr "页数"
+msgid "Location"
+msgstr "位置"
 
 #: ../data/bibtex.xml.h:20
-msgid "Publisher"
-msgstr "出版者"
-
-#: ../data/bibtex.xml.h:21
-msgid "School"
-msgstr "学校"
-
-#: ../data/bibtex.xml.h:22
-msgid "Series"
-msgstr "系列"
-
-#: ../data/bibtex.xml.h:23
-msgid "Title"
-msgstr "标题"
-
-#: ../data/bibtex.xml.h:24
-msgid "Type"
-msgstr "类型"
-
-#: ../data/bibtex.xml.h:25
 msgid "URL"
 msgstr "URL"
 
+#: ../data/bibtex.xml.h:21
+msgid "Note"
+msgstr "注"
+
+#: ../data/bibtex.xml.h:22
+msgid "Type"
+msgstr "类型"
+
+#: ../data/bibtex.xml.h:23
+msgid "Chapter"
+msgstr "章"
+
+#: ../data/bibtex.xml.h:24
+msgid "Key"
+msgstr "键"
+
+#: ../data/bibtex.xml.h:25
+msgid "School"
+msgstr "学校"
+
 #: ../data/bibtex.xml.h:26
-msgid "Volume"
-msgstr "卷"
+msgid "Institution"
+msgstr "机构"
 
 #: ../data/bibtex.xml.h:27
-msgid "Year"
-msgstr "年份"
+msgid "Cross Reference"
+msgstr "交叉引用"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:1
-msgid "Connect Outline to Editor"
-msgstr ""
-
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:2
-msgid "Expanded Symbol Groups"
-msgstr ""
-
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:3
-#: ../data/ui/configure.ui.h:6
-msgid "Hide Box Warnings"
-msgstr ""
-
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:4
-msgid "LaTeX Extensions"
-msgstr "LaTeX 扩展"
-
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:5
 msgid "Maximum BibTeX Size"
 msgstr "最大 BibTeX 尺寸"
 
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:6
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:2
+msgid "Connect Outline to Editor"
+msgstr "将大纲与编辑器相连"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:3
+msgid "Show Labels in Outline"
+msgstr "在大纲中显示标签"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:4
+msgid "Show Tables in Outline"
+msgstr "在大纲中显示表格"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:5
 msgid "Show Graphics in Outline"
-msgstr ""
+msgstr "在大纲中显示图形"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:6
+msgid "Show Warnings in Issues"
+msgstr "在问题中显示警告"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:7
-msgid "Show LaTeX Toolbar"
-msgstr "显示 LaTeX 工具栏"
+msgid "Show Tasks in Issues"
+msgstr "在问题中显示任务"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:8
-msgid "Show Labels in Outline"
-msgstr ""
+#: ../data/ui/configure.ui.h:7
+msgid "Hide Box Warnings"
+msgstr "隐藏框警告"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:9
-msgid "Show Tables in Outline"
-msgstr ""
+msgid ""
+"Show LaTeX Toolbar below (normal), combined with the main toolbar, or "
+"disabled"
+msgstr "在下方显示 LaTeX 工具栏(正常)，与主工具栏合并，或禁用"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:10
-msgid "Show Tasks in Issues"
-msgstr ""
+msgid "Expanded Symbol Groups"
+msgstr "扩展符号组"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:11
-msgid "Show Warnings in Issues"
-msgstr ""
+msgid "LaTeX Extensions"
+msgstr "LaTeX 扩展"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:12
+msgid "Graphics File Extensions"
+msgstr "图形文件扩展"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:13
+msgid "Paths Relative to .tex File to Look for Graphics"
+msgstr "用来查找图形的相对 .tex 文件的路径"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:14
+msgid "Extra LaTeX commands used to mark issues, such as \\fxnote{foo}"
+msgstr "用于标记问题的其他 LaTeX 命令，例如 \\fxnote{foo}"
 
 #: ../data/ui/build_image_dialog.ui.h:1
-msgid "<b>Area</b>"
-msgstr "<b>区域</b>"
-
-#: ../data/ui/build_image_dialog.ui.h:2
-msgid "<b>Image Format</b>"
-msgstr "<b>图像格式</b>"
-
-#: ../data/ui/build_image_dialog.ui.h:3
-msgid "<b>Rendering</b>"
-msgstr "<b>渲染</b>"
-
-#: ../data/ui/build_image_dialog.ui.h:4
-msgid "Antialiasing:"
-msgstr "平滑："
-
-#: ../data/ui/build_image_dialog.ui.h:5
-msgid "Attempt to render tight bounding box"
-msgstr ""
-
-#: ../data/ui/build_image_dialog.ui.h:6
-msgid "Color Mode:"
-msgstr "颜色模式："
-
-#: ../data/ui/build_image_dialog.ui.h:7
-msgid "GIF"
-msgstr "GIF"
-
-#: ../data/ui/build_image_dialog.ui.h:8
-msgid "JPEG"
-msgstr "JPEG"
-
-#: ../data/ui/build_image_dialog.ui.h:9
-msgid "PNG"
-msgstr "PNG"
-
-#: ../data/ui/build_image_dialog.ui.h:10
 msgid "Render to Image"
 msgstr "渲染为图像"
 
-#: ../data/ui/build_image_dialog.ui.h:11
+#: ../data/ui/build_image_dialog.ui.h:2
+msgid "Attempt to render tight bounding box"
+msgstr "尝试渲染紧凑的包围框"
+
+#: ../data/ui/build_image_dialog.ui.h:3
 msgid "Render whole page(s)"
 msgstr "渲染整个页面"
 
-#: ../data/ui/build_image_dialog.ui.h:12
+#: ../data/ui/build_image_dialog.ui.h:4
+msgid "<b>Area</b>"
+msgstr "<b>区域</b>"
+
+#: ../data/ui/build_image_dialog.ui.h:5
 msgid "Resolution:"
 msgstr "分辨率："
 
-#: ../data/ui/choose_master_dialog.ui.h:1
-msgid "Filename:"
-msgstr "文件名："
+#: ../data/ui/build_image_dialog.ui.h:6
+msgid "Antialiasing:"
+msgstr "平滑："
 
-#: ../data/ui/choose_master_dialog.ui.h:2
+#: ../data/ui/build_image_dialog.ui.h:7
+msgid "<b>Rendering</b>"
+msgstr "<b>渲染</b>"
+
+#: ../data/ui/build_image_dialog.ui.h:8
+msgid "GIF"
+msgstr "GIF"
+
+#: ../data/ui/build_image_dialog.ui.h:9
+msgid "JPEG"
+msgstr "JPEG"
+
+#: ../data/ui/build_image_dialog.ui.h:10
+msgid "Color Mode:"
+msgstr "颜色模式："
+
+#: ../data/ui/build_image_dialog.ui.h:11
+msgid "PNG"
+msgstr "PNG"
+
+#: ../data/ui/build_image_dialog.ui.h:12
+msgid "<b>Image Format</b>"
+msgstr "<b>图像格式</b>"
+
+#: ../data/ui/choose_master_dialog.ui.h:1
 msgid "Select Master Document"
 msgstr "选择主文档"
 
+#: ../data/ui/choose_master_dialog.ui.h:2
+msgid "Filename:"
+msgstr "文件名："
+
 #: ../data/ui/configure.ui.h:1
-msgid "<b><i>rubber</i> Post-Processor</b>"
-msgstr ""
+msgid "Tools"
+msgstr "工具"
 
 #: ../data/ui/configure.ui.h:2
-msgid "<b>BibTeX</b>"
-msgstr "<b>BibTeX</b>"
+msgid "Maximum Parsed File Size:"
+msgstr "最大解析文件尺寸："
 
 #: ../data/ui/configure.ui.h:3
-msgid "<b>LaTeX Toolbar</b>"
-msgstr "<b>LaTeX 工具栏</b>"
+msgid "KB"
+msgstr "KB"
 
 #: ../data/ui/configure.ui.h:4
 msgid "<b>Templates</b>"
@@ -245,51 +260,19 @@ msgstr "<b>模板</b>"
 msgid "Folder:"
 msgstr "文件夹："
 
-#: ../data/ui/configure.ui.h:7
-msgid "KB"
-msgstr "KB"
+#: ../data/ui/configure.ui.h:6
+msgid "<b><i>rubber</i> Post-Processor</b>"
+msgstr "<b><i>rubber</i> 后处理器</b>"
 
 #: ../data/ui/configure.ui.h:8
-msgid "Maximum Parsed File Size:"
-msgstr "最大解析文件尺寸："
+msgid "<b>BibTeX</b>"
+msgstr "<b>BibTeX</b>"
 
 #: ../data/ui/configure.ui.h:9
 msgid "Miscellaneous"
 msgstr "杂项"
 
-#: ../data/ui/configure.ui.h:10
-msgid "Show LaTeX Toolbar when editing LaTeX files"
-msgstr "在编辑 LaTeX 文件时显示 LaTeX 工具栏"
-
-#: ../data/ui/configure.ui.h:11
-msgid "Tools"
-msgstr "工具"
-
 #: ../data/ui/configure_tool.ui.h:1
-msgid "<Ctrl><Alt>1"
-msgstr "<Ctrl><Alt>1"
-
-#: ../data/ui/configure_tool.ui.h:2
-msgid "<b>Accelerator</b>"
-msgstr "<b>快捷键</b>"
-
-#: ../data/ui/configure_tool.ui.h:3
-msgid "<b>_Description</b>"
-msgstr "<b>描述(_D)</b>"
-
-#: ../data/ui/configure_tool.ui.h:4
-msgid "<b>_File Extensions</b>"
-msgstr "<b>文件扩展名(_F)</b>"
-
-#: ../data/ui/configure_tool.ui.h:5
-msgid "<b>_Jobs</b>"
-msgstr "<b>任务(_J)</b>"
-
-#: ../data/ui/configure_tool.ui.h:6
-msgid "<b>_Label</b>"
-msgstr "<b>标签(_L)</b>"
-
-#: ../data/ui/configure_tool.ui.h:7
 msgid ""
 "Remember to run all commands in batch mode (e.g. append <tt>-interaction "
 "batchmode</tt> to <tt>latex</tt>)"
@@ -297,32 +280,56 @@ msgstr ""
 "请记得以批方式(batch mode)运行所有命令(例如，向 <tt>latex</tt> 附加 <tt>-"
 "interaction batchmode</tt>)"
 
-#: ../data/ui/configure_tool.ui.h:8
+#: ../data/ui/configure_tool.ui.h:2
+msgid "<b>_Label</b>"
+msgstr "<b>标签(_L)</b>"
+
+#: ../data/ui/configure_tool.ui.h:3
 msgid ""
 "Valid placeholders are <tt>$filename</tt>, <tt>$shortname</tt>, <tt>"
 "$directory</tt>"
 msgstr ""
 "有效的占位符有 <tt>$filename</tt>、<tt>$shortname</tt>和<tt>$directory</tt>"
 
-#: ../data/ui/configure_tool.ui.h:9
+#: ../data/ui/configure_tool.ui.h:4
+msgid "<b>_Jobs</b>"
+msgstr "<b>任务(_J)</b>"
+
+#: ../data/ui/configure_tool.ui.h:5
+msgid "<b>_Description</b>"
+msgstr "<b>描述(_D)</b>"
+
+#: ../data/ui/configure_tool.ui.h:6
+msgid "<b>_File Extensions</b>"
+msgstr "<b>文件扩展名(_F)</b>"
+
+#: ../data/ui/configure_tool.ui.h:7
 msgid "_Generated"
 msgstr "已生成(_G)"
 
-#: ../data/ui/configure_tool.ui.h:10
+#: ../data/ui/configure_tool.ui.h:8
 msgid "_User Defined:"
 msgstr "用户定义(_U)："
+
+#: ../data/ui/configure_tool.ui.h:9
+msgid "<Ctrl><Alt>1"
+msgstr "<Ctrl><Alt>1"
+
+#: ../data/ui/configure_tool.ui.h:10
+msgid "<b>Accelerator</b>"
+msgstr "<b>快捷键</b>"
 
 #: ../data/ui/insert_bibtex_entry.ui.h:1
 msgid "Create Bibliography Entry"
 msgstr "创建参考文献条目"
 
 #: ../data/ui/insert_bibtex_entry.ui.h:2
-msgid "Optional Fields"
-msgstr "可选字段"
-
-#: ../data/ui/insert_bibtex_entry.ui.h:3
 msgid "Required Fields"
 msgstr "必需字段"
+
+#: ../data/ui/insert_bibtex_entry.ui.h:3
+msgid "Optional Fields"
+msgstr "可选字段"
 
 #: ../data/ui/insert_bibtex_entry.ui.h:4
 msgid "_Identifier:"
@@ -332,255 +339,264 @@ msgstr "标识符(_I)："
 msgid "_Type:"
 msgstr "类型(_T)："
 
-#: ../data/ui/insert_graphics_dialog.ui.h:2
-#, no-c-format
-msgid "% _of"
-msgstr ""
-
-#: ../data/ui/insert_graphics_dialog.ui.h:3
-msgid "&#xB0; CCW"
-msgstr "&#xB0; CCW"
-
-#: ../data/ui/insert_graphics_dialog.ui.h:4
-msgid "Flip _Horizontally"
-msgstr "水平翻转(_H)"
-
-#: ../data/ui/insert_graphics_dialog.ui.h:5
-msgid "Floating _Object"
-msgstr "浮动对象(_O)"
-
-#: ../data/ui/insert_graphics_dialog.ui.h:6
+#: ../data/ui/insert_graphics_dialog.ui.h:1
 msgid "Image Size"
 msgstr "图像尺寸"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:7
-msgid "Insert Graphics"
-msgstr "插入图形"
-
-#: ../data/ui/insert_graphics_dialog.ui.h:8
+#: ../data/ui/insert_graphics_dialog.ui.h:2
 msgid "Text Width"
 msgstr "文本宽度"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:9
-#: ../data/ui/insert_table_dialog.ui.h:4
-msgid "_Caption:"
-msgstr "题注(_C)："
+#: ../data/ui/insert_graphics_dialog.ui.h:3
+msgid "Insert Graphics"
+msgstr "插入图形"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:10
-msgid "_File:"
-msgstr "文件(_F)："
+#: ../data/ui/insert_graphics_dialog.ui.h:4
+msgid "&#xB0; CCW"
+msgstr "&#xB0; CCW"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:11
-#: ../data/ui/insert_table_dialog.ui.h:6
-msgid "_Label:"
-msgstr "标签(_L)："
-
-#: ../data/ui/insert_graphics_dialog.ui.h:12
+#: ../data/ui/insert_graphics_dialog.ui.h:5
 msgid "_Rotate:"
 msgstr "旋转(_R)："
 
-#: ../data/ui/insert_graphics_dialog.ui.h:13
-msgid "_Spread over two Columns"
-msgstr "横跨两列(_S)"
+#: ../data/ui/insert_graphics_dialog.ui.h:6
+msgid "Flip _Horizontally"
+msgstr "水平翻转(_H)"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:14
+#: ../data/ui/insert_graphics_dialog.ui.h:7
+msgid "_File:"
+msgstr "文件(_F)："
+
+#: ../data/ui/insert_graphics_dialog.ui.h:8
+#: ../data/ui/insert_table_dialog.ui.h:7
+msgid "_Caption:"
+msgstr "题注(_C)："
+
+#: ../data/ui/insert_graphics_dialog.ui.h:9
+#: ../data/ui/insert_table_dialog.ui.h:8
+msgid "_Label:"
+msgstr "标签(_L)："
+
+#: ../data/ui/insert_graphics_dialog.ui.h:10
+msgid "fig:"
+msgstr "图："
+
+#: ../data/ui/insert_graphics_dialog.ui.h:11
 msgid "_Width:"
 msgstr "宽度(_W)："
 
+#: ../data/ui/insert_graphics_dialog.ui.h:13
+#, no-c-format
+msgid "% _of"
+msgstr "%(_O)"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:14
+msgid "Floating _Object"
+msgstr "浮动对象(_O)"
+
 #: ../data/ui/insert_graphics_dialog.ui.h:15
-msgid "fig:"
-msgstr "图："
+msgid "_Spread over two Columns"
+msgstr "横跨两列(_S)"
 
 #: ../data/ui/insert_listing_dialog.ui.h:1
 msgid "Insert Source Code Listing"
 msgstr "插入源代码清单"
 
 #: ../data/ui/insert_listing_dialog.ui.h:2
-msgid "Load From _File:"
-msgstr "从文件加载(_F)："
+msgid "_Dialect:"
+msgstr "方言(_D)："
 
 #: ../data/ui/insert_listing_dialog.ui.h:3
 msgid "Programming _Language:"
 msgstr "编程语言(_L)："
 
 #: ../data/ui/insert_listing_dialog.ui.h:4
-msgid "_Dialect:"
-msgstr "方言(_D)："
+msgid "Load From _File:"
+msgstr "从文件加载(_F)："
 
 #: ../data/ui/insert_table_dialog.ui.h:1
-msgid "C_olumns:"
-msgstr "列(_O)："
-
-#: ../data/ui/insert_table_dialog.ui.h:2
 msgid "Insert Table or Matrix"
 msgstr "插入表格或矩阵"
 
-#: ../data/ui/insert_table_dialog.ui.h:3
+#: ../data/ui/insert_table_dialog.ui.h:2
 msgid "Type:"
 msgstr "类型："
 
-#: ../data/ui/insert_table_dialog.ui.h:5
-msgid "_Floating Object"
-msgstr "浮动对象(_F)"
-
-#: ../data/ui/insert_table_dialog.ui.h:7
-msgid "_Matrix:"
-msgstr "矩阵(_M)："
-
-#: ../data/ui/insert_table_dialog.ui.h:8
-msgid "_Rows:"
-msgstr "行(_R)："
-
-#: ../data/ui/insert_table_dialog.ui.h:9
+#: ../data/ui/insert_table_dialog.ui.h:3
 msgid "_Table"
 msgstr "表格(_T)"
 
-#: ../data/ui/insert_table_dialog.ui.h:10
+#: ../data/ui/insert_table_dialog.ui.h:4
+msgid "_Matrix:"
+msgstr "矩阵(_M)："
+
+#: ../data/ui/insert_table_dialog.ui.h:5
+msgid "_Rows:"
+msgstr "行(_R)："
+
+#: ../data/ui/insert_table_dialog.ui.h:6
+msgid "C_olumns:"
+msgstr "列(_O)："
+
+#: ../data/ui/insert_table_dialog.ui.h:9
 msgid "tab:"
 msgstr "表："
 
+#: ../data/ui/insert_table_dialog.ui.h:10
+msgid "_Floating Object"
+msgstr "浮动对象(_F)"
+
 #: ../data/ui/new_document_template_dialog.ui.h:1
-msgid ".tex"
-msgstr ".tex"
-
-#: ../data/ui/new_document_template_dialog.ui.h:2
-msgid "<b>Language Customization</b>"
-msgstr "<b>语言自定义</b>"
-
-#: ../data/ui/new_document_template_dialog.ui.h:3
-msgid "<b>Meta Information</b>"
-msgstr "<b>元信息</b>"
-
-#: ../data/ui/new_document_template_dialog.ui.h:4
-msgid "<b>Style and Layout</b>"
-msgstr "<b>样式和布局</b>"
-
-#: ../data/ui/new_document_template_dialog.ui.h:5
-msgid "Base Font Size:"
-msgstr "基字体尺寸："
-
-#: ../data/ui/new_document_template_dialog.ui.h:6
-msgid "C_ustom:"
-msgstr "自定义(_U)："
-
-#: ../data/ui/new_document_template_dialog.ui.h:7
-msgid "Date:"
-msgstr "日期："
-
-#: ../data/ui/new_document_template_dialog.ui.h:8
-msgid "De_fault"
-msgstr "默认(_F)"
-
-#: ../data/ui/new_document_template_dialog.ui.h:9
-msgid "Default F_ont Family:"
-msgstr "默认字体族(_O)："
-
-#: ../data/ui/new_document_template_dialog.ui.h:10
-msgid "Di_rectory:"
-msgstr "目录(_R)："
-
-#: ../data/ui/new_document_template_dialog.ui.h:11
-msgid "Document _Class:"
-msgstr "文档类(_C)："
-
-#: ../data/ui/new_document_template_dialog.ui.h:12
-msgid "Include PDF _Metadata"
-msgstr "包含 PDF 元数据(_M)"
-
-#: ../data/ui/new_document_template_dialog.ui.h:13
 msgid "New LaTeX Document"
 msgstr "新 LaTeX 文档"
 
-#: ../data/ui/new_document_template_dialog.ui.h:14
+#: ../data/ui/new_document_template_dialog.ui.h:2
 msgid "T_emplate:"
 msgstr "模板(_E)："
 
-#: ../data/ui/new_document_template_dialog.ui.h:15
-msgid "To_day"
-msgstr "今天(_D)"
+#: ../data/ui/new_document_template_dialog.ui.h:3
+msgid "document"
+msgstr "文档"
 
-#: ../data/ui/new_document_template_dialog.ui.h:16
-msgid "U_ser Defined:"
-msgstr "用户定义(_S)："
+#: ../data/ui/new_document_template_dialog.ui.h:4
+msgid ".tex"
+msgstr ".tex"
 
-#: ../data/ui/new_document_template_dialog.ui.h:17
-msgid "_Author:"
-msgstr "作者(_A)："
+#: ../data/ui/new_document_template_dialog.ui.h:5
+msgid "Di_rectory:"
+msgstr "目录(_R)："
 
-#: ../data/ui/new_document_template_dialog.ui.h:18
-msgid "_Babel Package:"
-msgstr "_Babel 宏包："
-
-#: ../data/ui/new_document_template_dialog.ui.h:19
-msgid "_Input Encoding:"
-msgstr "输入编码(_I)："
-
-#: ../data/ui/new_document_template_dialog.ui.h:20
-msgid "_Landscape"
-msgstr "横向(_L)"
-
-#: ../data/ui/new_document_template_dialog.ui.h:21
-#: ../data/ui/save_as_template_dialog.ui.h:3
+#: ../data/ui/new_document_template_dialog.ui.h:6
+#: ../data/ui/save_as_template_dialog.ui.h:2
 msgid "_Name:"
 msgstr "名称(_N)："
 
-#: ../data/ui/new_document_template_dialog.ui.h:22
+#: ../data/ui/new_document_template_dialog.ui.h:7
+msgid "_Babel Package:"
+msgstr "_Babel 宏包："
+
+#: ../data/ui/new_document_template_dialog.ui.h:8
+msgid "_Input Encoding:"
+msgstr "输入编码(_I)："
+
+#: ../data/ui/new_document_template_dialog.ui.h:9
+msgid "<b>Language Customization</b>"
+msgstr "<b>语言自定义</b>"
+
+#: ../data/ui/new_document_template_dialog.ui.h:10
+msgid "_Landscape"
+msgstr "横向(_L)"
+
+#: ../data/ui/new_document_template_dialog.ui.h:11
 msgid "_Paper:"
 msgstr "纸型(_P)："
+
+#: ../data/ui/new_document_template_dialog.ui.h:12
+msgid "De_fault"
+msgstr "默认(_F)"
+
+#: ../data/ui/new_document_template_dialog.ui.h:13
+msgid "U_ser Defined:"
+msgstr "用户定义(_S)："
+
+#: ../data/ui/new_document_template_dialog.ui.h:14
+msgid "pt"
+msgstr "磅"
+
+#: ../data/ui/new_document_template_dialog.ui.h:15
+msgid "Base Font Size:"
+msgstr "基字体尺寸："
+
+#: ../data/ui/new_document_template_dialog.ui.h:16
+msgid "Document _Class:"
+msgstr "文档类(_C)："
+
+#: ../data/ui/new_document_template_dialog.ui.h:17
+msgid "<b>Style and Layout</b>"
+msgstr "<b>样式和布局</b>"
+
+#: ../data/ui/new_document_template_dialog.ui.h:18
+msgid "Include PDF _Metadata"
+msgstr "包含 PDF 元数据(_M)"
+
+#: ../data/ui/new_document_template_dialog.ui.h:19
+msgid "Date:"
+msgstr "日期："
+
+#: ../data/ui/new_document_template_dialog.ui.h:20
+msgid "To_day"
+msgstr "今天(_D)"
+
+#: ../data/ui/new_document_template_dialog.ui.h:21
+msgid "C_ustom:"
+msgstr "自定义(_U)："
+
+#: ../data/ui/new_document_template_dialog.ui.h:22
+msgid "_Author:"
+msgstr "作者(_A)："
 
 #: ../data/ui/new_document_template_dialog.ui.h:23
 msgid "_Title:"
 msgstr "标题(_T)："
 
 #: ../data/ui/new_document_template_dialog.ui.h:24
-msgid "document"
-msgstr "文档"
+msgid "<b>Meta Information</b>"
+msgstr "<b>元信息</b>"
 
 #: ../data/ui/new_document_template_dialog.ui.h:25
-msgid "pt"
-msgstr "磅"
+msgid "Default F_ont Family:"
+msgstr "默认字体族(_O)："
 
 #: ../data/ui/save_as_template_dialog.ui.h:1
-msgid "Please specify a name for the new template."
-msgstr "请为新模板指定一个名称。"
-
-#: ../data/ui/save_as_template_dialog.ui.h:2
 msgid "Save As Template"
 msgstr "保存为模板"
+
+#: ../data/ui/save_as_template_dialog.ui.h:3
+msgid "Please specify a name for the new template."
+msgstr "请为新模板指定一个名称。"
 
 #: ../data/ui/save_as_template_dialog.ui.h:4
 msgid "label"
 msgstr "标签"
 
 #: ../data/ui/use_bibliography_dialog.ui.h:1
-msgid "Bibliography _File:"
-msgstr "参考文献文件(_F)："
-
-#: ../data/ui/use_bibliography_dialog.ui.h:2
-msgid "Refresh Style Preview"
-msgstr "刷新样式预览"
-
-#: ../data/ui/use_bibliography_dialog.ui.h:3
-msgid "Style Preview:"
-msgstr "样式预览："
-
-#: ../data/ui/use_bibliography_dialog.ui.h:4
 msgid "Use Bibliography"
 msgstr "使用参考文件"
 
-#: ../data/ui/use_bibliography_dialog.ui.h:5
+#: ../data/ui/use_bibliography_dialog.ui.h:2
+msgid "Bibliography _File:"
+msgstr "参考文献文件(_F)："
+
+#: ../data/ui/use_bibliography_dialog.ui.h:3
 msgid "_Style:"
 msgstr "样式(_S)："
 
+#: ../data/ui/use_bibliography_dialog.ui.h:4
+msgid "Style Preview:"
+msgstr "样式预览："
+
+#: ../data/ui/use_bibliography_dialog.ui.h:5
+msgid "Refresh Style Preview"
+msgstr "刷新样式预览"
+
 #: ../latex.plugin.desktop.in.in.h:1
+msgid "LaTeX Plugin"
+msgstr "LaTeX 插件"
+
+#: ../latex.plugin.desktop.in.in.h:2
 msgid ""
 "A plugin that assists you in handling LaTeX documents and BibTeX "
 "bibliographies"
 msgstr "一个辅助您处理 LaTeX 文档和 BibTeX 参考文献的插件"
 
-#: ../latex.plugin.desktop.in.in.h:2
-msgid "LaTeX Plugin"
-msgstr "LaTeX 插件"
+#~ msgid "Show LaTeX Toolbar"
+#~ msgstr "显示 LaTeX 工具栏"
+
+#~ msgid "<b>LaTeX Toolbar</b>"
+#~ msgstr "<b>LaTeX 工具栏</b>"
+
+#~ msgid "Show LaTeX Toolbar when editing LaTeX files"
+#~ msgstr "在编辑 LaTeX 文件时显示 LaTeX 工具栏"
 
 #~ msgid "<b>General</b>"
 #~ msgstr "<b>常规</b>"
