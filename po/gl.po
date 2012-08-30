@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gedit-latex master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-03-26 13:52+0200\n"
-"PO-Revision-Date: 2012-03-26 14:00+0200\n"
+"POT-Creation-Date: 2012-08-30 14:32+0200\n"
+"PO-Revision-Date: 2012-08-30 14:32+0200\n"
 "Last-Translator: Fran Dieguez <frandieguez@gnome.org>\n"
 "Language-Team: Galician <gnome-l10n-gl@gnome.org>\n"
 "Language: gl\n"
@@ -18,6 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"X-Generator: Gtranslator 2.91.5\n"
 
 #: ../latex.plugin.desktop.in.in.h:1
 msgid "LaTeX Plugin"
@@ -533,30 +534,34 @@ msgid "Include PDF _Metadata"
 msgstr "Incluír _metadatos PDF"
 
 #: ../data/ui/new_document_template_dialog.ui.h:19
+msgid "This adds metadata to the document. Requires package <tt>ifpdf</tt>."
+msgstr "Isto engade metadatos ao documento. Require o paquete <tt>ifpdf</tt>."
+
+#: ../data/ui/new_document_template_dialog.ui.h:20
 msgid "Date:"
 msgstr "Data:"
 
-#: ../data/ui/new_document_template_dialog.ui.h:20
+#: ../data/ui/new_document_template_dialog.ui.h:21
 msgid "To_day"
 msgstr "_Hoxe"
 
-#: ../data/ui/new_document_template_dialog.ui.h:21
+#: ../data/ui/new_document_template_dialog.ui.h:22
 msgid "C_ustom:"
 msgstr "P_ersonalizado:"
 
-#: ../data/ui/new_document_template_dialog.ui.h:22
+#: ../data/ui/new_document_template_dialog.ui.h:23
 msgid "_Author:"
 msgstr "_Autor:"
 
-#: ../data/ui/new_document_template_dialog.ui.h:23
+#: ../data/ui/new_document_template_dialog.ui.h:24
 msgid "_Title:"
 msgstr "_Título:"
 
-#: ../data/ui/new_document_template_dialog.ui.h:24
+#: ../data/ui/new_document_template_dialog.ui.h:25
 msgid "<b>Meta Information</b>"
 msgstr "<b>Metainformación</b>"
 
-#: ../data/ui/new_document_template_dialog.ui.h:25
+#: ../data/ui/new_document_template_dialog.ui.h:26
 msgid "Default F_ont Family:"
 msgstr "_Familia do tipo de letra predeterminada:"
 
@@ -580,41 +585,41 @@ msgstr "Vista previa do estilo:"
 msgid "Refresh Style Preview"
 msgstr "Actualizar vista previa do estilo"
 
-#: ../latex/bibtex/actions.py:35
+#: ../latex/bibtex/actions.py:32
 msgid "BibTeX"
 msgstr "BibTeX"
 
-#: ../latex/bibtex/actions.py:46
+#: ../latex/bibtex/actions.py:43
 msgid "New BibTeX Entry..."
 msgstr "Nova entrada BibTeX…"
 
-#: ../latex/bibtex/actions.py:49
+#: ../latex/bibtex/actions.py:46
 msgid "Create a new BibTeX entry"
 msgstr "Crear entrada BibTeX nova"
 
 #. add grouping controls to toolbar
-#: ../latex/bibtex/views.py:58
+#: ../latex/bibtex/views.py:56
 msgid "No Grouping"
 msgstr "Non agrupar"
 
-#: ../latex/bibtex/views.py:59
+#: ../latex/bibtex/views.py:57
 msgid "Group by Type"
 msgstr "Agrupar por tipo"
 
-#: ../latex/bibtex/views.py:60
+#: ../latex/bibtex/views.py:58
 msgid "Group by Author"
 msgstr "Agrupar por autor"
 
-#: ../latex/bibtex/views.py:61
+#: ../latex/bibtex/views.py:59
 msgid "Group by Year"
 msgstr "Agrupar por ano"
 
 #. group by year
-#: ../latex/bibtex/views.py:199
+#: ../latex/bibtex/views.py:197
 msgid "<i>n/a</i>"
 msgstr "<i>n/d</i>"
 
-#: ../latex/bibtex/views.py:242
+#: ../latex/bibtex/views.py:240
 msgid "Unknown Author"
 msgstr "Autor descoñecido"
 
@@ -884,15 +889,15 @@ msgstr "Carta 2 (Koma-Script)"
 msgid "Slides"
 msgstr "Diapositivas"
 
-#: ../latex/latex/views.py:114
+#: ../latex/latex/views.py:113
 msgid "Symbols"
 msgstr "Símbolos"
 
-#: ../latex/latex/views.py:202
+#: ../latex/latex/views.py:201
 msgid "Show graphics"
 msgstr "Mostrar gráficos"
 
-#: ../latex/latex/views.py:207
+#: ../latex/latex/views.py:206
 msgid "Show tables"
 msgstr "Mostrar táboas"
 
