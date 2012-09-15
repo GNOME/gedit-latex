@@ -1,0 +1,954 @@
+# Greek translation for gedit-latex.
+# Copyright (C) 2012 gedit-latex's COPYRIGHT HOLDER
+# This file is distributed under the same license as the gedit-latex package.
+# Tom Tryfonidis <tomtryf@gmail.com>, 2012.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: gedit-latex master\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=gedit&keywords=I18N+L10N&component=Plugins\n"
+"POT-Creation-Date: 2012-09-02 22:57+0000\n"
+"PO-Revision-Date: 2012-09-15 13:13+0200\n"
+"Last-Translator: Tom Tryfonidis <tomtryf@gmail.com>\n"
+"Language-Team: Greek <team@lists.gnome.gr>\n"
+"Language: el\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../latex.plugin.desktop.in.in.h:1
+msgid "LaTeX Plugin"
+msgstr "Πρόσθετο LaTeX"
+
+#: ../latex.plugin.desktop.in.in.h:2
+msgid ""
+"A plugin that assists you in handling LaTeX documents and BibTeX "
+"bibliographies"
+msgstr ""
+"Ένα πρόσθετο που σας βοηθά να διαχειριστείτε έγγραφα LaTeX και βιβλιογραφίες "
+"BibTeX"
+
+#: ../data/bibtex.xml.h:1
+msgid "Title"
+msgstr "Τίτλος"
+
+#: ../data/bibtex.xml.h:2
+msgid "Book Title"
+msgstr "Τίτλος βιβλίου"
+
+#: ../data/bibtex.xml.h:3
+msgid "Author"
+msgstr "Συγγραφέας"
+
+#: ../data/bibtex.xml.h:4
+msgid "Editor"
+msgstr "Επεξεργαστής"
+
+#: ../data/bibtex.xml.h:5
+msgid "Pages"
+msgstr "Σελίδες"
+
+#: ../data/bibtex.xml.h:6
+msgid "Journal"
+msgstr "Ημερολόγιο"
+
+#: ../data/bibtex.xml.h:7
+msgid "Volume"
+msgstr "Τόμος"
+
+#: ../data/bibtex.xml.h:8
+msgid "Number"
+msgstr "Αριθμός"
+
+#: ../data/bibtex.xml.h:9
+msgid "Month"
+msgstr "Μήνας"
+
+#: ../data/bibtex.xml.h:10
+msgid "Year"
+msgstr "Έτος"
+
+#: ../data/bibtex.xml.h:11
+msgid "ISSN"
+msgstr "ISSN"
+
+#: ../data/bibtex.xml.h:12
+msgid "Series"
+msgstr "Σειρά"
+
+#: ../data/bibtex.xml.h:13
+msgid "Edition"
+msgstr "Έκδοση"
+
+#: ../data/bibtex.xml.h:14
+msgid "Publisher"
+msgstr "Εκδότης"
+
+#: ../data/bibtex.xml.h:15
+msgid "Address"
+msgstr "Διεύθυνση"
+
+#: ../data/bibtex.xml.h:16
+msgid "ISBN"
+msgstr "ISBN"
+
+#: ../data/bibtex.xml.h:17
+msgid "How Published"
+msgstr "Πως δημοσιεύθηκε"
+
+#: ../data/bibtex.xml.h:18
+msgid "Organization"
+msgstr "Οργανισμός"
+
+#: ../data/bibtex.xml.h:19
+msgid "Location"
+msgstr "Τοποθεσία"
+
+#: ../data/bibtex.xml.h:20
+msgid "URL"
+msgstr "URL"
+
+#: ../data/bibtex.xml.h:21
+msgid "Note"
+msgstr "Σημείωση"
+
+#: ../data/bibtex.xml.h:22
+msgid "Type"
+msgstr "Τύπος"
+
+#: ../data/bibtex.xml.h:23 ../latex/latex/actions.py:315
+#: ../latex/latex/actions.py:316
+msgid "Chapter"
+msgstr "Κεφάλαιο"
+
+#: ../data/bibtex.xml.h:24
+msgid "Key"
+msgstr "Κλειδί"
+
+#: ../data/bibtex.xml.h:25
+msgid "School"
+msgstr "Σχολείο"
+
+#: ../data/bibtex.xml.h:26
+msgid "Institution"
+msgstr "Ινστιτούτο"
+
+#: ../data/bibtex.xml.h:27
+msgid "Cross Reference"
+msgstr "Παραπομπή"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:1
+msgid "Maximum BibTeX Size"
+msgstr "Μέγιστο μέγεθος BibTeX"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:2
+msgid "Connect Outline to Editor"
+msgstr "Σύνδεση περιγράμματος στον επεξεργαστή"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:3
+msgid "Show Labels in Outline"
+msgstr "Εμφάνιση ετικετών στο περίγραμμα"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:4
+msgid "Show Tables in Outline"
+msgstr "Εμφάνιση πινάκων στο περίγραμμα"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:5
+msgid "Show Graphics in Outline"
+msgstr "Εμφάνιση γραφικών στο περίγραμμα"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:6
+msgid "Show Warnings in Issues"
+msgstr "Εμφάνιση προειδοποιήσεων στα θέματα"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:7
+msgid "Show Tasks in Issues"
+msgstr "Εμφάνιση εργασιών στα θέματα"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:8
+#: ../data/ui/configure.ui.h:6
+msgid "Hide Box Warnings"
+msgstr "Απόκρυψη κουτιού προειδοποιήσεων"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:9
+msgid ""
+"Show LaTeX Toolbar below (normal), combined with the main toolbar, or "
+"disabled"
+msgstr ""
+"Εμφάνιση ή απενεργοποίηση της εργαλειοθήκης LaTeX (κανονικό), συνδυασμένη με "
+"την κύρια εργαλειοθήκη."
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:10
+msgid "Expanded Symbol Groups"
+msgstr "Ομάδες εκτεταμένων συμβόλων"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:11
+msgid "LaTeX Extensions"
+msgstr "Επεκτάσεις LaTeX"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:12
+msgid "Graphics File Extensions"
+msgstr "Γραφικά πρόσθετα αρχείου"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:13
+msgid "Paths Relative to .tex File to Look for Graphics"
+msgstr "Τοποθεσίες σχετικές με αρχεία .tex για αναζήτηση γραφικών"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:14
+msgid "Extra LaTeX commands used to mark issues, such as \\fxnote{foo}"
+msgstr ""
+"Επιπλέον εντολές LaTeX που χρησιμοποιούνται για να σημειώσουν θέματα, όπως η "
+"\\fxnote{foo}"
+
+#: ../data/ui/build_image_dialog.ui.h:1
+msgid "Render to Image"
+msgstr "Σχεδίαση σε εικόνα"
+
+#: ../data/ui/build_image_dialog.ui.h:2
+msgid "<b>Image Format</b>"
+msgstr "<b>Μορφή εικόνας</b>"
+
+#: ../data/ui/build_image_dialog.ui.h:3
+msgid "PNG"
+msgstr "PNG"
+
+#: ../data/ui/build_image_dialog.ui.h:4
+msgid "Color Mode:"
+msgstr "Χρωματική κατάσταση:"
+
+#: ../data/ui/build_image_dialog.ui.h:5
+msgid "JPEG"
+msgstr "JPEG"
+
+#: ../data/ui/build_image_dialog.ui.h:6
+msgid "GIF"
+msgstr "GIF"
+
+#: ../data/ui/build_image_dialog.ui.h:7
+msgid "<b>Rendering</b>"
+msgstr "<b>Σχεδίαση</b>"
+
+#: ../data/ui/build_image_dialog.ui.h:8
+msgid "<b>Area</b>"
+msgstr "<b>Περιοχή</b>"
+
+#: ../data/ui/build_image_dialog.ui.h:9
+msgid "Antialiasing:"
+msgstr "Εξομάλυνση:"
+
+#: ../data/ui/build_image_dialog.ui.h:10
+msgid "Resolution:"
+msgstr "Ανάλυση:"
+
+#: ../data/ui/build_image_dialog.ui.h:11
+msgid "Render whole page(s)"
+msgstr "Σχεδίαση σελίδας(ών)"
+
+#: ../data/ui/build_image_dialog.ui.h:12
+msgid "Attempt to render tight bounding box"
+msgstr "Προσπάθεια σχεδίασης του στενού πλαισίου οριοθέτησης"
+
+#: ../data/ui/choose_master_dialog.ui.h:1
+msgid "Select Master Document"
+msgstr "Επιλογή κύριου εγγράφου"
+
+#: ../data/ui/choose_master_dialog.ui.h:2
+msgid "Filename:"
+msgstr "Όνομα αρχείου:"
+
+#: ../data/ui/configure.ui.h:1 ../latex/tools/views.py:116
+msgid "Tools"
+msgstr "Εργαλεία"
+
+#: ../data/ui/configure.ui.h:2
+msgid "<b>BibTeX</b>"
+msgstr "<b>BibTeX</b>"
+
+#: ../data/ui/configure.ui.h:3
+msgid "<b><i>rubber</i> Post-Processor</b>"
+msgstr "<b><i>rubber</i> Προεπεξεργαστής</b>"
+
+#: ../data/ui/configure.ui.h:4
+msgid "Maximum Parsed File Size:"
+msgstr "Μέγιστο μέγεθος αναλυμένου αρχείου:"
+
+#: ../data/ui/configure.ui.h:5
+msgid "KB"
+msgstr "KB"
+
+#: ../data/ui/configure.ui.h:7
+msgid "Miscellaneous"
+msgstr "Διάφορα"
+
+#: ../data/ui/configure_tool.ui.h:1
+msgid ""
+"Remember to run all commands in batch mode (e.g. append <tt>-interaction "
+"batchmode</tt> to <tt>latex</tt>)"
+msgstr ""
+"Θυμηθείτε να τρέξετε όλες τις εντολές σε λειτουργία batch (π.χ επισύναψη του "
+"<tt>-interaction batchmode</tt> στο <tt>latex</tt>)"
+
+#: ../data/ui/configure_tool.ui.h:2
+msgid "<b>_Label</b>"
+msgstr "<b>Ετ_ικέτα</b>"
+
+#: ../data/ui/configure_tool.ui.h:3
+msgid ""
+"Valid placeholders are <tt>$filename</tt>, <tt>$shortname</tt>, <tt>"
+"$directory</tt>"
+msgstr ""
+"Έγκυροι διαχωριστές είναι <tt>$filename</tt>, <tt>$shortname</tt>, <tt>"
+"$directory</tt>"
+
+#: ../data/ui/configure_tool.ui.h:4
+msgid "<b>_Jobs</b>"
+msgstr "<b>Εργα_σίες</b>"
+
+#: ../data/ui/configure_tool.ui.h:5
+msgid "<b>_Description</b>"
+msgstr "<b>Π_εριγραφή</b>"
+
+#: ../data/ui/configure_tool.ui.h:6
+msgid "<b>_File Extensions</b>"
+msgstr "<b>Επεκτάσεις α_ρχείου</b>"
+
+#: ../data/ui/configure_tool.ui.h:7
+msgid "_Generated"
+msgstr "Δ_ημιουργήθηκε"
+
+#: ../data/ui/configure_tool.ui.h:8
+msgid "_User Defined:"
+msgstr "Καθορισμένο από το χρ_ήστη:"
+
+#: ../data/ui/configure_tool.ui.h:9
+msgid "<Ctrl><Alt>1"
+msgstr "<Ctrl><Alt>1"
+
+#: ../data/ui/configure_tool.ui.h:10
+msgid "<b>Accelerator</b>"
+msgstr "<b>Επιταχυντής</b>"
+
+#: ../data/ui/insert_bibtex_entry.ui.h:1
+msgid "Create Bibliography Entry"
+msgstr "Δημιουργία καταχώρησης βιβλιογραφίας"
+
+#: ../data/ui/insert_bibtex_entry.ui.h:2
+msgid "Required Fields"
+msgstr "Απαιτούμενα πεδία"
+
+#: ../data/ui/insert_bibtex_entry.ui.h:3
+msgid "Optional Fields"
+msgstr "Προαιρετικά πεδία"
+
+#: ../data/ui/insert_bibtex_entry.ui.h:4
+msgid "_Identifier:"
+msgstr "_Αναγνωριστικό:"
+
+#: ../data/ui/insert_bibtex_entry.ui.h:5
+msgid "_Type:"
+msgstr "_Τύπος"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:1 ../latex/latex/actions.py:356
+#: ../latex/latex/actions.py:358
+msgid "Insert Graphics"
+msgstr "Προσθήκη γραφικών"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:2
+msgid "_File:"
+msgstr "Α_ρχείο:"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:3
+#: ../data/ui/insert_table_dialog.ui.h:7
+msgid "_Caption:"
+msgstr "_Λεζάντα:"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:4
+#: ../data/ui/insert_table_dialog.ui.h:8
+msgid "_Label:"
+msgstr "Ετ_ικέτα:"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:5
+msgid "fig:"
+msgstr "fig:"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:6
+msgid "_Width:"
+msgstr "_Πλάτος:"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:8
+#, no-c-format
+msgid "% _of"
+msgstr "% α_πό"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:9
+msgid "_Rotate:"
+msgstr "Π_εριστροφή:"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:10
+msgid "° CCW"
+msgstr "Αριστερόστροφα"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:11
+msgid "Flip _Horizontally"
+msgstr "_Οριζόντια αναστροφή"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:12
+msgid "_Spread over two Columns"
+msgstr "_Άπλωμα πάνω από δύο στήλες"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:13
+msgid "Floating _Object"
+msgstr "Κινούμενο α_ντικείμενο"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:14
+msgid "Image Size"
+msgstr "Μέγεθος εικόνας"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:15
+msgid "Text Width"
+msgstr "Πλάτος κειμένου"
+
+#: ../data/ui/insert_listing_dialog.ui.h:1 ../latex/latex/actions.py:388
+#: ../latex/latex/actions.py:390
+msgid "Insert Source Code Listing"
+msgstr "Εισαγωγή λίστας πηγαίου κώδικα"
+
+#: ../data/ui/insert_listing_dialog.ui.h:2
+msgid "Load From _File:"
+msgstr "Φόρτωση από α_ρχείο:"
+
+#: ../data/ui/insert_listing_dialog.ui.h:3
+msgid "Programming _Language:"
+msgstr "Γλώσσα _προγραμματισμού:"
+
+#: ../data/ui/insert_listing_dialog.ui.h:4
+msgid "_Dialect:"
+msgstr "_Διάλεκτος:"
+
+#: ../data/ui/insert_table_dialog.ui.h:1 ../latex/latex/actions.py:372
+#: ../latex/latex/actions.py:374
+msgid "Insert Table or Matrix"
+msgstr "Εισαγωγή πίνακα ή μητρώου"
+
+#: ../data/ui/insert_table_dialog.ui.h:2
+msgid "Type:"
+msgstr "Τύπος:"
+
+#: ../data/ui/insert_table_dialog.ui.h:3
+msgid "_Table"
+msgstr "_Πίνακας"
+
+#: ../data/ui/insert_table_dialog.ui.h:4
+msgid "_Matrix:"
+msgstr "_Μητρώο:"
+
+#: ../data/ui/insert_table_dialog.ui.h:5
+msgid "_Rows:"
+msgstr "_Γραμμές:"
+
+#: ../data/ui/insert_table_dialog.ui.h:6
+msgid "C_olumns:"
+msgstr "Στή_λες:"
+
+#: ../data/ui/insert_table_dialog.ui.h:9
+msgid "tab:"
+msgstr "tab:"
+
+#: ../data/ui/insert_table_dialog.ui.h:10
+msgid "_Floating Object"
+msgstr "Κινού_μενο αντικείμενο"
+
+#: ../data/ui/new_document_template_dialog.ui.h:1
+msgid "New LaTeX Document"
+msgstr "Νέο έγγραφο LaTeX"
+
+#: ../data/ui/new_document_template_dialog.ui.h:2
+msgid "T_emplate:"
+msgstr "Π_ρότυπο:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:3
+msgid "document"
+msgstr "έγγραφο"
+
+#: ../data/ui/new_document_template_dialog.ui.h:4
+msgid ".tex"
+msgstr ".tex"
+
+#: ../data/ui/new_document_template_dialog.ui.h:5
+msgid "Di_rectory:"
+msgstr "Κα_τάλογος:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:6
+msgid "_Name:"
+msgstr "Ό_νομα:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:7
+msgid "_Babel Package:"
+msgstr "Πακέτο _Babel:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:8
+msgid "_Input Encoding:"
+msgstr "Κωδικοποίηση ε_ισαγωγής:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:9
+msgid "<b>Language Customization</b>"
+msgstr "<b>Προσαρμογή γλώσσας</b>"
+
+#: ../data/ui/new_document_template_dialog.ui.h:10
+msgid "_Landscape"
+msgstr "_Οριζόντια"
+
+#: ../data/ui/new_document_template_dialog.ui.h:11
+msgid "_Paper:"
+msgstr "_Χαρτί:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:12
+msgid "De_fault"
+msgstr "Προε_πιλογή"
+
+#: ../data/ui/new_document_template_dialog.ui.h:13
+msgid "U_ser Defined:"
+msgstr "Καθορισμένο από το χ_ρήστη:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:14
+msgid "pt"
+msgstr "pt"
+
+#: ../data/ui/new_document_template_dialog.ui.h:15
+msgid "Base Font Size:"
+msgstr "Βασικό μέγεθος γραμματοσειράς:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:16
+msgid "Document _Class:"
+msgstr "Κ_λάση εγγράφου:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:17
+msgid "<b>Style and Layout</b>"
+msgstr "<b>Στυλ και διάταξη</b>"
+
+#: ../data/ui/new_document_template_dialog.ui.h:18
+msgid "Include PDF _Metadata"
+msgstr "Συμπεριλάβετε _μεταδεδομένα PDF"
+
+#: ../data/ui/new_document_template_dialog.ui.h:19
+msgid "This adds metadata to the document. Requires package <tt>ifpdf</tt>."
+msgstr ""
+"Αυτό προσθέτει μεταδεδομένα στο έγγραφο. Απαιτεί το πακέτο<tt>ifpdf</tt>."
+
+#: ../data/ui/new_document_template_dialog.ui.h:20
+msgid "Date:"
+msgstr "Ημερομηνία:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:21
+msgid "To_day"
+msgstr "Σή_μερα"
+
+#: ../data/ui/new_document_template_dialog.ui.h:22
+msgid "C_ustom:"
+msgstr "Προ_σαρμοσμένο:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:23
+msgid "_Author:"
+msgstr "_Συγγραφέας:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:24
+msgid "_Title:"
+msgstr "_Τίτλος:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:25
+msgid "<b>Meta Information</b>"
+msgstr "<b>Μέτα πληροφορίες</b>"
+
+#: ../data/ui/new_document_template_dialog.ui.h:26
+msgid "Default F_ont Family:"
+msgstr "Προεπιλεγμένη οικο_γένεια γραμματοσειράς:"
+
+#: ../data/ui/use_bibliography_dialog.ui.h:1 ../latex/latex/actions.py:159
+msgid "Use Bibliography"
+msgstr "Χρήση βιβλιογραφίας"
+
+#: ../data/ui/use_bibliography_dialog.ui.h:2
+msgid "Bibliography _File:"
+msgstr "Α_ρχείο βιβλιογραφίας:"
+
+#: ../data/ui/use_bibliography_dialog.ui.h:3
+msgid "_Style:"
+msgstr "_Στυλ:"
+
+#: ../data/ui/use_bibliography_dialog.ui.h:4
+msgid "Style Preview:"
+msgstr "Στυλ προεπισκόπησης:"
+
+#: ../data/ui/use_bibliography_dialog.ui.h:5
+msgid "Refresh Style Preview"
+msgstr "Ανανέωση του στυλ προεπισκόπησης"
+
+#: ../latex/bibtex/actions.py:32
+msgid "BibTeX"
+msgstr "BibTeX"
+
+#: ../latex/bibtex/actions.py:43
+msgid "New BibTeX Entry..."
+msgstr "Νέα καταχώριση BibTeX..."
+
+#: ../latex/bibtex/actions.py:46
+msgid "Create a new BibTeX entry"
+msgstr "Νέα καταχώρηση BibTeX"
+
+#. add grouping controls to toolbar
+#: ../latex/bibtex/views.py:56
+msgid "No Grouping"
+msgstr "Χωρίς ομαδοποίηση"
+
+#: ../latex/bibtex/views.py:57
+msgid "Group by Type"
+msgstr "Ομαδοποίηση κατά τύπο"
+
+#: ../latex/bibtex/views.py:58
+msgid "Group by Author"
+msgstr "Ομαδοποίηση κατά συγγραφέα"
+
+#: ../latex/bibtex/views.py:59
+msgid "Group by Year"
+msgstr "Ομαδοποίηση κατά έτος"
+
+#. group by year
+#: ../latex/bibtex/views.py:197
+msgid "<i>n/a</i>"
+msgstr "<i>n/a</i>"
+
+#: ../latex/bibtex/views.py:240
+msgid "Unknown Author"
+msgstr "Άγνωστος συγγραφέας"
+
+#: ../latex/latex/actions.py:63
+msgid "LaTeX"
+msgstr "LaTeX"
+
+#: ../latex/latex/actions.py:73
+msgid "New LaTeX Document..."
+msgstr "Νέο έγγραφο LaTeX..."
+
+#: ../latex/latex/actions.py:76
+msgid "Create a new LaTeX document"
+msgstr "Δημιουργία νέου εγγράφου LaTeX"
+
+#: ../latex/latex/actions.py:95
+msgid "Choose Master Document..."
+msgstr "Επιλογή κύριου εγγράφου..."
+
+#: ../latex/latex/actions.py:107
+msgid "Close Nearest Environment"
+msgstr "Κλείσιμο κοντινότερου περιβάλλοντος"
+
+#: ../latex/latex/actions.py:109
+msgid "Close the nearest TeX environment at left of the cursor"
+msgstr "Κλείστε το κοντινότερο περιβάλλον TeX στα αριστερά του κέρσορα"
+
+#: ../latex/latex/actions.py:157
+msgid "Use Bibliography..."
+msgstr "Χρήση βιβλιογραφίας..."
+
+#: ../latex/latex/actions.py:179 ../latex/latex/actions.py:181
+#: ../latex/latex/actions.py:189 ../latex/latex/actions.py:190
+msgid "Font Family"
+msgstr "Οικογένεια γραμματοσειράς"
+
+#: ../latex/latex/actions.py:194 ../latex/latex/actions.py:195
+msgid "Bold"
+msgstr "Έντονα"
+
+#: ../latex/latex/actions.py:201 ../latex/latex/actions.py:202
+msgid "Italic"
+msgstr "Πλάγια"
+
+#: ../latex/latex/actions.py:208 ../latex/latex/actions.py:209
+msgid "Emphasize"
+msgstr "Έμφαση"
+
+#: ../latex/latex/actions.py:215 ../latex/latex/actions.py:216
+msgid "Underline"
+msgstr "Υπογράμμιση"
+
+#: ../latex/latex/actions.py:222 ../latex/latex/actions.py:223
+msgid "Small Capitals"
+msgstr "Μικρά κεφαλαία"
+
+#: ../latex/latex/actions.py:229 ../latex/latex/actions.py:230
+msgid "Roman"
+msgstr "Roman"
+
+#: ../latex/latex/actions.py:236 ../latex/latex/actions.py:237
+msgid "Sans Serif"
+msgstr "Sans Serif"
+
+#: ../latex/latex/actions.py:243 ../latex/latex/actions.py:244
+msgid "Typewriter"
+msgstr "Typewriter"
+
+#: ../latex/latex/actions.py:250 ../latex/latex/actions.py:251
+msgid "Blackboard Bold"
+msgstr "Blackboard Bold"
+
+#: ../latex/latex/actions.py:258 ../latex/latex/actions.py:259
+msgid "Caligraphy"
+msgstr "Caligraphy"
+
+#: ../latex/latex/actions.py:265 ../latex/latex/actions.py:266
+msgid "Fraktur"
+msgstr "Fraktur"
+
+#: ../latex/latex/actions.py:273 ../latex/latex/actions.py:274
+#: ../latex/latex/actions.py:286 ../latex/latex/actions.py:287
+msgid "List"
+msgstr "Λίστα"
+
+#: ../latex/latex/actions.py:278 ../latex/latex/actions.py:279
+msgid "Itemize"
+msgstr "Κατηγοριοποίηση"
+
+#: ../latex/latex/actions.py:291 ../latex/latex/actions.py:292
+msgid "Enumerate"
+msgstr "Απαρίθμηση"
+
+#: ../latex/latex/actions.py:298 ../latex/latex/actions.py:299
+msgid "Description"
+msgstr "Περιγραφή"
+
+#: ../latex/latex/actions.py:304 ../latex/latex/actions.py:305
+#: ../latex/latex/actions.py:330 ../latex/latex/actions.py:331
+msgid "Structure"
+msgstr "Δομή"
+
+#: ../latex/latex/actions.py:308 ../latex/latex/actions.py:309
+msgid "Part"
+msgstr "Μέρος"
+
+#: ../latex/latex/actions.py:322 ../latex/latex/actions.py:323
+msgid "Section"
+msgstr "Ενότητα"
+
+#: ../latex/latex/actions.py:335 ../latex/latex/actions.py:336
+msgid "Subsection"
+msgstr "Υποενότητα"
+
+#: ../latex/latex/actions.py:342 ../latex/latex/actions.py:343
+msgid "Paragraph"
+msgstr "Παράγραφος"
+
+#: ../latex/latex/actions.py:349 ../latex/latex/actions.py:350
+msgid "Subparagraph"
+msgstr "Υποπαράγραφος"
+
+#: ../latex/latex/actions.py:405 ../latex/latex/actions.py:407
+#: ../latex/latex/actions.py:415 ../latex/latex/actions.py:416
+msgid "Build"
+msgstr "Ανάπτυξη"
+
+#: ../latex/latex/actions.py:420
+msgid "Build Image"
+msgstr "Ανάπτυξη εικόνας"
+
+#: ../latex/latex/actions.py:422
+msgid "Build an image from the LaTeX document"
+msgstr "Ανάπτυξη μιας εικόνας από το έγγραφο LaTeX"
+
+#: ../latex/latex/actions.py:440 ../latex/latex/actions.py:441
+#: ../latex/latex/actions.py:460 ../latex/latex/actions.py:461
+msgid "Justify"
+msgstr "Στοίχιση"
+
+#: ../latex/latex/actions.py:445 ../latex/latex/actions.py:446
+msgid "Justify Left"
+msgstr "Στοίχιση αριστερά"
+
+#: ../latex/latex/actions.py:452 ../latex/latex/actions.py:453
+msgid "Justify Center"
+msgstr "Στοίχιση στο κέντρο"
+
+#: ../latex/latex/actions.py:465 ../latex/latex/actions.py:466
+msgid "Justify Right"
+msgstr "Στοίχιση δεξιά"
+
+#: ../latex/latex/actions.py:472 ../latex/latex/actions.py:473
+#: ../latex/latex/actions.py:485 ../latex/latex/actions.py:486
+msgid "Math"
+msgstr "Μαθηματικά"
+
+#: ../latex/latex/actions.py:477 ../latex/latex/actions.py:478
+msgid "Mathematical Environment"
+msgstr "Μαθηματικό περιβάλλον"
+
+#: ../latex/latex/actions.py:490 ../latex/latex/actions.py:491
+msgid "Centered Formula"
+msgstr "Κεντραρισμένος τύπος"
+
+#: ../latex/latex/actions.py:497 ../latex/latex/actions.py:498
+msgid "Numbered Equation"
+msgstr "Αριθμημένη εξίσωση"
+
+#: ../latex/latex/actions.py:506 ../latex/latex/actions.py:507
+msgid "Array of Equations"
+msgstr "Πίνακας εξισώσεων"
+
+#: ../latex/latex/actions.py:516 ../latex/latex/actions.py:517
+msgid "Numbered Array of Equations"
+msgstr "Αριθμημένος πίνακας εξισώσεων"
+
+#: ../latex/latex/environment.py:141
+msgid "Book of abstracts"
+msgstr "Βιβλίο περιλήψεων"
+
+#: ../latex/latex/environment.py:142
+msgid "Article"
+msgstr "Άρθρο"
+
+#: ../latex/latex/environment.py:143
+msgid "Article (AMS)"
+msgstr "Άρθρο (AMS)"
+
+#: ../latex/latex/environment.py:144
+msgid "Book (AMS)"
+msgstr "Βιβλίο (AMS)"
+
+#: ../latex/latex/environment.py:145
+msgid "AMS Documentation"
+msgstr "Τεκμηρίωση AMS"
+
+#: ../latex/latex/environment.py:146
+msgid "Proceedings (AMS)"
+msgstr "Πρακτικά (AMS)"
+
+#: ../latex/latex/environment.py:147
+msgid "Report"
+msgstr "Αναφορά"
+
+#: ../latex/latex/environment.py:148
+msgid "Beamer slides"
+msgstr "Διαφάνειες Beamer"
+
+#: ../latex/latex/environment.py:149
+msgid "Belgian letter"
+msgstr "Βελγικό γράμμα"
+
+#: ../latex/latex/environment.py:150
+msgid "Book"
+msgstr "Βιβλίο"
+
+#: ../latex/latex/environment.py:151
+msgid "Flashcard"
+msgstr "Flashcard"
+
+#: ../latex/latex/environment.py:152
+msgid "Proceedings (IAG)"
+msgstr "Πρακτικά (IAG)"
+
+#: ../latex/latex/environment.py:153
+msgid "Letter"
+msgstr "Γράμμα"
+
+#: ../latex/latex/environment.py:154
+msgid "LaTeX News"
+msgstr "Νέα LaTeX"
+
+#: ../latex/latex/environment.py:155
+msgid "LaTeX Documentation"
+msgstr "Τεκμηρίωση LaTeX"
+
+#: ../latex/latex/environment.py:156
+msgid "LaTeX Guide"
+msgstr "Οδηγός LaTeX"
+
+#: ../latex/latex/environment.py:157
+msgid "Proceedings"
+msgstr "Πρακτικά"
+
+#: ../latex/latex/environment.py:158
+msgid "Article (KOMA-Script)"
+msgstr "Άρθρο (KOMA-Script)"
+
+#: ../latex/latex/environment.py:159 ../latex/latex/environment.py:163
+msgid "Report (KOMA-Script)"
+msgstr "Αναφορά (KOMA-Script)"
+
+#: ../latex/latex/environment.py:160
+msgid "Book (KOMA-Script)"
+msgstr "Βιβλίο (KOMA-Script)"
+
+#: ../latex/latex/environment.py:161
+msgid "Letter (KOMA-Script)"
+msgstr "Γράμμα (KOMA-Script)"
+
+#: ../latex/latex/environment.py:162
+msgid "Letter 2 (KOMA-Script)"
+msgstr "Γράμμα 2 (KOMA-Script)"
+
+#: ../latex/latex/environment.py:164
+msgid "Slides"
+msgstr "Διαφάνειες"
+
+#: ../latex/latex/views.py:113
+msgid "Symbols"
+msgstr "Σύμβολα"
+
+#: ../latex/latex/views.py:201
+msgid "Show graphics"
+msgstr "Εμφάνιση γραφικών"
+
+#: ../latex/latex/views.py:206
+msgid "Show tables"
+msgstr "Εμφάνιση πινάκων"
+
+#: ../latex/outline.py:58
+msgid "Follow Editor"
+msgstr "Ακολούθησε επεξεργαστή"
+
+#: ../latex/outline.py:63
+msgid "Expand All"
+msgstr "Ανάπτυξη όλων"
+
+#: ../latex/outline.py:67
+msgid "Collapse All"
+msgstr "Σύμπτυξη όλων"
+
+#: ../latex/outline.py:115
+msgid "Outline"
+msgstr "Περίγραμμα"
+
+#: ../latex/tools/views.py:62
+msgid "Job"
+msgstr "Εργασία"
+
+#: ../latex/tools/views.py:73 ../latex/views.py:80
+msgid "File"
+msgstr "Αρχείο"
+
+#: ../latex/tools/views.py:74
+msgid "Line"
+msgstr "Γραμμή"
+
+#: ../latex/tools/views.py:87
+msgid "Abort Job"
+msgstr "Ακύρωση εργασίας"
+
+#: ../latex/tools/views.py:92
+msgid "Show Detailed Output"
+msgstr "Εμφάνιση λεπτομερούς αποτελέσματος"
+
+#: ../latex/views.py:67
+msgid "Message"
+msgstr "Μήνυμα"
+
+#: ../latex/views.py:99
+msgid "Show/Hide Warnings"
+msgstr "Εμφάνιση/Απόκρυψη ειδοποιήσεων"
+
+#: ../latex/views.py:107
+msgid "Show/Hide Tasks"
+msgstr "Εμφάνιση/Απόκρυψη εργασιών"
+
+#: ../latex/views.py:139
+msgid "Issues"
+msgstr "Θέματα"
