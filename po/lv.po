@@ -5,16 +5,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=gedit&keywords=I18N+L10N&component=Plugins\n"
-"POT-Creation-Date: 2012-05-16 19:01+0000\n"
-"PO-Revision-Date: 2012-05-22 22:35+0300\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-10-14 01:46+0300\n"
+"PO-Revision-Date: 2012-10-14 01:47+0300\n"
 "Last-Translator: Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>\n"
 "Language-Team: Latvian <lata-l10n@googlegroups.com>\n"
+"Language: lv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: lv\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
 "X-Generator: Lokalize 1.4\n"
@@ -191,11 +190,11 @@ msgstr "LaTeX paplašinājumi"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:12
 msgid "Graphics File Extensions"
-msgstr "Grafisko failu paplašinājumi"
+msgstr "Grafisko datņu paplašinājumi"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:13
 msgid "Paths Relative to .tex File to Look for Graphics"
-msgstr "Ceļš (relatīvs pret. tex failu), kurā meklēt ilustrācijas"
+msgstr "Ceļš (relatīvs pret. tex datni), kurā meklēt ilustrācijas"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:14
 msgid "Extra LaTeX commands used to mark issues, such as \\fxnote{foo}"
@@ -255,7 +254,7 @@ msgstr "Izvēlieties galveno dokumentu"
 
 #: ../data/ui/choose_master_dialog.ui.h:2
 msgid "Filename:"
-msgstr "Faila nosaukums:"
+msgstr "Datnes nosaukums:"
 
 #: ../data/ui/configure.ui.h:1 ../latex/tools/views.py:116
 msgid "Tools"
@@ -271,7 +270,7 @@ msgstr "<b><i>rubber</i> pēcprocesors</b>"
 
 #: ../data/ui/configure.ui.h:4
 msgid "Maximum Parsed File Size:"
-msgstr "Maksimālais parsētā faila izmērs:"
+msgstr "Maksimālais parsētās datnes izmērs:"
 
 #: ../data/ui/configure.ui.h:5
 msgid "KB"
@@ -311,7 +310,7 @@ msgstr "<b>_Apraksts</b>"
 
 #: ../data/ui/configure_tool.ui.h:6
 msgid "<b>_File Extensions</b>"
-msgstr "<b>_Faila paplašinājums</b>"
+msgstr "<b>_Datnes paplašinājums</b>"
 
 #: ../data/ui/configure_tool.ui.h:7
 msgid "_Generated"
@@ -356,7 +355,7 @@ msgstr "Ievietot attēlu"
 
 #: ../data/ui/insert_graphics_dialog.ui.h:2
 msgid "_File:"
-msgstr "_Fails:"
+msgstr "_Datne:"
 
 #: ../data/ui/insert_graphics_dialog.ui.h:3
 #: ../data/ui/insert_table_dialog.ui.h:7
@@ -416,7 +415,7 @@ msgstr "Ievietot pirmkoda izdruku"
 
 #: ../data/ui/insert_listing_dialog.ui.h:2
 msgid "Load From _File:"
-msgstr "Ielādēt no _faila:"
+msgstr "Ielādēt no _datnes:"
 
 #: ../data/ui/insert_listing_dialog.ui.h:3
 msgid "Programming _Language:"
@@ -532,30 +531,34 @@ msgid "Include PDF _Metadata"
 msgstr "Iekļaut PDF _metadatus"
 
 #: ../data/ui/new_document_template_dialog.ui.h:19
+msgid "This adds metadata to the document. Requires package <tt>ifpdf</tt>."
+msgstr ""
+
+#: ../data/ui/new_document_template_dialog.ui.h:20
 msgid "Date:"
 msgstr "Datums:"
 
-#: ../data/ui/new_document_template_dialog.ui.h:20
+#: ../data/ui/new_document_template_dialog.ui.h:21
 msgid "To_day"
 msgstr "Šo_diena"
 
-#: ../data/ui/new_document_template_dialog.ui.h:21
+#: ../data/ui/new_document_template_dialog.ui.h:22
 msgid "C_ustom:"
 msgstr "_Pielāgots:"
 
-#: ../data/ui/new_document_template_dialog.ui.h:22
+#: ../data/ui/new_document_template_dialog.ui.h:23
 msgid "_Author:"
 msgstr "_Autors:"
 
-#: ../data/ui/new_document_template_dialog.ui.h:23
+#: ../data/ui/new_document_template_dialog.ui.h:24
 msgid "_Title:"
 msgstr "Virsraks_ts:"
 
-#: ../data/ui/new_document_template_dialog.ui.h:24
+#: ../data/ui/new_document_template_dialog.ui.h:25
 msgid "<b>Meta Information</b>"
 msgstr "<b>Meta informācija</b>"
 
-#: ../data/ui/new_document_template_dialog.ui.h:25
+#: ../data/ui/new_document_template_dialog.ui.h:26
 msgid "Default F_ont Family:"
 msgstr "Noklusētā f_ontu saime:"
 
@@ -565,7 +568,7 @@ msgstr "Lietot bibliogrāfiju"
 
 #: ../data/ui/use_bibliography_dialog.ui.h:2
 msgid "Bibliography _File:"
-msgstr "Bibliogrāfijas _fails:"
+msgstr "Bibliogrāfijas _datne:"
 
 #: ../data/ui/use_bibliography_dialog.ui.h:3
 msgid "_Style:"
@@ -579,41 +582,41 @@ msgstr "Stila priekšskatījums:"
 msgid "Refresh Style Preview"
 msgstr "Atsvaidzināt stila priekšskatījumu"
 
-#: ../latex/bibtex/actions.py:35
+#: ../latex/bibtex/actions.py:32
 msgid "BibTeX"
 msgstr "BibTeX"
 
-#: ../latex/bibtex/actions.py:46
+#: ../latex/bibtex/actions.py:43
 msgid "New BibTeX Entry..."
 msgstr "Jauns BibTeX ieraksts..."
 
-#: ../latex/bibtex/actions.py:49
+#: ../latex/bibtex/actions.py:46
 msgid "Create a new BibTeX entry"
 msgstr "Izveidot jaunu BibTeX ierakstu"
 
 #. add grouping controls to toolbar
-#: ../latex/bibtex/views.py:58
+#: ../latex/bibtex/views.py:56
 msgid "No Grouping"
 msgstr "Nav grupēšanas"
 
-#: ../latex/bibtex/views.py:59
+#: ../latex/bibtex/views.py:57
 msgid "Group by Type"
 msgstr "Grupēt pēc tipa"
 
-#: ../latex/bibtex/views.py:60
+#: ../latex/bibtex/views.py:58
 msgid "Group by Author"
 msgstr "Grupēt pēc autora"
 
-#: ../latex/bibtex/views.py:61
+#: ../latex/bibtex/views.py:59
 msgid "Group by Year"
 msgstr "Grupēt pēc gada"
 
 #. group by year
-#: ../latex/bibtex/views.py:199
+#: ../latex/bibtex/views.py:197
 msgid "<i>n/a</i>"
 msgstr "<i>n/p</i>"
 
-#: ../latex/bibtex/views.py:242
+#: ../latex/bibtex/views.py:240
 msgid "Unknown Author"
 msgstr "Nezināms autors"
 
@@ -883,15 +886,15 @@ msgstr "Vēstule 2 (KOMA raksts)"
 msgid "Slides"
 msgstr "Slaidi"
 
-#: ../latex/latex/views.py:114
+#: ../latex/latex/views.py:113
 msgid "Symbols"
 msgstr "Simboli"
 
-#: ../latex/latex/views.py:202
+#: ../latex/latex/views.py:201
 msgid "Show graphics"
 msgstr "Rādīt ilustrācijas"
 
-#: ../latex/latex/views.py:207
+#: ../latex/latex/views.py:206
 msgid "Show tables"
 msgstr "Rādīt tabulas"
 
@@ -917,7 +920,7 @@ msgstr "Uzdevums"
 
 #: ../latex/tools/views.py:73 ../latex/views.py:80
 msgid "File"
-msgstr "Fails"
+msgstr "Datne"
 
 #: ../latex/tools/views.py:74
 msgid "Line"
