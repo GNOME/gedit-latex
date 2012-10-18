@@ -53,7 +53,7 @@ class BibTeXOutlineView(BaseOutlineView):
 
         # add grouping controls to toolbar
 
-        self._item_none = Gtk.RadioMenuItem.new_with_label(None, _("No Grouping"))
+        self._item_none = Gtk.RadioMenuItem.new_with_label([], _("No Grouping"))
         self._item_type = Gtk.RadioMenuItem.new_with_label((self._item_none,), _("Group by Type"))
         self._item_author = Gtk.RadioMenuItem.new_with_label((self._item_none,), _("Group by Author"))
         self._item_year = Gtk.RadioMenuItem.new_with_label((self._item_none,), _("Group by Year"))
