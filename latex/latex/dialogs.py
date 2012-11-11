@@ -351,10 +351,13 @@ class NewDocumentDialog(GladeInterface):
             folder = Folder(preferences.TEMPLATE_DIR)
 
             templates = folder.files
+            default_template_path = Resources().get_data_file("templates")
+            folder = Folder(default_template_path)
+            templates.extend(folder.files)
             templates.sort()
             for template in templates:
                 self._proxy_template.add_option(template.path, template.shortbasename, show_value=False)
-            self._proxy_template.restore("Default")
+            self._proxy_template.restore(os.path.join(default_template_path,"Default.template"))
 
             #
             # metadata
