@@ -9,163 +9,171 @@ msgstr ""
 "Project-Id-Version: gedit-latex master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gedit&keywords=I18N+L10N&component=Plugins\n"
-"POT-Creation-Date: 2011-10-09 14:34+0000\n"
-"PO-Revision-Date: 2011-11-10 10:01+0100\n"
+"POT-Creation-Date: 2012-10-08 08:07+0000\n"
+"PO-Revision-Date: 2011-11-13 15:18+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
+"Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: cs\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
+#: ../latex.plugin.desktop.in.in.h:1
+msgid "LaTeX Plugin"
+msgstr "Zásuvný modul LaTeX"
+
+#: ../latex.plugin.desktop.in.in.h:2
+msgid ""
+"A plugin that assists you in handling LaTeX documents and BibTeX "
+"bibliographies"
+msgstr ""
+"Zásuvný modul, který vám pomůže pracovat s dokumenty LaTeX a bibliografií "
+"BibTex"
+
 #: ../data/bibtex.xml.h:1
-msgid "Address"
-msgstr "Adresa"
+msgid "Title"
+msgstr "Název"
 
 #: ../data/bibtex.xml.h:2
-msgid "Author"
-msgstr "Autor"
-
-#: ../data/bibtex.xml.h:3
 msgid "Book Title"
 msgstr "Název knihy"
 
-#: ../data/bibtex.xml.h:4 ../latex/latex/actions.py:315
-#: ../latex/latex/actions.py:316
-msgid "Chapter"
-msgstr "Kapitola"
+#: ../data/bibtex.xml.h:3
+msgid "Author"
+msgstr "Autor"
 
-#: ../data/bibtex.xml.h:5
-msgid "Cross Reference"
-msgstr "Křížový odkaz"
-
-#: ../data/bibtex.xml.h:6
-msgid "Edition"
-msgstr "Vydání"
-
-#: ../data/bibtex.xml.h:7
+#: ../data/bibtex.xml.h:4
 msgid "Editor"
 msgstr "Redaktor"
 
-#: ../data/bibtex.xml.h:8
-msgid "How Published"
-msgstr "Jak vydáno"
+#: ../data/bibtex.xml.h:5
+msgid "Pages"
+msgstr "Stran"
 
-#: ../data/bibtex.xml.h:9
-msgid "ISBN"
-msgstr "ISBN"
-
-#: ../data/bibtex.xml.h:10
-msgid "ISSN"
-msgstr "ISSN"
-
-#: ../data/bibtex.xml.h:11
-msgid "Institution"
-msgstr "Instituce"
-
-#: ../data/bibtex.xml.h:12
+#: ../data/bibtex.xml.h:6
 msgid "Journal"
 msgstr "Periodický tisk"
 
-#: ../data/bibtex.xml.h:13
-msgid "Key"
-msgstr "Klíč"
+#: ../data/bibtex.xml.h:7
+msgid "Volume"
+msgstr "Ročník"
 
-#: ../data/bibtex.xml.h:14
-msgid "Location"
-msgstr "Místo"
+#: ../data/bibtex.xml.h:8
+msgid "Number"
+msgstr "Číslo"
 
-#: ../data/bibtex.xml.h:15
+#: ../data/bibtex.xml.h:9
 msgid "Month"
 msgstr "Měsíc"
 
+#: ../data/bibtex.xml.h:10
+msgid "Year"
+msgstr "Rok"
+
+#: ../data/bibtex.xml.h:11
+msgid "ISSN"
+msgstr "ISSN"
+
+#: ../data/bibtex.xml.h:12
+msgid "Series"
+msgstr "Řada"
+
+#: ../data/bibtex.xml.h:13
+msgid "Edition"
+msgstr "Vydání"
+
+#: ../data/bibtex.xml.h:14
+msgid "Publisher"
+msgstr "Vydavatel"
+
+#: ../data/bibtex.xml.h:15
+msgid "Address"
+msgstr "Adresa"
+
 #: ../data/bibtex.xml.h:16
-msgid "Note"
-msgstr "Poznámka"
+msgid "ISBN"
+msgstr "ISBN"
 
 #: ../data/bibtex.xml.h:17
-msgid "Number"
-msgstr "Číslo"
+msgid "How Published"
+msgstr "Jak vydáno"
 
 #: ../data/bibtex.xml.h:18
 msgid "Organization"
 msgstr "Organizace"
 
 #: ../data/bibtex.xml.h:19
-msgid "Pages"
-msgstr "Stran"
+msgid "Location"
+msgstr "Místo"
 
 #: ../data/bibtex.xml.h:20
-msgid "Publisher"
-msgstr "Vydavatel"
-
-#: ../data/bibtex.xml.h:21
-msgid "School"
-msgstr "Škola"
-
-#: ../data/bibtex.xml.h:22
-msgid "Series"
-msgstr "Řada"
-
-#: ../data/bibtex.xml.h:23
-msgid "Title"
-msgstr "Název"
-
-#: ../data/bibtex.xml.h:24
-msgid "Type"
-msgstr "Typ"
-
-#: ../data/bibtex.xml.h:25
 msgid "URL"
 msgstr "Adresa URL"
 
+#: ../data/bibtex.xml.h:21
+msgid "Note"
+msgstr "Poznámka"
+
+#: ../data/bibtex.xml.h:22
+msgid "Type"
+msgstr "Typ"
+
+#: ../data/bibtex.xml.h:23 ../latex/latex/actions.py:315
+#: ../latex/latex/actions.py:316
+msgid "Chapter"
+msgstr "Kapitola"
+
+#: ../data/bibtex.xml.h:24
+msgid "Key"
+msgstr "Klíč"
+
+#: ../data/bibtex.xml.h:25
+msgid "School"
+msgstr "Škola"
+
 #: ../data/bibtex.xml.h:26
-msgid "Volume"
-msgstr "Ročník"
+msgid "Institution"
+msgstr "Instituce"
 
 #: ../data/bibtex.xml.h:27
-msgid "Year"
-msgstr "Rok"
+msgid "Cross Reference"
+msgstr "Křížový odkaz"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:1
-msgid "Connect Outline to Editor"
-msgstr "Připojit k editoru osnovu"
-
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:2
-msgid "Expanded Symbol Groups"
-msgstr "Rozbalené skupiny symbolů"
-
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:3
-msgid "Extra LaTeX commands used to mark issues, such as \\fxnote{foo}"
-msgstr ""
-
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:4
-msgid "Graphics File Extensions"
-msgstr "Přípony souborů s grafikou"
-
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:5
-#: ../data/ui/configure.ui.h:3
-msgid "Hide Box Warnings"
-msgstr "Skrýt okno varování"
-
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:6
-msgid "LaTeX Extensions"
-msgstr "Přípony souborů LaTeX"
-
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:7
 msgid "Maximum BibTeX Size"
 msgstr "Maximální velikost BibTex"
 
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:8
-msgid "Paths Relative to .tex File to Look for Graphics"
-msgstr "Cesty relativně k souboru .tex pro hledání grafiky"
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:2
+msgid "Connect Outline to Editor"
+msgstr "Připojit k editoru osnovu"
 
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:9
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:3
+msgid "Show Labels in Outline"
+msgstr "Zobrazovat v osnově popisky"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:4
+msgid "Show Tables in Outline"
+msgstr "Zobrazovat v osnově tabulky"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:5
 msgid "Show Graphics in Outline"
 msgstr "Zobrazovat v osnově grafiku"
 
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:10
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:6
+msgid "Show Warnings in Issues"
+msgstr "V problémech zobrazovat varování"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:7
+msgid "Show Tasks in Issues"
+msgstr "V problémech zobrazovat úkoly"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:8
+#: ../data/ui/configure.ui.h:6
+msgid "Hide Box Warnings"
+msgstr "Skrýt okno varování"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:9
 msgid ""
 "Show LaTeX Toolbar below (normal), combined with the main toolbar, or "
 "disabled"
@@ -173,127 +181,107 @@ msgstr ""
 "Zobrazovat lištu nástrojů LaTeX pod hlavní lištou nástrojů (normal), v "
 "kombinaci s ní (combined) nebo ji zakázat (disabled)"
 
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:10
+msgid "Expanded Symbol Groups"
+msgstr "Rozbalené skupiny symbolů"
+
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:11
-msgid "Show Labels in Outline"
-msgstr "Zobrazovat v osnově popisky"
+msgid "LaTeX Extensions"
+msgstr "Přípony souborů LaTeX"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:12
-msgid "Show Tables in Outline"
-msgstr "Zobrazovat v osnově tabulky"
+msgid "Graphics File Extensions"
+msgstr "Přípony souborů s grafikou"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:13
-msgid "Show Tasks in Issues"
-msgstr ""
+msgid "Paths Relative to .tex File to Look for Graphics"
+msgstr "Cesty relativně k souboru .tex pro hledání grafiky"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:14
-msgid "Show Warnings in Issues"
-msgstr ""
+msgid "Extra LaTeX commands used to mark issues, such as \\fxnote{foo}"
+msgstr "Doplňující příkazy LaTeX použité k označení problémů, jako třeba \\fxnote{pokus}"
 
 #: ../data/ui/build_image_dialog.ui.h:1
-msgid "<b>Area</b>"
-msgstr "<b>Oblast</b>"
+msgid "Render to Image"
+msgstr "Vykreslení do obrázku"
 
 #: ../data/ui/build_image_dialog.ui.h:2
 msgid "<b>Image Format</b>"
 msgstr "<b>Formát obrázku</b>"
 
 #: ../data/ui/build_image_dialog.ui.h:3
-msgid "<b>Rendering</b>"
-msgstr "<b>Vykreslování</b>"
-
-#: ../data/ui/build_image_dialog.ui.h:4
-msgid "Antialiasing:"
-msgstr "Vyhlazovaní:"
-
-#: ../data/ui/build_image_dialog.ui.h:5
-msgid "Attempt to render tight bounding box"
-msgstr "Zkusit vykreslit tenký ohraničující rámeček"
-
-#: ../data/ui/build_image_dialog.ui.h:6
-msgid "Color Mode:"
-msgstr "Barevný režim:"
-
-#: ../data/ui/build_image_dialog.ui.h:7
-msgid "GIF"
-msgstr "GIF"
-
-#: ../data/ui/build_image_dialog.ui.h:8
-msgid "JPEG"
-msgstr "JPEG"
-
-#: ../data/ui/build_image_dialog.ui.h:9
 msgid "PNG"
 msgstr "PNG"
 
+#: ../data/ui/build_image_dialog.ui.h:4
+msgid "Color Mode:"
+msgstr "Barevný režim:"
+
+#: ../data/ui/build_image_dialog.ui.h:5
+msgid "JPEG"
+msgstr "JPEG"
+
+#: ../data/ui/build_image_dialog.ui.h:6
+msgid "GIF"
+msgstr "GIF"
+
+#: ../data/ui/build_image_dialog.ui.h:7
+msgid "<b>Rendering</b>"
+msgstr "<b>Vykreslování</b>"
+
+#: ../data/ui/build_image_dialog.ui.h:8
+msgid "<b>Area</b>"
+msgstr "<b>Oblast</b>"
+
+#: ../data/ui/build_image_dialog.ui.h:9
+msgid "Antialiasing:"
+msgstr "Vyhlazovaní:"
+
 #: ../data/ui/build_image_dialog.ui.h:10
-msgid "Render to Image"
-msgstr "Vykreslení do obrázku"
+msgid "Resolution:"
+msgstr "Rozlišení:"
 
 #: ../data/ui/build_image_dialog.ui.h:11
 msgid "Render whole page(s)"
 msgstr "Vykreslit celou stránku či stránky"
 
 #: ../data/ui/build_image_dialog.ui.h:12
-msgid "Resolution:"
-msgstr "Rozlišení:"
+msgid "Attempt to render tight bounding box"
+msgstr "Zkusit vykreslit tenký ohraničující rámeček"
 
 #: ../data/ui/choose_master_dialog.ui.h:1
-msgid "Filename:"
-msgstr "Název souboru:"
-
-#: ../data/ui/choose_master_dialog.ui.h:2
 msgid "Select Master Document"
 msgstr "Výběr hlavního dokumentu"
 
-#: ../data/ui/configure.ui.h:1
-msgid "<b><i>rubber</i> Post-Processor</b>"
-msgstr "<b>Postprocesor <i>rubber</i></b>"
+#: ../data/ui/choose_master_dialog.ui.h:2
+msgid "Filename:"
+msgstr "Název souboru:"
+
+#: ../data/ui/configure.ui.h:1 ../latex/tools/views.py:116
+msgid "Tools"
+msgstr "Nástroje"
 
 #: ../data/ui/configure.ui.h:2
 msgid "<b>BibTeX</b>"
 msgstr "<b>BibTeX</b>"
 
-#: ../data/ui/configure.ui.h:4
-msgid "KB"
-msgstr "kB"
+#: ../data/ui/configure.ui.h:3
+msgid "<b><i>rubber</i> Post-Processor</b>"
+msgstr "<b>Postprocesor <i>rubber</i></b>"
 
-#: ../data/ui/configure.ui.h:5
+#: ../data/ui/configure.ui.h:4
 msgid "Maximum Parsed File Size:"
 msgstr "Maximální zpracovaná velikost souboru:"
 
-#: ../data/ui/configure.ui.h:6
+#: ../data/ui/configure.ui.h:5
+msgid "KB"
+msgstr "kB"
+
+#: ../data/ui/configure.ui.h:7
 msgid "Miscellaneous"
 msgstr "Různé"
 
-#: ../data/ui/configure.ui.h:7 ../latex/tools/views.py:116
-msgid "Tools"
-msgstr "Nástroje"
-
 #: ../data/ui/configure_tool.ui.h:1
-msgid "<Ctrl><Alt>1"
-msgstr "<Ctrl><Alt>1"
-
-#: ../data/ui/configure_tool.ui.h:2
-msgid "<b>Accelerator</b>"
-msgstr "<b>Klávesová zkratka</b>"
-
-#: ../data/ui/configure_tool.ui.h:3
-msgid "<b>_Description</b>"
-msgstr "<b>_Popis</b>"
-
-#: ../data/ui/configure_tool.ui.h:4
-msgid "<b>_File Extensions</b>"
-msgstr "<b>Přípony _souborů</b>"
-
-#: ../data/ui/configure_tool.ui.h:5
-msgid "<b>_Jobs</b>"
-msgstr "<b>Úlo_hy</b>"
-
-#: ../data/ui/configure_tool.ui.h:6
-msgid "<b>_Label</b>"
-msgstr "<b>_Popis</b>"
-
-#: ../data/ui/configure_tool.ui.h:7
 msgid ""
 "Remember to run all commands in batch mode (e.g. append <tt>-interaction "
 "batchmode</tt> to <tt>latex</tt>)"
@@ -301,7 +289,11 @@ msgstr ""
 "Nezapomeňte všechny příkazy spouštět v dávkovém režimu (např. za <tt>latex</"
 "tt> přidat <tt>-interaction batchmode</tt>)"
 
-#: ../data/ui/configure_tool.ui.h:8
+#: ../data/ui/configure_tool.ui.h:2
+msgid "<b>_Label</b>"
+msgstr "<b>_Popis</b>"
+
+#: ../data/ui/configure_tool.ui.h:3
 msgid ""
 "Valid placeholders are <tt>$filename</tt>, <tt>$shortname</tt>, <tt>"
 "$directory</tt>"
@@ -309,25 +301,45 @@ msgstr ""
 "Platné proměnné jsou <tt>$filename</tt>, <tt>$shortname</tt>, <tt>"
 "$directory</tt>"
 
-#: ../data/ui/configure_tool.ui.h:9
+#: ../data/ui/configure_tool.ui.h:4
+msgid "<b>_Jobs</b>"
+msgstr "<b>Úlo_hy</b>"
+
+#: ../data/ui/configure_tool.ui.h:5
+msgid "<b>_Description</b>"
+msgstr "<b>_Popis</b>"
+
+#: ../data/ui/configure_tool.ui.h:6
+msgid "<b>_File Extensions</b>"
+msgstr "<b>Přípony _souborů</b>"
+
+#: ../data/ui/configure_tool.ui.h:7
 msgid "_Generated"
 msgstr "_Generovat"
 
-#: ../data/ui/configure_tool.ui.h:10
+#: ../data/ui/configure_tool.ui.h:8
 msgid "_User Defined:"
 msgstr "Definovaná _uživatelem:"
+
+#: ../data/ui/configure_tool.ui.h:9
+msgid "<Ctrl><Alt>1"
+msgstr "<Ctrl><Alt>1"
+
+#: ../data/ui/configure_tool.ui.h:10
+msgid "<b>Accelerator</b>"
+msgstr "<b>Klávesová zkratka</b>"
 
 #: ../data/ui/insert_bibtex_entry.ui.h:1
 msgid "Create Bibliography Entry"
 msgstr "Vložení bibliografického záznamu"
 
 #: ../data/ui/insert_bibtex_entry.ui.h:2
-msgid "Optional Fields"
-msgstr "Volitelná pole"
-
-#: ../data/ui/insert_bibtex_entry.ui.h:3
 msgid "Required Fields"
 msgstr "Vyžadovaná pole"
+
+#: ../data/ui/insert_bibtex_entry.ui.h:3
+msgid "Optional Fields"
+msgstr "Volitelná pole"
 
 #: ../data/ui/insert_bibtex_entry.ui.h:4
 msgid "_Identifier:"
@@ -337,65 +349,65 @@ msgstr "_Identifikátor:"
 msgid "_Type:"
 msgstr "_Typ:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:2
-#, no-c-format
-msgid "% _of"
-msgstr "% _z"
-
-#: ../data/ui/insert_graphics_dialog.ui.h:3
-msgid "Flip _Horizontally"
-msgstr "Překlopit vo_dorovně"
-
-#: ../data/ui/insert_graphics_dialog.ui.h:4
-msgid "Floating _Object"
-msgstr "Plovoucí _objekt"
-
-#: ../data/ui/insert_graphics_dialog.ui.h:5
-msgid "Image Size"
-msgstr "velikosti obrázku"
-
-#: ../data/ui/insert_graphics_dialog.ui.h:6 ../latex/latex/actions.py:356
+#: ../data/ui/insert_graphics_dialog.ui.h:1 ../latex/latex/actions.py:356
 #: ../latex/latex/actions.py:358
 msgid "Insert Graphics"
 msgstr "Vložit grafiku"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:7
-msgid "Text Width"
-msgstr "šířky textu"
-
-#: ../data/ui/insert_graphics_dialog.ui.h:8
-#: ../data/ui/insert_table_dialog.ui.h:4
-msgid "_Caption:"
-msgstr "N_adpis:"
-
-#: ../data/ui/insert_graphics_dialog.ui.h:9
+#: ../data/ui/insert_graphics_dialog.ui.h:2
 msgid "_File:"
 msgstr "_Soubor:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:10
-#: ../data/ui/insert_table_dialog.ui.h:6
+#: ../data/ui/insert_graphics_dialog.ui.h:3
+#: ../data/ui/insert_table_dialog.ui.h:7
+msgid "_Caption:"
+msgstr "N_adpis:"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:4
+#: ../data/ui/insert_table_dialog.ui.h:8
 msgid "_Label:"
 msgstr "_Popisek:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:11
+#: ../data/ui/insert_graphics_dialog.ui.h:5
+msgid "fig:"
+msgstr "obr.:"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:6
+msgid "_Width:"
+msgstr "Šíř_ka:"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:8
+#, no-c-format
+msgid "% _of"
+msgstr "% _z"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:9
 msgid "_Rotate:"
 msgstr "O_točit:"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:10
+msgid "° CCW"
+msgstr "° po směru h. r."
+
+#: ../data/ui/insert_graphics_dialog.ui.h:11
+msgid "Flip _Horizontally"
+msgstr "Překlopit vo_dorovně"
 
 #: ../data/ui/insert_graphics_dialog.ui.h:12
 msgid "_Spread over two Columns"
 msgstr "Roztáhnout přes dva _sloupce"
 
 #: ../data/ui/insert_graphics_dialog.ui.h:13
-msgid "_Width:"
-msgstr "Šíř_ka:"
+msgid "Floating _Object"
+msgstr "Plovoucí _objekt"
 
 #: ../data/ui/insert_graphics_dialog.ui.h:14
-msgid "fig:"
-msgstr "obr.:"
+msgid "Image Size"
+msgstr "velikosti obrázku"
 
 #: ../data/ui/insert_graphics_dialog.ui.h:15
-msgid "° CCW"
-msgstr "° po směru h. r."
+msgid "Text Width"
+msgstr "šířky textu"
 
 #: ../data/ui/insert_listing_dialog.ui.h:1 ../latex/latex/actions.py:388
 #: ../latex/latex/actions.py:390
@@ -414,209 +426,198 @@ msgstr "Programovací _jazyk:"
 msgid "_Dialect:"
 msgstr "_Dialekt:"
 
-#: ../data/ui/insert_table_dialog.ui.h:1
-msgid "C_olumns:"
-msgstr "Sl_oupců:"
-
-#: ../data/ui/insert_table_dialog.ui.h:2 ../latex/latex/actions.py:372
+#: ../data/ui/insert_table_dialog.ui.h:1 ../latex/latex/actions.py:372
 #: ../latex/latex/actions.py:374
 msgid "Insert Table or Matrix"
 msgstr "Vložit tabulku nebo matici"
 
-#: ../data/ui/insert_table_dialog.ui.h:3
+#: ../data/ui/insert_table_dialog.ui.h:2
 msgid "Type:"
 msgstr "Typ:"
 
-#: ../data/ui/insert_table_dialog.ui.h:5
-msgid "_Floating Object"
-msgstr "Plovoucí o_bjekt:"
-
-#: ../data/ui/insert_table_dialog.ui.h:7
-msgid "_Matrix:"
-msgstr "_Matice:"
-
-#: ../data/ui/insert_table_dialog.ui.h:8
-msgid "_Rows:"
-msgstr "Řá_dků:"
-
-#: ../data/ui/insert_table_dialog.ui.h:9
+#: ../data/ui/insert_table_dialog.ui.h:3
 msgid "_Table"
 msgstr "_Tabulka"
 
-#: ../data/ui/insert_table_dialog.ui.h:10
+#: ../data/ui/insert_table_dialog.ui.h:4
+msgid "_Matrix:"
+msgstr "_Matice:"
+
+#: ../data/ui/insert_table_dialog.ui.h:5
+msgid "_Rows:"
+msgstr "Řá_dků:"
+
+#: ../data/ui/insert_table_dialog.ui.h:6
+msgid "C_olumns:"
+msgstr "Sl_oupců:"
+
+#: ../data/ui/insert_table_dialog.ui.h:9
 msgid "tab:"
 msgstr "tab.:"
 
+#: ../data/ui/insert_table_dialog.ui.h:10
+msgid "_Floating Object"
+msgstr "Plovoucí o_bjekt:"
+
 #: ../data/ui/new_document_template_dialog.ui.h:1
-msgid ".tex"
-msgstr ".tex"
-
-#: ../data/ui/new_document_template_dialog.ui.h:2
-msgid "<b>Language Customization</b>"
-msgstr "<b>Přizpůsobení jazyka</b>"
-
-#: ../data/ui/new_document_template_dialog.ui.h:3
-msgid "<b>Meta Information</b>"
-msgstr "<b>Meta Informace</b>"
-
-#: ../data/ui/new_document_template_dialog.ui.h:4
-msgid "<b>Style and Layout</b>"
-msgstr "<b>Styl a rozvržení</b>"
-
-#: ../data/ui/new_document_template_dialog.ui.h:5
-msgid "Base Font Size:"
-msgstr "Základní velikost písma:"
-
-#: ../data/ui/new_document_template_dialog.ui.h:6
-msgid "C_ustom:"
-msgstr "_Vlastní:"
-
-#: ../data/ui/new_document_template_dialog.ui.h:7
-msgid "Date:"
-msgstr "Datum:"
-
-#: ../data/ui/new_document_template_dialog.ui.h:8
-msgid "De_fault"
-msgstr "_Výchozí:"
-
-#: ../data/ui/new_document_template_dialog.ui.h:9
-msgid "Default F_ont Family:"
-msgstr "Výchozí r_odina písem:"
-
-#: ../data/ui/new_document_template_dialog.ui.h:10
-msgid "Di_rectory:"
-msgstr "Slož_ka:"
-
-#: ../data/ui/new_document_template_dialog.ui.h:11
-msgid "Document _Class:"
-msgstr "Tří_da dokumentů:"
-
-#: ../data/ui/new_document_template_dialog.ui.h:12
-msgid "Include PDF _Metadata"
-msgstr "Zahrnout _metadata PDF"
-
-#: ../data/ui/new_document_template_dialog.ui.h:13
 msgid "New LaTeX Document"
 msgstr "Nový dokument LaTeX"
 
-#: ../data/ui/new_document_template_dialog.ui.h:14
+#: ../data/ui/new_document_template_dialog.ui.h:2
 msgid "T_emplate:"
 msgstr "Ša_blona:"
 
-#: ../data/ui/new_document_template_dialog.ui.h:15
-msgid "To_day"
-msgstr "_Dnes"
-
-#: ../data/ui/new_document_template_dialog.ui.h:16
-msgid "U_ser Defined:"
-msgstr "Uživatel_ská:"
-
-#: ../data/ui/new_document_template_dialog.ui.h:17
-msgid "_Author:"
-msgstr "_Autor:"
-
-#: ../data/ui/new_document_template_dialog.ui.h:18
-msgid "_Babel Package:"
-msgstr "Balíček _Babel:"
-
-#: ../data/ui/new_document_template_dialog.ui.h:19
-msgid "_Input Encoding:"
-msgstr "Vs_tupní kodování:"
-
-#: ../data/ui/new_document_template_dialog.ui.h:20
-msgid "_Landscape"
-msgstr "Na šíř_ku"
-
-#: ../data/ui/new_document_template_dialog.ui.h:21
-msgid "_Name:"
-msgstr "_Název"
-
-#: ../data/ui/new_document_template_dialog.ui.h:22
-msgid "_Paper:"
-msgstr "_Papír:"
-
-#: ../data/ui/new_document_template_dialog.ui.h:23
-msgid "_Title:"
-msgstr "_Název:"
-
-#: ../data/ui/new_document_template_dialog.ui.h:24
+#: ../data/ui/new_document_template_dialog.ui.h:3
 msgid "document"
 msgstr "dokument"
 
-#: ../data/ui/new_document_template_dialog.ui.h:25
+#: ../data/ui/new_document_template_dialog.ui.h:4
+msgid ".tex"
+msgstr ".tex"
+
+#: ../data/ui/new_document_template_dialog.ui.h:5
+msgid "Di_rectory:"
+msgstr "Slož_ka:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:6
+msgid "_Name:"
+msgstr "_Název"
+
+#: ../data/ui/new_document_template_dialog.ui.h:7
+msgid "_Babel Package:"
+msgstr "Balíček _Babel:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:8
+msgid "_Input Encoding:"
+msgstr "Vs_tupní kodování:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:9
+msgid "<b>Language Customization</b>"
+msgstr "<b>Přizpůsobení jazyka</b>"
+
+#: ../data/ui/new_document_template_dialog.ui.h:10
+msgid "_Landscape"
+msgstr "Na šíř_ku"
+
+#: ../data/ui/new_document_template_dialog.ui.h:11
+msgid "_Paper:"
+msgstr "_Papír:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:12
+msgid "De_fault"
+msgstr "_Výchozí:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:13
+msgid "U_ser Defined:"
+msgstr "Uživatel_ská:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:14
 msgid "pt"
 msgstr "pt"
 
-#: ../data/ui/use_bibliography_dialog.ui.h:1
-msgid "Bibliography _File:"
-msgstr "_Soubor s bibliografií:"
+#: ../data/ui/new_document_template_dialog.ui.h:15
+msgid "Base Font Size:"
+msgstr "Základní velikost písma:"
 
-#: ../data/ui/use_bibliography_dialog.ui.h:2
-msgid "Refresh Style Preview"
-msgstr "Občerstvit náhled stylu"
+#: ../data/ui/new_document_template_dialog.ui.h:16
+msgid "Document _Class:"
+msgstr "Tří_da dokumentů:"
 
-#: ../data/ui/use_bibliography_dialog.ui.h:3
-msgid "Style Preview:"
-msgstr "Náhled stylu:"
+#: ../data/ui/new_document_template_dialog.ui.h:17
+msgid "<b>Style and Layout</b>"
+msgstr "<b>Styl a rozvržení</b>"
 
-#: ../data/ui/use_bibliography_dialog.ui.h:4 ../latex/latex/actions.py:159
+#: ../data/ui/new_document_template_dialog.ui.h:18
+msgid "Include PDF _Metadata"
+msgstr "Zahrnout _metadata PDF"
+
+#: ../data/ui/new_document_template_dialog.ui.h:19
+msgid "This adds metadata to the document. Requires package <tt>ifpdf</tt>."
+msgstr "Tímto se do dokumentu přidají metadata. K fungování je potřeba balíček <tt>ifpdf</tt>."
+
+#: ../data/ui/new_document_template_dialog.ui.h:20
+msgid "Date:"
+msgstr "Datum:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:21
+msgid "To_day"
+msgstr "_Dnes"
+
+#: ../data/ui/new_document_template_dialog.ui.h:22
+msgid "C_ustom:"
+msgstr "_Vlastní:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:23
+msgid "_Author:"
+msgstr "_Autor:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:24
+msgid "_Title:"
+msgstr "_Název:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:25
+msgid "<b>Meta Information</b>"
+msgstr "<b>Meta Informace</b>"
+
+#: ../data/ui/new_document_template_dialog.ui.h:26
+msgid "Default F_ont Family:"
+msgstr "Výchozí r_odina písem:"
+
+#: ../data/ui/use_bibliography_dialog.ui.h:1 ../latex/latex/actions.py:159
 msgid "Use Bibliography"
 msgstr "Použít bibliografii"
 
-#: ../data/ui/use_bibliography_dialog.ui.h:5
+#: ../data/ui/use_bibliography_dialog.ui.h:2
+msgid "Bibliography _File:"
+msgstr "_Soubor s bibliografií:"
+
+#: ../data/ui/use_bibliography_dialog.ui.h:3
 msgid "_Style:"
 msgstr "_Styl:"
 
-#: ../latex.plugin.desktop.in.in.h:1
-msgid ""
-"A plugin that assists you in handling LaTeX documents and BibTeX "
-"bibliographies"
-msgstr ""
-"Zásuvný modul, který vám pomůže pracovat s dokumenty LaTeX a bibliografií "
-"BibTex"
+#: ../data/ui/use_bibliography_dialog.ui.h:4
+msgid "Style Preview:"
+msgstr "Náhled stylu:"
 
-#: ../latex.plugin.desktop.in.in.h:2
-msgid "LaTeX Plugin"
-msgstr "Zásuvný modul LaTeX"
+#: ../data/ui/use_bibliography_dialog.ui.h:5
+msgid "Refresh Style Preview"
+msgstr "Občerstvit náhled stylu"
 
-#: ../latex/bibtex/actions.py:35
-#| msgid "<b>BibTeX</b>"
+#: ../latex/bibtex/actions.py:32
 msgid "BibTeX"
 msgstr "BibTeX"
 
-#: ../latex/bibtex/actions.py:46
+#: ../latex/bibtex/actions.py:43
 msgid "New BibTeX Entry..."
 msgstr "Nový záznam BibTeX…"
 
-#: ../latex/bibtex/actions.py:49
-#| msgid "Create Bibliography Entry"
+#: ../latex/bibtex/actions.py:46
 msgid "Create a new BibTeX entry"
 msgstr "Vytvořit nový záznam BibTeX"
 
 #. add grouping controls to toolbar
-#: ../latex/bibtex/views.py:58
+#: ../latex/bibtex/views.py:56
 msgid "No Grouping"
 msgstr "Bez seskupování"
 
-#: ../latex/bibtex/views.py:59
+#: ../latex/bibtex/views.py:57
 msgid "Group by Type"
 msgstr "Seskupit podle typu"
 
-#: ../latex/bibtex/views.py:60
+#: ../latex/bibtex/views.py:58
 msgid "Group by Author"
 msgstr "Seskupit podle autora"
 
-#: ../latex/bibtex/views.py:61
+#: ../latex/bibtex/views.py:59
 msgid "Group by Year"
 msgstr "Seskupit podle roku"
 
 #. group by year
-#: ../latex/bibtex/views.py:199
+#: ../latex/bibtex/views.py:197
 msgid "<i>n/a</i>"
 msgstr "<i>není znám</i>"
 
-#: ../latex/bibtex/views.py:242
-#| msgid "Author"
+#: ../latex/bibtex/views.py:240
 msgid "Unknown Author"
 msgstr "Neznámý autor"
 
@@ -625,17 +626,14 @@ msgid "LaTeX"
 msgstr "LaTeX"
 
 #: ../latex/latex/actions.py:73
-#| msgid "New LaTeX Document"
 msgid "New LaTeX Document..."
 msgstr "Nový dokument LaTeX…"
 
 #: ../latex/latex/actions.py:76
-#| msgid "New LaTeX Document"
 msgid "Create a new LaTeX document"
 msgstr "Vytvořit nový dokument LaTeX"
 
 #: ../latex/latex/actions.py:95
-#| msgid "Select Master Document"
 msgid "Choose Master Document..."
 msgstr "Vybrat hlavní dokument…"
 
@@ -648,13 +646,11 @@ msgid "Close the nearest TeX environment at left of the cursor"
 msgstr "Uzavřít prostředí TeX nejblíže nalevo od kurzoru"
 
 #: ../latex/latex/actions.py:157
-#| msgid "Use Bibliography"
 msgid "Use Bibliography..."
 msgstr "Použít bibliografii…"
 
 #: ../latex/latex/actions.py:179 ../latex/latex/actions.py:181
 #: ../latex/latex/actions.py:189 ../latex/latex/actions.py:190
-#| msgid "Default F_ont Family:"
 msgid "Font Family"
 msgstr "Rodina písma"
 
@@ -695,7 +691,6 @@ msgid "Blackboard Bold"
 msgstr "Dvojité tučné"
 
 #: ../latex/latex/actions.py:258 ../latex/latex/actions.py:259
-#| msgid "Use Bibliography"
 msgid "Caligraphy"
 msgstr "Psací"
 
@@ -713,12 +708,10 @@ msgid "Itemize"
 msgstr "Položky"
 
 #: ../latex/latex/actions.py:291 ../latex/latex/actions.py:292
-#| msgid "_Generated"
 msgid "Enumerate"
 msgstr "Výčet"
 
 #: ../latex/latex/actions.py:298 ../latex/latex/actions.py:299
-#| msgid "<b>_Description</b>"
 msgid "Description"
 msgstr "Popis"
 
@@ -732,7 +725,6 @@ msgid "Part"
 msgstr "Část"
 
 #: ../latex/latex/actions.py:322 ../latex/latex/actions.py:323
-#| msgid "Location"
 msgid "Section"
 msgstr "Oddíl"
 
@@ -780,7 +772,6 @@ msgstr "Zarovnat vpravo"
 
 #: ../latex/latex/actions.py:472 ../latex/latex/actions.py:473
 #: ../latex/latex/actions.py:485 ../latex/latex/actions.py:486
-#| msgid "Month"
 msgid "Math"
 msgstr "Matematika"
 
@@ -804,22 +795,111 @@ msgstr "Pole vzorců"
 msgid "Numbered Array of Equations"
 msgstr "Číslované pole vzorců"
 
-#: ../latex/latex/views.py:114
+#: ../latex/latex/environment.py:141
+msgid "Book of abstracts"
+msgstr "Sborník"
+
+#: ../latex/latex/environment.py:142
+msgid "Article"
+msgstr "Článek"
+
+#: ../latex/latex/environment.py:143
+msgid "Article (AMS)"
+msgstr "Článek (AMS)"
+
+#: ../latex/latex/environment.py:144
+msgid "Book (AMS)"
+msgstr "Kniha (AMS)"
+
+#: ../latex/latex/environment.py:145
+msgid "AMS Documentation"
+msgstr "Dokumentace AMS"
+
+#: ../latex/latex/environment.py:146
+msgid "Proceedings (AMS)"
+msgstr "Protokol (AMS)"
+
+#: ../latex/latex/environment.py:147
+msgid "Report"
+msgstr "Zpráva"
+
+#: ../latex/latex/environment.py:148
+msgid "Beamer slides"
+msgstr "Fólie do projektoru"
+
+#: ../latex/latex/environment.py:149
+msgid "Belgian letter"
+msgstr "Belgický dopis"
+
+#: ../latex/latex/environment.py:150
+msgid "Book"
+msgstr "Knika"
+
+#: ../latex/latex/environment.py:151
+msgid "Flashcard"
+msgstr "Kartičky"
+
+#: ../latex/latex/environment.py:152
+msgid "Proceedings (IAG)"
+msgstr "Protokol (IAG)"
+
+#: ../latex/latex/environment.py:153
+msgid "Letter"
+msgstr "Dopis"
+
+#: ../latex/latex/environment.py:154
+msgid "LaTeX News"
+msgstr "Novinky LaTeX"
+
+#: ../latex/latex/environment.py:155
+msgid "LaTeX Documentation"
+msgstr "Dokumentace LaTeX"
+
+#: ../latex/latex/environment.py:156
+msgid "LaTeX Guide"
+msgstr "Příručka LaTeX"
+
+#: ../latex/latex/environment.py:157
+msgid "Proceedings"
+msgstr "Protokol"
+
+#: ../latex/latex/environment.py:158
+msgid "Article (KOMA-Script)"
+msgstr "Článek (KOMA-Script)"
+
+#: ../latex/latex/environment.py:159 ../latex/latex/environment.py:163
+msgid "Report (KOMA-Script)"
+msgstr "Zpráva (KOMA-Script)"
+
+#: ../latex/latex/environment.py:160
+msgid "Book (KOMA-Script)"
+msgstr "Kniha (KOMA-Script)"
+
+#: ../latex/latex/environment.py:161
+msgid "Letter (KOMA-Script)"
+msgstr "Dopis (KOMA-Script)"
+
+#: ../latex/latex/environment.py:162
+msgid "Letter 2 (KOMA-Script)"
+msgstr "Dopis 2 (KOMA-Script)"
+
+#: ../latex/latex/environment.py:164
+msgid "Slides"
+msgstr "Prezentace"
+
+#: ../latex/latex/views.py:113
 msgid "Symbols"
 msgstr "Symboly"
 
-#: ../latex/latex/views.py:202
-#| msgid "Show Graphics in Outline"
+#: ../latex/latex/views.py:201
 msgid "Show graphics"
 msgstr "Zobrazovat grafiku"
 
-#: ../latex/latex/views.py:207
-#| msgid "Show Tables in Outline"
+#: ../latex/latex/views.py:206
 msgid "Show tables"
 msgstr "Zobrazovat tabulky"
 
 #: ../latex/outline.py:58
-#| msgid "Editor"
 msgid "Follow Editor"
 msgstr "Následovat editor"
 
@@ -840,7 +920,6 @@ msgid "Job"
 msgstr "Úloha"
 
 #: ../latex/tools/views.py:73 ../latex/views.py:80
-#| msgid "_File:"
 msgid "File"
 msgstr "Soubor"
 
@@ -861,15 +940,13 @@ msgid "Message"
 msgstr "Zpráva"
 
 #: ../latex/views.py:99
-#| msgid "Hide Box Warnings"
 msgid "Show/Hide Warnings"
 msgstr "Zobrazit/skrýt varování"
 
 #: ../latex/views.py:107
-#, fuzzy
 msgid "Show/Hide Tasks"
 msgstr "Zobrazit/skrýt úlohy"
 
 #: ../latex/views.py:139
 msgid "Issues"
-msgstr ""
+msgstr "Problémy"
