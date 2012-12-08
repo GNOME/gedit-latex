@@ -1,0 +1,955 @@
+# Serbian translation for gedit-latex.
+# Copyright (C) 2012 gedit-latex's COPYRIGHT HOLDER
+# This file is distributed under the same license as the gedit-latex package.
+# Мирослав Николић <miroslavnikolic@rocketmail.com>, 2012.
+msgid ""
+msgstr ""
+"Project-Id-Version: gedit-latex master\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gedit&"
+"keywords=I18N+L10N&component=Plugins\n"
+"POT-Creation-Date: 2012-11-14 16:19+0000\n"
+"PO-Revision-Date: 2012-12-08 09:31+0200\n"
+"Last-Translator: Мирослав Николић <miroslavnikolic@rocketmail.com>\n"
+"Language-Team: Serbian <gnom@prevod.org>\n"
+"Language: sr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=n==1? 3 : n%10==1 && n%100!=11 ? 0 : "
+"n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Project-Style: gnome\n"
+
+#: ../latex.plugin.desktop.in.in.h:1
+msgid "LaTeX Plugin"
+msgstr "Прикључак за ЛаТеКс"
+
+#: ../latex.plugin.desktop.in.in.h:2
+msgid ""
+"A plugin that assists you in handling LaTeX documents and BibTeX "
+"bibliographies"
+msgstr ""
+"Прикључак који ће вам помоћи у раду са ЛаТеКс документима БибТеКс "
+"библиографијама"
+
+#: ../data/bibtex.xml.h:1
+msgid "Title"
+msgstr "Назив"
+
+#: ../data/bibtex.xml.h:2
+msgid "Book Title"
+msgstr "Назив књиге"
+
+#: ../data/bibtex.xml.h:3
+msgid "Author"
+msgstr "Аутор"
+
+#: ../data/bibtex.xml.h:4
+msgid "Editor"
+msgstr "Уредник"
+
+#: ../data/bibtex.xml.h:5
+msgid "Pages"
+msgstr "Странице"
+
+#: ../data/bibtex.xml.h:6
+msgid "Journal"
+msgstr "Дневник"
+
+#: ../data/bibtex.xml.h:7
+msgid "Volume"
+msgstr "Количина"
+
+#: ../data/bibtex.xml.h:8
+msgid "Number"
+msgstr "Број"
+
+#: ../data/bibtex.xml.h:9
+msgid "Month"
+msgstr "Месец"
+
+#: ../data/bibtex.xml.h:10
+msgid "Year"
+msgstr "Година"
+
+#: ../data/bibtex.xml.h:11
+msgid "ISSN"
+msgstr "ИССН"
+
+#: ../data/bibtex.xml.h:12
+msgid "Series"
+msgstr "Серије"
+
+#: ../data/bibtex.xml.h:13
+msgid "Edition"
+msgstr "Издање"
+
+#: ../data/bibtex.xml.h:14
+msgid "Publisher"
+msgstr "Издавач"
+
+#: ../data/bibtex.xml.h:15
+msgid "Address"
+msgstr "Адреса"
+
+#: ../data/bibtex.xml.h:16
+msgid "ISBN"
+msgstr "ИСБН"
+
+#: ../data/bibtex.xml.h:17
+msgid "How Published"
+msgstr "Начин објављивања"
+
+#: ../data/bibtex.xml.h:18
+msgid "Organization"
+msgstr "Организација"
+
+#: ../data/bibtex.xml.h:19
+msgid "Location"
+msgstr "Место"
+
+#: ../data/bibtex.xml.h:20
+msgid "URL"
+msgstr "Адреса"
+
+#: ../data/bibtex.xml.h:21
+msgid "Note"
+msgstr "Белешка"
+
+#: ../data/bibtex.xml.h:22
+msgid "Type"
+msgstr "Врста"
+
+#: ../data/bibtex.xml.h:23 ../latex/latex/actions.py:315
+#: ../latex/latex/actions.py:316
+msgid "Chapter"
+msgstr "Поглавље"
+
+#: ../data/bibtex.xml.h:24
+msgid "Key"
+msgstr "Кључ"
+
+#: ../data/bibtex.xml.h:25
+msgid "School"
+msgstr "Школа"
+
+#: ../data/bibtex.xml.h:26
+msgid "Institution"
+msgstr "Институција"
+
+#: ../data/bibtex.xml.h:27
+msgid "Cross Reference"
+msgstr "Унакрсна упута"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:1
+msgid "Maximum BibTeX Size"
+msgstr "Највећа величина БибТеКс-а"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:2
+msgid "Connect Outline to Editor"
+msgstr "Повежи контуру са уређивачем"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:3
+msgid "Show Labels in Outline"
+msgstr "Прикажи натписе у контури"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:4
+msgid "Show Tables in Outline"
+msgstr "Прикажи табеле у контури"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:5
+msgid "Show Graphics in Outline"
+msgstr "Прикажи графике у контури"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:6
+msgid "Show Warnings in Issues"
+msgstr "Приказује упозорења у проблемима"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:7
+msgid "Show Tasks in Issues"
+msgstr "Приказује задатке у проблемима"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:8
+#: ../data/ui/configure.ui.h:6
+msgid "Hide Box Warnings"
+msgstr "Сакриј упозорења оквира"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:9
+msgid ""
+"Show LaTeX Toolbar below (normal), combined with the main toolbar, or "
+"disabled"
+msgstr ""
+"Приказује траку алата ЛаТеКс-а испод (уобичајено), комбиновано са главном "
+"траком алата, или искључено"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:10
+msgid "Expanded Symbol Groups"
+msgstr "Групе раширеног симбола"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:11
+msgid "LaTeX Extensions"
+msgstr "ЛаТеКс проширења"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:12
+msgid "Graphics File Extensions"
+msgstr "Проширења датотеке графикона"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:13
+msgid "Paths Relative to .tex File to Look for Graphics"
+msgstr ""
+"Путање које се односе на „.tex“ датотеку у којој ће бити тражени графикони"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:14
+msgid "Extra LaTeX commands used to mark issues, such as \\fxnote{foo}"
+msgstr ""
+"Посебне наредбе ЛаТеКс-а коришћене за означавање проблема, као што је "
+"„\\fxnote{foo}“"
+
+#: ../data/ui/build_image_dialog.ui.h:1
+msgid "Render to Image"
+msgstr "Исцртај у слику"
+
+#: ../data/ui/build_image_dialog.ui.h:2
+msgid "<b>Image Format</b>"
+msgstr "<b>Запис слике</b>"
+
+#: ../data/ui/build_image_dialog.ui.h:3
+msgid "PNG"
+msgstr "ПНГ"
+
+#: ../data/ui/build_image_dialog.ui.h:4
+msgid "Color Mode:"
+msgstr "Режим боје:"
+
+#: ../data/ui/build_image_dialog.ui.h:5
+msgid "JPEG"
+msgstr "ЈПЕГ"
+
+#: ../data/ui/build_image_dialog.ui.h:6
+msgid "GIF"
+msgstr "ГИФ"
+
+#: ../data/ui/build_image_dialog.ui.h:7
+msgid "<b>Rendering</b>"
+msgstr "<b>Исцртавање</b>"
+
+#: ../data/ui/build_image_dialog.ui.h:8
+msgid "<b>Area</b>"
+msgstr "<b>Област</b>"
+
+#: ../data/ui/build_image_dialog.ui.h:9
+msgid "Antialiasing:"
+msgstr "Умекшавање:"
+
+#: ../data/ui/build_image_dialog.ui.h:10
+msgid "Resolution:"
+msgstr "Резолуција:"
+
+#: ../data/ui/build_image_dialog.ui.h:11
+msgid "Render whole page(s)"
+msgstr "Исцртај читаву страницу"
+
+#: ../data/ui/build_image_dialog.ui.h:12
+msgid "Attempt to render tight bounding box"
+msgstr "Покушај да исцрташ оквир блиског повезивања"
+
+#: ../data/ui/choose_master_dialog.ui.h:1
+msgid "Select Master Document"
+msgstr "Изаберите главни документ"
+
+#: ../data/ui/choose_master_dialog.ui.h:2
+msgid "Filename:"
+msgstr "Назив датотеке:"
+
+#: ../data/ui/configure.ui.h:1 ../latex/tools/views.py:116
+msgid "Tools"
+msgstr "Алати"
+
+#: ../data/ui/configure.ui.h:2
+msgid "<b>BibTeX</b>"
+msgstr "<b>БибТеКс</b>"
+
+#: ../data/ui/configure.ui.h:3
+msgid "<b><i>rubber</i> Post-Processor</b>"
+msgstr "<b><i>рубер</i> Пост-обрађивач</b>"
+
+#: ../data/ui/configure.ui.h:4
+msgid "Maximum Parsed File Size:"
+msgstr "Највећа величина обрађене датотеке:"
+
+#: ../data/ui/configure.ui.h:5
+msgid "KB"
+msgstr "KB"
+
+#: ../data/ui/configure.ui.h:7
+msgid "Miscellaneous"
+msgstr "Разно"
+
+#: ../data/ui/configure_tool.ui.h:1
+msgid ""
+"Remember to run all commands in batch mode (e.g. append <tt>-interaction "
+"batchmode</tt> to <tt>latex</tt>)"
+msgstr ""
+"Не заборави да покренеш све наредбе у групном режиму (нпр. прикачи "
+"<tt>-interaction batchmode</tt> на <tt>latex</tt>)"
+
+#: ../data/ui/configure_tool.ui.h:2
+msgid "<b>_Label</b>"
+msgstr "<b>_Натпис</b>"
+
+#: ../data/ui/configure_tool.ui.h:3
+msgid ""
+"Valid placeholders are <tt>$filename</tt>, <tt>$shortname</tt>, <tt>"
+"$directory</tt>"
+msgstr ""
+"Исправни местодржачи су <tt>$filename</tt>, <tt>$shortname</tt>, "
+"<tt>$directory</tt>"
+
+#: ../data/ui/configure_tool.ui.h:4
+msgid "<b>_Jobs</b>"
+msgstr "<b>_Послови</b>"
+
+#: ../data/ui/configure_tool.ui.h:5
+msgid "<b>_Description</b>"
+msgstr "<b>_Опис</b>"
+
+#: ../data/ui/configure_tool.ui.h:6
+msgid "<b>_File Extensions</b>"
+msgstr "<b>_Проширења датотеке</b>"
+
+#: ../data/ui/configure_tool.ui.h:7
+msgid "_Generated"
+msgstr "_Створено"
+
+#: ../data/ui/configure_tool.ui.h:8
+msgid "_User Defined:"
+msgstr "_Корисник је одредио:"
+
+#: ../data/ui/configure_tool.ui.h:9
+msgid "<Ctrl><Alt>1"
+msgstr "<Ктрл><Алт>1"
+
+#: ../data/ui/configure_tool.ui.h:10
+msgid "<b>Accelerator</b>"
+msgstr "<b>Пречица</b>"
+
+#: ../data/ui/insert_bibtex_entry.ui.h:1
+msgid "Create Bibliography Entry"
+msgstr "Направи библиографски унос"
+
+#: ../data/ui/insert_bibtex_entry.ui.h:2
+msgid "Required Fields"
+msgstr "Обавезна поља"
+
+#: ../data/ui/insert_bibtex_entry.ui.h:3
+msgid "Optional Fields"
+msgstr "Необавезна поља"
+
+#: ../data/ui/insert_bibtex_entry.ui.h:4
+msgid "_Identifier:"
+msgstr "_Одредник:"
+
+#: ../data/ui/insert_bibtex_entry.ui.h:5
+msgid "_Type:"
+msgstr "_Врста:"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:1 ../latex/latex/actions.py:356
+#: ../latex/latex/actions.py:358
+msgid "Insert Graphics"
+msgstr "Уметни графикон"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:2
+msgid "_File:"
+msgstr "_Датотека:"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:3
+#: ../data/ui/insert_table_dialog.ui.h:7
+msgid "_Caption:"
+msgstr "_Наслов:"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:4
+#: ../data/ui/insert_table_dialog.ui.h:8
+msgid "_Label:"
+msgstr "_Натпис:"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:5
+msgid "fig:"
+msgstr "фиг:"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:6
+msgid "_Width:"
+msgstr "_Ширина:"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:8
+#, no-c-format
+msgid "% _of"
+msgstr "% _од"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:9
+msgid "_Rotate:"
+msgstr "_Заокрени:"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:10
+msgid "° CCW"
+msgstr "° ССК"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:11
+msgid "Flip _Horizontally"
+msgstr "Изврни _водоравно"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:12
+msgid "_Spread over two Columns"
+msgstr "_Рашири преко две колоне"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:13
+msgid "Floating _Object"
+msgstr "Лебдећи _објекат"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:14
+msgid "Image Size"
+msgstr "Величина слике"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:15
+msgid "Text Width"
+msgstr "Ширина текста"
+
+#: ../data/ui/insert_listing_dialog.ui.h:1 ../latex/latex/actions.py:388
+#: ../latex/latex/actions.py:390
+msgid "Insert Source Code Listing"
+msgstr "Уметни списак изворног кода"
+
+#: ../data/ui/insert_listing_dialog.ui.h:2
+msgid "Load From _File:"
+msgstr "Учитај из _датотеке:"
+
+#: ../data/ui/insert_listing_dialog.ui.h:3
+msgid "Programming _Language:"
+msgstr "Програмски _језик:"
+
+#: ../data/ui/insert_listing_dialog.ui.h:4
+msgid "_Dialect:"
+msgstr "_Дијалект:"
+
+#: ../data/ui/insert_table_dialog.ui.h:1 ../latex/latex/actions.py:372
+#: ../latex/latex/actions.py:374
+msgid "Insert Table or Matrix"
+msgstr "Уметни табелу или матрицу"
+
+#: ../data/ui/insert_table_dialog.ui.h:2
+msgid "Type:"
+msgstr "Врста:"
+
+#: ../data/ui/insert_table_dialog.ui.h:3
+msgid "_Table"
+msgstr "_Табела"
+
+#: ../data/ui/insert_table_dialog.ui.h:4
+msgid "_Matrix:"
+msgstr "_Матрица:"
+
+#: ../data/ui/insert_table_dialog.ui.h:5
+msgid "_Rows:"
+msgstr "_Редова:"
+
+#: ../data/ui/insert_table_dialog.ui.h:6
+msgid "C_olumns:"
+msgstr "_Колона:"
+
+#: ../data/ui/insert_table_dialog.ui.h:9
+msgid "tab:"
+msgstr "таб:"
+
+#: ../data/ui/insert_table_dialog.ui.h:10
+msgid "_Floating Object"
+msgstr "_Лебдећи објекат"
+
+#: ../data/ui/new_document_template_dialog.ui.h:1
+msgid "New LaTeX Document"
+msgstr "Нови ЛаТеКс документ"
+
+#: ../data/ui/new_document_template_dialog.ui.h:2
+msgid "T_emplate:"
+msgstr "_Шаблон:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:3
+msgid "document"
+msgstr "документ"
+
+#: ../data/ui/new_document_template_dialog.ui.h:4
+msgid ".tex"
+msgstr ".tex"
+
+#: ../data/ui/new_document_template_dialog.ui.h:5
+msgid "Di_rectory:"
+msgstr "Ди_ректоријум:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:6
+msgid "_Name:"
+msgstr "_Назив:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:7
+msgid "_Babel Package:"
+msgstr "_Бабелов пакет:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:8
+msgid "_Input Encoding:"
+msgstr "_Улазно кодирање:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:9
+msgid "<b>Language Customization</b>"
+msgstr "<b>Прилагођавање језика</b>"
+
+#: ../data/ui/new_document_template_dialog.ui.h:10
+msgid "_Landscape"
+msgstr "_Пејзаж"
+
+#: ../data/ui/new_document_template_dialog.ui.h:11
+msgid "_Paper:"
+msgstr "_Папир:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:12
+msgid "De_fault"
+msgstr "_Уобичајено"
+
+#: ../data/ui/new_document_template_dialog.ui.h:13
+msgid "U_ser Defined:"
+msgstr "_Корисник је одредио:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:14
+msgid "pt"
+msgstr "тачака"
+
+#: ../data/ui/new_document_template_dialog.ui.h:15
+msgid "Base Font Size:"
+msgstr "Величина основног писма:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:16
+msgid "Document _Class:"
+msgstr "Разред _документа:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:17
+msgid "<b>Style and Layout</b>"
+msgstr "<b>Стил и распоред</b>"
+
+#: ../data/ui/new_document_template_dialog.ui.h:18
+msgid "Include PDF _Metadata"
+msgstr "Укључи ПДФ _метаподатке"
+
+#: ../data/ui/new_document_template_dialog.ui.h:19
+msgid "This adds metadata to the document. Requires package <tt>ifpdf</tt>."
+msgstr "Ово додаје метаподатке у документ. Захтева пакет <tt>ifpdf</tt>."
+
+#: ../data/ui/new_document_template_dialog.ui.h:20
+msgid "Date:"
+msgstr "Датум:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:21
+msgid "To_day"
+msgstr "_Данас"
+
+#: ../data/ui/new_document_template_dialog.ui.h:22
+msgid "C_ustom:"
+msgstr "_Произвољно:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:23
+msgid "_Author:"
+msgstr "_Аутор:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:24
+msgid "_Title:"
+msgstr "_Назив:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:25
+msgid "<b>Meta Information</b>"
+msgstr "<b>Мета подаци</b>"
+
+#: ../data/ui/new_document_template_dialog.ui.h:26
+msgid "Default F_ont Family:"
+msgstr "Скуп основног _писма:"
+
+#: ../data/ui/use_bibliography_dialog.ui.h:1 ../latex/latex/actions.py:159
+msgid "Use Bibliography"
+msgstr "Користи библиографију"
+
+#: ../data/ui/use_bibliography_dialog.ui.h:2
+msgid "Bibliography _File:"
+msgstr "Датотека _библиографије:"
+
+#: ../data/ui/use_bibliography_dialog.ui.h:3
+msgid "_Style:"
+msgstr "_Стил:"
+
+#: ../data/ui/use_bibliography_dialog.ui.h:4
+msgid "Style Preview:"
+msgstr "Преглед стила:"
+
+#: ../data/ui/use_bibliography_dialog.ui.h:5
+msgid "Refresh Style Preview"
+msgstr "Освежи преглед стила"
+
+#: ../latex/bibtex/actions.py:32
+msgid "BibTeX"
+msgstr "БибТеКс"
+
+#: ../latex/bibtex/actions.py:43
+msgid "New BibTeX Entry..."
+msgstr "Нови унос БибТеКс-а..."
+
+#: ../latex/bibtex/actions.py:46
+msgid "Create a new BibTeX entry"
+msgstr "Направите нови унос БибТеКс-а"
+
+#. add grouping controls to toolbar
+#: ../latex/bibtex/views.py:56
+msgid "No Grouping"
+msgstr "Без груписања"
+
+#: ../latex/bibtex/views.py:57
+msgid "Group by Type"
+msgstr "Групиши према врсти"
+
+#: ../latex/bibtex/views.py:58
+msgid "Group by Author"
+msgstr "Групиши према аутору"
+
+#: ../latex/bibtex/views.py:59
+msgid "Group by Year"
+msgstr "Групиши према години"
+
+#. group by year
+#: ../latex/bibtex/views.py:197
+msgid "<i>n/a</i>"
+msgstr "<i>н/д</i>"
+
+#: ../latex/bibtex/views.py:240
+msgid "Unknown Author"
+msgstr "Непознати аутор"
+
+#: ../latex/latex/actions.py:63
+msgid "LaTeX"
+msgstr "ЛаТеКс"
+
+#: ../latex/latex/actions.py:73
+msgid "New LaTeX Document..."
+msgstr "Нови ЛаТеКс документ..."
+
+#: ../latex/latex/actions.py:76
+msgid "Create a new LaTeX document"
+msgstr "Направите нови ЛаТеКс документ"
+
+#: ../latex/latex/actions.py:95
+msgid "Choose Master Document..."
+msgstr "Изабери главни документ..."
+
+#: ../latex/latex/actions.py:107
+msgid "Close Nearest Environment"
+msgstr "Затвори најближе окружење"
+
+#: ../latex/latex/actions.py:109
+msgid "Close the nearest TeX environment at left of the cursor"
+msgstr "Затворите најближе ТеКс окружење са леве стране курсора"
+
+#: ../latex/latex/actions.py:157
+msgid "Use Bibliography..."
+msgstr "Користи библиографију..."
+
+#: ../latex/latex/actions.py:179 ../latex/latex/actions.py:181
+#: ../latex/latex/actions.py:189 ../latex/latex/actions.py:190
+msgid "Font Family"
+msgstr "Породица слова"
+
+#: ../latex/latex/actions.py:194 ../latex/latex/actions.py:195
+msgid "Bold"
+msgstr "Подебљано"
+
+#: ../latex/latex/actions.py:201 ../latex/latex/actions.py:202
+msgid "Italic"
+msgstr "Искошено"
+
+#: ../latex/latex/actions.py:208 ../latex/latex/actions.py:209
+msgid "Emphasize"
+msgstr "Наглашено"
+
+#: ../latex/latex/actions.py:215 ../latex/latex/actions.py:216
+msgid "Underline"
+msgstr "Подвучено"
+
+#: ../latex/latex/actions.py:222 ../latex/latex/actions.py:223
+msgid "Small Capitals"
+msgstr "Мала почетна слова"
+
+#: ../latex/latex/actions.py:229 ../latex/latex/actions.py:230
+msgid "Roman"
+msgstr "Римски"
+
+#: ../latex/latex/actions.py:236 ../latex/latex/actions.py:237
+msgid "Sans Serif"
+msgstr "Безсерифни"
+
+#: ../latex/latex/actions.py:243 ../latex/latex/actions.py:244
+msgid "Typewriter"
+msgstr "Писаћа машина"
+
+#: ../latex/latex/actions.py:250 ../latex/latex/actions.py:251
+msgid "Blackboard Bold"
+msgstr "Подебљана табла"
+
+#: ../latex/latex/actions.py:258 ../latex/latex/actions.py:259
+msgid "Caligraphy"
+msgstr "Калиграфија"
+
+#: ../latex/latex/actions.py:265 ../latex/latex/actions.py:266
+msgid "Fraktur"
+msgstr "Фрактур"
+
+#: ../latex/latex/actions.py:273 ../latex/latex/actions.py:274
+#: ../latex/latex/actions.py:286 ../latex/latex/actions.py:287
+msgid "List"
+msgstr "Списак"
+
+#: ../latex/latex/actions.py:278 ../latex/latex/actions.py:279
+msgid "Itemize"
+msgstr "По ставкама"
+
+#: ../latex/latex/actions.py:291 ../latex/latex/actions.py:292
+msgid "Enumerate"
+msgstr "Наброј"
+
+#: ../latex/latex/actions.py:298 ../latex/latex/actions.py:299
+msgid "Description"
+msgstr "Опис"
+
+#: ../latex/latex/actions.py:304 ../latex/latex/actions.py:305
+#: ../latex/latex/actions.py:330 ../latex/latex/actions.py:331
+msgid "Structure"
+msgstr "Структура"
+
+#: ../latex/latex/actions.py:308 ../latex/latex/actions.py:309
+msgid "Part"
+msgstr "Део"
+
+#: ../latex/latex/actions.py:322 ../latex/latex/actions.py:323
+msgid "Section"
+msgstr "Одељак"
+
+#: ../latex/latex/actions.py:335 ../latex/latex/actions.py:336
+msgid "Subsection"
+msgstr "Пододељак"
+
+#: ../latex/latex/actions.py:342 ../latex/latex/actions.py:343
+msgid "Paragraph"
+msgstr "Пасус"
+
+#: ../latex/latex/actions.py:349 ../latex/latex/actions.py:350
+msgid "Subparagraph"
+msgstr "Подпасус"
+
+#: ../latex/latex/actions.py:405 ../latex/latex/actions.py:407
+#: ../latex/latex/actions.py:415 ../latex/latex/actions.py:416
+msgid "Build"
+msgstr "Изгради"
+
+#: ../latex/latex/actions.py:420
+msgid "Build Image"
+msgstr "Изгради слику"
+
+#: ../latex/latex/actions.py:422
+msgid "Build an image from the LaTeX document"
+msgstr "Изградите слику из ЛаТеКс документа"
+
+#: ../latex/latex/actions.py:440 ../latex/latex/actions.py:441
+#: ../latex/latex/actions.py:460 ../latex/latex/actions.py:461
+msgid "Justify"
+msgstr "Поравнај"
+
+#: ../latex/latex/actions.py:445 ../latex/latex/actions.py:446
+msgid "Justify Left"
+msgstr "Поравнај на лево"
+
+#: ../latex/latex/actions.py:452 ../latex/latex/actions.py:453
+msgid "Justify Center"
+msgstr "Поравнај по средини"
+
+#: ../latex/latex/actions.py:465 ../latex/latex/actions.py:466
+msgid "Justify Right"
+msgstr "Поравнај на десно"
+
+#: ../latex/latex/actions.py:472 ../latex/latex/actions.py:473
+#: ../latex/latex/actions.py:485 ../latex/latex/actions.py:486
+msgid "Math"
+msgstr "Математика"
+
+#: ../latex/latex/actions.py:477 ../latex/latex/actions.py:478
+msgid "Mathematical Environment"
+msgstr "Математичко окружење"
+
+#: ../latex/latex/actions.py:490 ../latex/latex/actions.py:491
+msgid "Centered Formula"
+msgstr "Усредиштена формула"
+
+#: ../latex/latex/actions.py:497 ../latex/latex/actions.py:498
+msgid "Numbered Equation"
+msgstr "Набројана једначина"
+
+#: ../latex/latex/actions.py:506 ../latex/latex/actions.py:507
+msgid "Array of Equations"
+msgstr "Низ једначина"
+
+#: ../latex/latex/actions.py:516 ../latex/latex/actions.py:517
+msgid "Numbered Array of Equations"
+msgstr "Набројани низ једначина"
+
+#: ../latex/latex/environment.py:141
+msgid "Book of abstracts"
+msgstr "Књига апстракта"
+
+#: ../latex/latex/environment.py:142
+msgid "Article"
+msgstr "Чланак"
+
+#: ../latex/latex/environment.py:143
+msgid "Article (AMS)"
+msgstr "Чланак (АМС)"
+
+#: ../latex/latex/environment.py:144
+msgid "Book (AMS)"
+msgstr "Књига (АМС)"
+
+#: ../latex/latex/environment.py:145
+msgid "AMS Documentation"
+msgstr "АМС документација"
+
+#: ../latex/latex/environment.py:146
+msgid "Proceedings (AMS)"
+msgstr "Саопштења (АМС)"
+
+#: ../latex/latex/environment.py:147
+msgid "Report"
+msgstr "Извештај"
+
+#: ../latex/latex/environment.py:148
+msgid "Beamer slides"
+msgstr "Бимер диапозитив"
+
+#: ../latex/latex/environment.py:149
+msgid "Belgian letter"
+msgstr "Белгијско писмо"
+
+#: ../latex/latex/environment.py:150
+msgid "Book"
+msgstr "Књига"
+
+#: ../latex/latex/environment.py:151
+msgid "Flashcard"
+msgstr "Цедуљче"
+
+#: ../latex/latex/environment.py:152
+msgid "Proceedings (IAG)"
+msgstr "Саопштења (ИАГ)"
+
+#: ../latex/latex/environment.py:153
+msgid "Letter"
+msgstr "Писмо"
+
+#: ../latex/latex/environment.py:154
+msgid "LaTeX News"
+msgstr "ЛаТеКс вести"
+
+#: ../latex/latex/environment.py:155
+msgid "LaTeX Documentation"
+msgstr "ЛаТеКс документација"
+
+#: ../latex/latex/environment.py:156
+msgid "LaTeX Guide"
+msgstr "ЛаТеКс водич"
+
+#: ../latex/latex/environment.py:157
+msgid "Proceedings"
+msgstr "Саопштења"
+
+#: ../latex/latex/environment.py:158
+msgid "Article (KOMA-Script)"
+msgstr "Чланак (ЗАРЕЗ-скрипт)"
+
+#: ../latex/latex/environment.py:159 ../latex/latex/environment.py:163
+msgid "Report (KOMA-Script)"
+msgstr "Извештај (ЗАРЕЗ-скрипт)"
+
+#: ../latex/latex/environment.py:160
+msgid "Book (KOMA-Script)"
+msgstr "Књига (ЗАРЕЗ-скрипт)"
+
+#: ../latex/latex/environment.py:161
+msgid "Letter (KOMA-Script)"
+msgstr "Писмо (ЗАРЕЗ-скрипт)"
+
+#: ../latex/latex/environment.py:162
+msgid "Letter 2 (KOMA-Script)"
+msgstr "Писмо 2 (ЗАРЕЗ-скрипт)"
+
+#: ../latex/latex/environment.py:164
+msgid "Slides"
+msgstr "Диапозитиви"
+
+#: ../latex/latex/views.py:113
+msgid "Symbols"
+msgstr "Симболи"
+
+#: ../latex/latex/views.py:201
+msgid "Show graphics"
+msgstr "Прикажи графике"
+
+#: ../latex/latex/views.py:206
+msgid "Show tables"
+msgstr "Прикажи табеле"
+
+#: ../latex/outline.py:58
+msgid "Follow Editor"
+msgstr "Прати уређивача"
+
+#: ../latex/outline.py:63
+msgid "Expand All"
+msgstr "Рашири све"
+
+#: ../latex/outline.py:67
+msgid "Collapse All"
+msgstr "Скупи све"
+
+#: ../latex/outline.py:115
+msgid "Outline"
+msgstr "Општи преглед"
+
+#: ../latex/tools/views.py:62
+msgid "Job"
+msgstr "Посао"
+
+#: ../latex/tools/views.py:73 ../latex/views.py:80
+msgid "File"
+msgstr "Датотека"
+
+#: ../latex/tools/views.py:74
+msgid "Line"
+msgstr "Ред"
+
+#: ../latex/tools/views.py:87
+msgid "Abort Job"
+msgstr "Обустави посао"
+
+#: ../latex/tools/views.py:92
+msgid "Show Detailed Output"
+msgstr "Прикажи опширнији излаз"
+
+#: ../latex/views.py:67
+msgid "Message"
+msgstr "Порука"
+
+#: ../latex/views.py:99
+msgid "Show/Hide Warnings"
+msgstr "Прикажи/сакриј упозорења"
+
+#: ../latex/views.py:107
+msgid "Show/Hide Tasks"
+msgstr "Прикажи/сакриј задатке"
+
+#: ../latex/views.py:139
+msgid "Issues"
+msgstr "Проблеми"
