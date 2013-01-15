@@ -83,10 +83,15 @@ class LaTeXValidator(object):
         self._run(document_node, issue_handler)
 
         # evaluate label map
-        for label, used in self._labels.values():
-            if not used:
-                # FIXME: we need to know in which File the label was defined!
-                issue_handler.issue(Issue("Label <b>%s</b> is never used" % escape(label.value), label.start, label.end, label.file, Issue.SEVERITY_WARNING))
+        # TODO this block was commented out because it is not possible to know for sure when
+        #      a label was referenced. For example, using memoir class the commands fref and
+        #      tref can be used instead but the label would still be highlighted as warning
+        #      due to being unused. Maybe this could one day be made into an option or the
+        #      check for used have been improved.
+        #for label, used in self._labels.values():
+        #    if not used:
+        #        # FIXME: we need to know in which File the label was defined!
+        #        issue_handler.issue(Issue("Label <b>%s</b> is never used" % escape(label.value), label.start, label.end, label.file, Issue.SEVERITY_WARNING))
 
     def _run(self, parentNode, issue_handler):
         """
