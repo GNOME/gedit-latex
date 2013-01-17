@@ -227,14 +227,6 @@ class LaTeXOutlineView(BaseOutlineView):
 
         self._restore_state()
 
-    def _on_node_selected(self, node):
-        """
-        An outline node has been selected
-        """
-        if Preferences().get("outline-connect-to-editor"):
-            if node.file == self._editor.edited_file:
-                self._editor.select(node.start, node.end)
-
     def _on_node_activated(self, node):
         """
         An outline node has been double-clicked on
@@ -272,8 +264,10 @@ class LaTeXOutlineView(BaseOutlineView):
             system("gvfs-open %s" % f.uri)
 
         else:
-            # open/activate the referenced file, if the node is 'foreign'
-            if node.file != self._editor.edited_file:
+            # select/open/activate the referenced file
+            if node.file == self._editor.edited_file:
+                self._editor.select(node.start, node.end)
+            else:
                 self._context.activate_editor(node.file)
 
     def _on_tables_toggled(self, toggle_button):

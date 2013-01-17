@@ -24,7 +24,8 @@ outline
 Classes used for creating an outline view of LaTeX and BibTeX files
 """
 
-from logging import getLogger
+import logging
+
 from gi.repository import Gtk, GdkPixbuf
 
 from panelview import PanelView
@@ -32,17 +33,16 @@ from preferences import Preferences
 from resources import Resources
 from gldefs import _
 
+LOG = logging.getLogger(__name__)
+
 class BaseOutlineView(PanelView):
     """
     Base class for the BibTeX and LaTeX outline views
     """
 
-    __log = getLogger("BaseOutlineView")
-
     def __init__(self, context, editor):
         PanelView.__init__(self, context)
         self._editor = editor
-        self._base_handlers = {}
 
         self.set_orientation(Gtk.Orientation.VERTICAL)
 
@@ -57,15 +57,15 @@ class BaseOutlineView(PanelView):
         btn_follow = Gtk.ToggleToolButton.new_from_stock(Gtk.STOCK_CONNECT)
         btn_follow.set_tooltip_text(_("Follow Editor"))
         btn_follow.set_active(self._preferences.get("outline-connect-to-editor"))
-        self._base_handlers[btn_follow] = btn_follow.connect("toggled", self._on_follow_toggled)
+        btn_follow.connect("toggled", self._on_follow_toggled)
 
         btn_expand = Gtk.ToolButton.new_from_stock(Gtk.STOCK_ZOOM_IN)
         btn_expand.set_tooltip_text(_("Expand All"))
-        self._base_handlers[btn_expand] = btn_expand.connect("clicked", self._on_expand_clicked)
+        btn_expand.connect("clicked", self._on_expand_clicked)
 
         btn_collapse = Gtk.ToolButton.new_from_stock(Gtk.STOCK_ZOOM_OUT)
         btn_collapse.set_tooltip_text(_("Collapse All"))
-        self._base_handlers[btn_collapse] = btn_collapse.connect("clicked", self._on_collapse_clicked)
+        btn_collapse.connect("clicked", self._on_collapse_clicked)
 
         self._toolbar = Gtk.Toolbar()
         self._toolbar.set_style(Gtk.ToolbarStyle.ICONS)
@@ -98,8 +98,7 @@ class BaseOutlineView(PanelView):
         self._view = Gtk.TreeView(model=self._store)
         self._view.append_column(column)
         self._view.set_headers_visible(False)
-        self._cursor_changed_id = self._view.connect("cursor-changed", self._on_cursor_changed)
-        self._base_handlers[self._view] = self._view.connect("row-activated", self._on_row_activated)
+        self._view.connect("row-activated", self._on_row_activated)
 
         scrolled = Gtk.ScrolledWindow()
         scrolled.add(self._view)
@@ -133,9 +132,13 @@ class BaseOutlineView(PanelView):
 
         Called by the Editor
         """
+        LOG.debug("select path by offset %r" % offset)
         try:
             path = self._offset_map.lookup(offset)
-            self._select_path(path)
+            selection = self._view.get_selection()
+            if selection:
+                self._view.expand_to_path(path)
+                selection.select_path(path)
         except KeyError:
             pass
 
@@ -162,44 +165,15 @@ class BaseOutlineView(PanelView):
             for path in self._expanded_paths:
                 self._view.expand_to_path(Gtk.TreePath.new_from_string(path))
 
-    def _on_cursor_changed(self, view):
-        selection = view.get_selection()
-        if not selection:
-            return
-
-        store, it = selection.get_selected()
-        if not it:
-            return
-
-        outline_node = store.get_value(it, 2)
-        self._on_node_selected(outline_node)
-
     def _on_row_activated(self, view, path, column):
         it = self._store.get_iter(path)
         node = self._store.get(it, 2)[0]
 
         self._on_node_activated(node)
 
-    def _select_path(self, path):
-        """
-        Expand a path and select the last node
-        """
-        selection = self._view.get_selection()
-        if not selection:
-            return
-
-        # select path
-        self._view.expand_to_path(path)
-        selection.select_path(path)
-
     #
     # methods to be overridden by the subclass
     #
-
-    def _on_node_selected(self, node):
-        """
-        To be overridden
-        """
 
     def _on_node_activated(self, node):
         """

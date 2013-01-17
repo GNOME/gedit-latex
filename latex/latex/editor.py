@@ -195,7 +195,8 @@ class LaTeXEditor(Editor, IIssueHandler):
 
         Update models
         """
-
+        LOG.debug("document saved") 
+       
 #        from multiprocessing import Process
 #
 #        p_parse = Process(target=self.__parse)
