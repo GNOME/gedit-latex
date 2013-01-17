@@ -28,7 +28,6 @@ import logging
 import xml.etree.ElementTree as ElementTree
 
 from gi.repository import Gtk, GdkPixbuf
-from os import system
 from os.path import basename
 
 from ..preferences import Preferences
@@ -261,7 +260,7 @@ class LaTeXOutlineView(BaseOutlineView):
                 LOG.error("LatexOutline: File not found: %s" % filename)
                 return
 
-            system("gvfs-open %s" % f.uri)
+            Gtk.show_uri(None, f.uri, Gtk.get_current_event_time())
 
         else:
             # select/open/activate the referenced file
