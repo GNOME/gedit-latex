@@ -85,28 +85,23 @@ class LaTeXSymbolMapView(PanelView):
 
     def __init__(self, context, editor):
         PanelView.__init__(self, context)
+        self._preferences = Preferences()
 
         self.set_orientation(Gtk.Orientation.VERTICAL)
 
-        self._preferences = Preferences()
+        self._grid = Gtk.Grid()
+        self._grid.set_orientation(Gtk.Orientation.VERTICAL)
 
-        grid = Gtk.Grid()
-        grid.set_orientation(Gtk.Orientation.VERTICAL)
-        self.add(grid)
+        self._load_collection(SymbolCollection())
 
         scrolled = Gtk.ScrolledWindow()
         scrolled.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.AUTOMATIC)
         scrolled.set_shadow_type(Gtk.ShadowType.NONE)
-
-        self._grid = Gtk.Grid()
-        self._grid.set_orientation(Gtk.Orientation.VERTICAL)
         scrolled.add_with_viewport(self._grid)
         scrolled.set_vexpand(True)
 
-        grid.add(scrolled)
+        self.add(scrolled)
         self.show_all()
-
-        self._load_collection(SymbolCollection())
 
     def get_label(self):
         return _("Symbols")
@@ -134,26 +129,21 @@ class LaTeXSymbolMapView(PanelView):
         view.set_selection_mode(Gtk.SelectionMode.SINGLE)
         view.connect("item-activated", self._on_symbol_activated)
         view.connect("focus-out-event", self._on_focus_out_event)
-        view.set_item_width(-1)
         view.set_spacing(0)
         view.set_column_spacing(0)
         view.set_row_spacing(0)
-        view.set_columns(-1)
+        view.set_columns(4)
         view.set_text_column(-1)
-
         view.set_tooltip_column(1)
-
-        view.show()
+        view.set_hexpand(True)
+        view.set_halign(Gtk.Align.FILL)
 
         expander = Gtk.Expander(label=group.label)
         expander.set_hexpand(True)
-        expander.set_vexpand(True)
+        expander.set_halign(Gtk.Align.FILL)
         expander.add(view)
-        expander.show_all()
-
         if group.label in self._expanded_groups:
             expander.set_expanded(True)
-
         expander.connect("notify::expanded", self._on_group_expanded, group.label)
 
         self._grid.add(expander)
