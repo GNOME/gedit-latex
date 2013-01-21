@@ -40,43 +40,7 @@ from .listing import LanguagesParser
 
 from . import LaTeXSource
 
-class AbstractProxy(object):
-    """
-    This may simplify the use of a widget and it serves for state saving
-    using the plugins preferences.
-    """
-    def __init__(self, widget, key):
-        """
-        @param widget: the widget to proxy
-        @param key: a preferences key to use for state saving
-        """
-        self._widget = widget
-        self._key = key
-        self._preferences = Preferences()
-
-    def restore(self, default):
-        """
-        Restore the last state of the proxied widget
-
-        @param default: a default value if no state is found
-        """
-        raise NotImplementedError
-
-    def save(self):
-        """
-        Save the state of the proxied widget
-        """
-        self._preferences.set(self._key, self.value)
-
-    @property
-    def value(self):
-        """
-        @return: the current value of the proxied widget
-        """
-        raise NotImplementedError
-
-
-class ComboBoxProxy(AbstractProxy):
+class ComboBoxProxy:
     """
     This proxies a ComboBox widget:
 
@@ -87,7 +51,9 @@ class ComboBoxProxy(AbstractProxy):
     ...
     """
     def __init__(self, widget, key):
-        AbstractProxy.__init__(self, widget, key)
+        self._widget = widget
+        self._key = key
+        self._preferences = Preferences()
 
         self._store = Gtk.ListStore(str, str)            # value, label
         self._widget.set_model(self._store)
@@ -114,9 +80,8 @@ class ComboBoxProxy(AbstractProxy):
         self._widget.connect("changed", self._on_changed)
 
     def _on_changed(self, combobox):
-        self.save()
+        self._preferences.set(self._key, self.value)
 
-    #@accepts(object, String, String, bool)
     def add_option(self, value, label, show_value=True):
         """
         Add an option to the widget
@@ -142,23 +107,6 @@ class ComboBoxProxy(AbstractProxy):
     def value(self):
         index = self._widget.get_active()
         return self._options[index][0]
-
-
-class EntryProxy(AbstractProxy):
-    def __init__(self, widget, key):
-        AbstractProxy.__init__(self, widget, key)
-
-    def restore(self, default=None):
-        if default != None:
-            txt = default
-        else:
-            txt = self._preferences.get(self._key, default)
-        self._widget.set_text(txt)
-
-    @property
-    def value(self):
-        return self._widget.get_text()
-
 
 class ChooseMasterDialog(GladeInterface):
     """
