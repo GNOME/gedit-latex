@@ -84,5 +84,12 @@
       <default>'#2a66e1'</default>
     </key>
 
+    <key name="recent-listing-language" type="s">
+      <default>'Python'</default>
+    </key>
+    <key name="recent-bibtex-style" type="s">
+      <default>'plain'</default>
+    </key>
+
   </schema>
 </schemalist>

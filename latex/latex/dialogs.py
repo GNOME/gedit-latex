@@ -634,7 +634,7 @@ class UseBibliographyDialog(GladeInterface, PreviewRenderer):
             self._comboStyle.set_model(self._storeStyle)
 
             try:
-                recent = styles.index(Preferences().get("RecentBibtexStyle", "plain"))
+                recent = styles.index(Preferences().get("recent-bibtex-style"))
             except ValueError:
                 recent = 0
             self._comboStyle.set_active(recent)
@@ -947,6 +947,7 @@ class InsertListingDialog(GladeInterface):
 
             lstset = ""
             options = ""
+            extra = r',basicstyle=\small\ttfamily,breaklines=true,showtabs=false,showspaces=false,breakatwhitespace=true'
 
             language = self._storeLanguages[self._comboLanguage.get_active()][0]
             try:
@@ -956,9 +957,9 @@ class InsertListingDialog(GladeInterface):
 
             if self._dialectsEnabled and len(dialect):
                 # we need the lstset command
-                lstset = "\\lstset{language=[%s]%s}\n" % (dialect, language)
+                lstset = "\\lstset{language=[%s]%s%s}\n" % (dialect, language, extra)
             else:
-                options = "[language=%s]" % language
+                options = "[language=%s%s]" % (language, extra)
 
 
             if self._checkFile.get_active():
@@ -989,7 +990,7 @@ class InsertListingDialog(GladeInterface):
             parser = LanguagesParser()
             parser.parse(self._languages, Resources().get_data_file("listings.xml"))
 
-            recentLanguage = Preferences().get("RecentListingLanguage", "Java")
+            recentLanguage = Preferences().get("recent-listing-language")
 
             self._storeLanguages = Gtk.ListStore(str)
             recentLanguageIndex = 0
