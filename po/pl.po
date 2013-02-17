@@ -4,14 +4,14 @@
 # pomóc w jego rozwijaniu i pielęgnowaniu, napisz do nas:
 # gnomepl@aviary.pl
 # -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-# Piotr Drąg <piotrdrag@gmail.com>, 2011-2012.
-# Aviary.pl <gnomepl@aviary.pl>, 2011-2012.
+# Piotr Drąg <piotrdrag@gmail.com>, 2011-2013.
+# Aviary.pl <gnomepl@aviary.pl>, 2011-2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: gedit-latex\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-09-03 00:57+0200\n"
-"PO-Revision-Date: 2012-09-03 00:58+0200\n"
+"POT-Creation-Date: 2013-02-17 16:34+0100\n"
+"PO-Revision-Date: 2013-02-17 16:35+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <gnomepl@aviary.pl>\n"
 "Language: pl\n"
@@ -395,7 +395,7 @@ msgstr "° przeciwnie do ruchu wskazówek zegara"
 
 #: ../data/ui/insert_graphics_dialog.ui.h:11
 msgid "Flip _Horizontally"
-msgstr "Odwrócenie poziome"
+msgstr "O_dwrócenie poziome"
 
 #: ../data/ui/insert_graphics_dialog.ui.h:12
 msgid "_Spread over two Columns"
@@ -891,15 +891,15 @@ msgstr "List 2 (KOMA-Script)"
 msgid "Slides"
 msgstr "Slajdy"
 
-#: ../latex/latex/views.py:113
+#: ../latex/latex/views.py:107
 msgid "Symbols"
 msgstr "Symbole"
 
-#: ../latex/latex/views.py:201
+#: ../latex/latex/views.py:190
 msgid "Show graphics"
 msgstr "Wyświetlanie grafik"
 
-#: ../latex/latex/views.py:206
+#: ../latex/latex/views.py:195
 msgid "Show tables"
 msgstr "Wyświetlanie tablic"
 
@@ -915,7 +915,7 @@ msgstr "Rozwiń wszystko"
 msgid "Collapse All"
 msgstr "Zwiń wszystko"
 
-#: ../latex/outline.py:115
+#: ../latex/outline.py:114
 msgid "Outline"
 msgstr "Obrys"
 
