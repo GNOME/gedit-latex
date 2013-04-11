@@ -1,0 +1,600 @@
+# Serbian translation for gedit-latex.
+# Copyright (C) 2012 gedit-latex's COPYRIGHT HOLDER
+# This file is distributed under the same license as the gedit-latex package.
+# Miroslav Nikolić <miroslavnikolic@rocketmail.com>, 2012, 2013.
+msgid ""
+msgstr ""
+"Project-Id-Version: gedit-latex master\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gedit&"
+"keywords=I18N+L10N&component=Plugins\n"
+"POT-Creation-Date: 2012-11-14 15:06+0000\n"
+"PO-Revision-Date: 2013-04-11 19:43+0200\n"
+"Last-Translator: Miroslav Nikolić <miroslavnikolic@rocketmail.com>\n"
+"Language-Team: Serbian <gnom@prevod.org>\n"
+"Language: sr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=n==1? 3 : n%10==1 && n%100!=11 ? 0 : "
+"n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Project-Style: gnome\n"
+
+#: ../data/bibtex.xml.h:1
+msgid "Title"
+msgstr "Naziv"
+
+#: ../data/bibtex.xml.h:2
+msgid "Book Title"
+msgstr "Naziv knjige"
+
+#: ../data/bibtex.xml.h:3
+msgid "Author"
+msgstr "Autor"
+
+#: ../data/bibtex.xml.h:4
+msgid "Editor"
+msgstr "Urednik"
+
+#: ../data/bibtex.xml.h:5
+msgid "Pages"
+msgstr "Stranice"
+
+#: ../data/bibtex.xml.h:6
+msgid "Journal"
+msgstr "Dnevnik"
+
+#: ../data/bibtex.xml.h:7
+msgid "Volume"
+msgstr "Količina"
+
+#: ../data/bibtex.xml.h:8
+msgid "Number"
+msgstr "Broj"
+
+#: ../data/bibtex.xml.h:9
+msgid "Month"
+msgstr "Mesec"
+
+#: ../data/bibtex.xml.h:10
+msgid "Year"
+msgstr "Godina"
+
+#: ../data/bibtex.xml.h:11
+msgid "ISSN"
+msgstr "ISSN"
+
+#: ../data/bibtex.xml.h:12
+msgid "Series"
+msgstr "Serije"
+
+#: ../data/bibtex.xml.h:13
+msgid "Edition"
+msgstr "Izdanje"
+
+#: ../data/bibtex.xml.h:14
+msgid "Publisher"
+msgstr "Izdavač"
+
+#: ../data/bibtex.xml.h:15
+msgid "Address"
+msgstr "Adresa"
+
+#: ../data/bibtex.xml.h:16
+msgid "ISBN"
+msgstr "ISBN"
+
+#: ../data/bibtex.xml.h:17
+msgid "How Published"
+msgstr "Način objavljivanja"
+
+#: ../data/bibtex.xml.h:18
+msgid "Organization"
+msgstr "Organizacija"
+
+#: ../data/bibtex.xml.h:19
+msgid "Location"
+msgstr "Mesto"
+
+#: ../data/bibtex.xml.h:20
+msgid "URL"
+msgstr "Adresa"
+
+#: ../data/bibtex.xml.h:21
+msgid "Note"
+msgstr "Beleška"
+
+#: ../data/bibtex.xml.h:22
+msgid "Type"
+msgstr "Vrsta"
+
+#: ../data/bibtex.xml.h:23
+msgid "Chapter"
+msgstr "Poglavlje"
+
+#: ../data/bibtex.xml.h:24
+msgid "Key"
+msgstr "Ključ"
+
+#: ../data/bibtex.xml.h:25
+msgid "School"
+msgstr "Škola"
+
+#: ../data/bibtex.xml.h:26
+msgid "Institution"
+msgstr "Institucija"
+
+#: ../data/bibtex.xml.h:27
+msgid "Cross Reference"
+msgstr "Unakrsna uputa"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:1
+msgid "Maximum BibTeX Size"
+msgstr "Najveća veličina BibTeKs-a"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:2
+msgid "Connect Outline to Editor"
+msgstr "Poveži konturu sa uređivačem"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:3
+msgid "Show Labels in Outline"
+msgstr "Prikaži natpise u konturi"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:4
+msgid "Show Tables in Outline"
+msgstr "Prikaži tabele u konturi"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:5
+msgid "Show Graphics in Outline"
+msgstr "Prikaži grafike u konturi"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:6
+msgid "Show Warnings in Issues"
+msgstr "Prikazuje upozorenja u problemima"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:7
+msgid "Show Tasks in Issues"
+msgstr "Prikazuje zadatke u problemima"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:8
+#: ../data/ui/configure.ui.h:7
+msgid "Hide Box Warnings"
+msgstr "Sakrij upozorenja okvira"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:9
+msgid ""
+"Show LaTeX Toolbar below (normal), combined with the main toolbar, or "
+"disabled"
+msgstr ""
+"Prikazuje traku alata LaTeKs-a ispod (uobičajeno), kombinovano sa glavnom "
+"trakom alata, ili isključeno"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:10
+msgid "Expanded Symbol Groups"
+msgstr "Grupe raširenog simbola"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:11
+msgid "LaTeX Extensions"
+msgstr "LaTeKs proširenja"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:12
+msgid "Graphics File Extensions"
+msgstr "Proširenja datoteke grafikona"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:13
+msgid "Paths Relative to .tex File to Look for Graphics"
+msgstr ""
+"Putanje koje se odnose na „.tex“ datoteku u kojoj će biti traženi grafikoni"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:14
+msgid "Extra LaTeX commands used to mark issues, such as \\fxnote{foo}"
+msgstr ""
+"Posebne naredbe LaTeKs-a korišćene za označavanje problema, kao što je "
+"„\\fxnote{foo}“"
+
+#: ../data/ui/build_image_dialog.ui.h:1
+msgid "Render to Image"
+msgstr "Iscrtaj u sliku"
+
+#: ../data/ui/build_image_dialog.ui.h:2
+msgid "Attempt to render tight bounding box"
+msgstr "Pokušaj da iscrtaš okvir bliskog povezivanja"
+
+#: ../data/ui/build_image_dialog.ui.h:3
+msgid "Render whole page(s)"
+msgstr "Iscrtaj čitavu stranicu"
+
+#: ../data/ui/build_image_dialog.ui.h:4
+msgid "<b>Area</b>"
+msgstr "<b>Oblast</b>"
+
+#: ../data/ui/build_image_dialog.ui.h:5
+msgid "Resolution:"
+msgstr "Rezolucija:"
+
+#: ../data/ui/build_image_dialog.ui.h:6
+msgid "Antialiasing:"
+msgstr "Umekšavanje:"
+
+#: ../data/ui/build_image_dialog.ui.h:7
+msgid "<b>Rendering</b>"
+msgstr "<b>Iscrtavanje</b>"
+
+#: ../data/ui/build_image_dialog.ui.h:8
+msgid "GIF"
+msgstr "GIF"
+
+#: ../data/ui/build_image_dialog.ui.h:9
+msgid "JPEG"
+msgstr "JPEG"
+
+#: ../data/ui/build_image_dialog.ui.h:10
+msgid "Color Mode:"
+msgstr "Režim boje:"
+
+#: ../data/ui/build_image_dialog.ui.h:11
+msgid "PNG"
+msgstr "PNG"
+
+#: ../data/ui/build_image_dialog.ui.h:12
+msgid "<b>Image Format</b>"
+msgstr "<b>Zapis slike</b>"
+
+#: ../data/ui/choose_master_dialog.ui.h:1
+msgid "Select Master Document"
+msgstr "Izaberite glavni dokument"
+
+#: ../data/ui/choose_master_dialog.ui.h:2
+msgid "Filename:"
+msgstr "Naziv datoteke:"
+
+#: ../data/ui/configure.ui.h:1
+msgid "Tools"
+msgstr "Alati"
+
+#: ../data/ui/configure.ui.h:2
+msgid "Maximum Parsed File Size:"
+msgstr "Najveća veličina obrađene datoteke:"
+
+#: ../data/ui/configure.ui.h:3
+msgid "KB"
+msgstr "KB"
+
+#: ../data/ui/configure.ui.h:4
+msgid "<b>Templates</b>"
+msgstr "<b>Šabloni</b>"
+
+#: ../data/ui/configure.ui.h:5
+msgid "Folder:"
+msgstr "Fascikla:"
+
+#: ../data/ui/configure.ui.h:6
+msgid "<b><i>rubber</i> Post-Processor</b>"
+msgstr "<b><i>ruber</i> Post-obrađivač</b>"
+
+#: ../data/ui/configure.ui.h:8
+msgid "<b>BibTeX</b>"
+msgstr "<b>BibTeKs</b>"
+
+#: ../data/ui/configure.ui.h:9
+msgid "Miscellaneous"
+msgstr "Razno"
+
+#: ../data/ui/configure_tool.ui.h:1
+msgid ""
+"Remember to run all commands in batch mode (e.g. append <tt>-interaction "
+"batchmode</tt> to <tt>latex</tt>)"
+msgstr ""
+"Ne zaboravi da pokreneš sve naredbe u grupnom režimu (npr. prikači <tt>-"
+"interaction batchmode</tt> na <tt>latex</tt>)"
+
+#: ../data/ui/configure_tool.ui.h:2
+msgid "<b>_Label</b>"
+msgstr "<b>_Natpis</b>"
+
+#: ../data/ui/configure_tool.ui.h:3
+msgid ""
+"Valid placeholders are <tt>$filename</tt>, <tt>$shortname</tt>, <tt>"
+"$directory</tt>"
+msgstr ""
+"Ispravni mestodržači su <tt>$filename</tt>, <tt>$shortname</tt>, <tt>"
+"$directory</tt>"
+
+#: ../data/ui/configure_tool.ui.h:4
+msgid "<b>_Jobs</b>"
+msgstr "<b>_Poslovi</b>"
+
+#: ../data/ui/configure_tool.ui.h:5
+msgid "<b>_Description</b>"
+msgstr "<b>_Opis</b>"
+
+#: ../data/ui/configure_tool.ui.h:6
+msgid "<b>_File Extensions</b>"
+msgstr "<b>_Proširenja datoteke</b>"
+
+#: ../data/ui/configure_tool.ui.h:7
+msgid "_Generated"
+msgstr "_Stvoreno"
+
+#: ../data/ui/configure_tool.ui.h:8
+msgid "_User Defined:"
+msgstr "_Korisnik je odredio:"
+
+#: ../data/ui/configure_tool.ui.h:9
+msgid "<Ctrl><Alt>1"
+msgstr "<Ktrl><Alt>1"
+
+#: ../data/ui/configure_tool.ui.h:10
+msgid "<b>Accelerator</b>"
+msgstr "<b>Prečica</b>"
+
+#: ../data/ui/insert_bibtex_entry.ui.h:1
+msgid "Create Bibliography Entry"
+msgstr "Napravi bibliografski unos"
+
+#: ../data/ui/insert_bibtex_entry.ui.h:2
+msgid "Required Fields"
+msgstr "Obavezna polja"
+
+#: ../data/ui/insert_bibtex_entry.ui.h:3
+msgid "Optional Fields"
+msgstr "Neobavezna polja"
+
+#: ../data/ui/insert_bibtex_entry.ui.h:4
+msgid "_Identifier:"
+msgstr "_Odrednik:"
+
+#: ../data/ui/insert_bibtex_entry.ui.h:5
+msgid "_Type:"
+msgstr "_Vrsta:"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:1
+msgid "Image Size"
+msgstr "Veličina slike"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:2
+msgid "Text Width"
+msgstr "Širina teksta"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:3
+msgid "Insert Graphics"
+msgstr "Umetni grafikon"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:4
+msgid "&#xB0; CCW"
+msgstr "&#xB0; CCV"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:5
+msgid "_Rotate:"
+msgstr "_Zaokreni:"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:6
+msgid "Flip _Horizontally"
+msgstr "Izvrni _vodoravno"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:7
+msgid "_File:"
+msgstr "_Datoteka:"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:8
+#: ../data/ui/insert_table_dialog.ui.h:7
+msgid "_Caption:"
+msgstr "_Naslov:"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:9
+#: ../data/ui/insert_table_dialog.ui.h:8
+msgid "_Label:"
+msgstr "_Natpis:"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:10
+msgid "fig:"
+msgstr "fig:"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:11
+msgid "_Width:"
+msgstr "_Širina:"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:13
+#, no-c-format
+msgid "% _of"
+msgstr "% _od"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:14
+msgid "Floating _Object"
+msgstr "Lebdeći _objekat"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:15
+msgid "_Spread over two Columns"
+msgstr "_Raširi preko dve kolone"
+
+#: ../data/ui/insert_listing_dialog.ui.h:1
+msgid "Insert Source Code Listing"
+msgstr "Umetni spisak izvornog koda"
+
+#: ../data/ui/insert_listing_dialog.ui.h:2
+msgid "_Dialect:"
+msgstr "_Dijalekt:"
+
+#: ../data/ui/insert_listing_dialog.ui.h:3
+msgid "Programming _Language:"
+msgstr "Programski _jezik:"
+
+#: ../data/ui/insert_listing_dialog.ui.h:4
+msgid "Load From _File:"
+msgstr "Učitaj iz _datoteke:"
+
+#: ../data/ui/insert_table_dialog.ui.h:1
+msgid "Insert Table or Matrix"
+msgstr "Umetni tabelu ili matricu"
+
+#: ../data/ui/insert_table_dialog.ui.h:2
+msgid "Type:"
+msgstr "Vrsta:"
+
+#: ../data/ui/insert_table_dialog.ui.h:3
+msgid "_Table"
+msgstr "_Tabela"
+
+#: ../data/ui/insert_table_dialog.ui.h:4
+msgid "_Matrix:"
+msgstr "_Matrica:"
+
+#: ../data/ui/insert_table_dialog.ui.h:5
+msgid "_Rows:"
+msgstr "_Redova:"
+
+#: ../data/ui/insert_table_dialog.ui.h:6
+msgid "C_olumns:"
+msgstr "_Kolona:"
+
+#: ../data/ui/insert_table_dialog.ui.h:9
+msgid "tab:"
+msgstr "tab:"
+
+#: ../data/ui/insert_table_dialog.ui.h:10
+msgid "_Floating Object"
+msgstr "_Lebdeći objekat"
+
+#: ../data/ui/new_document_template_dialog.ui.h:1
+msgid "New LaTeX Document"
+msgstr "Novi LaTeKs dokument"
+
+#: ../data/ui/new_document_template_dialog.ui.h:2
+msgid "T_emplate:"
+msgstr "_Šablon:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:3
+msgid "document"
+msgstr "dokument"
+
+#: ../data/ui/new_document_template_dialog.ui.h:4
+msgid ".tex"
+msgstr ".tex"
+
+#: ../data/ui/new_document_template_dialog.ui.h:5
+msgid "Di_rectory:"
+msgstr "Di_rektorijum:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:6
+#: ../data/ui/save_as_template_dialog.ui.h:2
+msgid "_Name:"
+msgstr "_Naziv:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:7
+msgid "_Babel Package:"
+msgstr "_Babelov paket:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:8
+msgid "_Input Encoding:"
+msgstr "_Ulazno kodiranje:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:9
+msgid "<b>Language Customization</b>"
+msgstr "<b>Prilagođavanje jezika</b>"
+
+#: ../data/ui/new_document_template_dialog.ui.h:10
+msgid "_Landscape"
+msgstr "_Pejzaž"
+
+#: ../data/ui/new_document_template_dialog.ui.h:11
+msgid "_Paper:"
+msgstr "_Papir:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:12
+msgid "De_fault"
+msgstr "_Uobičajeno"
+
+#: ../data/ui/new_document_template_dialog.ui.h:13
+msgid "U_ser Defined:"
+msgstr "_Korisnik je odredio:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:14
+msgid "pt"
+msgstr "tačaka"
+
+#: ../data/ui/new_document_template_dialog.ui.h:15
+msgid "Base Font Size:"
+msgstr "Veličina osnovnog pisma:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:16
+msgid "Document _Class:"
+msgstr "Razred _dokumenta:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:17
+msgid "<b>Style and Layout</b>"
+msgstr "<b>Stil i raspored</b>"
+
+#: ../data/ui/new_document_template_dialog.ui.h:18
+msgid "Include PDF _Metadata"
+msgstr "Uključi PDF _metapodatke"
+
+#: ../data/ui/new_document_template_dialog.ui.h:19
+msgid "Date:"
+msgstr "Datum:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:20
+msgid "To_day"
+msgstr "_Danas"
+
+#: ../data/ui/new_document_template_dialog.ui.h:21
+msgid "C_ustom:"
+msgstr "_Proizvoljno:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:22
+msgid "_Author:"
+msgstr "_Autor:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:23
+msgid "_Title:"
+msgstr "_Naziv:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:24
+msgid "<b>Meta Information</b>"
+msgstr "<b>Meta podaci</b>"
+
+#: ../data/ui/new_document_template_dialog.ui.h:25
+msgid "Default F_ont Family:"
+msgstr "Skup osnovnog _pisma:"
+
+#: ../data/ui/save_as_template_dialog.ui.h:1
+msgid "Save As Template"
+msgstr "Sačuvaj kao šablon"
+
+#: ../data/ui/save_as_template_dialog.ui.h:3
+msgid "Please specify a name for the new template."
+msgstr "Navedite naziv za novi šablon."
+
+#: ../data/ui/save_as_template_dialog.ui.h:4
+msgid "label"
+msgstr "natpis"
+
+#: ../data/ui/use_bibliography_dialog.ui.h:1
+msgid "Use Bibliography"
+msgstr "Koristi bibliografiju"
+
+#: ../data/ui/use_bibliography_dialog.ui.h:2
+msgid "Bibliography _File:"
+msgstr "Datoteka _bibliografije:"
+
+#: ../data/ui/use_bibliography_dialog.ui.h:3
+msgid "_Style:"
+msgstr "_Stil:"
+
+#: ../data/ui/use_bibliography_dialog.ui.h:4
+msgid "Style Preview:"
+msgstr "Pregled stila:"
+
+#: ../data/ui/use_bibliography_dialog.ui.h:5
+msgid "Refresh Style Preview"
+msgstr "Osveži pregled stila"
+
+#: ../latex.plugin.desktop.in.in.h:1
+msgid "LaTeX Plugin"
+msgstr "Priključak za LaTeKs"
+
+#: ../latex.plugin.desktop.in.in.h:2
+msgid ""
+"A plugin that assists you in handling LaTeX documents and BibTeX "
+"bibliographies"
+msgstr ""
+"Priključak koji će vam pomoći u radu sa LaTeKs dokumentima BibTeKs "
+"bibliografijama"
