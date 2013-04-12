@@ -1,21 +1,24 @@
 # i Brazilian portuguese translation of gedit-latex.
-# Copyright (C) 2011 the gedit-latex'S COPYRIGHT HOLDER
+# Copyright (C) 2013 the gedit-latex'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the gedit-latex package.
 # Bruno Gurgel <bruno.gurgel@gmail.com>, 2011.
+# Enrico Nicoletto <liverig@gmail.com>, 2013.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gedit-latex\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gedit&keywords=I18N+L10N&component=Plugins\n"
-"POT-Creation-Date: 2012-02-14 18:29+0000\n"
-"PO-Revision-Date: 2011-07-04 18:56-0300\n"
-"Last-Translator: Bruno Gurgel <bruno.gurgel@gmail.com>\n"
+"POT-Creation-Date: 2013-02-17 15:35+0000\n"
+"PO-Revision-Date: 2013-04-09 23:45-0300\n"
+"Last-Translator: Enrico Nicoletto <liverig@gmail.com>\n"
 "Language-Team: Brazillian Portuguese <gnome-pt_br-list@gnome.org>\n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 1.5.4\n"
 
 #: ../latex.plugin.desktop.in.in.h:1
 msgid "LaTeX Plugin"
@@ -148,55 +151,57 @@ msgstr "Conectar o rascunho no editor"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:3
 msgid "Show Labels in Outline"
-msgstr "Exibir rótulo no rascunho"
+msgstr "Mostrar rótulos no rascunho"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:4
 msgid "Show Tables in Outline"
-msgstr "Exibir tabelas no rascunho"
+msgstr "Mostrar tabelas no rascunho"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:5
 msgid "Show Graphics in Outline"
-msgstr "Exibir gráficos no rascunho"
+msgstr "Mostrar gráficos no rascunho"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:6
 msgid "Show Warnings in Issues"
-msgstr "Exibir avisod de problemas"
+msgstr "Mostrar avisos de problemas"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:7
 msgid "Show Tasks in Issues"
-msgstr "Exibir problemas de tarefas"
+msgstr "Mostrar problemas de tarefas"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:8
 #: ../data/ui/configure.ui.h:6
 msgid "Hide Box Warnings"
-msgstr "Esconder caixas de avisos"
+msgstr "Ocultar caixas de avisos"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:9
 msgid ""
 "Show LaTeX Toolbar below (normal), combined with the main toolbar, or "
 "disabled"
 msgstr ""
+"Mostra a barra de ferramentas LaTeX abaixo (normal), combinada com a barra "
+"de ferramentas principal ou desabilitada."
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:10
 msgid "Expanded Symbol Groups"
-msgstr ""
+msgstr "Grupos de símbolos expandidos"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:11
 msgid "LaTeX Extensions"
 msgstr "Extensões LaTeX"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:12
-#| msgid "LaTeX Extensions"
 msgid "Graphics File Extensions"
 msgstr "Extensões de arquivo de gráficos"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:13
 msgid "Paths Relative to .tex File to Look for Graphics"
-msgstr ""
+msgstr "Caminhos relacionados a arquivos .tex a pesquisar por gráficos"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:14
 msgid "Extra LaTeX commands used to mark issues, such as \\fxnote{foo}"
 msgstr ""
+"Comandos LaTeX adicionais usados para marcar problemas, como em \\fxnote{foo}"
 
 #: ../data/ui/build_image_dialog.ui.h:1
 msgid "Render to Image"
@@ -244,7 +249,7 @@ msgstr "Renderizar página(s) inteira(s)"
 
 #: ../data/ui/build_image_dialog.ui.h:12
 msgid "Attempt to render tight bounding box"
-msgstr ""
+msgstr "Tentar renderizar caixa delimitadora firme"
 
 #: ../data/ui/choose_master_dialog.ui.h:1
 msgid "Select Master Document"
@@ -268,7 +273,7 @@ msgstr "<b><i>borracha</i> Pós-processador</b>"
 
 #: ../data/ui/configure.ui.h:4
 msgid "Maximum Parsed File Size:"
-msgstr "Tamanho máximo de arquivos analisados"
+msgstr "Tamanho máximo de arquivos analisados:"
 
 #: ../data/ui/configure.ui.h:5
 msgid "KB"
@@ -295,6 +300,8 @@ msgid ""
 "Valid placeholders are <tt>$filename</tt>, <tt>$shortname</tt>, <tt>"
 "$directory</tt>"
 msgstr ""
+"Os marcadores de posição válidos são <tt>$filename</tt>, <tt>$shortname</"
+"tt>, <tt>$directory</tt>"
 
 #: ../data/ui/configure_tool.ui.h:4
 msgid "<b>_Jobs</b>"
@@ -346,8 +353,6 @@ msgstr "_Tipo:"
 
 #: ../data/ui/insert_graphics_dialog.ui.h:1 ../latex/latex/actions.py:356
 #: ../latex/latex/actions.py:358
-#, fuzzy
-#| msgid "Insert graphics"
 msgid "Insert Graphics"
 msgstr "Inserir gráficos"
 
@@ -382,9 +387,10 @@ msgstr "% _de"
 msgid "_Rotate:"
 msgstr "_Rodar:"
 
+# CCW = counterclockwise = sentido anti-horário
 #: ../data/ui/insert_graphics_dialog.ui.h:10
 msgid "° CCW"
-msgstr ""
+msgstr "° anti-horário"
 
 #: ../data/ui/insert_graphics_dialog.ui.h:11
 msgid "Flip _Horizontally"
@@ -417,7 +423,7 @@ msgstr "Carregar do _arquivo:"
 
 #: ../data/ui/insert_listing_dialog.ui.h:3
 msgid "Programming _Language:"
-msgstr "Linguagem de _programação"
+msgstr "Linguagem de _programação:"
 
 #: ../data/ui/insert_listing_dialog.ui.h:4
 msgid "_Dialect:"
@@ -486,7 +492,7 @@ msgstr "_Pacote Babel:"
 
 #: ../data/ui/new_document_template_dialog.ui.h:8
 msgid "_Input Encoding:"
-msgstr "_Codificação de entrada"
+msgstr "_Codificação de entrada:"
 
 #: ../data/ui/new_document_template_dialog.ui.h:9
 msgid "<b>Language Customization</b>"
@@ -529,30 +535,35 @@ msgid "Include PDF _Metadata"
 msgstr "Incluir _metadados de PDF"
 
 #: ../data/ui/new_document_template_dialog.ui.h:19
+msgid "This adds metadata to the document. Requires package <tt>ifpdf</tt>."
+msgstr ""
+"Isto adiciona metadados ao documento. É preciso o pacote <tt>ifpdf</tt>."
+
+#: ../data/ui/new_document_template_dialog.ui.h:20
 msgid "Date:"
 msgstr "Data:"
 
-#: ../data/ui/new_document_template_dialog.ui.h:20
+#: ../data/ui/new_document_template_dialog.ui.h:21
 msgid "To_day"
 msgstr "H_oje"
 
-#: ../data/ui/new_document_template_dialog.ui.h:21
-msgid "C_ustom:"
-msgstr "P_ersonalizado"
-
 #: ../data/ui/new_document_template_dialog.ui.h:22
-msgid "_Author:"
-msgstr "_Autor"
+msgid "C_ustom:"
+msgstr "P_ersonalizado:"
 
 #: ../data/ui/new_document_template_dialog.ui.h:23
+msgid "_Author:"
+msgstr "_Autor:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:24
 msgid "_Title:"
 msgstr "_Título:"
 
-#: ../data/ui/new_document_template_dialog.ui.h:24
+#: ../data/ui/new_document_template_dialog.ui.h:25
 msgid "<b>Meta Information</b>"
 msgstr "<b>Meta informação</b>"
 
-#: ../data/ui/new_document_template_dialog.ui.h:25
+#: ../data/ui/new_document_template_dialog.ui.h:26
 msgid "Default F_ont Family:"
 msgstr "Familia de _fonte padrão:"
 
@@ -562,7 +573,7 @@ msgstr "Usar bibliografia"
 
 #: ../data/ui/use_bibliography_dialog.ui.h:2
 msgid "Bibliography _File:"
-msgstr "Arquivo de bibliogra_fia"
+msgstr "Arquivo de bibliogra_fia:"
 
 #: ../data/ui/use_bibliography_dialog.ui.h:3
 msgid "_Style:"
@@ -576,413 +587,371 @@ msgstr "Prévisulizar estilo:"
 msgid "Refresh Style Preview"
 msgstr "Atualizar prévisulização de estilo"
 
-#: ../latex/bibtex/actions.py:35
-#| msgid "<b>BibTeX</b>"
+#: ../latex/bibtex/actions.py:32
 msgid "BibTeX"
 msgstr "BibTeX"
 
-#: ../latex/bibtex/actions.py:46
+#: ../latex/bibtex/actions.py:43
 msgid "New BibTeX Entry..."
-msgstr ""
+msgstr "Nova entrada BibTeX..."
 
-#: ../latex/bibtex/actions.py:49
-#| msgid "Create Bibliography Entry"
+#: ../latex/bibtex/actions.py:46
 msgid "Create a new BibTeX entry"
 msgstr "Criar uma nova entrada BibTex"
 
 #. add grouping controls to toolbar
-#: ../latex/bibtex/views.py:58
+#: ../latex/bibtex/views.py:56
 msgid "No Grouping"
-msgstr ""
+msgstr "Sem agrupamento"
+
+#: ../latex/bibtex/views.py:57
+msgid "Group by Type"
+msgstr "Agrupar por tipo"
+
+#: ../latex/bibtex/views.py:58
+msgid "Group by Author"
+msgstr "Agrupar por autor"
 
 #: ../latex/bibtex/views.py:59
-msgid "Group by Type"
-msgstr ""
-
-#: ../latex/bibtex/views.py:60
-msgid "Group by Author"
-msgstr ""
-
-#: ../latex/bibtex/views.py:61
 msgid "Group by Year"
-msgstr ""
+msgstr "Agrupar por ano"
 
 #. group by year
-#: ../latex/bibtex/views.py:199
+#: ../latex/bibtex/views.py:197
 msgid "<i>n/a</i>"
-msgstr ""
+msgstr "<i>n/d</i>"
 
-#: ../latex/bibtex/views.py:242
-#, fuzzy
-#| msgid "Author"
+#: ../latex/bibtex/views.py:240
 msgid "Unknown Author"
-msgstr "Autor"
+msgstr "Autor desconhecido"
 
 #: ../latex/latex/actions.py:63
 msgid "LaTeX"
-msgstr ""
+msgstr "LaTeX"
 
 #: ../latex/latex/actions.py:73
-#, fuzzy
-#| msgid "New LaTeX Document"
 msgid "New LaTeX Document..."
-msgstr "Novo documento LaTeX"
+msgstr "Novo documento LaTeX..."
 
 #: ../latex/latex/actions.py:76
-#, fuzzy
-#| msgid "New LaTeX Document"
 msgid "Create a new LaTeX document"
-msgstr "Novo documento LaTeX"
+msgstr "Cria um novo documento LaTeX"
 
 #: ../latex/latex/actions.py:95
-#, fuzzy
-#| msgid "Select Master Document"
 msgid "Choose Master Document..."
-msgstr "Selecionar documento mestre"
+msgstr "Escolher documento mestre..."
 
 #: ../latex/latex/actions.py:107
 msgid "Close Nearest Environment"
-msgstr ""
+msgstr "Fechar ambiente mais próximo"
 
 #: ../latex/latex/actions.py:109
 msgid "Close the nearest TeX environment at left of the cursor"
-msgstr ""
+msgstr "Fecha o ambiente TeX mais próximo à esquerda do cursor"
 
 #: ../latex/latex/actions.py:157
-#, fuzzy
-#| msgid "Use Bibliography"
 msgid "Use Bibliography..."
-msgstr "Usar bibliografia"
+msgstr "Usar bibliografia..."
 
 #: ../latex/latex/actions.py:179 ../latex/latex/actions.py:181
 #: ../latex/latex/actions.py:189 ../latex/latex/actions.py:190
-#, fuzzy
-#| msgid "Default F_ont Family:"
 msgid "Font Family"
-msgstr "Familia de _fonte padrão:"
+msgstr "Familia da fonte"
 
 #: ../latex/latex/actions.py:194 ../latex/latex/actions.py:195
 msgid "Bold"
-msgstr ""
+msgstr "Negrito"
 
 #: ../latex/latex/actions.py:201 ../latex/latex/actions.py:202
 msgid "Italic"
-msgstr ""
+msgstr "Itálico"
 
 #: ../latex/latex/actions.py:208 ../latex/latex/actions.py:209
 msgid "Emphasize"
-msgstr ""
+msgstr "Realce"
 
 #: ../latex/latex/actions.py:215 ../latex/latex/actions.py:216
 msgid "Underline"
-msgstr ""
+msgstr "Sublinhado"
 
+# Definição da Wikipedia, são caracteres maiúsculos mas com tamanho de caracteres minúsculos.
 #: ../latex/latex/actions.py:222 ../latex/latex/actions.py:223
 msgid "Small Capitals"
-msgstr ""
+msgstr "Versalete"
 
 #: ../latex/latex/actions.py:229 ../latex/latex/actions.py:230
 msgid "Roman"
-msgstr ""
+msgstr "Roman"
 
 #: ../latex/latex/actions.py:236 ../latex/latex/actions.py:237
 msgid "Sans Serif"
-msgstr ""
+msgstr "Sans Serif"
 
 #: ../latex/latex/actions.py:243 ../latex/latex/actions.py:244
 msgid "Typewriter"
-msgstr ""
+msgstr "Máquina de escrever"
 
 #: ../latex/latex/actions.py:250 ../latex/latex/actions.py:251
 msgid "Blackboard Bold"
-msgstr ""
+msgstr "Blackboard Bold"
 
 #: ../latex/latex/actions.py:258 ../latex/latex/actions.py:259
-#, fuzzy
-#| msgid "Use Bibliography"
 msgid "Caligraphy"
-msgstr "Usar bibliografia"
+msgstr "Caligrafía"
 
 #: ../latex/latex/actions.py:265 ../latex/latex/actions.py:266
 msgid "Fraktur"
-msgstr ""
+msgstr "Gótica"
 
 #: ../latex/latex/actions.py:273 ../latex/latex/actions.py:274
 #: ../latex/latex/actions.py:286 ../latex/latex/actions.py:287
 msgid "List"
-msgstr ""
+msgstr "Lista"
 
 #: ../latex/latex/actions.py:278 ../latex/latex/actions.py:279
 msgid "Itemize"
-msgstr ""
+msgstr "Discriminar"
 
 #: ../latex/latex/actions.py:291 ../latex/latex/actions.py:292
-#, fuzzy
-#| msgid "_Generated"
 msgid "Enumerate"
-msgstr "_Generado"
+msgstr "Enumerar"
 
 #: ../latex/latex/actions.py:298 ../latex/latex/actions.py:299
-#, fuzzy
-#| msgid "<b>_Description</b>"
 msgid "Description"
-msgstr "<b>_Descrição</b>"
+msgstr "Descrição"
 
 #: ../latex/latex/actions.py:304 ../latex/latex/actions.py:305
 #: ../latex/latex/actions.py:330 ../latex/latex/actions.py:331
 msgid "Structure"
-msgstr ""
+msgstr "Estrutura"
 
 #: ../latex/latex/actions.py:308 ../latex/latex/actions.py:309
 msgid "Part"
-msgstr ""
+msgstr "Parte"
 
 #: ../latex/latex/actions.py:322 ../latex/latex/actions.py:323
-#, fuzzy
-#| msgid "Location"
 msgid "Section"
-msgstr "Localização"
+msgstr "Seção"
 
 #: ../latex/latex/actions.py:335 ../latex/latex/actions.py:336
 msgid "Subsection"
-msgstr ""
+msgstr "Subseção"
 
 #: ../latex/latex/actions.py:342 ../latex/latex/actions.py:343
 msgid "Paragraph"
-msgstr ""
+msgstr "Parágrafo"
 
 #: ../latex/latex/actions.py:349 ../latex/latex/actions.py:350
 msgid "Subparagraph"
-msgstr ""
+msgstr "Subparágrafo"
 
 #: ../latex/latex/actions.py:405 ../latex/latex/actions.py:407
 #: ../latex/latex/actions.py:415 ../latex/latex/actions.py:416
 msgid "Build"
-msgstr ""
+msgstr "Construir"
 
 #: ../latex/latex/actions.py:420
 msgid "Build Image"
-msgstr ""
+msgstr "Construir imagem"
 
 #: ../latex/latex/actions.py:422
 msgid "Build an image from the LaTeX document"
-msgstr ""
+msgstr "Constrói uma imagem a partir do documento LaTeX"
 
 #: ../latex/latex/actions.py:440 ../latex/latex/actions.py:441
 #: ../latex/latex/actions.py:460 ../latex/latex/actions.py:461
 msgid "Justify"
-msgstr ""
+msgstr "Justificar"
 
 #: ../latex/latex/actions.py:445 ../latex/latex/actions.py:446
 msgid "Justify Left"
-msgstr ""
+msgstr "Justificar à esquerda"
 
 #: ../latex/latex/actions.py:452 ../latex/latex/actions.py:453
 msgid "Justify Center"
-msgstr ""
+msgstr "Justificar centralizado"
 
 #: ../latex/latex/actions.py:465 ../latex/latex/actions.py:466
 msgid "Justify Right"
-msgstr ""
+msgstr "Justificar à direita"
 
 #: ../latex/latex/actions.py:472 ../latex/latex/actions.py:473
 #: ../latex/latex/actions.py:485 ../latex/latex/actions.py:486
-#, fuzzy
-#| msgid "Month"
 msgid "Math"
-msgstr "Mês"
+msgstr "Matemática"
 
 #: ../latex/latex/actions.py:477 ../latex/latex/actions.py:478
 msgid "Mathematical Environment"
-msgstr ""
+msgstr "Ambiente matemático"
 
 #: ../latex/latex/actions.py:490 ../latex/latex/actions.py:491
 msgid "Centered Formula"
-msgstr ""
+msgstr "Fórmula centralizada"
 
 #: ../latex/latex/actions.py:497 ../latex/latex/actions.py:498
 msgid "Numbered Equation"
-msgstr ""
+msgstr "Equação numerada"
 
 #: ../latex/latex/actions.py:506 ../latex/latex/actions.py:507
 msgid "Array of Equations"
-msgstr ""
+msgstr "Conjunto de equações"
 
 #: ../latex/latex/actions.py:516 ../latex/latex/actions.py:517
 msgid "Numbered Array of Equations"
-msgstr ""
+msgstr "Conjunto numerado de equações"
 
 #: ../latex/latex/environment.py:141
 msgid "Book of abstracts"
-msgstr ""
+msgstr "Livro de resumos"
 
 #: ../latex/latex/environment.py:142
 msgid "Article"
-msgstr ""
+msgstr "Artigo"
 
 #: ../latex/latex/environment.py:143
 msgid "Article (AMS)"
-msgstr ""
+msgstr "Artigo (AMS)"
 
 #: ../latex/latex/environment.py:144
 msgid "Book (AMS)"
-msgstr ""
+msgstr "Livro (AMS)"
 
 #: ../latex/latex/environment.py:145
 msgid "AMS Documentation"
-msgstr ""
+msgstr "Documentação da AMS"
 
 #: ../latex/latex/environment.py:146
 msgid "Proceedings (AMS)"
-msgstr ""
+msgstr "Atas (AMS)"
 
 #: ../latex/latex/environment.py:147
 msgid "Report"
-msgstr ""
+msgstr "Relatório"
 
 #: ../latex/latex/environment.py:148
 msgid "Beamer slides"
-msgstr ""
+msgstr "Slides de projetor"
 
 #: ../latex/latex/environment.py:149
 msgid "Belgian letter"
-msgstr ""
+msgstr "Letra belga"
 
 #: ../latex/latex/environment.py:150
 msgid "Book"
-msgstr ""
+msgstr "Livro"
 
 #: ../latex/latex/environment.py:151
 msgid "Flashcard"
-msgstr ""
+msgstr "Flashcard"
 
 #: ../latex/latex/environment.py:152
 msgid "Proceedings (IAG)"
-msgstr ""
+msgstr "Atas (IAG)"
 
 #: ../latex/latex/environment.py:153
 msgid "Letter"
-msgstr ""
+msgstr "Carta"
 
 #: ../latex/latex/environment.py:154
-#, fuzzy
-#| msgid "LaTeX Extensions"
 msgid "LaTeX News"
-msgstr "Extensões LaTeX"
+msgstr "Notícias do LaTeX"
 
 #: ../latex/latex/environment.py:155
-#, fuzzy
-#| msgid "New LaTeX Document"
 msgid "LaTeX Documentation"
-msgstr "Novo documento LaTeX"
+msgstr "Documentação do LaTeX"
 
 #: ../latex/latex/environment.py:156
-#, fuzzy
-#| msgid "LaTeX Plugin"
 msgid "LaTeX Guide"
-msgstr "Plugin LaTeX"
+msgstr "Guia do LaTeX"
 
 #: ../latex/latex/environment.py:157
 msgid "Proceedings"
-msgstr ""
+msgstr "Atas"
 
 #: ../latex/latex/environment.py:158
 msgid "Article (KOMA-Script)"
-msgstr ""
+msgstr "Artigo (KOMA-Script)"
 
 #: ../latex/latex/environment.py:159 ../latex/latex/environment.py:163
 msgid "Report (KOMA-Script)"
-msgstr ""
+msgstr "Relatório (KOMA-Script)"
 
 #: ../latex/latex/environment.py:160
 msgid "Book (KOMA-Script)"
-msgstr ""
+msgstr "Livro (KOMA-Script)"
 
 #: ../latex/latex/environment.py:161
 msgid "Letter (KOMA-Script)"
-msgstr ""
+msgstr "Carta (KOMA-Script)"
 
 #: ../latex/latex/environment.py:162
 msgid "Letter 2 (KOMA-Script)"
-msgstr ""
+msgstr "Carta 2 (KOMA-Script)"
 
 #: ../latex/latex/environment.py:164
-#, fuzzy
-#| msgid "Series"
 msgid "Slides"
-msgstr "Série"
+msgstr "Slides"
 
-#: ../latex/latex/views.py:114
+#: ../latex/latex/views.py:107
 msgid "Symbols"
-msgstr ""
+msgstr "Símbolos"
 
-#: ../latex/latex/views.py:202
-#, fuzzy
-#| msgid "Show Graphics in Outline"
+#: ../latex/latex/views.py:190
 msgid "Show graphics"
-msgstr "Exibir gráficos no rascunho"
+msgstr "Mostrar gráficos"
 
-#: ../latex/latex/views.py:207
-#, fuzzy
-#| msgid "Show Tables in Outline"
+#: ../latex/latex/views.py:195
 msgid "Show tables"
-msgstr "Exibir tabelas no rascunho"
+msgstr "Mostrar tabelas"
 
 #: ../latex/outline.py:58
-#, fuzzy
-#| msgid "Editor"
 msgid "Follow Editor"
-msgstr "Editor"
+msgstr "Seguir editor"
 
 #: ../latex/outline.py:63
 msgid "Expand All"
-msgstr ""
+msgstr "Expandir todos"
 
 #: ../latex/outline.py:67
 msgid "Collapse All"
-msgstr ""
+msgstr "Recolher todos"
 
-#: ../latex/outline.py:115
+#: ../latex/outline.py:114
 msgid "Outline"
-msgstr ""
+msgstr "Rascunho"
 
 #: ../latex/tools/views.py:62
 msgid "Job"
-msgstr ""
+msgstr "Trabalho"
 
 #: ../latex/tools/views.py:73 ../latex/views.py:80
-#, fuzzy
-#| msgid "_File:"
 msgid "File"
-msgstr "_Arquivo:"
+msgstr "Arquivo"
 
 #: ../latex/tools/views.py:74
 msgid "Line"
-msgstr ""
+msgstr "Linha"
 
 #: ../latex/tools/views.py:87
 msgid "Abort Job"
-msgstr ""
+msgstr "Anular trabalho"
 
 #: ../latex/tools/views.py:92
 msgid "Show Detailed Output"
-msgstr ""
+msgstr "Mostrar saída detalhada"
 
 #: ../latex/views.py:67
 msgid "Message"
-msgstr ""
+msgstr "Mensagem"
 
 #: ../latex/views.py:99
-#, fuzzy
-#| msgid "Hide Box Warnings"
 msgid "Show/Hide Warnings"
-msgstr "Esconder caixas de avisos"
+msgstr "Mostrar/ocultar avisos"
 
 #: ../latex/views.py:107
 msgid "Show/Hide Tasks"
-msgstr ""
+msgstr "Mostrar/esconder tarefas"
 
 #: ../latex/views.py:139
 msgid "Issues"
-msgstr ""
-
+msgstr "Problemas"
