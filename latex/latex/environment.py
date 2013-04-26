@@ -323,7 +323,7 @@ class Environment(object):
             # no files found
             self._log.error("No %s-files found in %s%s" % (extension, search_path, relative))
 
-        for name, label in labels.iteritems():
+        for name, label in labels.items():
             found = False
             for resource in resources:
                 if resource.name == name:

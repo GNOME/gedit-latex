@@ -152,7 +152,7 @@ class LanguageModel(object):
         """
         Find a command by a prefix. A prefix like 'be' would return the command '\begin'
         """
-        return [command for name, command in self.commands.iteritems() if name.startswith(prefix)]
+        return [command for name, command in self.commands.items() if name.startswith(prefix)]
 
     def register_placeholder(self, placeholder):
         """
@@ -303,7 +303,7 @@ class LanguageModelFactory(object):
                 parser = LanguageModelParser()
                 parser.parse(xml_filename, self.language_model)
 
-                pickle.dump(self.language_model, open(pkl_filename, 'w'))
+                pickle.dump(self.language_model, open(pkl_filename, 'wb'))
                 LOG.info("Pickling language model")
 
             self._ready = True

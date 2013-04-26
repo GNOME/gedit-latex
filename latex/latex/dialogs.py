@@ -376,7 +376,7 @@ class NewDocumentDialog(GladeInterface):
 
             try:
                 self._proxy_babel.restore(self._LOCALE_MAPPINGS[environment.language_code])
-            except Exception, e:
+            except Exception as e:
                 self._log.error("Failed to guess babel package: %s" % e)
                 self._proxy_babel.restore("english")
 

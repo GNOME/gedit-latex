@@ -26,7 +26,7 @@ from ..file import File
 from ..tools import Tool, Job, ToolRunner
 from ..tools.postprocess import RubberPostProcessor, GenericPostProcessor
 from ..issues import MockStructuredIssueHandler
-from environment import Environment
+from .environment import Environment
 
 from gi.repository import GdkPixbuf
 

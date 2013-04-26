@@ -139,7 +139,7 @@ class ToolAction(Action):
 
 
 from os import chdir
-from util import Process
+from .util import Process
 from string import Template
 
 
@@ -182,7 +182,7 @@ class ToolRunner(Process):
 
     def __proceed(self):
         try:
-            self._job = self._job_iter.next()
+            self._job = next(self._job_iter)
 
             command_template = Template(self._job.command_template)
             command = command_template.safe_substitute({"filename" : self._file.path,

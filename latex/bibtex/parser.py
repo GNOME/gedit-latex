@@ -65,7 +65,7 @@ class Token(object):
     A BibTeX token
     """
 
-    AT, TEXT, COMMA, EQUALS, QUOTE, HASH, CURLY_OPEN, CURLY_CLOSE, ROUND_OPEN, ROUND_CLOSE = range(10)
+    AT, TEXT, COMMA, EQUALS, QUOTE, HASH, CURLY_OPEN, CURLY_CLOSE, ROUND_OPEN, ROUND_CLOSE = list(range(10))
 
     def __init__(self, type, offset, value):
         self.type = type
@@ -98,7 +98,7 @@ class BibTeXLexer(object):
     def __iter__(self):
         return self
 
-    def next(self):
+    def __next__(self):
         """
         Return the next token
         """
@@ -141,7 +141,7 @@ class BibTeXParser(object):
 
     _OUTSIDE, _TYPE, _AFTER_TYPE, _AFTER_STRING_TYPE, _KEY, _STRING_KEY, _AFTER_KEY, _AFTER_STRING_KEY, \
             _STRING_VALUE, _QUOTED_STRING_VALUE, _FIELD_NAME, _AFTER_FIELD_NAME, _FIELD_VALUE, _EMBRACED_FIELD_VALUE, \
-            _QUOTED_FIELD_VALUE = range(15)
+            _QUOTED_FIELD_VALUE = list(range(15))
 
     def __init__(self, quiet=False):
         self._quiet = quiet

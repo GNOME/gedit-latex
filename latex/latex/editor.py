@@ -33,13 +33,13 @@ from ..editor import Editor
 from ..file import File
 from ..issues import Issue, IIssueHandler
 
-from parser import LaTeXParser
-from expander import LaTeXReferenceExpander
-from outline import LaTeXOutlineGenerator
-from validator import LaTeXValidator
-from completion import LaTeXCompletionHandler
+from .parser import LaTeXParser
+from .expander import LaTeXReferenceExpander
+from .outline import LaTeXOutlineGenerator
+from .validator import LaTeXValidator
+from .completion import LaTeXCompletionHandler
 
-from dialogs import ChooseMasterDialog
+from .dialogs import ChooseMasterDialog
 
 from . import LaTeXSource
 from ..preferences import Preferences, DocumentPreferences
@@ -137,7 +137,7 @@ class LaTeXEditor(Editor, IIssueHandler):
         """
         Insert source at a certain position in the LaTeX document:
 
-         * POSITION_PACKAGES: after the last \usepackage statement
+         * POSITION_PACKAGES: after the last usepackage statement
          * POSITION_BIBLIOGRAPHY: before \end{document}
 
         @param source: a LaTeXSource object

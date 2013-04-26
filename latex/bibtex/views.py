@@ -31,7 +31,7 @@ from logging import getLogger
 from ..outline import OutlineOffsetMap, BaseOutlineView
 from ..resources import Resources
 from ..preferences import Preferences
-from parser import Entry
+from .parser import Entry
 from ..gldefs import _
 
 
@@ -170,7 +170,7 @@ class OutlineConverter(object):
                     groups[entry.type] = [entry]
 
             # sort by type
-            entryTypes = groups.keys()
+            entryTypes = list(groups.keys())
             entryTypes.sort()
 
             # build tree
@@ -213,7 +213,7 @@ class OutlineConverter(object):
                     groups[year] = [entry]
 
             # sort by year
-            years = groups.keys()
+            years = list(groups.keys())
             years.sort()
 
             # build tree
@@ -260,7 +260,7 @@ class OutlineConverter(object):
                         groups[author] = [entry]
 
             # sort
-            authors = groups.keys()
+            authors = list(groups.keys())
             authors.sort()
 
             # build tree

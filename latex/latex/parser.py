@@ -35,7 +35,7 @@ class Node(list):
     This is the base class of the LaTeX object model
     """
 
-    DOCUMENT, COMMAND, MANDATORY_ARGUMENT, OPTIONAL_ARGUMENT, TEXT, EMBRACED = range(6)
+    DOCUMENT, COMMAND, MANDATORY_ARGUMENT, OPTIONAL_ARGUMENT, TEXT, EMBRACED = list(range(6))
 
     def __init__(self, type, value=None):
         self.type = type
@@ -265,7 +265,7 @@ class Document(Node):
     @property
     def end_of_packages(self):
         """
-        Return the offset right after the last \usepackage
+        Return the offset right after the last usepackage
 
         used by LaTeXEditor.insert_at_position
         """
@@ -311,7 +311,7 @@ class FatalParseException(Exception):
     """
 
 
-from lexer import Lexer, Token
+from .lexer import Lexer, Token
 
 
 class LaTeXParser(object):

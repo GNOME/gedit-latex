@@ -24,7 +24,7 @@ latex.actions
 
 from ..action import Action
 from ..gldefs import _
-from dialogs import InsertBibTeXEntryDialog
+from .dialogs import InsertBibTeXEntryDialog
 
 
 class BibTeXMenuAction(Action):

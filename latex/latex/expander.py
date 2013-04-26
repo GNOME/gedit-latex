@@ -25,8 +25,8 @@ latex.expander
 from logging import getLogger
 
 from ..file import File
-from cache import LaTeXDocumentCache
-from parser import Node
+from .cache import LaTeXDocumentCache
+from .parser import Node
 
 
 class LaTeXReferenceExpander(object):

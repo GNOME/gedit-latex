@@ -30,8 +30,8 @@ from ..preferences import Preferences
 from ..resources import Resources
 from ..completion import ICompletionHandler, Proposal
 from ..issues import MockIssueHandler
-from model import BibTeXModel
-from parser import BibTeXParser
+from .model import BibTeXModel
+from .parser import BibTeXParser
 
 LOG = logging.getLogger(__name__)
 

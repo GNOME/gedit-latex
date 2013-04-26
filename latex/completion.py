@@ -277,7 +277,7 @@ class ProposalPopup(Gtk.Window):
             # activate
             self._details_popup.activate(proposal.details)
 
-        except Exception, e:
+        except Exception as e:
             self._log.error(e)
 
     def _move_to_cursor(self, text_view):
@@ -431,7 +431,7 @@ class CompletionDistributor(object):
         self._trigger_keys = []
         for handler in self._handlers:
             for key in handler.trigger_keys:
-                if key in self._SPECIAL_KEYS.keys():
+                if key in list(self._SPECIAL_KEYS.keys()):
                     self._trigger_keys.append(self._SPECIAL_KEYS[key])
                 else:
                     self._trigger_keys.append(key)
@@ -488,7 +488,7 @@ class CompletionDistributor(object):
                 self._state = self._STATE_IDLE
                 self._complete()
                 return True
-            else:
+            elif key != "Control_L" and key != "Control_R":
                 self._state = self._STATE_IDLE
 
         self._stop_timer()

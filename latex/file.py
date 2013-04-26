@@ -25,8 +25,8 @@ import logging
 import os.path
 
 import re
-import urllib
-import urlparse
+import urllib.request, urllib.parse, urllib.error
+import urllib.parse
 
 class File(object):
     """
@@ -64,10 +64,10 @@ class File(object):
         if uri is None:
             raise ValueError("URI must not be None")
 
-        self._uri = urlparse.urlparse(uri)
+        self._uri = urllib.parse.urlparse(uri)
         if len(self._uri.scheme) == 0:
             # prepend default scheme if missing
-            self._uri = urlparse.urlparse("%s%s" % (self._DEFAULT_SCHEME, uri))
+            self._uri = urllib.parse.urlparse("%s%s" % (self._DEFAULT_SCHEME, uri))
 
     def create(self, content=None):
         """
@@ -83,7 +83,7 @@ class File(object):
         """
         Returns '/home/user/image.jpg' for 'file:///home/user/image.jpg'
         """
-        return urllib.url2pathname(self._uri.path)
+        return urllib.request.url2pathname(self._uri.path)
 
     @property
     def extension(self):
@@ -151,7 +151,7 @@ class File(object):
             neighbors = [File(filename) for filename in filenames]
             return neighbors
 
-        except Exception, e:
+        except Exception as e:
             # as seen in Bug #2002630 the glob() call compiles a regex and so we must be prepared
             # for an exception from that because the shortname may contain regex characters
 
@@ -172,7 +172,7 @@ class File(object):
         try:
             filenames = glob("%s.*" % self.shortname)
             siblings = [File(filename) for filename in filenames]
-        except Exception, e:
+        except Exception as e:
             # as seen in Bug #2002630 the glob() call compiles a regex and so we must be prepared
             # for an exception from that because the shortname may contain regex characters
 
@@ -277,7 +277,7 @@ class Folder(File):
             files = [File(filename) for filename in filenames]
             return files
 
-        except Exception, e:
+        except Exception as e:
             # as seen in Bug #2002630 the glob() call compiles a regex and so we must be prepared
             # for an exception from that because the shortname may contain regex characters
 
@@ -337,15 +337,15 @@ def fixurl(url):
     url = url.strip()
     if not url:
         return ''
-    if not urlparse.urlsplit(url).scheme:
+    if not urllib.parse.urlsplit(url).scheme:
         ## We usually deal with local files here
         url = 'file://' + url
         ## url = 'http://' + url
 
     # turn it into Unicode
     try:
-        url = unicode(url, 'utf-8')
-    except Exception, exc:   # UnicodeDecodeError, exc:
+        url = str(url, 'utf-8')
+    except Exception as exc:   # UnicodeDecodeError, exc:
         ## It often happens that the url is already "python unicode" encoded
         if not str(exc) == "decoding Unicode is not supported":
             return ''  # bad UTF-8 chars in URL
@@ -354,7 +354,7 @@ def fixurl(url):
         ## so we can just continue (see http://www.red-mercury.com/blog/eclectic-tech/python-mystery-of-the-day/ )
 
     # parse the URL into its components
-    parsed = urlparse.urlsplit(url)
+    parsed = urllib.parse.urlsplit(url)
     scheme, netloc, path, query, fragment = parsed
 
     # ensure scheme is a letter followed by letters, digits, and '+-.' chars
@@ -376,16 +376,16 @@ def fixurl(url):
     # ensure path is valid and convert Unicode chars to %-encoded
     if not path:
         path = '/'  # eg: 'http://google.com' -> 'http://google.com/'
-    path = urllib.quote(urllib.unquote(path.encode('utf-8')), safe='/;')
+    path = urllib.parse.quote(urllib.parse.unquote(path.encode('utf-8')), safe='/;')
 
     # ensure query is valid
-    query = urllib.quote(urllib.unquote(query.encode('utf-8')), safe='=&?/')
+    query = urllib.parse.quote(urllib.parse.unquote(query.encode('utf-8')), safe='=&?/')
 
     # ensure fragment is valid
-    fragment = urllib.quote(urllib.unquote(fragment.encode('utf-8')))
+    fragment = urllib.parse.quote(urllib.parse.unquote(fragment.encode('utf-8')))
 
     # piece it all back together, truncating it to a maximum of 4KB
-    url = urlparse.urlunsplit((scheme, netloc, path, query, fragment))
+    url = urllib.parse.urlunsplit((scheme, netloc, path, query, fragment))
     return url[:4096]
 
 # ex:ts=4:et:

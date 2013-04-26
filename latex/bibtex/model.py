@@ -100,7 +100,7 @@ class BibTeXModel(object):
         List all entry types in sorted order
         """
         if self._types_list is None:
-            self._types_list = self._types.values()
+            self._types_list = list(self._types.values())
             self._types_list.sort()
         return self._types_list
 

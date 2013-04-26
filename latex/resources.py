@@ -26,7 +26,7 @@ resources
 import logging
 import os.path
 import errno
-from singleton import Singleton
+from .singleton import Singleton
 
 _log = logging.getLogger("resources")
 
@@ -41,7 +41,7 @@ class Resources(Singleton):
         # Make sure dir exists
         try:
             os.makedirs(userdir)
-        except OSError, e:
+        except OSError as e:
             if e.errno != errno.EEXIST:
                 raise
 

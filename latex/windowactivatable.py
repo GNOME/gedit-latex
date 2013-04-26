@@ -179,7 +179,7 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
             self._action_objects[clazz.__name__] = action
 
             for extension in action.extensions:
-                if extension in self._action_extensions.keys():
+                if extension in list(self._action_extensions.keys()):
                     self._action_extensions[extension].append(clazz.__name__)
                 else:
                     self._action_extensions[extension] = [clazz.__name__]
@@ -320,7 +320,7 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
 
         @param file: a File object
         """
-        for tab, tab_decorator in self._tab_decorators.iteritems():
+        for tab, tab_decorator in self._tab_decorators.items():
             if tab_decorator.file and tab_decorator.file == file:
                 self.window.set_active_tab(tab)
                 return
@@ -346,11 +346,11 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
             self._toolbar.hide()
 
         # disable all actions
-        for name in self._action_objects.iterkeys():
+        for name in self._action_objects.keys():
             self._action_group.get_action(name).set_visible(False)
 
         # disable all tool actions
-        for l in self._tool_action_extensions.values():
+        for l in list(self._tool_action_extensions.values()):
             for name in l:
                 self._tool_action_group.get_action(name).set_sensitive(False)
 
@@ -386,7 +386,7 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
             self._action_group.get_action(name).set_visible(False)
 
         # disable all tool actions
-        for l in self._tool_action_extensions.values():
+        for l in list(self._tool_action_extensions.values()):
             for name in l:
                 self._tool_action_group.get_action(name).set_sensitive(False)
 
@@ -428,7 +428,7 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
 
         if tab_decorator.editor:
             editor_views = self._window_context.editor_views[tab_decorator.editor]
-            for id, view in editor_views.iteritems():
+            for id, view in editor_views.items():
                 if isinstance(view, PanelView):
                     if view.get_orientation() == Gtk.Orientation.HORIZONTAL:
                         bottom_views.append(view)
@@ -514,7 +514,7 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
         """
         LOG.debug("active_tab_changed")
 
-        if tab in self._tab_decorators.keys():
+        if tab in list(self._tab_decorators.keys()):
             decorator = self._tab_decorators[tab]
         else:
             # (on Gedit startup 'tab-changed' comes before 'tab-added')

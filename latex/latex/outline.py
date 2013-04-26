@@ -24,13 +24,13 @@ latex.outline
 
 from logging import getLogger
 
-from parser import Node
+from .parser import Node
 from ..issues import Issue
 
 
 class OutlineNode(list):
 
-    ROOT, STRUCTURE, LABEL, NEWCOMMAND, REFERENCE, GRAPHICS, PACKAGE, TABLE, NEWENVIRONMENT = range(9)
+    ROOT, STRUCTURE, LABEL, NEWCOMMAND, REFERENCE, GRAPHICS, PACKAGE, TABLE, NEWENVIRONMENT = list(range(9))
 
     def __init__(self, type, start=None, end=None, value=None, level=None, foreign=False, numOfArgs=None, file=None, **kwargs):
         """
@@ -133,7 +133,7 @@ class LaTeXOutlineGenerator(object):
 #            if node.type == Node.DOCUMENT:
 #                self._file = node.value
             if node.type == Node.COMMAND:
-                if node.value in self._STRUCTURE_LEVELS.keys():
+                if node.value in list(self._STRUCTURE_LEVELS.keys()):
                     try:
                         headline = node.firstOfType(Node.MANDATORY_ARGUMENT).innerMarkup
                         level = self._STRUCTURE_LEVELS[node.value]
@@ -151,7 +151,7 @@ class LaTeXOutlineGenerator(object):
                     try:
                         value = node.firstOfType(Node.MANDATORY_ARGUMENT).innerText
 
-                        if value in self._labelCache.keys():
+                        if value in list(self._labelCache.keys()):
                             start, end = self._labelCache[value]
                             issue_handler.issue(Issue("Label <b>%s</b> has already been defined" % value, start, end, node.file, Issue.SEVERITY_ERROR))
                         else:

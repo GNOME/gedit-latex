@@ -112,7 +112,7 @@ class Job(object):
         self.__exception = None
         try:
             returned = self._run(argument)
-        except Exception, e:
+        except Exception as e:
             self.__log.error(e)
             self.__exception = e
 

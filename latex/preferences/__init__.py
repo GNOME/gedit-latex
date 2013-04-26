@@ -27,29 +27,29 @@ from gi.repository import GObject, Gio, GLib
 import re
 import os.path
 import logging
-import ConfigParser
+import configparser
 
 from ..util import singleton
 
 LOG = logging.getLogger(__name__)
 
-class _DocumentConfigParser(ConfigParser.RawConfigParser):
+class _DocumentConfigParser(configparser.RawConfigParser):
 
     SECTION = "LATEX"
 
     def __init__(self, filename):
-        ConfigParser.RawConfigParser.__init__(self)
+        configparser.RawConfigParser.__init__(self)
         self._filename = filename
         self.read(filename)
         try:
             self.add_section(self.SECTION)
-        except ConfigParser.DuplicateSectionError:
+        except configparser.DuplicateSectionError:
             pass
 
     def __getitem__(self, key):
         try:
-            return ConfigParser.RawConfigParser.get(self,self.SECTION, key)
-        except ConfigParser.NoOptionError:
+            return configparser.RawConfigParser.get(self,self.SECTION, key)
+        except configparser.NoOptionError:
             raise KeyError
 
     def get(self, key, default=None):
@@ -59,7 +59,7 @@ class _DocumentConfigParser(ConfigParser.RawConfigParser):
             return default
 
     def set(self, key, value):
-        ConfigParser.RawConfigParser.set(self, self.SECTION, key, value)
+        configparser.RawConfigParser.set(self, self.SECTION, key, value)
 
     def save(self):
         f = open(self._filename,'w')

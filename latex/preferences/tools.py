@@ -38,7 +38,7 @@ def str_to_bool(x):
     """
     if type(x) is bool:
         return x
-    elif type(x) is str or type(x) is unicode:
+    elif type(x) is str or type(x) is str:
         try:
             return {"false" : False, "0" : False, "true" : True, "1" : True}[x.strip().lower()]
         except KeyError:
@@ -129,7 +129,7 @@ class ToolPreferences(GObject.GObject):
             # create new tool tag
             LOG.debug("Creating new Tool...")
 
-            id = unicode(uuid.uuid4())
+            id = str(uuid.uuid4())
             self.__tool_ids[tool] = id
 
             tool_element = ElementTree.SubElement(self.__tools, "tool")
@@ -139,7 +139,7 @@ class ToolPreferences(GObject.GObject):
         tool_element.set("description", tool.description)
         tool_element.set("extensions", " ".join(tool.extensions))
         if tool.accelerator is None:
-            if "accelerator" in tool_element.attrib.keys():
+            if "accelerator" in list(tool_element.attrib.keys()):
                 del tool_element.attrib["accelerator"]
         else:
             tool_element.set("accelerator", tool.accelerator)
@@ -221,7 +221,7 @@ class ToolPreferences(GObject.GObject):
             del self.__tool_ids[tool]
 
             self.__tools_changed = True
-        except KeyError, e:
+        except KeyError as e:
             LOG.error("delete_tool: %s" % e)
 
         self.__notify_tools_changed()

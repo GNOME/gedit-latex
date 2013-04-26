@@ -24,7 +24,7 @@ bibtex.validator
 from logging import getLogger
 
 from ..issues import Issue
-from model import BibTeXModel
+from .model import BibTeXModel
 
 
 class BibTeXValidator:
@@ -69,7 +69,7 @@ class BibTeXValidator:
 
             try:
                 # check for missing required fields
-                required_field_names = set(map(lambda f: f.name, self._model.find_type(entry.type).required_fields))
+                required_field_names = set([f.name for f in self._model.find_type(entry.type).required_fields])
                 missing_field_names = required_field_names.difference(set(field_names))
 
                 if len(missing_field_names) > 0:
@@ -77,7 +77,7 @@ class BibTeXValidator:
                                               entry.start, entry.end, file, Issue.SEVERITY_WARNING))
 
                 # check for unused fields
-                optional_field_names = set(map(lambda f: f.name, self._model.find_type(entry.type).optional_fields))
+                optional_field_names = set([f.name for f in self._model.find_type(entry.type).optional_fields])
                 unused_field_names = set(field_names).difference(optional_field_names.union(required_field_names))
 
                 if len(unused_field_names) > 0:

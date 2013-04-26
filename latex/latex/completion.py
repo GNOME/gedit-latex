@@ -96,8 +96,8 @@ class LaTeXChoiceProposal(Proposal):
         return self._overlap
 
 
-from model import LanguageModelFactory, Choice, MandatoryArgument, OptionalArgument
-from parser import PrefixParser, Node
+from .model import LanguageModelFactory, Choice, MandatoryArgument, OptionalArgument
+from .parser import PrefixParser, Node
 
 from ..bibtex.cache import BibTeXDocumentCache
 
@@ -213,7 +213,7 @@ class LaTeXCompletionHandler(ICompletionHandler):
 
             return proposals
 
-        except Exception, e:
+        except Exception as e:
             self._log.debug(e)
 
         return []
@@ -308,7 +308,7 @@ class PrefixModelParser(object):
 
             if len(commandName) == 0:
                 # no name, so propose all commands
-                commands = self.__language_model.commands.values()
+                commands = list(self.__language_model.commands.values())
                 overlap = 1        # only "\"
             else:
                 commands = self.__language_model.find_command(commandName)
@@ -333,7 +333,7 @@ class PrefixModelParser(object):
 
             try:
                 argumentNode, storedArgument = self.__match_argument(commandNode, storedCommand)
-            except Exception, e:
+            except Exception as e:
                 self._log.error(e)
                 return []
 

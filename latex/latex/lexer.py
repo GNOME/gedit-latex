@@ -68,7 +68,7 @@ class Token(object):
     A Token returned by the Lexer
     """
 
-    COMMAND, TEXT, COMMENT, VERBATIM, BEGIN_CURLY, END_CURLY, BEGIN_SQUARE, END_SQUARE = range(8)
+    COMMAND, TEXT, COMMENT, VERBATIM, BEGIN_CURLY, END_CURLY, BEGIN_SQUARE, END_SQUARE = list(range(8))
 
     def __init__(self, type, offset=None, value=None):
         self.type = type
@@ -97,7 +97,7 @@ class Lexer(object):
     # TODO: redesign and optimize this from a DFA
 
     # states of the lexer
-    _DEFAULT, _BACKSLASH, _COMMAND, _TEXT, _COMMENT, _PRE_VERB, _VERB, _VERBATIM = range(8)
+    _DEFAULT, _BACKSLASH, _COMMAND, _TEXT, _COMMENT, _PRE_VERB, _VERB, _VERBATIM = list(range(8))
 
     _SPECIAL = set(["&", "$", "{", "}", "[", "]", "%", "#", "_", "\\"])
 
@@ -109,7 +109,7 @@ class Lexer(object):
 
 
     # additional states for recognizing "\begin{verbatim}"
-    _VERBATIM_DEFAULT, _VERBATIM_BEGIN, _VERBATIM_BEGIN_CURLY, _VERBATIM_BEGIN_CURLY_ENVIRON = range(4)
+    _VERBATIM_DEFAULT, _VERBATIM_BEGIN, _VERBATIM_BEGIN_CURLY, _VERBATIM_BEGIN_CURLY_ENVIRON = list(range(4))
 
 
     def __init__(self, string, skipWs=True, skipComment=False):
@@ -127,7 +127,7 @@ class Lexer(object):
     def __iter__(self):
         return self
 
-    def next(self):
+    def __next__(self):
         if self._eof:
             raise StopIteration
 

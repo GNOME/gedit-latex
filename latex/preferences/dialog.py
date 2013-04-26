@@ -158,7 +158,7 @@ class ConfigureToolDialog(GladeInterface):
             commandRenderer.connect("edited", self._on_job_command_edited)
 
             self._store_pp = Gtk.ListStore(str)
-            for p in self._tool_preferences.POST_PROCESSORS.iterkeys():
+            for p in self._tool_preferences.POST_PROCESSORS.keys():
                 self._store_pp.append([p])
 
             ppRenderer = Gtk.CellRendererCombo()

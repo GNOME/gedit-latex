@@ -34,9 +34,9 @@ from ..util import verbose
 
 from ..job import Job, JobChangeListener
 
-from parser import BibTeXParser
-from completion import BibTeXCompletionHandler
-from validator import BibTeXValidator
+from .parser import BibTeXParser
+from .completion import BibTeXCompletionHandler
+from .validator import BibTeXValidator
 
 LOG = logging.getLogger(__name__)
 

@@ -1,7 +1,7 @@
 [Plugin]
 Module=latex
 IAge=3
-Loader=python
+Loader=python3
 _Name=LaTeX Plugin
 _Description=A plugin that assists you in handling LaTeX documents and BibTeX bibliographies
 Authors=Michael Zeising <michael@michaels-website.de>

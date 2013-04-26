@@ -26,7 +26,7 @@ from gi.repository import Gtk
 
 from ..util import GladeInterface
 from ..resources import Resources
-from model import BibTeXModel
+from .model import BibTeXModel
 
 
 class InsertBibTeXEntryDialog(GladeInterface):
@@ -48,7 +48,7 @@ class InsertBibTeXEntryDialog(GladeInterface):
 
             # fields
             f = []
-            for entry, field in self._mapping.iteritems():
+            for entry, field in self._mapping.items():
                 value = entry.get_text()
                 if len(value):
                     if field == "title":
@@ -118,7 +118,7 @@ class InsertBibTeXEntryDialog(GladeInterface):
 
         # cache values
 
-        for entry, fieldName in self._mapping.iteritems():
+        for entry, fieldName in self._mapping.items():
             text = entry.get_text()
             if len(text):
                 self._fieldCache[fieldName] = entry.get_text()

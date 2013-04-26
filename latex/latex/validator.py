@@ -30,9 +30,9 @@ from ..file import File
 from ..issues import Issue
 from ..util import escape
 
-from parser import Node
-from environment import Environment
-from model import LanguageModelFactory
+from .parser import Node
+from .environment import Environment
+from .model import LanguageModelFactory
 
 LOG = getLogger(__name__)
 

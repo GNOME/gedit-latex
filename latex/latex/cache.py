@@ -26,7 +26,7 @@ Cache for LaTeX document models for speeding up reference expanding
 
 from logging import getLogger
 
-from parser import LaTeXParser
+from .parser import LaTeXParser
 from ..issues import IIssueHandler
 
 

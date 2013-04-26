@@ -36,7 +36,7 @@ from ..file import File
 from ..resources import Resources
 from ..snippetmanager import SnippetManager
 from ..outline import OutlineOffsetMap, BaseOutlineView
-from outline import OutlineNode
+from .outline import OutlineNode
 from ..gldefs import _
 
 LOG = logging.getLogger(__name__)

@@ -24,7 +24,7 @@ bibtex.cache
 
 from logging import getLogger
 
-from parser import BibTeXParser
+from .parser import BibTeXParser
 from ..issues import MockIssueHandler
 
 

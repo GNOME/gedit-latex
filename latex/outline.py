@@ -28,10 +28,10 @@ import logging
 
 from gi.repository import Gtk, GdkPixbuf
 
-from panelview import PanelView
-from preferences import Preferences
-from resources import Resources
-from gldefs import _
+from .panelview import PanelView
+from .preferences import Preferences
+from .resources import Resources
+from .gldefs import _
 
 LOG = logging.getLogger(__name__)
 
@@ -262,7 +262,7 @@ class OutlineOffsetMap(object):
         """
 
         # sort offsets
-        offsets = self._map.keys()
+        offsets = list(self._map.keys())
         offsets.sort()
 
         # find nearest offset
@@ -280,7 +280,7 @@ class OutlineOffsetMap(object):
     def __str__(self):
         s = "<OutlineOffsetMap>"
 
-        ofs = self._map.keys()
+        ofs = list(self._map.keys())
         ofs.sort()
 
         for o in ofs:

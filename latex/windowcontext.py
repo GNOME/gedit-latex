@@ -60,7 +60,7 @@ class WindowContext(object):
         """
         self.editor_views[editor] = {}
         try:
-            for id, clazz in self._editor_view_classes[file.extension].iteritems():
+            for id, clazz in self._editor_view_classes[file.extension].items():
                 # create View instance and add it to the map
                 self.editor_views[editor][id] = clazz(self, editor)
 
@@ -99,7 +99,7 @@ class WindowContext(object):
         except KeyError:
             LOG.critical("Unknown view id: %s (we have: %s)" % (
                     view_id,
-                    ",".join(self.editor_views.get(editor,{}).keys())))
+                    ",".join(list(self.editor_views.get(editor,{}).keys()))))
 
     def set_action_enabled(self, action_id, enabled):
         """

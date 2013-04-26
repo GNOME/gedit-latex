@@ -19,7 +19,7 @@ import os.path
 import platform
 
 from gi.repository import GLib, Gedit, GObject
-from resources import Resources
+from .resources import Resources
 
 class LaTeXAppActivatable(GObject.Object, Gedit.AppActivatable):
     __gtype_name__ = "GeditLaTeXAppActivatable"

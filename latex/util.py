@@ -61,7 +61,7 @@ class StringReader(object):
             return self._pushbackChar
         else:
             self.offset += 1
-            return self._iter.next()
+            return next(self._iter)
 
     def unread(self, char):
         #assert not self._pushbackFlag
@@ -113,7 +113,7 @@ def verbose(function):
     def decorated_function(*args, **kw):
         try:
             return function(*args, **kw)
-        except Exception, e:
+        except Exception as e:
             stack = traceback.format_exc(limit=10)
             open_error(str(e), stack)
     return decorated_function

@@ -195,7 +195,7 @@ class Editor(object):
                     LOG.debug("Found TextMark '%s' at offset %s" % (name, it.get_offset()))
 
                     if name:
-                        if name in self._markers.keys():
+                        if name in list(self._markers.keys()):
                             marker = self._markers[name]
                             return self.on_marker_activated(marker, event)
                         else:
@@ -294,7 +294,7 @@ class Editor(object):
         Return the string contained in the TextBuffer
         """
         return self._text_buffer.get_text(self._text_buffer.get_start_iter(),
-                                    self._text_buffer.get_end_iter(), False).decode(self.charset)
+                                    self._text_buffer.get_end_iter(), False)
 
     @property
     def content_at_left_of_cursor(self):
@@ -402,7 +402,7 @@ class Editor(object):
         @param background_color: a hex color
         @param anonymous: markers of an anonymous type may not be activated and do not get a unique ID
         """
-        assert not marker_type in self._marker_types.keys()
+        assert not marker_type in list(self._marker_types.keys())
 
         # create Gtk.TextTag
         tag = self._text_buffer.create_tag(marker_type, background=background_color)

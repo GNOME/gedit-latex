@@ -68,14 +68,14 @@ class Process(object):
                 os.kill(self.__process.pid, signal.SIGTERM)
 
                 self._on_abort()
-            except OSError, e:
+            except OSError as e:
                 LOG.error("Failed to abort process: %s" % e)
 
     def __on_stdout(self):
         try:
             s = self.__process.stdout.read()
-            if len(s):
-                self._on_stdout(s)
+            if s != None:
+                self._on_stdout(s.decode())
         except IOError:
             pass
         return True
@@ -83,8 +83,8 @@ class Process(object):
     def __on_stderr(self):
         try:
             s = self.__process.stderr.read()
-            if len(s):
-                self._on_stderr(s)
+            if s != None:
+                self._on_stderr(s.decode())
         except IOError:
             pass
         return True
