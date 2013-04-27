@@ -249,13 +249,22 @@ class File(object):
     def __str__(self):
         return self.uri
 
-    def __cmp__(self, other):
+    def __key__(self, file):
         try:
-            return self.basename.__cmp__(other.basename)
+            return file.basename
         except AttributeError:        # no File object passed or None
             # returning NotImplemented is bad because we have to
             # compare None with File
-            return False
+            return None
+
+    def __lt__(self, other):
+        return self.__key__(self) < self.__key__(other)
+
+    def __eq__(self, other):
+        return self.__key__(self) == self.__key__(other)
+
+    def __hash__(self):
+        return hash(self.__key__(self))
 
 
 class Folder(File):

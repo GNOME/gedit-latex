@@ -94,11 +94,17 @@ class Proposal(object):
         """
         raise NotImplementedError
 
-    def __cmp__(self, other):
-        """
-        Compare this proposal to another one
-        """
-        return cmp(self.label.lower(), other.label.lower())
+    def __key__(self):
+        return self.label.lower()
+
+    def __lt__(self, other):
+        return self.__key__() < other.__key__()
+
+    def __eq__(self, other):
+        return self.__key__() == other.__key__()
+
+    def __hash__(self):
+        return hash(self.__key__())
 
 class ProposalPopup(Gtk.Window):
     """

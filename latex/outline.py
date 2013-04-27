@@ -193,8 +193,14 @@ class Item(object):
         self.key = key
         self.value = value
 
-    def __cmp__(self, item):
-        return self.key.__cmp__(item.key)
+    def __lt__(self, other):
+        return self.key < other.key
+
+    def __eq__(self, other):
+        return self.key == other.key
+
+    def __hash__(self):
+        return hash(self.key)
 
 
 class OffsetLookupTree(object):

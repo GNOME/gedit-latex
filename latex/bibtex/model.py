@@ -34,16 +34,14 @@ class Type(object):
         self.required_fields = []
         self.optional_fields = []
 
-    def __cmp__(self, other):
-        # FIXME: there must be something simpler...
-        if self.name < other.name:
-            return -1
-        elif self.name > other.name:
-            return 1
-        else:
-            return 0
+    def __lt__(self, other):
+        return self.name < other.name
 
-        #return self.name.__cmp__(other.name)    str has no __cmp__
+    def __eq__(self, other):
+        return self.name == other.name
+
+    def __hash__(self):
+        return hash(self.name)
 
 
 class Field(object):
