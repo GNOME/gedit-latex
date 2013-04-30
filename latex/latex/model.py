@@ -317,7 +317,7 @@ class LanguageModelFactory(object):
                 LOG.debug("Pickled object and XML file have different modification times")
             else:
                 try:
-                    obj = pickle.load(open(pkl_file.path))
+                    obj = pickle.load(open(pkl_file.path, "rb"))
                     if obj.VERSION == LANGUAGE_MODEL_VERSION:
                         return obj
                     else:

@@ -303,7 +303,7 @@ class Editor(object):
         """
         end_iter = self._text_buffer.get_iter_at_mark(self._text_buffer.get_insert())
         return self._text_buffer.get_text(self._text_buffer.get_start_iter(),
-                                    end_iter, False).decode(self.charset)
+                                    end_iter, False)
 
     def insert(self, source):
         """

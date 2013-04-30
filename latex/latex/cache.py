@@ -102,16 +102,13 @@ class LaTeXDocumentCache(object):
 
             # read file
             try:
-                f = open(self.__file.path, "r")
+                f = open(self.__file.path, "r", encoding=self.__charset)
                 try:
                     content = f.read()
                 finally:
                     f.close()
             except IOError:
                 return
-
-            if self.__charset is not None:
-                content = content.decode(self.__charset)
 
             # parse
             self.__document = self.__parser.parse(content, self.__file, self.__issue_handler)

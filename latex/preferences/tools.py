@@ -135,7 +135,7 @@ class ToolPreferences(GObject.GObject):
             tool_element = ElementTree.SubElement(self.__tools, "tool")
             tool_element.set("id", id)
         
-        tool_element.set("label", tool.label.decode('utf-8'))
+        tool_element.set("label", tool.label)
         tool_element.set("description", tool.description)
         tool_element.set("extensions", " ".join(tool.extensions))
         if tool.accelerator is None:
