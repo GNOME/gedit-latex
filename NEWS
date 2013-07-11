@@ -1,4 +1,44 @@
 =================
+gedit-latex 3.8.0
+=================
+
+New features and fixes
+======================
+
+- Port to python 3 (Aleksei Lissitsin)
+- Fixes to insert table / listing dialogs (John Stowers)
+- Outline connect to editor now requires Double click (John Stowers)
+- remove some unused code, collapse some abstractions (John Stowers)
+- force the symbol sidebar to 4 items, least it be visible (John Stowers)
+- use Gtk.show_uri instead of system (John Stowers)
+- Do not mark unused labels as warnings (Bug #691758) (Carnë Draug)
+- Fix "New Latex Document" dialog (Aleksei Lissitsin)
+- Use snippets format for the autocompletion of builtin commands (Aleksei Lissitsin)
+- Fix RadioMenuItem inizialization  (Bug #667096) (Pietro Battiston)
+- Remove some useless imports (Sven (Sbte))
+- Prevent a crash when no job command is present (Sven (Sbte))
+- Don't create bottom panels every time when switching between files (Sven (Sbte))
+
+New translations
+================
+- Catalan (Gil Forcada)
+- Greek translation (Tom Tryfonidis)
+- Indonesian (Andika Triwidada) 
+- Serbian (Мирослав Николић)
+
+Updated translations
+====================
+- Russian (Aleksandr Brezhnev)
+- Brazilian Portuguese (Enrico Nicoletto)
+- Polish (Piotr Drąg)
+- Czech (Marek Černocký)
+- Latvian (Rūdolfs Mazurs)
+- Thai (Akom Chotiphantawanon)
+- Galician  (Fran Diéguez)
+- Chinese simplified (Wylmer Wang)
+
+
+=================
 gedit-latex 3.4.1
 =================
 

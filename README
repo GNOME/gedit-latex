@@ -1,8 +1,14 @@
 General Information
 ===================
 
-This is version 3.4.1 of gedit-latex. gedit-latex is a plugin that provides
+This is version 3.8.0 of gedit-latex. gedit-latex is a plugin that provides
 features to ease the edition of latex documents.
+
+Note about Python 3
+===================
+
+Gedit-latex needs the dbus module for python to be installed. In python 3, this module
+is not installed by default on many distributions.
 
 Installation
 ============
