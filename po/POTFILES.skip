@@ -1,2 +1,8 @@
 data/org.gnome.gedit.plugins.latex.gschema.xml.in
 latex.plugin.desktop.in
+latex/bibtex/views.py
+latex/latex/environment.py
+latex/latex/views.py
+latex/outline.py
+latex/tools/views.py
+latex/views.py
