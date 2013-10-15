@@ -1,14 +1,19 @@
 # Danish translation for gedit-latex.
-# Copyright (C) 2011 gedit-latex's COPYRIGHT HOLDER
+# Copyright (C) 2013 gedit-latex's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gedit-latex package.
-# Joe Hansen <joedalton2@yahoo.dk>, 2011.
+# Joe Hansen <joedalton2@yahoo.dk>, 2011, 2013.
 #
+# eftersom der også er en "paragraph" som jeg ville oversætte til afsnit,
+# ville jeg anbefale at oversætte section til sektion. Jeg ved ikke over
+# meget du kender Latex, men de er en del af dte strukturhieraki der
+# bruger chapter->section->subsection->paragraph
+# kapitel->sektion->undersektion->afsnit
 msgid ""
 msgstr ""
 "Project-Id-Version: gedit-latex master\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-07-13 22:57+0200\n"
-"PO-Revision-Date: 2011-07-08 19:00+0100\n"
+"POT-Creation-Date: 2013-10-15 18:34+0200\n"
+"PO-Revision-Date: 2013-03-28 19:00+0100\n"
 "Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "Language: da\n"
@@ -17,58 +22,117 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#: ../latex.plugin.desktop.in.in.h:1
+msgid "LaTeX Plugin"
+msgstr "LaTeX-udvidelsesmodul"
+
+#: ../latex.plugin.desktop.in.in.h:2
+msgid ""
+"A plugin that assists you in handling LaTeX documents and BibTeX "
+"bibliographies"
+msgstr ""
+"Et udvidelsesmodul som hjælper dig med håndteringen af LaTeX-dokumenter og "
+"BibTeX-bibliografier."
+
 #: ../data/bibtex.xml.h:1
-msgid "Address"
-msgstr "Adresse"
+msgid "Title"
+msgstr "Titel"
 
 #: ../data/bibtex.xml.h:2
-msgid "Author"
-msgstr "Forfatter"
-
-#: ../data/bibtex.xml.h:3
 msgid "Book Title"
 msgstr "Bogtitel"
 
-#: ../data/bibtex.xml.h:4
-msgid "Chapter"
-msgstr "Kapitel"
-
-#: ../data/bibtex.xml.h:5
-msgid "Cross Reference"
-msgstr "Krydsreference"
-
-#: ../data/bibtex.xml.h:6
-msgid "Edition"
-msgstr "Udgave"
+#: ../data/bibtex.xml.h:3
+msgid "Author"
+msgstr "Forfatter"
 
 # måske redaktør?
 # editor field
 # Name(s) of editor(s). If there is also an "author" field, then the
 # "editor" field gives the editor of the book or collection in which 
 # the reference appears. Format: EDITOR = field_text
-#: ../data/bibtex.xml.h:7
+#: ../data/bibtex.xml.h:4
 msgid "Editor"
 msgstr "Redaktør"
 
+#: ../data/bibtex.xml.h:5
+msgid "Pages"
+msgstr "Sider"
+
+#: ../data/bibtex.xml.h:6
+msgid "Journal"
+msgstr "Journal"
+
+#: ../data/bibtex.xml.h:7
+msgid "Volume"
+msgstr "Bind"
+
 #: ../data/bibtex.xml.h:8
-msgid "How Published"
-msgstr "Hvordan udgivet"
+msgid "Number"
+msgstr "Nummer"
 
 #: ../data/bibtex.xml.h:9
-msgid "ISBN"
-msgstr "ISBN"
+msgid "Month"
+msgstr "Måned"
 
 #: ../data/bibtex.xml.h:10
+msgid "Year"
+msgstr "År"
+
+#: ../data/bibtex.xml.h:11
 msgid "ISSN"
 msgstr "ISSN"
 
-#: ../data/bibtex.xml.h:11
-msgid "Institution"
-msgstr "Institution"
-
 #: ../data/bibtex.xml.h:12
-msgid "Journal"
-msgstr "Journal"
+msgid "Series"
+msgstr "Serie"
+
+#: ../data/bibtex.xml.h:13
+msgid "Edition"
+msgstr "Udgave"
+
+# måske udgiver
+#: ../data/bibtex.xml.h:14
+msgid "Publisher"
+msgstr "Forlag"
+
+#: ../data/bibtex.xml.h:15
+msgid "Address"
+msgstr "Adresse"
+
+#: ../data/bibtex.xml.h:16
+msgid "ISBN"
+msgstr "ISBN"
+
+#: ../data/bibtex.xml.h:17
+msgid "How Published"
+msgstr "Hvordan udgivet"
+
+#: ../data/bibtex.xml.h:18
+msgid "Organization"
+msgstr "Organisation"
+
+# lokation, placering
+#: ../data/bibtex.xml.h:19
+msgid "Location"
+msgstr "Position"
+
+#: ../data/bibtex.xml.h:20
+msgid "URL"
+msgstr "Adresse"
+
+#: ../data/bibtex.xml.h:21
+msgid "Note"
+msgstr "Note"
+
+#: ../data/bibtex.xml.h:22
+msgid "Type"
+msgstr "Type"
+
+#: ../data/bibtex.xml.h:23 ../latex/latex/actions.py:315
+#: ../latex/latex/actions.py:316
+msgid "Chapter"
+msgstr "Kapitel"
 
 # tast, eller er det nøgle!
 # Det er en nøgle http://www.kfunigraz.ac.at/~binder/texhelp/bibtx-37.html
@@ -76,236 +140,167 @@ msgstr "Journal"
 # and "editor" fields are missing. This field should not be confused with 
 # the citation key that appears in the \cite command and at the beginning 
 # of the entry. Format:  KEY = field_text
-#: ../data/bibtex.xml.h:13
+#: ../data/bibtex.xml.h:24
 msgid "Key"
 msgstr "Nøgle"
 
-# lokation, placering
-#: ../data/bibtex.xml.h:14
-msgid "Location"
-msgstr "Position"
-
-#: ../data/bibtex.xml.h:15
-msgid "Month"
-msgstr "Måned"
-
-#: ../data/bibtex.xml.h:16
-msgid "Note"
-msgstr "Note"
-
-#: ../data/bibtex.xml.h:17
-msgid "Number"
-msgstr "Nummer"
-
-#: ../data/bibtex.xml.h:18
-msgid "Organization"
-msgstr "Organisation"
-
-#: ../data/bibtex.xml.h:19
-msgid "Pages"
-msgstr "Sider"
-
-# måske udgiver
-#: ../data/bibtex.xml.h:20
-msgid "Publisher"
-msgstr "Forlag"
-
-#: ../data/bibtex.xml.h:21
+#: ../data/bibtex.xml.h:25
 msgid "School"
 msgstr "Skole"
 
-#: ../data/bibtex.xml.h:22
-msgid "Series"
-msgstr "Serie"
-
-#: ../data/bibtex.xml.h:23
-msgid "Title"
-msgstr "Titel"
-
-#: ../data/bibtex.xml.h:24
-msgid "Type"
-msgstr "Type"
-
-#: ../data/bibtex.xml.h:25
-msgid "URL"
-msgstr "Adresse"
-
 #: ../data/bibtex.xml.h:26
-msgid "Volume"
-msgstr "Bind"
+msgid "Institution"
+msgstr "Institution"
 
 #: ../data/bibtex.xml.h:27
-msgid "Year"
-msgstr "År"
+msgid "Cross Reference"
+msgstr "Krydsreference"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:1
+msgid "Maximum BibTeX Size"
+msgstr "Maksimal størrelse for BibTeX"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:2
 msgid "Connect Outline to Editor"
 msgstr "Forbind omrids til redigeringsprogram"
 
-# engelsk fejl Expanded
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:2
-msgid "Exanded Symbol Groups"
-msgstr "Udvidede symbolgrupper"
-
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:3
+msgid "Show Labels in Outline"
+msgstr "Vis etiketter i omrids"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:4
+msgid "Show Tables in Outline"
+msgstr "Vis tabeller i omrids"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:5
+msgid "Show Graphics in Outline"
+msgstr "Vis grafik i omrids"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:6
+msgid "Show Warnings in Issues"
+msgstr "Vis advarsler i sager"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:7
+msgid "Show Tasks in Issues"
+msgstr "Vis opgaver i sager"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:8
 #: ../data/ui/configure.ui.h:6
 msgid "Hide Box Warnings"
 msgstr "Skjul boksadvarsler"
 
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:4
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:9
+msgid ""
+"Show LaTeX Toolbar below (normal), combined with the main toolbar, or "
+"disabled"
+msgstr ""
+"Vis LaTeX-værktøjslinjen nedenfor (normal), kombineret med den normale "
+"værktøjslinje, eller deaktiveret"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:10
+msgid "Expanded Symbol Groups"
+msgstr "Udvidede symbolgrupper"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:11
 msgid "LaTeX Extensions"
 msgstr "LaTeX-udvidelser"
 
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:5
-msgid "Maximum BibTeX Size"
-msgstr "Maksimal størrelse for BibTeX"
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:12
+msgid "Graphics File Extensions"
+msgstr "Graphics File-udvidelser"
 
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:6
-msgid "Show Graphics in Outline"
-msgstr "Vis grafik i omrids"
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:13
+msgid "Paths Relative to .tex File to Look for Graphics"
+msgstr "Stier relativ til .tex-fil til at kigge efter grafik"
 
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:7
-msgid "Show LaTeX Toolbar"
-msgstr "Vis LaTeX-værktøjsbjælke"
-
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:8
-msgid "Show Labels in Outline"
-msgstr "Vis etiketter i omrids"
-
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:9
-msgid "Show Tables in Outline"
-msgstr "Vis tabeller i omrids"
-
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:10
-msgid "Show Tasks in Issues"
-msgstr "Vis opgaver i sager"
-
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:11
-msgid "Show Warnings in Issues"
-msgstr "Vis advarsler i sager"
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:14
+msgid "Extra LaTeX commands used to mark issues, such as \\fxnote{foo}"
+msgstr ""
+"Ekstra LaTeX-kommandoer brugt til at markere problemstillinger, såsom "
+"\\fxnote{noget}"
 
 #: ../data/ui/build_image_dialog.ui.h:1
-msgid "<b>Area</b>"
-msgstr "<b>Område</b>"
+msgid "Render to Image"
+msgstr "Optegn til billede"
 
 #: ../data/ui/build_image_dialog.ui.h:2
 msgid "<b>Image Format</b>"
 msgstr "<b>Billedformat</b>"
 
 #: ../data/ui/build_image_dialog.ui.h:3
-msgid "<b>Rendering</b>"
-msgstr "<b>Optegning</b>"
-
-# Antialisering, Udjævning, Punktudjævning
-#: ../data/ui/build_image_dialog.ui.h:4
-msgid "Antialiasing:"
-msgstr "Udjævning:"
-
-#: ../data/ui/build_image_dialog.ui.h:5
-msgid "Attempt to render tight bounding box"
-msgstr "Forsøg at optegne tæt omkredsboks"
-
-#: ../data/ui/build_image_dialog.ui.h:6
-msgid "Color Mode:"
-msgstr "Farvetilstand:"
-
-#: ../data/ui/build_image_dialog.ui.h:7
-msgid "GIF"
-msgstr "GIF"
-
-#: ../data/ui/build_image_dialog.ui.h:8
-msgid "JPEG"
-msgstr "JPEG"
-
-#: ../data/ui/build_image_dialog.ui.h:9
 msgid "PNG"
 msgstr "PNG"
 
+#: ../data/ui/build_image_dialog.ui.h:4
+msgid "Color Mode:"
+msgstr "Farvetilstand:"
+
+#: ../data/ui/build_image_dialog.ui.h:5
+msgid "JPEG"
+msgstr "JPEG"
+
+#: ../data/ui/build_image_dialog.ui.h:6
+msgid "GIF"
+msgstr "GIF"
+
+#: ../data/ui/build_image_dialog.ui.h:7
+msgid "<b>Rendering</b>"
+msgstr "<b>Optegning</b>"
+
+#: ../data/ui/build_image_dialog.ui.h:8
+msgid "<b>Area</b>"
+msgstr "<b>Område</b>"
+
+# Antialisering, Udjævning, Punktudjævning
+#: ../data/ui/build_image_dialog.ui.h:9
+msgid "Antialiasing:"
+msgstr "Udjævning:"
+
 #: ../data/ui/build_image_dialog.ui.h:10
-msgid "Render to Image"
-msgstr "Optegn til billede"
+msgid "Resolution:"
+msgstr "Opløsning:"
 
 #: ../data/ui/build_image_dialog.ui.h:11
 msgid "Render whole page(s)"
 msgstr "Optegn hele sider"
 
 #: ../data/ui/build_image_dialog.ui.h:12
-msgid "Resolution:"
-msgstr "Opløsning:"
+msgid "Attempt to render tight bounding box"
+msgstr "Forsøg at optegne tæt omkredsboks"
 
 #: ../data/ui/choose_master_dialog.ui.h:1
-msgid "Filename:"
-msgstr "Filnavn:"
-
-#: ../data/ui/choose_master_dialog.ui.h:2
 msgid "Select Master Document"
 msgstr "Vælg hoveddokument"
 
-#: ../data/ui/configure.ui.h:1
-msgid "<b><i>rubber</i> Post-Processor</b>"
-msgstr "<b><i>rubber-efterbehandler</i></b>"
+#: ../data/ui/choose_master_dialog.ui.h:2
+msgid "Filename:"
+msgstr "Filnavn:"
+
+#: ../data/ui/configure.ui.h:1 ../latex/tools/views.py:116
+msgid "Tools"
+msgstr "Værktøjer"
 
 #: ../data/ui/configure.ui.h:2
 msgid "<b>BibTeX</b>"
 msgstr "<b>BibTeX</b>"
 
 #: ../data/ui/configure.ui.h:3
-msgid "<b>LaTeX Toolbar</b>"
-msgstr "<b>LaTeX-værktøjsbjælke</b>"
+msgid "<b><i>rubber</i> Post-Processor</b>"
+msgstr "<b><i>rubber-efterbehandler</i></b>"
 
 #: ../data/ui/configure.ui.h:4
-msgid "<b>Templates</b>"
-msgstr "<b>Skabeloner</b>"
-
-#: ../data/ui/configure.ui.h:5
-msgid "Folder:"
-msgstr "Mappe:"
-
-#: ../data/ui/configure.ui.h:7
-msgid "KB"
-msgstr "KB"
-
-#: ../data/ui/configure.ui.h:8
 msgid "Maximum Parsed File Size:"
 msgstr "Maksimal fortolket filstørrelse:"
 
-#: ../data/ui/configure.ui.h:9
+#: ../data/ui/configure.ui.h:5
+msgid "KB"
+msgstr "KB"
+
+#: ../data/ui/configure.ui.h:7
 msgid "Miscellaneous"
 msgstr "Diverse"
 
-#: ../data/ui/configure.ui.h:10
-msgid "Show LaTeX Toolbar when editing LaTeX files"
-msgstr "Vis LaTeX-værktøjsbjælke når der redigeres LaTeX-filer"
-
-#: ../data/ui/configure.ui.h:11
-msgid "Tools"
-msgstr "Værktøjer"
-
 #: ../data/ui/configure_tool.ui.h:1
-msgid "<Ctrl><Alt>1"
-msgstr "<Ctrl><Alt>1"
-
-#: ../data/ui/configure_tool.ui.h:2
-msgid "<b>Accelerator</b>"
-msgstr "<b>Accelerator</b>"
-
-#: ../data/ui/configure_tool.ui.h:3
-msgid "<b>_Description</b>"
-msgstr "<b>_Beskrivelse</b>"
-
-#: ../data/ui/configure_tool.ui.h:4
-msgid "<b>_File Extensions</b>"
-msgstr "<b>_Filendelser</b>"
-
-#: ../data/ui/configure_tool.ui.h:5
-msgid "<b>_Jobs</b>"
-msgstr "<b>_Job</b>"
-
-#: ../data/ui/configure_tool.ui.h:6
-msgid "<b>_Label</b>"
-msgstr "<b>_Etiket</b>"
-
-#: ../data/ui/configure_tool.ui.h:7
 msgid ""
 "Remember to run all commands in batch mode (e.g. append <tt>-interaction "
 "batchmode</tt> to <tt>latex</tt>)"
@@ -313,7 +308,11 @@ msgstr ""
 "Husk at køre alle kommandoer i batch-tilstand (dvs. tilføj <tt>-interaction "
 "batchmode</tt> til <tt>latex</tt>)"
 
-#: ../data/ui/configure_tool.ui.h:8
+#: ../data/ui/configure_tool.ui.h:2
+msgid "<b>_Label</b>"
+msgstr "<b>_Etiket</b>"
+
+#: ../data/ui/configure_tool.ui.h:3
 msgid ""
 "Valid placeholders are <tt>$filename</tt>, <tt>$shortname</tt>, <tt>"
 "$directory</tt>"
@@ -321,25 +320,45 @@ msgstr ""
 "Gyldige pladsholdere er <tt>$filename</tt>, <tt>$shortname</tt>, <tt>"
 "$directory</tt>"
 
-#: ../data/ui/configure_tool.ui.h:9
+#: ../data/ui/configure_tool.ui.h:4
+msgid "<b>_Jobs</b>"
+msgstr "<b>_Job</b>"
+
+#: ../data/ui/configure_tool.ui.h:5
+msgid "<b>_Description</b>"
+msgstr "<b>_Beskrivelse</b>"
+
+#: ../data/ui/configure_tool.ui.h:6
+msgid "<b>_File Extensions</b>"
+msgstr "<b>_Filendelser</b>"
+
+#: ../data/ui/configure_tool.ui.h:7
 msgid "_Generated"
 msgstr "_Oprettet"
 
-#: ../data/ui/configure_tool.ui.h:10
+#: ../data/ui/configure_tool.ui.h:8
 msgid "_User Defined:"
 msgstr "_Brugerdefineret:"
+
+#: ../data/ui/configure_tool.ui.h:9
+msgid "<Ctrl><Alt>1"
+msgstr "<Ctrl><Alt>1"
+
+#: ../data/ui/configure_tool.ui.h:10
+msgid "<b>Accelerator</b>"
+msgstr "<b>Accelerator</b>"
 
 #: ../data/ui/insert_bibtex_entry.ui.h:1
 msgid "Create Bibliography Entry"
 msgstr "Opret bibliografipost"
 
 #: ../data/ui/insert_bibtex_entry.ui.h:2
-msgid "Optional Fields"
-msgstr "Valgfrie felter"
-
-#: ../data/ui/insert_bibtex_entry.ui.h:3
 msgid "Required Fields"
 msgstr "Krævede felter"
+
+#: ../data/ui/insert_bibtex_entry.ui.h:3
+msgid "Optional Fields"
+msgstr "Valgfrie felter"
 
 #: ../data/ui/insert_bibtex_entry.ui.h:4
 msgid "_Identifier:"
@@ -349,67 +368,69 @@ msgstr "_Identifikation:"
 msgid "_Type:"
 msgstr "_Type:"
 
+#: ../data/ui/insert_graphics_dialog.ui.h:1 ../latex/latex/actions.py:356
+#: ../latex/latex/actions.py:358
+msgid "Insert Graphics"
+msgstr "Indsæt grafik"
+
 #: ../data/ui/insert_graphics_dialog.ui.h:2
+msgid "_File:"
+msgstr "_Fil:"
+
+# billedtekst,  Kan også være til en tabel.  Måske Tekstbeskrivelse
+#: ../data/ui/insert_graphics_dialog.ui.h:3
+#: ../data/ui/insert_table_dialog.ui.h:7
+msgid "_Caption:"
+msgstr "_Tekstbeskrivelse:"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:4
+#: ../data/ui/insert_table_dialog.ui.h:8
+msgid "_Label:"
+msgstr "_Etiket:"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:5
+msgid "fig:"
+msgstr "fig:"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:6
+msgid "_Width:"
+msgstr "_Bredde:"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:8
 #, no-c-format
 msgid "% _of"
 msgstr "% _af"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:3
-msgid "&#xB0; CCW"
-msgstr "&#xB0; mod uret"
-
-#: ../data/ui/insert_graphics_dialog.ui.h:4
-msgid "Flip _Horizontally"
-msgstr "Drej _vandret"
-
-#: ../data/ui/insert_graphics_dialog.ui.h:5
-msgid "Floating _Object"
-msgstr "Flydende _objekt"
-
-#: ../data/ui/insert_graphics_dialog.ui.h:6
-msgid "Image Size"
-msgstr "Billedstørrelse"
-
-#: ../data/ui/insert_graphics_dialog.ui.h:7
-msgid "Insert Graphics"
-msgstr "Indsæt grafik"
-
-#: ../data/ui/insert_graphics_dialog.ui.h:8
-msgid "Text Width"
-msgstr "Tekstbredde"
-
-# billedtekst,  Kan også være til en tabel.  Måske Tekstbeskrivelse
 #: ../data/ui/insert_graphics_dialog.ui.h:9
-#: ../data/ui/insert_table_dialog.ui.h:4
-msgid "_Caption:"
-msgstr "_Tekstbeskrivelse:"
-
-#: ../data/ui/insert_graphics_dialog.ui.h:10
-msgid "_File:"
-msgstr "_Fil:"
-
-#: ../data/ui/insert_graphics_dialog.ui.h:11
-#: ../data/ui/insert_table_dialog.ui.h:6
-msgid "_Label:"
-msgstr "_Etiket:"
-
-#: ../data/ui/insert_graphics_dialog.ui.h:12
 msgid "_Rotate:"
 msgstr "_Roter:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:13
+#: ../data/ui/insert_graphics_dialog.ui.h:10
+msgid "° CCW"
+msgstr "° Mod uret"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:11
+msgid "Flip _Horizontally"
+msgstr "Drej _vandret"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:12
 msgid "_Spread over two Columns"
 msgstr "_Spred over to kolonner"
 
+#: ../data/ui/insert_graphics_dialog.ui.h:13
+msgid "Floating _Object"
+msgstr "Flydende _objekt"
+
 #: ../data/ui/insert_graphics_dialog.ui.h:14
-msgid "_Width:"
-msgstr "_Bredde:"
+msgid "Image Size"
+msgstr "Billedstørrelse"
 
 #: ../data/ui/insert_graphics_dialog.ui.h:15
-msgid "fig:"
-msgstr "fig:"
+msgid "Text Width"
+msgstr "Tekstbredde"
 
-#: ../data/ui/insert_listing_dialog.ui.h:1
+#: ../data/ui/insert_listing_dialog.ui.h:1 ../latex/latex/actions.py:388
+#: ../latex/latex/actions.py:390
 msgid "Insert Source Code Listing"
 msgstr "Indsæt visning af kildekode"
 
@@ -425,182 +446,535 @@ msgstr "Programmerings_sprog:"
 msgid "_Dialect:"
 msgstr "_Dialekt:"
 
-#: ../data/ui/insert_table_dialog.ui.h:1
-msgid "C_olumns:"
-msgstr "_Kolonner:"
-
-#: ../data/ui/insert_table_dialog.ui.h:2
+#: ../data/ui/insert_table_dialog.ui.h:1 ../latex/latex/actions.py:372
+#: ../latex/latex/actions.py:374
 msgid "Insert Table or Matrix"
 msgstr "Indsæt tabel eller matrix"
 
-#: ../data/ui/insert_table_dialog.ui.h:3
+#: ../data/ui/insert_table_dialog.ui.h:2
 msgid "Type:"
 msgstr "Type:"
 
-#: ../data/ui/insert_table_dialog.ui.h:5
-msgid "_Floating Object"
-msgstr "_Flydende objekt"
-
-#: ../data/ui/insert_table_dialog.ui.h:7
-msgid "_Matrix:"
-msgstr "_Matrix:"
-
-#: ../data/ui/insert_table_dialog.ui.h:8
-msgid "_Rows:"
-msgstr "_Rækker:"
-
-#: ../data/ui/insert_table_dialog.ui.h:9
+#: ../data/ui/insert_table_dialog.ui.h:3
 msgid "_Table"
 msgstr "_Tabel"
 
-#: ../data/ui/insert_table_dialog.ui.h:10
+#: ../data/ui/insert_table_dialog.ui.h:4
+msgid "_Matrix:"
+msgstr "_Matrix:"
+
+#: ../data/ui/insert_table_dialog.ui.h:5
+msgid "_Rows:"
+msgstr "_Rækker:"
+
+#: ../data/ui/insert_table_dialog.ui.h:6
+msgid "C_olumns:"
+msgstr "_Kolonner:"
+
+#: ../data/ui/insert_table_dialog.ui.h:9
 msgid "tab:"
 msgstr "tab:"
 
+#: ../data/ui/insert_table_dialog.ui.h:10
+msgid "_Floating Object"
+msgstr "_Flydende objekt"
+
 #: ../data/ui/new_document_template_dialog.ui.h:1
-msgid ".tex"
-msgstr ".tex"
-
-#: ../data/ui/new_document_template_dialog.ui.h:2
-msgid "<b>Language Customization</b>"
-msgstr "<b>Sprogtilpasning</b>"
-
-#: ../data/ui/new_document_template_dialog.ui.h:3
-msgid "<b>Meta Information</b>"
-msgstr "<b>Metainformation</b>"
-
-#: ../data/ui/new_document_template_dialog.ui.h:4
-msgid "<b>Style and Layout</b>"
-msgstr "<b>Stil og layout</b>"
-
-#: ../data/ui/new_document_template_dialog.ui.h:5
-msgid "Base Font Size:"
-msgstr "Normal skriftstørrelse:"
-
-#: ../data/ui/new_document_template_dialog.ui.h:6
-msgid "C_ustom:"
-msgstr "_Tilpasset:"
-
-#: ../data/ui/new_document_template_dialog.ui.h:7
-msgid "Date:"
-msgstr "Dato:"
-
-#: ../data/ui/new_document_template_dialog.ui.h:8
-msgid "De_fault"
-msgstr "_Standard"
-
-#: ../data/ui/new_document_template_dialog.ui.h:9
-msgid "Default F_ont Family:"
-msgstr "Normal skrift_familie:"
-
-#: ../data/ui/new_document_template_dialog.ui.h:10
-msgid "Di_rectory:"
-msgstr "_Mappe:"
-
-#: ../data/ui/new_document_template_dialog.ui.h:11
-msgid "Document _Class:"
-msgstr "Dokument_klasse:"
-
-#: ../data/ui/new_document_template_dialog.ui.h:12
-msgid "Include PDF _Metadata"
-msgstr "Inkluder PDF-_metadata"
-
-#: ../data/ui/new_document_template_dialog.ui.h:13
 msgid "New LaTeX Document"
 msgstr "Nyt LaTeX-dokument"
 
-#: ../data/ui/new_document_template_dialog.ui.h:14
+#: ../data/ui/new_document_template_dialog.ui.h:2
 msgid "T_emplate:"
 msgstr "_Skabelon:"
 
-#: ../data/ui/new_document_template_dialog.ui.h:15
-msgid "To_day"
-msgstr "I _dag"
-
-#: ../data/ui/new_document_template_dialog.ui.h:16
-msgid "U_ser Defined:"
-msgstr "_Brugerdefineret:"
-
-#: ../data/ui/new_document_template_dialog.ui.h:17
-msgid "_Author:"
-msgstr "_Forfatter:"
-
-#: ../data/ui/new_document_template_dialog.ui.h:18
-msgid "_Babel Package:"
-msgstr "_Babelpakke:"
-
-#: ../data/ui/new_document_template_dialog.ui.h:19
-msgid "_Input Encoding:"
-msgstr "_Inddatakodning:"
-
-#: ../data/ui/new_document_template_dialog.ui.h:20
-msgid "_Landscape"
-msgstr "_Landskab"
-
-#: ../data/ui/new_document_template_dialog.ui.h:21
-#: ../data/ui/save_as_template_dialog.ui.h:3
-msgid "_Name:"
-msgstr "_Navn:"
-
-#: ../data/ui/new_document_template_dialog.ui.h:22
-msgid "_Paper:"
-msgstr "_Papir:"
-
-#: ../data/ui/new_document_template_dialog.ui.h:23
-msgid "_Title:"
-msgstr "_Titel:"
-
-#: ../data/ui/new_document_template_dialog.ui.h:24
+#: ../data/ui/new_document_template_dialog.ui.h:3
 msgid "document"
 msgstr "dokument"
 
-#: ../data/ui/new_document_template_dialog.ui.h:25
+#: ../data/ui/new_document_template_dialog.ui.h:4
+msgid ".tex"
+msgstr ".tex"
+
+#: ../data/ui/new_document_template_dialog.ui.h:5
+msgid "Di_rectory:"
+msgstr "_Mappe:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:6
+msgid "_Name:"
+msgstr "_Navn:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:7
+msgid "_Babel Package:"
+msgstr "_Babelpakke:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:8
+msgid "_Input Encoding:"
+msgstr "_Inddatakodning:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:9
+msgid "<b>Language Customization</b>"
+msgstr "<b>Sprogtilpasning</b>"
+
+#: ../data/ui/new_document_template_dialog.ui.h:10
+msgid "_Landscape"
+msgstr "_Landskab"
+
+#: ../data/ui/new_document_template_dialog.ui.h:11
+msgid "_Paper:"
+msgstr "_Papir:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:12
+msgid "De_fault"
+msgstr "_Standard"
+
+#: ../data/ui/new_document_template_dialog.ui.h:13
+msgid "U_ser Defined:"
+msgstr "_Brugerdefineret:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:14
 msgid "pt"
 msgstr "pt"
 
-#: ../data/ui/save_as_template_dialog.ui.h:1
-msgid "Please specify a name for the new template."
-msgstr "Angiv venligst et navn for den nye skabelon."
+#: ../data/ui/new_document_template_dialog.ui.h:15
+msgid "Base Font Size:"
+msgstr "Normal skriftstørrelse:"
 
-#: ../data/ui/save_as_template_dialog.ui.h:2
-msgid "Save As Template"
-msgstr "Gem som skabelon"
+#: ../data/ui/new_document_template_dialog.ui.h:16
+msgid "Document _Class:"
+msgstr "Dokument_klasse:"
 
-#: ../data/ui/save_as_template_dialog.ui.h:4
-msgid "label"
-msgstr "etiket"
+#: ../data/ui/new_document_template_dialog.ui.h:17
+msgid "<b>Style and Layout</b>"
+msgstr "<b>Stil og layout</b>"
 
-#: ../data/ui/use_bibliography_dialog.ui.h:1
-msgid "Bibliography _File:"
-msgstr "Bibliografi_fil:"
+#: ../data/ui/new_document_template_dialog.ui.h:18
+msgid "Include PDF _Metadata"
+msgstr "Inkluder PDF-_metadata"
 
-#: ../data/ui/use_bibliography_dialog.ui.h:2
-msgid "Refresh Style Preview"
-msgstr "Opdater forhåndsvisning af stil"
+#: ../data/ui/new_document_template_dialog.ui.h:19
+msgid "This adds metadata to the document. Requires package <tt>ifpdf</tt>."
+msgstr "Dette tilføjer metadata til dokumentet. Kræver pakke <tt>ifpdf</tt>."
 
-#: ../data/ui/use_bibliography_dialog.ui.h:3
-msgid "Style Preview:"
-msgstr "Forhåndsvisning af stil:"
+#: ../data/ui/new_document_template_dialog.ui.h:20
+msgid "Date:"
+msgstr "Dato:"
 
-#: ../data/ui/use_bibliography_dialog.ui.h:4
+#: ../data/ui/new_document_template_dialog.ui.h:21
+msgid "To_day"
+msgstr "I _dag"
+
+#: ../data/ui/new_document_template_dialog.ui.h:22
+msgid "C_ustom:"
+msgstr "_Tilpasset:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:23
+msgid "_Author:"
+msgstr "_Forfatter:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:24
+msgid "_Title:"
+msgstr "_Titel:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:25
+msgid "<b>Meta Information</b>"
+msgstr "<b>Metainformation</b>"
+
+#: ../data/ui/new_document_template_dialog.ui.h:26
+msgid "Default F_ont Family:"
+msgstr "Normal skrift_familie:"
+
+#: ../data/ui/use_bibliography_dialog.ui.h:1 ../latex/latex/actions.py:159
 msgid "Use Bibliography"
 msgstr "Brug bibliografi"
 
-#: ../data/ui/use_bibliography_dialog.ui.h:5
+#: ../data/ui/use_bibliography_dialog.ui.h:2
+msgid "Bibliography _File:"
+msgstr "Bibliografi_fil:"
+
+#: ../data/ui/use_bibliography_dialog.ui.h:3
 msgid "_Style:"
 msgstr "_Stil:"
 
-#: ../latex.plugin.desktop.in.in.h:1
-msgid ""
-"A plugin that assists you in handling LaTeX documents and BibTeX "
-"bibliographies"
-msgstr ""
-"Et udvidelsesmodul som hjælper dig med håndteringen af LaTeX-dokumenter og "
-"BibTeX-bibliografier."
+#: ../data/ui/use_bibliography_dialog.ui.h:4
+msgid "Style Preview:"
+msgstr "Forhåndsvisning af stil:"
 
-#: ../latex.plugin.desktop.in.in.h:2
-msgid "LaTeX Plugin"
-msgstr "LaTeX-udvidelsesmodul"
+#: ../data/ui/use_bibliography_dialog.ui.h:5
+msgid "Refresh Style Preview"
+msgstr "Opdater forhåndsvisning af stil"
 
-#~ msgid "Bibliographies"
-#~ msgstr "Bibliografier"
+#: ../latex/bibtex/actions.py:32
+msgid "BibTeX"
+msgstr "BibTeX"
+
+#: ../latex/bibtex/actions.py:43
+msgid "New BibTeX Entry..."
+msgstr "Ny BibTeX-post ..."
+
+#: ../latex/bibtex/actions.py:46
+msgid "Create a new BibTeX entry"
+msgstr "Opret en ny BibTex-post"
+
+#. add grouping controls to toolbar
+#: ../latex/bibtex/views.py:56
+msgid "No Grouping"
+msgstr "Ingen gruppering"
+
+#: ../latex/bibtex/views.py:57
+msgid "Group by Type"
+msgstr "Gruppér efter type"
+
+#: ../latex/bibtex/views.py:58
+msgid "Group by Author"
+msgstr "Gruppér efter forfatter"
+
+#: ../latex/bibtex/views.py:59
+msgid "Group by Year"
+msgstr "Gruppér efter år"
+
+#. group by year
+#: ../latex/bibtex/views.py:197
+msgid "<i>n/a</i>"
+msgstr "<i>n/a</i>"
+
+#: ../latex/bibtex/views.py:240
+msgid "Unknown Author"
+msgstr "Ukendt forfatter"
+
+#: ../latex/latex/actions.py:63
+msgid "LaTeX"
+msgstr "LaTeX"
+
+#: ../latex/latex/actions.py:73
+msgid "New LaTeX Document..."
+msgstr "Nyt LaTeX-dokument ..."
+
+#: ../latex/latex/actions.py:76
+msgid "Create a new LaTeX document"
+msgstr "Opret et nyt LaTeX-dokument"
+
+#: ../latex/latex/actions.py:95
+msgid "Choose Master Document..."
+msgstr "Vælg hoveddokument ..."
+
+#: ../latex/latex/actions.py:107
+msgid "Close Nearest Environment"
+msgstr "Luk nærmeste miljø"
+
+#: ../latex/latex/actions.py:109
+msgid "Close the nearest TeX environment at left of the cursor"
+msgstr "Luk det nærmeste TeX-miljø til venstre for markøren"
+
+#: ../latex/latex/actions.py:157
+msgid "Use Bibliography..."
+msgstr "Brug bibliografi ..."
+
+#: ../latex/latex/actions.py:179 ../latex/latex/actions.py:181
+#: ../latex/latex/actions.py:189 ../latex/latex/actions.py:190
+msgid "Font Family"
+msgstr "Skriftfamilie"
+
+#: ../latex/latex/actions.py:194 ../latex/latex/actions.py:195
+msgid "Bold"
+msgstr "Fed"
+
+#: ../latex/latex/actions.py:201 ../latex/latex/actions.py:202
+msgid "Italic"
+msgstr "Kursiv"
+
+#: ../latex/latex/actions.py:208 ../latex/latex/actions.py:209
+msgid "Emphasize"
+msgstr "Fremhæv"
+
+#: ../latex/latex/actions.py:215 ../latex/latex/actions.py:216
+msgid "Underline"
+msgstr "Understreg"
+
+#: ../latex/latex/actions.py:222 ../latex/latex/actions.py:223
+msgid "Small Capitals"
+msgstr "Små store bogstaver"
+
+#: ../latex/latex/actions.py:229 ../latex/latex/actions.py:230
+msgid "Roman"
+msgstr "Roman"
+
+#: ../latex/latex/actions.py:236 ../latex/latex/actions.py:237
+msgid "Sans Serif"
+msgstr "Sans Serif"
+
+#: ../latex/latex/actions.py:243 ../latex/latex/actions.py:244
+msgid "Typewriter"
+msgstr "Skrivemaskine"
+
+#: ../latex/latex/actions.py:250 ../latex/latex/actions.py:251
+msgid "Blackboard Bold"
+msgstr "Tavlefed"
+
+#: ../latex/latex/actions.py:258 ../latex/latex/actions.py:259
+msgid "Caligraphy"
+msgstr "Kalligrafi"
+
+#: ../latex/latex/actions.py:265 ../latex/latex/actions.py:266
+msgid "Fraktur"
+msgstr "Fraktur"
+
+#: ../latex/latex/actions.py:273 ../latex/latex/actions.py:274
+#: ../latex/latex/actions.py:286 ../latex/latex/actions.py:287
+msgid "List"
+msgstr "Liste"
+
+#: ../latex/latex/actions.py:278 ../latex/latex/actions.py:279
+msgid "Itemize"
+msgstr "Punktopsætte"
+
+#: ../latex/latex/actions.py:291 ../latex/latex/actions.py:292
+msgid "Enumerate"
+msgstr "Nummerere"
+
+#: ../latex/latex/actions.py:298 ../latex/latex/actions.py:299
+msgid "Description"
+msgstr "Beskrivelse"
+
+#: ../latex/latex/actions.py:304 ../latex/latex/actions.py:305
+#: ../latex/latex/actions.py:330 ../latex/latex/actions.py:331
+msgid "Structure"
+msgstr "Struktur"
+
+#: ../latex/latex/actions.py:308 ../latex/latex/actions.py:309
+msgid "Part"
+msgstr "Del"
+
+# lokation, placering
+#: ../latex/latex/actions.py:322 ../latex/latex/actions.py:323
+msgid "Section"
+msgstr "Sektion"
+
+#: ../latex/latex/actions.py:335 ../latex/latex/actions.py:336
+msgid "Subsection"
+msgstr "Undersektion"
+
+#: ../latex/latex/actions.py:342 ../latex/latex/actions.py:343
+msgid "Paragraph"
+msgstr "Afsnit"
+
+#: ../latex/latex/actions.py:349 ../latex/latex/actions.py:350
+msgid "Subparagraph"
+msgstr "Underafsnit"
+
+#: ../latex/latex/actions.py:405 ../latex/latex/actions.py:407
+#: ../latex/latex/actions.py:415 ../latex/latex/actions.py:416
+msgid "Build"
+msgstr "Byg"
+
+#: ../latex/latex/actions.py:420
+msgid "Build Image"
+msgstr "Byg aftryk"
+
+#: ../latex/latex/actions.py:422
+msgid "Build an image from the LaTeX document"
+msgstr "Byg et aftryk fra LaTeX-dokumentet"
+
+#: ../latex/latex/actions.py:440 ../latex/latex/actions.py:441
+#: ../latex/latex/actions.py:460 ../latex/latex/actions.py:461
+msgid "Justify"
+msgstr "Juster"
+
+#: ../latex/latex/actions.py:445 ../latex/latex/actions.py:446
+msgid "Justify Left"
+msgstr "Juster venstre"
+
+#: ../latex/latex/actions.py:452 ../latex/latex/actions.py:453
+msgid "Justify Center"
+msgstr "Juster centrum"
+
+#: ../latex/latex/actions.py:465 ../latex/latex/actions.py:466
+msgid "Justify Right"
+msgstr "Juster højre"
+
+#: ../latex/latex/actions.py:472 ../latex/latex/actions.py:473
+#: ../latex/latex/actions.py:485 ../latex/latex/actions.py:486
+msgid "Math"
+msgstr "Matematik"
+
+#: ../latex/latex/actions.py:477 ../latex/latex/actions.py:478
+msgid "Mathematical Environment"
+msgstr "Matematisk miljø"
+
+#: ../latex/latex/actions.py:490 ../latex/latex/actions.py:491
+msgid "Centered Formula"
+msgstr "Centreret formel"
+
+#: ../latex/latex/actions.py:497 ../latex/latex/actions.py:498
+msgid "Numbered Equation"
+msgstr "Nummereret ligning"
+
+#: ../latex/latex/actions.py:506 ../latex/latex/actions.py:507
+msgid "Array of Equations"
+msgstr "Række af ligninger"
+
+#: ../latex/latex/actions.py:516 ../latex/latex/actions.py:517
+msgid "Numbered Array of Equations"
+msgstr "Nummereret række af ligninger"
+
+#: ../latex/latex/environment.py:141
+msgid "Book of abstracts"
+msgstr "Abstraktionsbog"
+
+#: ../latex/latex/environment.py:142
+msgid "Article"
+msgstr "Artikel"
+
+#: ../latex/latex/environment.py:143
+msgid "Article (AMS)"
+msgstr "Artikel (AMS)"
+
+#: ../latex/latex/environment.py:144
+msgid "Book (AMS)"
+msgstr "Bog (AMS)"
+
+#: ../latex/latex/environment.py:145
+msgid "AMS Documentation"
+msgstr "AMS-dokumentation"
+
+#: ../latex/latex/environment.py:146
+msgid "Proceedings (AMS)"
+msgstr "Høringer (AMS)"
+
+#: ../latex/latex/environment.py:147
+msgid "Report"
+msgstr "Rapport"
+
+# Beamer is a LaTeX class for creating slides for presentations.
+#: ../latex/latex/environment.py:148
+msgid "Beamer slides"
+msgstr "Beamer-dias"
+
+#: ../latex/latex/environment.py:149
+msgid "Belgian letter"
+msgstr "Belgisk bogstav"
+
+#: ../latex/latex/environment.py:150
+msgid "Book"
+msgstr "Bog"
+
+#: ../latex/latex/environment.py:151
+msgid "Flashcard"
+msgstr "Flashkort"
+
+#: ../latex/latex/environment.py:152
+msgid "Proceedings (IAG)"
+msgstr "Høringer (IAG)"
+
+#: ../latex/latex/environment.py:153
+msgid "Letter"
+msgstr "Bogstav"
+
+#: ../latex/latex/environment.py:154
+msgid "LaTeX News"
+msgstr "LaTeX-nyheder"
+
+#: ../latex/latex/environment.py:155
+msgid "LaTeX Documentation"
+msgstr "LaTeX-dokumentation"
+
+#: ../latex/latex/environment.py:156
+msgid "LaTeX Guide"
+msgstr "LaTeX-vejledning"
+
+#: ../latex/latex/environment.py:157
+msgid "Proceedings"
+msgstr "Høringer"
+
+#: ../latex/latex/environment.py:158
+msgid "Article (KOMA-Script)"
+msgstr "Artikel (KOMA-skript)"
+
+#: ../latex/latex/environment.py:159 ../latex/latex/environment.py:163
+msgid "Report (KOMA-Script)"
+msgstr "Rapport (KOMA-skript)"
+
+#: ../latex/latex/environment.py:160
+msgid "Book (KOMA-Script)"
+msgstr "Bog (KOMA-skript)"
+
+#: ../latex/latex/environment.py:161
+msgid "Letter (KOMA-Script)"
+msgstr "Bogstav (KOMA-skript)"
+
+#: ../latex/latex/environment.py:162
+msgid "Letter 2 (KOMA-Script)"
+msgstr "Bogstav 2 (KOMA-skript)"
+
+#: ../latex/latex/environment.py:164
+msgid "Slides"
+msgstr "Dias"
+
+#: ../latex/latex/views.py:107
+msgid "Symbols"
+msgstr "Symboler"
+
+#: ../latex/latex/views.py:190
+msgid "Show graphics"
+msgstr "Vis grafik"
+
+#: ../latex/latex/views.py:195
+msgid "Show tables"
+msgstr "Vis tabeller"
+
+# hvad er dog det her????
+# måske redaktør?
+# editor field
+# Name(s) of editor(s). If there is also an "author" field, then the
+# "editor" field gives the editor of the book or collection in which 
+# the reference appears. Format: EDITOR = field_text
+#: ../latex/outline.py:58
+msgid "Follow Editor"
+msgstr "Følg redaktør"
+
+#: ../latex/outline.py:63
+msgid "Expand All"
+msgstr "Udvid alle"
+
+#: ../latex/outline.py:67
+msgid "Collapse All"
+msgstr "Saml alle"
+
+#: ../latex/outline.py:114
+msgid "Outline"
+msgstr "Omrids"
+
+#: ../latex/tools/views.py:62
+msgid "Job"
+msgstr "Job"
+
+#: ../latex/tools/views.py:73 ../latex/views.py:80
+msgid "File"
+msgstr "Fil"
+
+#: ../latex/tools/views.py:74
+msgid "Line"
+msgstr "Linje"
+
+#: ../latex/tools/views.py:87
+msgid "Abort Job"
+msgstr "Afbryd job"
+
+#: ../latex/tools/views.py:92
+msgid "Show Detailed Output"
+msgstr "Vis detaljeret resultat"
+
+#: ../latex/views.py:67
+msgid "Message"
+msgstr "Besked"
+
+#: ../latex/views.py:99
+msgid "Show/Hide Warnings"
+msgstr "Vis/skjul advarsler"
+
+#: ../latex/views.py:107
+msgid "Show/Hide Tasks"
+msgstr "Vis/skjul opgaver"
+
+#: ../latex/views.py:139
+msgid "Issues"
+msgstr "Problemstillinger"
