@@ -6,23 +6,23 @@
 #
 # Mario Blättermann <mario.blaettermann@gmail.com>, 2011, 2012.
 # Christian Kirbach <Christian.Kirbach@googlemail.com>, 2011.
-# Wolfgang Stöggl <c72578@yahoo.de>, 2011.
+# Wolfgang Stöggl <c72578@yahoo.de>, 2011, 2013.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gedit-latex master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gedit&keywords=I18N+L10N&component=Plugins\n"
-"POT-Creation-Date: 2012-02-14 18:29+0000\n"
-"PO-Revision-Date: 2012-02-29 20:28+0100\n"
-"Last-Translator: Mario Blättermann <mario.blaettermann@gmail.com>\n"
-"Language-Team: German <gnome-de@gnome.org>\n"
+"POT-Creation-Date: 2013-12-18 18:51+0000\n"
+"PO-Revision-Date: 2013-12-26 13:48+0100\n"
+"Last-Translator: Benjamin Steinwender <b@stbe.at>\n"
+"Language-Team: Deutsch <gnome-de@gnome.org>\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Poedit-Language: German\n"
-"X-Poedit-Country: GERMANY\n"
+"X-Generator: Poedit 1.6.3\n"
 
 #: ../latex.plugin.desktop.in.in.h:1
 msgid "LaTeX Plugin"
@@ -184,7 +184,8 @@ msgstr "Box-Warnungen verbergen"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:9
 msgid ""
-"Show LaTeX Toolbar below (normal), combined with the main toolbar, or disabled"
+"Show LaTeX Toolbar below (normal), combined with the main toolbar, or "
+"disabled"
 msgstr ""
 "LaTeX-Werkzeugleiste unten anzeigen (normal), kombiniert mit der "
 "Hauptwerkzeugleiste oder deaktiviert"
@@ -548,30 +549,36 @@ msgid "Include PDF _Metadata"
 msgstr "PDF-_Metadaten einschließen"
 
 #: ../data/ui/new_document_template_dialog.ui.h:19
+msgid "This adds metadata to the document. Requires package <tt>ifpdf</tt>."
+msgstr ""
+"Damit werden Metadaten zum Dokument hinzugefügt. Das Paket <tt>ifpdf</tt> "
+"wird dafür benötigt."
+
+#: ../data/ui/new_document_template_dialog.ui.h:20
 msgid "Date:"
 msgstr "Datum:"
 
-#: ../data/ui/new_document_template_dialog.ui.h:20
+#: ../data/ui/new_document_template_dialog.ui.h:21
 msgid "To_day"
 msgstr "_Heute"
 
-#: ../data/ui/new_document_template_dialog.ui.h:21
+#: ../data/ui/new_document_template_dialog.ui.h:22
 msgid "C_ustom:"
 msgstr "_Benutzerdefiniert:"
 
-#: ../data/ui/new_document_template_dialog.ui.h:22
+#: ../data/ui/new_document_template_dialog.ui.h:23
 msgid "_Author:"
 msgstr "_Autor:"
 
-#: ../data/ui/new_document_template_dialog.ui.h:23
+#: ../data/ui/new_document_template_dialog.ui.h:24
 msgid "_Title:"
 msgstr "_Titel:"
 
-#: ../data/ui/new_document_template_dialog.ui.h:24
+#: ../data/ui/new_document_template_dialog.ui.h:25
 msgid "<b>Meta Information</b>"
 msgstr "<b>Metadaten</b>"
 
-#: ../data/ui/new_document_template_dialog.ui.h:25
+#: ../data/ui/new_document_template_dialog.ui.h:26
 msgid "Default F_ont Family:"
 msgstr "V_oreingestellte Schriftfamilie:"
 
@@ -595,41 +602,41 @@ msgstr "Stilvorschau:"
 msgid "Refresh Style Preview"
 msgstr "Stilvorschau aktualisieren"
 
-#: ../latex/bibtex/actions.py:35
+#: ../latex/bibtex/actions.py:32
 msgid "BibTeX"
 msgstr "BibTeX"
 
-#: ../latex/bibtex/actions.py:46
+#: ../latex/bibtex/actions.py:43
 msgid "New BibTeX Entry..."
 msgstr "Neuer BibTeX-Eintrag …"
 
-#: ../latex/bibtex/actions.py:49
+#: ../latex/bibtex/actions.py:46
 msgid "Create a new BibTeX entry"
 msgstr "Einen neuen BibTeX-Eintrag erstellen"
 
 #. add grouping controls to toolbar
-#: ../latex/bibtex/views.py:58
+#: ../latex/bibtex/views.py:56
 msgid "No Grouping"
 msgstr "Keine Gruppierung"
 
-#: ../latex/bibtex/views.py:59
+#: ../latex/bibtex/views.py:57
 msgid "Group by Type"
 msgstr "Nach Typ gruppieren"
 
-#: ../latex/bibtex/views.py:60
+#: ../latex/bibtex/views.py:58
 msgid "Group by Author"
 msgstr "Nach Autor gruppieren"
 
-#: ../latex/bibtex/views.py:61
+#: ../latex/bibtex/views.py:59
 msgid "Group by Year"
 msgstr "Nach Jahr gruppieren"
 
 #. group by year
-#: ../latex/bibtex/views.py:199
+#: ../latex/bibtex/views.py:197
 msgid "<i>n/a</i>"
 msgstr "<i>n.v.</i>"
 
-#: ../latex/bibtex/views.py:242
+#: ../latex/bibtex/views.py:240
 msgid "Unknown Author"
 msgstr "Unbekannter Autor"
 
@@ -809,7 +816,7 @@ msgstr "Nummerierte Menge von Gleichungen"
 
 #: ../latex/latex/environment.py:141
 msgid "Book of abstracts"
-msgstr ""
+msgstr "Kurzfassungsband"
 
 #: ../latex/latex/environment.py:142
 msgid "Article"
@@ -829,7 +836,7 @@ msgstr "AMS-Dokumentation"
 
 #: ../latex/latex/environment.py:146
 msgid "Proceedings (AMS)"
-msgstr ""
+msgstr "Tagungsband (AMS)"
 
 #: ../latex/latex/environment.py:147
 msgid "Report"
@@ -853,29 +860,27 @@ msgstr "Flash-Karte"
 
 #: ../latex/latex/environment.py:152
 msgid "Proceedings (IAG)"
-msgstr ""
+msgstr "Tagungsband (IAG)"
 
 #: ../latex/latex/environment.py:153
 msgid "Letter"
 msgstr "Brief"
 
 #: ../latex/latex/environment.py:154
-#, fuzzy
 msgid "LaTeX News"
-msgstr "LaTeX"
+msgstr "LaTeX-Nachrichten"
 
 #: ../latex/latex/environment.py:155
 msgid "LaTeX Documentation"
 msgstr "LaTeX-Dokumentation"
 
 #: ../latex/latex/environment.py:156
-#, fuzzy
 msgid "LaTeX Guide"
-msgstr "LaTeX-Plugin"
+msgstr "LaTeX-Handbuch"
 
 #: ../latex/latex/environment.py:157
 msgid "Proceedings"
-msgstr ""
+msgstr "Tagungsband"
 
 #: ../latex/latex/environment.py:158
 msgid "Article (KOMA-Script)"
@@ -901,15 +906,15 @@ msgstr "Brief 2 (KOMA-Skript)"
 msgid "Slides"
 msgstr "Folien"
 
-#: ../latex/latex/views.py:114
+#: ../latex/latex/views.py:107
 msgid "Symbols"
 msgstr "Symbole"
 
-#: ../latex/latex/views.py:202
+#: ../latex/latex/views.py:190
 msgid "Show graphics"
 msgstr "Grafiken anzeigen"
 
-#: ../latex/latex/views.py:207
+#: ../latex/latex/views.py:195
 msgid "Show tables"
 msgstr "Tabellen anzeigen"
 
@@ -925,7 +930,7 @@ msgstr "Alle ausklappen"
 msgid "Collapse All"
 msgstr "Alle einklappen"
 
-#: ../latex/outline.py:115
+#: ../latex/outline.py:114
 msgid "Outline"
 msgstr "Umriss"
 
