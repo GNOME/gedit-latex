@@ -1,0 +1,597 @@
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Iñaki Larrañaga Murgoitio <dooteo@zundan.com>, 2014.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-07-15 12:07+0200\n"
+"PO-Revision-Date: 2014-07-15 12:20+0200\n"
+"Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@zundan.com>\n"
+"Language-Team: Basque <librezale@librezale.org>\n"
+"Language: eu\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 1.4\n"
+
+#: ../data/bibtex.xml.h:1
+msgid "Title"
+msgstr "Titulua"
+
+#: ../data/bibtex.xml.h:2
+msgid "Book Title"
+msgstr "Liburuaren titulua"
+
+#: ../data/bibtex.xml.h:3
+msgid "Author"
+msgstr "Egilea"
+
+#: ../data/bibtex.xml.h:4
+msgid "Editor"
+msgstr "Editorea"
+
+#: ../data/bibtex.xml.h:5
+msgid "Pages"
+msgstr "Orrialdeak"
+
+#: ../data/bibtex.xml.h:6
+msgid "Journal"
+msgstr "Egunkaria"
+
+#: ../data/bibtex.xml.h:7
+msgid "Volume"
+msgstr "Bolumena"
+
+#: ../data/bibtex.xml.h:8
+msgid "Number"
+msgstr "Zenbakia"
+
+#: ../data/bibtex.xml.h:9
+msgid "Month"
+msgstr "Hila"
+
+#: ../data/bibtex.xml.h:10
+msgid "Year"
+msgstr "Urtea"
+
+#: ../data/bibtex.xml.h:11
+msgid "ISSN"
+msgstr "ISSNa"
+
+#: ../data/bibtex.xml.h:12
+msgid "Series"
+msgstr "Serieak"
+
+#: ../data/bibtex.xml.h:13
+msgid "Edition"
+msgstr "Edizioa"
+
+#: ../data/bibtex.xml.h:14
+msgid "Publisher"
+msgstr "Argitaratzailea"
+
+#: ../data/bibtex.xml.h:15
+msgid "Address"
+msgstr "Helbidea"
+
+#: ../data/bibtex.xml.h:16
+msgid "ISBN"
+msgstr "ISBNa"
+
+#: ../data/bibtex.xml.h:17
+msgid "How Published"
+msgstr "Nola argitaratuta"
+
+#: ../data/bibtex.xml.h:18
+msgid "Organization"
+msgstr "Erakundea"
+
+#: ../data/bibtex.xml.h:19
+msgid "Location"
+msgstr "Kokalekua"
+
+#: ../data/bibtex.xml.h:20
+msgid "URL"
+msgstr "URLa"
+
+#: ../data/bibtex.xml.h:21
+msgid "Note"
+msgstr "Oharra"
+
+#: ../data/bibtex.xml.h:22
+msgid "Type"
+msgstr "Mota"
+
+#: ../data/bibtex.xml.h:23
+msgid "Chapter"
+msgstr "Kapitulua"
+
+#: ../data/bibtex.xml.h:24
+msgid "Key"
+msgstr "Gakoa"
+
+#: ../data/bibtex.xml.h:25
+msgid "School"
+msgstr "Eskola"
+
+#: ../data/bibtex.xml.h:26
+msgid "Institution"
+msgstr "Erakundea"
+
+#: ../data/bibtex.xml.h:27
+msgid "Cross Reference"
+msgstr "Erreferentzia gurutzatua"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:1
+msgid "Maximum BibTeX Size"
+msgstr "BibTeX-en gehienezko tamaina"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:2
+msgid "Connect Outline to Editor"
+msgstr "Konektatu eskema editorearekin"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:3
+msgid "Show Labels in Outline"
+msgstr "Erakutsi etiketak eskeman"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:4
+msgid "Show Tables in Outline"
+msgstr "Erakutsi taulak eskeman"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:5
+msgid "Show Graphics in Outline"
+msgstr "Erakutsi grafikoak eskeman"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:6
+msgid "Show Warnings in Issues"
+msgstr "Erakutsi abisuak errore-leihoan"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:7
+msgid "Show Tasks in Issues"
+msgstr "Erakutsi zereginak errore-leihoan"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:8
+#: ../data/ui/configure.ui.h:7
+msgid "Hide Box Warnings"
+msgstr "Ezkutatu abisuen kutxa"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:9
+msgid ""
+"Show LaTeX Toolbar below (normal), combined with the main toolbar, or "
+"disabled"
+msgstr ""
+"Erakutsi LaTeX-en tresna-barra azpian, tresna-barra nagusiarekin "
+"konbinatuta, edo desgaituta"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:10
+msgid "Expanded Symbol Groups"
+msgstr "Ikurren talde hedatuak"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:11
+msgid "LaTeX Extensions"
+msgstr "LaTeX hedapenak"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:12
+msgid "Graphics File Extensions"
+msgstr "Grafiko-fitxategien luzapenak"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:13
+msgid "Paths Relative to .tex File to Look for Graphics"
+msgstr "'.tex' fitxategien bide-izen erlatiboa grafikoak bilatzeko"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:14
+msgid "Extra LaTeX commands used to mark issues, such as \\fxnote{foo}"
+msgstr ""
+"LaTeX-en komando gehigarriak landuko diren dokumentuaren zatiak markatzeko, "
+"\\fxnote{foo} bezalakoak"
+
+#: ../data/ui/build_image_dialog.ui.h:1
+msgid "Render to Image"
+msgstr "Errendatu irudira"
+
+#: ../data/ui/build_image_dialog.ui.h:2
+msgid "Attempt to render tight bounding box"
+msgstr "Muga-koadroa doituta errendatzeko saiakera"
+
+#: ../data/ui/build_image_dialog.ui.h:3
+msgid "Render whole page(s)"
+msgstr "Errendatu orrialde osoak"
+
+#: ../data/ui/build_image_dialog.ui.h:4
+msgid "<b>Area</b>"
+msgstr "<b>Area</b>"
+
+#: ../data/ui/build_image_dialog.ui.h:5
+msgid "Resolution:"
+msgstr "Bereizmena:"
+
+#: ../data/ui/build_image_dialog.ui.h:6
+msgid "Antialiasing:"
+msgstr "Antialiasing-a:"
+
+#: ../data/ui/build_image_dialog.ui.h:7
+msgid "<b>Rendering</b>"
+msgstr "<b>Errendatzea</b>"
+
+#: ../data/ui/build_image_dialog.ui.h:8
+msgid "GIF"
+msgstr "GIF"
+
+#: ../data/ui/build_image_dialog.ui.h:9
+msgid "JPEG"
+msgstr "JPEG"
+
+#: ../data/ui/build_image_dialog.ui.h:10
+msgid "Color Mode:"
+msgstr "Kolore modua:"
+
+#: ../data/ui/build_image_dialog.ui.h:11
+msgid "PNG"
+msgstr "PNG"
+
+#: ../data/ui/build_image_dialog.ui.h:12
+msgid "<b>Image Format</b>"
+msgstr "<b>irudiaren formatua</b>"
+
+#: ../data/ui/choose_master_dialog.ui.h:1
+msgid "Select Master Document"
+msgstr "Hautatu dokumentu maisua"
+
+#: ../data/ui/choose_master_dialog.ui.h:2
+msgid "Filename:"
+msgstr "Fitxategi-izena:"
+
+#: ../data/ui/configure.ui.h:1
+msgid "Tools"
+msgstr "Tresnak"
+
+#: ../data/ui/configure.ui.h:2
+msgid "Maximum Parsed File Size:"
+msgstr "Analizatutako fitxategien gehienezko tamaina:"
+
+#: ../data/ui/configure.ui.h:3
+msgid "KB"
+msgstr "KB"
+
+#: ../data/ui/configure.ui.h:4
+msgid "<b>Templates</b>"
+msgstr "<b>Txantiloiak</b>"
+
+#: ../data/ui/configure.ui.h:5
+msgid "Folder:"
+msgstr "Karpeta:"
+
+#: ../data/ui/configure.ui.h:6
+msgid "<b><i>rubber</i> Post-Processor</b>"
+msgstr "<b><i>rubber</i> postprozesadorea</b>"
+
+#: ../data/ui/configure.ui.h:8
+msgid "<b>BibTeX</b>"
+msgstr "<b>BibTeX</b>"
+
+#: ../data/ui/configure.ui.h:9
+msgid "Miscellaneous"
+msgstr "Hainbat"
+
+#: ../data/ui/configure_tool.ui.h:1
+msgid ""
+"Remember to run all commands in batch mode (e.g. append <tt>-interaction "
+"batchmode</tt> to <tt>latex</tt>)"
+msgstr ""
+"Gogoratu komando guztiak Batch moduan exekutatzea (adib. erantsi <tt>-"
+"interaction batchmode</tt> iezaiozu <tt>latex</tt>-i)"
+
+#: ../data/ui/configure_tool.ui.h:2
+msgid "<b>_Label</b>"
+msgstr "<b>_Etiketa</b>"
+
+#: ../data/ui/configure_tool.ui.h:3
+msgid ""
+"Valid placeholders are <tt>$filename</tt>, <tt>$shortname</tt>, <tt>"
+"$directory</tt>"
+msgstr ""
+"Baliozko heldu-lekuak hauek dira: <tt>$filename</tt>, <tt>$shortname</tt>, "
+"<tt>$directory</tt>"
+
+#: ../data/ui/configure_tool.ui.h:4
+msgid "<b>_Jobs</b>"
+msgstr "<b>_Lanak</b>"
+
+#: ../data/ui/configure_tool.ui.h:5
+msgid "<b>_Description</b>"
+msgstr "<b>_Azalpena</b>"
+
+#: ../data/ui/configure_tool.ui.h:6
+msgid "<b>_File Extensions</b>"
+msgstr "<b>_Fitxategi-luzapenak</b>"
+
+#: ../data/ui/configure_tool.ui.h:7
+msgid "_Generated"
+msgstr "_Sortuta"
+
+#: ../data/ui/configure_tool.ui.h:8
+msgid "_User Defined:"
+msgstr "_Erabiltzaileak definituta:"
+
+#: ../data/ui/configure_tool.ui.h:9
+msgid "<Ctrl><Alt>1"
+msgstr "<Ctrl><Alt>1"
+
+#: ../data/ui/configure_tool.ui.h:10
+msgid "<b>Accelerator</b>"
+msgstr "<b>Bizkortzailea</b>"
+
+#: ../data/ui/insert_bibtex_entry.ui.h:1
+msgid "Create Bibliography Entry"
+msgstr "Sortu bibliografiaren sarrera"
+
+#: ../data/ui/insert_bibtex_entry.ui.h:2
+msgid "Required Fields"
+msgstr "Derrigorrezko eremuak"
+
+#: ../data/ui/insert_bibtex_entry.ui.h:3
+msgid "Optional Fields"
+msgstr "Aukerako eremuak"
+
+#: ../data/ui/insert_bibtex_entry.ui.h:4
+msgid "_Identifier:"
+msgstr "_Identifikatzailea:"
+
+#: ../data/ui/insert_bibtex_entry.ui.h:5
+msgid "_Type:"
+msgstr "_Mota:"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:1
+msgid "Image Size"
+msgstr "Irudiaren tamaina"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:2
+msgid "Text Width"
+msgstr "Testuaren zabalera"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:3
+msgid "Insert Graphics"
+msgstr "Txertatu grafikoa"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:4
+msgid "&#xB0; CCW"
+msgstr "&#xB0; CCW"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:5
+msgid "_Rotate:"
+msgstr "_Biratu:"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:6
+msgid "Flip _Horizontally"
+msgstr "Irauli _horizontalki"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:7
+msgid "_File:"
+msgstr "_Fitxategia:"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:8
+#: ../data/ui/insert_table_dialog.ui.h:7
+msgid "_Caption:"
+msgstr "E_pigrafea:"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:9
+#: ../data/ui/insert_table_dialog.ui.h:8
+msgid "_Label:"
+msgstr "E_tiketa:"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:10
+msgid "fig:"
+msgstr "irud:"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:11
+msgid "_Width:"
+msgstr "_Zabalera:"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:13
+#, no-c-format
+msgid "% _of"
+msgstr "Honen %: "
+
+#: ../data/ui/insert_graphics_dialog.ui.h:14
+msgid "Floating _Object"
+msgstr "_Objektu mugikorra"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:15
+msgid "_Spread over two Columns"
+msgstr "_Hedatu bi zutabetan"
+
+#: ../data/ui/insert_listing_dialog.ui.h:1
+msgid "Insert Source Code Listing"
+msgstr "Txertatu iturburuaren kodearen zerrenda"
+
+#: ../data/ui/insert_listing_dialog.ui.h:2
+msgid "_Dialect:"
+msgstr "_Dialektoa:"
+
+#: ../data/ui/insert_listing_dialog.ui.h:3
+msgid "Programming _Language:"
+msgstr "Programazio _hizkuntza:"
+
+#: ../data/ui/insert_listing_dialog.ui.h:4
+msgid "Load From _File:"
+msgstr "Kargatu _fitxategitik:"
+
+#: ../data/ui/insert_table_dialog.ui.h:1
+msgid "Insert Table or Matrix"
+msgstr "Txertatu taula edo matrizea"
+
+#: ../data/ui/insert_table_dialog.ui.h:2
+msgid "Type:"
+msgstr "Mota:"
+
+#: ../data/ui/insert_table_dialog.ui.h:3
+msgid "_Table"
+msgstr "_Taula"
+
+#: ../data/ui/insert_table_dialog.ui.h:4
+msgid "_Matrix:"
+msgstr "_Matrizea:"
+
+#: ../data/ui/insert_table_dialog.ui.h:5
+msgid "_Rows:"
+msgstr "_Errenkadak:"
+
+#: ../data/ui/insert_table_dialog.ui.h:6
+msgid "C_olumns:"
+msgstr "_Zutabeak:"
+
+#: ../data/ui/insert_table_dialog.ui.h:9
+msgid "tab:"
+msgstr ""
+
+#: ../data/ui/insert_table_dialog.ui.h:10
+msgid "_Floating Object"
+msgstr "_Objektu mugikorra"
+
+#: ../data/ui/new_document_template_dialog.ui.h:1
+msgid "New LaTeX Document"
+msgstr "LaTeX dokumentu berria"
+
+#: ../data/ui/new_document_template_dialog.ui.h:2
+msgid "T_emplate:"
+msgstr "_Txantiloia:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:3
+msgid "document"
+msgstr "dokumentua"
+
+#: ../data/ui/new_document_template_dialog.ui.h:4
+msgid ".tex"
+msgstr ".tex"
+
+#: ../data/ui/new_document_template_dialog.ui.h:5
+msgid "Di_rectory:"
+msgstr "_Direktorioa:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:6
+#: ../data/ui/save_as_template_dialog.ui.h:2
+msgid "_Name:"
+msgstr "_Izena:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:7
+msgid "_Babel Package:"
+msgstr "_Babel paketea:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:8
+msgid "_Input Encoding:"
+msgstr "_Sarreraren kodeketa:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:9
+msgid "<b>Language Customization</b>"
+msgstr "<b>Hizkuntzaren pertsonalizazioa</b>"
+
+#: ../data/ui/new_document_template_dialog.ui.h:10
+msgid "_Landscape"
+msgstr "_Horizontala"
+
+#: ../data/ui/new_document_template_dialog.ui.h:11
+msgid "_Paper:"
+msgstr "_Papera:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:12
+msgid "De_fault"
+msgstr "_Lehenetsia"
+
+#: ../data/ui/new_document_template_dialog.ui.h:13
+msgid "U_ser Defined:"
+msgstr "E_rabiltzaileak definituta:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:14
+msgid "pt"
+msgstr "pt"
+
+#: ../data/ui/new_document_template_dialog.ui.h:15
+msgid "Base Font Size:"
+msgstr "Oinarrizko letra-tamaina:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:16
+msgid "Document _Class:"
+msgstr "Dokumentu _klasea:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:17
+msgid "<b>Style and Layout</b>"
+msgstr "<b>Estiloa eta diseinua</b>"
+
+#: ../data/ui/new_document_template_dialog.ui.h:18
+msgid "Include PDF _Metadata"
+msgstr "PDFren _metadatuak barne"
+
+#: ../data/ui/new_document_template_dialog.ui.h:19
+msgid "Date:"
+msgstr "Data:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:20
+msgid "To_day"
+msgstr "_Gaur"
+
+#: ../data/ui/new_document_template_dialog.ui.h:21
+msgid "C_ustom:"
+msgstr "_Pertsonalizatua:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:22
+msgid "_Author:"
+msgstr "_Egilea:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:23
+msgid "_Title:"
+msgstr "_Titulua:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:24
+msgid "<b>Meta Information</b>"
+msgstr "<b>Meta informazioa</b>"
+
+#: ../data/ui/new_document_template_dialog.ui.h:25
+msgid "Default F_ont Family:"
+msgstr "Letra-_tipo lehenetsia:"
+
+#: ../data/ui/save_as_template_dialog.ui.h:1
+msgid "Save As Template"
+msgstr "Gorde txantiloi gisa"
+
+#: ../data/ui/save_as_template_dialog.ui.h:3
+msgid "Please specify a name for the new template."
+msgstr "Zehaztu txantiloi berriaren izena."
+
+#: ../data/ui/save_as_template_dialog.ui.h:4
+msgid "label"
+msgstr "etiketa"
+
+#: ../data/ui/use_bibliography_dialog.ui.h:1
+msgid "Use Bibliography"
+msgstr "Erabili bibliografia"
+
+#: ../data/ui/use_bibliography_dialog.ui.h:2
+msgid "Bibliography _File:"
+msgstr "Bibliografiaren _fitxategia:"
+
+#: ../data/ui/use_bibliography_dialog.ui.h:3
+msgid "_Style:"
+msgstr "E_stiloa:"
+
+#: ../data/ui/use_bibliography_dialog.ui.h:4
+msgid "Style Preview:"
+msgstr "Estiloaren aurrebista:"
+
+#: ../data/ui/use_bibliography_dialog.ui.h:5
+msgid "Refresh Style Preview"
+msgstr "Freskatu estiloaren aurrebista"
+
+#: ../latex.plugin.desktop.in.in.h:1
+msgid "LaTeX Plugin"
+msgstr "LaTeX plugina"
+
+#: ../latex.plugin.desktop.in.in.h:2
+msgid ""
+"A plugin that assists you in handling LaTeX documents and BibTeX "
+"bibliographies"
+msgstr ""
+"LaTeX dokumentuak eta BibTeX bibliografiak kudeatzen lagunduko dizun plugina"
+
