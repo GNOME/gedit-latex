@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-07-15 12:06+0200\n"
-"PO-Revision-Date: 2014-07-14 19:20+0200\n"
+"PO-Revision-Date: 2014-07-15 12:27+0200\n"
 "Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@zundan.com>\n"
 "Language-Team: Basque <librezale@librezale.org>\n"
 "Language: eu\n"
@@ -130,7 +130,6 @@ msgid "School"
 msgstr "Eskola"
 
 #: ../data/bibtex.xml.h:26
-#, fuzzy
 msgid "Institution"
 msgstr "Instituzioa"
 
@@ -159,14 +158,12 @@ msgid "Show Graphics in Outline"
 msgstr "Erakutsi grafikoak eskeman"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:6
-#, fuzzy
 msgid "Show Warnings in Issues"
-msgstr "Erakutsi abisuak argitalpenetan"
+msgstr "Erakutsi abisuak errore-leihoan"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:7
-#, fuzzy
 msgid "Show Tasks in Issues"
-msgstr "Erakutsi zereginak argitalpenetan"
+msgstr "Erakutsi zereginak errore-leihoan"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:8
 #: ../data/ui/configure.ui.h:6
@@ -198,10 +195,10 @@ msgid "Paths Relative to .tex File to Look for Graphics"
 msgstr "'.tex' fitxategien bide-izen erlatiboa grafikoak bilatzeko"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:14
-#, fuzzy
 msgid "Extra LaTeX commands used to mark issues, such as \\fxnote{foo}"
 msgstr ""
-"LaTeX-en komando gehigarriak arazoak markatzeko, \\fxnote{foo} bezalakoak"
+"LaTeX-en komando gehigarriak landuko diren dokumentuaren zatiak markatzeko, "
+"\\fxnote{foo} bezalakoak"
 
 #: ../data/ui/build_image_dialog.ui.h:1
 msgid "Render to Image"
@@ -249,7 +246,7 @@ msgstr "Errendatu orrialde osoak"
 
 #: ../data/ui/build_image_dialog.ui.h:12
 msgid "Attempt to render tight bounding box"
-msgstr ""
+msgstr "Muga-koadroa doituta errendatzeko saiakera"
 
 #: ../data/ui/choose_master_dialog.ui.h:1
 msgid "Select Master Document"
@@ -269,7 +266,7 @@ msgstr "<b>BibTeX</b>"
 
 #: ../data/ui/configure.ui.h:3
 msgid "<b><i>rubber</i> Post-Processor</b>"
-msgstr ""
+msgstr "<b><i>rubber</i> postprozesadorea</b>"
 
 #: ../data/ui/configure.ui.h:4
 msgid "Maximum Parsed File Size:"
@@ -381,7 +378,7 @@ msgstr "_Zabalera:"
 #: ../data/ui/insert_graphics_dialog.ui.h:8
 #, no-c-format
 msgid "% _of"
-msgstr ""
+msgstr "Honen %: "
 
 #: ../data/ui/insert_graphics_dialog.ui.h:9
 msgid "_Rotate:"
@@ -389,7 +386,7 @@ msgstr "_Biratu:"
 
 #: ../data/ui/insert_graphics_dialog.ui.h:10
 msgid "° CCW"
-msgstr ""
+msgstr "° erlojuaren aurka"
 
 #: ../data/ui/insert_graphics_dialog.ui.h:11
 msgid "Flip _Horizontally"
@@ -413,7 +410,6 @@ msgstr "Testuaren zabalera"
 
 #: ../data/ui/insert_listing_dialog.ui.h:1 ../latex/latex/actions.py:388
 #: ../latex/latex/actions.py:390
-#, fuzzy
 msgid "Insert Source Code Listing"
 msgstr "Txertatu iturburuaren kodearen zerrenda"
 
@@ -427,7 +423,7 @@ msgstr "Programazio _hizkuntza:"
 
 #: ../data/ui/insert_listing_dialog.ui.h:4
 msgid "_Dialect:"
-msgstr ""
+msgstr "_Dialektoa:"
 
 #: ../data/ui/insert_table_dialog.ui.h:1 ../latex/latex/actions.py:372
 #: ../latex/latex/actions.py:374
@@ -587,124 +583,115 @@ msgid "Refresh Style Preview"
 msgstr "Freskatu estiloaren aurrebista"
 
 #: ../latex/bibtex/actions.py:32
-#, fuzzy
 msgid "BibTeX"
-msgstr "<b>BibTeX</b>"
+msgstr "BibTeX"
 
 #: ../latex/bibtex/actions.py:43
 msgid "New BibTeX Entry..."
-msgstr ""
+msgstr "BibTeX sarrera berria..."
 
 #: ../latex/bibtex/actions.py:46
-#, fuzzy
 msgid "Create a new BibTeX entry"
-msgstr "Sortu bibliografiaren sarrera"
+msgstr "Sortu BibTeX sarrera berria"
 
 #. add grouping controls to toolbar
 #: ../latex/bibtex/views.py:56
 msgid "No Grouping"
-msgstr ""
+msgstr "Ez taldekatu"
 
 #: ../latex/bibtex/views.py:57
 msgid "Group by Type"
-msgstr ""
+msgstr "Taldekatu motaren arabera"
 
 #: ../latex/bibtex/views.py:58
 msgid "Group by Author"
-msgstr ""
+msgstr "Taldekatu egilearen arabera"
 
 #: ../latex/bibtex/views.py:59
 msgid "Group by Year"
-msgstr ""
+msgstr "Taldekatu urtearen arabera"
 
 #. group by year
 #: ../latex/bibtex/views.py:197
 msgid "<i>n/a</i>"
-msgstr ""
+msgstr "<i>e/e</i>"
 
 #: ../latex/bibtex/views.py:240
-#, fuzzy
 msgid "Unknown Author"
-msgstr "Egilea"
+msgstr "Egile ezezaguna"
 
 #: ../latex/latex/actions.py:63
 msgid "LaTeX"
-msgstr ""
+msgstr "LaTeX"
 
 #: ../latex/latex/actions.py:73
-#, fuzzy
 msgid "New LaTeX Document..."
-msgstr "LaTeX dokumentu berria"
+msgstr "LaTeX dokumentu berria..."
 
 #: ../latex/latex/actions.py:76
-#, fuzzy
 msgid "Create a new LaTeX document"
-msgstr "LaTeX dokumentu berria"
+msgstr "Sortu LaTeX dokumentu berria"
 
 #: ../latex/latex/actions.py:95
-#, fuzzy
 msgid "Choose Master Document..."
-msgstr "Hautatu dokumentu maisua"
+msgstr "Aukeratu dokumentu maisua..."
 
 #: ../latex/latex/actions.py:107
 msgid "Close Nearest Environment"
-msgstr ""
+msgstr "Itxi ingurune hurbilena"
 
 #: ../latex/latex/actions.py:109
 msgid "Close the nearest TeX environment at left of the cursor"
 msgstr ""
 
 #: ../latex/latex/actions.py:157
-#, fuzzy
 msgid "Use Bibliography..."
-msgstr "Erabili bibliografia"
+msgstr "Erabili bibliografia..."
 
 #: ../latex/latex/actions.py:179 ../latex/latex/actions.py:181
 #: ../latex/latex/actions.py:189 ../latex/latex/actions.py:190
-#, fuzzy
 msgid "Font Family"
-msgstr "Letra-_tipo lehenetsia:"
+msgstr "Letra-familia"
 
 #: ../latex/latex/actions.py:194 ../latex/latex/actions.py:195
 msgid "Bold"
-msgstr ""
+msgstr "Lodia"
 
 #: ../latex/latex/actions.py:201 ../latex/latex/actions.py:202
 msgid "Italic"
-msgstr ""
+msgstr "Etzana"
 
 #: ../latex/latex/actions.py:208 ../latex/latex/actions.py:209
 msgid "Emphasize"
-msgstr ""
+msgstr "Enfasia"
 
 #: ../latex/latex/actions.py:215 ../latex/latex/actions.py:216
 msgid "Underline"
-msgstr ""
+msgstr "Azpimarra"
 
 #: ../latex/latex/actions.py:222 ../latex/latex/actions.py:223
 msgid "Small Capitals"
-msgstr ""
+msgstr "Maiuskula txikiak"
 
 #: ../latex/latex/actions.py:229 ../latex/latex/actions.py:230
 msgid "Roman"
-msgstr ""
+msgstr "Erromatarra"
 
 #: ../latex/latex/actions.py:236 ../latex/latex/actions.py:237
 msgid "Sans Serif"
-msgstr ""
+msgstr "Sans Serif"
 
 #: ../latex/latex/actions.py:243 ../latex/latex/actions.py:244
 msgid "Typewriter"
-msgstr ""
+msgstr "Idazmakina"
 
 #: ../latex/latex/actions.py:250 ../latex/latex/actions.py:251
 msgid "Blackboard Bold"
 msgstr ""
 
 #: ../latex/latex/actions.py:258 ../latex/latex/actions.py:259
-#, fuzzy
 msgid "Caligraphy"
-msgstr "Erabili bibliografia"
+msgstr "Kaligrafia"
 
 #: ../latex/latex/actions.py:265 ../latex/latex/actions.py:266
 msgid "Fraktur"
@@ -713,7 +700,7 @@ msgstr ""
 #: ../latex/latex/actions.py:273 ../latex/latex/actions.py:274
 #: ../latex/latex/actions.py:286 ../latex/latex/actions.py:287
 msgid "List"
-msgstr ""
+msgstr "Zerrenda"
 
 #: ../latex/latex/actions.py:278 ../latex/latex/actions.py:279
 msgid "Itemize"
