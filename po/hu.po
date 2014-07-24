@@ -1,0 +1,599 @@
+# Hungarian translation for gedit-latex.
+# Copyright (C) 2014 gedit-latex's COPYRIGHT HOLDER
+# This file is distributed under the same license as the gedit-latex package.
+#
+# Balázs Úr <urbalazs@gmail.com>, 2014.
+msgid ""
+msgstr ""
+"Project-Id-Version: gedit-latex gnome-3-2\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=gedit&keywords=I18N+L10N&component=Plugins\n"
+"POT-Creation-Date: 2014-07-24 05:12+0000\n"
+"PO-Revision-Date: 2014-07-24 09:53+0200\n"
+"Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
+"Language-Team: Hungarian <gnome-hu-list@gnome.org>\n"
+"Language: hu\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 1.2\n"
+
+#: ../data/bibtex.xml.h:1
+msgid "Title"
+msgstr "Cím"
+
+#: ../data/bibtex.xml.h:2
+msgid "Book Title"
+msgstr "Könyv címe"
+
+#: ../data/bibtex.xml.h:3
+msgid "Author"
+msgstr "Szerző"
+
+#: ../data/bibtex.xml.h:4
+msgid "Editor"
+msgstr "Szerkesztő"
+
+#: ../data/bibtex.xml.h:5
+msgid "Pages"
+msgstr "Oldalak"
+
+#: ../data/bibtex.xml.h:6
+msgid "Journal"
+msgstr "Napló"
+
+#: ../data/bibtex.xml.h:7
+msgid "Volume"
+msgstr "Kötet"
+
+#: ../data/bibtex.xml.h:8
+msgid "Number"
+msgstr "Szám"
+
+#: ../data/bibtex.xml.h:9
+msgid "Month"
+msgstr "Hónap"
+
+#: ../data/bibtex.xml.h:10
+msgid "Year"
+msgstr "Év"
+
+#: ../data/bibtex.xml.h:11
+msgid "ISSN"
+msgstr "ISSN"
+
+#: ../data/bibtex.xml.h:12
+msgid "Series"
+msgstr "Sorozat"
+
+#: ../data/bibtex.xml.h:13
+msgid "Edition"
+msgstr "Kiadás"
+
+#: ../data/bibtex.xml.h:14
+msgid "Publisher"
+msgstr "Kiadó"
+
+#: ../data/bibtex.xml.h:15
+msgid "Address"
+msgstr "Cím"
+
+#: ../data/bibtex.xml.h:16
+msgid "ISBN"
+msgstr "ISBN"
+
+#: ../data/bibtex.xml.h:17
+msgid "How Published"
+msgstr "Hogyan lett közzétéve"
+
+#: ../data/bibtex.xml.h:18
+msgid "Organization"
+msgstr "Szervezet"
+
+#: ../data/bibtex.xml.h:19
+msgid "Location"
+msgstr "Hely"
+
+#: ../data/bibtex.xml.h:20
+msgid "URL"
+msgstr "URL"
+
+#: ../data/bibtex.xml.h:21
+msgid "Note"
+msgstr "Megjegyzés"
+
+#: ../data/bibtex.xml.h:22
+msgid "Type"
+msgstr "Típus"
+
+#: ../data/bibtex.xml.h:23
+msgid "Chapter"
+msgstr "Fejezet"
+
+#: ../data/bibtex.xml.h:24
+msgid "Key"
+msgstr "Kulcs"
+
+#: ../data/bibtex.xml.h:25
+msgid "School"
+msgstr "Iskola"
+
+#: ../data/bibtex.xml.h:26
+msgid "Institution"
+msgstr "Intézet"
+
+#: ../data/bibtex.xml.h:27
+msgid "Cross Reference"
+msgstr "Kereszthivatkozás"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:1
+msgid "Maximum BibTeX Size"
+msgstr "Legnagyobb BibTeX méret"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:2
+msgid "Connect Outline to Editor"
+msgstr "Vázlat csatlakoztatása a szerkesztőhöz"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:3
+msgid "Show Labels in Outline"
+msgstr "Címkék megjelenítése a vázlatban"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:4
+msgid "Show Tables in Outline"
+msgstr "Táblázatok megjelenítése a vázlatban"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:5
+msgid "Show Graphics in Outline"
+msgstr "Grafika megjelenítése a vázlatban"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:6
+msgid "Show Warnings in Issues"
+msgstr "Figyelmeztetések megjelenítése a kiadásokban"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:7
+msgid "Show Tasks in Issues"
+msgstr "Feladatok megjelenítése a kiadásokban"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:8
+#: ../data/ui/configure.ui.h:7
+msgid "Hide Box Warnings"
+msgstr "Szövegdoboz figyelmeztetések elrejtése"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:9
+msgid ""
+"Show LaTeX Toolbar below (normal), combined with the main toolbar, or "
+"disabled"
+msgstr ""
+"A LaTeX eszköztár megjelenítése lent (normál) egyesítve a fő eszköztárral, "
+"vagy letiltva"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:10
+msgid "Expanded Symbol Groups"
+msgstr "Kiterjesztett szimbólumcsoportok"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:11
+msgid "LaTeX Extensions"
+msgstr "LaTeX kiterjesztések"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:12
+msgid "Graphics File Extensions"
+msgstr "Grafikai fájl kiterjesztések"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:13
+msgid "Paths Relative to .tex File to Look for Graphics"
+msgstr "A .tex fájltól relatívan megadott útvonalak a grafika kereséséhez"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:14
+msgid "Extra LaTeX commands used to mark issues, such as \\fxnote{foo}"
+msgstr ""
+"A kiadások jelzéséhez használt extra LaTeX parancsok, úgymint \\fxnote{foo}"
+
+#: ../data/ui/build_image_dialog.ui.h:1
+msgid "Render to Image"
+msgstr "Renderelés képbe"
+
+#: ../data/ui/build_image_dialog.ui.h:2
+msgid "Attempt to render tight bounding box"
+msgstr "Kísérlet szoros határoló doboz renderelésére"
+
+#: ../data/ui/build_image_dialog.ui.h:3
+msgid "Render whole page(s)"
+msgstr "Teljes oldalak renderelése"
+
+#: ../data/ui/build_image_dialog.ui.h:4
+msgid "<b>Area</b>"
+msgstr "<b>Terület</b>"
+
+#: ../data/ui/build_image_dialog.ui.h:5
+msgid "Resolution:"
+msgstr "Felbontás:"
+
+#: ../data/ui/build_image_dialog.ui.h:6
+msgid "Antialiasing:"
+msgstr "Élsimítás:"
+
+#: ../data/ui/build_image_dialog.ui.h:7
+msgid "<b>Rendering</b>"
+msgstr "<b>Renderelés</b>"
+
+#: ../data/ui/build_image_dialog.ui.h:8
+msgid "GIF"
+msgstr "GIF"
+
+#: ../data/ui/build_image_dialog.ui.h:9
+msgid "JPEG"
+msgstr "JPEG"
+
+#: ../data/ui/build_image_dialog.ui.h:10
+msgid "Color Mode:"
+msgstr "Színmód:"
+
+#: ../data/ui/build_image_dialog.ui.h:11
+msgid "PNG"
+msgstr "PNG"
+
+#: ../data/ui/build_image_dialog.ui.h:12
+msgid "<b>Image Format</b>"
+msgstr "<b>Képformátum</b>"
+
+#: ../data/ui/choose_master_dialog.ui.h:1
+msgid "Select Master Document"
+msgstr "Fődokumentum kiválasztása"
+
+#: ../data/ui/choose_master_dialog.ui.h:2
+msgid "Filename:"
+msgstr "Fájlnév:"
+
+#: ../data/ui/configure.ui.h:1
+msgid "Tools"
+msgstr "Eszközök"
+
+#: ../data/ui/configure.ui.h:2
+msgid "Maximum Parsed File Size:"
+msgstr "Legnagyobb feldolgozott fájl mérete:"
+
+#: ../data/ui/configure.ui.h:3
+msgid "KB"
+msgstr "KB"
+
+#: ../data/ui/configure.ui.h:4
+msgid "<b>Templates</b>"
+msgstr "<b>Sablonok</b>"
+
+#: ../data/ui/configure.ui.h:5
+msgid "Folder:"
+msgstr "Mappa:"
+
+#: ../data/ui/configure.ui.h:6
+msgid "<b><i>rubber</i> Post-Processor</b>"
+msgstr "<b><i>rubber</i> utófeldolgozó</b>"
+
+#: ../data/ui/configure.ui.h:8
+msgid "<b>BibTeX</b>"
+msgstr "<b>BibTeX</b>"
+
+#: ../data/ui/configure.ui.h:9
+msgid "Miscellaneous"
+msgstr "Egyebek"
+
+#: ../data/ui/configure_tool.ui.h:1
+msgid ""
+"Remember to run all commands in batch mode (e.g. append <tt>-interaction "
+"batchmode</tt> to <tt>latex</tt>)"
+msgstr ""
+"Emlékezzen minden parancs futtatására kötegelt módban (például <tt>"
+"-interaction batchmode</tt> hozzáfűzése a <tt>latex</tt> parancshoz)"
+
+#: ../data/ui/configure_tool.ui.h:2
+msgid "<b>_Label</b>"
+msgstr "<b>_Címke</b>"
+
+#: ../data/ui/configure_tool.ui.h:3
+msgid ""
+"Valid placeholders are <tt>$filename</tt>, <tt>$shortname</tt>, <tt>"
+"$directory</tt>"
+msgstr ""
+"Az érvényes helykitöltők: <tt>$filename</tt>, <tt>$shortname</tt>, <tt>"
+"$directory</tt>"
+
+#: ../data/ui/configure_tool.ui.h:4
+msgid "<b>_Jobs</b>"
+msgstr "<b>_Feladatok</b>"
+
+#: ../data/ui/configure_tool.ui.h:5
+msgid "<b>_Description</b>"
+msgstr "<b>_Leírás</b>"
+
+#: ../data/ui/configure_tool.ui.h:6
+msgid "<b>_File Extensions</b>"
+msgstr "<b>_Fájlkiterjesztések</b>"
+
+#: ../data/ui/configure_tool.ui.h:7
+msgid "_Generated"
+msgstr "_Előállított"
+
+#: ../data/ui/configure_tool.ui.h:8
+msgid "_User Defined:"
+msgstr "_Felhasználó által megadott:"
+
+#: ../data/ui/configure_tool.ui.h:9
+msgid "<Ctrl><Alt>1"
+msgstr "<Ctrl><Alt>1"
+
+#: ../data/ui/configure_tool.ui.h:10
+msgid "<b>Accelerator</b>"
+msgstr "<b>Gyorsbillentyű</b>"
+
+#: ../data/ui/insert_bibtex_entry.ui.h:1
+msgid "Create Bibliography Entry"
+msgstr "Irodalomjegyzék-bejegyzés létrehozása"
+
+#: ../data/ui/insert_bibtex_entry.ui.h:2
+msgid "Required Fields"
+msgstr "Kötelező mezők"
+
+#: ../data/ui/insert_bibtex_entry.ui.h:3
+msgid "Optional Fields"
+msgstr "Elhagyható mezők"
+
+#: ../data/ui/insert_bibtex_entry.ui.h:4
+msgid "_Identifier:"
+msgstr "_Azonosító:"
+
+#: ../data/ui/insert_bibtex_entry.ui.h:5
+msgid "_Type:"
+msgstr "_Típus:"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:1
+msgid "Image Size"
+msgstr "Képméret"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:2
+msgid "Text Width"
+msgstr "Szöveg szélessége"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:3
+msgid "Insert Graphics"
+msgstr "Grafika beszúrása"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:4
+msgid "&#xB0; CCW"
+msgstr "&#xB0; balra"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:5
+msgid "_Rotate:"
+msgstr "F_orgatás:"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:6
+msgid "Flip _Horizontally"
+msgstr "_Vízszintes tükrözés"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:7
+msgid "_File:"
+msgstr "_Fájl:"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:8
+#: ../data/ui/insert_table_dialog.ui.h:7
+msgid "_Caption:"
+msgstr "F_elirat:"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:9
+#: ../data/ui/insert_table_dialog.ui.h:8
+msgid "_Label:"
+msgstr "_Címke:"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:10
+msgid "fig:"
+msgstr "ábra:"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:11
+msgid "_Width:"
+msgstr "_Szélesség:"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:13
+#, no-c-format
+msgid "% _of"
+msgstr "%-a _ennek"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:14
+msgid "Floating _Object"
+msgstr "Lebegő _objektum"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:15
+msgid "_Spread over two Columns"
+msgstr "_Elosztás két oszlopra"
+
+#: ../data/ui/insert_listing_dialog.ui.h:1
+msgid "Insert Source Code Listing"
+msgstr "Forráskód felsorolás beszúrása"
+
+#: ../data/ui/insert_listing_dialog.ui.h:2
+msgid "_Dialect:"
+msgstr "_Nyelvjárás:"
+
+#: ../data/ui/insert_listing_dialog.ui.h:3
+msgid "Programming _Language:"
+msgstr "Programozási _nyelv:"
+
+#: ../data/ui/insert_listing_dialog.ui.h:4
+msgid "Load From _File:"
+msgstr "Betöltés _fájlból:"
+
+#: ../data/ui/insert_table_dialog.ui.h:1
+msgid "Insert Table or Matrix"
+msgstr "Táblázat vagy mátrix beszúrása"
+
+#: ../data/ui/insert_table_dialog.ui.h:2
+msgid "Type:"
+msgstr "Típus:"
+
+#: ../data/ui/insert_table_dialog.ui.h:3
+msgid "_Table"
+msgstr "_Táblázat"
+
+#: ../data/ui/insert_table_dialog.ui.h:4
+msgid "_Matrix:"
+msgstr "_Mátrix:"
+
+#: ../data/ui/insert_table_dialog.ui.h:5
+msgid "_Rows:"
+msgstr "_Sorok:"
+
+#: ../data/ui/insert_table_dialog.ui.h:6
+msgid "C_olumns:"
+msgstr "_Oszlopok:"
+
+#: ../data/ui/insert_table_dialog.ui.h:9
+msgid "tab:"
+msgstr "lap:"
+
+#: ../data/ui/insert_table_dialog.ui.h:10
+msgid "_Floating Object"
+msgstr "_Lebegő objektum"
+
+#: ../data/ui/new_document_template_dialog.ui.h:1
+msgid "New LaTeX Document"
+msgstr "Új LaTeX dokumentum"
+
+#: ../data/ui/new_document_template_dialog.ui.h:2
+msgid "T_emplate:"
+msgstr "_Sablon:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:3
+msgid "document"
+msgstr "dokumentum"
+
+#: ../data/ui/new_document_template_dialog.ui.h:4
+msgid ".tex"
+msgstr ".tex"
+
+#: ../data/ui/new_document_template_dialog.ui.h:5
+msgid "Di_rectory:"
+msgstr "_Könyvtár:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:6
+#: ../data/ui/save_as_template_dialog.ui.h:2
+msgid "_Name:"
+msgstr "_Név:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:7
+msgid "_Babel Package:"
+msgstr "_Babel csomag:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:8
+msgid "_Input Encoding:"
+msgstr "B_emenet kódolása:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:9
+msgid "<b>Language Customization</b>"
+msgstr "<b>Nyelv személyre szabása</b>"
+
+#: ../data/ui/new_document_template_dialog.ui.h:10
+msgid "_Landscape"
+msgstr "_Fekvő"
+
+#: ../data/ui/new_document_template_dialog.ui.h:11
+msgid "_Paper:"
+msgstr "_Papír:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:12
+msgid "De_fault"
+msgstr "_Alapértelmezett"
+
+#: ../data/ui/new_document_template_dialog.ui.h:13
+msgid "U_ser Defined:"
+msgstr "Felhasználó által _megadott:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:14
+msgid "pt"
+msgstr "pt"
+
+#: ../data/ui/new_document_template_dialog.ui.h:15
+msgid "Base Font Size:"
+msgstr "Alap betűméret:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:16
+msgid "Document _Class:"
+msgstr "Dokumentum _osztály:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:17
+msgid "<b>Style and Layout</b>"
+msgstr "<b>Stílus és elrendezés</b>"
+
+#: ../data/ui/new_document_template_dialog.ui.h:18
+msgid "Include PDF _Metadata"
+msgstr "PDF _metaadatok felvétele"
+
+#: ../data/ui/new_document_template_dialog.ui.h:19
+msgid "Date:"
+msgstr "Dátum:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:20
+msgid "To_day"
+msgstr "_Ma"
+
+#: ../data/ui/new_document_template_dialog.ui.h:21
+msgid "C_ustom:"
+msgstr "_Egyéni:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:22
+msgid "_Author:"
+msgstr "_Szerző:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:23
+msgid "_Title:"
+msgstr "_Cím:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:24
+msgid "<b>Meta Information</b>"
+msgstr "<b>Meta információk</b>"
+
+#: ../data/ui/new_document_template_dialog.ui.h:25
+msgid "Default F_ont Family:"
+msgstr "Alapértelmezett _betűcsalád:"
+
+#: ../data/ui/save_as_template_dialog.ui.h:1
+msgid "Save As Template"
+msgstr "Mentés sablonként"
+
+#: ../data/ui/save_as_template_dialog.ui.h:3
+msgid "Please specify a name for the new template."
+msgstr "Adja meg az új sablon nevét."
+
+#: ../data/ui/save_as_template_dialog.ui.h:4
+msgid "label"
+msgstr "címke"
+
+#: ../data/ui/use_bibliography_dialog.ui.h:1
+msgid "Use Bibliography"
+msgstr "Irodalomjegyzék használata"
+
+#: ../data/ui/use_bibliography_dialog.ui.h:2
+msgid "Bibliography _File:"
+msgstr "Irodalomjegyzék _fájl:"
+
+#: ../data/ui/use_bibliography_dialog.ui.h:3
+msgid "_Style:"
+msgstr "_Stílus:"
+
+#: ../data/ui/use_bibliography_dialog.ui.h:4
+msgid "Style Preview:"
+msgstr "Stílus előnézet:"
+
+#: ../data/ui/use_bibliography_dialog.ui.h:5
+msgid "Refresh Style Preview"
+msgstr "Stílus előnézet frissítése"
+
+#: ../latex.plugin.desktop.in.in.h:1
+msgid "LaTeX Plugin"
+msgstr "LaTeX bővítmény"
+
+#: ../latex.plugin.desktop.in.in.h:2
+msgid ""
+"A plugin that assists you in handling LaTeX documents and BibTeX "
+"bibliographies"
+msgstr ""
+"Egy bővítmény, amely segít a LaTeX dokumentumok és a BibTeX irodalomjegyzékek "
+"kezelésében"
+
