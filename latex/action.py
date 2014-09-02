@@ -19,7 +19,7 @@
 # Street, Fifth Floor, Boston, MA  02110-1301, USA
 
 from uuid import uuid1
-from gi.repository import Gtk, GdkPixbuf
+from gi.repository import Gtk, GdkPixbuf, Gio
 
 from .file import File
 from .resources import Resources
@@ -59,7 +59,13 @@ class Action(object):
         self._internal_action = action_clazz(self.__class__.__name__, self.label, self.tooltip, self.stock_id)
         self._handler = self._internal_action.connect("activate", lambda gtk_action, action: action.activate(window_context), self)
         action_group.add_action_with_accel(self._internal_action, self.accelerator)
-
+    
+    # Hooks a Gio.SimpleAction to a given window.
+    def simplehook(self, window, window_context):
+        self._simple_internal_action = Gio.SimpleAction(name=self.__class__.__name__)
+        self._simplehandler = self._simple_internal_action.connect("activate", lambda action, param: self.activate(window_context))
+        window.add_action(self._simple_internal_action)
+        
     @property
     def label(self):
         raise NotImplementedError

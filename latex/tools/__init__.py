@@ -123,7 +123,9 @@ class ToolAction(Action):
             decorator = context._window_decorator
             doc = decorator.window.get_active_document()
             self.saving_id = doc.connect("saved",self.run_tool,context,doc)
-            decorator.save_file()
+            #FIXME Better would be to trigger a dialog if needed as was done before like this:
+            #decorator.save_file()
+            doc.save(0)
         else:
             LOG.error("tool activate: no active editor")
 

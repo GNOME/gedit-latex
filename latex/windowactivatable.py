@@ -24,6 +24,7 @@ This is searched by gedit for a class extending gedit.Plugin
 
 import logging
 import string
+from traceback import print_exc
 
 from gi.repository import Gedit, GObject, Gio, Gtk, PeasGtk
 
@@ -74,6 +75,7 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
         """
         Called when the window extension is activated
         """
+
         self._preferences = Preferences()
         self._tool_preferences = ToolPreferences()
         self._tool_preferences.connect("tools-changed", self._on_tools_changed)
@@ -90,7 +92,7 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
         self._init_tab_decorators()
 
         # FIXME: find another way to save a document
-        self._save_action = self._ui_manager.get_action("/MenuBar/FileMenu/FileSaveMenu")
+        #self._save_action = self._ui_manager.get_action("/MenuBar/FileMenu/FileSaveMenu")
 
         #
         # listen to tab signals
@@ -161,7 +163,7 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
         """
         Merge the plugin's UI definition with the one of Gedit and hook the actions
         """
-        self._ui_manager = self.window.get_ui_manager()
+        self._ui_manager = Gtk.UIManager()
         self._action_group = Gtk.ActionGroup("LaTeXWindowActivatableActions")
         self._icon_factory = Gtk.IconFactory()
         self._icon_factory.add_default()
@@ -175,6 +177,7 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
         for clazz in ACTIONS:
             action = clazz(icon_factory=self._icon_factory)
             action.hook(self._action_group, self._window_context)
+            action.simplehook(self.window, self._window_context)
 
             self._action_objects[clazz.__name__] = action
 
@@ -184,8 +187,10 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
                 else:
                     self._action_extensions[extension] = [clazz.__name__]
 
-        toolbar_mode = self._preferences.get("toolbar-mode")
-
+        #toolbar_mode = self._preferences.get("toolbar-mode")
+        # force normal mode
+        toolbar_mode = "normal"
+        
         # merge ui
         self._ui_manager.insert_action_group(self._action_group, -1)
         self._ui_id = self._ui_manager.add_ui_from_file(Resources().get_ui_file("ui-toolbar-%s.builder" % toolbar_mode))
@@ -195,9 +200,17 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
             self._toolbar_name = "LaTeXToolbar"
             self._toolbar.set_style(Gtk.ToolbarStyle.BOTH_HORIZ)
             # FIXME: Adding a new toolbar to gedit is not really public API
-            self._main_box = self.window.get_children()[0]
-            self._main_box.pack_start(self._toolbar, False, True, 0)
-            self._main_box.reorder_child(self._toolbar, 2)
+            try:
+                # We assume the spot below exists
+                self._main_box = self.window.get_children()[0].get_children()[0].get_children()[0].get_children()[1]
+                self._main_box.pack_start(self._toolbar, False, True, 0)
+                self._main_box.reorder_child(self._toolbar, 1)
+            except (IndexError, AttributeError, TypeError) as e:
+                print_exc()
+                print()
+                print("Could not find place for the toolbar. Disabling toolbar.")
+                self_toolbar = None
+                self._toolbar_name = ""
         elif toolbar_mode == "combined":
             self._toolbar = None
             self._toolbar_name = "ToolBar"
@@ -205,7 +218,7 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
             self._toolbar = None
             self._toolbar_name = ""
             LOG.info("Toolbar disabled")    
-
+            
     def _init_tab_decorators(self):
         """
         Look for already open tabs and create decorators for them
@@ -258,6 +271,11 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
             action = ToolAction(tool)
             gtk_action = Gtk.Action(name, action.label, action.tooltip, action.stock_id)
             self._action_handlers[gtk_action] = gtk_action.connect("activate", lambda gtk_action, action: action.activate(self._window_context), action)
+            
+            # create simple actions to be used by menu (created in appactivatable.py)
+            simpleaction = Gio.SimpleAction(name=name)
+            simpleaction.connect("activate", lambda _a, _b, action: action.activate(self._window_context), action)
+            self.window.add_action(simpleaction)
 
             accelerator = None
             if tool.accelerator and len(tool.accelerator) > 0:
@@ -449,7 +467,7 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
             if view in self._side_views:
                 view.show()
             else:
-                self.window.get_side_panel().add_item(view, "after_side_view_id" + str(i), view.get_label(), view.get_icon())
+                self.window.get_side_panel().add_titled(view, "after_side_view_id" + str(i), view.get_label())
                 self._side_views.append(view)
                 i += 1
 
@@ -458,7 +476,7 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
             if view in self._bottom_views:
                 view.show()
             else:
-                self.window.get_bottom_panel().add_item(view, "bottom_view_id" + str(i), view.get_label(), view.get_icon())
+                self.window.get_bottom_panel().add_titled(view, "bottom_view_id" + str(i), view.get_label())
                 self._bottom_views.append(view)
                 i += 1
 
