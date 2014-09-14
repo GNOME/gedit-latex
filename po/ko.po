@@ -1,0 +1,954 @@
+# Korean translation for gedit-latex.
+# Copyright (C) 2014 gedit-latex's COPYRIGHT HOLDER
+# This file is distributed under the same license as the gedit-latex package.
+# Seong-ho Cho <shcho@gnome.org>, 2014.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: gedit-latex master\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=gedit&keywords=I18N+L10N&component=Plugins\n"
+"POT-Creation-Date: 2014-09-12 17:11+0000\n"
+"PO-Revision-Date: 2014-09-13 03:36+0900\n"
+"Last-Translator: Seong-ho Cho <shcho@gnome.org>\n"
+"Language-Team: Korean <gnome-kr@googlegroups.com>\n"
+"Language: ko\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 1.5.5\n"
+
+#: ../latex.plugin.desktop.in.in.h:1
+msgid "LaTeX Plugin"
+msgstr "LaTeX 플러그인"
+
+#: ../latex.plugin.desktop.in.in.h:2
+msgid ""
+"A plugin that assists you in handling LaTeX documents and BibTeX "
+"bibliographies"
+msgstr "LaTeX 문서와 BibTeX 참고문헌 목록을 처리할 때 도움을 주는 플러그인"
+
+#: ../data/bibtex.xml.h:1
+msgid "Title"
+msgstr "제목"
+
+#: ../data/bibtex.xml.h:2
+msgid "Book Title"
+msgstr "책 제목"
+
+#: ../data/bibtex.xml.h:3
+msgid "Author"
+msgstr "저자"
+
+#: ../data/bibtex.xml.h:4
+msgid "Editor"
+msgstr "편집자"
+
+#: ../data/bibtex.xml.h:5
+msgid "Pages"
+msgstr "쪽"
+
+#: ../data/bibtex.xml.h:6
+msgid "Journal"
+msgstr "저널"
+
+#: ../data/bibtex.xml.h:7
+msgid "Volume"
+msgstr "호"
+
+#: ../data/bibtex.xml.h:8
+msgid "Number"
+msgstr "번호"
+
+#: ../data/bibtex.xml.h:9
+msgid "Month"
+msgstr "달"
+
+#: ../data/bibtex.xml.h:10
+msgid "Year"
+msgstr "연"
+
+#: ../data/bibtex.xml.h:11
+msgid "ISSN"
+msgstr "ISSN"
+
+#: ../data/bibtex.xml.h:12
+msgid "Series"
+msgstr "편"
+
+#: ../data/bibtex.xml.h:13
+msgid "Edition"
+msgstr "판"
+
+#: ../data/bibtex.xml.h:14
+msgid "Publisher"
+msgstr "발행인"
+
+#: ../data/bibtex.xml.h:15
+msgid "Address"
+msgstr "주소"
+
+#: ../data/bibtex.xml.h:16
+msgid "ISBN"
+msgstr "ISBN"
+
+#: ../data/bibtex.xml.h:17
+msgid "How Published"
+msgstr "출판 방식"
+
+#: ../data/bibtex.xml.h:18
+msgid "Organization"
+msgstr "조직"
+
+#: ../data/bibtex.xml.h:19
+msgid "Location"
+msgstr "위치"
+
+#: ../data/bibtex.xml.h:20
+msgid "URL"
+msgstr "URL"
+
+#: ../data/bibtex.xml.h:21
+msgid "Note"
+msgstr "참고"
+
+#: ../data/bibtex.xml.h:22
+msgid "Type"
+msgstr "형식"
+
+#: ../data/bibtex.xml.h:23 ../latex/latex/actions.py:315
+#: ../latex/latex/actions.py:316
+msgid "Chapter"
+msgstr "장"
+
+#: ../data/bibtex.xml.h:24
+msgid "Key"
+msgstr "핵심"
+
+#: ../data/bibtex.xml.h:25
+msgid "School"
+msgstr "학교"
+
+#: ../data/bibtex.xml.h:26
+msgid "Institution"
+msgstr "기관"
+
+#: ../data/bibtex.xml.h:27
+msgid "Cross Reference"
+msgstr "교차 문헌"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:1
+msgid "Maximum BibTeX Size"
+msgstr "최대 빕텍 항목 갯수"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:2
+msgid "Connect Outline to Editor"
+msgstr "개요 목록을 편집자에 연결"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:3
+msgid "Show Labels in Outline"
+msgstr "레이블을 개요 목록에 표시"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:4
+msgid "Show Tables in Outline"
+msgstr "표를 개요 목록에 표시"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:5
+msgid "Show Graphics in Outline"
+msgstr "그래픽을 개요에 표시"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:6
+msgid "Show Warnings in Issues"
+msgstr "경고를 이슈에 표시"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:7
+msgid "Show Tasks in Issues"
+msgstr "작업을 이슈에 표시"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:8
+#: ../data/ui/configure.ui.h:6
+msgid "Hide Box Warnings"
+msgstr "상자 경고 숨김"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:9
+msgid ""
+"Show LaTeX Toolbar below (normal), combined with the main toolbar, or "
+"disabled"
+msgstr ""
+"LaTeX 도구 모음을 아래에 표시(보통)하거나, 메인 도구 모음과 결합하거나, 표시"
+"하지 않음"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:10
+msgid "Expanded Symbol Groups"
+msgstr "확장 심볼 모음"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:11
+msgid "LaTeX Extensions"
+msgstr "LaTeX 확장"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:12
+msgid "Graphics File Extensions"
+msgstr "그래픽 파일 확장자"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:13
+msgid "Paths Relative to .tex File to Look for Graphics"
+msgstr ".tex 파일에 상대적인, 그래픽 요소를 찾을 경로"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:14
+msgid "Extra LaTeX commands used to mark issues, such as \\fxnote{foo}"
+msgstr ""
+"이슈로 표시하려 활용할 추가 LaTeX 명령이며 \\fxnote{foo}와 같은 명령이 있습니"
+"다"
+
+#: ../data/ui/build_image_dialog.ui.h:1
+msgid "Render to Image"
+msgstr "그림으로 표시"
+
+#: ../data/ui/build_image_dialog.ui.h:2
+msgid "<b>Image Format</b>"
+msgstr "<b>그림 형식</b>"
+
+#: ../data/ui/build_image_dialog.ui.h:3
+msgid "PNG"
+msgstr "PNG"
+
+#: ../data/ui/build_image_dialog.ui.h:4
+msgid "Color Mode:"
+msgstr "색상 모드:"
+
+#: ../data/ui/build_image_dialog.ui.h:5
+msgid "JPEG"
+msgstr "JPEG"
+
+#: ../data/ui/build_image_dialog.ui.h:6
+msgid "GIF"
+msgstr "GIF"
+
+#: ../data/ui/build_image_dialog.ui.h:7
+msgid "<b>Rendering</b>"
+msgstr "<b>렌더링</b>"
+
+#: ../data/ui/build_image_dialog.ui.h:8
+msgid "<b>Area</b>"
+msgstr "<b>영역</b>"
+
+#: ../data/ui/build_image_dialog.ui.h:9
+msgid "Antialiasing:"
+msgstr "안티 에일리어싱:"
+
+#: ../data/ui/build_image_dialog.ui.h:10
+msgid "Resolution:"
+msgstr "해상도:"
+
+#: ../data/ui/build_image_dialog.ui.h:11
+msgid "Render whole page(s)"
+msgstr "전체 페이지 렌더링"
+
+#: ../data/ui/build_image_dialog.ui.h:12
+msgid "Attempt to render tight bounding box"
+msgstr "빽빽히 둘러쌓인 상자 렌더링 시도"
+
+#: ../data/ui/choose_master_dialog.ui.h:1
+msgid "Select Master Document"
+msgstr "마스터 문서 선택"
+
+#: ../data/ui/choose_master_dialog.ui.h:2
+msgid "Filename:"
+msgstr "파일 이름:"
+
+#: ../data/ui/configure.ui.h:1 ../latex/tools/views.py:116
+msgid "Tools"
+msgstr "도구"
+
+#: ../data/ui/configure.ui.h:2
+msgid "<b>BibTeX</b>"
+msgstr "<b>BibTeX</b>"
+
+#: ../data/ui/configure.ui.h:3
+msgid "<b><i>rubber</i> Post-Processor</b>"
+msgstr "<b><i>러버</i> 후처리기</b>"
+
+#: ../data/ui/configure.ui.h:4
+msgid "Maximum Parsed File Size:"
+msgstr "최대 해석 파일 크기:"
+
+#: ../data/ui/configure.ui.h:5
+msgid "KB"
+msgstr "KB"
+
+#: ../data/ui/configure.ui.h:7
+msgid "Miscellaneous"
+msgstr "기타"
+
+#: ../data/ui/configure_tool.ui.h:1
+msgid ""
+"Remember to run all commands in batch mode (e.g. append <tt>-interaction "
+"batchmode</tt> to <tt>latex</tt>)"
+msgstr ""
+"일괄 처리 모드로 실행할 모든 명령 기억(예: <tt>latex</tt>에 <tt>-interaction "
+"batchmode</tt> 붙여넣기)"
+
+#: ../data/ui/configure_tool.ui.h:2
+msgid "<b>_Label</b>"
+msgstr "<b>레이블(_L)</b>"
+
+#: ../data/ui/configure_tool.ui.h:3
+msgid ""
+"Valid placeholders are <tt>$filename</tt>, <tt>$shortname</tt>, <tt>"
+"$directory</tt>"
+msgstr ""
+"유효한 변수는  <tt>$filename</tt>, <tt>$shortname</tt>, <tt>$directory</tt>"
+"가 있습니다"
+
+#: ../data/ui/configure_tool.ui.h:4
+msgid "<b>_Jobs</b>"
+msgstr "<b>작업(_J)</b>"
+
+#: ../data/ui/configure_tool.ui.h:5
+msgid "<b>_Description</b>"
+msgstr "<b>설명(_D)</b>"
+
+#: ../data/ui/configure_tool.ui.h:6
+msgid "<b>_File Extensions</b>"
+msgstr "<b>파일 확장자(_F)</b>"
+
+#: ../data/ui/configure_tool.ui.h:7
+msgid "_Generated"
+msgstr "만든 시점(_G)"
+
+#: ../data/ui/configure_tool.ui.h:8
+msgid "_User Defined:"
+msgstr "사용자 정의(_U):"
+
+#: ../data/ui/configure_tool.ui.h:9
+msgid "<Ctrl><Alt>1"
+msgstr "<Ctrl><Alt>1"
+
+#: ../data/ui/configure_tool.ui.h:10
+msgid "<b>Accelerator</b>"
+msgstr "<b>가속기</b>"
+
+#: ../data/ui/insert_bibtex_entry.ui.h:1
+msgid "Create Bibliography Entry"
+msgstr "참고문헌 항목 만들기"
+
+#: ../data/ui/insert_bibtex_entry.ui.h:2
+msgid "Required Fields"
+msgstr "필요 내용"
+
+#: ../data/ui/insert_bibtex_entry.ui.h:3
+msgid "Optional Fields"
+msgstr "추가 내용"
+
+#: ../data/ui/insert_bibtex_entry.ui.h:4
+msgid "_Identifier:"
+msgstr "식별 요소(_I):"
+
+#: ../data/ui/insert_bibtex_entry.ui.h:5
+msgid "_Type:"
+msgstr "형식(_T):"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:1 ../latex/latex/actions.py:356
+#: ../latex/latex/actions.py:358
+msgid "Insert Graphics"
+msgstr "그래픽 삽입"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:2
+msgid "_File:"
+msgstr "파일(_F):"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:3
+#: ../data/ui/insert_table_dialog.ui.h:7
+msgid "_Caption:"
+msgstr "소제목(_C):"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:4
+#: ../data/ui/insert_table_dialog.ui.h:8
+msgid "_Label:"
+msgstr "레이블(_L):"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:5
+msgid "fig:"
+msgstr "그림:"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:6
+msgid "_Width:"
+msgstr "너비(_W):"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:8
+#, no-c-format
+msgid "% _of"
+msgstr "% _of"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:9
+msgid "_Rotate:"
+msgstr "회전(_R):"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:10
+msgid "° CCW"
+msgstr "° CCW"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:11
+msgid "Flip _Horizontally"
+msgstr "수평 뒤집기(_H)"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:12
+msgid "_Spread over two Columns"
+msgstr "두 컬럼 이상 확장(_S)"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:13
+msgid "Floating _Object"
+msgstr "떠다니는 객체(_O)"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:14
+msgid "Image Size"
+msgstr "그림 크기"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:15
+msgid "Text Width"
+msgstr "텍스트 너비"
+
+#: ../data/ui/insert_listing_dialog.ui.h:1 ../latex/latex/actions.py:388
+#: ../latex/latex/actions.py:390
+msgid "Insert Source Code Listing"
+msgstr "소스 코드 목록 삽입"
+
+#: ../data/ui/insert_listing_dialog.ui.h:2
+msgid "Load From _File:"
+msgstr "파일에서 불러오기(_F):"
+
+#: ../data/ui/insert_listing_dialog.ui.h:3
+msgid "Programming _Language:"
+msgstr "프로그래밍 언어(_L):"
+
+#: ../data/ui/insert_listing_dialog.ui.h:4
+msgid "_Dialect:"
+msgstr "방언(_D):"
+
+#: ../data/ui/insert_table_dialog.ui.h:1 ../latex/latex/actions.py:372
+#: ../latex/latex/actions.py:374
+msgid "Insert Table or Matrix"
+msgstr "표 또는 행렬 삽입"
+
+#: ../data/ui/insert_table_dialog.ui.h:2
+msgid "Type:"
+msgstr "형식:"
+
+#: ../data/ui/insert_table_dialog.ui.h:3
+msgid "_Table"
+msgstr "표(_T)"
+
+#: ../data/ui/insert_table_dialog.ui.h:4
+msgid "_Matrix:"
+msgstr "행렬(_M):"
+
+#: ../data/ui/insert_table_dialog.ui.h:5
+msgid "_Rows:"
+msgstr "행(_R):"
+
+#: ../data/ui/insert_table_dialog.ui.h:6
+msgid "C_olumns:"
+msgstr "열(_O):"
+
+#: ../data/ui/insert_table_dialog.ui.h:9
+msgid "tab:"
+msgstr "탭:"
+
+#: ../data/ui/insert_table_dialog.ui.h:10
+msgid "_Floating Object"
+msgstr "떠다니는 객체(_F)"
+
+#: ../data/ui/new_document_template_dialog.ui.h:1
+msgid "New LaTeX Document"
+msgstr "새 LaTeX 문서"
+
+#: ../data/ui/new_document_template_dialog.ui.h:2
+msgid "T_emplate:"
+msgstr "양식(_E):"
+
+#: ../data/ui/new_document_template_dialog.ui.h:3
+msgid "document"
+msgstr "문서"
+
+#: ../data/ui/new_document_template_dialog.ui.h:4
+msgid ".tex"
+msgstr ".tex"
+
+#: ../data/ui/new_document_template_dialog.ui.h:5
+msgid "Di_rectory:"
+msgstr "디렉터리(_R):"
+
+#: ../data/ui/new_document_template_dialog.ui.h:6
+msgid "_Name:"
+msgstr "이름(_N):"
+
+# 영어/유럽어 지원 다국어 패키지. 성서 패키지 아님.
+#: ../data/ui/new_document_template_dialog.ui.h:7
+msgid "_Babel Package:"
+msgstr "바벨 패키지(_B):"
+
+#: ../data/ui/new_document_template_dialog.ui.h:8
+msgid "_Input Encoding:"
+msgstr "입력 인코딩(_I):"
+
+#: ../data/ui/new_document_template_dialog.ui.h:9
+msgid "<b>Language Customization</b>"
+msgstr "<b>언어 사용자 정의</b>"
+
+#: ../data/ui/new_document_template_dialog.ui.h:10
+msgid "_Landscape"
+msgstr "수평 방향(_L):"
+
+#: ../data/ui/new_document_template_dialog.ui.h:11
+msgid "_Paper:"
+msgstr "용지(_P):"
+
+#: ../data/ui/new_document_template_dialog.ui.h:12
+msgid "De_fault"
+msgstr "기본값(_F):"
+
+#: ../data/ui/new_document_template_dialog.ui.h:13
+msgid "U_ser Defined:"
+msgstr "사용자 정의(_S):"
+
+# '포인트' 단위인데 편의상 pt로 그냥 표기
+#: ../data/ui/new_document_template_dialog.ui.h:14
+msgid "pt"
+msgstr "pt"
+
+#: ../data/ui/new_document_template_dialog.ui.h:15
+msgid "Base Font Size:"
+msgstr "기본 글꼴 크기:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:16
+msgid "Document _Class:"
+msgstr "문서 클래스(_C):"
+
+#: ../data/ui/new_document_template_dialog.ui.h:17
+msgid "<b>Style and Layout</b>"
+msgstr "<b>모양새 및 배치</b>"
+
+#: ../data/ui/new_document_template_dialog.ui.h:18
+msgid "Include PDF _Metadata"
+msgstr "PDF 메타데이터 포함(_M)"
+
+#: ../data/ui/new_document_template_dialog.ui.h:19
+msgid "This adds metadata to the document. Requires package <tt>ifpdf</tt>."
+msgstr "메타데이터를 문서에 추가합니다. <tt>ifpdf</tt> 패키지가 필요합니다."
+
+#: ../data/ui/new_document_template_dialog.ui.h:20
+msgid "Date:"
+msgstr "날짜:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:21
+msgid "To_day"
+msgstr "오늘(_D)"
+
+#: ../data/ui/new_document_template_dialog.ui.h:22
+msgid "C_ustom:"
+msgstr "사용자 정의(_U):"
+
+#: ../data/ui/new_document_template_dialog.ui.h:23
+msgid "_Author:"
+msgstr "저자(_A):"
+
+#: ../data/ui/new_document_template_dialog.ui.h:24
+msgid "_Title:"
+msgstr "제목(_T):"
+
+#: ../data/ui/new_document_template_dialog.ui.h:25
+msgid "<b>Meta Information</b>"
+msgstr "<b>메타 정보</b>"
+
+#: ../data/ui/new_document_template_dialog.ui.h:26
+msgid "Default F_ont Family:"
+msgstr "기본 글꼴 모음(_O):"
+
+#: ../data/ui/use_bibliography_dialog.ui.h:1 ../latex/latex/actions.py:159
+msgid "Use Bibliography"
+msgstr "참고문헌 활용"
+
+#: ../data/ui/use_bibliography_dialog.ui.h:2
+msgid "Bibliography _File:"
+msgstr "참고문헌 파일(_F):"
+
+#: ../data/ui/use_bibliography_dialog.ui.h:3
+msgid "_Style:"
+msgstr "모양새(_S):"
+
+#: ../data/ui/use_bibliography_dialog.ui.h:4
+msgid "Style Preview:"
+msgstr "모양새 미리 보기:"
+
+#: ../data/ui/use_bibliography_dialog.ui.h:5
+msgid "Refresh Style Preview"
+msgstr "모양새 미리 보기 새로 고침"
+
+#: ../latex/bibtex/actions.py:32
+msgid "BibTeX"
+msgstr "BibTeX"
+
+#: ../latex/bibtex/actions.py:43
+msgid "New BibTeX Entry..."
+msgstr "새 BibTeX 항목..."
+
+#: ../latex/bibtex/actions.py:46
+msgid "Create a new BibTeX entry"
+msgstr "새 BibTeX 항목 만들기"
+
+#. add grouping controls to toolbar
+#: ../latex/bibtex/views.py:56
+msgid "No Grouping"
+msgstr "모으지 않음"
+
+#: ../latex/bibtex/views.py:57
+msgid "Group by Type"
+msgstr "형식별 모음"
+
+#: ../latex/bibtex/views.py:58
+msgid "Group by Author"
+msgstr "저자별 모음"
+
+#: ../latex/bibtex/views.py:59
+msgid "Group by Year"
+msgstr "연도별 모음"
+
+#. group by year
+#: ../latex/bibtex/views.py:197
+msgid "<i>n/a</i>"
+msgstr "<i>없음</i>"
+
+#: ../latex/bibtex/views.py:240
+msgid "Unknown Author"
+msgstr "알 수 없는 저자"
+
+#: ../latex/latex/actions.py:63
+msgid "LaTeX"
+msgstr "LaTeX"
+
+#: ../latex/latex/actions.py:73
+msgid "New LaTeX Document..."
+msgstr "새 LaTeX 문서..."
+
+#: ../latex/latex/actions.py:76
+msgid "Create a new LaTeX document"
+msgstr "새 LaTeX 문서 만들기"
+
+#: ../latex/latex/actions.py:95
+msgid "Choose Master Document..."
+msgstr "마스터 문서 선택..."
+
+#: ../latex/latex/actions.py:107
+msgid "Close Nearest Environment"
+msgstr "최근접 환경 닫기"
+
+#: ../latex/latex/actions.py:109
+msgid "Close the nearest TeX environment at left of the cursor"
+msgstr "커서 좌측의 가장 가까운 TeX 환경 닫기"
+
+#: ../latex/latex/actions.py:157
+msgid "Use Bibliography..."
+msgstr "참고문헌 활용..."
+
+#: ../latex/latex/actions.py:179 ../latex/latex/actions.py:181
+#: ../latex/latex/actions.py:189 ../latex/latex/actions.py:190
+msgid "Font Family"
+msgstr "글꼴 모음"
+
+#: ../latex/latex/actions.py:194 ../latex/latex/actions.py:195
+msgid "Bold"
+msgstr "굵게"
+
+#: ../latex/latex/actions.py:201 ../latex/latex/actions.py:202
+msgid "Italic"
+msgstr "기울임"
+
+#: ../latex/latex/actions.py:208 ../latex/latex/actions.py:209
+msgid "Emphasize"
+msgstr "강조"
+
+#: ../latex/latex/actions.py:215 ../latex/latex/actions.py:216
+msgid "Underline"
+msgstr "밑줄"
+
+#: ../latex/latex/actions.py:222 ../latex/latex/actions.py:223
+msgid "Small Capitals"
+msgstr "작은 대문자"
+
+#: ../latex/latex/actions.py:229 ../latex/latex/actions.py:230
+msgid "Roman"
+msgstr "로만"
+
+#: ../latex/latex/actions.py:236 ../latex/latex/actions.py:237
+msgid "Sans Serif"
+msgstr "산세리프"
+
+#: ../latex/latex/actions.py:243 ../latex/latex/actions.py:244
+msgid "Typewriter"
+msgstr "필기체"
+
+#: ../latex/latex/actions.py:250 ../latex/latex/actions.py:251
+msgid "Blackboard Bold"
+msgstr "흑판 굵게"
+
+#: ../latex/latex/actions.py:258 ../latex/latex/actions.py:259
+msgid "Caligraphy"
+msgstr "캘리그라피"
+
+#: ../latex/latex/actions.py:265 ../latex/latex/actions.py:266
+msgid "Fraktur"
+msgstr "독일체"
+
+#: ../latex/latex/actions.py:273 ../latex/latex/actions.py:274
+#: ../latex/latex/actions.py:286 ../latex/latex/actions.py:287
+msgid "List"
+msgstr "목록"
+
+#: ../latex/latex/actions.py:278 ../latex/latex/actions.py:279
+msgid "Itemize"
+msgstr "항목화"
+
+#: ../latex/latex/actions.py:291 ../latex/latex/actions.py:292
+msgid "Enumerate"
+msgstr "서수매김"
+
+#: ../latex/latex/actions.py:298 ../latex/latex/actions.py:299
+msgid "Description"
+msgstr "설명"
+
+#: ../latex/latex/actions.py:304 ../latex/latex/actions.py:305
+#: ../latex/latex/actions.py:330 ../latex/latex/actions.py:331
+msgid "Structure"
+msgstr "구조"
+
+#: ../latex/latex/actions.py:308 ../latex/latex/actions.py:309
+msgid "Part"
+msgstr "부"
+
+#: ../latex/latex/actions.py:322 ../latex/latex/actions.py:323
+msgid "Section"
+msgstr "장"
+
+#: ../latex/latex/actions.py:335 ../latex/latex/actions.py:336
+msgid "Subsection"
+msgstr "절"
+
+#: ../latex/latex/actions.py:342 ../latex/latex/actions.py:343
+msgid "Paragraph"
+msgstr "문단"
+
+#: ../latex/latex/actions.py:349 ../latex/latex/actions.py:350
+msgid "Subparagraph"
+msgstr "하위 문단"
+
+#: ../latex/latex/actions.py:405 ../latex/latex/actions.py:407
+#: ../latex/latex/actions.py:415 ../latex/latex/actions.py:416
+msgid "Build"
+msgstr "빌드"
+
+#: ../latex/latex/actions.py:420
+msgid "Build Image"
+msgstr "그림 빌드"
+
+#: ../latex/latex/actions.py:422
+msgid "Build an image from the LaTeX document"
+msgstr "LaTeX 문서의 그림을 빌드"
+
+#: ../latex/latex/actions.py:440 ../latex/latex/actions.py:441
+#: ../latex/latex/actions.py:460 ../latex/latex/actions.py:461
+msgid "Justify"
+msgstr "정렬"
+
+#: ../latex/latex/actions.py:445 ../latex/latex/actions.py:446
+msgid "Justify Left"
+msgstr "왼쪽 정렬"
+
+#: ../latex/latex/actions.py:452 ../latex/latex/actions.py:453
+msgid "Justify Center"
+msgstr "가운데 정렬"
+
+#: ../latex/latex/actions.py:465 ../latex/latex/actions.py:466
+msgid "Justify Right"
+msgstr "오른쪽 정렬"
+
+#: ../latex/latex/actions.py:472 ../latex/latex/actions.py:473
+#: ../latex/latex/actions.py:485 ../latex/latex/actions.py:486
+msgid "Math"
+msgstr "수학"
+
+#: ../latex/latex/actions.py:477 ../latex/latex/actions.py:478
+msgid "Mathematical Environment"
+msgstr "수학 환경"
+
+#: ../latex/latex/actions.py:490 ../latex/latex/actions.py:491
+msgid "Centered Formula"
+msgstr "수식 가운데 정렬"
+
+#: ../latex/latex/actions.py:497 ../latex/latex/actions.py:498
+msgid "Numbered Equation"
+msgstr "번호 매긴 수식"
+
+#: ../latex/latex/actions.py:506 ../latex/latex/actions.py:507
+msgid "Array of Equations"
+msgstr "수식 행렬"
+
+#: ../latex/latex/actions.py:516 ../latex/latex/actions.py:517
+msgid "Numbered Array of Equations"
+msgstr "번호 매긴 수식 행렬"
+
+#: ../latex/latex/environment.py:141
+msgid "Book of abstracts"
+msgstr "요약본 서적"
+
+#: ../latex/latex/environment.py:142
+msgid "Article"
+msgstr "기사"
+
+#: ../latex/latex/environment.py:143
+msgid "Article (AMS)"
+msgstr "기사(AMS)"
+
+#: ../latex/latex/environment.py:144
+msgid "Book (AMS)"
+msgstr "서적(AMS)"
+
+#: ../latex/latex/environment.py:145
+msgid "AMS Documentation"
+msgstr "AMS 문서"
+
+#: ../latex/latex/environment.py:146
+msgid "Proceedings (AMS)"
+msgstr "프로시딩(AMS)"
+
+#: ../latex/latex/environment.py:147
+msgid "Report"
+msgstr "보고서"
+
+#: ../latex/latex/environment.py:148
+msgid "Beamer slides"
+msgstr "빔 슬라이드"
+
+#: ../latex/latex/environment.py:149
+msgid "Belgian letter"
+msgstr "벨기에 레터"
+
+#: ../latex/latex/environment.py:150
+msgid "Book"
+msgstr "서적"
+
+#: ../latex/latex/environment.py:151
+msgid "Flashcard"
+msgstr "플래시 카드"
+
+#: ../latex/latex/environment.py:152
+msgid "Proceedings (IAG)"
+msgstr "프로시딩(IAG)"
+
+#: ../latex/latex/environment.py:153
+msgid "Letter"
+msgstr "레터"
+
+#: ../latex/latex/environment.py:154
+msgid "LaTeX News"
+msgstr "LaTeX 소식"
+
+#: ../latex/latex/environment.py:155
+msgid "LaTeX Documentation"
+msgstr "LaTeX 문서"
+
+#: ../latex/latex/environment.py:156
+msgid "LaTeX Guide"
+msgstr "LaTeX 안내서"
+
+#: ../latex/latex/environment.py:157
+msgid "Proceedings"
+msgstr "프로시딩"
+
+#: ../latex/latex/environment.py:158
+msgid "Article (KOMA-Script)"
+msgstr "게시물(KOMA-스크립트)"
+
+#: ../latex/latex/environment.py:159 ../latex/latex/environment.py:163
+msgid "Report (KOMA-Script)"
+msgstr "보고서(KOMA-스크립트)"
+
+#: ../latex/latex/environment.py:160
+msgid "Book (KOMA-Script)"
+msgstr "서적(KOMA-스크립트)"
+
+#: ../latex/latex/environment.py:161
+msgid "Letter (KOMA-Script)"
+msgstr "레터(KOMA-스크립트)"
+
+#: ../latex/latex/environment.py:162
+msgid "Letter 2 (KOMA-Script)"
+msgstr "레터 2형(KOMA-스크립트)"
+
+#: ../latex/latex/environment.py:164
+msgid "Slides"
+msgstr "슬라이드"
+
+#: ../latex/latex/views.py:107
+msgid "Symbols"
+msgstr "기소"
+
+#: ../latex/latex/views.py:190
+msgid "Show graphics"
+msgstr "그래픽 표시"
+
+#: ../latex/latex/views.py:195
+msgid "Show tables"
+msgstr "표 표시"
+
+#: ../latex/outline.py:58
+msgid "Follow Editor"
+msgstr "편집기에 따름"
+
+#: ../latex/outline.py:63
+msgid "Expand All"
+msgstr "모두 펼치기"
+
+#: ../latex/outline.py:67
+msgid "Collapse All"
+msgstr "모두 접기"
+
+#: ../latex/outline.py:114
+msgid "Outline"
+msgstr "개요"
+
+#: ../latex/tools/views.py:62
+msgid "Job"
+msgstr "작업"
+
+#: ../latex/tools/views.py:73 ../latex/views.py:80
+msgid "File"
+msgstr "파일"
+
+#: ../latex/tools/views.py:74
+msgid "Line"
+msgstr "행"
+
+#: ../latex/tools/views.py:87
+msgid "Abort Job"
+msgstr "작업 정보"
+
+#: ../latex/tools/views.py:92
+msgid "Show Detailed Output"
+msgstr "세부 출력 표시"
+
+#: ../latex/views.py:67
+msgid "Message"
+msgstr "메시지"
+
+#: ../latex/views.py:99
+msgid "Show/Hide Warnings"
+msgstr "경고 표시/숨김"
+
+#: ../latex/views.py:107
+msgid "Show/Hide Tasks"
+msgstr "작업 표시/숨김"
+
+#: ../latex/views.py:139
+msgid "Issues"
+msgstr "이슈"
