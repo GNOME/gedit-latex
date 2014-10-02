@@ -110,5 +110,9 @@ class LaTeXAppActivatable(GObject.Object, Gedit.AppActivatable):
     def _on_tools_changed(self, tools):
         self.latex_tools_menu.remove_all()
         self.init_tools()
+
+    def do_deactivate(self):
+        del self.latex_tools_menu
+        del self.menu_ext
         
 # ex:ts=4:et
