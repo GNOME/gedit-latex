@@ -61,7 +61,7 @@ class LaTeXAppActivatable(GObject.Object, Gedit.AppActivatable):
         self.init_tools()
         
     def add_latex_menu(self):
-        self.menu_ext = self.extend_menu("tools-section")
+        self.menu_ext = self.extend_menu("preferences-section")
         menu = Gio.MenuItem.new(_("LaTeX"))
         container = Gio.Menu.new()
         menu.set_submenu(container)

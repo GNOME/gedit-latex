@@ -123,13 +123,11 @@ class ToolAction(Action):
             decorator = context._window_decorator
             doc = decorator.window.get_active_document()
             self.saving_id = doc.connect("saved",self.run_tool,context,doc)
-            #FIXME Better would be to trigger a dialog if needed as was done before like this:
-            #decorator.save_file()
-            doc.save(0)
+            Gedit.commands_save_document(decorator.window, doc)
         else:
             LOG.error("tool activate: no active editor")
-
-    def run_tool(self, document, other, context, doc):
+            
+    def run_tool(self, document, context, doc):
         tool_view = context.find_view(context.active_editor, "ToolView")
 
         self._runner.run(context.active_editor.file, self._tool, tool_view)
