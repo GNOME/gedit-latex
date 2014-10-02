@@ -91,9 +91,6 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
         self._init_views()
         self._init_tab_decorators()
 
-        # FIXME: find another way to save a document
-        #self._save_action = self._ui_manager.get_action("/MenuBar/FileMenu/FileSaveMenu")
-
         #
         # listen to tab signals
         #
@@ -305,7 +302,8 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
 
         (used by ToolAction before tool run)
         """
-        self._save_action.activate()
+        tab = self._active_tab_decorator.tab
+        Gedit.commands_save_document(tab.get_toplevel(), tab.get_document())
 
     def show_toolbar(self):
         if self._toolbar:

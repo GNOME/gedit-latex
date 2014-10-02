@@ -123,7 +123,7 @@ class ToolAction(Action):
             decorator = context._window_decorator
             doc = decorator.window.get_active_document()
             self.saving_id = doc.connect("saved",self.run_tool,context,doc)
-            Gedit.commands_save_document(decorator.window, doc)
+            decorator.save_file()
         else:
             LOG.error("tool activate: no active editor")
             
