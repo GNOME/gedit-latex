@@ -24,7 +24,6 @@ from .resources import Resources
 from .config import MENUACTIONS
 
 from .preferences.tools import ToolPreferences
-from .tools import ToolAction
 
 class LaTeXAppActivatable(GObject.Object, Gedit.AppActivatable):
     __gtype_name__ = "GeditLaTeXAppActivatable"
@@ -94,10 +93,8 @@ class LaTeXAppActivatable(GObject.Object, Gedit.AppActivatable):
             # hopefully unique action name
             name = "Tool%sAction" % i
 
-            # create action
-            action = ToolAction(tool)
             actionlink = "win." + name
-            self.latex_tools_menu.append_item(Gio.MenuItem.new(_(action.label), actionlink))
+            self.latex_tools_menu.append_item(Gio.MenuItem.new(_(tool.label), actionlink))
 
             accelerator = None
             if tool.accelerator and len(tool.accelerator) > 0:
