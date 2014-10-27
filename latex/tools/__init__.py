@@ -126,8 +126,8 @@ class ToolAction(Action):
             decorator.save_file()
         else:
             LOG.error("tool activate: no active editor")
-
-    def run_tool(self, document, other, context, doc):
+            
+    def run_tool(self, document, context, doc):
         tool_view = context.find_view(context.active_editor, "ToolView")
 
         self._runner.run(context.active_editor.file, self._tool, tool_view)

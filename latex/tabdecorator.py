@@ -78,7 +78,7 @@ class GeditTabDecorator(object):
     def tab(self):
         return self._tab
 
-    def _on_load(self, document, param):
+    def _on_load(self, document):
         """
         A file has been loaded
         """
@@ -86,7 +86,7 @@ class GeditTabDecorator(object):
 
         self._adjust_editor()
 
-    def _on_save(self, document, param):
+    def _on_save(self, document):
         """
         The file has been saved
         """

@@ -52,6 +52,8 @@ ACTIONS = [LaTeXMenuAction, LaTeXNewAction, LaTeXChooseMasterAction,
         LaTeXBuildAction, LaTeXBuildMenuAction,
         BibTeXMenuAction, BibTeXNewEntryAction]
 
+MENUACTIONS = [LaTeXNewAction, LaTeXChooseMasterAction, LaTeXCloseEnvironmentAction, BibTeXNewEntryAction] 
+
 # views
 from .views import IssueView
 from .latex.views import LaTeXSymbolMapView, LaTeXOutlineView
