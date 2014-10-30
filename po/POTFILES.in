@@ -11,6 +11,7 @@ data/org.gnome.gedit.plugins.latex.gschema.xml.in.in
 [type: gettext/glade]data/ui/insert_table_dialog.ui
 [type: gettext/glade]data/ui/new_document_template_dialog.ui
 [type: gettext/glade]data/ui/use_bibliography_dialog.ui
+latex/appactivatable.py
 latex/bibtex/actions.py
 latex/bibtex/views.py
 latex/latex/actions.py
