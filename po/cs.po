@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: gedit-latex master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gedit&keywords=I18N+L10N&component=Plugins\n"
-"POT-Creation-Date: 2012-10-08 08:07+0000\n"
+"POT-Creation-Date: 2014-10-31 05:59+0000\n"
 "PO-Revision-Date: 2011-11-13 15:18+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
@@ -199,7 +199,9 @@ msgstr "Cesty relativně k souboru .tex pro hledání grafiky"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:14
 msgid "Extra LaTeX commands used to mark issues, such as \\fxnote{foo}"
-msgstr "Doplňující příkazy LaTeX použité k označení problémů, jako třeba \\fxnote{pokus}"
+msgstr ""
+"Doplňující příkazy LaTeX použité k označení problémů, jako třeba "
+"\\fxnote{pokus}"
 
 #: ../data/ui/build_image_dialog.ui.h:1
 msgid "Render to Image"
@@ -533,7 +535,9 @@ msgstr "Zahrnout _metadata PDF"
 
 #: ../data/ui/new_document_template_dialog.ui.h:19
 msgid "This adds metadata to the document. Requires package <tt>ifpdf</tt>."
-msgstr "Tímto se do dokumentu přidají metadata. K fungování je potřeba balíček <tt>ifpdf</tt>."
+msgstr ""
+"Tímto se do dokumentu přidají metadata. K fungování je potřeba balíček "
+"<tt>ifpdf</tt>."
 
 #: ../data/ui/new_document_template_dialog.ui.h:20
 msgid "Date:"
@@ -583,6 +587,14 @@ msgstr "Náhled stylu:"
 msgid "Refresh Style Preview"
 msgstr "Občerstvit náhled stylu"
 
+#: ../latex/appactivatable.py:64 ../latex/latex/actions.py:63
+msgid "LaTeX"
+msgstr "LaTeX"
+
+#: ../latex/appactivatable.py:80
+msgid "LaTeX Tools"
+msgstr "Nástroje LaTeX"
+
 #: ../latex/bibtex/actions.py:32
 msgid "BibTeX"
 msgstr "BibTeX"
@@ -620,10 +632,6 @@ msgstr "<i>není znám</i>"
 #: ../latex/bibtex/views.py:240
 msgid "Unknown Author"
 msgstr "Neznámý autor"
-
-#: ../latex/latex/actions.py:63
-msgid "LaTeX"
-msgstr "LaTeX"
 
 #: ../latex/latex/actions.py:73
 msgid "New LaTeX Document..."
@@ -887,15 +895,15 @@ msgstr "Dopis 2 (KOMA-Script)"
 msgid "Slides"
 msgstr "Prezentace"
 
-#: ../latex/latex/views.py:113
+#: ../latex/latex/views.py:107
 msgid "Symbols"
 msgstr "Symboly"
 
-#: ../latex/latex/views.py:201
+#: ../latex/latex/views.py:190
 msgid "Show graphics"
 msgstr "Zobrazovat grafiku"
 
-#: ../latex/latex/views.py:206
+#: ../latex/latex/views.py:195
 msgid "Show tables"
 msgstr "Zobrazovat tabulky"
 
@@ -911,7 +919,7 @@ msgstr "Rozbalit vše"
 msgid "Collapse All"
 msgstr "Sbalit vše"
 
-#: ../latex/outline.py:115
+#: ../latex/outline.py:114
 msgid "Outline"
 msgstr "Osnova"
 
