@@ -4,14 +4,14 @@
 # pomóc w jego rozwijaniu i pielęgnowaniu, napisz do nas:
 # gnomepl@aviary.pl
 # -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-# Piotr Drąg <piotrdrag@gmail.com>, 2011-2013.
-# Aviary.pl <gnomepl@aviary.pl>, 2011-2013.
+# Piotr Drąg <piotrdrag@gmail.com>, 2011-2014.
+# Aviary.pl <gnomepl@aviary.pl>, 2011-2014.
 msgid ""
 msgstr ""
 "Project-Id-Version: gedit-latex\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-02-17 16:34+0100\n"
-"PO-Revision-Date: 2013-02-17 16:35+0100\n"
+"POT-Creation-Date: 2014-11-05 13:39+0100\n"
+"PO-Revision-Date: 2014-11-05 13:40+0100\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <gnomepl@aviary.pl>\n"
 "Language: pl\n"
@@ -202,8 +202,8 @@ msgstr "Ścieżki względne do pliku .tex, w których szukać grafik"
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:14
 msgid "Extra LaTeX commands used to mark issues, such as \\fxnote{foo}"
 msgstr ""
-"Dodatkowe polecenia LaTeX używane do oznaczania wydań, takie jak \\fxnote"
-"{foo}"
+"Dodatkowe polecenia LaTeX używane do oznaczania wydań, takie jak "
+"\\fxnote{foo}"
 
 #: ../data/ui/build_image_dialog.ui.h:1
 msgid "Render to Image"
@@ -587,6 +587,14 @@ msgstr "Podgląd stylu:"
 msgid "Refresh Style Preview"
 msgstr "Odśwież podgląd stylu"
 
+#: ../latex/appactivatable.py:64 ../latex/latex/actions.py:63
+msgid "LaTeX"
+msgstr "LaTeX"
+
+#: ../latex/appactivatable.py:80
+msgid "LaTeX Tools"
+msgstr "Narzędzia LaTeX"
+
 #: ../latex/bibtex/actions.py:32
 msgid "BibTeX"
 msgstr "BibTeX"
@@ -624,10 +632,6 @@ msgstr "<i>nie dotyczy</i>"
 #: ../latex/bibtex/views.py:240
 msgid "Unknown Author"
 msgstr "Nieznany autor"
-
-#: ../latex/latex/actions.py:63
-msgid "LaTeX"
-msgstr "LaTeX"
 
 #: ../latex/latex/actions.py:73
 msgid "New LaTeX Document..."
