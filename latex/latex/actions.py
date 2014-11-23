@@ -521,4 +521,12 @@ class LaTeXEqnArrayAction(LaTeXTemplateAction):
     $0
 \\end{align}"""
 
+class FileDummyAction(Action):
+    label = tooltip = stock_id = ''
+    accelerator = None
+
+class ToolsDummyAction(Action):
+    label = tooltip = stock_id = ''
+    accelerator = None
+
 # ex:ts=4:et:

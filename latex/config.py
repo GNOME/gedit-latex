@@ -34,7 +34,7 @@ from .latex.actions import LaTeXMenuAction, LaTeXNewAction, LaTeXChooseMasterAct
         LaTeXEquationAction, LaTeXUnEqnArrayAction, LaTeXEqnArrayAction, LaTeXUnderlineAction, LaTeXSmallCapitalsAction, \
         LaTeXRomanAction, LaTeXSansSerifAction, LaTeXTypewriterAction, LaTeXCloseEnvironmentAction, LaTeXBlackboardBoldAction, \
         LaTeXCaligraphyAction, LaTeXFrakturAction, LaTeXBuildImageAction, \
-        LaTeXBuildAction, LaTeXBuildMenuAction
+        LaTeXBuildAction, LaTeXBuildMenuAction, FileDummyAction, ToolsDummyAction
 
 from .bibtex.actions import BibTeXMenuAction, BibTeXNewEntryAction
 
@@ -50,7 +50,8 @@ ACTIONS = [LaTeXMenuAction, LaTeXNewAction, LaTeXChooseMasterAction,
         LaTeXRomanAction, LaTeXSansSerifAction, LaTeXTypewriterAction, LaTeXCloseEnvironmentAction, LaTeXBlackboardBoldAction,
         LaTeXCaligraphyAction, LaTeXFrakturAction, LaTeXBuildImageAction,
         LaTeXBuildAction, LaTeXBuildMenuAction,
-        BibTeXMenuAction, BibTeXNewEntryAction]
+        BibTeXMenuAction, BibTeXNewEntryAction,
+        FileDummyAction, ToolsDummyAction]
 
 MENUACTIONS = [LaTeXNewAction, LaTeXChooseMasterAction, LaTeXCloseEnvironmentAction, BibTeXNewEntryAction] 
 

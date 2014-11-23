@@ -1,6 +1,6 @@
 <ui>
     <menubar name="MenuBar">
-        <menu name="FileMenu" action="File">
+        <menu name="FileMenu" action="FileDummyAction">
             <placeholder name="FileOps_1">
                 <menuitem action="LaTeXNewAction" />
             </placeholder>

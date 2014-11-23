@@ -55,7 +55,7 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
     # ui definition template for hooking tools in Gedit's ui.
     _tool_ui_template = string.Template("""<ui>
             <menubar name="MenuBar">
-                <menu name="ToolsMenu" action="Tools">
+                <menu name="ToolsMenu" action="ToolsDummyAction">
                     <placeholder name="ToolsOps_1">$items</placeholder>
                 </menu>
             </menubar>
