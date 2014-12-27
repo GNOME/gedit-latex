@@ -1,14 +1,14 @@
 # Serbian translation for gedit-latex.
 # Copyright (C) 2012 gedit-latex's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gedit-latex package.
-# Miroslav Nikolić <miroslavnikolic@rocketmail.com>, 2012.
+# Miroslav Nikolić <miroslavnikolic@rocketmail.com>, 2012—2014.
 msgid ""
 msgstr ""
 "Project-Id-Version: gedit-latex master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gedit&"
-"keywords=I18N+L10N&component=Plugins\n"
-"POT-Creation-Date: 2012-11-14 16:19+0000\n"
-"PO-Revision-Date: 2012-12-08 09:31+0200\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gedit&k"
+"eywords=I18N+L10N&component=Plugins\n"
+"POT-Creation-Date: 2014-12-27 06:05+0000\n"
+"PO-Revision-Date: 2014-12-27 13:46+0200\n"
 "Last-Translator: Miroslav Nikolić <miroslavnikolic@rocketmail.com>\n"
 "Language-Team: Serbian <gnom@prevod.org>\n"
 "Language: sr\n"
@@ -289,8 +289,8 @@ msgid ""
 "Remember to run all commands in batch mode (e.g. append <tt>-interaction "
 "batchmode</tt> to <tt>latex</tt>)"
 msgstr ""
-"Ne zaboravi da pokreneš sve naredbe u grupnom režimu (npr. prikači "
-"<tt>-interaction batchmode</tt> na <tt>latex</tt>)"
+"Ne zaboravi da pokreneš sve naredbe u grupnom režimu (npr. prikači <tt>-"
+"interaction batchmode</tt> na <tt>latex</tt>)"
 
 #: ../data/ui/configure_tool.ui.h:2
 msgid "<b>_Label</b>"
@@ -301,8 +301,8 @@ msgid ""
 "Valid placeholders are <tt>$filename</tt>, <tt>$shortname</tt>, <tt>"
 "$directory</tt>"
 msgstr ""
-"Ispravni mestodržači su <tt>$filename</tt>, <tt>$shortname</tt>, "
-"<tt>$directory</tt>"
+"Ispravni mestodržači su <tt>$filename</tt>, <tt>$shortname</tt>, <tt>"
+"$directory</tt>"
 
 #: ../data/ui/configure_tool.ui.h:4
 msgid "<b>_Jobs</b>"
@@ -586,6 +586,15 @@ msgstr "Pregled stila:"
 msgid "Refresh Style Preview"
 msgstr "Osveži pregled stila"
 
+#: ../latex/appactivatable.py:64 ../latex/latex/actions.py:63
+msgid "LaTeX"
+msgstr "LaTeKs"
+
+#: ../latex/appactivatable.py:80
+#| msgid "LaTeX News"
+msgid "LaTeX Tools"
+msgstr "Alati LaTeKsa"
+
 #: ../latex/bibtex/actions.py:32
 msgid "BibTeX"
 msgstr "BibTeKs"
@@ -623,10 +632,6 @@ msgstr "<i>n/d</i>"
 #: ../latex/bibtex/views.py:240
 msgid "Unknown Author"
 msgstr "Nepoznati autor"
-
-#: ../latex/latex/actions.py:63
-msgid "LaTeX"
-msgstr "LaTeKs"
 
 #: ../latex/latex/actions.py:73
 msgid "New LaTeX Document..."
@@ -890,15 +895,15 @@ msgstr "Pismo 2 (ZAREZ-skript)"
 msgid "Slides"
 msgstr "Diapozitivi"
 
-#: ../latex/latex/views.py:113
+#: ../latex/latex/views.py:107
 msgid "Symbols"
 msgstr "Simboli"
 
-#: ../latex/latex/views.py:201
+#: ../latex/latex/views.py:190
 msgid "Show graphics"
 msgstr "Prikaži grafike"
 
-#: ../latex/latex/views.py:206
+#: ../latex/latex/views.py:195
 msgid "Show tables"
 msgstr "Prikaži tabele"
 
@@ -914,7 +919,7 @@ msgstr "Raširi sve"
 msgid "Collapse All"
 msgstr "Skupi sve"
 
-#: ../latex/outline.py:115
+#: ../latex/outline.py:114
 msgid "Outline"
 msgstr "Opšti pregled"
 
