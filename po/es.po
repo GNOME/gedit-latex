@@ -3,21 +3,23 @@
 # This file is distributed under the same license as the gedit-latex package.
 # Nicolás Satragno <nsatragno@gmail.com>, 2011.
 # 
-# Daniel Mustieles <daniel.mustieles@gmail.com>, 2011, 2012., 2012.
+# Daniel Mustieles <daniel.mustieles@gmail.com>, 2011, 2012., 2015.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gedit-latex master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gedit&keywords=I18N+L10N&component=Plugins\n"
-"POT-Creation-Date: 2012-05-18 16:58+0000\n"
-"PO-Revision-Date: 2012-05-21 10:59+0200\n"
+"POT-Creation-Date: 2015-01-12 06:03+0000\n"
+"PO-Revision-Date: 2015-01-12 18:45+0100\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
-"Language-Team: Español <gnome-es-list@gnome.org>\n"
+"Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Gtranslator 2.91.6\n"
 
 #: ../latex.plugin.desktop.in.in.h:1
 msgid "LaTeX Plugin"
@@ -199,8 +201,8 @@ msgstr "Rutas relativas a un archivo .tex para buscar gráficos"
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:14
 msgid "Extra LaTeX commands used to mark issues, such as \\fxnote{foo}"
 msgstr ""
-"Comandos adicionales de LateX usados para marcar errores, tales como «\\fxnote"
-"{foo}»"
+"Comandos adicionales de LateX usados para marcar errores, tales como "
+"«\\fxnote{foo}»"
 
 #: ../data/ui/build_image_dialog.ui.h:1
 msgid "Render to Image"
@@ -584,47 +586,52 @@ msgstr "Vista previa del estilo:"
 msgid "Refresh Style Preview"
 msgstr "Actualizar vista previa del estilo"
 
-#: ../latex/bibtex/actions.py:35
+#: ../latex/appactivatable.py:64 ../latex/latex/actions.py:63
+msgid "LaTeX"
+msgstr "LaTeX"
+
+#: ../latex/appactivatable.py:80
+#| msgid "Show LaTeX Toolbar"
+msgid "LaTeX Tools"
+msgstr "Herramientas de LaTeX"
+
+#: ../latex/bibtex/actions.py:32
 msgid "BibTeX"
 msgstr "BibTeX"
 
-#: ../latex/bibtex/actions.py:46
+#: ../latex/bibtex/actions.py:43
 msgid "New BibTeX Entry..."
 msgstr "Nueva entrada BibTeX…"
 
-#: ../latex/bibtex/actions.py:49
+#: ../latex/bibtex/actions.py:46
 msgid "Create a new BibTeX entry"
 msgstr "Crear entrada BibTeX nueva"
 
 #. add grouping controls to toolbar
-#: ../latex/bibtex/views.py:58
+#: ../latex/bibtex/views.py:56
 msgid "No Grouping"
 msgstr "No agrupar"
 
-#: ../latex/bibtex/views.py:59
+#: ../latex/bibtex/views.py:57
 msgid "Group by Type"
 msgstr "Agrupar por tipo"
 
-#: ../latex/bibtex/views.py:60
+#: ../latex/bibtex/views.py:58
 msgid "Group by Author"
 msgstr "Agrupar por autor"
 
-#: ../latex/bibtex/views.py:61
+#: ../latex/bibtex/views.py:59
 msgid "Group by Year"
 msgstr "Agrupar por año"
 
 #. group by year
-#: ../latex/bibtex/views.py:199
+#: ../latex/bibtex/views.py:197
 msgid "<i>n/a</i>"
 msgstr "<i>n/d</i>"
 
-#: ../latex/bibtex/views.py:242
+#: ../latex/bibtex/views.py:240
 msgid "Unknown Author"
 msgstr "Autor desconocido"
-
-#: ../latex/latex/actions.py:63
-msgid "LaTeX"
-msgstr "LaTeX"
 
 #: ../latex/latex/actions.py:73
 msgid "New LaTeX Document..."
@@ -895,15 +902,15 @@ msgstr "Carta 2 (KOMA-Script)"
 msgid "Slides"
 msgstr "Diapositivas"
 
-#: ../latex/latex/views.py:114
+#: ../latex/latex/views.py:107
 msgid "Symbols"
 msgstr "Símbolos"
 
-#: ../latex/latex/views.py:202
+#: ../latex/latex/views.py:190
 msgid "Show graphics"
 msgstr "Mostrar gráficos"
 
-#: ../latex/latex/views.py:207
+#: ../latex/latex/views.py:195
 msgid "Show tables"
 msgstr "Mostrar tablas"
 
@@ -919,7 +926,7 @@ msgstr "Expandir todo"
 msgid "Collapse All"
 msgstr "Contraer todo"
 
-#: ../latex/outline.py:115
+#: ../latex/outline.py:114
 msgid "Outline"
 msgstr "Esquema"
 
@@ -976,9 +983,6 @@ msgstr "Problemas"
 
 #~ msgid "label"
 #~ msgstr "etiqueta"
-
-#~ msgid "Show LaTeX Toolbar"
-#~ msgstr "Mostrar la barra de herramientas de LaTeX"
 
 #~ msgid "<b>LaTeX Toolbar</b>"
 #~ msgstr "<b>Barra de herramientas de LaTeX</b>"
