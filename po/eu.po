@@ -1,13 +1,16 @@
+# Basque translation for gedit-latex
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Iñaki Larrañaga Murgoitio <dooteo@zundan.com>, 2014.
+# Iñaki Larrañaga Murgoitio <dooteo@zundan.com>, 2014, 2015.
+# Edurne Labaka <elabaka@uzei.com>, 2015.
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-15 12:06+0200\n"
-"PO-Revision-Date: 2014-07-15 12:27+0200\n"
+"Project-Id-Version: gedit-latex master\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=gedit&keywords=I18N+L10N&component=Plugins\n"
+"POT-Creation-Date: 2015-02-07 12:42+0100\n"
+"PO-Revision-Date: 2014-11-10 16:59+0100\n"
 "Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@zundan.com>\n"
 "Language-Team: Basque <librezale@librezale.org>\n"
 "Language: eu\n"
@@ -15,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 1.4\n"
+"X-Generator: Poedit 1.6.10\n"
 
 #: ../latex.plugin.desktop.in.in.h:1
 msgid "LaTeX Plugin"
@@ -131,7 +134,7 @@ msgstr "Eskola"
 
 #: ../data/bibtex.xml.h:26
 msgid "Institution"
-msgstr "Instituzioa"
+msgstr "Erakundea"
 
 #: ../data/bibtex.xml.h:27
 msgid "Cross Reference"
@@ -334,7 +337,7 @@ msgstr "Sortu bibliografiaren sarrera"
 
 #: ../data/ui/insert_bibtex_entry.ui.h:2
 msgid "Required Fields"
-msgstr "Derrigorrezko eremuak"
+msgstr "Nahitaezko eremuak"
 
 #: ../data/ui/insert_bibtex_entry.ui.h:3
 msgid "Optional Fields"
@@ -386,7 +389,7 @@ msgstr "_Biratu:"
 
 #: ../data/ui/insert_graphics_dialog.ui.h:10
 msgid "° CCW"
-msgstr "° erlojuaren aurka"
+msgstr ""
 
 #: ../data/ui/insert_graphics_dialog.ui.h:11
 msgid "Flip _Horizontally"
@@ -452,7 +455,7 @@ msgstr "_Zutabeak:"
 
 #: ../data/ui/insert_table_dialog.ui.h:9
 msgid "tab:"
-msgstr ""
+msgstr "tab:"
 
 #: ../data/ui/insert_table_dialog.ui.h:10
 msgid "_Floating Object"
@@ -582,116 +585,130 @@ msgstr "Estiloaren aurrebista:"
 msgid "Refresh Style Preview"
 msgstr "Freskatu estiloaren aurrebista"
 
+#: ../latex/appactivatable.py:64 ../latex/latex/actions.py:63
+msgid "LaTeX"
+msgstr ""
+
+#: ../latex/appactivatable.py:80
+#, fuzzy
+msgid "LaTeX Tools"
+msgstr "Tresnak"
+
 #: ../latex/bibtex/actions.py:32
+#, fuzzy
 msgid "BibTeX"
-msgstr "BibTeX"
+msgstr "<b>BibTeX</b>"
 
 #: ../latex/bibtex/actions.py:43
 msgid "New BibTeX Entry..."
-msgstr "BibTeX sarrera berria..."
+msgstr ""
 
 #: ../latex/bibtex/actions.py:46
+#, fuzzy
 msgid "Create a new BibTeX entry"
-msgstr "Sortu BibTeX sarrera berria"
+msgstr "Sortu bibliografiaren sarrera"
 
 #. add grouping controls to toolbar
 #: ../latex/bibtex/views.py:56
 msgid "No Grouping"
-msgstr "Ez taldekatu"
+msgstr ""
 
 #: ../latex/bibtex/views.py:57
 msgid "Group by Type"
-msgstr "Taldekatu motaren arabera"
+msgstr ""
 
 #: ../latex/bibtex/views.py:58
 msgid "Group by Author"
-msgstr "Taldekatu egilearen arabera"
+msgstr ""
 
 #: ../latex/bibtex/views.py:59
 msgid "Group by Year"
-msgstr "Taldekatu urtearen arabera"
+msgstr ""
 
 #. group by year
 #: ../latex/bibtex/views.py:197
 msgid "<i>n/a</i>"
-msgstr "<i>e/e</i>"
+msgstr ""
 
 #: ../latex/bibtex/views.py:240
+#, fuzzy
 msgid "Unknown Author"
-msgstr "Egile ezezaguna"
-
-#: ../latex/latex/actions.py:63
-msgid "LaTeX"
-msgstr "LaTeX"
+msgstr "Egilea"
 
 #: ../latex/latex/actions.py:73
+#, fuzzy
 msgid "New LaTeX Document..."
-msgstr "LaTeX dokumentu berria..."
+msgstr "LaTeX dokumentu berria"
 
 #: ../latex/latex/actions.py:76
+#, fuzzy
 msgid "Create a new LaTeX document"
-msgstr "Sortu LaTeX dokumentu berria"
+msgstr "LaTeX dokumentu berria"
 
 #: ../latex/latex/actions.py:95
+#, fuzzy
 msgid "Choose Master Document..."
-msgstr "Aukeratu dokumentu maisua..."
+msgstr "Hautatu dokumentu maisua"
 
 #: ../latex/latex/actions.py:107
 msgid "Close Nearest Environment"
-msgstr "Itxi ingurune hurbilena"
+msgstr ""
 
 #: ../latex/latex/actions.py:109
 msgid "Close the nearest TeX environment at left of the cursor"
 msgstr ""
 
 #: ../latex/latex/actions.py:157
+#, fuzzy
 msgid "Use Bibliography..."
-msgstr "Erabili bibliografia..."
+msgstr "Erabili bibliografia"
 
 #: ../latex/latex/actions.py:179 ../latex/latex/actions.py:181
 #: ../latex/latex/actions.py:189 ../latex/latex/actions.py:190
+#, fuzzy
 msgid "Font Family"
-msgstr "Letra-familia"
+msgstr "Letra-_tipo lehenetsia:"
 
 #: ../latex/latex/actions.py:194 ../latex/latex/actions.py:195
 msgid "Bold"
-msgstr "Lodia"
+msgstr ""
 
 #: ../latex/latex/actions.py:201 ../latex/latex/actions.py:202
 msgid "Italic"
-msgstr "Etzana"
+msgstr ""
 
 #: ../latex/latex/actions.py:208 ../latex/latex/actions.py:209
 msgid "Emphasize"
-msgstr "Enfasia"
+msgstr ""
 
 #: ../latex/latex/actions.py:215 ../latex/latex/actions.py:216
 msgid "Underline"
-msgstr "Azpimarra"
+msgstr ""
 
 #: ../latex/latex/actions.py:222 ../latex/latex/actions.py:223
 msgid "Small Capitals"
-msgstr "Maiuskula txikiak"
+msgstr ""
 
 #: ../latex/latex/actions.py:229 ../latex/latex/actions.py:230
 msgid "Roman"
-msgstr "Erromatarra"
+msgstr ""
 
 #: ../latex/latex/actions.py:236 ../latex/latex/actions.py:237
 msgid "Sans Serif"
-msgstr "Sans Serif"
+msgstr ""
 
 #: ../latex/latex/actions.py:243 ../latex/latex/actions.py:244
 msgid "Typewriter"
-msgstr "Idazmakina"
+msgstr ""
 
 #: ../latex/latex/actions.py:250 ../latex/latex/actions.py:251
 msgid "Blackboard Bold"
 msgstr ""
 
 #: ../latex/latex/actions.py:258 ../latex/latex/actions.py:259
+#, fuzzy
 msgid "Caligraphy"
-msgstr "Kaligrafia"
+msgstr "Erabili bibliografia"
 
 #: ../latex/latex/actions.py:265 ../latex/latex/actions.py:266
 msgid "Fraktur"
@@ -700,7 +717,7 @@ msgstr ""
 #: ../latex/latex/actions.py:273 ../latex/latex/actions.py:274
 #: ../latex/latex/actions.py:286 ../latex/latex/actions.py:287
 msgid "List"
-msgstr "Zerrenda"
+msgstr ""
 
 #: ../latex/latex/actions.py:278 ../latex/latex/actions.py:279
 msgid "Itemize"
