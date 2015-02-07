@@ -1,13 +1,16 @@
+# Basque translation for gedit-latex
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Iñaki Larrañaga Murgoitio <dooteo@zundan.com>, 2014.
+# Iñaki Larrañaga Murgoitio <dooteo@zundan.com>, 2014, 2015.
+# Edurne Labaka <elabaka@uzei.com>, 2015.
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-15 12:07+0200\n"
-"PO-Revision-Date: 2014-07-15 12:20+0200\n"
+"Project-Id-Version: gedit gnome-3-2\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=gedit&keywords=I18N+L10N&component=Plugins\n"
+"POT-Creation-Date: 2015-02-07 12:41+0100\n"
+"PO-Revision-Date: 2014-11-10 16:59+0100\n"
 "Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@zundan.com>\n"
 "Language-Team: Basque <librezale@librezale.org>\n"
 "Language: eu\n"
@@ -15,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 1.4\n"
+"X-Generator: Poedit 1.6.10\n"
 
 #: ../data/bibtex.xml.h:1
 msgid "Title"
@@ -330,7 +333,7 @@ msgstr "Sortu bibliografiaren sarrera"
 
 #: ../data/ui/insert_bibtex_entry.ui.h:2
 msgid "Required Fields"
-msgstr "Derrigorrezko eremuak"
+msgstr "Nahitaezko eremuak"
 
 #: ../data/ui/insert_bibtex_entry.ui.h:3
 msgid "Optional Fields"
@@ -445,7 +448,7 @@ msgstr "_Zutabeak:"
 
 #: ../data/ui/insert_table_dialog.ui.h:9
 msgid "tab:"
-msgstr ""
+msgstr "tab:"
 
 #: ../data/ui/insert_table_dialog.ui.h:10
 msgid "_Floating Object"
@@ -594,4 +597,3 @@ msgid ""
 "bibliographies"
 msgstr ""
 "LaTeX dokumentuak eta BibTeX bibliografiak kudeatzen lagunduko dizun plugina"
-
