@@ -217,7 +217,9 @@ class ConfigureToolDialog(GladeInterface):
 
     def _on_move_up_job_clicked(self, button):
         store, iter = self._view_job.get_selection().get_selected()
-        store.swap(iter)
+        prev = store.iter_previous(iter)
+        if prev:
+            store.swap(iter, prev)
 
     def _on_add_extension_clicked(self, button):
         extension = self._entry_new_extension.get_text()
