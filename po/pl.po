@@ -4,14 +4,14 @@
 # pomóc w jego rozwijaniu i pielęgnowaniu, napisz do nas:
 # gnomepl@aviary.pl
 # -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-# Piotr Drąg <piotrdrag@gmail.com>, 2011-2014.
-# Aviary.pl <gnomepl@aviary.pl>, 2011-2014.
+# Piotr Drąg <piotrdrag@gmail.com>, 2011-2015.
+# Aviary.pl <gnomepl@aviary.pl>, 2011-2015.
 msgid ""
 msgstr ""
 "Project-Id-Version: gedit-latex\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-05 13:39+0100\n"
-"PO-Revision-Date: 2014-11-05 13:40+0100\n"
+"POT-Creation-Date: 2015-09-01 03:22+0200\n"
+"PO-Revision-Date: 2015-09-01 03:24+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <gnomepl@aviary.pl>\n"
 "Language: pl\n"
@@ -601,7 +601,7 @@ msgstr "BibTeX"
 
 #: ../latex/bibtex/actions.py:43
 msgid "New BibTeX Entry..."
-msgstr "Nowy wpis BibTeX..."
+msgstr "Nowy wpis BibTeX…"
 
 #: ../latex/bibtex/actions.py:46
 msgid "Create a new BibTeX entry"
@@ -635,7 +635,7 @@ msgstr "Nieznany autor"
 
 #: ../latex/latex/actions.py:73
 msgid "New LaTeX Document..."
-msgstr "Nowy dokument LaTeX..."
+msgstr "Nowy dokument LaTeX…"
 
 #: ../latex/latex/actions.py:76
 msgid "Create a new LaTeX document"
@@ -643,7 +643,7 @@ msgstr "Tworzy nowy dokument LaTeX"
 
 #: ../latex/latex/actions.py:95
 msgid "Choose Master Document..."
-msgstr "Wybierz główny dokument..."
+msgstr "Wybierz główny dokument…"
 
 #: ../latex/latex/actions.py:107
 msgid "Close Nearest Environment"
@@ -655,7 +655,7 @@ msgstr "Zamyka najbliższe środowisko TeX po lewej od kursora"
 
 #: ../latex/latex/actions.py:157
 msgid "Use Bibliography..."
-msgstr "Użycie bibliografii..."
+msgstr "Użycie bibliografii…"
 
 #: ../latex/latex/actions.py:179 ../latex/latex/actions.py:181
 #: ../latex/latex/actions.py:189 ../latex/latex/actions.py:190
