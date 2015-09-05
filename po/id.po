@@ -1,31 +1,35 @@
 # Indonesian translation for gedit-latex.
 # Copyright (C) 2012 gedit-latex's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gedit-latex package.
-# Andika Triwidada <andika@gmail.com>, 2012.
+# Andika Triwidada <andika@gmail.com>, 2012, 2015.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gedit-latex master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gedit&keywords=I18N+L10N&component=Plugins\n"
-"POT-Creation-Date: 2012-07-15 10:07+0000\n"
-"PO-Revision-Date: 2012-07-22 17:18+0700\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=gedit&keywords=I18N+L10N&component=Plugins\n"
+"POT-Creation-Date: 2014-10-30 16:17+0000\n"
+"PO-Revision-Date: 2015-09-05 18:42+0700\n"
 "Last-Translator: Andika Triwidada <andika@gmail.com>\n"
 "Language-Team: Indonesian <gnome@i15n.org>\n"
+"Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Poedit-Language: Indonesian\n"
-"X-Poedit-Country: INDONESIA\n"
 "X-Poedit-SourceCharset: utf-8\n"
+"X-Generator: Poedit 1.7.1\n"
 
 #: ../latex.plugin.desktop.in.in.h:1
 msgid "LaTeX Plugin"
 msgstr "Plugin LaTeX"
 
 #: ../latex.plugin.desktop.in.in.h:2
-msgid "A plugin that assists you in handling LaTeX documents and BibTeX bibliographies"
-msgstr "Plugin yang membantu Anda menangani dokumen LaTeX dan bibliografi BibTeX"
+msgid ""
+"A plugin that assists you in handling LaTeX documents and BibTeX "
+"bibliographies"
+msgstr ""
+"Plugin yang membantu Anda menangani dokumen LaTeX dan bibliografi BibTeX"
 
 #: ../data/bibtex.xml.h:1
 msgid "Title"
@@ -115,8 +119,7 @@ msgstr "Catatan"
 msgid "Type"
 msgstr "Tipe"
 
-#: ../data/bibtex.xml.h:23
-#: ../latex/latex/actions.py:315
+#: ../data/bibtex.xml.h:23 ../latex/latex/actions.py:315
 #: ../latex/latex/actions.py:316
 msgid "Chapter"
 msgstr "Bab"
@@ -143,40 +146,44 @@ msgstr "Ukuran BibTeX Maksimum"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:2
 msgid "Connect Outline to Editor"
-msgstr ""
+msgstr "Sambungkan Kerangka ke Penyunting"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:3
 msgid "Show Labels in Outline"
-msgstr ""
+msgstr "Tampilkan Label dalam Kerangka"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:4
 msgid "Show Tables in Outline"
-msgstr ""
+msgstr "Tampilkan Tabel dalam Kerangka"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:5
 msgid "Show Graphics in Outline"
-msgstr ""
+msgstr "Tampilkan Grafik dalam Kerangka"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:6
 msgid "Show Warnings in Issues"
-msgstr ""
+msgstr "Tampilkan Peringatan dalam Masalah"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:7
 msgid "Show Tasks in Issues"
-msgstr ""
+msgstr "Tampilkan Tugas dalam Masalah"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:8
 #: ../data/ui/configure.ui.h:6
 msgid "Hide Box Warnings"
-msgstr ""
+msgstr "Sembunyikan Peringatan Kotak"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:9
-msgid "Show LaTeX Toolbar below (normal), combined with the main toolbar, or disabled"
+msgid ""
+"Show LaTeX Toolbar below (normal), combined with the main toolbar, or "
+"disabled"
 msgstr ""
+"Tampilkan Bilah Alat LaTeX di bawah (normal), dikombinasikan dengan bilah "
+"alat utama, atau dinonaktifkan"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:10
 msgid "Expanded Symbol Groups"
-msgstr ""
+msgstr "Kelompok Simbol yang Diperluas"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:11
 msgid "LaTeX Extensions"
@@ -193,6 +200,8 @@ msgstr "Path Relatif ke Berkas .tex untuk Mencari Grafis"
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:14
 msgid "Extra LaTeX commands used to mark issues, such as \\fxnote{foo}"
 msgstr ""
+"Perintah LaTeX ekstra yang dipakai untuk menandai masalah, seperti "
+"misalnya \\fxnote{foo}"
 
 #: ../data/ui/build_image_dialog.ui.h:1
 msgid "Render to Image"
@@ -240,7 +249,7 @@ msgstr "Render seluruh halaman"
 
 #: ../data/ui/build_image_dialog.ui.h:12
 msgid "Attempt to render tight bounding box"
-msgstr ""
+msgstr "Mencoba merender kotak pengikat ketat"
 
 #: ../data/ui/choose_master_dialog.ui.h:1
 msgid "Select Master Document"
@@ -250,8 +259,7 @@ msgstr "Pilih Dokumen Induk"
 msgid "Filename:"
 msgstr "Nama berkas:"
 
-#: ../data/ui/configure.ui.h:1
-#: ../latex/tools/views.py:116
+#: ../data/ui/configure.ui.h:1 ../latex/tools/views.py:116
 msgid "Tools"
 msgstr "Perkakas"
 
@@ -261,7 +269,7 @@ msgstr "<b>BibTeX</b>"
 
 #: ../data/ui/configure.ui.h:3
 msgid "<b><i>rubber</i> Post-Processor</b>"
-msgstr ""
+msgstr "<b>Pemroses Pasca <i>karet</i></b>"
 
 #: ../data/ui/configure.ui.h:4
 msgid "Maximum Parsed File Size:"
@@ -276,21 +284,26 @@ msgid "Miscellaneous"
 msgstr "Rupa-rupa"
 
 #: ../data/ui/configure_tool.ui.h:1
-msgid "Remember to run all commands in batch mode (e.g. append <tt>-interaction batchmode</tt> to <tt>latex</tt>)"
+msgid ""
+"Remember to run all commands in batch mode (e.g. append <tt>-interaction "
+"batchmode</tt> to <tt>latex</tt>)"
 msgstr ""
+"Ingat untuk menjalankan semua perintah dalam mode batch (mis. menambahkan "
+"<tt>-interaction batchmode</tt> ke <tt>latex</tt>)"
 
 #: ../data/ui/configure_tool.ui.h:2
 msgid "<b>_Label</b>"
 msgstr "<b>_Label</b>"
 
 #: ../data/ui/configure_tool.ui.h:3
-msgid "Valid placeholders are <tt>$filename</tt>, <tt>$shortname</tt>, <tt>$directory</tt>"
+msgid ""
+"Valid placeholders are <tt>$filename</tt>, <tt>$shortname</tt>, <tt>"
+"$directory</tt>"
 msgstr ""
 
 #: ../data/ui/configure_tool.ui.h:4
-#, fuzzy
 msgid "<b>_Jobs</b>"
-msgstr "Tugas"
+msgstr "<b>_Tugas</b>"
 
 #: ../data/ui/configure_tool.ui.h:5
 msgid "<b>_Description</b>"
@@ -302,11 +315,11 @@ msgstr "<b>Ekstensi _Berkas</b>"
 
 #: ../data/ui/configure_tool.ui.h:7
 msgid "_Generated"
-msgstr ""
+msgstr "Dijan_gkitkan"
 
 #: ../data/ui/configure_tool.ui.h:8
 msgid "_User Defined:"
-msgstr ""
+msgstr "_Ubahan Pengguna:"
 
 #: ../data/ui/configure_tool.ui.h:9
 msgid "<Ctrl><Alt>1"
@@ -336,8 +349,7 @@ msgstr "_Identifier:"
 msgid "_Type:"
 msgstr "_Tipe:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:1
-#: ../latex/latex/actions.py:356
+#: ../data/ui/insert_graphics_dialog.ui.h:1 ../latex/latex/actions.py:356
 #: ../latex/latex/actions.py:358
 msgid "Insert Graphics"
 msgstr "Sisipkan Grafis"
@@ -349,7 +361,7 @@ msgstr "_Berkas:"
 #: ../data/ui/insert_graphics_dialog.ui.h:3
 #: ../data/ui/insert_table_dialog.ui.h:7
 msgid "_Caption:"
-msgstr ""
+msgstr "_Kapsi:"
 
 #: ../data/ui/insert_graphics_dialog.ui.h:4
 #: ../data/ui/insert_table_dialog.ui.h:8
@@ -358,7 +370,7 @@ msgstr "_Label:"
 
 #: ../data/ui/insert_graphics_dialog.ui.h:5
 msgid "fig:"
-msgstr ""
+msgstr "fig:"
 
 #: ../data/ui/insert_graphics_dialog.ui.h:6
 msgid "_Width:"
@@ -374,7 +386,6 @@ msgid "_Rotate:"
 msgstr "Puta_r:"
 
 #: ../data/ui/insert_graphics_dialog.ui.h:10
-#, fuzzy
 msgid "° CCW"
 msgstr "° CCW"
 
@@ -384,7 +395,7 @@ msgstr "Balikkan Secara _Horisontal"
 
 #: ../data/ui/insert_graphics_dialog.ui.h:12
 msgid "_Spread over two Columns"
-msgstr ""
+msgstr "_Sebarkan ke dua Kolom"
 
 #: ../data/ui/insert_graphics_dialog.ui.h:13
 msgid "Floating _Object"
@@ -398,8 +409,7 @@ msgstr "Ukuran Gambar"
 msgid "Text Width"
 msgstr "Lebar Teks"
 
-#: ../data/ui/insert_listing_dialog.ui.h:1
-#: ../latex/latex/actions.py:388
+#: ../data/ui/insert_listing_dialog.ui.h:1 ../latex/latex/actions.py:388
 #: ../latex/latex/actions.py:390
 msgid "Insert Source Code Listing"
 msgstr "Sisipkan Listing Kode Sumber"
@@ -416,8 +426,7 @@ msgstr "_Bahasa Pemrograman:"
 msgid "_Dialect:"
 msgstr "_Dialek:"
 
-#: ../data/ui/insert_table_dialog.ui.h:1
-#: ../latex/latex/actions.py:372
+#: ../data/ui/insert_table_dialog.ui.h:1 ../latex/latex/actions.py:372
 #: ../latex/latex/actions.py:374
 msgid "Insert Table or Matrix"
 msgstr "Sisipkan Tabel atau Matriks"
@@ -447,7 +456,6 @@ msgid "tab:"
 msgstr "tab:"
 
 #: ../data/ui/insert_table_dialog.ui.h:10
-#, fuzzy
 msgid "_Floating Object"
 msgstr "_Objek Mengambang"
 
@@ -488,19 +496,16 @@ msgid "<b>Language Customization</b>"
 msgstr "<b>Penggubahan Bahasa</b>"
 
 #: ../data/ui/new_document_template_dialog.ui.h:10
-#, fuzzy
 msgid "_Landscape"
-msgstr "%s, Tumbang (%s)"
+msgstr "_Lansekap"
 
 #: ../data/ui/new_document_template_dialog.ui.h:11
-#, fuzzy
 msgid "_Paper:"
-msgstr "Ukuran Kertas:"
+msgstr "_Kertas:"
 
 #: ../data/ui/new_document_template_dialog.ui.h:12
-#, fuzzy
 msgid "De_fault"
-msgstr "_Standar"
+msgstr "_Baku"
 
 #: ../data/ui/new_document_template_dialog.ui.h:13
 msgid "U_ser Defined:"
@@ -508,7 +513,7 @@ msgstr "Didefini_sikan Oleh Pengguna:"
 
 #: ../data/ui/new_document_template_dialog.ui.h:14
 msgid "pt"
-msgstr ""
+msgstr "pt"
 
 #: ../data/ui/new_document_template_dialog.ui.h:15
 msgid "Base Font Size:"
@@ -528,7 +533,7 @@ msgstr "Sertakan _Metadata PDF"
 
 #: ../data/ui/new_document_template_dialog.ui.h:19
 msgid "This adds metadata to the document. Requires package <tt>ifpdf</tt>."
-msgstr ""
+msgstr "Ini menambah metadata ke dokumen. Memerlukan paket <tt>ifpdf</tt>."
 
 #: ../data/ui/new_document_template_dialog.ui.h:20
 msgid "Date:"
@@ -558,8 +563,7 @@ msgstr "<b>Informasi Meta</b>"
 msgid "Default F_ont Family:"
 msgstr "Keluarga F_onta Baku:"
 
-#: ../data/ui/use_bibliography_dialog.ui.h:1
-#: ../latex/latex/actions.py:159
+#: ../data/ui/use_bibliography_dialog.ui.h:1 ../latex/latex/actions.py:159
 msgid "Use Bibliography"
 msgstr "Pakai Bibliografi"
 
@@ -578,6 +582,14 @@ msgstr "Pratilik Gaya:"
 #: ../data/ui/use_bibliography_dialog.ui.h:5
 msgid "Refresh Style Preview"
 msgstr "Segarkan Pratilik Gaya"
+
+#: ../latex/appactivatable.py:64 ../latex/latex/actions.py:63
+msgid "LaTeX"
+msgstr "LaTeX"
+
+#: ../latex/appactivatable.py:80
+msgid "LaTeX Tools"
+msgstr "Perkakas LaTeX"
 
 #: ../latex/bibtex/actions.py:32
 msgid "BibTeX"
@@ -611,15 +623,11 @@ msgstr "Kelompokkan menurut Tahun"
 #. group by year
 #: ../latex/bibtex/views.py:197
 msgid "<i>n/a</i>"
-msgstr ""
+msgstr "<i>n/a</i>"
 
 #: ../latex/bibtex/views.py:240
 msgid "Unknown Author"
 msgstr "Pengarang Tak Diketahui"
-
-#: ../latex/latex/actions.py:63
-msgid "LaTeX"
-msgstr "LaTeX"
 
 #: ../latex/latex/actions.py:73
 msgid "New LaTeX Document..."
@@ -635,206 +643,165 @@ msgstr "Pilih Dokumen Induk..."
 
 #: ../latex/latex/actions.py:107
 msgid "Close Nearest Environment"
-msgstr ""
+msgstr "Tutup Lingkungan Terdekat"
 
 #: ../latex/latex/actions.py:109
 msgid "Close the nearest TeX environment at left of the cursor"
-msgstr ""
+msgstr "Tutup lingkungan TeX terdekat di kiri kursor"
 
 #: ../latex/latex/actions.py:157
 msgid "Use Bibliography..."
 msgstr "Pakai Bibliografi..."
 
-#: ../latex/latex/actions.py:179
-#: ../latex/latex/actions.py:181
-#: ../latex/latex/actions.py:189
-#: ../latex/latex/actions.py:190
+#: ../latex/latex/actions.py:179 ../latex/latex/actions.py:181
+#: ../latex/latex/actions.py:189 ../latex/latex/actions.py:190
 msgid "Font Family"
 msgstr "Keluarga Fonta"
 
-#: ../latex/latex/actions.py:194
-#: ../latex/latex/actions.py:195
+#: ../latex/latex/actions.py:194 ../latex/latex/actions.py:195
 msgid "Bold"
 msgstr "Tebal"
 
-#: ../latex/latex/actions.py:201
-#: ../latex/latex/actions.py:202
+#: ../latex/latex/actions.py:201 ../latex/latex/actions.py:202
 msgid "Italic"
 msgstr "Miring"
 
-#: ../latex/latex/actions.py:208
-#: ../latex/latex/actions.py:209
+#: ../latex/latex/actions.py:208 ../latex/latex/actions.py:209
 msgid "Emphasize"
 msgstr ""
 
-#: ../latex/latex/actions.py:215
-#: ../latex/latex/actions.py:216
+#: ../latex/latex/actions.py:215 ../latex/latex/actions.py:216
 msgid "Underline"
 msgstr "Garis Bawah"
 
-#: ../latex/latex/actions.py:222
-#: ../latex/latex/actions.py:223
+#: ../latex/latex/actions.py:222 ../latex/latex/actions.py:223
 msgid "Small Capitals"
 msgstr "Kapital Kecil"
 
-#: ../latex/latex/actions.py:229
-#: ../latex/latex/actions.py:230
+#: ../latex/latex/actions.py:229 ../latex/latex/actions.py:230
 msgid "Roman"
 msgstr "Roman"
 
-#: ../latex/latex/actions.py:236
-#: ../latex/latex/actions.py:237
+#: ../latex/latex/actions.py:236 ../latex/latex/actions.py:237
 msgid "Sans Serif"
 msgstr "Sans Serif"
 
-#: ../latex/latex/actions.py:243
-#: ../latex/latex/actions.py:244
+#: ../latex/latex/actions.py:243 ../latex/latex/actions.py:244
 msgid "Typewriter"
 msgstr "Mesin tik"
 
-#: ../latex/latex/actions.py:250
-#: ../latex/latex/actions.py:251
+#: ../latex/latex/actions.py:250 ../latex/latex/actions.py:251
 msgid "Blackboard Bold"
 msgstr ""
 
-#: ../latex/latex/actions.py:258
-#: ../latex/latex/actions.py:259
+#: ../latex/latex/actions.py:258 ../latex/latex/actions.py:259
 msgid "Caligraphy"
 msgstr "Kaligrafi"
 
-#: ../latex/latex/actions.py:265
-#: ../latex/latex/actions.py:266
+#: ../latex/latex/actions.py:265 ../latex/latex/actions.py:266
 msgid "Fraktur"
 msgstr ""
 
-#: ../latex/latex/actions.py:273
-#: ../latex/latex/actions.py:274
-#: ../latex/latex/actions.py:286
-#: ../latex/latex/actions.py:287
+#: ../latex/latex/actions.py:273 ../latex/latex/actions.py:274
+#: ../latex/latex/actions.py:286 ../latex/latex/actions.py:287
 msgid "List"
 msgstr "Daftar"
 
-#: ../latex/latex/actions.py:278
-#: ../latex/latex/actions.py:279
+#: ../latex/latex/actions.py:278 ../latex/latex/actions.py:279
 msgid "Itemize"
 msgstr ""
 
-#: ../latex/latex/actions.py:291
-#: ../latex/latex/actions.py:292
+#: ../latex/latex/actions.py:291 ../latex/latex/actions.py:292
 msgid "Enumerate"
 msgstr "Enumerasi"
 
-#: ../latex/latex/actions.py:298
-#: ../latex/latex/actions.py:299
+#: ../latex/latex/actions.py:298 ../latex/latex/actions.py:299
 msgid "Description"
 msgstr "Deskripsi"
 
-#: ../latex/latex/actions.py:304
-#: ../latex/latex/actions.py:305
-#: ../latex/latex/actions.py:330
-#: ../latex/latex/actions.py:331
+#: ../latex/latex/actions.py:304 ../latex/latex/actions.py:305
+#: ../latex/latex/actions.py:330 ../latex/latex/actions.py:331
 msgid "Structure"
 msgstr "Struktur"
 
-#: ../latex/latex/actions.py:308
-#: ../latex/latex/actions.py:309
+#: ../latex/latex/actions.py:308 ../latex/latex/actions.py:309
 msgid "Part"
 msgstr "Bagian"
 
-#: ../latex/latex/actions.py:322
-#: ../latex/latex/actions.py:323
+#: ../latex/latex/actions.py:322 ../latex/latex/actions.py:323
 msgid "Section"
 msgstr "Seksi"
 
-#: ../latex/latex/actions.py:335
-#: ../latex/latex/actions.py:336
+#: ../latex/latex/actions.py:335 ../latex/latex/actions.py:336
 msgid "Subsection"
 msgstr "Subseksi"
 
-#: ../latex/latex/actions.py:342
-#: ../latex/latex/actions.py:343
+#: ../latex/latex/actions.py:342 ../latex/latex/actions.py:343
 msgid "Paragraph"
 msgstr "Paragraf"
 
-#: ../latex/latex/actions.py:349
-#: ../latex/latex/actions.py:350
+#: ../latex/latex/actions.py:349 ../latex/latex/actions.py:350
 msgid "Subparagraph"
 msgstr "Subparagraf"
 
-#: ../latex/latex/actions.py:405
-#: ../latex/latex/actions.py:407
-#: ../latex/latex/actions.py:415
-#: ../latex/latex/actions.py:416
-#, fuzzy
+#: ../latex/latex/actions.py:405 ../latex/latex/actions.py:407
+#: ../latex/latex/actions.py:415 ../latex/latex/actions.py:416
 msgid "Build"
 msgstr "Build"
 
 #: ../latex/latex/actions.py:420
 msgid "Build Image"
-msgstr ""
+msgstr "Bangun Image"
 
 #: ../latex/latex/actions.py:422
 msgid "Build an image from the LaTeX document"
-msgstr ""
+msgstr "Bangun suatu citra dari dokumen LaTeX"
 
-#: ../latex/latex/actions.py:440
-#: ../latex/latex/actions.py:441
-#: ../latex/latex/actions.py:460
-#: ../latex/latex/actions.py:461
+#: ../latex/latex/actions.py:440 ../latex/latex/actions.py:441
+#: ../latex/latex/actions.py:460 ../latex/latex/actions.py:461
 msgid "Justify"
 msgstr "Perataan"
 
-#: ../latex/latex/actions.py:445
-#: ../latex/latex/actions.py:446
+#: ../latex/latex/actions.py:445 ../latex/latex/actions.py:446
 msgid "Justify Left"
 msgstr "Rata Kiri"
 
-#: ../latex/latex/actions.py:452
-#: ../latex/latex/actions.py:453
+#: ../latex/latex/actions.py:452 ../latex/latex/actions.py:453
 msgid "Justify Center"
 msgstr "Rata Tengah"
 
-#: ../latex/latex/actions.py:465
-#: ../latex/latex/actions.py:466
+#: ../latex/latex/actions.py:465 ../latex/latex/actions.py:466
 msgid "Justify Right"
 msgstr "Rata Kanan"
 
-#: ../latex/latex/actions.py:472
-#: ../latex/latex/actions.py:473
-#: ../latex/latex/actions.py:485
-#: ../latex/latex/actions.py:486
-#, fuzzy
+#: ../latex/latex/actions.py:472 ../latex/latex/actions.py:473
+#: ../latex/latex/actions.py:485 ../latex/latex/actions.py:486
 msgid "Math"
-msgstr "_Matematika"
+msgstr "Matematika"
 
-#: ../latex/latex/actions.py:477
-#: ../latex/latex/actions.py:478
+#: ../latex/latex/actions.py:477 ../latex/latex/actions.py:478
 msgid "Mathematical Environment"
 msgstr "Lingkungan Matematis"
 
-#: ../latex/latex/actions.py:490
-#: ../latex/latex/actions.py:491
+#: ../latex/latex/actions.py:490 ../latex/latex/actions.py:491
 msgid "Centered Formula"
 msgstr "Rumus Di Tengah"
 
-#: ../latex/latex/actions.py:497
-#: ../latex/latex/actions.py:498
+#: ../latex/latex/actions.py:497 ../latex/latex/actions.py:498
 msgid "Numbered Equation"
 msgstr "Persamaan Bernomor"
 
-#: ../latex/latex/actions.py:506
-#: ../latex/latex/actions.py:507
+#: ../latex/latex/actions.py:506 ../latex/latex/actions.py:507
 msgid "Array of Equations"
-msgstr ""
+msgstr "Larik Persamaan"
 
-#: ../latex/latex/actions.py:516
-#: ../latex/latex/actions.py:517
+#: ../latex/latex/actions.py:516 ../latex/latex/actions.py:517
 msgid "Numbered Array of Equations"
-msgstr ""
+msgstr "Larik Persamaan Bernomor"
 
 #: ../latex/latex/environment.py:141
 msgid "Book of abstracts"
-msgstr ""
+msgstr "Buku ringkasan"
 
 #: ../latex/latex/environment.py:142
 msgid "Article"
@@ -866,7 +833,7 @@ msgstr ""
 
 #: ../latex/latex/environment.py:149
 msgid "Belgian letter"
-msgstr ""
+msgstr "Surat Belgia"
 
 #: ../latex/latex/environment.py:150
 msgid "Book"
@@ -881,9 +848,8 @@ msgid "Proceedings (IAG)"
 msgstr ""
 
 #: ../latex/latex/environment.py:153
-#, fuzzy
 msgid "Letter"
-msgstr "Surat"
+msgstr "Letter"
 
 #: ../latex/latex/environment.py:154
 msgid "LaTeX News"
@@ -903,46 +869,43 @@ msgstr ""
 
 #: ../latex/latex/environment.py:158
 msgid "Article (KOMA-Script)"
-msgstr ""
+msgstr "Artikel (KOMA-Script)"
 
-#: ../latex/latex/environment.py:159
-#: ../latex/latex/environment.py:163
+#: ../latex/latex/environment.py:159 ../latex/latex/environment.py:163
 msgid "Report (KOMA-Script)"
-msgstr ""
+msgstr "Laporan (KOMA-Script)"
 
 #: ../latex/latex/environment.py:160
 msgid "Book (KOMA-Script)"
-msgstr ""
+msgstr "Buku (KOMA-Script)"
 
 #: ../latex/latex/environment.py:161
 msgid "Letter (KOMA-Script)"
-msgstr ""
+msgstr "Surat (KOMA-Script)"
 
 #: ../latex/latex/environment.py:162
 msgid "Letter 2 (KOMA-Script)"
-msgstr ""
+msgstr "Letter 2 (KOMA-Script)"
 
 #: ../latex/latex/environment.py:164
-#, fuzzy
 msgid "Slides"
-msgstr "Seri"
+msgstr "Salindia"
 
-#: ../latex/latex/views.py:113
+#: ../latex/latex/views.py:107
 msgid "Symbols"
 msgstr "Simbol"
 
-#: ../latex/latex/views.py:201
+#: ../latex/latex/views.py:190
 msgid "Show graphics"
-msgstr ""
+msgstr "Tampilkan grafik"
 
-#: ../latex/latex/views.py:206
+#: ../latex/latex/views.py:195
 msgid "Show tables"
 msgstr "Tampilkan tabel"
 
 #: ../latex/outline.py:58
-#, fuzzy
 msgid "Follow Editor"
-msgstr "Penyunting"
+msgstr "Ikuti Penyunting"
 
 #: ../latex/outline.py:63
 msgid "Expand All"
@@ -952,16 +915,15 @@ msgstr "Kembangkan Semua"
 msgid "Collapse All"
 msgstr "Lipat Semua"
 
-#: ../latex/outline.py:115
+#: ../latex/outline.py:114
 msgid "Outline"
-msgstr ""
+msgstr "Kerangka"
 
 #: ../latex/tools/views.py:62
 msgid "Job"
 msgstr "Pekerjaan"
 
-#: ../latex/tools/views.py:73
-#: ../latex/views.py:80
+#: ../latex/tools/views.py:73 ../latex/views.py:80
 msgid "File"
 msgstr "Berkas"
 
@@ -971,11 +933,11 @@ msgstr "Baris"
 
 #: ../latex/tools/views.py:87
 msgid "Abort Job"
-msgstr ""
+msgstr "Gugurkan Tugas"
 
 #: ../latex/tools/views.py:92
 msgid "Show Detailed Output"
-msgstr ""
+msgstr "Tampilkan Keluaran Terrinci"
 
 #: ../latex/views.py:67
 msgid "Message"
@@ -983,30 +945,12 @@ msgstr "Pesan"
 
 #: ../latex/views.py:99
 msgid "Show/Hide Warnings"
-msgstr ""
+msgstr "Tampilkan/Sembunyikan Peringatan"
 
 #: ../latex/views.py:107
 msgid "Show/Hide Tasks"
-msgstr ""
+msgstr "Tampilkan/Sembunyikan Tugas"
 
 #: ../latex/views.py:139
 msgid "Issues"
-msgstr ""
-
-#~ msgid "<b>Templates</b>"
-#~ msgstr "<b>Templat</b>"
-
-#~ msgid "Folder:"
-#~ msgstr "Folder:"
-
-#~ msgid "&#xB0; CCW"
-#~ msgstr "&#xB0; CCW"
-
-#~ msgid "Save As Template"
-#~ msgstr "Simpan Sebagai Templat"
-
-#~ msgid "Please specify a name for the new template."
-#~ msgstr "Silakan nyatakan nama bagi templat baru."
-
-#~ msgid "label"
-#~ msgstr "label"
+msgstr "Masalah"
