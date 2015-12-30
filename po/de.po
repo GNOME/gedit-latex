@@ -4,7 +4,7 @@
 #
 # outline	- Entwurf/Gliederung
 #
-# Mario Blättermann <mario.blaettermann@gmail.com>, 2011, 2012.
+# Mario Blättermann <mario.blaettermann@gmail.com>, 2011, 2012, 2015.
 # Christian Kirbach <Christian.Kirbach@googlemail.com>, 2011.
 # Wolfgang Stöggl <c72578@yahoo.de>, 2011, 2013.
 #
@@ -13,16 +13,16 @@ msgstr ""
 "Project-Id-Version: gedit-latex master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gedit&keywords=I18N+L10N&component=Plugins\n"
-"POT-Creation-Date: 2013-12-18 18:51+0000\n"
-"PO-Revision-Date: 2013-12-26 13:48+0100\n"
-"Last-Translator: Benjamin Steinwender <b@stbe.at>\n"
+"POT-Creation-Date: 2015-12-30 07:01+0000\n"
+"PO-Revision-Date: 2015-12-30 15:21+0100\n"
+"Last-Translator: Mario Blättermann <mario.blaettermann@gmail.com>\n"
 "Language-Team: Deutsch <gnome-de@gnome.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.6.3\n"
+"X-Generator: Poedit 1.8.5\n"
 
 #: ../latex.plugin.desktop.in.in.h:1
 msgid "LaTeX Plugin"
@@ -602,6 +602,14 @@ msgstr "Stilvorschau:"
 msgid "Refresh Style Preview"
 msgstr "Stilvorschau aktualisieren"
 
+#: ../latex/appactivatable.py:64 ../latex/latex/actions.py:63
+msgid "LaTeX"
+msgstr "LaTeX"
+
+#: ../latex/appactivatable.py:80
+msgid "LaTeX Tools"
+msgstr "LaTeX-Werkzeuge"
+
 #: ../latex/bibtex/actions.py:32
 msgid "BibTeX"
 msgstr "BibTeX"
@@ -639,10 +647,6 @@ msgstr "<i>n.v.</i>"
 #: ../latex/bibtex/views.py:240
 msgid "Unknown Author"
 msgstr "Unbekannter Autor"
-
-#: ../latex/latex/actions.py:63
-msgid "LaTeX"
-msgstr "LaTeX"
 
 #: ../latex/latex/actions.py:73
 msgid "New LaTeX Document..."
@@ -993,9 +997,6 @@ msgstr "Probleme"
 
 #~ msgid "Save the current document as a template"
 #~ msgstr "Das aktuelle Dokument als Vorlage speichern"
-
-#~ msgid "Show LaTeX Toolbar"
-#~ msgstr "LaTeX-Werkzeugleiste anzeigen"
 
 #~ msgid "<b>LaTeX Toolbar</b>"
 #~ msgstr "<b>LaTeX-Werkzeugleiste</b>"
