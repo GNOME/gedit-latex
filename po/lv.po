@@ -1,14 +1,14 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Rūdofls Mazurs <rudolfs.mazurs@gmail.com>, 2011, 2012, 2013.
+# Rūdofls Mazurs <rudolfs.mazurs@gmail.com>, 2011, 2012, 2013, 2016.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=gedit&keywords=I18N+L10N&component=Plugins\n"
-"POT-Creation-Date: 2013-09-13 07:45+0000\n"
-"PO-Revision-Date: 2013-10-05 10:33+0300\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gedit&"
+"keywords=I18N+L10N&component=Plugins\n"
+"POT-Creation-Date: 2014-10-30 16:17+0000\n"
+"PO-Revision-Date: 2016-03-05 17:19+0200\n"
 "Last-Translator: Rūdolfs Mazurs <rudolfs.mazurs@gmail.com>\n"
 "Language-Team: Latvian <lata-l10n@googlegroups.com>\n"
 "Language: lv\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
-"X-Generator: Lokalize 1.5\n"
+"X-Generator: Lokalize 2.0\n"
 
 #: ../latex.plugin.desktop.in.in.h:1
 msgid "LaTeX Plugin"
@@ -583,6 +583,15 @@ msgstr "Stila priekšskatījums:"
 msgid "Refresh Style Preview"
 msgstr "Atsvaidzināt stila priekšskatījumu"
 
+#: ../latex/appactivatable.py:64 ../latex/latex/actions.py:63
+msgid "LaTeX"
+msgstr "LaTeX"
+
+#: ../latex/appactivatable.py:80
+#| msgid "LaTeX News"
+msgid "LaTeX Tools"
+msgstr "LaTeX rīki"
+
 #: ../latex/bibtex/actions.py:32
 msgid "BibTeX"
 msgstr "BibTeX"
@@ -620,10 +629,6 @@ msgstr "<i>n/p</i>"
 #: ../latex/bibtex/views.py:240
 msgid "Unknown Author"
 msgstr "Nezināms autors"
-
-#: ../latex/latex/actions.py:63
-msgid "LaTeX"
-msgstr "LaTeX"
 
 #: ../latex/latex/actions.py:73
 msgid "New LaTeX Document..."
@@ -950,21 +955,3 @@ msgstr "Rādīt / slēpt uzdevumus"
 #: ../latex/views.py:139
 msgid "Issues"
 msgstr "Problēmas"
-
-#~ msgid "<b>Templates</b>"
-#~ msgstr "<b>Sagataves</b>"
-
-#~ msgid "Folder:"
-#~ msgstr "Mape:"
-
-#~ msgid "&#xB0; CCW"
-#~ msgstr "&#xB0; (pret pulkst.)"
-
-#~ msgid "Please specify a name for the new template."
-#~ msgstr "Lūdzu, norādiet jaunās sagataves nosaukumu."
-
-#~ msgid "Save As Template"
-#~ msgstr "Saglabāt kā sagatavi"
-
-#~ msgid "label"
-#~ msgstr "etiķete"
