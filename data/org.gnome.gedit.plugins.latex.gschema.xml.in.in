@@ -68,12 +68,6 @@
     <key name="light-foreground-color" type="s">
       <default>'#957d47'</default>
     </key>
-    <key name="error-background-color" type="s">
-      <default>'#ffdddd'</default>
-    </key>
-    <key name="warning-background-color" type="s">
-      <default>'#ffffcf'</default>
-    </key>
     <key name="template-background-color" type="s">
       <default>'#f2f7ff'</default>
     </key>

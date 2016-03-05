@@ -69,8 +69,14 @@ class BibTeXEditor(Editor, IIssueHandler, JobChangeListener):
         self._file = file
         self._context = context
 
-        self.register_marker_type("bibtex-error", self._preferences.get("error-background-color"))
-        self.register_marker_type("bibtex-warning", self._preferences.get("warning-background-color"))
+        style_scheme = self._text_buffer.get_style_scheme()
+        w_style = style_scheme.get_style('def:warning')
+        w_color = w_style.get_properties('background')[0]
+        self.register_marker_type("bibtex-warning", w_color)
+
+        e_style = style_scheme.get_style('def:error')
+        e_color = e_style.get_properties('background')[0]
+        self.register_marker_type("bibtex-error", e_color)
 
         self._issue_view = context.find_view(self, "IssueView")
         self._parser = BibTeXParser()
