@@ -1,2 +1,4 @@
 data/org.gnome.gedit.plugins.latex.gschema.xml.in
 latex.plugin.desktop.in
+sub/data/org.gnome.gedit.plugins.latex.gschema.xml.in
+sub/latex.plugin.desktop.in
