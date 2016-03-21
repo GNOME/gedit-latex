@@ -225,12 +225,10 @@ from . import LaTeXSource
 
 class PrefixModelParser(object):
     """
-    This parses the dcoument model of a prefix and generates proposals accordingly
+    This parses the document model of a prefix and generates proposals accordingly
 
-    This is used by the LatexProposalGenerator class
+    This is used by the LaTeXCompletionHandler class
     """
-
-    # FIXME: Completion doesn't work at \includegraphics[]{_} but at \includegraphics{_}
 
     _log = getLogger("PrefixModelParser")
 
@@ -349,7 +347,6 @@ class PrefixModelParser(object):
                 overlap = len(argumentValue)
             else:
                 overlap = 0
-
             return self.__create_proposals_from_choices(choices, overlap)
 
         except KeyError:
