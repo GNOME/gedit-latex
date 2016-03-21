@@ -1,4 +1,25 @@
 =================
+gedit-latex 3.18
+=================
+
+New features and fixes
+======================
+
+- New maintainer: Pietro Battiston
+- Adapt to Gedit plugin API 3.12 and 3.14 (no later changes needed)
+- Remove menus at deactivation
+- Suppress warnings related to missing actions
+- Fix to bug in tools dialog (Debian bug #561683)
+- Increase space request in jobs treeview
+- Use colors from scheme for highlighting text (Bug #691757)
+- Remove unused colors from gsettings
+- Misc bugfixes
+
+New translations
+================
+
+
+=================
 gedit-latex 3.8.0
 =================
 
