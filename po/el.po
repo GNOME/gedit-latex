@@ -8,15 +8,16 @@ msgstr ""
 "Project-Id-Version: gedit-latex master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gedit&keywords=I18N+L10N&component=Plugins\n"
-"POT-Creation-Date: 2012-09-02 22:57+0000\n"
-"PO-Revision-Date: 2012-09-15 13:13+0200\n"
-"Last-Translator: Tom Tryfonidis <tomtryf@gmail.com>\n"
+"POT-Creation-Date: 2016-03-16 07:01+0000\n"
+"PO-Revision-Date: 2016-03-16 17:20+0200\n"
+"Last-Translator: Yannis Koutsoukos <giankoyt@gmail.com>\n"
 "Language-Team: Greek <team@lists.gnome.gr>\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.5.4\n"
 
 #: ../latex.plugin.desktop.in.in.h:1
 msgid "LaTeX Plugin"
@@ -585,6 +586,15 @@ msgstr "Στυλ προεπισκόπησης:"
 msgid "Refresh Style Preview"
 msgstr "Ανανέωση του στυλ προεπισκόπησης"
 
+#: ../latex/appactivatable.py:64 ../latex/latex/actions.py:63
+msgid "LaTeX"
+msgstr "LaTeX"
+
+#: ../latex/appactivatable.py:80
+#| msgid "LaTeX News"
+msgid "LaTeX Tools"
+msgstr "Εργαλεία LaTeX"
+
 #: ../latex/bibtex/actions.py:32
 msgid "BibTeX"
 msgstr "BibTeX"
@@ -622,10 +632,6 @@ msgstr "<i>n/a</i>"
 #: ../latex/bibtex/views.py:240
 msgid "Unknown Author"
 msgstr "Άγνωστος συγγραφέας"
-
-#: ../latex/latex/actions.py:63
-msgid "LaTeX"
-msgstr "LaTeX"
 
 #: ../latex/latex/actions.py:73
 msgid "New LaTeX Document..."
@@ -889,15 +895,15 @@ msgstr "Γράμμα 2 (KOMA-Script)"
 msgid "Slides"
 msgstr "Διαφάνειες"
 
-#: ../latex/latex/views.py:113
+#: ../latex/latex/views.py:107
 msgid "Symbols"
 msgstr "Σύμβολα"
 
-#: ../latex/latex/views.py:201
+#: ../latex/latex/views.py:190
 msgid "Show graphics"
 msgstr "Εμφάνιση γραφικών"
 
-#: ../latex/latex/views.py:206
+#: ../latex/latex/views.py:195
 msgid "Show tables"
 msgstr "Εμφάνιση πινάκων"
 
@@ -913,7 +919,7 @@ msgstr "Ανάπτυξη όλων"
 msgid "Collapse All"
 msgstr "Σύμπτυξη όλων"
 
-#: ../latex/outline.py:115
+#: ../latex/outline.py:114
 msgid "Outline"
 msgstr "Περίγραμμα"
 
