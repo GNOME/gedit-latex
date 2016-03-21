@@ -68,15 +68,6 @@
     <key name="light-foreground-color" type="s">
       <default>'#957d47'</default>
     </key>
-    <key name="template-background-color" type="s">
-      <default>'#f2f7ff'</default>
-    </key>
-    <key name="placeholder-background-color" type="s">
-      <default>'#d6e4ff'</default>
-    </key>
-    <key name="placeholder-foreground-color" type="s">
-      <default>'#2a66e1'</default>
-    </key>
 
     <key name="recent-listing-language" type="s">
       <default>'Python'</default>
