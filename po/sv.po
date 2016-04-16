@@ -1,325 +1,341 @@
 # Swedish translation for gedit-latex.
-# Copyright (C) 2011 Free Software Foundation, Inc.
+# Copyright © 2011, 2016 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gedit-latex package.
 # Daniel Nylander <po@danielnylander.se>, 2011.
+# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2016.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gedit-latex\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-10-09 17:28+0200\n"
-"PO-Revision-Date: 2011-10-09 17:32+0100\n"
-"Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=gedit&keywords=I18N+L10N&component=Plugins\n"
+"POT-Creation-Date: 2016-04-16 06:13+0000\n"
+"PO-Revision-Date: 2016-04-16 10:37+0200\n"
+"Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
-"Language: \n"
+"Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.7.1\n"
 
 #: ../data/bibtex.xml.h:1
-msgid "Address"
-msgstr "Adress"
+msgid "Title"
+msgstr "Titel"
 
 #: ../data/bibtex.xml.h:2
-msgid "Author"
-msgstr "Författare"
-
-#: ../data/bibtex.xml.h:3
 msgid "Book Title"
 msgstr "Boktitel"
 
+#: ../data/bibtex.xml.h:3
+msgid "Author"
+msgstr "Författare"
+
 #: ../data/bibtex.xml.h:4
-msgid "Chapter"
-msgstr "Kapitel"
+msgid "Editor"
+msgstr "Redaktör"
 
 #: ../data/bibtex.xml.h:5
-msgid "Cross Reference"
-msgstr "Korsreferens"
+msgid "Pages"
+msgstr "Sidor"
 
 #: ../data/bibtex.xml.h:6
-msgid "Edition"
-msgstr ""
+msgid "Journal"
+msgstr "Tidskrift"
 
 #: ../data/bibtex.xml.h:7
-msgid "Editor"
-msgstr ""
+msgid "Volume"
+msgstr "Volym"
 
 #: ../data/bibtex.xml.h:8
-msgid "How Published"
-msgstr ""
+msgid "Number"
+msgstr "Nummer"
 
 #: ../data/bibtex.xml.h:9
-msgid "ISBN"
-msgstr "ISBN"
-
-#: ../data/bibtex.xml.h:10
-msgid "ISSN"
-msgstr "ISSN"
-
-#: ../data/bibtex.xml.h:11
-msgid "Institution"
-msgstr ""
-
-#: ../data/bibtex.xml.h:12
-msgid "Journal"
-msgstr ""
-
-#: ../data/bibtex.xml.h:13
-msgid "Key"
-msgstr ""
-
-#: ../data/bibtex.xml.h:14
-msgid "Location"
-msgstr "Plats"
-
-#: ../data/bibtex.xml.h:15
 msgid "Month"
 msgstr "Månad"
 
+#: ../data/bibtex.xml.h:10
+msgid "Year"
+msgstr "År"
+
+#: ../data/bibtex.xml.h:11
+msgid "ISSN"
+msgstr "ISSN"
+
+#: ../data/bibtex.xml.h:12
+msgid "Series"
+msgstr "Serie"
+
+#: ../data/bibtex.xml.h:13
+msgid "Edition"
+msgstr "Utgåva"
+
+#: ../data/bibtex.xml.h:14
+msgid "Publisher"
+msgstr "Förlag"
+
+#: ../data/bibtex.xml.h:15
+msgid "Address"
+msgstr "Adress"
+
 #: ../data/bibtex.xml.h:16
-msgid "Note"
-msgstr ""
+msgid "ISBN"
+msgstr "ISBN"
 
 #: ../data/bibtex.xml.h:17
-msgid "Number"
-msgstr ""
+msgid "How Published"
+msgstr "Publiceringssätt"
 
 #: ../data/bibtex.xml.h:18
 msgid "Organization"
 msgstr "Organisation"
 
 #: ../data/bibtex.xml.h:19
-msgid "Pages"
-msgstr "Sidor"
+msgid "Location"
+msgstr "Plats"
 
 #: ../data/bibtex.xml.h:20
-msgid "Publisher"
-msgstr ""
-
-#: ../data/bibtex.xml.h:21
-msgid "School"
-msgstr "Skola"
-
-#: ../data/bibtex.xml.h:22
-msgid "Series"
-msgstr "Serie"
-
-#: ../data/bibtex.xml.h:23
-msgid "Title"
-msgstr "Titel"
-
-#: ../data/bibtex.xml.h:24
-msgid "Type"
-msgstr "Typ"
-
-#: ../data/bibtex.xml.h:25
 msgid "URL"
 msgstr "URL"
 
+#: ../data/bibtex.xml.h:21
+msgid "Note"
+msgstr "Anteckning"
+
+#: ../data/bibtex.xml.h:22
+msgid "Type"
+msgstr "Typ"
+
+#: ../data/bibtex.xml.h:23
+msgid "Chapter"
+msgstr "Kapitel"
+
+#: ../data/bibtex.xml.h:24
+msgid "Key"
+msgstr "Nyckel"
+
+#: ../data/bibtex.xml.h:25
+msgid "School"
+msgstr "Skola"
+
 #: ../data/bibtex.xml.h:26
-msgid "Volume"
-msgstr "Volym"
+msgid "Institution"
+msgstr "Institution"
 
 #: ../data/bibtex.xml.h:27
-msgid "Year"
-msgstr "År"
+msgid "Cross Reference"
+msgstr "Korsreferens"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:1
-msgid "Connect Outline to Editor"
-msgstr ""
+msgid "Maximum BibTeX Size"
+msgstr "Maximal BibTeX-storlek"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:2
-msgid "Expanded Symbol Groups"
-msgstr ""
+msgid "Connect Outline to Editor"
+msgstr "Anslut översikt till redigerare"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:3
-msgid "Extra LaTeX commands used to mark issues, such as \\fxnote{foo}"
-msgstr ""
+msgid "Show Labels in Outline"
+msgstr "Visa etiketter i översikt"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:4
-msgid "Graphics File Extensions"
-msgstr ""
+msgid "Show Tables in Outline"
+msgstr "Visa tabeller i översikt"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:5
-#: ../data/ui/configure.ui.h:5
-msgid "Hide Box Warnings"
-msgstr ""
+msgid "Show Graphics in Outline"
+msgstr "Visa grafik i översikt"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:6
-msgid "LaTeX Extensions"
-msgstr ""
+msgid "Show Warnings in Issues"
+msgstr "Visa varningar i Problem"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:7
-msgid "Maximum BibTeX Size"
-msgstr ""
+msgid "Show Tasks in Issues"
+msgstr "Visa uppgifter i Problem"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:8
-msgid "Paths Relative to .tex File to Look for Graphics"
-msgstr ""
+#: ../data/ui/configure.ui.h:7
+msgid "Hide Box Warnings"
+msgstr "Dölj rutvarningar"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:9
-msgid "Show Graphics in Outline"
+msgid ""
+"Show LaTeX Toolbar below (normal), combined with the main toolbar, or "
+"disabled"
 msgstr ""
+"Visa LaTeX-verktygsfält nedtill (normalt), kombinerat med "
+"huvudverktygsfältet, eller inaktiverat"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:10
-msgid "Show LaTeX Toolbar below (normal), combined with the main toolbar, or disabled"
-msgstr ""
+msgid "Expanded Symbol Groups"
+msgstr "Utökade symbolgrupper"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:11
-msgid "Show Labels in Outline"
-msgstr ""
+msgid "LaTeX Extensions"
+msgstr "LaTeX-filändelser"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:12
-msgid "Show Tables in Outline"
-msgstr ""
+msgid "Graphics File Extensions"
+msgstr "Grafikfiländelser"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:13
-msgid "Show Tasks in Issues"
-msgstr ""
+msgid "Paths Relative to .tex File to Look for Graphics"
+msgstr "Sökvägar relativa till .tex-fil att söka efter grafik i"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:14
-msgid "Show Warnings in Issues"
+msgid "Extra LaTeX commands used to mark issues, such as \\fxnote{foo}"
 msgstr ""
+"Extra LaTeX-kommandon som används för att markera problem, som \\fxnote{foo}"
 
 #: ../data/ui/build_image_dialog.ui.h:1
-msgid "<b>Area</b>"
-msgstr ""
+msgid "Render to Image"
+msgstr "Rendera till bild"
 
 #: ../data/ui/build_image_dialog.ui.h:2
-msgid "<b>Image Format</b>"
-msgstr "<b>Bildformat</b>"
+msgid "Attempt to render tight bounding box"
+msgstr "Försök att rendera minimal begränsningsruta"
 
 #: ../data/ui/build_image_dialog.ui.h:3
-msgid "<b>Rendering</b>"
-msgstr "<b>Rendering</b>"
+msgid "Render whole page(s)"
+msgstr "Rendera hela sidor"
 
 #: ../data/ui/build_image_dialog.ui.h:4
-msgid "Antialiasing:"
-msgstr "Kantutjämning:"
+msgid "<b>Area</b>"
+msgstr "<b>Område</b>"
 
 #: ../data/ui/build_image_dialog.ui.h:5
-msgid "Attempt to render tight bounding box"
-msgstr ""
-
-#: ../data/ui/build_image_dialog.ui.h:6
-msgid "Color Mode:"
-msgstr "Färgläge:"
-
-#: ../data/ui/build_image_dialog.ui.h:7
-msgid "GIF"
-msgstr "GIF"
-
-#: ../data/ui/build_image_dialog.ui.h:8
-msgid "JPEG"
-msgstr "JPEG"
-
-#: ../data/ui/build_image_dialog.ui.h:9
-msgid "PNG"
-msgstr "PNG"
-
-#: ../data/ui/build_image_dialog.ui.h:10
-msgid "Render to Image"
-msgstr ""
-
-#: ../data/ui/build_image_dialog.ui.h:11
-msgid "Render whole page(s)"
-msgstr ""
-
-#: ../data/ui/build_image_dialog.ui.h:12
 msgid "Resolution:"
 msgstr "Upplösning:"
 
-#: ../data/ui/choose_master_dialog.ui.h:1
-msgid "Filename:"
-msgstr "Filnamn:"
+#: ../data/ui/build_image_dialog.ui.h:6
+msgid "Antialiasing:"
+msgstr "Kantutjämning:"
 
-#: ../data/ui/choose_master_dialog.ui.h:2
+#: ../data/ui/build_image_dialog.ui.h:7
+msgid "<b>Rendering</b>"
+msgstr "<b>Rendering</b>"
+
+#: ../data/ui/build_image_dialog.ui.h:8
+msgid "GIF"
+msgstr "GIF"
+
+#: ../data/ui/build_image_dialog.ui.h:9
+msgid "JPEG"
+msgstr "JPEG"
+
+#: ../data/ui/build_image_dialog.ui.h:10
+msgid "Color Mode:"
+msgstr "Färgläge:"
+
+#: ../data/ui/build_image_dialog.ui.h:11
+msgid "PNG"
+msgstr "PNG"
+
+#: ../data/ui/build_image_dialog.ui.h:12
+msgid "<b>Image Format</b>"
+msgstr "<b>Bildformat</b>"
+
+#: ../data/ui/choose_master_dialog.ui.h:1
 msgid "Select Master Document"
 msgstr "Välj huvuddokument"
 
+#: ../data/ui/choose_master_dialog.ui.h:2
+msgid "Filename:"
+msgstr "Filnamn:"
+
 #: ../data/ui/configure.ui.h:1
-msgid "<b><i>rubber</i> Post-Processor</b>"
-msgstr ""
+msgid "Tools"
+msgstr "Verktyg"
 
 #: ../data/ui/configure.ui.h:2
-msgid "<b>BibTeX</b>"
-msgstr "<b>BibTeX</b>"
+msgid "Maximum Parsed File Size:"
+msgstr "Maximal storlek på tolkad fil:"
 
 #: ../data/ui/configure.ui.h:3
+msgid "KB"
+msgstr "KB"
+
+#: ../data/ui/configure.ui.h:4
 msgid "<b>Templates</b>"
 msgstr "<b>Mallar</b>"
 
-#: ../data/ui/configure.ui.h:4
+#: ../data/ui/configure.ui.h:5
 msgid "Folder:"
 msgstr "Mapp:"
 
 #: ../data/ui/configure.ui.h:6
-msgid "KB"
-msgstr "KB"
-
-#: ../data/ui/configure.ui.h:7
-msgid "Maximum Parsed File Size:"
-msgstr ""
+msgid "<b><i>rubber</i> Post-Processor</b>"
+msgstr "<b>Efterbehandlaren <i>rubber</i></b>"
 
 #: ../data/ui/configure.ui.h:8
+msgid "<b>BibTeX</b>"
+msgstr "<b>BibTeX</b>"
+
+#: ../data/ui/configure.ui.h:9
 msgid "Miscellaneous"
 msgstr "Diverse"
 
-#: ../data/ui/configure.ui.h:9
-msgid "Tools"
-msgstr "Verktyg"
-
 #: ../data/ui/configure_tool.ui.h:1
-msgid "<Ctrl><Alt>1"
-msgstr "<Ctrl><Alt>1"
+msgid ""
+"Remember to run all commands in batch mode (e.g. append <tt>-interaction "
+"batchmode</tt> to <tt>latex</tt>)"
+msgstr ""
+"Kom ihåg att köra alla kommandon i satsvis läge (lägg t.ex. till <tt>-"
+"interaction batchmode</tt> till <tt>latex</tt>)"
 
 #: ../data/ui/configure_tool.ui.h:2
-msgid "<b>Accelerator</b>"
-msgstr ""
-
-#: ../data/ui/configure_tool.ui.h:3
-msgid "<b>_Description</b>"
-msgstr "<b>_Beskrivning</b>"
-
-#: ../data/ui/configure_tool.ui.h:4
-msgid "<b>_File Extensions</b>"
-msgstr "<b>_Filändelser</b>"
-
-#: ../data/ui/configure_tool.ui.h:5
-msgid "<b>_Jobs</b>"
-msgstr "<b>_Jobb</b>"
-
-#: ../data/ui/configure_tool.ui.h:6
 msgid "<b>_Label</b>"
 msgstr "<b>_Etikett</b>"
 
-#: ../data/ui/configure_tool.ui.h:7
-msgid "Remember to run all commands in batch mode (e.g. append <tt>-interaction batchmode</tt> to <tt>latex</tt>)"
+#: ../data/ui/configure_tool.ui.h:3
+msgid ""
+"Valid placeholders are <tt>$filename</tt>, <tt>$shortname</tt>, <tt>"
+"$directory</tt>"
 msgstr ""
+"Giltiga platshållare är <tt>$filename</tt>, <tt>$shortname</tt>, <tt>"
+"$directory</tt>"
+
+#: ../data/ui/configure_tool.ui.h:4
+msgid "<b>_Jobs</b>"
+msgstr "<b>_Jobb</b>"
+
+#: ../data/ui/configure_tool.ui.h:5
+msgid "<b>_Description</b>"
+msgstr "<b>_Beskrivning</b>"
+
+#: ../data/ui/configure_tool.ui.h:6
+msgid "<b>_File Extensions</b>"
+msgstr "<b>_Filändelser</b>"
+
+#: ../data/ui/configure_tool.ui.h:7
+msgid "_Generated"
+msgstr "_Genererad"
 
 #: ../data/ui/configure_tool.ui.h:8
-msgid "Valid placeholders are <tt>$filename</tt>, <tt>$shortname</tt>, <tt>$directory</tt>"
-msgstr "Giltiga platshållare är <tt>$filename</tt>, <tt>$shortname</tt>, <tt>$directory</tt>"
-
-#: ../data/ui/configure_tool.ui.h:9
-msgid "_Generated"
-msgstr ""
-
-#: ../data/ui/configure_tool.ui.h:10
 msgid "_User Defined:"
 msgstr "Användardefinie_rad:"
 
+#: ../data/ui/configure_tool.ui.h:9
+msgid "<Ctrl><Alt>1"
+msgstr "<Ctrl><Alt>1"
+
+#: ../data/ui/configure_tool.ui.h:10
+msgid "<b>Accelerator</b>"
+msgstr "<b>Snabbtangent</b>"
+
 #: ../data/ui/insert_bibtex_entry.ui.h:1
 msgid "Create Bibliography Entry"
-msgstr ""
+msgstr "Skapa bibliografipost"
 
 #: ../data/ui/insert_bibtex_entry.ui.h:2
-msgid "Optional Fields"
-msgstr "Valfria fält"
-
-#: ../data/ui/insert_bibtex_entry.ui.h:3
 msgid "Required Fields"
 msgstr "Nödvändiga fält"
+
+#: ../data/ui/insert_bibtex_entry.ui.h:3
+msgid "Optional Fields"
+msgstr "Valfria fält"
 
 #: ../data/ui/insert_bibtex_entry.ui.h:4
 msgid "_Identifier:"
@@ -329,276 +345,540 @@ msgstr "_Identifierare:"
 msgid "_Type:"
 msgstr "_Typ:"
 
+#: ../data/ui/insert_graphics_dialog.ui.h:1
+msgid "Image Size"
+msgstr "Bildstorlek"
+
 #: ../data/ui/insert_graphics_dialog.ui.h:2
+msgid "Text Width"
+msgstr "Textbredd"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:3
+msgid "Insert Graphics"
+msgstr "Infoga grafik"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:4
+msgid "&#xB0; CCW"
+msgstr "&#xB0; moturs"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:5
+msgid "_Rotate:"
+msgstr "_Rotera:"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:6
+msgid "Flip _Horizontally"
+msgstr "Vänd _horisontellt"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:7
+msgid "_File:"
+msgstr "_Fil:"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:8
+#: ../data/ui/insert_table_dialog.ui.h:7
+msgid "_Caption:"
+msgstr "_Rubrik:"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:9
+#: ../data/ui/insert_table_dialog.ui.h:8
+msgid "_Label:"
+msgstr "_Etikett:"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:10
+msgid "fig:"
+msgstr "fig:"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:11
+msgid "_Width:"
+msgstr "_Bredd:"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:13
 #, no-c-format
 msgid "% _of"
 msgstr "% _av"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:3
-msgid "&#xB0; CCW"
-msgstr ""
-
-#: ../data/ui/insert_graphics_dialog.ui.h:4
-msgid "Flip _Horizontally"
-msgstr "Vänd _horisontellt"
-
-#: ../data/ui/insert_graphics_dialog.ui.h:5
-msgid "Floating _Object"
-msgstr ""
-
-#: ../data/ui/insert_graphics_dialog.ui.h:6
-msgid "Image Size"
-msgstr "Bildstorlek"
-
-#: ../data/ui/insert_graphics_dialog.ui.h:7
-msgid "Insert Graphics"
-msgstr "Infoga grafik"
-
-#: ../data/ui/insert_graphics_dialog.ui.h:8
-msgid "Text Width"
-msgstr "Textbredd"
-
-#: ../data/ui/insert_graphics_dialog.ui.h:9
-#: ../data/ui/insert_table_dialog.ui.h:4
-msgid "_Caption:"
-msgstr ""
-
-#: ../data/ui/insert_graphics_dialog.ui.h:10
-msgid "_File:"
-msgstr "_Fil:"
-
-#: ../data/ui/insert_graphics_dialog.ui.h:11
-#: ../data/ui/insert_table_dialog.ui.h:6
-msgid "_Label:"
-msgstr "_Etikett:"
-
-#: ../data/ui/insert_graphics_dialog.ui.h:12
-msgid "_Rotate:"
-msgstr "_Rotera:"
-
-#: ../data/ui/insert_graphics_dialog.ui.h:13
-msgid "_Spread over two Columns"
-msgstr ""
-
 #: ../data/ui/insert_graphics_dialog.ui.h:14
-msgid "_Width:"
-msgstr "_Bredd:"
+msgid "Floating _Object"
+msgstr "Flytande _objekt"
 
 #: ../data/ui/insert_graphics_dialog.ui.h:15
-msgid "fig:"
-msgstr "fig:"
+msgid "_Spread over two Columns"
+msgstr "_Sprid ut över två kolumner"
 
 #: ../data/ui/insert_listing_dialog.ui.h:1
 msgid "Insert Source Code Listing"
-msgstr ""
+msgstr "Infoga källkod"
 
 #: ../data/ui/insert_listing_dialog.ui.h:2
-msgid "Load From _File:"
-msgstr "Läs in från _fil:"
+msgid "_Dialect:"
+msgstr "_Dialekt:"
 
 #: ../data/ui/insert_listing_dialog.ui.h:3
 msgid "Programming _Language:"
 msgstr "Programmeringss_pråk:"
 
 #: ../data/ui/insert_listing_dialog.ui.h:4
-msgid "_Dialect:"
-msgstr ""
+msgid "Load From _File:"
+msgstr "Läs in från _fil:"
 
 #: ../data/ui/insert_table_dialog.ui.h:1
-msgid "C_olumns:"
-msgstr "K_olumner:"
+msgid "Insert Table or Matrix"
+msgstr "Infoga tabell eller matris"
 
 #: ../data/ui/insert_table_dialog.ui.h:2
-msgid "Insert Table or Matrix"
-msgstr ""
-
-#: ../data/ui/insert_table_dialog.ui.h:3
 msgid "Type:"
 msgstr "Typ:"
 
-#: ../data/ui/insert_table_dialog.ui.h:5
-msgid "_Floating Object"
-msgstr "_Flytande objekt"
-
-#: ../data/ui/insert_table_dialog.ui.h:7
-msgid "_Matrix:"
-msgstr "_Matris:"
-
-#: ../data/ui/insert_table_dialog.ui.h:8
-msgid "_Rows:"
-msgstr "_Rader:"
-
-#: ../data/ui/insert_table_dialog.ui.h:9
+#: ../data/ui/insert_table_dialog.ui.h:3
 msgid "_Table"
 msgstr "_Tabell"
 
-#: ../data/ui/insert_table_dialog.ui.h:10
+#: ../data/ui/insert_table_dialog.ui.h:4
+msgid "_Matrix:"
+msgstr "_Matris:"
+
+#: ../data/ui/insert_table_dialog.ui.h:5
+msgid "_Rows:"
+msgstr "_Rader:"
+
+#: ../data/ui/insert_table_dialog.ui.h:6
+msgid "C_olumns:"
+msgstr "K_olumner:"
+
+#: ../data/ui/insert_table_dialog.ui.h:9
 msgid "tab:"
 msgstr "tab:"
 
+#: ../data/ui/insert_table_dialog.ui.h:10
+msgid "_Floating Object"
+msgstr "_Flytande objekt"
+
 #: ../data/ui/new_document_template_dialog.ui.h:1
-msgid ".tex"
-msgstr ".tex"
-
-#: ../data/ui/new_document_template_dialog.ui.h:2
-msgid "<b>Language Customization</b>"
-msgstr "<b>Språkanpassning</b>"
-
-#: ../data/ui/new_document_template_dialog.ui.h:3
-msgid "<b>Meta Information</b>"
-msgstr "<b>Metainformation</b>"
-
-#: ../data/ui/new_document_template_dialog.ui.h:4
-msgid "<b>Style and Layout</b>"
-msgstr "<b>Stil och layout</b>"
-
-#: ../data/ui/new_document_template_dialog.ui.h:5
-msgid "Base Font Size:"
-msgstr ""
-
-#: ../data/ui/new_document_template_dialog.ui.h:6
-msgid "C_ustom:"
-msgstr ""
-
-#: ../data/ui/new_document_template_dialog.ui.h:7
-msgid "Date:"
-msgstr "Datum:"
-
-#: ../data/ui/new_document_template_dialog.ui.h:8
-msgid "De_fault"
-msgstr "Sta_ndard"
-
-#: ../data/ui/new_document_template_dialog.ui.h:9
-msgid "Default F_ont Family:"
-msgstr ""
-
-#: ../data/ui/new_document_template_dialog.ui.h:10
-msgid "Di_rectory:"
-msgstr "Katalo_g:"
-
-#: ../data/ui/new_document_template_dialog.ui.h:11
-msgid "Document _Class:"
-msgstr "Dokument_klass:"
-
-#: ../data/ui/new_document_template_dialog.ui.h:12
-msgid "Include PDF _Metadata"
-msgstr ""
-
-#: ../data/ui/new_document_template_dialog.ui.h:13
 msgid "New LaTeX Document"
 msgstr "Nytt LaTeX-dokument"
 
-#: ../data/ui/new_document_template_dialog.ui.h:14
+#: ../data/ui/new_document_template_dialog.ui.h:2
 msgid "T_emplate:"
 msgstr "Ma_ll:"
 
-#: ../data/ui/new_document_template_dialog.ui.h:15
-msgid "To_day"
-msgstr "I_dag"
+#: ../data/ui/new_document_template_dialog.ui.h:3
+msgid "document"
+msgstr "dokument"
 
-#: ../data/ui/new_document_template_dialog.ui.h:16
-msgid "U_ser Defined:"
-msgstr ""
+#: ../data/ui/new_document_template_dialog.ui.h:4
+msgid ".tex"
+msgstr ".tex"
 
-#: ../data/ui/new_document_template_dialog.ui.h:17
-msgid "_Author:"
-msgstr "_Författare:"
+#: ../data/ui/new_document_template_dialog.ui.h:5
+msgid "Di_rectory:"
+msgstr "Katalo_g:"
 
-#: ../data/ui/new_document_template_dialog.ui.h:18
-msgid "_Babel Package:"
-msgstr "_Babel-paket:"
-
-#: ../data/ui/new_document_template_dialog.ui.h:19
-msgid "_Input Encoding:"
-msgstr "_Inmatningskodning:"
-
-#: ../data/ui/new_document_template_dialog.ui.h:20
-msgid "_Landscape"
-msgstr "_Liggande"
-
-#: ../data/ui/new_document_template_dialog.ui.h:21
-#: ../data/ui/save_as_template_dialog.ui.h:3
+#: ../data/ui/new_document_template_dialog.ui.h:6
+#: ../data/ui/save_as_template_dialog.ui.h:2
 msgid "_Name:"
 msgstr "_Namn:"
 
-#: ../data/ui/new_document_template_dialog.ui.h:22
+#: ../data/ui/new_document_template_dialog.ui.h:7
+msgid "_Babel Package:"
+msgstr "_Babel-paket:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:8
+msgid "_Input Encoding:"
+msgstr "_Inmatningskodning:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:9
+msgid "<b>Language Customization</b>"
+msgstr "<b>Språkanpassning</b>"
+
+#: ../data/ui/new_document_template_dialog.ui.h:10
+msgid "_Landscape"
+msgstr "_Liggande"
+
+#: ../data/ui/new_document_template_dialog.ui.h:11
 msgid "_Paper:"
 msgstr "_Papper:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:12
+msgid "De_fault"
+msgstr "Sta_ndard"
+
+#: ../data/ui/new_document_template_dialog.ui.h:13
+msgid "U_ser Defined:"
+msgstr "An_vändardefinierad:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:14
+msgid "pt"
+msgstr "pt"
+
+#: ../data/ui/new_document_template_dialog.ui.h:15
+msgid "Base Font Size:"
+msgstr "Bastypsnittsstorlek:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:16
+msgid "Document _Class:"
+msgstr "Dokument_klass:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:17
+msgid "<b>Style and Layout</b>"
+msgstr "<b>Stil och layout</b>"
+
+#: ../data/ui/new_document_template_dialog.ui.h:18
+msgid "Include PDF _Metadata"
+msgstr "Inkludera PDF-_metadata"
+
+#: ../data/ui/new_document_template_dialog.ui.h:19
+msgid "Date:"
+msgstr "Datum:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:20
+msgid "To_day"
+msgstr "I_dag"
+
+#: ../data/ui/new_document_template_dialog.ui.h:21
+msgid "C_ustom:"
+msgstr "A_npassat:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:22
+msgid "_Author:"
+msgstr "_Författare:"
 
 #: ../data/ui/new_document_template_dialog.ui.h:23
 msgid "_Title:"
 msgstr "_Titel:"
 
 #: ../data/ui/new_document_template_dialog.ui.h:24
-msgid "document"
-msgstr "dokument"
+msgid "<b>Meta Information</b>"
+msgstr "<b>Metainformation</b>"
 
 #: ../data/ui/new_document_template_dialog.ui.h:25
-msgid "pt"
-msgstr ""
+msgid "Default F_ont Family:"
+msgstr "Standard_typsnittsfamilj:"
 
 #: ../data/ui/save_as_template_dialog.ui.h:1
-msgid "Please specify a name for the new template."
-msgstr "Ange ett namn för den nya mallen."
-
-#: ../data/ui/save_as_template_dialog.ui.h:2
 msgid "Save As Template"
 msgstr "Spara som mall"
+
+#: ../data/ui/save_as_template_dialog.ui.h:3
+msgid "Please specify a name for the new template."
+msgstr "Ange ett namn för den nya mallen."
 
 #: ../data/ui/save_as_template_dialog.ui.h:4
 msgid "label"
 msgstr "etikett"
 
 #: ../data/ui/use_bibliography_dialog.ui.h:1
-msgid "Bibliography _File:"
-msgstr "Bibliografi_fil:"
-
-#: ../data/ui/use_bibliography_dialog.ui.h:2
-msgid "Refresh Style Preview"
-msgstr ""
-
-#: ../data/ui/use_bibliography_dialog.ui.h:3
-msgid "Style Preview:"
-msgstr ""
-
-#: ../data/ui/use_bibliography_dialog.ui.h:4
 msgid "Use Bibliography"
 msgstr "Använd bibliografi"
 
-#: ../data/ui/use_bibliography_dialog.ui.h:5
+#: ../data/ui/use_bibliography_dialog.ui.h:2
+msgid "Bibliography _File:"
+msgstr "Bibliografi_fil:"
+
+#: ../data/ui/use_bibliography_dialog.ui.h:3
 msgid "_Style:"
 msgstr "_Stil:"
 
-#: ../latex.plugin.desktop.in.in.h:1
-msgid "A plugin that assists you in handling LaTeX documents and BibTeX bibliographies"
-msgstr "En insticksmodul som hjälper dig att hantera LaTeX-dokument och BibTeX-bibliografier"
+#: ../data/ui/use_bibliography_dialog.ui.h:4
+msgid "Style Preview:"
+msgstr "Förhandsgranskning av stil:"
 
-#: ../latex.plugin.desktop.in.in.h:2
+#: ../data/ui/use_bibliography_dialog.ui.h:5
+msgid "Refresh Style Preview"
+msgstr "Uppdatera förhandsgranskning av stil"
+
+#: ../latex.plugin.desktop.in.in.h:1
 msgid "LaTeX Plugin"
 msgstr "LaTeX-insticksmodul"
 
-#~ msgid "BibTeX"
-#~ msgstr "BibTeX"
+#: ../latex.plugin.desktop.in.in.h:2
+msgid ""
+"A plugin that assists you in handling LaTeX documents and BibTeX "
+"bibliographies"
+msgstr ""
+"En insticksmodul som hjälper dig att hantera LaTeX-dokument och BibTeX-"
+"bibliografier"
+
+#~ msgid "° CCW"
+#~ msgstr "° moturs"
+
+#~ msgid "This adds metadata to the document. Requires package <tt>ifpdf</tt>."
+#~ msgstr ""
+#~ "Detta lägger till metadata till dokumentet. Kräver paketet <tt>ifpdf</tt>."
+
 #~ msgid "LaTeX"
 #~ msgstr "LaTeX"
+
+#~ msgid "LaTeX Tools"
+#~ msgstr "LaTeX-verktyg"
+
+#~ msgid "BibTeX"
+#~ msgstr "BibTeX"
+
+#~ msgid "New BibTeX Entry..."
+#~ msgstr "Ny BibTeX-post…"
+
+#~ msgid "Create a new BibTeX entry"
+#~ msgstr "Skapa en ny BibTeX-post"
+
+#~ msgid "No Grouping"
+#~ msgstr "Ingen gruppering"
+
+#~ msgid "Group by Type"
+#~ msgstr "Gruppera efter typ"
+
+#~ msgid "Group by Author"
+#~ msgstr "Gruppera efter författare"
+
+#~ msgid "Group by Year"
+#~ msgstr "Gruppera efter år"
+
+#~ msgid "<i>n/a</i>"
+#~ msgstr "<i>Ej tillämpligt</i>"
+
+#~ msgid "Unknown Author"
+#~ msgstr "Okänd författare"
+
 #~ msgid "New LaTeX Document..."
-#~ msgstr "Nytt LaTeX-dokument..."
+#~ msgstr "Nytt LaTeX-dokument…"
+
 #~ msgid "Create a new LaTeX document"
 #~ msgstr "Skapa ett nytt LaTeX-dokument"
+
+#~ msgid "Choose Master Document..."
+#~ msgstr "Välj huvuddokument…"
+
+#~ msgid "Close Nearest Environment"
+#~ msgstr "Stäng närmaste miljö"
+
+#~ msgid "Close the nearest TeX environment at left of the cursor"
+#~ msgstr "Stäng den närmaste TeX-miljön till vänster om markören"
+
+#~ msgid "Use Bibliography..."
+#~ msgstr "Använd bibliografi…"
+
+#~ msgid "Font Family"
+#~ msgstr "Typsnittsfamilj"
+
 #~ msgid "Bold"
 #~ msgstr "Fet"
+
 #~ msgid "Italic"
 #~ msgstr "Kursiv"
-#~ msgid "Save As Template..."
-#~ msgstr "Spara som mall..."
+
+#~ msgid "Emphasize"
+#~ msgstr "Betona"
+
+#~ msgid "Underline"
+#~ msgstr "Understruken"
+
+#~ msgid "Small Capitals"
+#~ msgstr "Kapitäler"
+
+#~ msgid "Roman"
+#~ msgstr "Rak stil"
+
+#~ msgid "Sans Serif"
+#~ msgstr "Sans Serif"
+
+#~ msgid "Typewriter"
+#~ msgstr "Skrivmaskin"
+
+# Stilen även kallad 'double struck'
+#~ msgid "Blackboard Bold"
+#~ msgstr "Blackboard Bold"
+
+# https://bugzilla.gnome.org/show_bug.cgi?id=753235
+#~ msgid "Caligraphy"
+#~ msgstr "Kalligrafi"
+
+#~ msgid "Fraktur"
+#~ msgstr "Fraktur"
+
+#~ msgid "List"
+#~ msgstr "Lista"
+
+#~ msgid "Itemize"
+#~ msgstr "Gör punktlista"
+
+#~ msgid "Enumerate"
+#~ msgstr "Gör uppräkning"
+
+#~ msgid "Description"
+#~ msgstr "Beskrivning"
+
+#~ msgid "Structure"
+#~ msgstr "Struktur"
+
+#~ msgid "Part"
+#~ msgstr "Del"
+
+#~ msgid "Section"
+#~ msgstr "Avsnitt"
+
+#~ msgid "Subsection"
+#~ msgstr "Underavsnitt"
+
+#~ msgid "Paragraph"
+#~ msgstr "Stycke"
+
+#~ msgid "Subparagraph"
+#~ msgstr "Understycke"
+
+#~ msgid "Build"
+#~ msgstr "Bygg"
+
+#~ msgid "Build Image"
+#~ msgstr "Bygg bild"
+
+#~ msgid "Build an image from the LaTeX document"
+#~ msgstr "Bygg en bild från LaTeX-dokumentet"
+
+#~ msgid "Justify"
+#~ msgstr "Justera"
+
+#~ msgid "Justify Left"
+#~ msgstr "Vänsterjustera"
+
+#~ msgid "Justify Center"
+#~ msgstr "Centerjustera"
+
+#~ msgid "Justify Right"
+#~ msgstr "Högerjustera"
+
+#~ msgid "Math"
+#~ msgstr "Matematik"
+
+#~ msgid "Mathematical Environment"
+#~ msgstr "Matematisk miljö"
+
+#~ msgid "Centered Formula"
+#~ msgstr "Centrerad formel"
+
+#~ msgid "Numbered Equation"
+#~ msgstr "Numrerad ekvation"
+
+#~ msgid "Array of Equations"
+#~ msgstr "Vektor av ekvationer"
+
+#~ msgid "Numbered Array of Equations"
+#~ msgstr "Numrerad vektor av ekvationer"
+
+#~ msgid "Book of abstracts"
+#~ msgstr "Bok med sammanfattningar"
+
+#~ msgid "Article"
+#~ msgstr "Artikel"
+
+#~ msgid "Article (AMS)"
+#~ msgstr "Artikel (AMS)"
+
+#~ msgid "Book (AMS)"
+#~ msgstr "Bok (AMS)"
+
+#~ msgid "AMS Documentation"
+#~ msgstr "AMS-dokumentation"
+
+#~ msgid "Proceedings (AMS)"
+#~ msgstr "Konferenstryck (AMS)"
+
+#~ msgid "Report"
+#~ msgstr "Rapport"
+
+#~ msgid "Beamer slides"
+#~ msgstr "Beamer-bildspel"
+
+#~ msgid "Belgian letter"
+#~ msgstr "Belgiskt brev"
+
+#~ msgid "Book"
+#~ msgstr "Bok"
+
+#~ msgid "Flashcard"
+#~ msgstr "Snabbkort"
+
+#~ msgid "Proceedings (IAG)"
+#~ msgstr "Konferenstryck (IAG)"
+
+#~ msgid "Letter"
+#~ msgstr "Brev"
+
+#~ msgid "LaTeX News"
+#~ msgstr "LaTeX-nyheter"
+
+#~ msgid "LaTeX Documentation"
+#~ msgstr "LaTeX-dokumentation"
+
+#~ msgid "LaTeX Guide"
+#~ msgstr "LaTeX-guide"
+
+#~ msgid "Proceedings"
+#~ msgstr "Konferenstryck"
+
+#~ msgid "Article (KOMA-Script)"
+#~ msgstr "Artikel (KOMA-Script)"
+
+#~ msgid "Report (KOMA-Script)"
+#~ msgstr "Rapport (KOMA-Script)"
+
+#~ msgid "Book (KOMA-Script)"
+#~ msgstr "Bok (KOMA-Script)"
+
+#~ msgid "Letter (KOMA-Script)"
+#~ msgstr "Brev (KOMA-Script)"
+
+#~ msgid "Letter 2 (KOMA-Script)"
+#~ msgstr "Brev 2 (KOMA-Script)"
+
+#~ msgid "Slides"
+#~ msgstr "Bildspel"
+
 #~ msgid "Symbols"
 #~ msgstr "Symboler"
+
 #~ msgid "Show graphics"
 #~ msgstr "Visa grafik"
+
 #~ msgid "Show tables"
 #~ msgstr "Visa tabeller"
+
+#~ msgid "Follow Editor"
+#~ msgstr "Följ redigerare"
+
+#~ msgid "Expand All"
+#~ msgstr "Fäll ut alla"
+
+#~ msgid "Collapse All"
+#~ msgstr "Fäll in alla"
+
+#~ msgid "Outline"
+#~ msgstr "Översikt"
+
+#~ msgid "Job"
+#~ msgstr "Jobb"
+
+#~ msgid "File"
+#~ msgstr "Fil"
+
+#~ msgid "Line"
+#~ msgstr "Rad"
+
+#~ msgid "Abort Job"
+#~ msgstr "Avbryt jobb"
+
+#~ msgid "Show Detailed Output"
+#~ msgstr "Visa detaljerad utskrift"
+
 #~ msgid "Message"
 #~ msgstr "Meddelande"
-#~ msgid "Show/Hide Warnings"
-#~ msgstr "Visa/Dölj varningar"
 
+#~ msgid "Show/Hide Warnings"
+#~ msgstr "Visa/dölj varningar"
+
+#~ msgid "Show/Hide Tasks"
+#~ msgstr "Visa/dölj uppgifter"
+
+# 'Problem' är eventuellt ett väl hårt ordval med tanke på de två sista kategorierna: "An issue can be a warning, an error, an info or a task"
+#~ msgid "Issues"
+#~ msgstr "Problem"
+
+#~ msgid "Save As Template..."
+#~ msgstr "Spara som mall..."
