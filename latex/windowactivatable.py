@@ -396,39 +396,33 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
         # FIXME: we are dealing with sets so saving the index as selection state
         # is nonsense
         #
-
-        # disable all actions
-        for name in self._action_objects:
-            self._action_group.get_action(name).set_visible(False)
-
-        # disable all tool actions
-        for l in list(self._tool_action_extensions.values()):
-            for name in l:
-                self._tool_action_group.get_action(name).set_sensitive(False)
-
-        # enable the actions for all extensions
-        for name in self._action_extensions[None]:
-            self._action_group.get_action(name).set_visible(True)
-
-        # enable the actions registered for the extension
-        if extension:
-            try:
-                for name in self._action_extensions[extension]:
-                    self._action_group.get_action(name).set_visible(True)
-            except KeyError:
-                pass
-
-        # enable the tool actions that apply for all extensions
-        for name in self._tool_action_extensions[None]:
-            self._tool_action_group.get_action(name).set_sensitive(True)
-
-        # enable the tool actions that apply for this extension
-        if extension:
-            try:
-                for name in self._tool_action_extensions[extension]:
-                    self._tool_action_group.get_action(name).set_sensitive(True)
-            except KeyError:
-                pass
+        
+        for category, catalog in (('actions', self._action_extensions),
+                                  ('tools', self._tool_action_extensions)):
+            # enable actions for all extensions
+            to_enable = set(catalog[None])
+            # enable the actions registered for the extension
+            if extension:
+                try:
+                    to_enable.update(catalog[extension])
+                except KeyError:
+                    pass
+            for name in set().union(*catalog.values()):
+                action = self.window.lookup_action(name)
+                action.set_enabled(name in to_enable)
+            
+            if category == 'tools':
+                # Show/hide the tool menu itself onlyif any action is shown:
+                menu_action = self.window.lookup_action('ToolsDummyAction')
+                # FIXME: This line spits "Gtk-WARNING"s which I really don't
+                # understand:
+                # "Duplicate child name in GtkStack: LaTeX Tools"
+                menu_action.set_enabled(bool(to_enable))
+        
+        # The "new LaTeX document" is the only one we always want enabled:
+        # (and hence its menu):
+        self.window.lookup_action('FileDummyAction').set_enabled(True)
+        self.window.lookup_action('LaTeXNewAction').set_enabled(True)
 
         if extension:
             self.show_toolbar()

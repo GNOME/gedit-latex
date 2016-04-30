@@ -60,8 +60,8 @@ class LaTeXAppActivatable(GObject.Object, Gedit.AppActivatable):
         self.init_tools()
         
     def add_latex_menu(self):
-        self.menu_ext = self.extend_menu("preferences-section")
-        menu = Gio.MenuItem.new(_("LaTeX"))
+        self.menu_ext = self.extend_menu("tools-section-1")
+        menu = Gio.MenuItem.new(_("LaTeX"), "win.FileDummyAction")
         container = Gio.Menu.new()
         menu.set_submenu(container)
         self.menu_ext.append_menu_item(menu)
@@ -72,15 +72,21 @@ class LaTeXAppActivatable(GObject.Object, Gedit.AppActivatable):
         for clazz in MENUACTIONS:
             action = clazz(icon_factory=self._icon_factory)
             actionlink = "win." + clazz.__name__
-            container.append_item(Gio.MenuItem.new(_(action.label), actionlink))
+            item = Gio.MenuItem.new(_(action.label), actionlink)
+            container.append_item(item)
+            # FIXME: this is not working (it does work in init_tools() below):
+            item.set_attribute_value("hidden-when",
+                                    GLib.Variant.new_string("action-disabled"))
             if action.accelerator is not None:
                 self.app.add_accelerator(action.accelerator, actionlink, None)
-                
+
     def add_latex_tools_menu(self):
-        menu = Gio.MenuItem.new(_("LaTeX Tools"))
-        container = Gio.Menu.new()
+        menu = Gio.MenuItem.new(_("LaTeX Tools"), "win.ToolsDummyAction")
+        container = Gio.Menu()
         menu.set_submenu(container)
         self.latex_tools_menu = container
+        menu.set_attribute_value("hidden-when",
+                                    GLib.Variant.new_string("action-disabled"))
         self.menu_ext.append_menu_item(menu)
     
     def init_tools(self):
@@ -94,7 +100,10 @@ class LaTeXAppActivatable(GObject.Object, Gedit.AppActivatable):
             name = "Tool%sAction" % i
 
             actionlink = "win." + name
-            self.latex_tools_menu.append_item(Gio.MenuItem.new(_(tool.label), actionlink))
+            item = Gio.MenuItem.new(_(tool.label), actionlink)
+            item.set_attribute_value("hidden-when",
+                                    GLib.Variant.new_string("action-disabled"))
+            self.latex_tools_menu.append_item(item)
 
             accelerator = None
             if tool.accelerator and len(tool.accelerator) > 0:
