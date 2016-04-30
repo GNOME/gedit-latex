@@ -97,7 +97,7 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
         self._signal_handlers = [
                 self.window.connect("tab_added", self._on_tab_added),
                 self.window.connect("tab_removed", self._on_tab_removed),
-                self.window.connect("active_tab_changed", self._on_active_tab_changed)]
+                ]
 
     def do_deactivate(self):
         """
@@ -376,7 +376,7 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
         (the file type it contains)
 
         Called by
-         * _on_active_tab_changed()
+         * do_update_state()
          * GeditTabDecorator when the Editor instance changes
         """
 
@@ -521,13 +521,16 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
             # no more tabs
             self.disable()
 
-    def _on_active_tab_changed(self, window, tab):
+    def do_update_state(self):
         """
         The active tab has changed
 
-        @param window: the GeditWindow
-        @param tab: the activated GeditTab
         """
+        
+        tab = self.window.get_active_tab()
+        if not tab:
+            # Initialization time
+            return
         LOG.debug("active_tab_changed")
 
         if tab in list(self._tab_decorators.keys()):
