@@ -348,8 +348,14 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
 
         if Gedit.utils_is_valid_location(gfile):
             LOG.debug("GeditWindow.create_tab_from_uri(%s)" % uri)
+            try:
+                view = self.window.get_active_view()
+                encoding = view.get_buffer().get_encoding()
+            except AttributeError:
+                # No document open
+                encoding = None
             self.window.create_tab_from_location(
-                            gfile, Gedit.gedit_encoding_get_current(),
+                            gfile, encoding,
                             1, 1, False, True)
         else:
             LOG.error("Gedit.utils.uri_is_valid(%s) = False" % uri)
