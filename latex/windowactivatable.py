@@ -349,7 +349,7 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
         if Gedit.utils_is_valid_location(gfile):
             LOG.debug("GeditWindow.create_tab_from_uri(%s)" % uri)
             self.window.create_tab_from_location(
-                            gfile, Gedit.encoding_get_current(),
+                            gfile, Gedit.gedit_encoding_get_current(),
                             1, 1, False, True)
         else:
             LOG.error("Gedit.utils.uri_is_valid(%s) = False" % uri)
@@ -419,11 +419,6 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
                 # "Duplicate child name in GtkStack: LaTeX Tools"
                 menu_action.set_enabled(bool(to_enable))
         
-        # The "new LaTeX document" is the only one we always want enabled:
-        # (and hence its menu):
-        self.window.lookup_action('FileDummyAction').set_enabled(True)
-        self.window.lookup_action('LaTeXNewAction').set_enabled(True)
-
         if extension:
             self.show_toolbar()
         else:

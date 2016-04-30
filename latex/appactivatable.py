@@ -60,6 +60,8 @@ class LaTeXAppActivatable(GObject.Object, Gedit.AppActivatable):
         self.init_tools()
         
     def add_latex_menu(self):
+        self.appmenu_ext = self.extend_menu("preferences-section")
+        
         self.menu_ext = self.extend_menu("tools-section-1")
         menu = Gio.MenuItem.new(_("LaTeX"), "win.FileDummyAction")
         container = Gio.Menu.new()
@@ -73,7 +75,10 @@ class LaTeXAppActivatable(GObject.Object, Gedit.AppActivatable):
             action = clazz(icon_factory=self._icon_factory)
             actionlink = "win." + clazz.__name__
             item = Gio.MenuItem.new(_(action.label), actionlink)
-            container.append_item(item)
+            if clazz.__name__ == 'LaTeXNewAction':
+                self.appmenu_ext.append_menu_item(item)
+            else:
+                container.append_item(item)
             # FIXME: this is not working (it does work in init_tools() below):
             item.set_attribute_value("hidden-when",
                                     GLib.Variant.new_string("action-disabled"))
@@ -123,5 +128,6 @@ class LaTeXAppActivatable(GObject.Object, Gedit.AppActivatable):
     def do_deactivate(self):
         del self.latex_tools_menu
         del self.menu_ext
+        del self.appmenu_ext
         
 # ex:ts=4:et
