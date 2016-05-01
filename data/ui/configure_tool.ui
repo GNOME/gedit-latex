@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.18.3 -->
 <interface>
-  <requires lib="gtk+" version="2.16"/>
+  <requires lib="gtk+" version="3.0"/>
   <object class="GtkDialog" id="dialogConfigureTool">
     <property name="can_focus">False</property>
     <property name="border_width">5</property>
@@ -20,10 +21,10 @@
             <child>
               <object class="GtkButton" id="buttonAbort">
                 <property name="label">gtk-cancel</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
                 <property name="use_stock">True</property>
                 <signal name="clicked" handler="on_buttonAbort_clicked" swapped="no"/>
               </object>
@@ -36,12 +37,12 @@
             <child>
               <object class="GtkButton" id="buttonOkay">
                 <property name="label">gtk-ok</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="can_default">True</property>
                 <property name="has_default">True</property>
                 <property name="receives_default">True</property>
-                <property name="use_action_appearance">False</property>
                 <property name="use_stock">True</property>
                 <signal name="clicked" handler="on_buttonOkay_clicked" swapped="no"/>
               </object>
@@ -69,10 +70,10 @@
               <object class="GtkLabel" id="labelHint">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="xalign">0</property>
                 <property name="label" translatable="yes">Remember to run all commands in batch mode (e.g. append &lt;tt&gt;-interaction batchmode&lt;/tt&gt; to &lt;tt&gt;latex&lt;/tt&gt;)</property>
                 <property name="use_markup">True</property>
                 <property name="wrap">True</property>
+                <property name="xalign">0</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -154,11 +155,11 @@
                             <child>
                               <object class="GtkButton" id="buttonRemoveJob">
                                 <property name="label">gtk-remove</property>
+                                <property name="use_action_appearance">False</property>
                                 <property name="visible">True</property>
                                 <property name="sensitive">False</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
-                                <property name="use_action_appearance">False</property>
                                 <property name="use_stock">True</property>
                                 <property name="xalign">0</property>
                                 <signal name="clicked" handler="on_buttonRemoveJob_clicked" swapped="no"/>
@@ -172,11 +173,11 @@
                             <child>
                               <object class="GtkButton" id="buttonMoveUpJob">
                                 <property name="label">gtk-go-up</property>
+                                <property name="use_action_appearance">False</property>
                                 <property name="visible">True</property>
                                 <property name="sensitive">False</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
-                                <property name="use_action_appearance">False</property>
                                 <property name="use_stock">True</property>
                                 <property name="xalign">0</property>
                                 <signal name="clicked" handler="on_buttonMoveUpJob_clicked" swapped="no"/>
@@ -221,11 +222,11 @@
                         <child>
                           <object class="GtkButton" id="buttonAddJob">
                             <property name="label">gtk-add</property>
+                            <property name="use_action_appearance">False</property>
                             <property name="visible">True</property>
                             <property name="sensitive">False</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">True</property>
-                            <property name="use_action_appearance">False</property>
                             <property name="use_stock">True</property>
                             <property name="xalign">0</property>
                             <signal name="clicked" handler="on_buttonAddJob_clicked" swapped="no"/>
@@ -236,7 +237,7 @@
                             <property name="top_attach">1</property>
                             <property name="bottom_attach">2</property>
                             <property name="x_options">GTK_FILL</property>
-                            <property name="y_options"></property>
+                            <property name="y_options"/>
                           </packing>
                         </child>
                         <child>
@@ -248,20 +249,20 @@
                           <packing>
                             <property name="top_attach">1</property>
                             <property name="bottom_attach">2</property>
-                            <property name="y_options"></property>
+                            <property name="y_options"/>
                           </packing>
                         </child>
                         <child>
                           <object class="GtkLabel" id="label4">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="xalign">0</property>
                             <property name="label" translatable="yes">Valid placeholders are &lt;tt&gt;$filename&lt;/tt&gt;, &lt;tt&gt;$shortname&lt;/tt&gt;, &lt;tt&gt;$directory&lt;/tt&gt;</property>
                             <property name="use_markup">True</property>
+                            <property name="xalign">0</property>
                           </object>
                           <packing>
                             <property name="right_attach">2</property>
-                            <property name="y_options"></property>
+                            <property name="y_options"/>
                           </packing>
                         </child>
                       </object>
@@ -348,11 +349,11 @@
                             <child>
                               <object class="GtkButton" id="buttonRemoveExtension">
                                 <property name="label">gtk-remove</property>
+                                <property name="use_action_appearance">False</property>
                                 <property name="visible">True</property>
                                 <property name="sensitive">False</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">True</property>
-                                <property name="use_action_appearance">False</property>
                                 <property name="use_stock">True</property>
                                 <property name="xalign">0</property>
                                 <signal name="clicked" handler="on_buttonRemoveExtension_clicked" swapped="no"/>
@@ -396,11 +397,11 @@
                         <child>
                           <object class="GtkButton" id="buttonAddExtension">
                             <property name="label">gtk-add</property>
+                            <property name="use_action_appearance">False</property>
                             <property name="visible">True</property>
                             <property name="sensitive">False</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">True</property>
-                            <property name="use_action_appearance">False</property>
                             <property name="use_stock">True</property>
                             <property name="xalign">0</property>
                             <signal name="clicked" handler="on_buttonAddExtension_clicked" swapped="no"/>
@@ -409,7 +410,7 @@
                             <property name="left_attach">1</property>
                             <property name="right_attach">2</property>
                             <property name="x_options">GTK_FILL</property>
-                            <property name="y_options"></property>
+                            <property name="y_options"/>
                           </packing>
                         </child>
                         <child>
@@ -419,7 +420,7 @@
                             <signal name="changed" handler="on_entryNewExtension_changed" swapped="no"/>
                           </object>
                           <packing>
-                            <property name="y_options"></property>
+                            <property name="y_options"/>
                           </packing>
                         </child>
                       </object>
@@ -461,11 +462,12 @@
                         <child>
                           <object class="GtkRadioButton" id="radioAccelGenerate">
                             <property name="label" translatable="yes">_Generated</property>
+                            <property name="use_action_appearance">False</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
-                            <property name="use_action_appearance">False</property>
                             <property name="use_underline">True</property>
+                            <property name="xalign">0.5</property>
                             <property name="active">True</property>
                             <property name="draw_indicator">True</property>
                           </object>
@@ -478,11 +480,12 @@
                         <child>
                           <object class="GtkRadioButton" id="radioAccelUser">
                             <property name="label" translatable="yes">_User Defined:</property>
+                            <property name="use_action_appearance">False</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
-                            <property name="use_action_appearance">False</property>
                             <property name="use_underline">True</property>
+                            <property name="xalign">0.5</property>
                             <property name="active">True</property>
                             <property name="draw_indicator">True</property>
                             <property name="group">radioAccelGenerate</property>
