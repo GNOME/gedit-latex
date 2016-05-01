@@ -255,8 +255,8 @@ class LaTeXBlackboardBoldAction(LaTeXTemplateAction):
 
 
 class LaTeXCaligraphyAction(LaTeXTemplateAction):
-    label = _("Caligraphy")
-    tooltip = _("Caligraphy")
+    label = _("Calligraphy")
+    tooltip = _("Calligraphy")
     icon_name = "cal"
     snippet_source = "\ensuremath{\mathcal{$0}}"
 
