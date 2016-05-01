@@ -1059,10 +1059,10 @@ class BuildImageDialog(GladeInterface):
             # PNG mode
 
             self._storeMode = Gtk.ListStore(str, int)    # label, mode constant
-            self._storeMode.append(["Monochrome", ImageToolGenerator.PNG_MODE_MONOCHROME])
-            self._storeMode.append(["Grayscale", ImageToolGenerator.PNG_MODE_GRAYSCALE])
-            self._storeMode.append(["RGB", ImageToolGenerator.PNG_MODE_RGB])
-            self._storeMode.append(["RGBA", ImageToolGenerator.PNG_MODE_RGBA])
+            self._storeMode.append([_("Monochrome"), ImageToolGenerator.PNG_MODE_MONOCHROME])
+            self._storeMode.append([_("Grayscale"), ImageToolGenerator.PNG_MODE_GRAYSCALE])
+            self._storeMode.append([_("RGB"), ImageToolGenerator.PNG_MODE_RGB])
+            self._storeMode.append([_("RGBA"), ImageToolGenerator.PNG_MODE_RGBA])
 
             self._comboMode = self.find_widget("comboMode")
             self._comboMode.set_model(self._storeMode)
@@ -1074,11 +1074,11 @@ class BuildImageDialog(GladeInterface):
             # anti-alias
 
             self._storeAntialias = Gtk.ListStore(str, int)    # label, factor
-            self._storeAntialias.append(["Off", 0])
-            self._storeAntialias.append(["1x", 1])
-            self._storeAntialias.append(["2x", 2])
-            self._storeAntialias.append(["4x", 4])
-            self._storeAntialias.append(["8x", 8])
+            self._storeAntialias.append([_("Off"), 0])
+            self._storeAntialias.append([_("1x"), 1])
+            self._storeAntialias.append([_("2x"), 2])
+            self._storeAntialias.append([_("4x"), 4])
+            self._storeAntialias.append([_("8x"), 8])
 
             self._comboAntialias = self.find_widget("comboAntialias")
             self._comboAntialias.set_model(self._storeAntialias)
