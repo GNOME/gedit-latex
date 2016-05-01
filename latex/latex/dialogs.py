@@ -91,15 +91,13 @@ class ComboBoxProxy:
         """
         self._options.append((value, label))
 
-        label_markup = ""
-
         if show_value:
             if not value is None and len(value) > 0:
-                label_markup = "%s <span color='%s'>%s</span>" % (value, self._preferences.get("light-foreground-color"), label)
+                label_markup = "%s <span color='%s'>%s</span>" % (value, self._preferences.get("light-foreground-color"), _(label))
             else:
-                label_markup = "<span color='%s'>%s</span>" % (self._preferences.get("light-foreground-color"), label)
+                label_markup = "<span color='%s'>%s</span>" % (self._preferences.get("light-foreground-color"), _(label))
         else:
-            label_markup = label
+            label_markup = _(label)
 
         self._store.append([value, label_markup])
 
@@ -323,14 +321,14 @@ class NewDocumentDialog(GladeInterface):
             document_classes = environment.document_classes
             document_classes.sort(key=lambda x: x.name.lower())
             for c in document_classes:
-                self._proxy_document_class.add_option(c.name, c.label)
+                self._proxy_document_class.add_option(c.name, _(c.label))
             self._proxy_document_class.restore("article")
 
             #
             # paper
             #
             self._proxy_paper_size = ComboBoxProxy(self.find_widget("comboPaperSize"), "RecentPaperSize")
-            self._proxy_paper_size.add_option("", "Default")
+            self._proxy_paper_size.add_option("", _("Default"))
             for size, label in self._PAPER_SIZES:
                 self._proxy_paper_size.add_option(size, label)
             self._proxy_paper_size.restore("")
@@ -351,7 +349,7 @@ class NewDocumentDialog(GladeInterface):
             #
             self._proxy_font_family = ComboBoxProxy(self.find_widget("comboFontFamily"), "RecentDefaultFontFamily")
             for command, label in self._DEFAULT_FONT_FAMILIES:
-                self._proxy_font_family.add_option(command, label, False)
+                self._proxy_font_family.add_option(command, _(label), False)
             self._proxy_font_family.restore("\\rmdefault")
 
 
@@ -372,7 +370,7 @@ class NewDocumentDialog(GladeInterface):
             language_definitions = environment.language_definitions
             language_definitions.sort(key=lambda x: x.name.lower())
             for l in language_definitions:
-                self._proxy_babel.add_option(l.name, l.label)
+                self._proxy_babel.add_option(l.name, _(l.label))
 
             try:
                 self._proxy_babel.restore(self._LOCALE_MAPPINGS[environment.language_code])
