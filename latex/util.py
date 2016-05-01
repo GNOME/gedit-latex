@@ -133,6 +133,7 @@ class GladeInterface(object):
     def __get_tree(self):
         if not self.__tree:
             self.__tree = Gtk.Builder()
+            self.__tree.set_translation_domain('gedit-latex')
             self.__tree.add_from_file(self.filename)
         return self.__tree
 
