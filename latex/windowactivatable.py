@@ -421,7 +421,7 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
                 # Show/hide the tool menu itself onlyif any action is shown:
                 menu_action = self.window.lookup_action('ToolsDummyAction')
                 # FIXME: This line spits "Gtk-WARNING"s which I really don't
-                # understand:
+                # understand (when "to_enable" is not empty):
                 # "Duplicate child name in GtkStack: LaTeX Tools"
                 menu_action.set_enabled(bool(to_enable))
         

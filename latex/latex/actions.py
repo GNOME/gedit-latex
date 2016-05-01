@@ -524,9 +524,11 @@ class LaTeXEqnArrayAction(LaTeXTemplateAction):
 class FileDummyAction(Action):
     label = tooltip = stock_id = ''
     accelerator = None
+    extensions = []
 
 class ToolsDummyAction(Action):
     label = tooltip = stock_id = ''
     accelerator = None
+    extensions = []
 
 # ex:ts=4:et:
