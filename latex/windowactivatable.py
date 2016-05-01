@@ -425,10 +425,10 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
                 # "Duplicate child name in GtkStack: LaTeX Tools"
                 menu_action.set_enabled(bool(to_enable))
         
-        if extension:
-            self.show_toolbar()
-        else:
-            self.hide_toolbar()
+                if to_enable:
+                    self.show_toolbar()
+                else:
+                    self.hide_toolbar()
 
         #
         # adjust editor views
