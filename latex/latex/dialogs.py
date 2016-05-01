@@ -1056,7 +1056,7 @@ class BuildImageDialog(GladeInterface):
     def _getDialog(self):
         if not self._dialog:
             self._dialog = self.find_widget("dialogRenderImage")
-            self.find_widget("table").set_col_spacing(0, 20)
+            self.find_widget("grid1").set_column_spacing(20)
 
             # PNG mode
 
