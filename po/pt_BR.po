@@ -3,22 +3,23 @@
 # This file is distributed under the same license as the gedit-latex package.
 # Bruno Gurgel <bruno.gurgel@gmail.com>, 2011.
 # Enrico Nicoletto <liverig@gmail.com>, 2013.
-#
+# Rafael Fontenelle <rafaelff@gnome.org>, 2016.
 msgid ""
 msgstr ""
 "Project-Id-Version: gedit-latex\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=gedit&keywords=I18N+L10N&component=Plugins\n"
-"POT-Creation-Date: 2014-11-06 17:59+0000\n"
-"PO-Revision-Date: 2014-11-07 02:16-0300\n"
-"Last-Translator: Rafael Ferreira <rafael.f.f1@gmail.com>\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gedit&k"
+"eywords=I18N+L10N&component=Plugins\n"
+"POT-Creation-Date: 2016-05-03 18:25+0000\n"
+"PO-Revision-Date: 2016-05-03 15:47-0200\n"
+"Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Language-Team: Brazillian Portuguese <gnome-pt_br-list@gnome.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 1.6.10\n"
+"X-Generator: Virtaal 0.7.1\n"
+"X-Project-Style: gnome\n"
 
 #: ../latex.plugin.desktop.in.in.h:1
 msgid "LaTeX Plugin"
@@ -180,7 +181,7 @@ msgid ""
 "disabled"
 msgstr ""
 "Mostra a barra de ferramentas LaTeX abaixo (normal), combinada com a barra "
-"de ferramentas principal ou desabilitada."
+"de ferramentas principal ou desabilitada"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:10
 msgid "Expanded Symbol Groups"
@@ -351,66 +352,66 @@ msgstr "_Identificador:"
 msgid "_Type:"
 msgstr "_Tipo:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:1 ../latex/latex/actions.py:356
+#: ../data/ui/insert_graphics_dialog.ui.h:1
+msgid "Image Size"
+msgstr "Tamanho da imagem"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:2
+msgid "Text Width"
+msgstr "Largura do texto"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:3 ../latex/latex/actions.py:356
 #: ../latex/latex/actions.py:358
 msgid "Insert Graphics"
 msgstr "Inserir gráficos"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:2
+#: ../data/ui/insert_graphics_dialog.ui.h:4
 msgid "_File:"
 msgstr "_Arquivo:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:3
+#: ../data/ui/insert_graphics_dialog.ui.h:5
 #: ../data/ui/insert_table_dialog.ui.h:7
 msgid "_Caption:"
 msgstr "_Subtítulo:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:4
+#: ../data/ui/insert_graphics_dialog.ui.h:6
 #: ../data/ui/insert_table_dialog.ui.h:8
 msgid "_Label:"
 msgstr "_Etiqueta:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:5
+#: ../data/ui/insert_graphics_dialog.ui.h:7
 msgid "fig:"
 msgstr "fig:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:6
+#: ../data/ui/insert_graphics_dialog.ui.h:8
 msgid "_Width:"
 msgstr "_Largura:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:8
+#: ../data/ui/insert_graphics_dialog.ui.h:10
 #, no-c-format
 msgid "% _of"
 msgstr "% _de"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:9
+#: ../data/ui/insert_graphics_dialog.ui.h:11
 msgid "_Rotate:"
 msgstr "_Rodar:"
 
 # CCW = counterclockwise = sentido anti-horário
-#: ../data/ui/insert_graphics_dialog.ui.h:10
+#: ../data/ui/insert_graphics_dialog.ui.h:12
 msgid "° CCW"
 msgstr "° anti-horário"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:11
+#: ../data/ui/insert_graphics_dialog.ui.h:13
 msgid "Flip _Horizontally"
 msgstr "Virar _horizontamente"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:12
+#: ../data/ui/insert_graphics_dialog.ui.h:14
 msgid "_Spread over two Columns"
 msgstr "_Distribuir por duas colunas"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:13
+#: ../data/ui/insert_graphics_dialog.ui.h:15
 msgid "Floating _Object"
 msgstr "Objeto _flutuante"
-
-#: ../data/ui/insert_graphics_dialog.ui.h:14
-msgid "Image Size"
-msgstr "Tamanho da imagem"
-
-#: ../data/ui/insert_graphics_dialog.ui.h:15
-msgid "Text Width"
-msgstr "Largura do texto"
 
 #: ../data/ui/insert_listing_dialog.ui.h:1 ../latex/latex/actions.py:388
 #: ../latex/latex/actions.py:390
@@ -587,11 +588,11 @@ msgstr "Prévisulizar estilo:"
 msgid "Refresh Style Preview"
 msgstr "Atualizar prévisulização de estilo"
 
-#: ../latex/appactivatable.py:64 ../latex/latex/actions.py:63
+#: ../latex/appactivatable.py:66 ../latex/latex/actions.py:63
 msgid "LaTeX"
 msgstr "LaTeX"
 
-#: ../latex/appactivatable.py:80
+#: ../latex/appactivatable.py:89
 msgid "LaTeX Tools"
 msgstr "Ferramentas LaTeX"
 
@@ -700,8 +701,9 @@ msgid "Blackboard Bold"
 msgstr "Blackboard Bold"
 
 #: ../latex/latex/actions.py:258 ../latex/latex/actions.py:259
-msgid "Caligraphy"
-msgstr "Caligrafía"
+#| msgid "Caligraphy"
+msgid "Calligraphy"
+msgstr "Caligrafia"
 
 #: ../latex/latex/actions.py:265 ../latex/latex/actions.py:266
 msgid "Fraktur"
@@ -803,6 +805,51 @@ msgstr "Conjunto de equações"
 #: ../latex/latex/actions.py:516 ../latex/latex/actions.py:517
 msgid "Numbered Array of Equations"
 msgstr "Conjunto numerado de equações"
+
+#: ../latex/latex/dialogs.py:331
+#| msgid "De_fault"
+msgid "Default"
+msgstr "Padrão"
+
+#. PNG mode
+#. label, mode constant
+#: ../latex/latex/dialogs.py:1062
+msgid "Monochrome"
+msgstr "Monocromático"
+
+#: ../latex/latex/dialogs.py:1063
+msgid "Grayscale"
+msgstr "Escalas de cinza"
+
+#: ../latex/latex/dialogs.py:1064
+msgid "RGB"
+msgstr "RGB"
+
+#: ../latex/latex/dialogs.py:1065
+msgid "RGBA"
+msgstr "RGBA"
+
+#. anti-alias
+#. label, factor
+#: ../latex/latex/dialogs.py:1077
+msgid "Off"
+msgstr "Desligado"
+
+#: ../latex/latex/dialogs.py:1078
+msgid "1x"
+msgstr "1x"
+
+#: ../latex/latex/dialogs.py:1079
+msgid "2x"
+msgstr "2x"
+
+#: ../latex/latex/dialogs.py:1080
+msgid "4x"
+msgstr "4x"
+
+#: ../latex/latex/dialogs.py:1081
+msgid "8x"
+msgstr "8x"
 
 #: ../latex/latex/environment.py:141
 msgid "Book of abstracts"
