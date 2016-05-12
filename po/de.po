@@ -4,7 +4,7 @@
 #
 # outline	- Entwurf/Gliederung
 #
-# Mario Blättermann <mario.blaettermann@gmail.com>, 2011, 2012, 2015.
+# Mario Blättermann <mario.blaettermann@gmail.com>, 2011-2012, 2015-2016.
 # Christian Kirbach <Christian.Kirbach@googlemail.com>, 2011.
 # Wolfgang Stöggl <c72578@yahoo.de>, 2011, 2013.
 #
@@ -13,8 +13,8 @@ msgstr ""
 "Project-Id-Version: gedit-latex master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gedit&keywords=I18N+L10N&component=Plugins\n"
-"POT-Creation-Date: 2015-12-30 07:01+0000\n"
-"PO-Revision-Date: 2015-12-30 15:21+0100\n"
+"POT-Creation-Date: 2016-05-12 18:20+0000\n"
+"PO-Revision-Date: 2016-05-12 20:47+0200\n"
 "Last-Translator: Mario Blättermann <mario.blaettermann@gmail.com>\n"
 "Language-Team: Deutsch <gnome-de@gnome.org>\n"
 "Language: de\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.5\n"
+"X-Generator: Poedit 1.8.7.1\n"
 
 #: ../latex.plugin.desktop.in.in.h:1
 msgid "LaTeX Plugin"
@@ -361,68 +361,68 @@ msgstr "_Kennung:"
 msgid "_Type:"
 msgstr "_Typ:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:1 ../latex/latex/actions.py:356
+#: ../data/ui/insert_graphics_dialog.ui.h:1
+msgid "Image Size"
+msgstr "Bildgröße"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:2
+msgid "Text Width"
+msgstr "Textbreite"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:3 ../latex/latex/actions.py:356
 #: ../latex/latex/actions.py:358
 msgid "Insert Graphics"
 msgstr "Grafik einfügen"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:2
+#: ../data/ui/insert_graphics_dialog.ui.h:4
 msgid "_File:"
 msgstr "_Datei:"
 
 # \caption{…} für Abbildungen und Tabellen
-#: ../data/ui/insert_graphics_dialog.ui.h:3
+#: ../data/ui/insert_graphics_dialog.ui.h:5
 #: ../data/ui/insert_table_dialog.ui.h:7
 msgid "_Caption:"
 msgstr "_Beschriftung:"
 
 # \label{…}, Nummer der Abbildung oder Tabelle. Für Querverweise mit \ref{…}.
-#: ../data/ui/insert_graphics_dialog.ui.h:4
+#: ../data/ui/insert_graphics_dialog.ui.h:6
 #: ../data/ui/insert_table_dialog.ui.h:8
 msgid "_Label:"
 msgstr "_Nummer:"
 
 # Vordefinierter Text für die Nummerierung von Abbildungen. \label{…}
-#: ../data/ui/insert_graphics_dialog.ui.h:5
+#: ../data/ui/insert_graphics_dialog.ui.h:7
 msgid "fig:"
 msgstr "Abb:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:6
+#: ../data/ui/insert_graphics_dialog.ui.h:8
 msgid "_Width:"
 msgstr "B_reite:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:8
+#: ../data/ui/insert_graphics_dialog.ui.h:10
 #, no-c-format
 msgid "% _of"
 msgstr "% v_on"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:9
+#: ../data/ui/insert_graphics_dialog.ui.h:11
 msgid "_Rotate:"
 msgstr "D_rehen:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:10
+#: ../data/ui/insert_graphics_dialog.ui.h:12
 msgid "° CCW"
 msgstr "° gegen Uhrzeigersinn"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:11
+#: ../data/ui/insert_graphics_dialog.ui.h:13
 msgid "Flip _Horizontally"
 msgstr "_Horizontal spiegeln"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:12
+#: ../data/ui/insert_graphics_dialog.ui.h:14
 msgid "_Spread over two Columns"
 msgstr "Über zwei _Spalten verteilen"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:13
+#: ../data/ui/insert_graphics_dialog.ui.h:15
 msgid "Floating _Object"
 msgstr "Gleit_objekt"
-
-#: ../data/ui/insert_graphics_dialog.ui.h:14
-msgid "Image Size"
-msgstr "Bildgröße"
-
-#: ../data/ui/insert_graphics_dialog.ui.h:15
-msgid "Text Width"
-msgstr "Textbreite"
 
 #: ../data/ui/insert_listing_dialog.ui.h:1 ../latex/latex/actions.py:388
 #: ../latex/latex/actions.py:390
@@ -602,11 +602,11 @@ msgstr "Stilvorschau:"
 msgid "Refresh Style Preview"
 msgstr "Stilvorschau aktualisieren"
 
-#: ../latex/appactivatable.py:64 ../latex/latex/actions.py:63
+#: ../latex/appactivatable.py:66 ../latex/latex/actions.py:63
 msgid "LaTeX"
 msgstr "LaTeX"
 
-#: ../latex/appactivatable.py:80
+#: ../latex/appactivatable.py:89
 msgid "LaTeX Tools"
 msgstr "LaTeX-Werkzeuge"
 
@@ -714,7 +714,7 @@ msgid "Blackboard Bold"
 msgstr "Fette Tafelschrift"
 
 #: ../latex/latex/actions.py:258 ../latex/latex/actions.py:259
-msgid "Caligraphy"
+msgid "Calligraphy"
 msgstr "Kalligrafie"
 
 #: ../latex/latex/actions.py:265 ../latex/latex/actions.py:266
@@ -817,6 +817,50 @@ msgstr "Matrix von Gleichungen"
 #: ../latex/latex/actions.py:516 ../latex/latex/actions.py:517
 msgid "Numbered Array of Equations"
 msgstr "Nummerierte Menge von Gleichungen"
+
+#: ../latex/latex/dialogs.py:331
+msgid "Default"
+msgstr "Vorgabe"
+
+#. PNG mode
+#. label, mode constant
+#: ../latex/latex/dialogs.py:1062
+msgid "Monochrome"
+msgstr "Monochrom"
+
+#: ../latex/latex/dialogs.py:1063
+msgid "Grayscale"
+msgstr "Graustufen"
+
+#: ../latex/latex/dialogs.py:1064
+msgid "RGB"
+msgstr "RGB"
+
+#: ../latex/latex/dialogs.py:1065
+msgid "RGBA"
+msgstr "RGBA"
+
+#. anti-alias
+#. label, factor
+#: ../latex/latex/dialogs.py:1077
+msgid "Off"
+msgstr "Aus"
+
+#: ../latex/latex/dialogs.py:1078
+msgid "1x"
+msgstr "1x"
+
+#: ../latex/latex/dialogs.py:1079
+msgid "2x"
+msgstr "2x"
+
+#: ../latex/latex/dialogs.py:1080
+msgid "4x"
+msgstr "4x"
+
+#: ../latex/latex/dialogs.py:1081
+msgid "8x"
+msgstr "8x"
 
 #: ../latex/latex/environment.py:141
 msgid "Book of abstracts"
@@ -974,65 +1018,3 @@ msgstr "Aufgaben anzeigen/verbergen"
 msgid "Issues"
 msgstr "Probleme"
 
-#~ msgid "<b>Templates</b>"
-#~ msgstr "<b>Vorlagen</b>"
-
-#~ msgid "Folder:"
-#~ msgstr "Ordner:"
-
-#~ msgid "&#xB0; CCW"
-#~ msgstr "° gegen den Uhrzeigersinn"
-
-#~ msgid "Please specify a name for the new template."
-#~ msgstr "Bitte geben Sie einen Namen für die Vorlage ein."
-
-#~ msgid "Save As Template"
-#~ msgstr "Als Vorlage speichern"
-
-#~ msgid "label"
-#~ msgstr "Beschriftung"
-
-#~ msgid "Save As Template..."
-#~ msgstr "Als Vorlage speichern …"
-
-#~ msgid "Save the current document as a template"
-#~ msgstr "Das aktuelle Dokument als Vorlage speichern"
-
-#~ msgid "<b>LaTeX Toolbar</b>"
-#~ msgstr "<b>LaTeX-Werkzeugleiste</b>"
-
-#~ msgid "Show LaTeX Toolbar when editing LaTeX files"
-#~ msgstr "LaTeX-Werkzeugleiste beim Bearbeiten von LaTeX-Dateien anzeigen"
-
-#~ msgid "Bibliographies"
-#~ msgstr "Bibliografien"
-
-#~ msgid "Toolbar"
-#~ msgstr "Werkzeugleiste"
-
-#~ msgid "<b>General</b>"
-#~ msgstr "<b>Allgemein</b>"
-
-#~ msgid "<b>Markers</b>"
-#~ msgstr "<b>Markierungen</b>"
-
-#~ msgid "<b>Template</b>"
-#~ msgstr "<b>Vorlage</b>"
-
-#~ msgid "Error:"
-#~ msgstr "Fehler:"
-
-#~ msgid "Light Foreground:"
-#~ msgstr "Heller Vordergrund:"
-
-#~ msgid "Placeholder Background:"
-#~ msgstr "Platzhalter-Hintergrund:"
-
-#~ msgid "Placeholder Foreground:"
-#~ msgstr "Platzhalter-Vordergrund:"
-
-#~ msgid "Template Background:"
-#~ msgstr "Vorlagen-Hintergrund:"
-
-#~ msgid "Warning:"
-#~ msgstr "Warnung:"
