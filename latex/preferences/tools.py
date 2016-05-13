@@ -20,7 +20,7 @@
 
 import logging
 import uuid
-import xml.etree.ElementTree as ElementTree
+from xml.etree import ElementTree
 import os
 
 from gi.repository import GObject
@@ -28,7 +28,7 @@ from gi.repository import GObject
 from ..resources import Resources
 from ..tools import Tool, Job
 from ..tools.postprocess import GenericPostProcessor, RubberPostProcessor, LaTeXPostProcessor
-from ..util import singleton
+from ..util import singleton, open_error
 
 LOG = logging.getLogger(__name__)
 
@@ -66,7 +66,23 @@ class ToolPreferences(GObject.GObject):
         self.__tools_changed = False
 
         filename = Resources().get_user_file("tools.xml")
-        if not os.path.exists(filename):
+        try:
+            self.__tools = ElementTree.parse(filename).getroot()
+            print("filename", filename)
+        except (ElementTree.ParseError, FileNotFoundError) as exc:
+            if isinstance(exc, ElementTree.ParseError):
+                i = 0
+                while True:
+                    destname = "%s.%d" % (filename, i)
+                    if not os.path.exists(destname):
+                        break
+                    i += 1
+                os.rename(filename, destname)
+                open_error("The file \"%s\" is corrupted and cannot be "
+                           "parsed." % filename,
+                           "It was moved to \"%s\", and the Latex Plugin will "
+                           "now fallback to the default tools." % destname)
+
             filename = Resources().get_data_file("tools.xml")
 
         self.__tools = ElementTree.parse(filename).getroot()
