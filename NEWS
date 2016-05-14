@@ -1,5 +1,5 @@
 =================
-gedit-latex 3.18
+gedit-latex 3.20
 =================
 
 New features and fixes
@@ -7,16 +7,50 @@ New features and fixes
 
 - New maintainer: Pietro Battiston
 - Adapt to Gedit plugin API 3.12 and 3.14 (no later changes needed)
-- Remove menus at deactivation
+- Move tools in tools menu, remove menus at deactivation
+- Fixed "New document" dialog
 - Suppress warnings related to missing actions
 - Fix to bug in tools dialog (Debian bug #561683)
+- Cope with a corrupted tools.xml (Bug #680869)
 - Increase space request in jobs treeview
 - Use colors from scheme for highlighting text (Bug #691757)
 - Remove unused colors from gsettings
+- Updated glade files and relative API calls
+- Fix/translate more strings (Bugs #688388 and #753235)
 - Misc bugfixes
 
 New translations
 ================
+
+- Basque (Inaki Larranaga Murgoitio)
+- Bosnian (Samir Ribic)
+- Chinese (Taiwan) (Cheng-Chia Tseng)
+- Hungarian (Gábor Kelemen)
+- Italian (Milo Casagrande)
+- Korean (Seong-ho Cho)
+- Occitan (Cédric Valmary)
+- Portuguese (Pedro Albuquerque)
+- Romanian (Daniel Șerbănescu)
+
+Updated translations
+====================
+
+- Akom Chotiphantawanon (th)
+- Anders Jonsson (sv)
+- Andika Triwidada (id)
+- Balázs Úr (hu)
+- Daniel Mustieles (es)
+- Joe Hansen (da)
+- Marek Černocký (cs)
+- Mario Blättermann (de)
+- Matej Urbančič (sl)
+- Piotr Drąg (pl)
+- Rafael Ferreira (pt_BR)
+- Rafael Fontenelle (pt_BR)
+- Rūdolfs Mazurs (lv)
+- Wolfgang Stöggl (de)
+- Γιάννης Κουτσούκος (el)
+- Мирослав Николић (sr) (sr@latin)
 
 
 =================
