@@ -68,7 +68,7 @@ class ToolPreferences(GObject.GObject):
         filename = Resources().get_user_file("tools.xml")
         try:
             self.__tools = ElementTree.parse(filename).getroot()
-            print("filename", filename)
+            LOG.debug("Found %s" % filename)
         except (ElementTree.ParseError, FileNotFoundError) as exc:
             if isinstance(exc, ElementTree.ParseError):
                 i = 0
