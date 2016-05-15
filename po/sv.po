@@ -1,21 +1,23 @@
 # Swedish translation for gedit-latex.
-# Copyright © 2011 Free Software Foundation, Inc.
+# Copyright © 2011, 2016 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gedit-latex package.
 # Daniel Nylander <po@danielnylander.se>, 2011.
+# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2016.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gedit-latex\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gedit&keywords=I18N+L10N&component=Plugins\n"
-"POT-Creation-Date: 2016-02-17 07:00+0000\n"
-"PO-Revision-Date: 2011-10-09 17:41+0100\n"
-"Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
+"POT-Creation-Date: 2016-05-01 10:34+0000\n"
+"PO-Revision-Date: 2016-05-07 00:11+0200\n"
+"Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.7.1\n"
 
 #: ../latex.plugin.desktop.in.in.h:1
 msgid "LaTeX Plugin"
@@ -43,7 +45,7 @@ msgstr "Författare"
 
 #: ../data/bibtex.xml.h:4
 msgid "Editor"
-msgstr ""
+msgstr "Redaktör"
 
 #: ../data/bibtex.xml.h:5
 msgid "Pages"
@@ -51,7 +53,7 @@ msgstr "Sidor"
 
 #: ../data/bibtex.xml.h:6
 msgid "Journal"
-msgstr ""
+msgstr "Tidskrift"
 
 #: ../data/bibtex.xml.h:7
 msgid "Volume"
@@ -59,7 +61,7 @@ msgstr "Volym"
 
 #: ../data/bibtex.xml.h:8
 msgid "Number"
-msgstr ""
+msgstr "Nummer"
 
 #: ../data/bibtex.xml.h:9
 msgid "Month"
@@ -79,11 +81,11 @@ msgstr "Serie"
 
 #: ../data/bibtex.xml.h:13
 msgid "Edition"
-msgstr ""
+msgstr "Utgåva"
 
 #: ../data/bibtex.xml.h:14
 msgid "Publisher"
-msgstr ""
+msgstr "Förlag"
 
 #: ../data/bibtex.xml.h:15
 msgid "Address"
@@ -95,7 +97,7 @@ msgstr "ISBN"
 
 #: ../data/bibtex.xml.h:17
 msgid "How Published"
-msgstr ""
+msgstr "Publiceringssätt"
 
 #: ../data/bibtex.xml.h:18
 msgid "Organization"
@@ -111,7 +113,7 @@ msgstr "URL"
 
 #: ../data/bibtex.xml.h:21
 msgid "Note"
-msgstr ""
+msgstr "Anteckning"
 
 #: ../data/bibtex.xml.h:22
 msgid "Type"
@@ -124,7 +126,7 @@ msgstr "Kapitel"
 
 #: ../data/bibtex.xml.h:24
 msgid "Key"
-msgstr ""
+msgstr "Nyckel"
 
 #: ../data/bibtex.xml.h:25
 msgid "School"
@@ -132,7 +134,7 @@ msgstr "Skola"
 
 #: ../data/bibtex.xml.h:26
 msgid "Institution"
-msgstr ""
+msgstr "Institution"
 
 #: ../data/bibtex.xml.h:27
 msgid "Cross Reference"
@@ -140,62 +142,65 @@ msgstr "Korsreferens"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:1
 msgid "Maximum BibTeX Size"
-msgstr ""
+msgstr "Maximal BibTeX-storlek"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:2
 msgid "Connect Outline to Editor"
-msgstr ""
+msgstr "Anslut översikt till redigerare"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:3
 msgid "Show Labels in Outline"
-msgstr ""
+msgstr "Visa etiketter i översikt"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:4
 msgid "Show Tables in Outline"
-msgstr ""
+msgstr "Visa tabeller i översikt"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:5
 msgid "Show Graphics in Outline"
-msgstr ""
+msgstr "Visa grafik i översikt"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:6
 msgid "Show Warnings in Issues"
-msgstr ""
+msgstr "Visa varningar i Problem"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:7
 msgid "Show Tasks in Issues"
-msgstr ""
+msgstr "Visa uppgifter i Problem"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:8
 #: ../data/ui/configure.ui.h:6
 msgid "Hide Box Warnings"
-msgstr ""
+msgstr "Dölj rutvarningar"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:9
 msgid ""
 "Show LaTeX Toolbar below (normal), combined with the main toolbar, or "
 "disabled"
 msgstr ""
+"Visa LaTeX-verktygsfält nedtill (normalt), kombinerat med "
+"huvudverktygsfältet, eller inaktiverat"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:10
 msgid "Expanded Symbol Groups"
-msgstr ""
+msgstr "Utökade symbolgrupper"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:11
 msgid "LaTeX Extensions"
-msgstr ""
+msgstr "LaTeX-filändelser"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:12
 msgid "Graphics File Extensions"
-msgstr ""
+msgstr "Grafikfiländelser"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:13
 msgid "Paths Relative to .tex File to Look for Graphics"
-msgstr ""
+msgstr "Sökvägar relativa till .tex-fil att söka efter grafik i"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:14
 msgid "Extra LaTeX commands used to mark issues, such as \\fxnote{foo}"
 msgstr ""
+"Extra LaTeX-kommandon som används för att markera problem, som \\fxnote{foo}"
 
 #: ../data/ui/build_image_dialog.ui.h:1
 msgid "Render to Image"
@@ -227,7 +232,7 @@ msgstr "<b>Rendering</b>"
 
 #: ../data/ui/build_image_dialog.ui.h:8
 msgid "<b>Area</b>"
-msgstr ""
+msgstr "<b>Område</b>"
 
 #: ../data/ui/build_image_dialog.ui.h:9
 msgid "Antialiasing:"
@@ -243,7 +248,7 @@ msgstr "Rendera hela sidor"
 
 #: ../data/ui/build_image_dialog.ui.h:12
 msgid "Attempt to render tight bounding box"
-msgstr ""
+msgstr "Försök att rendera minimal begränsningsruta"
 
 #: ../data/ui/choose_master_dialog.ui.h:1
 msgid "Select Master Document"
@@ -263,11 +268,11 @@ msgstr "<b>BibTeX</b>"
 
 #: ../data/ui/configure.ui.h:3
 msgid "<b><i>rubber</i> Post-Processor</b>"
-msgstr ""
+msgstr "<b>Postprocessorn <i>rubber</i></b>"
 
 #: ../data/ui/configure.ui.h:4
 msgid "Maximum Parsed File Size:"
-msgstr ""
+msgstr "Maximal storlek på tolkad fil:"
 
 #: ../data/ui/configure.ui.h:5
 msgid "KB"
@@ -282,6 +287,8 @@ msgid ""
 "Remember to run all commands in batch mode (e.g. append <tt>-interaction "
 "batchmode</tt> to <tt>latex</tt>)"
 msgstr ""
+"Kom ihåg att köra alla kommandon i satsvis läge (lägg t.ex. till <tt>-"
+"interaction batchmode</tt> till <tt>latex</tt>)"
 
 #: ../data/ui/configure_tool.ui.h:2
 msgid "<b>_Label</b>"
@@ -309,7 +316,7 @@ msgstr "<b>_Filändelser</b>"
 
 #: ../data/ui/configure_tool.ui.h:7
 msgid "_Generated"
-msgstr ""
+msgstr "_Genererad"
 
 #: ../data/ui/configure_tool.ui.h:8
 msgid "_User Defined:"
@@ -321,11 +328,11 @@ msgstr "<Ctrl><Alt>1"
 
 #: ../data/ui/configure_tool.ui.h:10
 msgid "<b>Accelerator</b>"
-msgstr ""
+msgstr "<b>Snabbtangent</b>"
 
 #: ../data/ui/insert_bibtex_entry.ui.h:1
 msgid "Create Bibliography Entry"
-msgstr ""
+msgstr "Skapa bibliografipost"
 
 #: ../data/ui/insert_bibtex_entry.ui.h:2
 msgid "Required Fields"
@@ -343,70 +350,70 @@ msgstr "_Identifierare:"
 msgid "_Type:"
 msgstr "_Typ:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:1 ../latex/latex/actions.py:356
+#: ../data/ui/insert_graphics_dialog.ui.h:1
+msgid "Image Size"
+msgstr "Bildstorlek"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:2
+msgid "Text Width"
+msgstr "Textbredd"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:3 ../latex/latex/actions.py:356
 #: ../latex/latex/actions.py:358
 msgid "Insert Graphics"
 msgstr "Infoga grafik"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:2
+#: ../data/ui/insert_graphics_dialog.ui.h:4
 msgid "_File:"
 msgstr "_Fil:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:3
+#: ../data/ui/insert_graphics_dialog.ui.h:5
 #: ../data/ui/insert_table_dialog.ui.h:7
 msgid "_Caption:"
-msgstr ""
+msgstr "_Rubrik:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:4
+#: ../data/ui/insert_graphics_dialog.ui.h:6
 #: ../data/ui/insert_table_dialog.ui.h:8
 msgid "_Label:"
 msgstr "_Etikett:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:5
+#: ../data/ui/insert_graphics_dialog.ui.h:7
 msgid "fig:"
 msgstr "fig:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:6
+#: ../data/ui/insert_graphics_dialog.ui.h:8
 msgid "_Width:"
 msgstr "_Bredd:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:8
+#: ../data/ui/insert_graphics_dialog.ui.h:10
 #, no-c-format
 msgid "% _of"
 msgstr "% _av"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:9
+#: ../data/ui/insert_graphics_dialog.ui.h:11
 msgid "_Rotate:"
 msgstr "_Rotera:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:10
+#: ../data/ui/insert_graphics_dialog.ui.h:12
 msgid "° CCW"
-msgstr ""
+msgstr "° moturs"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:11
+#: ../data/ui/insert_graphics_dialog.ui.h:13
 msgid "Flip _Horizontally"
 msgstr "Vänd _horisontellt"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:12
-msgid "_Spread over two Columns"
-msgstr ""
-
-#: ../data/ui/insert_graphics_dialog.ui.h:13
-msgid "Floating _Object"
-msgstr ""
-
 #: ../data/ui/insert_graphics_dialog.ui.h:14
-msgid "Image Size"
-msgstr "Bildstorlek"
+msgid "_Spread over two Columns"
+msgstr "_Sprid ut över två kolumner"
 
 #: ../data/ui/insert_graphics_dialog.ui.h:15
-msgid "Text Width"
-msgstr "Textbredd"
+msgid "Floating _Object"
+msgstr "Flytande _objekt"
 
 #: ../data/ui/insert_listing_dialog.ui.h:1 ../latex/latex/actions.py:388
 #: ../latex/latex/actions.py:390
 msgid "Insert Source Code Listing"
-msgstr ""
+msgstr "Infoga källkod"
 
 #: ../data/ui/insert_listing_dialog.ui.h:2
 msgid "Load From _File:"
@@ -418,7 +425,7 @@ msgstr "Programmeringss_pråk:"
 
 #: ../data/ui/insert_listing_dialog.ui.h:4
 msgid "_Dialect:"
-msgstr ""
+msgstr "_Dialekt:"
 
 #: ../data/ui/insert_table_dialog.ui.h:1 ../latex/latex/actions.py:372
 #: ../latex/latex/actions.py:374
@@ -503,15 +510,15 @@ msgstr "Sta_ndard"
 
 #: ../data/ui/new_document_template_dialog.ui.h:13
 msgid "U_ser Defined:"
-msgstr ""
+msgstr "An_vändardefinierad:"
 
 #: ../data/ui/new_document_template_dialog.ui.h:14
 msgid "pt"
-msgstr ""
+msgstr "pt"
 
 #: ../data/ui/new_document_template_dialog.ui.h:15
 msgid "Base Font Size:"
-msgstr ""
+msgstr "Bastypsnittsstorlek:"
 
 #: ../data/ui/new_document_template_dialog.ui.h:16
 msgid "Document _Class:"
@@ -528,6 +535,7 @@ msgstr "Inkludera PDF-_metadata"
 #: ../data/ui/new_document_template_dialog.ui.h:19
 msgid "This adds metadata to the document. Requires package <tt>ifpdf</tt>."
 msgstr ""
+"Detta lägger till metadata till dokumentet. Kräver paketet <tt>ifpdf</tt>."
 
 #: ../data/ui/new_document_template_dialog.ui.h:20
 msgid "Date:"
@@ -539,7 +547,7 @@ msgstr "I_dag"
 
 #: ../data/ui/new_document_template_dialog.ui.h:22
 msgid "C_ustom:"
-msgstr ""
+msgstr "A_npassat:"
 
 #: ../data/ui/new_document_template_dialog.ui.h:23
 msgid "_Author:"
@@ -555,7 +563,7 @@ msgstr "<b>Metainformation</b>"
 
 #: ../data/ui/new_document_template_dialog.ui.h:26
 msgid "Default F_ont Family:"
-msgstr ""
+msgstr "Standard_typsnittsfamilj:"
 
 #: ../data/ui/use_bibliography_dialog.ui.h:1 ../latex/latex/actions.py:159
 msgid "Use Bibliography"
@@ -571,35 +579,31 @@ msgstr "_Stil:"
 
 #: ../data/ui/use_bibliography_dialog.ui.h:4
 msgid "Style Preview:"
-msgstr ""
+msgstr "Förhandsgranskning av stil:"
 
 #: ../data/ui/use_bibliography_dialog.ui.h:5
 msgid "Refresh Style Preview"
-msgstr ""
+msgstr "Uppdatera förhandsgranskning av stil"
 
-#: ../latex/appactivatable.py:64 ../latex/latex/actions.py:63
+#: ../latex/appactivatable.py:66 ../latex/latex/actions.py:63
 msgid "LaTeX"
 msgstr "LaTeX"
 
-#: ../latex/appactivatable.py:80
-#, fuzzy
-#| msgid "Tools"
+#: ../latex/appactivatable.py:89
 msgid "LaTeX Tools"
-msgstr "Verktyg"
+msgstr "LaTeX-verktyg"
 
 #: ../latex/bibtex/actions.py:32
 msgid "BibTeX"
 msgstr "BibTeX"
 
 #: ../latex/bibtex/actions.py:43
-#, fuzzy
 msgid "New BibTeX Entry..."
-msgstr "Nytt LaTeX-dokument..."
+msgstr "Ny BibTeX-post…"
 
 #: ../latex/bibtex/actions.py:46
-#, fuzzy
 msgid "Create a new BibTeX entry"
-msgstr "Skapa ett nytt LaTeX-dokument"
+msgstr "Skapa en ny BibTeX-post"
 
 #. add grouping controls to toolbar
 #: ../latex/bibtex/views.py:56
@@ -621,7 +625,7 @@ msgstr "Gruppera efter år"
 #. group by year
 #: ../latex/bibtex/views.py:197
 msgid "<i>n/a</i>"
-msgstr ""
+msgstr "<i>Ej tillämpligt</i>"
 
 #: ../latex/bibtex/views.py:240
 msgid "Unknown Author"
@@ -629,7 +633,7 @@ msgstr "Okänd författare"
 
 #: ../latex/latex/actions.py:73
 msgid "New LaTeX Document..."
-msgstr "Nytt LaTeX-dokument..."
+msgstr "Nytt LaTeX-dokument…"
 
 #: ../latex/latex/actions.py:76
 msgid "Create a new LaTeX document"
@@ -637,19 +641,19 @@ msgstr "Skapa ett nytt LaTeX-dokument"
 
 #: ../latex/latex/actions.py:95
 msgid "Choose Master Document..."
-msgstr "Välj huvuddokument..."
+msgstr "Välj huvuddokument…"
 
 #: ../latex/latex/actions.py:107
 msgid "Close Nearest Environment"
-msgstr ""
+msgstr "Stäng närmaste miljö"
 
 #: ../latex/latex/actions.py:109
 msgid "Close the nearest TeX environment at left of the cursor"
-msgstr ""
+msgstr "Stäng den närmaste TeX-miljön till vänster om markören"
 
 #: ../latex/latex/actions.py:157
 msgid "Use Bibliography..."
-msgstr "Använd bibliografi..."
+msgstr "Använd bibliografi…"
 
 #: ../latex/latex/actions.py:179 ../latex/latex/actions.py:181
 #: ../latex/latex/actions.py:189 ../latex/latex/actions.py:190
@@ -666,7 +670,7 @@ msgstr "Kursiv"
 
 #: ../latex/latex/actions.py:208 ../latex/latex/actions.py:209
 msgid "Emphasize"
-msgstr ""
+msgstr "Betona"
 
 #: ../latex/latex/actions.py:215 ../latex/latex/actions.py:216
 msgid "Underline"
@@ -674,11 +678,11 @@ msgstr "Understruken"
 
 #: ../latex/latex/actions.py:222 ../latex/latex/actions.py:223
 msgid "Small Capitals"
-msgstr ""
+msgstr "Kapitäler"
 
 #: ../latex/latex/actions.py:229 ../latex/latex/actions.py:230
 msgid "Roman"
-msgstr ""
+msgstr "Rak stil"
 
 #: ../latex/latex/actions.py:236 ../latex/latex/actions.py:237
 msgid "Sans Serif"
@@ -688,17 +692,18 @@ msgstr "Sans Serif"
 msgid "Typewriter"
 msgstr "Skrivmaskin"
 
+# Stilen även kallad 'double struck'
 #: ../latex/latex/actions.py:250 ../latex/latex/actions.py:251
 msgid "Blackboard Bold"
-msgstr ""
+msgstr "Blackboard Bold"
 
 #: ../latex/latex/actions.py:258 ../latex/latex/actions.py:259
-msgid "Caligraphy"
-msgstr "Kaligrafi"
+msgid "Calligraphy"
+msgstr "Kalligrafi"
 
 #: ../latex/latex/actions.py:265 ../latex/latex/actions.py:266
 msgid "Fraktur"
-msgstr ""
+msgstr "Fraktur"
 
 #: ../latex/latex/actions.py:273 ../latex/latex/actions.py:274
 #: ../latex/latex/actions.py:286 ../latex/latex/actions.py:287
@@ -707,11 +712,11 @@ msgstr "Lista"
 
 #: ../latex/latex/actions.py:278 ../latex/latex/actions.py:279
 msgid "Itemize"
-msgstr ""
+msgstr "Gör punktlista"
 
 #: ../latex/latex/actions.py:291 ../latex/latex/actions.py:292
 msgid "Enumerate"
-msgstr ""
+msgstr "Gör uppräkning"
 
 #: ../latex/latex/actions.py:298 ../latex/latex/actions.py:299
 msgid "Description"
@@ -724,16 +729,15 @@ msgstr "Struktur"
 
 #: ../latex/latex/actions.py:308 ../latex/latex/actions.py:309
 msgid "Part"
-msgstr ""
+msgstr "Del"
 
 #: ../latex/latex/actions.py:322 ../latex/latex/actions.py:323
-#, fuzzy
 msgid "Section"
-msgstr "Plats"
+msgstr "Avsnitt"
 
 #: ../latex/latex/actions.py:335 ../latex/latex/actions.py:336
 msgid "Subsection"
-msgstr ""
+msgstr "Underavsnitt"
 
 #: ../latex/latex/actions.py:342 ../latex/latex/actions.py:343
 msgid "Paragraph"
@@ -741,16 +745,16 @@ msgstr "Stycke"
 
 #: ../latex/latex/actions.py:349 ../latex/latex/actions.py:350
 msgid "Subparagraph"
-msgstr ""
+msgstr "Understycke"
 
 #: ../latex/latex/actions.py:405 ../latex/latex/actions.py:407
 #: ../latex/latex/actions.py:415 ../latex/latex/actions.py:416
 msgid "Build"
-msgstr ""
+msgstr "Bygg"
 
 #: ../latex/latex/actions.py:420
 msgid "Build Image"
-msgstr ""
+msgstr "Bygg bild"
 
 #: ../latex/latex/actions.py:422
 msgid "Build an image from the LaTeX document"
@@ -776,125 +780,163 @@ msgstr "Högerjustera"
 #: ../latex/latex/actions.py:472 ../latex/latex/actions.py:473
 #: ../latex/latex/actions.py:485 ../latex/latex/actions.py:486
 msgid "Math"
-msgstr "Matte"
+msgstr "Matematik"
 
 #: ../latex/latex/actions.py:477 ../latex/latex/actions.py:478
 msgid "Mathematical Environment"
-msgstr ""
+msgstr "Matematisk miljö"
 
 #: ../latex/latex/actions.py:490 ../latex/latex/actions.py:491
 msgid "Centered Formula"
-msgstr ""
+msgstr "Centrerad formel"
 
 #: ../latex/latex/actions.py:497 ../latex/latex/actions.py:498
 msgid "Numbered Equation"
-msgstr ""
+msgstr "Numrerad ekvation"
 
 #: ../latex/latex/actions.py:506 ../latex/latex/actions.py:507
 msgid "Array of Equations"
-msgstr ""
+msgstr "Vektor av ekvationer"
 
 #: ../latex/latex/actions.py:516 ../latex/latex/actions.py:517
 msgid "Numbered Array of Equations"
-msgstr ""
+msgstr "Numrerad vektor av ekvationer"
+
+#: ../latex/latex/dialogs.py:331
+msgid "Default"
+msgstr "Standard"
+
+#. PNG mode
+#. label, mode constant
+#: ../latex/latex/dialogs.py:1062
+msgid "Monochrome"
+msgstr "Svartvit"
+
+#: ../latex/latex/dialogs.py:1063
+msgid "Grayscale"
+msgstr "Gråskala"
+
+#: ../latex/latex/dialogs.py:1064
+msgid "RGB"
+msgstr "RGB"
+
+#: ../latex/latex/dialogs.py:1065
+msgid "RGBA"
+msgstr "RGBA"
+
+#. anti-alias
+#. label, factor
+#: ../latex/latex/dialogs.py:1077
+msgid "Off"
+msgstr "Av"
+
+#: ../latex/latex/dialogs.py:1078
+msgid "1x"
+msgstr "1x"
+
+#: ../latex/latex/dialogs.py:1079
+msgid "2x"
+msgstr "2x"
+
+#: ../latex/latex/dialogs.py:1080
+msgid "4x"
+msgstr "4x"
+
+#: ../latex/latex/dialogs.py:1081
+msgid "8x"
+msgstr "8x"
 
 #: ../latex/latex/environment.py:141
 msgid "Book of abstracts"
-msgstr ""
+msgstr "Bok med sammanfattningar"
 
 #: ../latex/latex/environment.py:142
 msgid "Article"
-msgstr ""
+msgstr "Artikel"
 
 #: ../latex/latex/environment.py:143
 msgid "Article (AMS)"
-msgstr ""
+msgstr "Artikel (AMS)"
 
 #: ../latex/latex/environment.py:144
 msgid "Book (AMS)"
-msgstr ""
+msgstr "Bok (AMS)"
 
 #: ../latex/latex/environment.py:145
 msgid "AMS Documentation"
-msgstr ""
+msgstr "AMS-dokumentation"
 
 #: ../latex/latex/environment.py:146
 msgid "Proceedings (AMS)"
-msgstr ""
+msgstr "Konferenstryck (AMS)"
 
 #: ../latex/latex/environment.py:147
 msgid "Report"
-msgstr ""
+msgstr "Rapport"
 
 #: ../latex/latex/environment.py:148
 msgid "Beamer slides"
-msgstr ""
+msgstr "Beamer-bildspel"
 
 #: ../latex/latex/environment.py:149
 msgid "Belgian letter"
-msgstr ""
+msgstr "Belgiskt brev"
 
 #: ../latex/latex/environment.py:150
 msgid "Book"
-msgstr ""
+msgstr "Bok"
 
 #: ../latex/latex/environment.py:151
 msgid "Flashcard"
-msgstr ""
+msgstr "Snabbkort"
 
 #: ../latex/latex/environment.py:152
 msgid "Proceedings (IAG)"
-msgstr ""
+msgstr "Konferenstryck (IAG)"
 
 #: ../latex/latex/environment.py:153
 msgid "Letter"
-msgstr ""
+msgstr "Brev"
 
 #: ../latex/latex/environment.py:154
-#, fuzzy
-#| msgid "LaTeX"
 msgid "LaTeX News"
-msgstr "LaTeX"
+msgstr "LaTeX-nyheter"
 
 #: ../latex/latex/environment.py:155
-#, fuzzy
-#| msgid "New LaTeX Document"
 msgid "LaTeX Documentation"
-msgstr "Nytt LaTeX-dokument"
+msgstr "LaTeX-dokumentation"
 
 #: ../latex/latex/environment.py:156
-#, fuzzy
-#| msgid "LaTeX Plugin"
 msgid "LaTeX Guide"
-msgstr "LaTeX-insticksmodul"
+msgstr "LaTeX-guide"
 
 #: ../latex/latex/environment.py:157
 msgid "Proceedings"
-msgstr ""
+msgstr "Konferenstryck"
 
 #: ../latex/latex/environment.py:158
 msgid "Article (KOMA-Script)"
-msgstr ""
+msgstr "Artikel (KOMA-Script)"
 
 #: ../latex/latex/environment.py:159 ../latex/latex/environment.py:163
 msgid "Report (KOMA-Script)"
-msgstr ""
+msgstr "Rapport (KOMA-Script)"
 
 #: ../latex/latex/environment.py:160
 msgid "Book (KOMA-Script)"
-msgstr ""
+msgstr "Bok (KOMA-Script)"
 
 #: ../latex/latex/environment.py:161
 msgid "Letter (KOMA-Script)"
-msgstr ""
+msgstr "Brev (KOMA-Script)"
 
 #: ../latex/latex/environment.py:162
 msgid "Letter 2 (KOMA-Script)"
-msgstr ""
+msgstr "Brev 2 (KOMA-Script)"
 
 #: ../latex/latex/environment.py:164
 msgid "Slides"
-msgstr ""
+msgstr "Bildspel"
 
 #: ../latex/latex/views.py:107
 msgid "Symbols"
@@ -910,7 +952,7 @@ msgstr "Visa tabeller"
 
 #: ../latex/outline.py:58
 msgid "Follow Editor"
-msgstr ""
+msgstr "Följ redigerare"
 
 #: ../latex/outline.py:63
 msgid "Expand All"
@@ -922,7 +964,7 @@ msgstr "Fäll in alla"
 
 #: ../latex/outline.py:114
 msgid "Outline"
-msgstr ""
+msgstr "Översikt"
 
 #: ../latex/tools/views.py:62
 msgid "Job"
@@ -950,16 +992,16 @@ msgstr "Meddelande"
 
 #: ../latex/views.py:99
 msgid "Show/Hide Warnings"
-msgstr "Visa/Dölj varningar"
+msgstr "Visa/dölj varningar"
 
 #: ../latex/views.py:107
-#, fuzzy
 msgid "Show/Hide Tasks"
-msgstr "Visa/Dölj varningar"
+msgstr "Visa/dölj uppgifter"
 
+# 'Problem' är eventuellt ett väl hårt ordval med tanke på de två sista kategorierna: "An issue can be a warning, an error, an info or a task"
 #: ../latex/views.py:139
 msgid "Issues"
-msgstr ""
+msgstr "Problem"
 
 #~ msgid "<b>Templates</b>"
 #~ msgstr "<b>Mallar</b>"
