@@ -19,5 +19,6 @@ latex/latex/dialogs.py
 latex/latex/environment.py
 latex/latex/views.py
 latex/outline.py
+latex/preferences/tools.py
 latex/tools/views.py
 latex/views.py
