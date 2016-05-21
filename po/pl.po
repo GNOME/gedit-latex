@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gedit-latex\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-01 12:34+0200\n"
-"PO-Revision-Date: 2016-05-01 12:35+0200\n"
+"POT-Creation-Date: 2016-05-21 15:05+0200\n"
+"PO-Revision-Date: 2016-05-21 15:07+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <gnomepl@aviary.pl>\n"
 "Language: pl\n"
@@ -966,6 +966,15 @@ msgstr "Zwiń wszystko"
 #: ../latex/outline.py:114
 msgid "Outline"
 msgstr "Obrys"
+
+#: ../latex/preferences/tools.py:81
+#, python-format
+msgid ""
+"The file \"%s\" is corrupted and cannot be parsed. It was moved to \"%s\", "
+"and the Latex Plugin will now fallback to the default tools."
+msgstr ""
+"Plik „%s” jest uszkodzony i nie może zostać przetworzony. Został on "
+"przeniesiony do „%s”, a wtyczka LaTeX użyje domyślnych narzędzi."
 
 #: ../latex/tools/views.py:62
 msgid "Job"
