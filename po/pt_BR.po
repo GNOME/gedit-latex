@@ -1,24 +1,24 @@
 # i Brazilian portuguese translation of gedit-latex.
-# Copyright (C) 2013 the gedit-latex'S COPYRIGHT HOLDER
+# Copyright (C) 2013-2016 the gedit-latex'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the gedit-latex package.
 # Bruno Gurgel <bruno.gurgel@gmail.com>, 2011.
-# Enrico Nicoletto <liverig@gmail.com>, 2013.
+# Enrico Nicoletto <liverig@gmail.com>, 2013, 2016.
 # Rafael Fontenelle <rafaelff@gnome.org>, 2016.
 msgid ""
 msgstr ""
 "Project-Id-Version: gedit-latex\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gedit&k"
-"eywords=I18N+L10N&component=Plugins\n"
-"POT-Creation-Date: 2016-05-03 18:25+0000\n"
-"PO-Revision-Date: 2016-05-03 15:47-0200\n"
-"Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=gedit&keywords=I18N+L10N&component=Plugins\n"
+"POT-Creation-Date: 2016-05-20 19:12+0000\n"
+"PO-Revision-Date: 2016-05-30 18:48-0300\n"
+"Last-Translator: Enrico Nicoletto <liverig@gmail.com>\n"
 "Language-Team: Brazillian Portuguese <gnome-pt_br-list@gnome.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Virtaal 0.7.1\n"
+"X-Generator: Poedit 1.8.7\n"
 "X-Project-Style: gnome\n"
 
 #: ../latex.plugin.desktop.in.in.h:1
@@ -701,7 +701,6 @@ msgid "Blackboard Bold"
 msgstr "Blackboard Bold"
 
 #: ../latex/latex/actions.py:258 ../latex/latex/actions.py:259
-#| msgid "Caligraphy"
 msgid "Calligraphy"
 msgstr "Caligrafia"
 
@@ -807,7 +806,6 @@ msgid "Numbered Array of Equations"
 msgstr "Conjunto numerado de equações"
 
 #: ../latex/latex/dialogs.py:331
-#| msgid "De_fault"
 msgid "Default"
 msgstr "Padrão"
 
@@ -970,6 +968,15 @@ msgstr "Recolher todos"
 #: ../latex/outline.py:114
 msgid "Outline"
 msgstr "Rascunho"
+
+#: ../latex/preferences/tools.py:81
+#, python-format
+msgid ""
+"The file \"%s\" is corrupted and cannot be parsed. It was moved to \"%s\", "
+"and the Latex Plugin will now fallback to the default tools."
+msgstr ""
+"O arquivo \"%s\" está corrompido e não pode ser analisado. Ele foi movido "
+"para \"%s\" e agora o plug-in Latex irá retornar às ferramentas padrão."
 
 #: ../latex/tools/views.py:62
 msgid "Job"
