@@ -1,27 +1,23 @@
-# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-# Aviary.pl
-# Jeśli masz jakiekolwiek uwagi odnoszące się do tłumaczenia lub chcesz
-# pomóc w jego rozwijaniu i pielęgnowaniu, napisz do nas:
-# gnomepl@aviary.pl
-# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+# Polish translation for gedit-latex.
+# Copyright © 2011-2016 the gedit-latex authors.
+# This file is distributed under the same license as the gedit-latex package.
 # Piotr Drąg <piotrdrag@gmail.com>, 2011-2016.
-# Aviary.pl <gnomepl@aviary.pl>, 2011-2016.
+# Aviary.pl <community-poland@mozilla.org>, 2011-2016.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: gedit-latex\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-21 15:05+0200\n"
-"PO-Revision-Date: 2016-05-21 15:07+0200\n"
+"POT-Creation-Date: 2016-08-19 19:01+0200\n"
+"PO-Revision-Date: 2016-08-19 19:02+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
-"Language-Team: Polish <gnomepl@aviary.pl>\n"
+"Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Poedit-Language: Polish\n"
-"X-Poedit-Country: Poland\n"
 
 #: ../latex.plugin.desktop.in.in.h:1
 msgid "LaTeX Plugin"
@@ -31,7 +27,7 @@ msgstr "Wtyczka LaTeX"
 msgid ""
 "A plugin that assists you in handling LaTeX documents and BibTeX "
 "bibliographies"
-msgstr "Wtyczka pomagająca obsługiwać dokumenty LaTeX i bibliografie BibTeX"
+msgstr "Wtyczka pomagająca obsługiwać dokumenty LaTeX i bibliografie BibTeX"
 
 #: ../data/bibtex.xml.h:1
 msgid "Title"
@@ -148,27 +144,27 @@ msgstr "Maksymalny rozmiar BibTeX"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:2
 msgid "Connect Outline to Editor"
-msgstr "Łączenie obrysu z edytorem"
+msgstr "Łączenie obrysu z edytorem"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:3
 msgid "Show Labels in Outline"
-msgstr "Wyświetlanie etykiet w obrysie"
+msgstr "Wyświetlanie etykiet w obrysie"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:4
 msgid "Show Tables in Outline"
-msgstr "Wyświetlanie tablic w obrysie"
+msgstr "Wyświetlanie tablic w obrysie"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:5
 msgid "Show Graphics in Outline"
-msgstr "Wyświetlanie grafik w obrysie"
+msgstr "Wyświetlanie grafik w obrysie"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:6
 msgid "Show Warnings in Issues"
-msgstr "Wyświetlanie ostrzeżeń w wydaniach"
+msgstr "Wyświetlanie ostrzeżeń w wydaniach"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:7
 msgid "Show Tasks in Issues"
-msgstr "Wyświetlanie zadań w wydaniach"
+msgstr "Wyświetlanie zadań w wydaniach"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:8
 #: ../data/ui/configure.ui.h:6
@@ -180,8 +176,8 @@ msgid ""
 "Show LaTeX Toolbar below (normal), combined with the main toolbar, or "
 "disabled"
 msgstr ""
-"Wyświetlanie paska narzędziowego LaTeX poniżej (zwykle), połączonego z "
-"głównym paskiem narzędziowym lub wyłączenie"
+"Wyświetlanie paska narzędziowego LaTeX poniżej (zwykle), połączonego "
+"z głównym paskiem narzędziowym lub wyłączenie"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:10
 msgid "Expanded Symbol Groups"
@@ -197,7 +193,7 @@ msgstr "Rozszerzenia plików graficznych"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:13
 msgid "Paths Relative to .tex File to Look for Graphics"
-msgstr "Ścieżki względne do pliku .tex, w których szukać grafik"
+msgstr "Ścieżki względne do pliku .tex, w których szukać grafik"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:14
 msgid "Extra LaTeX commands used to mark issues, such as \\fxnote{foo}"
@@ -290,7 +286,7 @@ msgid ""
 "Remember to run all commands in batch mode (e.g. append <tt>-interaction "
 "batchmode</tt> to <tt>latex</tt>)"
 msgstr ""
-"Proszę pamiętać o wykonaniu wszystkich poleceń w trybie wsadowym (tzn. "
+"Proszę pamiętać o wykonaniu wszystkich poleceń w trybie wsadowym (tzn. "
 "dołączyć <tt>-interaction batchmode</tt> do <tt>latex</tt>)"
 
 #: ../data/ui/configure_tool.ui.h:2
@@ -420,7 +416,7 @@ msgstr "Wstawia listing kodu źródłowego"
 
 #: ../data/ui/insert_listing_dialog.ui.h:2
 msgid "Load From _File:"
-msgstr "W_czytanie z pliku:"
+msgstr "W_czytanie z pliku:"
 
 #: ../data/ui/insert_listing_dialog.ui.h:3
 msgid "Programming _Language:"
@@ -529,7 +525,7 @@ msgstr "_Klasa dokumentu:"
 
 #: ../data/ui/new_document_template_dialog.ui.h:17
 msgid "<b>Style and Layout</b>"
-msgstr "<b>Styl i układ</b>"
+msgstr "<b>Styl i układ</b>"
 
 #: ../data/ui/new_document_template_dialog.ui.h:18
 msgid "Include PDF _Metadata"
@@ -759,7 +755,7 @@ msgstr "Zbuduj obraz"
 
 #: ../latex/latex/actions.py:422
 msgid "Build an image from the LaTeX document"
-msgstr "Buduje obraz z dokumentu LaTeX"
+msgstr "Buduje obraz z dokumentu LaTeX"
 
 #: ../latex/latex/actions.py:440 ../latex/latex/actions.py:441
 #: ../latex/latex/actions.py:460 ../latex/latex/actions.py:461
@@ -973,8 +969,8 @@ msgid ""
 "The file \"%s\" is corrupted and cannot be parsed. It was moved to \"%s\", "
 "and the Latex Plugin will now fallback to the default tools."
 msgstr ""
-"Plik „%s” jest uszkodzony i nie może zostać przetworzony. Został on "
-"przeniesiony do „%s”, a wtyczka LaTeX użyje domyślnych narzędzi."
+"Plik „%s” jest uszkodzony i nie może zostać przetworzony. Został on "
+"przeniesiony do „%s”, a wtyczka LaTeX użyje domyślnych narzędzi."
 
 #: ../latex/tools/views.py:62
 msgid "Job"
