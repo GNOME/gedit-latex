@@ -1,16 +1,16 @@
 # Serbian translation for gedit-latex.
 # Copyright (C) 2012 gedit-latex's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gedit-latex package.
-# Мирослав Николић <miroslavnikolic@rocketmail.com>, 2012—2014.
+# Мирослав Николић <miroslavnikolic@rocketmail.com>, 2012—2016.
 msgid ""
 msgstr ""
 "Project-Id-Version: gedit-latex master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gedit&k"
-"eywords=I18N+L10N&component=Plugins\n"
-"POT-Creation-Date: 2014-12-27 06:05+0000\n"
-"PO-Revision-Date: 2014-12-27 13:46+0200\n"
+"eywords=I18N+L10N&component=LaTeX\n"
+"POT-Creation-Date: 2016-08-19 17:03+0000\n"
+"PO-Revision-Date: 2016-08-21 14:54+0200\n"
 "Last-Translator: Мирослав Николић <miroslavnikolic@rocketmail.com>\n"
-"Language-Team: Serbian <gnom@prevod.org>\n"
+"Language-Team: Serbian <gnome@prevod.org>\n"
 "Language: sr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -352,65 +352,65 @@ msgstr "_Одредник:"
 msgid "_Type:"
 msgstr "_Врста:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:1 ../latex/latex/actions.py:356
+#: ../data/ui/insert_graphics_dialog.ui.h:1
+msgid "Image Size"
+msgstr "Величина слике"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:2
+msgid "Text Width"
+msgstr "Ширина текста"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:3 ../latex/latex/actions.py:356
 #: ../latex/latex/actions.py:358
 msgid "Insert Graphics"
 msgstr "Уметни графикон"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:2
+#: ../data/ui/insert_graphics_dialog.ui.h:4
 msgid "_File:"
 msgstr "_Датотека:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:3
+#: ../data/ui/insert_graphics_dialog.ui.h:5
 #: ../data/ui/insert_table_dialog.ui.h:7
 msgid "_Caption:"
 msgstr "_Наслов:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:4
+#: ../data/ui/insert_graphics_dialog.ui.h:6
 #: ../data/ui/insert_table_dialog.ui.h:8
 msgid "_Label:"
 msgstr "_Натпис:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:5
+#: ../data/ui/insert_graphics_dialog.ui.h:7
 msgid "fig:"
 msgstr "фиг:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:6
+#: ../data/ui/insert_graphics_dialog.ui.h:8
 msgid "_Width:"
 msgstr "_Ширина:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:8
+#: ../data/ui/insert_graphics_dialog.ui.h:10
 #, no-c-format
 msgid "% _of"
 msgstr "% _од"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:9
+#: ../data/ui/insert_graphics_dialog.ui.h:11
 msgid "_Rotate:"
 msgstr "_Заокрени:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:10
+#: ../data/ui/insert_graphics_dialog.ui.h:12
 msgid "° CCW"
 msgstr "° ССК"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:11
+#: ../data/ui/insert_graphics_dialog.ui.h:13
 msgid "Flip _Horizontally"
 msgstr "Изврни _водоравно"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:12
+#: ../data/ui/insert_graphics_dialog.ui.h:14
 msgid "_Spread over two Columns"
 msgstr "_Рашири преко две колоне"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:13
+#: ../data/ui/insert_graphics_dialog.ui.h:15
 msgid "Floating _Object"
 msgstr "Лебдећи _објекат"
-
-#: ../data/ui/insert_graphics_dialog.ui.h:14
-msgid "Image Size"
-msgstr "Величина слике"
-
-#: ../data/ui/insert_graphics_dialog.ui.h:15
-msgid "Text Width"
-msgstr "Ширина текста"
 
 #: ../data/ui/insert_listing_dialog.ui.h:1 ../latex/latex/actions.py:388
 #: ../latex/latex/actions.py:390
@@ -586,12 +586,11 @@ msgstr "Преглед стила:"
 msgid "Refresh Style Preview"
 msgstr "Освежи преглед стила"
 
-#: ../latex/appactivatable.py:64 ../latex/latex/actions.py:63
+#: ../latex/appactivatable.py:66 ../latex/latex/actions.py:63
 msgid "LaTeX"
 msgstr "ЛаТеКс"
 
-#: ../latex/appactivatable.py:80
-#| msgid "LaTeX News"
+#: ../latex/appactivatable.py:89
 msgid "LaTeX Tools"
 msgstr "Алати ЛаТеКса"
 
@@ -699,7 +698,8 @@ msgid "Blackboard Bold"
 msgstr "Подебљана табла"
 
 #: ../latex/latex/actions.py:258 ../latex/latex/actions.py:259
-msgid "Caligraphy"
+#| msgid "Caligraphy"
+msgid "Calligraphy"
 msgstr "Калиграфија"
 
 #: ../latex/latex/actions.py:265 ../latex/latex/actions.py:266
@@ -802,6 +802,51 @@ msgstr "Низ једначина"
 #: ../latex/latex/actions.py:516 ../latex/latex/actions.py:517
 msgid "Numbered Array of Equations"
 msgstr "Набројани низ једначина"
+
+#: ../latex/latex/dialogs.py:331
+#| msgid "De_fault"
+msgid "Default"
+msgstr "Уобичајено"
+
+#. PNG mode
+#. label, mode constant
+#: ../latex/latex/dialogs.py:1062
+msgid "Monochrome"
+msgstr "Једнобојно"
+
+#: ../latex/latex/dialogs.py:1063
+msgid "Grayscale"
+msgstr "Нијанса сиве"
+
+#: ../latex/latex/dialogs.py:1064
+msgid "RGB"
+msgstr "ЦЗП"
+
+#: ../latex/latex/dialogs.py:1065
+msgid "RGBA"
+msgstr "ЦЗПА"
+
+#. anti-alias
+#. label, factor
+#: ../latex/latex/dialogs.py:1077
+msgid "Off"
+msgstr "Искљ."
+
+#: ../latex/latex/dialogs.py:1078
+msgid "1x"
+msgstr "1x"
+
+#: ../latex/latex/dialogs.py:1079
+msgid "2x"
+msgstr "2x"
+
+#: ../latex/latex/dialogs.py:1080
+msgid "4x"
+msgstr "4x"
+
+#: ../latex/latex/dialogs.py:1081
+msgid "8x"
+msgstr "8x"
 
 #: ../latex/latex/environment.py:141
 msgid "Book of abstracts"
@@ -922,6 +967,15 @@ msgstr "Скупи све"
 #: ../latex/outline.py:114
 msgid "Outline"
 msgstr "Општи преглед"
+
+#: ../latex/preferences/tools.py:81
+#, python-format
+msgid ""
+"The file \"%s\" is corrupted and cannot be parsed. It was moved to \"%s\", "
+"and the Latex Plugin will now fallback to the default tools."
+msgstr ""
+"Датотека „%s“ је оштећена и не може да се обради. Премештена је у „%s“, а "
+"прикључак Латекса ће се сада пребацити на подразумеване алате."
 
 #: ../latex/tools/views.py:62
 msgid "Job"
