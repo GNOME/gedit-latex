@@ -1,15 +1,15 @@
 # Thai translation for gedit-latex.
-# Copyright (C) 2011-2012 Free Software Foundation Inc.
+# Copyright (C) 2011-2016 Free Software Foundation Inc.
 # This file is distributed under the same license as the gedit-latex package.
-# Akom Chotiphantawanon <knight2000@gmail.com>, 2011-2012, 2015.
+# Akom Chotiphantawanon <knight2000@gmail.com>, 2011-2012, 2015-2016.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gedit-latex master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=gedit&keywords=I18N+L10N&component=Plugins\n"
-"POT-Creation-Date: 2015-03-14 06:06+0000\n"
-"PO-Revision-Date: 2015-03-14 19:16+0700\n"
+"product=gedit&keywords=I18N+L10N&component=LaTeX\n"
+"POT-Creation-Date: 2016-08-21 13:00+0000\n"
+"PO-Revision-Date: 2016-09-10 11:47+0700\n"
 "Last-Translator: Akom Chotiphantawanon <knight2000@gmail.com>\n"
 "Language-Team: Thai <thai-l10n@googlegroups.com>\n"
 "Language: th\n"
@@ -345,65 +345,65 @@ msgstr "_ตัวระบุ:"
 msgid "_Type:"
 msgstr "_ชนิด:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:1 ../latex/latex/actions.py:356
+#: ../data/ui/insert_graphics_dialog.ui.h:1
+msgid "Image Size"
+msgstr "ขนาดภาพ"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:2
+msgid "Text Width"
+msgstr "ความกว้างข้อความ"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:3 ../latex/latex/actions.py:356
 #: ../latex/latex/actions.py:358
 msgid "Insert Graphics"
 msgstr "แทรกรูปภาพ"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:2
+#: ../data/ui/insert_graphics_dialog.ui.h:4
 msgid "_File:"
 msgstr "แ_ฟ้ม:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:3
+#: ../data/ui/insert_graphics_dialog.ui.h:5
 #: ../data/ui/insert_table_dialog.ui.h:7
 msgid "_Caption:"
 msgstr "_คำบรรยาย:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:4
+#: ../data/ui/insert_graphics_dialog.ui.h:6
 #: ../data/ui/insert_table_dialog.ui.h:8
 msgid "_Label:"
 msgstr "_ป้ายชื่อ:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:5
+#: ../data/ui/insert_graphics_dialog.ui.h:7
 msgid "fig:"
 msgstr "fig:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:6
+#: ../data/ui/insert_graphics_dialog.ui.h:8
 msgid "_Width:"
 msgstr "ความ_กว้าง:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:8
+#: ../data/ui/insert_graphics_dialog.ui.h:10
 #, no-c-format
 msgid "% _of"
 msgstr "% _ของ"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:9
+#: ../data/ui/insert_graphics_dialog.ui.h:11
 msgid "_Rotate:"
 msgstr "_หมุน:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:10
+#: ../data/ui/insert_graphics_dialog.ui.h:12
 msgid "° CCW"
 msgstr "° ทวนเข็ม"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:11
+#: ../data/ui/insert_graphics_dialog.ui.h:13
 msgid "Flip _Horizontally"
 msgstr "พลิกแนว_นอน"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:12
+#: ../data/ui/insert_graphics_dialog.ui.h:14
 msgid "_Spread over two Columns"
 msgstr "แผ่คลุม_สองคอลัมน์"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:13
+#: ../data/ui/insert_graphics_dialog.ui.h:15
 msgid "Floating _Object"
 msgstr "_วัตถุลอยตัว"
-
-#: ../data/ui/insert_graphics_dialog.ui.h:14
-msgid "Image Size"
-msgstr "ขนาดภาพ"
-
-#: ../data/ui/insert_graphics_dialog.ui.h:15
-msgid "Text Width"
-msgstr "ความกว้างข้อความ"
 
 #: ../data/ui/insert_listing_dialog.ui.h:1 ../latex/latex/actions.py:388
 #: ../latex/latex/actions.py:390
@@ -579,11 +579,11 @@ msgstr "ตัวอย่างรูปแบบ:"
 msgid "Refresh Style Preview"
 msgstr "เรียกแสดงตัวอย่างรูปแบบใหม่"
 
-#: ../latex/appactivatable.py:64 ../latex/latex/actions.py:63
+#: ../latex/appactivatable.py:66 ../latex/latex/actions.py:63
 msgid "LaTeX"
 msgstr "LaTeX"
 
-#: ../latex/appactivatable.py:80
+#: ../latex/appactivatable.py:89
 msgid "LaTeX Tools"
 msgstr "เครื่องมือ LaTeX"
 
@@ -691,8 +691,8 @@ msgid "Blackboard Bold"
 msgstr "Blackboard Bold"
 
 #: ../latex/latex/actions.py:258 ../latex/latex/actions.py:259
-msgid "Caligraphy"
-msgstr "Caligraphy"
+msgid "Calligraphy"
+msgstr "อักษรวิจิตร"
 
 #: ../latex/latex/actions.py:265 ../latex/latex/actions.py:266
 msgid "Fraktur"
@@ -794,6 +794,50 @@ msgstr "จัดเรียงแถวสมการ"
 #: ../latex/latex/actions.py:516 ../latex/latex/actions.py:517
 msgid "Numbered Array of Equations"
 msgstr "จัดเรียงแถวสมการกำกับด้วยหมายเลข"
+
+#: ../latex/latex/dialogs.py:331
+msgid "Default"
+msgstr "ค่าปริยาย"
+
+#. PNG mode
+#. label, mode constant
+#: ../latex/latex/dialogs.py:1062
+msgid "Monochrome"
+msgstr "สีเดียว"
+
+#: ../latex/latex/dialogs.py:1063
+msgid "Grayscale"
+msgstr "ขาวดำ"
+
+#: ../latex/latex/dialogs.py:1064
+msgid "RGB"
+msgstr "RGB"
+
+#: ../latex/latex/dialogs.py:1065
+msgid "RGBA"
+msgstr "RGBA"
+
+#. anti-alias
+#. label, factor
+#: ../latex/latex/dialogs.py:1077
+msgid "Off"
+msgstr "ปิด"
+
+#: ../latex/latex/dialogs.py:1078
+msgid "1x"
+msgstr "1x"
+
+#: ../latex/latex/dialogs.py:1079
+msgid "2x"
+msgstr "2x"
+
+#: ../latex/latex/dialogs.py:1080
+msgid "4x"
+msgstr "4x"
+
+#: ../latex/latex/dialogs.py:1081
+msgid "8x"
+msgstr "8x"
 
 #: ../latex/latex/environment.py:141
 msgid "Book of abstracts"
@@ -914,6 +958,15 @@ msgstr "ยุบทั้งหมด"
 #: ../latex/outline.py:114
 msgid "Outline"
 msgstr "เค้าโครง"
+
+#: ../latex/preferences/tools.py:81
+#, python-format
+msgid ""
+"The file \"%s\" is corrupted and cannot be parsed. It was moved to \"%s\", "
+"and the Latex Plugin will now fallback to the default tools."
+msgstr ""
+"แฟ้ม \"%s\" เสียหายและไม่สามารถแจงได้ จึงได้ถูกเปลี่ยนชื่อเป็น \"%s\" และปลั๊กอิน Latex "
+"จะเปลี่ยนไปใช้วิธีสำรองโดยใช้เครื่องมือปริยายแทน"
 
 #: ../latex/tools/views.py:62
 msgid "Job"
