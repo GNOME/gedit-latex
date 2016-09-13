@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the gedit-latex package.
 # Nicolás Satragno <nsatragno@gmail.com>, 2011.
 # 
-# Daniel Mustieles <daniel.mustieles@gmail.com>, 2011, 2012., 2015, 2016.
+# Daniel Mustieles <daniel.mustieles@gmail.com>, 2011, 2012, 2015, 2016.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gedit-latex master\n"
 "Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=gedit&keywords=I18N+L10N&component=Plugins\n"
-"POT-Creation-Date: 2016-05-20 19:12+0000\n"
+"product=gedit&keywords=I18N+L10N&component=LaTeX\n"
+"POT-Creation-Date: 2016-08-19 17:03+0000\n"
 "PO-Revision-Date: 2016-05-26 12:44+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
 "Language-Team: Español; Castellano <gnome-es-list@gnome.org>\n"
@@ -701,7 +701,6 @@ msgid "Blackboard Bold"
 msgstr "Negrita de pizarra"
 
 #: ../latex/latex/actions.py:258 ../latex/latex/actions.py:259
-#| msgid "Caligraphy"
 msgid "Calligraphy"
 msgstr "Caligrafía"
 
@@ -811,7 +810,6 @@ msgid "Numbered Array of Equations"
 msgstr "Conjunto de ecuaciones numeradas"
 
 #: ../latex/latex/dialogs.py:331
-#| msgid "De_fault"
 msgid "Default"
 msgstr "Predeterminado"
 
