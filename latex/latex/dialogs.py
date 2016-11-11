@@ -1075,10 +1075,10 @@ class BuildImageDialog(GladeInterface):
 
             self._storeAntialias = Gtk.ListStore(str, int)    # label, factor
             self._storeAntialias.append([_("Off"), 0])
-            self._storeAntialias.append([_("1x"), 1])
-            self._storeAntialias.append([_("2x"), 2])
-            self._storeAntialias.append([_("4x"), 4])
-            self._storeAntialias.append([_("8x"), 8])
+            self._storeAntialias.append([_("1×"), 1])
+            self._storeAntialias.append([_("2×"), 2])
+            self._storeAntialias.append([_("4×"), 4])
+            self._storeAntialias.append([_("8×"), 8])
 
             self._comboAntialias = self.find_widget("comboAntialias")
             self._comboAntialias.set_model(self._storeAntialias)

@@ -78,8 +78,8 @@ class ToolPreferences(GObject.GObject):
                         break
                     i += 1
                 os.rename(filename, destname)
-                open_error(_("The file \"%s\" is corrupted and cannot be "
-                            "parsed. It was moved to \"%s\", and the Latex "
+                open_error(_("The file “%s” is corrupted and cannot be "
+                            "parsed. It was moved to “%s”, and the Latex "
                             "Plugin will now fallback to the default tools.")
                             % (filename, destname))
 
