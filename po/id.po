@@ -6,11 +6,11 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gedit-latex master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=gedit&keywords=I18N+L10N&component=Plugins\n"
-"POT-Creation-Date: 2014-10-30 16:17+0000\n"
-"PO-Revision-Date: 2015-09-05 18:42+0700\n"
-"Last-Translator: Andika Triwidada <andika@gmail.com>\n"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
+"product=gedit&keywords=I18N+L10N&component=LaTeX\n"
+"POT-Creation-Date: 2017-04-08 14:15+0000\n"
+"PO-Revision-Date: 2017-04-10 18:44+0700\n"
+"Last-Translator: Andika Triwidada <atriwidada@gnome.org>\n"
 "Language-Team: Indonesian <gnome@i15n.org>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Poedit 1.7.1\n"
+"X-Generator: Poedit 1.6.10\n"
 
 #: ../latex.plugin.desktop.in.in.h:1
 msgid "LaTeX Plugin"
@@ -200,8 +200,8 @@ msgstr "Path Relatif ke Berkas .tex untuk Mencari Grafis"
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:14
 msgid "Extra LaTeX commands used to mark issues, such as \\fxnote{foo}"
 msgstr ""
-"Perintah LaTeX ekstra yang dipakai untuk menandai masalah, seperti "
-"misalnya \\fxnote{foo}"
+"Perintah LaTeX ekstra yang dipakai untuk menandai masalah, seperti misalnya "
+"\\fxnote{foo}"
 
 #: ../data/ui/build_image_dialog.ui.h:1
 msgid "Render to Image"
@@ -300,6 +300,8 @@ msgid ""
 "Valid placeholders are <tt>$filename</tt>, <tt>$shortname</tt>, <tt>"
 "$directory</tt>"
 msgstr ""
+"Placeholder yang valid adalah <tt>$filename</tt>, <tt>$shortname</tt>, <tt>"
+"$directory</tt>"
 
 #: ../data/ui/configure_tool.ui.h:4
 msgid "<b>_Jobs</b>"
@@ -349,65 +351,65 @@ msgstr "_Identifier:"
 msgid "_Type:"
 msgstr "_Tipe:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:1 ../latex/latex/actions.py:356
+#: ../data/ui/insert_graphics_dialog.ui.h:1
+msgid "Image Size"
+msgstr "Ukuran Gambar"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:2
+msgid "Text Width"
+msgstr "Lebar Teks"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:3 ../latex/latex/actions.py:356
 #: ../latex/latex/actions.py:358
 msgid "Insert Graphics"
 msgstr "Sisipkan Grafis"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:2
+#: ../data/ui/insert_graphics_dialog.ui.h:4
 msgid "_File:"
 msgstr "_Berkas:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:3
+#: ../data/ui/insert_graphics_dialog.ui.h:5
 #: ../data/ui/insert_table_dialog.ui.h:7
 msgid "_Caption:"
 msgstr "_Kapsi:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:4
+#: ../data/ui/insert_graphics_dialog.ui.h:6
 #: ../data/ui/insert_table_dialog.ui.h:8
 msgid "_Label:"
 msgstr "_Label:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:5
+#: ../data/ui/insert_graphics_dialog.ui.h:7
 msgid "fig:"
 msgstr "fig:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:6
+#: ../data/ui/insert_graphics_dialog.ui.h:8
 msgid "_Width:"
 msgstr "_Lebar:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:8
+#: ../data/ui/insert_graphics_dialog.ui.h:10
 #, no-c-format
 msgid "% _of"
 msgstr "% _dari"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:9
+#: ../data/ui/insert_graphics_dialog.ui.h:11
 msgid "_Rotate:"
 msgstr "Puta_r:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:10
+#: ../data/ui/insert_graphics_dialog.ui.h:12
 msgid "° CCW"
 msgstr "° CCW"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:11
+#: ../data/ui/insert_graphics_dialog.ui.h:13
 msgid "Flip _Horizontally"
 msgstr "Balikkan Secara _Horisontal"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:12
+#: ../data/ui/insert_graphics_dialog.ui.h:14
 msgid "_Spread over two Columns"
 msgstr "_Sebarkan ke dua Kolom"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:13
+#: ../data/ui/insert_graphics_dialog.ui.h:15
 msgid "Floating _Object"
 msgstr "_Objek Mengambang"
-
-#: ../data/ui/insert_graphics_dialog.ui.h:14
-msgid "Image Size"
-msgstr "Ukuran Gambar"
-
-#: ../data/ui/insert_graphics_dialog.ui.h:15
-msgid "Text Width"
-msgstr "Lebar Teks"
 
 #: ../data/ui/insert_listing_dialog.ui.h:1 ../latex/latex/actions.py:388
 #: ../latex/latex/actions.py:390
@@ -583,11 +585,11 @@ msgstr "Pratilik Gaya:"
 msgid "Refresh Style Preview"
 msgstr "Segarkan Pratilik Gaya"
 
-#: ../latex/appactivatable.py:64 ../latex/latex/actions.py:63
+#: ../latex/appactivatable.py:66 ../latex/latex/actions.py:63
 msgid "LaTeX"
 msgstr "LaTeX"
 
-#: ../latex/appactivatable.py:80
+#: ../latex/appactivatable.py:89
 msgid "LaTeX Tools"
 msgstr "Perkakas LaTeX"
 
@@ -668,7 +670,7 @@ msgstr "Miring"
 
 #: ../latex/latex/actions.py:208 ../latex/latex/actions.py:209
 msgid "Emphasize"
-msgstr ""
+msgstr "Penekanan"
 
 #: ../latex/latex/actions.py:215 ../latex/latex/actions.py:216
 msgid "Underline"
@@ -692,15 +694,15 @@ msgstr "Mesin tik"
 
 #: ../latex/latex/actions.py:250 ../latex/latex/actions.py:251
 msgid "Blackboard Bold"
-msgstr ""
+msgstr "Tebal Papan Tulis"
 
 #: ../latex/latex/actions.py:258 ../latex/latex/actions.py:259
-msgid "Caligraphy"
+msgid "Calligraphy"
 msgstr "Kaligrafi"
 
 #: ../latex/latex/actions.py:265 ../latex/latex/actions.py:266
 msgid "Fraktur"
-msgstr ""
+msgstr "Fraktur"
 
 #: ../latex/latex/actions.py:273 ../latex/latex/actions.py:274
 #: ../latex/latex/actions.py:286 ../latex/latex/actions.py:287
@@ -709,7 +711,7 @@ msgstr "Daftar"
 
 #: ../latex/latex/actions.py:278 ../latex/latex/actions.py:279
 msgid "Itemize"
-msgstr ""
+msgstr "Jadikan Daftar Bulet"
 
 #: ../latex/latex/actions.py:291 ../latex/latex/actions.py:292
 msgid "Enumerate"
@@ -799,6 +801,50 @@ msgstr "Larik Persamaan"
 msgid "Numbered Array of Equations"
 msgstr "Larik Persamaan Bernomor"
 
+#: ../latex/latex/dialogs.py:331
+msgid "Default"
+msgstr "Baku"
+
+#. PNG mode
+#. label, mode constant
+#: ../latex/latex/dialogs.py:1062
+msgid "Monochrome"
+msgstr "Monokrom"
+
+#: ../latex/latex/dialogs.py:1063
+msgid "Grayscale"
+msgstr "Skala abu"
+
+#: ../latex/latex/dialogs.py:1064
+msgid "RGB"
+msgstr "RGB"
+
+#: ../latex/latex/dialogs.py:1065
+msgid "RGBA"
+msgstr "RGBA"
+
+#. anti-alias
+#. label, factor
+#: ../latex/latex/dialogs.py:1077
+msgid "Off"
+msgstr "Mati"
+
+#: ../latex/latex/dialogs.py:1078
+msgid "1x"
+msgstr "1x"
+
+#: ../latex/latex/dialogs.py:1079
+msgid "2x"
+msgstr "2x"
+
+#: ../latex/latex/dialogs.py:1080
+msgid "4x"
+msgstr "4x"
+
+#: ../latex/latex/dialogs.py:1081
+msgid "8x"
+msgstr "8x"
+
 #: ../latex/latex/environment.py:141
 msgid "Book of abstracts"
 msgstr "Buku ringkasan"
@@ -821,7 +867,7 @@ msgstr "Dokumentasi AMS"
 
 #: ../latex/latex/environment.py:146
 msgid "Proceedings (AMS)"
-msgstr ""
+msgstr "Prosiding (AMS)"
 
 #: ../latex/latex/environment.py:147
 msgid "Report"
@@ -829,7 +875,7 @@ msgstr "Laporan"
 
 #: ../latex/latex/environment.py:148
 msgid "Beamer slides"
-msgstr ""
+msgstr "Salindia beamer"
 
 #: ../latex/latex/environment.py:149
 msgid "Belgian letter"
@@ -841,11 +887,11 @@ msgstr "Buku"
 
 #: ../latex/latex/environment.py:151
 msgid "Flashcard"
-msgstr ""
+msgstr "Flashcard"
 
 #: ../latex/latex/environment.py:152
 msgid "Proceedings (IAG)"
-msgstr ""
+msgstr "Prosiding (IAG)"
 
 #: ../latex/latex/environment.py:153
 msgid "Letter"
@@ -865,7 +911,7 @@ msgstr "Panduan LaTeX"
 
 #: ../latex/latex/environment.py:157
 msgid "Proceedings"
-msgstr ""
+msgstr "Prosiding"
 
 #: ../latex/latex/environment.py:158
 msgid "Article (KOMA-Script)"
@@ -918,6 +964,15 @@ msgstr "Lipat Semua"
 #: ../latex/outline.py:114
 msgid "Outline"
 msgstr "Kerangka"
+
+#: ../latex/preferences/tools.py:81
+#, python-format
+msgid ""
+"The file \"%s\" is corrupted and cannot be parsed. It was moved to \"%s\", "
+"and the Latex Plugin will now fallback to the default tools."
+msgstr ""
+"Berkas \"%s\" rusak dan tidak dapat diurai. Itu dipindahkan ke \"%s\", dan "
+"Pengaya LaTeX kini akan berpindah ke cadangan alat baku."
 
 #: ../latex/tools/views.py:62
 msgid "Job"
