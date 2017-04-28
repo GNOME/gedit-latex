@@ -2,23 +2,22 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Iñaki Larrañaga Murgoitio <dooteo@zundan.com>, 2014, 2015.
+# Iñaki Larrañaga Murgoitio <dooteo@zundan.com>, 2014, 2015, 2017.
 # Edurne Labaka <elabaka@uzei.com>, 2015.
 msgid ""
 msgstr ""
 "Project-Id-Version: gedit-latex master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=gedit&keywords=I18N+L10N&component=Plugins\n"
-"POT-Creation-Date: 2015-02-07 12:42+0100\n"
-"PO-Revision-Date: 2014-11-10 16:59+0100\n"
-"Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@zundan.com>\n"
-"Language-Team: Basque <librezale@librezale.org>\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-04-28 09:28+0200\n"
+"PO-Revision-Date: 2017-04-28 09:26+0200\n"
+"Last-Translator: Inaki Larranaga Murgoitio <dooteo@zundan.com>\n"
+"Language-Team: Basque <librezale@librezale.eus>\n"
 "Language: eu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 1.6.10\n"
+"X-Generator: Lokalize 1.5\n"
 
 #: ../latex.plugin.desktop.in.in.h:1
 msgid "LaTeX Plugin"
@@ -351,65 +350,65 @@ msgstr "_Identifikatzailea:"
 msgid "_Type:"
 msgstr "_Mota:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:1 ../latex/latex/actions.py:356
+#: ../data/ui/insert_graphics_dialog.ui.h:1
+msgid "Image Size"
+msgstr "Irudiaren tamaina"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:2
+msgid "Text Width"
+msgstr "Testuaren zabalera"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:3 ../latex/latex/actions.py:356
 #: ../latex/latex/actions.py:358
 msgid "Insert Graphics"
 msgstr "Txertatu grafikoa"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:2
+#: ../data/ui/insert_graphics_dialog.ui.h:4
 msgid "_File:"
 msgstr "_Fitxategia:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:3
+#: ../data/ui/insert_graphics_dialog.ui.h:5
 #: ../data/ui/insert_table_dialog.ui.h:7
 msgid "_Caption:"
 msgstr "E_pigrafea:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:4
+#: ../data/ui/insert_graphics_dialog.ui.h:6
 #: ../data/ui/insert_table_dialog.ui.h:8
 msgid "_Label:"
 msgstr "E_tiketa:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:5
+#: ../data/ui/insert_graphics_dialog.ui.h:7
 msgid "fig:"
 msgstr "irud:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:6
+#: ../data/ui/insert_graphics_dialog.ui.h:8
 msgid "_Width:"
 msgstr "_Zabalera:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:8
+#: ../data/ui/insert_graphics_dialog.ui.h:10
 #, no-c-format
 msgid "% _of"
 msgstr "Honen %: "
 
-#: ../data/ui/insert_graphics_dialog.ui.h:9
+#: ../data/ui/insert_graphics_dialog.ui.h:11
 msgid "_Rotate:"
 msgstr "_Biratu:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:10
+#: ../data/ui/insert_graphics_dialog.ui.h:12
 msgid "° CCW"
-msgstr ""
+msgstr "° CCW"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:11
+#: ../data/ui/insert_graphics_dialog.ui.h:13
 msgid "Flip _Horizontally"
 msgstr "Irauli _horizontalki"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:12
+#: ../data/ui/insert_graphics_dialog.ui.h:14
 msgid "_Spread over two Columns"
 msgstr "_Hedatu bi zutabetan"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:13
+#: ../data/ui/insert_graphics_dialog.ui.h:15
 msgid "Floating _Object"
 msgstr "_Objektu mugikorra"
-
-#: ../data/ui/insert_graphics_dialog.ui.h:14
-msgid "Image Size"
-msgstr "Irudiaren tamaina"
-
-#: ../data/ui/insert_graphics_dialog.ui.h:15
-msgid "Text Width"
-msgstr "Testuaren zabalera"
 
 #: ../data/ui/insert_listing_dialog.ui.h:1 ../latex/latex/actions.py:388
 #: ../latex/latex/actions.py:390
@@ -536,6 +535,8 @@ msgstr "PDFren _metadatuak barne"
 #: ../data/ui/new_document_template_dialog.ui.h:19
 msgid "This adds metadata to the document. Requires package <tt>ifpdf</tt>."
 msgstr ""
+"Honek meta-datuak gehitzen dizkio dokumentuari. <tt>ifpdf</tt> paketea behar "
+"du."
 
 #: ../data/ui/new_document_template_dialog.ui.h:20
 msgid "Date:"
@@ -585,254 +586,285 @@ msgstr "Estiloaren aurrebista:"
 msgid "Refresh Style Preview"
 msgstr "Freskatu estiloaren aurrebista"
 
-#: ../latex/appactivatable.py:64 ../latex/latex/actions.py:63
+#: ../latex/appactivatable.py:66 ../latex/latex/actions.py:63
 msgid "LaTeX"
-msgstr ""
+msgstr "LaTeX"
 
-#: ../latex/appactivatable.py:80
-#, fuzzy
+#: ../latex/appactivatable.py:89
 msgid "LaTeX Tools"
-msgstr "Tresnak"
+msgstr "LaTeX-en tresnak"
 
 #: ../latex/bibtex/actions.py:32
-#, fuzzy
 msgid "BibTeX"
-msgstr "<b>BibTeX</b>"
+msgstr "BibTeX"
 
 #: ../latex/bibtex/actions.py:43
 msgid "New BibTeX Entry..."
-msgstr ""
+msgstr "BibTeX sarrera berria..."
 
 #: ../latex/bibtex/actions.py:46
-#, fuzzy
 msgid "Create a new BibTeX entry"
-msgstr "Sortu bibliografiaren sarrera"
+msgstr "Sortu BibTeX sarrera berria"
 
 #. add grouping controls to toolbar
 #: ../latex/bibtex/views.py:56
 msgid "No Grouping"
-msgstr ""
+msgstr "Ez elkartu"
 
 #: ../latex/bibtex/views.py:57
 msgid "Group by Type"
-msgstr ""
+msgstr "Elkartu motaren arabera"
 
 #: ../latex/bibtex/views.py:58
 msgid "Group by Author"
-msgstr ""
+msgstr "Elkarte egilearen arabera"
 
 #: ../latex/bibtex/views.py:59
 msgid "Group by Year"
-msgstr ""
+msgstr "Elkartu urtearen arabera"
 
 #. group by year
 #: ../latex/bibtex/views.py:197
 msgid "<i>n/a</i>"
-msgstr ""
+msgstr "<i>e/e</i>"
 
 #: ../latex/bibtex/views.py:240
-#, fuzzy
 msgid "Unknown Author"
-msgstr "Egilea"
+msgstr "Egile ezezaguna"
 
 #: ../latex/latex/actions.py:73
-#, fuzzy
 msgid "New LaTeX Document..."
-msgstr "LaTeX dokumentu berria"
+msgstr "LaTeX dokumentu berria..."
 
 #: ../latex/latex/actions.py:76
-#, fuzzy
 msgid "Create a new LaTeX document"
-msgstr "LaTeX dokumentu berria"
+msgstr "Sortu LaTeX dokumentu berria"
 
 #: ../latex/latex/actions.py:95
-#, fuzzy
 msgid "Choose Master Document..."
-msgstr "Hautatu dokumentu maisua"
+msgstr "Aukeratu dokumentu maisua..."
 
 #: ../latex/latex/actions.py:107
 msgid "Close Nearest Environment"
-msgstr ""
+msgstr "Itxi ingurune gertuena"
 
 #: ../latex/latex/actions.py:109
 msgid "Close the nearest TeX environment at left of the cursor"
-msgstr ""
+msgstr "Itxi kurtsorearen ezkerretara dagoen TeX ingurune gertuena"
 
 #: ../latex/latex/actions.py:157
-#, fuzzy
 msgid "Use Bibliography..."
-msgstr "Erabili bibliografia"
+msgstr "Erabili bibliografia..."
 
 #: ../latex/latex/actions.py:179 ../latex/latex/actions.py:181
 #: ../latex/latex/actions.py:189 ../latex/latex/actions.py:190
-#, fuzzy
 msgid "Font Family"
-msgstr "Letra-_tipo lehenetsia:"
+msgstr "Letra-familia"
 
 #: ../latex/latex/actions.py:194 ../latex/latex/actions.py:195
 msgid "Bold"
-msgstr ""
+msgstr "Lodia"
 
 #: ../latex/latex/actions.py:201 ../latex/latex/actions.py:202
 msgid "Italic"
-msgstr ""
+msgstr "Etzana"
 
 #: ../latex/latex/actions.py:208 ../latex/latex/actions.py:209
 msgid "Emphasize"
-msgstr ""
+msgstr "Enfasia"
 
 #: ../latex/latex/actions.py:215 ../latex/latex/actions.py:216
 msgid "Underline"
-msgstr ""
+msgstr "Azpimarra"
 
 #: ../latex/latex/actions.py:222 ../latex/latex/actions.py:223
 msgid "Small Capitals"
-msgstr ""
+msgstr "Maiuskula txikiak"
 
 #: ../latex/latex/actions.py:229 ../latex/latex/actions.py:230
 msgid "Roman"
-msgstr ""
+msgstr "Erromatarra"
 
 #: ../latex/latex/actions.py:236 ../latex/latex/actions.py:237
 msgid "Sans Serif"
-msgstr ""
+msgstr "Sans Serif"
 
 #: ../latex/latex/actions.py:243 ../latex/latex/actions.py:244
 msgid "Typewriter"
-msgstr ""
+msgstr "Idazmakina"
 
 #: ../latex/latex/actions.py:250 ../latex/latex/actions.py:251
 msgid "Blackboard Bold"
-msgstr ""
+msgstr "Arbela lodia"
 
 #: ../latex/latex/actions.py:258 ../latex/latex/actions.py:259
-#, fuzzy
-msgid "Caligraphy"
-msgstr "Erabili bibliografia"
+msgid "Calligraphy"
+msgstr "Kaligrafia"
 
 #: ../latex/latex/actions.py:265 ../latex/latex/actions.py:266
 msgid "Fraktur"
-msgstr ""
+msgstr "Fraktur"
 
 #: ../latex/latex/actions.py:273 ../latex/latex/actions.py:274
 #: ../latex/latex/actions.py:286 ../latex/latex/actions.py:287
 msgid "List"
-msgstr ""
+msgstr "Zerrenda"
 
 #: ../latex/latex/actions.py:278 ../latex/latex/actions.py:279
 msgid "Itemize"
-msgstr ""
+msgstr "Elementuak"
 
 #: ../latex/latex/actions.py:291 ../latex/latex/actions.py:292
-#, fuzzy
 msgid "Enumerate"
-msgstr "_Sortuta"
+msgstr "Zenbatua"
 
 #: ../latex/latex/actions.py:298 ../latex/latex/actions.py:299
-#, fuzzy
 msgid "Description"
-msgstr "<b>_Azalpena</b>"
+msgstr "Azalpena"
 
 #: ../latex/latex/actions.py:304 ../latex/latex/actions.py:305
 #: ../latex/latex/actions.py:330 ../latex/latex/actions.py:331
 msgid "Structure"
-msgstr ""
+msgstr "Egitura"
 
 #: ../latex/latex/actions.py:308 ../latex/latex/actions.py:309
 msgid "Part"
-msgstr ""
+msgstr "Zatia"
 
 #: ../latex/latex/actions.py:322 ../latex/latex/actions.py:323
-#, fuzzy
 msgid "Section"
-msgstr "Kokalekua"
+msgstr "Atala"
 
 #: ../latex/latex/actions.py:335 ../latex/latex/actions.py:336
 msgid "Subsection"
-msgstr ""
+msgstr "Azpiatala"
 
 #: ../latex/latex/actions.py:342 ../latex/latex/actions.py:343
 msgid "Paragraph"
-msgstr ""
+msgstr "Paragrafoa"
 
 #: ../latex/latex/actions.py:349 ../latex/latex/actions.py:350
 msgid "Subparagraph"
-msgstr ""
+msgstr "Azpi-paragrafoa"
 
 #: ../latex/latex/actions.py:405 ../latex/latex/actions.py:407
 #: ../latex/latex/actions.py:415 ../latex/latex/actions.py:416
 msgid "Build"
-msgstr ""
+msgstr "Eraiki"
 
 #: ../latex/latex/actions.py:420
 msgid "Build Image"
-msgstr ""
+msgstr "Eraiki irudia"
 
 #: ../latex/latex/actions.py:422
 msgid "Build an image from the LaTeX document"
-msgstr ""
+msgstr "Eraiki irudia LaTeX dokumentutik"
 
 #: ../latex/latex/actions.py:440 ../latex/latex/actions.py:441
 #: ../latex/latex/actions.py:460 ../latex/latex/actions.py:461
 msgid "Justify"
-msgstr ""
+msgstr "Justifikatu"
 
 #: ../latex/latex/actions.py:445 ../latex/latex/actions.py:446
 msgid "Justify Left"
-msgstr ""
+msgstr "Justifikatu ezkerrera"
 
 #: ../latex/latex/actions.py:452 ../latex/latex/actions.py:453
 msgid "Justify Center"
-msgstr ""
+msgstr "Justifikatu erdira"
 
 #: ../latex/latex/actions.py:465 ../latex/latex/actions.py:466
 msgid "Justify Right"
-msgstr ""
+msgstr "Justifikatu eskuinera"
 
 #: ../latex/latex/actions.py:472 ../latex/latex/actions.py:473
 #: ../latex/latex/actions.py:485 ../latex/latex/actions.py:486
 msgid "Math"
-msgstr ""
+msgstr "Matematika"
 
 #: ../latex/latex/actions.py:477 ../latex/latex/actions.py:478
 msgid "Mathematical Environment"
-msgstr ""
+msgstr "Ingurune matematikoa"
 
 #: ../latex/latex/actions.py:490 ../latex/latex/actions.py:491
 msgid "Centered Formula"
-msgstr ""
+msgstr "Zentratutako formula"
 
 #: ../latex/latex/actions.py:497 ../latex/latex/actions.py:498
 msgid "Numbered Equation"
-msgstr ""
+msgstr "Zenbatutako ekuazioa"
 
 #: ../latex/latex/actions.py:506 ../latex/latex/actions.py:507
 msgid "Array of Equations"
-msgstr ""
+msgstr "Ekuazioen matrizea"
 
 #: ../latex/latex/actions.py:516 ../latex/latex/actions.py:517
 msgid "Numbered Array of Equations"
-msgstr ""
+msgstr "Ekuazioen matrize zenbatuak"
+
+#: ../latex/latex/dialogs.py:331
+msgid "Default"
+msgstr "Lehenetsia"
+
+#. PNG mode
+#. label, mode constant
+#: ../latex/latex/dialogs.py:1062
+msgid "Monochrome"
+msgstr "Monokromoa"
+
+#: ../latex/latex/dialogs.py:1063
+msgid "Grayscale"
+msgstr "Gris-eskala"
+
+#: ../latex/latex/dialogs.py:1064
+msgid "RGB"
+msgstr "GBU"
+
+#: ../latex/latex/dialogs.py:1065
+msgid "RGBA"
+msgstr "GBUA"
+
+#. anti-alias
+#. label, factor
+#: ../latex/latex/dialogs.py:1077
+msgid "Off"
+msgstr "Desgaitu"
+
+#: ../latex/latex/dialogs.py:1078
+msgid "1x"
+msgstr "1x"
+
+#: ../latex/latex/dialogs.py:1079
+msgid "2x"
+msgstr "2x"
+
+#: ../latex/latex/dialogs.py:1080
+msgid "4x"
+msgstr "4x"
+
+#: ../latex/latex/dialogs.py:1081
+msgid "8x"
+msgstr "8x"
 
 #: ../latex/latex/environment.py:141
 msgid "Book of abstracts"
-msgstr ""
+msgstr "Laburpenen liburua"
 
 #: ../latex/latex/environment.py:142
 msgid "Article"
-msgstr ""
+msgstr "Artikulua"
 
 #: ../latex/latex/environment.py:143
 msgid "Article (AMS)"
-msgstr ""
+msgstr "Artikulua (AMS)"
 
 #: ../latex/latex/environment.py:144
 msgid "Book (AMS)"
-msgstr ""
+msgstr "Liburua (AMS)"
 
 #: ../latex/latex/environment.py:145
 msgid "AMS Documentation"
-msgstr ""
+msgstr "AMS dokumentazioa"
 
 #: ../latex/latex/environment.py:146
 msgid "Proceedings (AMS)"
@@ -840,7 +872,7 @@ msgstr ""
 
 #: ../latex/latex/environment.py:147
 msgid "Report"
-msgstr ""
+msgstr "Txostena"
 
 #: ../latex/latex/environment.py:148
 msgid "Beamer slides"
@@ -848,11 +880,11 @@ msgstr ""
 
 #: ../latex/latex/environment.py:149
 msgid "Belgian letter"
-msgstr ""
+msgstr "Gutun belgiarra"
 
 #: ../latex/latex/environment.py:150
 msgid "Book"
-msgstr ""
+msgstr "Liburua"
 
 #: ../latex/latex/environment.py:151
 msgid "Flashcard"
@@ -864,22 +896,19 @@ msgstr ""
 
 #: ../latex/latex/environment.py:153
 msgid "Letter"
-msgstr ""
+msgstr "Gutuna"
 
 #: ../latex/latex/environment.py:154
-#, fuzzy
 msgid "LaTeX News"
-msgstr "LaTeX hedapenak"
+msgstr "LaTeX albisteak"
 
 #: ../latex/latex/environment.py:155
-#, fuzzy
 msgid "LaTeX Documentation"
-msgstr "LaTeX dokumentu berria"
+msgstr "LaTeX dokumentazioa"
 
 #: ../latex/latex/environment.py:156
-#, fuzzy
 msgid "LaTeX Guide"
-msgstr "LaTeX plugina"
+msgstr "LaTeX gida"
 
 #: ../latex/latex/environment.py:157
 msgid "Proceedings"
@@ -887,96 +916,91 @@ msgstr ""
 
 #: ../latex/latex/environment.py:158
 msgid "Article (KOMA-Script)"
-msgstr ""
+msgstr "Artikulua (KOMA-Script)"
 
 #: ../latex/latex/environment.py:159 ../latex/latex/environment.py:163
 msgid "Report (KOMA-Script)"
-msgstr ""
+msgstr "Txostena (KOMA-Script)"
 
 #: ../latex/latex/environment.py:160
 msgid "Book (KOMA-Script)"
-msgstr ""
+msgstr "Liburua (KOMA-Script)"
 
 #: ../latex/latex/environment.py:161
 msgid "Letter (KOMA-Script)"
-msgstr ""
+msgstr "Gutuna (KOMA-Script)"
 
 #: ../latex/latex/environment.py:162
 msgid "Letter 2 (KOMA-Script)"
-msgstr ""
+msgstr "2. gutuna (KOMA-Script)"
 
 #: ../latex/latex/environment.py:164
 msgid "Slides"
-msgstr ""
+msgstr "Gardenkiak"
 
 #: ../latex/latex/views.py:107
 msgid "Symbols"
-msgstr ""
+msgstr "Ikurrak"
 
 #: ../latex/latex/views.py:190
-#, fuzzy
 msgid "Show graphics"
-msgstr "Erakutsi grafikoak eskeman"
+msgstr "Erakutsi grafikoak"
 
 #: ../latex/latex/views.py:195
-#, fuzzy
 msgid "Show tables"
-msgstr "Erakutsi taulak eskeman"
+msgstr "Erakutsi taulak"
 
 #: ../latex/outline.py:58
-#, fuzzy
 msgid "Follow Editor"
-msgstr "Editorea"
+msgstr "Jarraitu editorea"
 
 #: ../latex/outline.py:63
 msgid "Expand All"
-msgstr ""
+msgstr "Zabaldu denak"
 
 #: ../latex/outline.py:67
 msgid "Collapse All"
-msgstr ""
+msgstr "Tolestu denak"
 
 #: ../latex/outline.py:114
 msgid "Outline"
-msgstr ""
+msgstr "Eskema"
 
 #: ../latex/tools/views.py:62
 msgid "Job"
-msgstr ""
+msgstr "Lana"
 
 #: ../latex/tools/views.py:73 ../latex/views.py:80
-#, fuzzy
 msgid "File"
-msgstr "_Fitxategia:"
+msgstr "Fitxategia"
 
 #: ../latex/tools/views.py:74
 msgid "Line"
-msgstr ""
+msgstr "Lerroa"
 
 #: ../latex/tools/views.py:87
 msgid "Abort Job"
-msgstr ""
+msgstr "Bertan behera utzi lana"
 
 #: ../latex/tools/views.py:92
 msgid "Show Detailed Output"
-msgstr ""
+msgstr "Erakutsi irteera xehetua"
 
 #: ../latex/views.py:67
 msgid "Message"
-msgstr ""
+msgstr "Mezua"
 
 #: ../latex/views.py:99
-#, fuzzy
 msgid "Show/Hide Warnings"
-msgstr "Ezkutatu abisuen kutxa"
+msgstr "Erakutsi/Ezkutatu abisuak"
 
 #: ../latex/views.py:107
 msgid "Show/Hide Tasks"
-msgstr ""
+msgstr "Erakutsi/Ezkutatu zereginak"
 
 #: ../latex/views.py:139
 msgid "Issues"
-msgstr ""
+msgstr "Argitalpenak"
 
 #~ msgid "<b>Templates</b>"
 #~ msgstr "<b>Txantiloiak</b>"
