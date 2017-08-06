@@ -179,6 +179,7 @@ class ProposalPopup(Gtk.Window):
         """
         self._set_proposals(proposals)
         self._move_to_cursor(text_view)
+        self.set_transient_for(text_view.get_toplevel())
 
         self.show_all()
 
