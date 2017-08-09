@@ -2,25 +2,25 @@
 # Copyright (C) 2011 gedit-latex's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gedit-latex package.
 #
-# Matej Urbančič <mateju@svn.gnome.org>, 2011 - 2015.
+# Matej Urbančič <mateju@svn.gnome.org>, 2011–2017.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gedit-latex master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=gedit&keywords=I18N+L10N&component=Plugins\n"
-"POT-Creation-Date: 2015-02-28 18:08+0000\n"
-"PO-Revision-Date: 2015-02-28 21:28+0100\n"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
+"product=gedit&keywords=I18N+L10N&component=LaTeX\n"
+"POT-Creation-Date: 2017-08-09 15:53+0200\n"
+"PO-Revision-Date: 2017-08-09 15:55+0200\n"
 "Last-Translator: Matej Urbančič <mateju@svn.gnome.org>\n"
 "Language-Team: Slovenian GNOME Translation Team <gnome-si@googlegroups.com>\n"
-"Language: sl\n"
+"Language: sl_SI\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 1 : n%100==2 ? 2 : n%100==3 || n"
 "%100==4 ? 3 : 0);\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 2.0.1\n"
 
 #: ../latex.plugin.desktop.in.in.h:1
 msgid "LaTeX Plugin"
@@ -352,65 +352,65 @@ msgstr "_Določilo:"
 msgid "_Type:"
 msgstr "Vrs_ta:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:1 ../latex/latex/actions.py:356
+#: ../data/ui/insert_graphics_dialog.ui.h:1
+msgid "Image Size"
+msgstr "Velikost slike"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:2
+msgid "Text Width"
+msgstr "Širina besedila"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:3 ../latex/latex/actions.py:356
 #: ../latex/latex/actions.py:358
 msgid "Insert Graphics"
 msgstr "Vstavi grafične predmete"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:2
+#: ../data/ui/insert_graphics_dialog.ui.h:4
 msgid "_File:"
 msgstr "_Datoteka:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:3
+#: ../data/ui/insert_graphics_dialog.ui.h:5
 #: ../data/ui/insert_table_dialog.ui.h:7
 msgid "_Caption:"
 msgstr "_Naslov:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:4
+#: ../data/ui/insert_graphics_dialog.ui.h:6
 #: ../data/ui/insert_table_dialog.ui.h:8
 msgid "_Label:"
 msgstr "_Naziv:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:5
+#: ../data/ui/insert_graphics_dialog.ui.h:7
 msgid "fig:"
 msgstr "fig:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:6
+#: ../data/ui/insert_graphics_dialog.ui.h:8
 msgid "_Width:"
 msgstr "_Širina:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:8
+#: ../data/ui/insert_graphics_dialog.ui.h:10
 #, no-c-format
 msgid "% _of"
 msgstr "% _od"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:9
+#: ../data/ui/insert_graphics_dialog.ui.h:11
 msgid "_Rotate:"
 msgstr "_Zavrti:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:10
+#: ../data/ui/insert_graphics_dialog.ui.h:12
 msgid "° CCW"
 msgstr "° obratno urinemu kazalcu"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:11
+#: ../data/ui/insert_graphics_dialog.ui.h:13
 msgid "Flip _Horizontally"
 msgstr "Zrcali _vodoravno"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:12
+#: ../data/ui/insert_graphics_dialog.ui.h:14
 msgid "_Spread over two Columns"
 msgstr "_Razpeto preko dveh stolpcev"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:13
+#: ../data/ui/insert_graphics_dialog.ui.h:15
 msgid "Floating _Object"
 msgstr "_Plavajoči predmet"
-
-#: ../data/ui/insert_graphics_dialog.ui.h:14
-msgid "Image Size"
-msgstr "Velikost slike"
-
-#: ../data/ui/insert_graphics_dialog.ui.h:15
-msgid "Text Width"
-msgstr "Širina besedila"
 
 #: ../data/ui/insert_listing_dialog.ui.h:1 ../latex/latex/actions.py:388
 #: ../latex/latex/actions.py:390
@@ -586,11 +586,11 @@ msgstr "Predogled sloga:"
 msgid "Refresh Style Preview"
 msgstr "Osveži predogled sloga"
 
-#: ../latex/appactivatable.py:64 ../latex/latex/actions.py:63
+#: ../latex/appactivatable.py:66 ../latex/latex/actions.py:63
 msgid "LaTeX"
 msgstr "LaTeX"
 
-#: ../latex/appactivatable.py:80
+#: ../latex/appactivatable.py:89
 msgid "LaTeX Tools"
 msgstr "Orodja LaTex"
 
@@ -698,7 +698,7 @@ msgid "Blackboard Bold"
 msgstr "Tabelno krepko"
 
 #: ../latex/latex/actions.py:258 ../latex/latex/actions.py:259
-msgid "Caligraphy"
+msgid "Calligraphy"
 msgstr "Kaligrafija"
 
 #: ../latex/latex/actions.py:265 ../latex/latex/actions.py:266
@@ -801,6 +801,50 @@ msgstr "Matrika enačb"
 #: ../latex/latex/actions.py:516 ../latex/latex/actions.py:517
 msgid "Numbered Array of Equations"
 msgstr "Oštevilčena matrika enačb"
+
+#: ../latex/latex/dialogs.py:331
+msgid "Default"
+msgstr "Privzeto"
+
+#. PNG mode
+#. label, mode constant
+#: ../latex/latex/dialogs.py:1062
+msgid "Monochrome"
+msgstr "Enobarvno"
+
+#: ../latex/latex/dialogs.py:1063
+msgid "Grayscale"
+msgstr "Sivinsko"
+
+#: ../latex/latex/dialogs.py:1064
+msgid "RGB"
+msgstr "RGB"
+
+#: ../latex/latex/dialogs.py:1065
+msgid "RGBA"
+msgstr "RGBA"
+
+#. anti-alias
+#. label, factor
+#: ../latex/latex/dialogs.py:1077
+msgid "Off"
+msgstr "Onemogočeno"
+
+#: ../latex/latex/dialogs.py:1078
+msgid "1x"
+msgstr "1x"
+
+#: ../latex/latex/dialogs.py:1079
+msgid "2x"
+msgstr "2x"
+
+#: ../latex/latex/dialogs.py:1080
+msgid "4x"
+msgstr "4x"
+
+#: ../latex/latex/dialogs.py:1081
+msgid "8x"
+msgstr "8x"
 
 #: ../latex/latex/environment.py:141
 msgid "Book of abstracts"
@@ -921,6 +965,15 @@ msgstr "Zloži vse"
 #: ../latex/outline.py:114
 msgid "Outline"
 msgstr "Oris"
+
+#: ../latex/preferences/tools.py:81
+#, python-format
+msgid ""
+"The file \"%s\" is corrupted and cannot be parsed. It was moved to \"%s\", "
+"and the Latex Plugin will now fallback to the default tools."
+msgstr ""
+"Datoteka »%s« je okvarjena in je ni mogoče razčleniti. Premaknjena je v "
+"»%s«, vstavek Latex pa bo povrnjen na osnoven nabor orodij."
 
 #: ../latex/tools/views.py:62
 msgid "Job"
