@@ -2,6 +2,7 @@
 # Copyright (C) 2013 gedit-latex's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gedit-latex package.
 # Joe Hansen <joedalton2@yahoo.dk>, 2011, 2013.
+# Alan Mortensen <alanmortensen.am@gmail.com>, 2016.
 #
 # eftersom der også er en "paragraph" som jeg ville oversætte til afsnit,
 # ville jeg anbefale at oversætte section til sektion. Jeg ved ikke over
@@ -11,16 +12,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gedit-latex master\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-10-15 18:34+0200\n"
-"PO-Revision-Date: 2013-03-28 19:00+0100\n"
-"Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
+"product=gedit&keywords=I18N+L10N&component=LaTeX\n"
+"POT-Creation-Date: 2017-05-19 12:32+0000\n"
+"PO-Revision-Date: 2016-11-16 13:43+0100\n"
+"Last-Translator: Alan Mortensen <alanmortensen.am@gmail.com>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
 "Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.8.7.1\n"
 
 #: ../latex.plugin.desktop.in.in.h:1
 msgid "LaTeX Plugin"
@@ -32,7 +35,7 @@ msgid ""
 "bibliographies"
 msgstr ""
 "Et udvidelsesmodul som hjælper dig med håndteringen af LaTeX-dokumenter og "
-"BibTeX-bibliografier."
+"BibTeX-bibliografier"
 
 #: ../data/bibtex.xml.h:1
 msgid "Title"
@@ -49,7 +52,7 @@ msgstr "Forfatter"
 # måske redaktør?
 # editor field
 # Name(s) of editor(s). If there is also an "author" field, then the
-# "editor" field gives the editor of the book or collection in which 
+# "editor" field gives the editor of the book or collection in which
 # the reference appears. Format: EDITOR = field_text
 #: ../data/bibtex.xml.h:4
 msgid "Editor"
@@ -136,9 +139,9 @@ msgstr "Kapitel"
 
 # tast, eller er det nøgle!
 # Det er en nøgle http://www.kfunigraz.ac.at/~binder/texhelp/bibtx-37.html
-# key field Used for alphabetizing and creating a label when the "author" 
-# and "editor" fields are missing. This field should not be confused with 
-# the citation key that appears in the \cite command and at the beginning 
+# key field Used for alphabetizing and creating a label when the "author"
+# and "editor" fields are missing. This field should not be confused with
+# the citation key that appears in the \cite command and at the beginning
 # of the entry. Format:  KEY = field_text
 #: ../data/bibtex.xml.h:24
 msgid "Key"
@@ -368,66 +371,66 @@ msgstr "_Identifikation:"
 msgid "_Type:"
 msgstr "_Type:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:1 ../latex/latex/actions.py:356
+#: ../data/ui/insert_graphics_dialog.ui.h:1
+msgid "Image Size"
+msgstr "Billedstørrelse"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:2
+msgid "Text Width"
+msgstr "Tekstbredde"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:3 ../latex/latex/actions.py:356
 #: ../latex/latex/actions.py:358
 msgid "Insert Graphics"
 msgstr "Indsæt grafik"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:2
+#: ../data/ui/insert_graphics_dialog.ui.h:4
 msgid "_File:"
 msgstr "_Fil:"
 
 # billedtekst,  Kan også være til en tabel.  Måske Tekstbeskrivelse
-#: ../data/ui/insert_graphics_dialog.ui.h:3
+#: ../data/ui/insert_graphics_dialog.ui.h:5
 #: ../data/ui/insert_table_dialog.ui.h:7
 msgid "_Caption:"
 msgstr "_Tekstbeskrivelse:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:4
+#: ../data/ui/insert_graphics_dialog.ui.h:6
 #: ../data/ui/insert_table_dialog.ui.h:8
 msgid "_Label:"
 msgstr "_Etiket:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:5
+#: ../data/ui/insert_graphics_dialog.ui.h:7
 msgid "fig:"
 msgstr "fig:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:6
+#: ../data/ui/insert_graphics_dialog.ui.h:8
 msgid "_Width:"
 msgstr "_Bredde:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:8
+#: ../data/ui/insert_graphics_dialog.ui.h:10
 #, no-c-format
 msgid "% _of"
 msgstr "% _af"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:9
+#: ../data/ui/insert_graphics_dialog.ui.h:11
 msgid "_Rotate:"
 msgstr "_Roter:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:10
+#: ../data/ui/insert_graphics_dialog.ui.h:12
 msgid "° CCW"
 msgstr "° Mod uret"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:11
+#: ../data/ui/insert_graphics_dialog.ui.h:13
 msgid "Flip _Horizontally"
 msgstr "Drej _vandret"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:12
+#: ../data/ui/insert_graphics_dialog.ui.h:14
 msgid "_Spread over two Columns"
 msgstr "_Spred over to kolonner"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:13
+#: ../data/ui/insert_graphics_dialog.ui.h:15
 msgid "Floating _Object"
 msgstr "Flydende _objekt"
-
-#: ../data/ui/insert_graphics_dialog.ui.h:14
-msgid "Image Size"
-msgstr "Billedstørrelse"
-
-#: ../data/ui/insert_graphics_dialog.ui.h:15
-msgid "Text Width"
-msgstr "Tekstbredde"
 
 #: ../data/ui/insert_listing_dialog.ui.h:1 ../latex/latex/actions.py:388
 #: ../latex/latex/actions.py:390
@@ -603,13 +606,21 @@ msgstr "Forhåndsvisning af stil:"
 msgid "Refresh Style Preview"
 msgstr "Opdater forhåndsvisning af stil"
 
+#: ../latex/appactivatable.py:66 ../latex/latex/actions.py:63
+msgid "LaTeX"
+msgstr "LaTeX"
+
+#: ../latex/appactivatable.py:89
+msgid "LaTeX Tools"
+msgstr "LaTeX-værktøjer"
+
 #: ../latex/bibtex/actions.py:32
 msgid "BibTeX"
 msgstr "BibTeX"
 
 #: ../latex/bibtex/actions.py:43
 msgid "New BibTeX Entry..."
-msgstr "Ny BibTeX-post ..."
+msgstr "Ny BibTeX-post …"
 
 #: ../latex/bibtex/actions.py:46
 msgid "Create a new BibTeX entry"
@@ -641,13 +652,9 @@ msgstr "<i>n/a</i>"
 msgid "Unknown Author"
 msgstr "Ukendt forfatter"
 
-#: ../latex/latex/actions.py:63
-msgid "LaTeX"
-msgstr "LaTeX"
-
 #: ../latex/latex/actions.py:73
 msgid "New LaTeX Document..."
-msgstr "Nyt LaTeX-dokument ..."
+msgstr "Nyt LaTeX-dokument …"
 
 #: ../latex/latex/actions.py:76
 msgid "Create a new LaTeX document"
@@ -655,7 +662,7 @@ msgstr "Opret et nyt LaTeX-dokument"
 
 #: ../latex/latex/actions.py:95
 msgid "Choose Master Document..."
-msgstr "Vælg hoveddokument ..."
+msgstr "Vælg hoveddokument …"
 
 #: ../latex/latex/actions.py:107
 msgid "Close Nearest Environment"
@@ -667,7 +674,7 @@ msgstr "Luk det nærmeste TeX-miljø til venstre for markøren"
 
 #: ../latex/latex/actions.py:157
 msgid "Use Bibliography..."
-msgstr "Brug bibliografi ..."
+msgstr "Brug bibliografi …"
 
 #: ../latex/latex/actions.py:179 ../latex/latex/actions.py:181
 #: ../latex/latex/actions.py:189 ../latex/latex/actions.py:190
@@ -711,7 +718,7 @@ msgid "Blackboard Bold"
 msgstr "Tavlefed"
 
 #: ../latex/latex/actions.py:258 ../latex/latex/actions.py:259
-msgid "Caligraphy"
+msgid "Calligraphy"
 msgstr "Kalligrafi"
 
 #: ../latex/latex/actions.py:265 ../latex/latex/actions.py:266
@@ -815,6 +822,50 @@ msgstr "Række af ligninger"
 #: ../latex/latex/actions.py:516 ../latex/latex/actions.py:517
 msgid "Numbered Array of Equations"
 msgstr "Nummereret række af ligninger"
+
+#: ../latex/latex/dialogs.py:331
+msgid "Default"
+msgstr "Standard"
+
+#. PNG mode
+#. label, mode constant
+#: ../latex/latex/dialogs.py:1062
+msgid "Monochrome"
+msgstr "Monokrom"
+
+#: ../latex/latex/dialogs.py:1063
+msgid "Grayscale"
+msgstr "Gråskala"
+
+#: ../latex/latex/dialogs.py:1064
+msgid "RGB"
+msgstr "RGB"
+
+#: ../latex/latex/dialogs.py:1065
+msgid "RGBA"
+msgstr "RGBA"
+
+#. anti-alias
+#. label, factor
+#: ../latex/latex/dialogs.py:1077
+msgid "Off"
+msgstr "Fra"
+
+#: ../latex/latex/dialogs.py:1078
+msgid "1x"
+msgstr "1x"
+
+#: ../latex/latex/dialogs.py:1079
+msgid "2x"
+msgstr "2x"
+
+#: ../latex/latex/dialogs.py:1080
+msgid "4x"
+msgstr "4x"
+
+#: ../latex/latex/dialogs.py:1081
+msgid "8x"
+msgstr "8x"
 
 #: ../latex/latex/environment.py:141
 msgid "Book of abstracts"
@@ -925,7 +976,7 @@ msgstr "Vis tabeller"
 # måske redaktør?
 # editor field
 # Name(s) of editor(s). If there is also an "author" field, then the
-# "editor" field gives the editor of the book or collection in which 
+# "editor" field gives the editor of the book or collection in which
 # the reference appears. Format: EDITOR = field_text
 #: ../latex/outline.py:58
 msgid "Follow Editor"
