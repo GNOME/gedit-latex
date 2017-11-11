@@ -12,9 +12,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gedit-latex master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
 "product=gedit&keywords=I18N+L10N&component=LaTeX\n"
-"POT-Creation-Date: 2016-08-19 17:03+0000\n"
+"POT-Creation-Date: 2017-08-07 14:06+0000\n"
 "PO-Revision-Date: 2016-11-16 13:43+0100\n"
 "Last-Translator: Alan Mortensen <alanmortensen.am@gmail.com>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
@@ -33,7 +33,9 @@ msgstr "LaTeX-udvidelsesmodul"
 msgid ""
 "A plugin that assists you in handling LaTeX documents and BibTeX "
 "bibliographies"
-msgstr "Et udvidelsesmodul som hjælper dig med håndteringen af LaTeX-dokumenter og BibTeX-bibliografier"
+msgstr ""
+"Et udvidelsesmodul som hjælper dig med håndteringen af LaTeX-dokumenter og "
+"BibTeX-bibliografier"
 
 #: ../data/bibtex.xml.h:1
 msgid "Title"
@@ -618,7 +620,7 @@ msgstr "BibTeX"
 
 #: ../latex/bibtex/actions.py:43
 msgid "New BibTeX Entry..."
-msgstr "Ny BibTeX-post ..."
+msgstr "Ny BibTeX-post …"
 
 #: ../latex/bibtex/actions.py:46
 msgid "Create a new BibTeX entry"
@@ -652,7 +654,7 @@ msgstr "Ukendt forfatter"
 
 #: ../latex/latex/actions.py:73
 msgid "New LaTeX Document..."
-msgstr "Nyt LaTeX-dokument ..."
+msgstr "Nyt LaTeX-dokument …"
 
 #: ../latex/latex/actions.py:76
 msgid "Create a new LaTeX document"
@@ -660,7 +662,7 @@ msgstr "Opret et nyt LaTeX-dokument"
 
 #: ../latex/latex/actions.py:95
 msgid "Choose Master Document..."
-msgstr "Vælg hoveddokument ..."
+msgstr "Vælg hoveddokument …"
 
 #: ../latex/latex/actions.py:107
 msgid "Close Nearest Environment"
@@ -672,7 +674,7 @@ msgstr "Luk det nærmeste TeX-miljø til venstre for markøren"
 
 #: ../latex/latex/actions.py:157
 msgid "Use Bibliography..."
-msgstr "Brug bibliografi ..."
+msgstr "Brug bibliografi …"
 
 #: ../latex/latex/actions.py:179 ../latex/latex/actions.py:181
 #: ../latex/latex/actions.py:189 ../latex/latex/actions.py:190
@@ -998,8 +1000,8 @@ msgid ""
 "The file \"%s\" is corrupted and cannot be parsed. It was moved to \"%s\", "
 "and the Latex Plugin will now fallback to the default tools."
 msgstr ""
-"Filen \"%s\" er ødelagt og kan ikke fortolkes. Den blev flyttet til \"%s\", "
-"og Latex-udvidelsesmodulet vil vende tilbage til standardværktøjerne."
+"Filen “%s” er ødelagt og kan ikke fortolkes. Den blev flyttet til “%s”, og "
+"Latex-udvidelsesmodulet vil vende tilbage til standardværktøjerne."
 
 #: ../latex/tools/views.py:62
 msgid "Job"
