@@ -7,18 +7,18 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gedit-latex master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=gedit&keywords=I18N+L10N&component=Plugins\n"
-"POT-Creation-Date: 2016-05-20 19:12+0000\n"
-"PO-Revision-Date: 2016-07-31 12:13+0200\n"
-"Last-Translator: Meskó Balázs <meskobalazs@gmail.com>\n"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
+"product=gedit&keywords=I18N+L10N&component=LaTeX\n"
+"POT-Creation-Date: 2017-08-07 14:06+0000\n"
+"PO-Revision-Date: 2018-02-26 11:03+0100\n"
+"Last-Translator: Meskó Balázs <meskobalazs@fedoraproject.org>\n"
 "Language-Team: Hungarian <openscope at gmail dot com>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.8\n"
+"X-Generator: Poedit 2.0.6\n"
 
 #: ../latex.plugin.desktop.in.in.h:1
 msgid "LaTeX Plugin"
@@ -426,7 +426,7 @@ msgstr "Programozási _nyelv:"
 
 #: ../data/ui/insert_listing_dialog.ui.h:4
 msgid "_Dialect:"
-msgstr "_Nyelvjárás:"
+msgstr "Nyelv_járás:"
 
 #: ../data/ui/insert_table_dialog.ui.h:1 ../latex/latex/actions.py:372
 #: ../latex/latex/actions.py:374
@@ -679,7 +679,7 @@ msgstr "Aláhúzott"
 
 #: ../latex/latex/actions.py:222 ../latex/latex/actions.py:223
 msgid "Small Capitals"
-msgstr "Kis kapitális"
+msgstr "Kiskapitális"
 
 #: ../latex/latex/actions.py:229 ../latex/latex/actions.py:230
 msgid "Roman"
@@ -699,11 +699,11 @@ msgstr "Iskolatábla félkövér"
 
 #: ../latex/latex/actions.py:258 ../latex/latex/actions.py:259
 msgid "Calligraphy"
-msgstr "Művészi toll"
+msgstr "Kalligráfia"
 
 #: ../latex/latex/actions.py:265 ../latex/latex/actions.py:266
 msgid "Fraktur"
-msgstr "Fraktur"
+msgstr "Fraktúr"
 
 #: ../latex/latex/actions.py:273 ../latex/latex/actions.py:274
 #: ../latex/latex/actions.py:286 ../latex/latex/actions.py:287
@@ -712,11 +712,11 @@ msgstr "Lista"
 
 #: ../latex/latex/actions.py:278 ../latex/latex/actions.py:279
 msgid "Itemize"
-msgstr "Elemekre bontás"
+msgstr "Felsorolás"
 
 #: ../latex/latex/actions.py:291 ../latex/latex/actions.py:292
 msgid "Enumerate"
-msgstr "Felsorolásos"
+msgstr "Számozás"
 
 #: ../latex/latex/actions.py:298 ../latex/latex/actions.py:299
 msgid "Description"
@@ -1009,4 +1009,4 @@ msgstr "Feladatok megjelenítése vagy elrejtése"
 
 #: ../latex/views.py:139
 msgid "Issues"
-msgstr "Kiadások"
+msgstr "Problémák"
