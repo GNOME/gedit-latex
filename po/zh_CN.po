@@ -2,20 +2,22 @@
 # Copyright (C) 2011 gedit-latex's authors and contributors.
 # This file is distributed under the same license as the gedit-latex package.
 # Wylmer Wang <wantinghard@gmail.com>, 2011, 2012.
+# Boyuan Yang <073plan@gmail.com>, 2016.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gedit-latex master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=gedit&keywords=I18N+L10N&component=Plugins\n"
-"POT-Creation-Date: 2012-07-15 10:07+0000\n"
-"PO-Revision-Date: 2012-07-26 13:03+0800\n"
-"Last-Translator: Wylmer Wang <wantinghard@gmail.com>\n"
-"Language-Team: Chinese (China) <i18n-zh@googlegroups.com>\n"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
+"product=gedit&keywords=I18N+L10N&component=LaTeX\n"
+"POT-Creation-Date: 2017-04-08 14:15+0000\n"
+"PO-Revision-Date: 2016-10-10 16:58+0800\n"
+"Last-Translator: Boyuan Yang <073plan@gmail.com>\n"
+"Language-Team: Chinese (Simplified) <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.9\n"
 
 #: ../latex.plugin.desktop.in.in.h:1
 msgid "LaTeX Plugin"
@@ -342,65 +344,65 @@ msgstr "标识符(_I)："
 msgid "_Type:"
 msgstr "类型(_T)："
 
-#: ../data/ui/insert_graphics_dialog.ui.h:1 ../latex/latex/actions.py:356
+#: ../data/ui/insert_graphics_dialog.ui.h:1
+msgid "Image Size"
+msgstr "图像尺寸"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:2
+msgid "Text Width"
+msgstr "文本宽度"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:3 ../latex/latex/actions.py:356
 #: ../latex/latex/actions.py:358
 msgid "Insert Graphics"
 msgstr "插入图形"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:2
+#: ../data/ui/insert_graphics_dialog.ui.h:4
 msgid "_File:"
 msgstr "文件(_F)："
 
-#: ../data/ui/insert_graphics_dialog.ui.h:3
+#: ../data/ui/insert_graphics_dialog.ui.h:5
 #: ../data/ui/insert_table_dialog.ui.h:7
 msgid "_Caption:"
 msgstr "题注(_C)："
 
-#: ../data/ui/insert_graphics_dialog.ui.h:4
+#: ../data/ui/insert_graphics_dialog.ui.h:6
 #: ../data/ui/insert_table_dialog.ui.h:8
 msgid "_Label:"
 msgstr "标签(_L)："
 
-#: ../data/ui/insert_graphics_dialog.ui.h:5
+#: ../data/ui/insert_graphics_dialog.ui.h:7
 msgid "fig:"
 msgstr "图："
 
-#: ../data/ui/insert_graphics_dialog.ui.h:6
+#: ../data/ui/insert_graphics_dialog.ui.h:8
 msgid "_Width:"
 msgstr "宽度(_W)："
 
-#: ../data/ui/insert_graphics_dialog.ui.h:8
+#: ../data/ui/insert_graphics_dialog.ui.h:10
 #, no-c-format
 msgid "% _of"
 msgstr "%(_O)"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:9
+#: ../data/ui/insert_graphics_dialog.ui.h:11
 msgid "_Rotate:"
 msgstr "旋转(_R)："
 
-#: ../data/ui/insert_graphics_dialog.ui.h:10
+#: ../data/ui/insert_graphics_dialog.ui.h:12
 msgid "° CCW"
 msgstr "° CCW"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:11
+#: ../data/ui/insert_graphics_dialog.ui.h:13
 msgid "Flip _Horizontally"
 msgstr "水平翻转(_H)"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:12
+#: ../data/ui/insert_graphics_dialog.ui.h:14
 msgid "_Spread over two Columns"
 msgstr "横跨两列(_S)"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:13
+#: ../data/ui/insert_graphics_dialog.ui.h:15
 msgid "Floating _Object"
 msgstr "浮动对象(_O)"
-
-#: ../data/ui/insert_graphics_dialog.ui.h:14
-msgid "Image Size"
-msgstr "图像尺寸"
-
-#: ../data/ui/insert_graphics_dialog.ui.h:15
-msgid "Text Width"
-msgstr "文本宽度"
 
 #: ../data/ui/insert_listing_dialog.ui.h:1 ../latex/latex/actions.py:388
 #: ../latex/latex/actions.py:390
@@ -576,6 +578,14 @@ msgstr "样式预览："
 msgid "Refresh Style Preview"
 msgstr "刷新样式预览"
 
+#: ../latex/appactivatable.py:66 ../latex/latex/actions.py:63
+msgid "LaTeX"
+msgstr "LaTeX"
+
+#: ../latex/appactivatable.py:89
+msgid "LaTeX Tools"
+msgstr "LaTeX 工具"
+
 #: ../latex/bibtex/actions.py:32
 msgid "BibTeX"
 msgstr "BibTeX"
@@ -613,10 +623,6 @@ msgstr "<i>无效</i>"
 #: ../latex/bibtex/views.py:240
 msgid "Unknown Author"
 msgstr "未知作者"
-
-#: ../latex/latex/actions.py:63
-msgid "LaTeX"
-msgstr "LaTeX"
 
 #: ../latex/latex/actions.py:73
 msgid "New LaTeX Document..."
@@ -684,7 +690,7 @@ msgid "Blackboard Bold"
 msgstr "黑板粗体"
 
 #: ../latex/latex/actions.py:258 ../latex/latex/actions.py:259
-msgid "Caligraphy"
+msgid "Calligraphy"
 msgstr "书法"
 
 #: ../latex/latex/actions.py:265 ../latex/latex/actions.py:266
@@ -788,6 +794,50 @@ msgstr "公式组"
 msgid "Numbered Array of Equations"
 msgstr "带编号公式组"
 
+#: ../latex/latex/dialogs.py:331
+msgid "Default"
+msgstr "默认"
+
+#. PNG mode
+#. label, mode constant
+#: ../latex/latex/dialogs.py:1062
+msgid "Monochrome"
+msgstr "单色"
+
+#: ../latex/latex/dialogs.py:1063
+msgid "Grayscale"
+msgstr "灰度"
+
+#: ../latex/latex/dialogs.py:1064
+msgid "RGB"
+msgstr "RGB"
+
+#: ../latex/latex/dialogs.py:1065
+msgid "RGBA"
+msgstr "RGBA"
+
+#. anti-alias
+#. label, factor
+#: ../latex/latex/dialogs.py:1077
+msgid "Off"
+msgstr "关闭"
+
+#: ../latex/latex/dialogs.py:1078
+msgid "1x"
+msgstr "1倍"
+
+#: ../latex/latex/dialogs.py:1079
+msgid "2x"
+msgstr "2倍"
+
+#: ../latex/latex/dialogs.py:1080
+msgid "4x"
+msgstr "4倍"
+
+#: ../latex/latex/dialogs.py:1081
+msgid "8x"
+msgstr "8倍"
+
 #: ../latex/latex/environment.py:141
 msgid "Book of abstracts"
 msgstr "摘要帐"
@@ -880,15 +930,15 @@ msgstr "信件 2 (KOMA-Script)"
 msgid "Slides"
 msgstr "幻灯片"
 
-#: ../latex/latex/views.py:113
+#: ../latex/latex/views.py:107
 msgid "Symbols"
 msgstr "符号"
 
-#: ../latex/latex/views.py:201
+#: ../latex/latex/views.py:190
 msgid "Show graphics"
 msgstr "显示图形"
 
-#: ../latex/latex/views.py:206
+#: ../latex/latex/views.py:195
 msgid "Show tables"
 msgstr "显示表格"
 
@@ -904,9 +954,18 @@ msgstr "全部展开"
 msgid "Collapse All"
 msgstr "全部折叠"
 
-#: ../latex/outline.py:115
+#: ../latex/outline.py:114
 msgid "Outline"
 msgstr "大纲"
+
+#: ../latex/preferences/tools.py:81
+#, python-format
+msgid ""
+"The file \"%s\" is corrupted and cannot be parsed. It was moved to \"%s\", "
+"and the Latex Plugin will now fallback to the default tools."
+msgstr ""
+"文件“%s”已损坏且无法解析。它已经被移动为“%s”，现在 Latex 插件会回落到使用默认"
+"工具。"
 
 #: ../latex/tools/views.py:62
 msgid "Job"
@@ -943,9 +1002,6 @@ msgstr "显示/隐藏任务"
 #: ../latex/views.py:139
 msgid "Issues"
 msgstr "问题"
-
-#~ msgid "Show LaTeX Toolbar"
-#~ msgstr "显示 LaTeX 工具栏"
 
 #~ msgid "<b>LaTeX Toolbar</b>"
 #~ msgstr "<b>LaTeX 工具栏</b>"
