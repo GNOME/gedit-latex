@@ -1,23 +1,23 @@
 # Catalan translation of gedit-latex.
 # Copyright © 2013 Free Software Foundation, Inc.
 # This file is distributed under the same license as the evince package.
-# Gil Forcada <gilforcada@guifi.net>, 2013.
 #
+# Gil Forcada <gilforcada@guifi.net>, 2013.
+# Carles Ferrando Garcia <carles.ferrando@gmail.com>, 2018.
 msgid ""
 msgstr ""
 "Project-Id-Version: gedit-latex\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=gedit&keywords=I18N+L10N&component=Plugins\n"
-"POT-Creation-Date: 2013-02-09 11:21+0000\n"
-"PO-Revision-Date: 2013-04-16 16:45+0200\n"
-"Last-Translator: Gil Forcada <gilforcada@guifi.net>\n"
-"Language-Team: Catalan <tradgnome@softcatala.org>\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gedit-latex/issues\n"
+"POT-Creation-Date: 2018-06-10 16:13+0000\n"
+"PO-Revision-Date: 2018-06-29 20:41+0100\n"
+"Last-Translator: Carles Ferrando Garcia <carles.ferrando@gmail.com>\n"
+"Language-Team: Catalan <info@softcatala.org>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bits\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Gtranslator 2.91.6\n"
+"X-Generator: Lokalize 2.0\n"
 
 #: ../latex.plugin.desktop.in.in.h:1
 msgid "LaTeX Plugin"
@@ -97,7 +97,7 @@ msgstr "ISBN"
 
 #: ../data/bibtex.xml.h:17
 msgid "How Published"
-msgstr ""
+msgstr "Data de publicació"
 
 #: ../data/bibtex.xml.h:18
 msgid "Organization"
@@ -142,70 +142,74 @@ msgstr "Referència creuada"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:1
 msgid "Maximum BibTeX Size"
-msgstr ""
+msgstr "Mida BibTeX màxima"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:2
 msgid "Connect Outline to Editor"
-msgstr ""
+msgstr "Connecta el contorn a l'editor"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:3
 msgid "Show Labels in Outline"
-msgstr ""
+msgstr "Mostra les etiquetes al contorn"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:4
 msgid "Show Tables in Outline"
-msgstr ""
+msgstr "Mostra les taules al contorn"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:5
 msgid "Show Graphics in Outline"
-msgstr ""
+msgstr "Mostra els gràfics al contorn"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:6
 msgid "Show Warnings in Issues"
-msgstr ""
+msgstr "Mostra avisos a la finestra dels errors"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:7
 msgid "Show Tasks in Issues"
-msgstr ""
+msgstr "Mostra tasques a la finestra dels errors"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:8
 #: ../data/ui/configure.ui.h:6
 msgid "Hide Box Warnings"
-msgstr ""
+msgstr "Amaga la caixa d'avisos"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:9
 msgid ""
 "Show LaTeX Toolbar below (normal), combined with the main toolbar, or "
 "disabled"
 msgstr ""
+"Mostra la barra d'eines LaTeX baix (normal), combinada amb la barra"
+" principal, o deshabilitada"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:10
 msgid "Expanded Symbol Groups"
-msgstr ""
+msgstr "Expandeix el símbols dels grups"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:11
 msgid "LaTeX Extensions"
-msgstr ""
+msgstr "Extensions de LaTeX"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:12
 msgid "Graphics File Extensions"
-msgstr ""
+msgstr "Extensions del fitxer de gràfics"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:13
 msgid "Paths Relative to .tex File to Look for Graphics"
-msgstr ""
+msgstr "Camins relatius al fitxer .tex per buscar gràfics"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:14
 msgid "Extra LaTeX commands used to mark issues, such as \\fxnote{foo}"
 msgstr ""
+"Ordres extra de LaTeX usades per anotar les parts del document a treballar de"
+" nou, com \\fxnote{foo}"
 
 #: ../data/ui/build_image_dialog.ui.h:1
 msgid "Render to Image"
-msgstr ""
+msgstr "Renderitza a imatge"
 
 #: ../data/ui/build_image_dialog.ui.h:2
 msgid "<b>Image Format</b>"
-msgstr ""
+msgstr "<b>Format imatge</b>"
 
 #: ../data/ui/build_image_dialog.ui.h:3
 msgid "PNG"
@@ -213,7 +217,7 @@ msgstr "PNG"
 
 #: ../data/ui/build_image_dialog.ui.h:4
 msgid "Color Mode:"
-msgstr ""
+msgstr "Mode del color:"
 
 #: ../data/ui/build_image_dialog.ui.h:5
 msgid "JPEG"
@@ -225,11 +229,11 @@ msgstr "GIF"
 
 #: ../data/ui/build_image_dialog.ui.h:7
 msgid "<b>Rendering</b>"
-msgstr ""
+msgstr "<b>Renderització</b>"
 
 #: ../data/ui/build_image_dialog.ui.h:8
 msgid "<b>Area</b>"
-msgstr ""
+msgstr "<b>Àrea</b>"
 
 #: ../data/ui/build_image_dialog.ui.h:9
 msgid "Antialiasing:"
@@ -241,15 +245,15 @@ msgstr "Resolució:"
 
 #: ../data/ui/build_image_dialog.ui.h:11
 msgid "Render whole page(s)"
-msgstr ""
+msgstr "Renderitza la pàgina(es) senzera "
 
 #: ../data/ui/build_image_dialog.ui.h:12
 msgid "Attempt to render tight bounding box"
-msgstr ""
+msgstr "Intenta renderitzar una caixa de límits ajustats"
 
 #: ../data/ui/choose_master_dialog.ui.h:1
 msgid "Select Master Document"
-msgstr ""
+msgstr "Selecciona el document mestre"
 
 #: ../data/ui/choose_master_dialog.ui.h:2
 msgid "Filename:"
@@ -265,11 +269,11 @@ msgstr "<b>BibTeX</b>"
 
 #: ../data/ui/configure.ui.h:3
 msgid "<b><i>rubber</i> Post-Processor</b>"
-msgstr ""
+msgstr "<b><i>Goma d'esborrar</i> Post-Processador</b>"
 
 #: ../data/ui/configure.ui.h:4
 msgid "Maximum Parsed File Size:"
-msgstr ""
+msgstr "Mida del fitxer analitzat màxim:"
 
 #: ../data/ui/configure.ui.h:5
 msgid "KB"
@@ -284,20 +288,24 @@ msgid ""
 "Remember to run all commands in batch mode (e.g. append <tt>-interaction "
 "batchmode</tt> to <tt>latex</tt>)"
 msgstr ""
+"Recorda executar totes les ordres en el mode per lots (ex. afegeix <tt"
+">-interaction batchmode</tt> a <tt>latex</tt>)"
 
 #: ../data/ui/configure_tool.ui.h:2
 msgid "<b>_Label</b>"
-msgstr ""
+msgstr "<b>_Etiqueta</b>"
 
 #: ../data/ui/configure_tool.ui.h:3
 msgid ""
 "Valid placeholders are <tt>$filename</tt>, <tt>$shortname</tt>, <tt>"
 "$directory</tt>"
 msgstr ""
+"Marcadors de posició vàlids són <tt>$filename</tt>, <tt>$shortname</tt>, <tt"
+">$directory</tt>"
 
 #: ../data/ui/configure_tool.ui.h:4
 msgid "<b>_Jobs</b>"
-msgstr ""
+msgstr "<b>_Treballs</b>"
 
 #: ../data/ui/configure_tool.ui.h:5
 msgid "<b>_Description</b>"
@@ -305,15 +313,15 @@ msgstr "<b>_Descripció</b>"
 
 #: ../data/ui/configure_tool.ui.h:6
 msgid "<b>_File Extensions</b>"
-msgstr ""
+msgstr "<b>Extensions de _fitxer</b>"
 
 #: ../data/ui/configure_tool.ui.h:7
 msgid "_Generated"
-msgstr ""
+msgstr "_Generat"
 
 #: ../data/ui/configure_tool.ui.h:8
 msgid "_User Defined:"
-msgstr ""
+msgstr "Definit per l'_usuari:"
 
 #: ../data/ui/configure_tool.ui.h:9
 msgid "<Ctrl><Alt>1"
@@ -321,15 +329,15 @@ msgstr "<Ctrl><Alt>1"
 
 #: ../data/ui/configure_tool.ui.h:10
 msgid "<b>Accelerator</b>"
-msgstr ""
+msgstr "<b>Accelerador</b>"
 
 #: ../data/ui/insert_bibtex_entry.ui.h:1
 msgid "Create Bibliography Entry"
-msgstr ""
+msgstr "Crea entrada de bibliografia"
 
 #: ../data/ui/insert_bibtex_entry.ui.h:2
 msgid "Required Fields"
-msgstr ""
+msgstr "Camps requerits"
 
 #: ../data/ui/insert_bibtex_entry.ui.h:3
 msgid "Optional Fields"
@@ -343,87 +351,87 @@ msgstr "_Identificador:"
 msgid "_Type:"
 msgstr "_Tipus:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:1 ../latex/latex/actions.py:356
-#: ../latex/latex/actions.py:358
-msgid "Insert Graphics"
-msgstr ""
+#: ../data/ui/insert_graphics_dialog.ui.h:1
+msgid "Image Size"
+msgstr "Mida de la imatge"
 
 #: ../data/ui/insert_graphics_dialog.ui.h:2
+msgid "Text Width"
+msgstr "Amplada del text"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:3 ../latex/latex/actions.py:356
+#: ../latex/latex/actions.py:358
+msgid "Insert Graphics"
+msgstr "Insereix gràfics"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:4
 msgid "_File:"
 msgstr "_Fitxer:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:3
+#: ../data/ui/insert_graphics_dialog.ui.h:5
 #: ../data/ui/insert_table_dialog.ui.h:7
 msgid "_Caption:"
-msgstr ""
+msgstr "_Títol:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:4
+#: ../data/ui/insert_graphics_dialog.ui.h:6
 #: ../data/ui/insert_table_dialog.ui.h:8
 msgid "_Label:"
 msgstr "_Etiqueta:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:5
+#: ../data/ui/insert_graphics_dialog.ui.h:7
 msgid "fig:"
 msgstr "figura:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:6
+#: ../data/ui/insert_graphics_dialog.ui.h:8
 msgid "_Width:"
 msgstr "Am_plada:"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:8
+#: ../data/ui/insert_graphics_dialog.ui.h:10
 #, no-c-format
 msgid "% _of"
-msgstr ""
-
-#: ../data/ui/insert_graphics_dialog.ui.h:9
-msgid "_Rotate:"
-msgstr ""
-
-#: ../data/ui/insert_graphics_dialog.ui.h:10
-msgid "° CCW"
-msgstr ""
+msgstr "% _of"
 
 #: ../data/ui/insert_graphics_dialog.ui.h:11
-msgid "Flip _Horizontally"
-msgstr ""
+msgid "_Rotate:"
+msgstr "_Gira:"
 
 #: ../data/ui/insert_graphics_dialog.ui.h:12
-msgid "_Spread over two Columns"
-msgstr ""
+msgid "° CCW"
+msgstr "° CCW"
 
 #: ../data/ui/insert_graphics_dialog.ui.h:13
-msgid "Floating _Object"
-msgstr ""
+msgid "Flip _Horizontally"
+msgstr "Capgira _horitzontalment"
 
 #: ../data/ui/insert_graphics_dialog.ui.h:14
-msgid "Image Size"
-msgstr "Mida de la imatge"
+msgid "_Spread over two Columns"
+msgstr "_Estem en dos columnes"
 
 #: ../data/ui/insert_graphics_dialog.ui.h:15
-msgid "Text Width"
-msgstr ""
+msgid "Floating _Object"
+msgstr "_Objecte flotant"
 
 #: ../data/ui/insert_listing_dialog.ui.h:1 ../latex/latex/actions.py:388
 #: ../latex/latex/actions.py:390
 msgid "Insert Source Code Listing"
-msgstr ""
+msgstr "Insereix el llistat del codi font"
 
 #: ../data/ui/insert_listing_dialog.ui.h:2
 msgid "Load From _File:"
-msgstr ""
+msgstr "Carrega des del _fitxer:"
 
 #: ../data/ui/insert_listing_dialog.ui.h:3
 msgid "Programming _Language:"
-msgstr ""
+msgstr "_Llenguatge de programació:"
 
 #: ../data/ui/insert_listing_dialog.ui.h:4
 msgid "_Dialect:"
-msgstr ""
+msgstr "_Dialecte:"
 
 #: ../data/ui/insert_table_dialog.ui.h:1 ../latex/latex/actions.py:372
 #: ../latex/latex/actions.py:374
 msgid "Insert Table or Matrix"
-msgstr ""
+msgstr "Insereix taula o matriu"
 
 #: ../data/ui/insert_table_dialog.ui.h:2
 msgid "Type:"
@@ -447,15 +455,15 @@ msgstr "Colu_mnes:"
 
 #: ../data/ui/insert_table_dialog.ui.h:9
 msgid "tab:"
-msgstr ""
+msgstr "Tabulació:"
 
 #: ../data/ui/insert_table_dialog.ui.h:10
 msgid "_Floating Object"
-msgstr ""
+msgstr "Objecte _flotant"
 
 #: ../data/ui/new_document_template_dialog.ui.h:1
 msgid "New LaTeX Document"
-msgstr ""
+msgstr "Document de LaTeX nou"
 
 #: ../data/ui/new_document_template_dialog.ui.h:2
 msgid "T_emplate:"
@@ -479,15 +487,15 @@ msgstr "_Nom:"
 
 #: ../data/ui/new_document_template_dialog.ui.h:7
 msgid "_Babel Package:"
-msgstr ""
+msgstr "Paquet _Babel:"
 
 #: ../data/ui/new_document_template_dialog.ui.h:8
 msgid "_Input Encoding:"
-msgstr ""
+msgstr "Codificac_ió d'entrada:"
 
 #: ../data/ui/new_document_template_dialog.ui.h:9
 msgid "<b>Language Customization</b>"
-msgstr ""
+msgstr "<b>Personalització d'idioma</b>"
 
 #: ../data/ui/new_document_template_dialog.ui.h:10
 msgid "_Landscape"
@@ -503,7 +511,7 @@ msgstr "_Per defecte"
 
 #: ../data/ui/new_document_template_dialog.ui.h:13
 msgid "U_ser Defined:"
-msgstr ""
+msgstr "U_suari definit:"
 
 #: ../data/ui/new_document_template_dialog.ui.h:14
 msgid "pt"
@@ -511,23 +519,23 @@ msgstr "pt"
 
 #: ../data/ui/new_document_template_dialog.ui.h:15
 msgid "Base Font Size:"
-msgstr ""
+msgstr "Mida del tipus de lletra Base:"
 
 #: ../data/ui/new_document_template_dialog.ui.h:16
 msgid "Document _Class:"
-msgstr ""
+msgstr "_Classe document:"
 
 #: ../data/ui/new_document_template_dialog.ui.h:17
 msgid "<b>Style and Layout</b>"
-msgstr ""
+msgstr "<b>Estil i format</b>"
 
 #: ../data/ui/new_document_template_dialog.ui.h:18
 msgid "Include PDF _Metadata"
-msgstr ""
+msgstr "Inclou les _metadades del PDF"
 
 #: ../data/ui/new_document_template_dialog.ui.h:19
 msgid "This adds metadata to the document. Requires package <tt>ifpdf</tt>."
-msgstr ""
+msgstr "Això afegeix metadades al document. Cal el paquet <tt>ifpdf</tt>."
 
 #: ../data/ui/new_document_template_dialog.ui.h:20
 msgid "Date:"
@@ -551,19 +559,19 @@ msgstr "_Títol:"
 
 #: ../data/ui/new_document_template_dialog.ui.h:25
 msgid "<b>Meta Information</b>"
-msgstr ""
+msgstr "<b>Meta-informació</b>"
 
 #: ../data/ui/new_document_template_dialog.ui.h:26
 msgid "Default F_ont Family:"
-msgstr ""
+msgstr "_Família tipus de lletra per defecte:"
 
 #: ../data/ui/use_bibliography_dialog.ui.h:1 ../latex/latex/actions.py:159
 msgid "Use Bibliography"
-msgstr ""
+msgstr "Usa bibliografia"
 
 #: ../data/ui/use_bibliography_dialog.ui.h:2
 msgid "Bibliography _File:"
-msgstr ""
+msgstr "_Fitxer bibliografia:"
 
 #: ../data/ui/use_bibliography_dialog.ui.h:3
 msgid "_Style:"
@@ -571,11 +579,20 @@ msgstr "E_stil:"
 
 #: ../data/ui/use_bibliography_dialog.ui.h:4
 msgid "Style Preview:"
-msgstr ""
+msgstr "Visualització de l'estil:"
 
 #: ../data/ui/use_bibliography_dialog.ui.h:5
 msgid "Refresh Style Preview"
-msgstr ""
+msgstr "Refresca la vista prèvia de l'estil"
+
+#: ../latex/appactivatable.py:66 ../latex/latex/actions.py:63
+msgid "LaTeX"
+msgstr "LaTeX"
+
+#: ../latex/appactivatable.py:89
+#| msgid "Tools"
+msgid "LaTeX Tools"
+msgstr "Eines de LaTeX"
 
 #: ../latex/bibtex/actions.py:32
 msgid "BibTeX"
@@ -583,65 +600,61 @@ msgstr "BibTeX"
 
 #: ../latex/bibtex/actions.py:43
 msgid "New BibTeX Entry..."
-msgstr ""
+msgstr "Nova entrada BibTeX..."
 
 #: ../latex/bibtex/actions.py:46
 msgid "Create a new BibTeX entry"
-msgstr ""
+msgstr "Crea una entrada BibTeX nova"
 
 #. add grouping controls to toolbar
 #: ../latex/bibtex/views.py:56
 msgid "No Grouping"
-msgstr ""
+msgstr "Sense agrupament"
 
 #: ../latex/bibtex/views.py:57
 msgid "Group by Type"
-msgstr ""
+msgstr "Agrupa per tipus"
 
 #: ../latex/bibtex/views.py:58
 msgid "Group by Author"
-msgstr ""
+msgstr "Agrupa per autor"
 
 #: ../latex/bibtex/views.py:59
 msgid "Group by Year"
-msgstr ""
+msgstr "Agrupa per any"
 
 #. group by year
 #: ../latex/bibtex/views.py:197
 msgid "<i>n/a</i>"
-msgstr ""
+msgstr "<i>n/a</i>"
 
 #: ../latex/bibtex/views.py:240
 msgid "Unknown Author"
-msgstr ""
-
-#: ../latex/latex/actions.py:63
-msgid "LaTeX"
-msgstr "LaTeX"
+msgstr "Autor desconegut"
 
 #: ../latex/latex/actions.py:73
 msgid "New LaTeX Document..."
-msgstr ""
+msgstr "Document de LaTeX nou..."
 
 #: ../latex/latex/actions.py:76
 msgid "Create a new LaTeX document"
-msgstr ""
+msgstr "Crea un document de LaTeX nou"
 
 #: ../latex/latex/actions.py:95
 msgid "Choose Master Document..."
-msgstr ""
+msgstr "Tria el document mestre..."
 
 #: ../latex/latex/actions.py:107
 msgid "Close Nearest Environment"
-msgstr ""
+msgstr "Tanca l'entorn més proper"
 
 #: ../latex/latex/actions.py:109
 msgid "Close the nearest TeX environment at left of the cursor"
-msgstr ""
+msgstr "Tanca l'entorn TeX més proper a l'esquerra del cursor"
 
 #: ../latex/latex/actions.py:157
 msgid "Use Bibliography..."
-msgstr ""
+msgstr "Usa bibliografia..."
 
 #: ../latex/latex/actions.py:179 ../latex/latex/actions.py:181
 #: ../latex/latex/actions.py:189 ../latex/latex/actions.py:190
@@ -658,7 +671,7 @@ msgstr "Cursiva"
 
 #: ../latex/latex/actions.py:208 ../latex/latex/actions.py:209
 msgid "Emphasize"
-msgstr ""
+msgstr "Posa èmfasi "
 
 #: ../latex/latex/actions.py:215 ../latex/latex/actions.py:216
 msgid "Underline"
@@ -670,7 +683,7 @@ msgstr "Versaletes"
 
 #: ../latex/latex/actions.py:229 ../latex/latex/actions.py:230
 msgid "Roman"
-msgstr ""
+msgstr "Romànica"
 
 #: ../latex/latex/actions.py:236 ../latex/latex/actions.py:237
 msgid "Sans Serif"
@@ -678,19 +691,20 @@ msgstr "Sans Serif"
 
 #: ../latex/latex/actions.py:243 ../latex/latex/actions.py:244
 msgid "Typewriter"
-msgstr ""
+msgstr "Màquina d'escriure"
 
 #: ../latex/latex/actions.py:250 ../latex/latex/actions.py:251
 msgid "Blackboard Bold"
-msgstr ""
+msgstr "Pissarra negreta"
 
 #: ../latex/latex/actions.py:258 ../latex/latex/actions.py:259
-msgid "Caligraphy"
-msgstr ""
+#| msgid "Paragraph"
+msgid "Calligraphy"
+msgstr "Cal·ligrafia"
 
 #: ../latex/latex/actions.py:265 ../latex/latex/actions.py:266
 msgid "Fraktur"
-msgstr ""
+msgstr "Fraktur"
 
 #: ../latex/latex/actions.py:273 ../latex/latex/actions.py:274
 #: ../latex/latex/actions.py:286 ../latex/latex/actions.py:287
@@ -699,11 +713,11 @@ msgstr "Llista"
 
 #: ../latex/latex/actions.py:278 ../latex/latex/actions.py:279
 msgid "Itemize"
-msgstr ""
+msgstr "Presenta elements"
 
 #: ../latex/latex/actions.py:291 ../latex/latex/actions.py:292
 msgid "Enumerate"
-msgstr ""
+msgstr "Enumera"
 
 #: ../latex/latex/actions.py:298 ../latex/latex/actions.py:299
 msgid "Description"
@@ -732,7 +746,7 @@ msgstr "Paràgraf"
 
 #: ../latex/latex/actions.py:349 ../latex/latex/actions.py:350
 msgid "Subparagraph"
-msgstr ""
+msgstr "Subparàgraf"
 
 #: ../latex/latex/actions.py:405 ../latex/latex/actions.py:407
 #: ../latex/latex/actions.py:415 ../latex/latex/actions.py:416
@@ -741,11 +755,11 @@ msgstr "Muntatge"
 
 #: ../latex/latex/actions.py:420
 msgid "Build Image"
-msgstr ""
+msgstr "Munta la imatge"
 
 #: ../latex/latex/actions.py:422
 msgid "Build an image from the LaTeX document"
-msgstr ""
+msgstr "Munta una imatge a partir del document de LaTeX"
 
 #: ../latex/latex/actions.py:440 ../latex/latex/actions.py:441
 #: ../latex/latex/actions.py:460 ../latex/latex/actions.py:461
@@ -754,64 +768,109 @@ msgstr "Justifica"
 
 #: ../latex/latex/actions.py:445 ../latex/latex/actions.py:446
 msgid "Justify Left"
-msgstr ""
+msgstr "Justifica a esquerra"
 
 #: ../latex/latex/actions.py:452 ../latex/latex/actions.py:453
 msgid "Justify Center"
-msgstr ""
+msgstr "Justifica al centre"
 
 #: ../latex/latex/actions.py:465 ../latex/latex/actions.py:466
 msgid "Justify Right"
-msgstr ""
+msgstr "Justifica a dreta"
 
 #: ../latex/latex/actions.py:472 ../latex/latex/actions.py:473
 #: ../latex/latex/actions.py:485 ../latex/latex/actions.py:486
 msgid "Math"
-msgstr ""
+msgstr "Matemàtiques"
 
 #: ../latex/latex/actions.py:477 ../latex/latex/actions.py:478
 msgid "Mathematical Environment"
-msgstr ""
+msgstr "Entorn matemàtic"
 
 #: ../latex/latex/actions.py:490 ../latex/latex/actions.py:491
 msgid "Centered Formula"
-msgstr ""
+msgstr "Formula centrada"
 
 #: ../latex/latex/actions.py:497 ../latex/latex/actions.py:498
 msgid "Numbered Equation"
-msgstr ""
+msgstr "Equació numerada"
 
 #: ../latex/latex/actions.py:506 ../latex/latex/actions.py:507
 msgid "Array of Equations"
-msgstr ""
+msgstr "Matriu d'equacions"
 
 #: ../latex/latex/actions.py:516 ../latex/latex/actions.py:517
 msgid "Numbered Array of Equations"
-msgstr ""
+msgstr "Matriu d'equacions numerades"
+
+#: ../latex/latex/dialogs.py:331
+#| msgid "De_fault"
+msgid "Default"
+msgstr "Per defecte"
+
+#. PNG mode
+#. label, mode constant
+#: ../latex/latex/dialogs.py:1062
+msgid "Monochrome"
+msgstr "Monocrom"
+
+#: ../latex/latex/dialogs.py:1063
+msgid "Grayscale"
+msgstr "Escala de grisos"
+
+#: ../latex/latex/dialogs.py:1064
+msgid "RGB"
+msgstr "RGB"
+
+#: ../latex/latex/dialogs.py:1065
+msgid "RGBA"
+msgstr "RGBA"
+
+#. anti-alias
+#. label, factor
+#: ../latex/latex/dialogs.py:1077
+msgid "Off"
+msgstr "Desactivat"
+
+#: ../latex/latex/dialogs.py:1078
+msgid "1x"
+msgstr "1x"
+
+#: ../latex/latex/dialogs.py:1079
+msgid "2x"
+msgstr "2x"
+
+#: ../latex/latex/dialogs.py:1080
+msgid "4x"
+msgstr "4x"
+
+#: ../latex/latex/dialogs.py:1081
+msgid "8x"
+msgstr "8x"
 
 #: ../latex/latex/environment.py:141
 msgid "Book of abstracts"
-msgstr ""
+msgstr "Llibre de resums"
 
 #: ../latex/latex/environment.py:142
 msgid "Article"
-msgstr ""
+msgstr "Article"
 
 #: ../latex/latex/environment.py:143
 msgid "Article (AMS)"
-msgstr ""
+msgstr "Article (AMS)"
 
 #: ../latex/latex/environment.py:144
 msgid "Book (AMS)"
-msgstr ""
+msgstr "Llibre (AMS)"
 
 #: ../latex/latex/environment.py:145
 msgid "AMS Documentation"
-msgstr ""
+msgstr "Documentació AMS"
 
 #: ../latex/latex/environment.py:146
 msgid "Proceedings (AMS)"
-msgstr ""
+msgstr "Procediments (AMS)"
 
 #: ../latex/latex/environment.py:147
 msgid "Report"
@@ -819,67 +878,67 @@ msgstr "Informe"
 
 #: ../latex/latex/environment.py:148
 msgid "Beamer slides"
-msgstr ""
+msgstr "Diapositives Beamer"
 
 #: ../latex/latex/environment.py:149
 msgid "Belgian letter"
-msgstr ""
+msgstr "Carta belga"
 
 #: ../latex/latex/environment.py:150
 msgid "Book"
-msgstr ""
+msgstr "Llibre"
 
 #: ../latex/latex/environment.py:151
 msgid "Flashcard"
-msgstr ""
+msgstr "Fitxes ràpides"
 
 #: ../latex/latex/environment.py:152
 msgid "Proceedings (IAG)"
-msgstr ""
+msgstr "Procediments (IAG)"
 
 #: ../latex/latex/environment.py:153
 msgid "Letter"
-msgstr ""
+msgstr "Carta"
 
 #: ../latex/latex/environment.py:154
 msgid "LaTeX News"
-msgstr ""
+msgstr "Noticies LaTeX"
 
 #: ../latex/latex/environment.py:155
 msgid "LaTeX Documentation"
-msgstr ""
+msgstr "Documentació LaTeX"
 
 #: ../latex/latex/environment.py:156
 msgid "LaTeX Guide"
-msgstr ""
+msgstr "Guia LaTeX"
 
 #: ../latex/latex/environment.py:157
 msgid "Proceedings"
-msgstr ""
+msgstr "Procediments"
 
 #: ../latex/latex/environment.py:158
 msgid "Article (KOMA-Script)"
-msgstr ""
+msgstr "Article (KOMA-Script)"
 
 #: ../latex/latex/environment.py:159 ../latex/latex/environment.py:163
 msgid "Report (KOMA-Script)"
-msgstr ""
+msgstr "Informe (KOMA-Script)"
 
 #: ../latex/latex/environment.py:160
 msgid "Book (KOMA-Script)"
-msgstr ""
+msgstr "Llibre (KOMA-Script)"
 
 #: ../latex/latex/environment.py:161
 msgid "Letter (KOMA-Script)"
-msgstr ""
+msgstr "Carta (KOMA-Script)"
 
 #: ../latex/latex/environment.py:162
 msgid "Letter 2 (KOMA-Script)"
-msgstr ""
+msgstr "Carta 2 (KOMA-Script)"
 
 #: ../latex/latex/environment.py:164
 msgid "Slides"
-msgstr ""
+msgstr "Diapositives"
 
 #: ../latex/latex/views.py:107
 msgid "Symbols"
@@ -887,27 +946,36 @@ msgstr "Símbols"
 
 #: ../latex/latex/views.py:190
 msgid "Show graphics"
-msgstr ""
+msgstr "Mostra gràfics"
 
 #: ../latex/latex/views.py:195
 msgid "Show tables"
-msgstr ""
+msgstr "Mostra taules"
 
 #: ../latex/outline.py:58
 msgid "Follow Editor"
-msgstr ""
+msgstr "Segueix l'editor"
 
 #: ../latex/outline.py:63
 msgid "Expand All"
-msgstr ""
+msgstr "Expandeix-ho tot"
 
 #: ../latex/outline.py:67
 msgid "Collapse All"
-msgstr ""
+msgstr "Contreu-ho tot"
 
 #: ../latex/outline.py:114
 msgid "Outline"
 msgstr "Contorn"
+
+#: ../latex/preferences/tools.py:81
+#, python-format
+msgid ""
+"The file \"%s\" is corrupted and cannot be parsed. It was moved to \"%s\", "
+"and the Latex Plugin will now fallback to the default tools."
+msgstr ""
+"El fitxer «%s» està malmès i no es pot analitzar. S'ha mogut a «%s», i el"
+" connector Latex ara retrocedirà a les eines predeterminades."
 
 #: ../latex/tools/views.py:62
 msgid "Job"
@@ -923,11 +991,11 @@ msgstr "Línia"
 
 #: ../latex/tools/views.py:87
 msgid "Abort Job"
-msgstr ""
+msgstr "Avorta tasca"
 
 #: ../latex/tools/views.py:92
 msgid "Show Detailed Output"
-msgstr ""
+msgstr "Mostra la sortida detallada"
 
 #: ../latex/views.py:67
 msgid "Message"
@@ -935,12 +1003,14 @@ msgstr "Missatge"
 
 #: ../latex/views.py:99
 msgid "Show/Hide Warnings"
-msgstr ""
+msgstr "Mostra/Amaga avisos"
 
 #: ../latex/views.py:107
 msgid "Show/Hide Tasks"
-msgstr ""
+msgstr "Mostra/Amaga tasques"
 
 #: ../latex/views.py:139
 msgid "Issues"
-msgstr ""
+msgstr "Errors"
+
+
