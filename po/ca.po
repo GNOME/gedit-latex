@@ -183,7 +183,7 @@ msgstr ""
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:10
 msgid "Expanded Symbol Groups"
-msgstr "Expandeix el símbols dels grups"
+msgstr "Expandeix els símbols dels grups"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:11
 msgid "LaTeX Extensions"
@@ -200,7 +200,7 @@ msgstr "Camins relatius al fitxer .tex per buscar gràfics"
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:14
 msgid "Extra LaTeX commands used to mark issues, such as \\fxnote{foo}"
 msgstr ""
-"Ordres extra de LaTeX usades per anotar les parts del document a treballar de"
+"Ordres extres de LaTeX usades per anotar les parts del document a treballar de"
 " nou, com \\fxnote{foo}"
 
 #: ../data/ui/build_image_dialog.ui.h:1
@@ -245,7 +245,7 @@ msgstr "Resolució:"
 
 #: ../data/ui/build_image_dialog.ui.h:11
 msgid "Render whole page(s)"
-msgstr "Renderitza la pàgina(es) senzera "
+msgstr "Renderitza la pàgina(es) sencera"
 
 #: ../data/ui/build_image_dialog.ui.h:12
 msgid "Attempt to render tight bounding box"
@@ -288,7 +288,7 @@ msgid ""
 "Remember to run all commands in batch mode (e.g. append <tt>-interaction "
 "batchmode</tt> to <tt>latex</tt>)"
 msgstr ""
-"Recorda executar totes les ordres en el mode per lots (ex. afegeix <tt"
+"Recorda executar totes les ordres en el mode per lots (p. ex. afegeix <tt"
 ">-interaction batchmode</tt> a <tt>latex</tt>)"
 
 #: ../data/ui/configure_tool.ui.h:2
@@ -405,7 +405,7 @@ msgstr "Capgira _horitzontalment"
 
 #: ../data/ui/insert_graphics_dialog.ui.h:14
 msgid "_Spread over two Columns"
-msgstr "_Estem en dos columnes"
+msgstr "_Estén en dues columnes"
 
 #: ../data/ui/insert_graphics_dialog.ui.h:15
 msgid "Floating _Object"
@@ -789,7 +789,7 @@ msgstr "Entorn matemàtic"
 
 #: ../latex/latex/actions.py:490 ../latex/latex/actions.py:491
 msgid "Centered Formula"
-msgstr "Formula centrada"
+msgstr "Fórmula centrada"
 
 #: ../latex/latex/actions.py:497 ../latex/latex/actions.py:498
 msgid "Numbered Equation"
@@ -902,7 +902,7 @@ msgstr "Carta"
 
 #: ../latex/latex/environment.py:154
 msgid "LaTeX News"
-msgstr "Noticies LaTeX"
+msgstr "Notícies LaTeX"
 
 #: ../latex/latex/environment.py:155
 msgid "LaTeX Documentation"
