@@ -1,34 +1,33 @@
 # Dutch translation for gedit-latex.
 # Copyright (C) 2015 gedit-latex's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gedit-latex package.
-# Nathan Follens <nthn@unseen.is>, 2015, 2017.
+# Nathan Follens <nthn@unseen.is>, 2015, 2017, 2019.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gedit-latex master\n"
-"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
-"product=gedit&keywords=I18N+L10N&component=LaTeX\n"
-"POT-Creation-Date: 2017-08-09 20:10+0000\n"
-"PO-Revision-Date: 2018-03-02 21:14+0100\n"
-"Last-Translator: Justin van Steijn <jvs@fsfe.org>\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gedit-latex/issues\n"
+"POT-Creation-Date: 2018-06-10 16:13+0000\n"
+"PO-Revision-Date: 2019-02-26 13:55+0100\n"
+"Last-Translator: Nathan Follens <nthn@unseen.is>\n"
 "Language-Team: Dutch <gnome-nl-list@gnome.org>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 1.8.11\n"
+"X-Generator: Poedit 2.2.1\n"
 
 #: ../latex.plugin.desktop.in.in.h:1
 msgid "LaTeX Plugin"
-msgstr "LaTeX-plugin"
+msgstr "LaTeX-plug-in"
 
 #: ../latex.plugin.desktop.in.in.h:2
 msgid ""
 "A plugin that assists you in handling LaTeX documents and BibTeX "
 "bibliographies"
 msgstr ""
-"Een plugin die je helpt bij het verwerken van LaTeX-documenten en BibTeX-"
+"Een plug-in die u helpt bij het verwerken van LaTeX-documenten en BibTeX-"
 "bibliografieën"
 
 #: ../data/bibtex.xml.h:1
@@ -49,7 +48,7 @@ msgstr "Redacteur"
 
 #: ../data/bibtex.xml.h:5
 msgid "Pages"
-msgstr "Pagina's"
+msgstr "Pagina’s"
 
 #: ../data/bibtex.xml.h:6
 msgid "Journal"
@@ -146,62 +145,66 @@ msgstr "Maximale BibTeX-grootte"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:2
 msgid "Connect Outline to Editor"
-msgstr ""
+msgstr "Inhoud koppelen aan verwerker"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:3
 msgid "Show Labels in Outline"
-msgstr ""
+msgstr "Labels weergeven in inhoud"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:4
 msgid "Show Tables in Outline"
-msgstr ""
+msgstr "Tabellen weergeven in inhoud"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:5
 msgid "Show Graphics in Outline"
-msgstr ""
+msgstr "Grafieken weergeven in inhoud"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:6
 msgid "Show Warnings in Issues"
-msgstr ""
+msgstr "Waarschuwingen weergeven in problemen"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:7
 msgid "Show Tasks in Issues"
-msgstr ""
+msgstr "Taken weergeven in problemen"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:8
 #: ../data/ui/configure.ui.h:6
 msgid "Hide Box Warnings"
-msgstr ""
+msgstr "Kaderwaarschuwingen verbergen"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:9
 msgid ""
 "Show LaTeX Toolbar below (normal), combined with the main toolbar, or "
 "disabled"
 msgstr ""
+"LaTeX-werkbalk onderaan weergeven (standaard), gecombineerd met de "
+"hoofdwerkbalk, of uitgeschakeld"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:10
 msgid "Expanded Symbol Groups"
-msgstr ""
+msgstr "Uitgebreide symboolgroepen"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:11
 msgid "LaTeX Extensions"
-msgstr ""
+msgstr "LaTeX-extensies"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:12
 msgid "Graphics File Extensions"
-msgstr ""
+msgstr "Extensies van afbeeldingsbestanden"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:13
 msgid "Paths Relative to .tex File to Look for Graphics"
 msgstr ""
+"Paden relatief aan .tex-bestand om naar afbeeldingsbestanden te zoeken"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:14
 msgid "Extra LaTeX commands used to mark issues, such as \\fxnote{foo}"
 msgstr ""
+"Extra LaTeX-opdrachten om problemen aan te duiden, zoals \\fxnote{foo}"
 
 #: ../data/ui/build_image_dialog.ui.h:1
 msgid "Render to Image"
-msgstr ""
+msgstr "Renderen naar afbeelding"
 
 #: ../data/ui/build_image_dialog.ui.h:2
 msgid "<b>Image Format</b>"
@@ -225,7 +228,7 @@ msgstr "GIF"
 
 #: ../data/ui/build_image_dialog.ui.h:7
 msgid "<b>Rendering</b>"
-msgstr ""
+msgstr "<b>Renderen</b>"
 
 #: ../data/ui/build_image_dialog.ui.h:8
 msgid "<b>Area</b>"
@@ -241,11 +244,12 @@ msgstr "Resolutie:"
 
 #: ../data/ui/build_image_dialog.ui.h:11
 msgid "Render whole page(s)"
-msgstr ""
+msgstr "Volledige pagina(’s) renderen"
 
+# ? - Nathan
 #: ../data/ui/build_image_dialog.ui.h:12
 msgid "Attempt to render tight bounding box"
-msgstr ""
+msgstr "Strakke selectiekader proberen renderen"
 
 #: ../data/ui/choose_master_dialog.ui.h:1
 msgid "Select Master Document"
@@ -265,11 +269,11 @@ msgstr "<b>BibTeX</b>"
 
 #: ../data/ui/configure.ui.h:3
 msgid "<b><i>rubber</i> Post-Processor</b>"
-msgstr ""
+msgstr "<b><i>rubber</i> Post-processor</b>"
 
 #: ../data/ui/configure.ui.h:4
 msgid "Maximum Parsed File Size:"
-msgstr ""
+msgstr "Maximale grootte van geparseerd bestand:"
 
 #: ../data/ui/configure.ui.h:5
 msgid "KB"
@@ -284,6 +288,8 @@ msgid ""
 "Remember to run all commands in batch mode (e.g. append <tt>-interaction "
 "batchmode</tt> to <tt>latex</tt>)"
 msgstr ""
+"Onthoud dat alle opdracht in batchmodus uitgevoerd moeten worden (bv. voeg "
+"<tt>-interaction batchmode</tt> toe aan <tt>latex</tt>)"
 
 #: ../data/ui/configure_tool.ui.h:2
 msgid "<b>_Label</b>"
@@ -294,6 +300,8 @@ msgid ""
 "Valid placeholders are <tt>$filename</tt>, <tt>$shortname</tt>, <tt>"
 "$directory</tt>"
 msgstr ""
+"Geldige plaatsvervangende waarden zijn <tt>$filename</tt>, <tt>$shortname</"
+"tt>, <tt>$directory</tt>"
 
 #: ../data/ui/configure_tool.ui.h:4
 msgid "<b>_Jobs</b>"
@@ -321,7 +329,7 @@ msgstr "<Ctrl><Alt>1"
 
 #: ../data/ui/configure_tool.ui.h:10
 msgid "<b>Accelerator</b>"
-msgstr ""
+msgstr "<b>Accelerator</b>"
 
 #: ../data/ui/insert_bibtex_entry.ui.h:1
 msgid "Create Bibliography Entry"
@@ -389,19 +397,19 @@ msgstr "D_raaien:"
 
 #: ../data/ui/insert_graphics_dialog.ui.h:12
 msgid "° CCW"
-msgstr ""
+msgstr "° CCW"
 
 #: ../data/ui/insert_graphics_dialog.ui.h:13
 msgid "Flip _Horizontally"
-msgstr ""
+msgstr "_Horizontaal spiegelen"
 
 #: ../data/ui/insert_graphics_dialog.ui.h:14
 msgid "_Spread over two Columns"
-msgstr ""
+msgstr "Ver_spreiden over twee kolommen"
 
 #: ../data/ui/insert_graphics_dialog.ui.h:15
 msgid "Floating _Object"
-msgstr ""
+msgstr "Zwevend _object"
 
 #: ../data/ui/insert_listing_dialog.ui.h:1 ../latex/latex/actions.py:388
 #: ../latex/latex/actions.py:390
@@ -451,7 +459,7 @@ msgstr "tab:"
 
 #: ../data/ui/insert_table_dialog.ui.h:10
 msgid "_Floating Object"
-msgstr ""
+msgstr "_Zwevend object"
 
 #: ../data/ui/new_document_template_dialog.ui.h:1
 msgid "New LaTeX Document"
@@ -487,7 +495,7 @@ msgstr "_Invoercodering:"
 
 #: ../data/ui/new_document_template_dialog.ui.h:9
 msgid "<b>Language Customization</b>"
-msgstr ""
+msgstr "<b>Taalaanpassing</b>"
 
 #: ../data/ui/new_document_template_dialog.ui.h:10
 msgid "_Landscape"
@@ -626,7 +634,7 @@ msgstr "Onbekende auteur"
 
 #: ../latex/latex/actions.py:73
 msgid "New LaTeX Document..."
-msgstr "Nieuw LaTeX-document..."
+msgstr "Nieuw LaTeX-document…"
 
 #: ../latex/latex/actions.py:76
 msgid "Create a new LaTeX document"
@@ -634,15 +642,15 @@ msgstr "Een nieuw LaTeX-document aanmaken"
 
 #: ../latex/latex/actions.py:95
 msgid "Choose Master Document..."
-msgstr ""
+msgstr "Kies hoofddocument…"
 
 #: ../latex/latex/actions.py:107
 msgid "Close Nearest Environment"
-msgstr ""
+msgstr "Dichtstbijzijnde omgeving sluiten"
 
 #: ../latex/latex/actions.py:109
 msgid "Close the nearest TeX environment at left of the cursor"
-msgstr ""
+msgstr "Sluit de dichtstbijzijnde TeX-omgeving links van de cursor"
 
 #: ../latex/latex/actions.py:157
 msgid "Use Bibliography..."
@@ -683,15 +691,15 @@ msgstr "Schreefloos"
 
 #: ../latex/latex/actions.py:243 ../latex/latex/actions.py:244
 msgid "Typewriter"
-msgstr ""
+msgstr "Typemachine"
 
 #: ../latex/latex/actions.py:250 ../latex/latex/actions.py:251
 msgid "Blackboard Bold"
-msgstr ""
+msgstr "Schoolbord vet"
 
 #: ../latex/latex/actions.py:258 ../latex/latex/actions.py:259
 msgid "Calligraphy"
-msgstr ""
+msgstr "Kalligrafie"
 
 #: ../latex/latex/actions.py:265 ../latex/latex/actions.py:266
 msgid "Fraktur"
@@ -704,11 +712,11 @@ msgstr "Lijst"
 
 #: ../latex/latex/actions.py:278 ../latex/latex/actions.py:279
 msgid "Itemize"
-msgstr ""
+msgstr "Oplijsten"
 
 #: ../latex/latex/actions.py:291 ../latex/latex/actions.py:292
 msgid "Enumerate"
-msgstr ""
+msgstr "Opsommen"
 
 #: ../latex/latex/actions.py:298 ../latex/latex/actions.py:299
 msgid "Description"
@@ -725,32 +733,32 @@ msgstr "Deel"
 
 #: ../latex/latex/actions.py:322 ../latex/latex/actions.py:323
 msgid "Section"
-msgstr ""
+msgstr "Sectie"
 
 #: ../latex/latex/actions.py:335 ../latex/latex/actions.py:336
 msgid "Subsection"
-msgstr ""
+msgstr "Subsectie"
 
 #: ../latex/latex/actions.py:342 ../latex/latex/actions.py:343
 msgid "Paragraph"
-msgstr ""
+msgstr "Alinea"
 
 #: ../latex/latex/actions.py:349 ../latex/latex/actions.py:350
 msgid "Subparagraph"
-msgstr ""
+msgstr "Subalinea"
 
 #: ../latex/latex/actions.py:405 ../latex/latex/actions.py:407
 #: ../latex/latex/actions.py:415 ../latex/latex/actions.py:416
 msgid "Build"
-msgstr ""
+msgstr "Compileren"
 
 #: ../latex/latex/actions.py:420
 msgid "Build Image"
-msgstr ""
+msgstr "Afbeelding compileren"
 
 #: ../latex/latex/actions.py:422
 msgid "Build an image from the LaTeX document"
-msgstr ""
+msgstr "Compileer een afbeelding uit het LaTeX-document"
 
 #: ../latex/latex/actions.py:440 ../latex/latex/actions.py:441
 #: ../latex/latex/actions.py:460 ../latex/latex/actions.py:461
@@ -776,23 +784,23 @@ msgstr "Wiskunde"
 
 #: ../latex/latex/actions.py:477 ../latex/latex/actions.py:478
 msgid "Mathematical Environment"
-msgstr ""
+msgstr "Wiskundige omgeving"
 
 #: ../latex/latex/actions.py:490 ../latex/latex/actions.py:491
 msgid "Centered Formula"
-msgstr ""
+msgstr "Gecentreerde formule"
 
 #: ../latex/latex/actions.py:497 ../latex/latex/actions.py:498
 msgid "Numbered Equation"
-msgstr ""
+msgstr "Genummerde vergelijking"
 
 #: ../latex/latex/actions.py:506 ../latex/latex/actions.py:507
 msgid "Array of Equations"
-msgstr ""
+msgstr "Array van vergelijkingen"
 
 #: ../latex/latex/actions.py:516 ../latex/latex/actions.py:517
 msgid "Numbered Array of Equations"
-msgstr ""
+msgstr "Genummerd array van vergelijkingen"
 
 #: ../latex/latex/dialogs.py:331
 msgid "Default"
@@ -802,7 +810,7 @@ msgstr "Standaard"
 #. label, mode constant
 #: ../latex/latex/dialogs.py:1062
 msgid "Monochrome"
-msgstr ""
+msgstr "Grijstinten"
 
 #: ../latex/latex/dialogs.py:1063
 msgid "Grayscale"
@@ -840,7 +848,7 @@ msgstr "8x"
 
 #: ../latex/latex/environment.py:141
 msgid "Book of abstracts"
-msgstr ""
+msgstr "Boek van abstracts"
 
 #: ../latex/latex/environment.py:142
 msgid "Article"
@@ -860,7 +868,7 @@ msgstr "AMS-documentatie"
 
 #: ../latex/latex/environment.py:146
 msgid "Proceedings (AMS)"
-msgstr ""
+msgstr "Proceedings (AMS)"
 
 #: ../latex/latex/environment.py:147
 msgid "Report"
@@ -880,11 +888,11 @@ msgstr "Boek"
 
 #: ../latex/latex/environment.py:151
 msgid "Flashcard"
-msgstr ""
+msgstr "Flashcard"
 
 #: ../latex/latex/environment.py:152
 msgid "Proceedings (IAG)"
-msgstr ""
+msgstr "Proceedings (IAG)"
 
 #: ../latex/latex/environment.py:153
 msgid "Letter"
@@ -904,27 +912,27 @@ msgstr "LaTeX-gids"
 
 #: ../latex/latex/environment.py:157
 msgid "Proceedings"
-msgstr ""
+msgstr "Proceedings"
 
 #: ../latex/latex/environment.py:158
 msgid "Article (KOMA-Script)"
-msgstr ""
+msgstr "Artikel (KOMA-Script)"
 
 #: ../latex/latex/environment.py:159 ../latex/latex/environment.py:163
 msgid "Report (KOMA-Script)"
-msgstr ""
+msgstr "Rapport (KOMA-Script)"
 
 #: ../latex/latex/environment.py:160
 msgid "Book (KOMA-Script)"
-msgstr ""
+msgstr "Boek (KOMA-Script)"
 
 #: ../latex/latex/environment.py:161
 msgid "Letter (KOMA-Script)"
-msgstr ""
+msgstr "Brief (KOMA-Script)"
 
 #: ../latex/latex/environment.py:162
 msgid "Letter 2 (KOMA-Script)"
-msgstr ""
+msgstr "Brief 2 (KOMA-Script)"
 
 #: ../latex/latex/environment.py:164
 msgid "Slides"
@@ -944,7 +952,7 @@ msgstr "Tabellen tonen"
 
 #: ../latex/outline.py:58
 msgid "Follow Editor"
-msgstr ""
+msgstr "Verwerker volgen"
 
 #: ../latex/outline.py:63
 msgid "Expand All"
