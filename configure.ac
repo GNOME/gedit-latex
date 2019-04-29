@@ -9,7 +9,7 @@ m4_define(gedit_latex_version, gedit_latex_major_version.gedit_latex_minor_versi
 
 AC_INIT([gedit-latex],
         [gedit_latex_version],
-        [http://bugzilla.gnome.org/enter_bug.cgi?product=gedit],
+        [https://gitlab.gnome.org/GNOME/gedit-latex/issues],
         [gedit-latex])
 
 AC_CONFIG_HEADERS([config.h])

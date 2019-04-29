@@ -6,5 +6,5 @@ _Name=LaTeX Plugin
 _Description=A plugin that assists you in handling LaTeX documents and BibTeX bibliographies
 Authors=Michael Zeising <michael@michaels-website.de>
 Copyright=Copyright (c) 2010 Michael Zeising
-Website=https://live.gnome.org/Gedit/LaTeXPlugin/
+Website=https://wiki.gnome.org/Apps/Gedit/LaTeXPlugin
 Version=@VERSION@
