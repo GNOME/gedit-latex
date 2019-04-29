@@ -70,7 +70,7 @@ class LaTeXMenuAction(LaTeXAction):
 
 
 class LaTeXNewAction(Action):
-    label = _("New LaTeX Document...")
+    label = _("New LaTeX Document…")
     stock_id = Gtk.STOCK_NEW
     accelerator = "<Ctrl><Alt>N"
     tooltip = _("Create a new LaTeX document")
@@ -92,7 +92,7 @@ class LaTeXNewAction(Action):
 
 
 class LaTeXChooseMasterAction(LaTeXAction):
-    label = _("Choose Master Document...")
+    label = _("Choose Master Document…")
     stock_id = None
     accelerator = None
     tooltip = None
@@ -154,7 +154,7 @@ class LaTeXCloseEnvironmentAction(LaTeXIconAction):
 
 
 class LaTeXUseBibliographyAction(LaTeXIconAction):
-    label = _("Use Bibliography...")
+    label = _("Use Bibliography…")
     accelerator = None
     tooltip = _("Use Bibliography")
     icon_name = "bib"

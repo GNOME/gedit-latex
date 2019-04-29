@@ -40,7 +40,7 @@ class BibTeXMenuAction(Action):
 
 class BibTeXNewEntryAction(Action):
     extensions = [".bib"]
-    label = _("New BibTeX Entry...")
+    label = _("New BibTeX Entry…")
     stock_id = None
     accelerator = None
     tooltip = _("Create a new BibTeX entry")
