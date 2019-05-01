@@ -1,15 +1,15 @@
 # Polish translation for gedit-latex.
-# Copyright © 2011-2016 the gedit-latex authors.
+# Copyright © 2011-2019 the gedit-latex authors.
 # This file is distributed under the same license as the gedit-latex package.
-# Piotr Drąg <piotrdrag@gmail.com>, 2011-2016.
-# Aviary.pl <community-poland@mozilla.org>, 2011-2016.
+# Piotr Drąg <piotrdrag@gmail.com>, 2011-2019.
+# Aviary.pl <community-poland@mozilla.org>, 2011-2019.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gedit-latex\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-19 19:01+0200\n"
-"PO-Revision-Date: 2016-08-19 19:02+0200\n"
+"POT-Creation-Date: 2019-05-01 13:04+0200\n"
+"PO-Revision-Date: 2019-05-01 13:05+0200\n"
 "Last-Translator: Piotr Drąg <piotrdrag@gmail.com>\n"
 "Language-Team: Polish <community-poland@mozilla.org>\n"
 "Language: pl\n"
@@ -596,7 +596,7 @@ msgid "BibTeX"
 msgstr "BibTeX"
 
 #: ../latex/bibtex/actions.py:43
-msgid "New BibTeX Entry..."
+msgid "New BibTeX Entry…"
 msgstr "Nowy wpis BibTeX…"
 
 #: ../latex/bibtex/actions.py:46
@@ -630,7 +630,7 @@ msgid "Unknown Author"
 msgstr "Nieznany autor"
 
 #: ../latex/latex/actions.py:73
-msgid "New LaTeX Document..."
+msgid "New LaTeX Document…"
 msgstr "Nowy dokument LaTeX…"
 
 #: ../latex/latex/actions.py:76
@@ -638,7 +638,7 @@ msgid "Create a new LaTeX document"
 msgstr "Tworzy nowy dokument LaTeX"
 
 #: ../latex/latex/actions.py:95
-msgid "Choose Master Document..."
+msgid "Choose Master Document…"
 msgstr "Wybierz główny dokument…"
 
 #: ../latex/latex/actions.py:107
@@ -650,7 +650,7 @@ msgid "Close the nearest TeX environment at left of the cursor"
 msgstr "Zamyka najbliższe środowisko TeX po lewej od kursora"
 
 #: ../latex/latex/actions.py:157
-msgid "Use Bibliography..."
+msgid "Use Bibliography…"
 msgstr "Użycie bibliografii…"
 
 #: ../latex/latex/actions.py:179 ../latex/latex/actions.py:181
@@ -828,19 +828,19 @@ msgid "Off"
 msgstr "Wyłączone"
 
 #: ../latex/latex/dialogs.py:1078
-msgid "1x"
+msgid "1×"
 msgstr "1×"
 
 #: ../latex/latex/dialogs.py:1079
-msgid "2x"
+msgid "2×"
 msgstr "2×"
 
 #: ../latex/latex/dialogs.py:1080
-msgid "4x"
+msgid "4×"
 msgstr "4×"
 
 #: ../latex/latex/dialogs.py:1081
-msgid "8x"
+msgid "8×"
 msgstr "8×"
 
 #: ../latex/latex/environment.py:141
@@ -966,8 +966,8 @@ msgstr "Obrys"
 #: ../latex/preferences/tools.py:81
 #, python-format
 msgid ""
-"The file \"%s\" is corrupted and cannot be parsed. It was moved to \"%s\", "
-"and the Latex Plugin will now fallback to the default tools."
+"The file “%s” is corrupted and cannot be parsed. It was moved to “%s”, and "
+"the Latex Plugin will now fallback to the default tools."
 msgstr ""
 "Plik „%s” jest uszkodzony i nie może zostać przetworzony. Został on "
 "przeniesiony do „%s”, a wtyczka LaTeX użyje domyślnych narzędzi."
