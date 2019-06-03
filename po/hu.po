@@ -2,23 +2,22 @@
 # Copyright (C) 2014 gedit-latex's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gedit-latex package.
 #
-# Balázs Úr <urbalazs@gmail.com>, 2014.
+# Balázs Úr <ur.balazs at fsf dot hu>, 2014, 2019.
 # Gabor Kelemen <kelemeng at gnome dot hu>, 2016.
 msgid ""
 msgstr ""
 "Project-Id-Version: gedit-latex master\n"
-"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
-"product=gedit&keywords=I18N+L10N&component=LaTeX\n"
-"POT-Creation-Date: 2017-08-07 14:06+0000\n"
-"PO-Revision-Date: 2018-02-26 11:03+0100\n"
-"Last-Translator: Meskó Balázs <meskobalazs@fedoraproject.org>\n"
-"Language-Team: Hungarian <openscope at gmail dot com>\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gedit-latex/issues\n"
+"POT-Creation-Date: 2019-04-29 18:24+0000\n"
+"PO-Revision-Date: 2019-06-03 20:51+0200\n"
+"Last-Translator: Balázs Úr <ur.balazs at fsf dot hu>\n"
+"Language-Team: Hungarian <gnome-hu-list at gnome dot org>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.0.6\n"
+"X-Generator: Lokalize 18.12.3\n"
 
 #: ../latex.plugin.desktop.in.in.h:1
 msgid "LaTeX Plugin"
@@ -599,7 +598,8 @@ msgid "BibTeX"
 msgstr "BibTeX"
 
 #: ../latex/bibtex/actions.py:43
-msgid "New BibTeX Entry..."
+#| msgid "New BibTeX Entry..."
+msgid "New BibTeX Entry…"
 msgstr "Új BibTeX bejegyzés…"
 
 #: ../latex/bibtex/actions.py:46
@@ -633,7 +633,8 @@ msgid "Unknown Author"
 msgstr "Ismeretlen szerző"
 
 #: ../latex/latex/actions.py:73
-msgid "New LaTeX Document..."
+#| msgid "New LaTeX Document"
+msgid "New LaTeX Document…"
 msgstr "Új LaTeX dokumentum…"
 
 #: ../latex/latex/actions.py:76
@@ -641,7 +642,8 @@ msgid "Create a new LaTeX document"
 msgstr "Új LaTeX dokumentum létrehozása"
 
 #: ../latex/latex/actions.py:95
-msgid "Choose Master Document..."
+#| msgid "Choose Master Document..."
+msgid "Choose Master Document…"
 msgstr "Fődokumentum kiválasztása…"
 
 #: ../latex/latex/actions.py:107
@@ -653,7 +655,8 @@ msgid "Close the nearest TeX environment at left of the cursor"
 msgstr "A kurzortól balra lévő legközelebbi TeX környezet bezárása"
 
 #: ../latex/latex/actions.py:157
-msgid "Use Bibliography..."
+#| msgid "Use Bibliography"
+msgid "Use Bibliography…"
 msgstr "Irodalomjegyzék használata…"
 
 #: ../latex/latex/actions.py:179 ../latex/latex/actions.py:181
@@ -831,20 +834,20 @@ msgid "Off"
 msgstr "Ki"
 
 #: ../latex/latex/dialogs.py:1078
-msgid "1x"
-msgstr "1x"
+msgid "1×"
+msgstr "1×"
 
 #: ../latex/latex/dialogs.py:1079
-msgid "2x"
-msgstr "2x"
+msgid "2×"
+msgstr "2×"
 
 #: ../latex/latex/dialogs.py:1080
-msgid "4x"
-msgstr "4x"
+msgid "4×"
+msgstr "4×"
 
 #: ../latex/latex/dialogs.py:1081
-msgid "8x"
-msgstr "8x"
+msgid "8×"
+msgstr "8×"
 
 #: ../latex/latex/environment.py:141
 msgid "Book of abstracts"
@@ -968,9 +971,12 @@ msgstr "Körvonal"
 
 #: ../latex/preferences/tools.py:81
 #, python-format
+#| msgid ""
+#| "The file \"%s\" is corrupted and cannot be parsed. It was moved to \"%s"
+#| "\", and the Latex Plugin will now fallback to the default tools."
 msgid ""
-"The file \"%s\" is corrupted and cannot be parsed. It was moved to \"%s\", "
-"and the Latex Plugin will now fallback to the default tools."
+"The file “%s” is corrupted and cannot be parsed. It was moved to “%s”, and "
+"the Latex Plugin will now fallback to the default tools."
 msgstr ""
 "A(z) „%s” fájl sérült és nem dolgozható fel. Ide lett mozgatva: „%s”, és a "
 "LaTeX bővítmény most visszaáll az alapértelmezett eszközökre."
