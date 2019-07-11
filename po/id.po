@@ -2,15 +2,14 @@
 # Copyright (C) 2012 gedit-latex's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gedit-latex package.
 # Andika Triwidada <andika@gmail.com>, 2012, 2015.
-#
+# Kukuh Syafaat <kukuhsyafaat@gnome.org>, 2019
 msgid ""
 msgstr ""
 "Project-Id-Version: gedit-latex master\n"
-"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
-"product=gedit&keywords=I18N+L10N&component=LaTeX\n"
-"POT-Creation-Date: 2017-04-08 14:15+0000\n"
-"PO-Revision-Date: 2017-04-10 18:44+0700\n"
-"Last-Translator: Andika Triwidada <atriwidada@gnome.org>\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gedit-latex/issues\n"
+"POT-Creation-Date: 2019-04-29 18:24+0000\n"
+"PO-Revision-Date: 2019-07-11 15:09+0700\n"
+"Last-Translator: Kukuh Syafaat <kukuhsyafaat@gnome.org>\n"
 "Language-Team: Indonesian <gnome@i15n.org>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
@@ -18,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Poedit-SourceCharset: utf-8\n"
-"X-Generator: Poedit 1.6.10\n"
+"X-Generator: Poedit 2.2.3\n"
 
 #: ../latex.plugin.desktop.in.in.h:1
 msgid "LaTeX Plugin"
@@ -598,7 +597,7 @@ msgid "BibTeX"
 msgstr "BibTeX"
 
 #: ../latex/bibtex/actions.py:43
-msgid "New BibTeX Entry..."
+msgid "New BibTeX Entry…"
 msgstr "Entri BibTeX Baru..."
 
 #: ../latex/bibtex/actions.py:46
@@ -632,15 +631,15 @@ msgid "Unknown Author"
 msgstr "Pengarang Tak Diketahui"
 
 #: ../latex/latex/actions.py:73
-msgid "New LaTeX Document..."
-msgstr "Dokumen LaTeX Baru..."
+msgid "New LaTeX Document…"
+msgstr "Dokumen LaTeX Baru…"
 
 #: ../latex/latex/actions.py:76
 msgid "Create a new LaTeX document"
 msgstr "Buat dokumen LaTeX baru"
 
 #: ../latex/latex/actions.py:95
-msgid "Choose Master Document..."
+msgid "Choose Master Document…"
 msgstr "Pilih Dokumen Induk..."
 
 #: ../latex/latex/actions.py:107
@@ -652,8 +651,8 @@ msgid "Close the nearest TeX environment at left of the cursor"
 msgstr "Tutup lingkungan TeX terdekat di kiri kursor"
 
 #: ../latex/latex/actions.py:157
-msgid "Use Bibliography..."
-msgstr "Pakai Bibliografi..."
+msgid "Use Bibliography…"
+msgstr "Pakai Bibliografi…"
 
 #: ../latex/latex/actions.py:179 ../latex/latex/actions.py:181
 #: ../latex/latex/actions.py:189 ../latex/latex/actions.py:190
@@ -830,20 +829,20 @@ msgid "Off"
 msgstr "Mati"
 
 #: ../latex/latex/dialogs.py:1078
-msgid "1x"
-msgstr "1x"
+msgid "1×"
+msgstr "1×"
 
 #: ../latex/latex/dialogs.py:1079
-msgid "2x"
-msgstr "2x"
+msgid "2×"
+msgstr "2×"
 
 #: ../latex/latex/dialogs.py:1080
-msgid "4x"
-msgstr "4x"
+msgid "4×"
+msgstr "4×"
 
 #: ../latex/latex/dialogs.py:1081
-msgid "8x"
-msgstr "8x"
+msgid "8×"
+msgstr "8×"
 
 #: ../latex/latex/environment.py:141
 msgid "Book of abstracts"
@@ -968,8 +967,8 @@ msgstr "Kerangka"
 #: ../latex/preferences/tools.py:81
 #, python-format
 msgid ""
-"The file \"%s\" is corrupted and cannot be parsed. It was moved to \"%s\", "
-"and the Latex Plugin will now fallback to the default tools."
+"The file “%s” is corrupted and cannot be parsed. It was moved to “%s”, and "
+"the Latex Plugin will now fallback to the default tools."
 msgstr ""
 "Berkas \"%s\" rusak dan tidak dapat diurai. Itu dipindahkan ke \"%s\", dan "
 "Pengaya LaTeX kini akan berpindah ke cadangan alat baku."
@@ -1009,3 +1008,21 @@ msgstr "Tampilkan/Sembunyikan Tugas"
 #: ../latex/views.py:139
 msgid "Issues"
 msgstr "Masalah"
+
+#~ msgid "New LaTeX Document..."
+#~ msgstr "Dokumen LaTeX Baru..."
+
+#~ msgid "Use Bibliography..."
+#~ msgstr "Pakai Bibliografi..."
+
+#~ msgid "1x"
+#~ msgstr "1x"
+
+#~ msgid "2x"
+#~ msgstr "2x"
+
+#~ msgid "4x"
+#~ msgstr "4x"
+
+#~ msgid "8x"
+#~ msgstr "8x"
