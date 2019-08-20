@@ -8,16 +8,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gedit-latex master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gedit-latex/issues\n"
-"POT-Creation-Date: 2019-04-29 18:24+0000\n"
-"PO-Revision-Date: 2019-05-13 15:17+0200\n"
+"POT-Creation-Date: 2019-08-20 10:30+0000\n"
+"PO-Revision-Date: 2019-08-20 12:31+0200\n"
 "Last-Translator: Daniel Mustieles <daniel.mustieles@gmail.com>\n"
-"Language-Team: es <gnome-es-list@gnome.org>\n"
-"Language: es\n"
+"Language-Team: Spanish - Spain <gnome-es-list@gnome.org>\n"
+"Language: es_ES\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Gtranslator 3.32.0\n"
+"X-Generator: Gtranslator 3.32.1\n"
 
 #: ../latex.plugin.desktop.in.in.h:1
 msgid "LaTeX Plugin"
@@ -597,8 +597,8 @@ msgid "BibTeX"
 msgstr "BibTeX"
 
 #: ../latex/bibtex/actions.py:43
-#| msgid "New BibTeX Entry..."
-msgid "New BibTeX Entry…"
+#| msgid "New BibTeX Entry…"
+msgid "New BibTeX Entry..."
 msgstr "Nueva entrada BibTeX…"
 
 #: ../latex/bibtex/actions.py:46
@@ -632,8 +632,7 @@ msgid "Unknown Author"
 msgstr "Autor desconocido"
 
 #: ../latex/latex/actions.py:73
-#| msgid "New LaTeX Document"
-msgid "New LaTeX Document…"
+msgid "New LaTeX Document..."
 msgstr "Documento LaTeX nuevo…"
 
 #: ../latex/latex/actions.py:76
@@ -641,8 +640,8 @@ msgid "Create a new LaTeX document"
 msgstr "Crear un documento LaTeX nuevo"
 
 #: ../latex/latex/actions.py:95
-#| msgid "Choose Master Document..."
-msgid "Choose Master Document…"
+#| msgid "Choose Master Document…"
+msgid "Choose Master Document..."
 msgstr "Seleccionar el documento maestro…"
 
 #: ../latex/latex/actions.py:107
@@ -654,8 +653,7 @@ msgid "Close the nearest TeX environment at left of the cursor"
 msgstr "Cerrar el entorno TeX más cercano a la izquierda del puntero"
 
 #: ../latex/latex/actions.py:157
-#| msgid "Use Bibliography"
-msgid "Use Bibliography…"
+msgid "Use Bibliography..."
 msgstr "Usar bibliografía…"
 
 #: ../latex/latex/actions.py:179 ../latex/latex/actions.py:181
@@ -840,20 +838,20 @@ msgid "Off"
 msgstr "Desactivado"
 
 #: ../latex/latex/dialogs.py:1078
-msgid "1×"
-msgstr "1×"
+msgid "1x"
+msgstr "1x"
 
 #: ../latex/latex/dialogs.py:1079
-msgid "2×"
-msgstr "2×"
+msgid "2x"
+msgstr "2x"
 
 #: ../latex/latex/dialogs.py:1080
-msgid "4×"
-msgstr "4×"
+msgid "4x"
+msgstr "4x"
 
 #: ../latex/latex/dialogs.py:1081
-msgid "8×"
-msgstr "8×"
+msgid "8x"
+msgstr "8x"
 
 #: ../latex/latex/environment.py:141
 msgid "Book of abstracts"
@@ -975,18 +973,6 @@ msgstr "Contraer todo"
 msgid "Outline"
 msgstr "Esquema"
 
-#: ../latex/preferences/tools.py:81
-#, python-format
-#| msgid ""
-#| "The file \"%s\" is corrupted and cannot be parsed. It was moved to \"%s"
-#| "\", and the Latex Plugin will now fallback to the default tools."
-msgid ""
-"The file “%s” is corrupted and cannot be parsed. It was moved to “%s”, and "
-"the Latex Plugin will now fallback to the default tools."
-msgstr ""
-"El archivo «%s» está corrupto y no se puede analizar. Se ha movido a «%s» y "
-"el complemento de LaTeX usará ahora las herramientas predeterminadas."
-
 #: ../latex/tools/views.py:62
 msgid "Job"
 msgstr "Trabajo"
@@ -1023,23 +1009,35 @@ msgstr "Mostrar/ocultar tareas"
 msgid "Issues"
 msgstr "Problemas"
 
-#~ msgid "New LaTeX Document..."
+#~| msgid "New LaTeX Document"
+#~ msgid "New LaTeX Document…"
 #~ msgstr "Documento LaTeX nuevo…"
 
-#~ msgid "Use Bibliography..."
+#~| msgid "Use Bibliography"
+#~ msgid "Use Bibliography…"
 #~ msgstr "Usar bibliografía…"
 
-#~ msgid "1x"
-#~ msgstr "1x"
+#~ msgid "1×"
+#~ msgstr "1×"
 
-#~ msgid "2x"
-#~ msgstr "2x"
+#~ msgid "2×"
+#~ msgstr "2×"
 
-#~ msgid "4x"
-#~ msgstr "4x"
+#~ msgid "4×"
+#~ msgstr "4×"
 
-#~ msgid "8x"
-#~ msgstr "8x"
+#~ msgid "8×"
+#~ msgstr "8×"
+
+#~| msgid ""
+#~| "The file \"%s\" is corrupted and cannot be parsed. It was moved to \"%s"
+#~| "\", and the Latex Plugin will now fallback to the default tools."
+#~ msgid ""
+#~ "The file “%s” is corrupted and cannot be parsed. It was moved to “%s”, "
+#~ "and the Latex Plugin will now fallback to the default tools."
+#~ msgstr ""
+#~ "El archivo «%s» está corrupto y no se puede analizar. Se ha movido a «%s» "
+#~ "y el complemento de LaTeX usará ahora las herramientas predeterminadas."
 
 #~ msgid "<b>Templates</b>"
 #~ msgstr "<b>Plantillas</b>"
