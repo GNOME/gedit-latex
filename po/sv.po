@@ -1,23 +1,22 @@
 # Swedish translation for gedit-latex.
-# Copyright © 2011, 2016 Free Software Foundation, Inc.
+# Copyright © 2011, 2016, 2019 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gedit-latex package.
 # Daniel Nylander <po@danielnylander.se>, 2011.
-# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2016.
+# Anders Jonsson <anders.jonsson@norsjovallen.se>, 2016, 2019.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gedit-latex\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=gedit&keywords=I18N+L10N&component=Plugins\n"
-"POT-Creation-Date: 2016-05-20 19:12+0000\n"
-"PO-Revision-Date: 2016-08-02 13:36+0200\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gedit-latex/issues\n"
+"POT-Creation-Date: 2019-08-19 12:32+0000\n"
+"PO-Revision-Date: 2019-08-27 21:33+0200\n"
 "Last-Translator: Anders Jonsson <anders.jonsson@norsjovallen.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.8\n"
+"X-Generator: Poedit 2.2.3\n"
 
 #: ../latex.plugin.desktop.in.in.h:1
 msgid "LaTeX Plugin"
@@ -598,7 +597,7 @@ msgid "BibTeX"
 msgstr "BibTeX"
 
 #: ../latex/bibtex/actions.py:43
-msgid "New BibTeX Entry..."
+msgid "New BibTeX Entry…"
 msgstr "Ny BibTeX-post…"
 
 #: ../latex/bibtex/actions.py:46
@@ -632,7 +631,7 @@ msgid "Unknown Author"
 msgstr "Okänd författare"
 
 #: ../latex/latex/actions.py:73
-msgid "New LaTeX Document..."
+msgid "New LaTeX Document…"
 msgstr "Nytt LaTeX-dokument…"
 
 #: ../latex/latex/actions.py:76
@@ -640,7 +639,7 @@ msgid "Create a new LaTeX document"
 msgstr "Skapa ett nytt LaTeX-dokument"
 
 #: ../latex/latex/actions.py:95
-msgid "Choose Master Document..."
+msgid "Choose Master Document…"
 msgstr "Välj huvuddokument…"
 
 #: ../latex/latex/actions.py:107
@@ -652,7 +651,7 @@ msgid "Close the nearest TeX environment at left of the cursor"
 msgstr "Stäng den närmaste TeX-miljön till vänster om markören"
 
 #: ../latex/latex/actions.py:157
-msgid "Use Bibliography..."
+msgid "Use Bibliography…"
 msgstr "Använd bibliografi…"
 
 #: ../latex/latex/actions.py:179 ../latex/latex/actions.py:181
@@ -831,20 +830,20 @@ msgid "Off"
 msgstr "Av"
 
 #: ../latex/latex/dialogs.py:1078
-msgid "1x"
-msgstr "1x"
+msgid "1×"
+msgstr "1×"
 
 #: ../latex/latex/dialogs.py:1079
-msgid "2x"
-msgstr "2x"
+msgid "2×"
+msgstr "2×"
 
 #: ../latex/latex/dialogs.py:1080
-msgid "4x"
-msgstr "4x"
+msgid "4×"
+msgstr "4×"
 
 #: ../latex/latex/dialogs.py:1081
-msgid "8x"
-msgstr "8x"
+msgid "8×"
+msgstr "8×"
 
 #: ../latex/latex/environment.py:141
 msgid "Book of abstracts"
@@ -969,12 +968,11 @@ msgstr "Översikt"
 #: ../latex/preferences/tools.py:81
 #, python-format
 msgid ""
-"The file \"%s\" is corrupted and cannot be parsed. It was moved to \"%s\", "
-"and the Latex Plugin will now fallback to the default tools."
+"The file “%s” is corrupted and cannot be parsed. It was moved to “%s”, and "
+"the Latex Plugin will now fallback to the default tools."
 msgstr ""
-"Filen ”%s” är skadad och kan inte tolkas. Den flyttades till ”%s”, och "
-"Latex-insticksmodulen kommer nu falla tillbaka till att använda "
-"standardverktygen."
+"Filen ”%s” är skadad och kan inte tolkas. Den flyttades till ”%s”, och Latex-"
+"insticksmodulen kommer nu falla tillbaka till att använda standardverktygen."
 
 #: ../latex/tools/views.py:62
 msgid "Job"
@@ -1012,6 +1010,24 @@ msgstr "Visa/dölj uppgifter"
 #: ../latex/views.py:139
 msgid "Issues"
 msgstr "Problem"
+
+#~ msgid "New LaTeX Document..."
+#~ msgstr "Nytt LaTeX-dokument…"
+
+#~ msgid "Use Bibliography..."
+#~ msgstr "Använd bibliografi…"
+
+#~ msgid "1x"
+#~ msgstr "1x"
+
+#~ msgid "2x"
+#~ msgstr "2x"
+
+#~ msgid "4x"
+#~ msgstr "4x"
+
+#~ msgid "8x"
+#~ msgstr "8x"
 
 #~ msgid "<b>Templates</b>"
 #~ msgstr "<b>Mallar</b>"
