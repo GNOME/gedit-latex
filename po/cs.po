@@ -1,15 +1,14 @@
 # Czech translation for gedit-latex.
 # Copyright (C) 2011 gedit-latex's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gedit-latex package.
-# Marek Černocký <marek@manet.cz>, 2011, 2016.
+# Marek Černocký <marek@manet.cz>, 2011, 2016, 2019.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gedit-latex master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=gedit&keywords=I18N+L10N&component=Plugins\n"
-"POT-Creation-Date: 2016-05-20 19:12+0000\n"
-"PO-Revision-Date: 2016-06-13 13:26+0200\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gedit-latex/issues\n"
+"POT-Creation-Date: 2019-08-27 19:35+0000\n"
+"PO-Revision-Date: 2019-10-02 15:02+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <gnome-cs-list@gnome.org>\n"
 "Language: cs\n"
@@ -600,7 +599,7 @@ msgid "BibTeX"
 msgstr "BibTeX"
 
 #: ../latex/bibtex/actions.py:43
-msgid "New BibTeX Entry..."
+msgid "New BibTeX Entry…"
 msgstr "Nový záznam BibTeX…"
 
 #: ../latex/bibtex/actions.py:46
@@ -634,7 +633,7 @@ msgid "Unknown Author"
 msgstr "Neznámý autor"
 
 #: ../latex/latex/actions.py:73
-msgid "New LaTeX Document..."
+msgid "New LaTeX Document…"
 msgstr "Nový dokument LaTeX…"
 
 #: ../latex/latex/actions.py:76
@@ -642,7 +641,7 @@ msgid "Create a new LaTeX document"
 msgstr "Vytvořit nový dokument LaTeX"
 
 #: ../latex/latex/actions.py:95
-msgid "Choose Master Document..."
+msgid "Choose Master Document…"
 msgstr "Vybrat hlavní dokument…"
 
 #: ../latex/latex/actions.py:107
@@ -654,7 +653,7 @@ msgid "Close the nearest TeX environment at left of the cursor"
 msgstr "Uzavřít prostředí TeX nejblíže nalevo od kurzoru"
 
 #: ../latex/latex/actions.py:157
-msgid "Use Bibliography..."
+msgid "Use Bibliography…"
 msgstr "Použít bibliografii…"
 
 #: ../latex/latex/actions.py:179 ../latex/latex/actions.py:181
@@ -804,7 +803,6 @@ msgid "Numbered Array of Equations"
 msgstr "Číslované pole vzorců"
 
 #: ../latex/latex/dialogs.py:331
-#| msgid "De_fault"
 msgid "Default"
 msgstr "Výchozí"
 
@@ -833,19 +831,19 @@ msgid "Off"
 msgstr "Vypnuto"
 
 #: ../latex/latex/dialogs.py:1078
-msgid "1x"
+msgid "1×"
 msgstr "1×"
 
 #: ../latex/latex/dialogs.py:1079
-msgid "2x"
+msgid "2×"
 msgstr "2×"
 
 #: ../latex/latex/dialogs.py:1080
-msgid "4x"
+msgid "4×"
 msgstr "4×"
 
 #: ../latex/latex/dialogs.py:1081
-msgid "8x"
+msgid "8×"
 msgstr "8×"
 
 #: ../latex/latex/environment.py:141
@@ -971,8 +969,8 @@ msgstr "Osnova"
 #: ../latex/preferences/tools.py:81
 #, python-format
 msgid ""
-"The file \"%s\" is corrupted and cannot be parsed. It was moved to \"%s\", "
-"and the Latex Plugin will now fallback to the default tools."
+"The file “%s” is corrupted and cannot be parsed. It was moved to “%s”, and "
+"the Latex Plugin will now fallback to the default tools."
 msgstr ""
 "Soubor „%s“ je poškozený a nelze jej zpracovat. Byl přesunut do „%s“ a "
 "zásuvný modul Latex se teď přepne na výchozí nástroje."
