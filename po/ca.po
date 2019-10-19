@@ -671,7 +671,7 @@ msgstr "Cursiva"
 
 #: ../latex/latex/actions.py:208 ../latex/latex/actions.py:209
 msgid "Emphasize"
-msgstr "Posa èmfasi "
+msgstr "Posa èmfasi"
 
 #: ../latex/latex/actions.py:215 ../latex/latex/actions.py:216
 msgid "Underline"
