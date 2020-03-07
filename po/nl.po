@@ -1,14 +1,14 @@
 # Dutch translation for gedit-latex.
 # Copyright (C) 2015 gedit-latex's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gedit-latex package.
-# Nathan Follens <nthn@unseen.is>, 2015, 2017, 2019.
+# Nathan Follens <nthn@unseen.is>, 2015, 2017, 2019-2020.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gedit-latex master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gedit-latex/issues\n"
-"POT-Creation-Date: 2018-06-10 16:13+0000\n"
-"PO-Revision-Date: 2019-02-26 13:55+0100\n"
+"POT-Creation-Date: 2019-10-19 08:18+0000\n"
+"PO-Revision-Date: 2020-03-07 23:37+0100\n"
 "Last-Translator: Nathan Follens <nthn@unseen.is>\n"
 "Language-Team: Dutch <gnome-nl-list@gnome.org>\n"
 "Language: nl\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 2.3\n"
 
 #: ../latex.plugin.desktop.in.in.h:1
 msgid "LaTeX Plugin"
@@ -194,13 +194,11 @@ msgstr "Extensies van afbeeldingsbestanden"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:13
 msgid "Paths Relative to .tex File to Look for Graphics"
-msgstr ""
-"Paden relatief aan .tex-bestand om naar afbeeldingsbestanden te zoeken"
+msgstr "Paden relatief aan .tex-bestand om naar afbeeldingsbestanden te zoeken"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:14
 msgid "Extra LaTeX commands used to mark issues, such as \\fxnote{foo}"
-msgstr ""
-"Extra LaTeX-opdrachten om problemen aan te duiden, zoals \\fxnote{foo}"
+msgstr "Extra LaTeX-opdrachten om problemen aan te duiden, zoals \\fxnote{foo}"
 
 #: ../data/ui/build_image_dialog.ui.h:1
 msgid "Render to Image"
@@ -333,7 +331,7 @@ msgstr "<b>Accelerator</b>"
 
 #: ../data/ui/insert_bibtex_entry.ui.h:1
 msgid "Create Bibliography Entry"
-msgstr "Bibliografie-item aanmaken"
+msgstr "Bibliografie-ingang aanmaken"
 
 #: ../data/ui/insert_bibtex_entry.ui.h:2
 msgid "Required Fields"
@@ -599,12 +597,12 @@ msgid "BibTeX"
 msgstr "BibTeX"
 
 #: ../latex/bibtex/actions.py:43
-msgid "New BibTeX Entry..."
-msgstr "Nieuw BibTeX-item…"
+msgid "New BibTeX Entry…"
+msgstr "Nieuwe BibTeX-ingang…"
 
 #: ../latex/bibtex/actions.py:46
 msgid "Create a new BibTeX entry"
-msgstr "Nieuw BibTeX-item aanmaken"
+msgstr "Nieuwe BibTeX-ingang aanmaken"
 
 #. add grouping controls to toolbar
 #: ../latex/bibtex/views.py:56
@@ -633,7 +631,7 @@ msgid "Unknown Author"
 msgstr "Onbekende auteur"
 
 #: ../latex/latex/actions.py:73
-msgid "New LaTeX Document..."
+msgid "New LaTeX Document…"
 msgstr "Nieuw LaTeX-document…"
 
 #: ../latex/latex/actions.py:76
@@ -641,7 +639,7 @@ msgid "Create a new LaTeX document"
 msgstr "Een nieuw LaTeX-document aanmaken"
 
 #: ../latex/latex/actions.py:95
-msgid "Choose Master Document..."
+msgid "Choose Master Document…"
 msgstr "Kies hoofddocument…"
 
 #: ../latex/latex/actions.py:107
@@ -653,7 +651,7 @@ msgid "Close the nearest TeX environment at left of the cursor"
 msgstr "Sluit de dichtstbijzijnde TeX-omgeving links van de cursor"
 
 #: ../latex/latex/actions.py:157
-msgid "Use Bibliography..."
+msgid "Use Bibliography…"
 msgstr "Bibliografie gebruiken…"
 
 #: ../latex/latex/actions.py:179 ../latex/latex/actions.py:181
@@ -831,20 +829,20 @@ msgid "Off"
 msgstr "Uit"
 
 #: ../latex/latex/dialogs.py:1078
-msgid "1x"
-msgstr "1x"
+msgid "1×"
+msgstr "1×"
 
 #: ../latex/latex/dialogs.py:1079
-msgid "2x"
-msgstr "2x"
+msgid "2×"
+msgstr "2×"
 
 #: ../latex/latex/dialogs.py:1080
-msgid "4x"
-msgstr "4x"
+msgid "4×"
+msgstr "4×"
 
 #: ../latex/latex/dialogs.py:1081
-msgid "8x"
-msgstr "8x"
+msgid "8×"
+msgstr "8×"
 
 #: ../latex/latex/environment.py:141
 msgid "Book of abstracts"
@@ -969,8 +967,8 @@ msgstr "Inhoud"
 #: ../latex/preferences/tools.py:81
 #, python-format
 msgid ""
-"The file \"%s\" is corrupted and cannot be parsed. It was moved to \"%s\", "
-"and the Latex Plugin will now fallback to the default tools."
+"The file “%s” is corrupted and cannot be parsed. It was moved to “%s”, and "
+"the Latex Plugin will now fallback to the default tools."
 msgstr ""
 "Het bestand ‘%s’ is corrupt en kan niet verwerkt worden. Het is verplaatst "
 "naar ‘%s’, en de LaTeX-plug-in zal nu terugvallen op de "
@@ -1011,3 +1009,21 @@ msgstr "Taken tonen/verbergen"
 #: ../latex/views.py:139
 msgid "Issues"
 msgstr "Problemen"
+
+#~ msgid "New LaTeX Document..."
+#~ msgstr "Nieuw LaTeX-document…"
+
+#~ msgid "Use Bibliography..."
+#~ msgstr "Bibliografie gebruiken…"
+
+#~ msgid "1x"
+#~ msgstr "1x"
+
+#~ msgid "2x"
+#~ msgstr "2x"
+
+#~ msgid "4x"
+#~ msgstr "4x"
+
+#~ msgid "8x"
+#~ msgstr "8x"
