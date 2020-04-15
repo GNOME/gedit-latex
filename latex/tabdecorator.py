@@ -104,7 +104,7 @@ class GeditTabDecorator(object):
 
         @return: True if the editor has changed
         """
-        location = self._text_buffer.get_location()
+        location = self._text_buffer.get_file().get_location()
         if location is None:
             # this happends when the plugin is activated in a running Gedit
             # and this decorator is created for the empty file
