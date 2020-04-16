@@ -336,9 +336,16 @@ class Environment(object):
     @property
     def screen_dpi(self):
         if not self._screen_dpi:
-            screen = Gdk.Screen.get_default()
-            dpi_x = screen.width() / screen.width_mm() * 25.4
-            dpi_y = screen.height() / screen.height_mm() * 25.4
+            display = Gdk.Display.get_default()
+            # FIXME: find most appropriate monitor, not first (0):
+            monitor = display.get_monitor(0)
+            geometry = monitor.get_geometry()
+            try:
+                dpi_x = geometry.width / monitor.get_width_mm() * 25.4
+                dpi_y = geometry.height / monitor.get_height_mm() * 25.4
+            except ZeroDivisionError:
+                # Happens inside qemu virtual machines. Entirely arbitrary value:
+                dpi_x = dpi_y = 5
 
             self._screen_dpi = (dpi_x + dpi_y) / 2.0
 
