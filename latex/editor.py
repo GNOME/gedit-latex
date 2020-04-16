@@ -286,7 +286,7 @@ class Editor(object):
         """
         Return the character set used by this Editor
         """
-        return self._text_buffer.get_encoding().get_charset()
+        return self._text_buffer.get_file().get_encoding().get_charset()
 
     @property
     def content(self):
