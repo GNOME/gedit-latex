@@ -249,7 +249,7 @@ class LaTeXEditor(Editor, IIssueHandler):
             # reset issues
             self._issue_view.clear()
 
-            if BENCHMARK: t = time.clock()
+            if BENCHMARK: t = time.perf_counter()
 
             # parse document
             if self._document != None:
@@ -260,7 +260,7 @@ class LaTeXEditor(Editor, IIssueHandler):
             # update document preferences
             self._preferences.parse_content(self.content)
 
-            if BENCHMARK: LOG.info("LaTeXParser.parse: %f" % (time.clock() - t))
+            if BENCHMARK: LOG.info("LaTeXParser.parse: %f" % (time.perf_counter() - t))
 
             LOG.debug("Parsed %s bytes of content" % len(self.content))
 
