@@ -4,65 +4,65 @@
     <value nick='combined' value='1'/>
     <value nick='disabled' value='2'/>
   </enum>
-  <schema gettext-domain="@GETTEXT_PACKAGE@" id="org.gnome.gedit.plugins.latex" path="/org/gnome/gedit/plugins/latex/">
+  <schema gettext-domain="gedit-plugins" id="org.gnome.gedit.plugins.latex" path="/org/gnome/gedit/plugins/latex/">
     <key name="maximum-bibtex-size" type="i">
       <default>500</default>
-      <_summary>Maximum BibTeX Size</_summary>
+      <summary>Maximum BibTeX Size</summary>
     </key>
     <key name="bibtex-outline-grouping" type="i">
       <default>1</default>
     </key>
     <key name="outline-connect-to-editor" type="b">
       <default>true</default>
-      <_summary>Connect Outline to Editor</_summary>
+      <summary>Connect Outline to Editor</summary>
     </key>
     <key name="outline-show-labels" type="b">
       <default>false</default>
-      <_summary>Show Labels in Outline</_summary>
+      <summary>Show Labels in Outline</summary>
     </key>
     <key name="outline-show-tables" type="b">
       <default>true</default>
-      <_summary>Show Tables in Outline</_summary>
+      <summary>Show Tables in Outline</summary>
     </key>
     <key name="outline-show-graphics" type="b">
       <default>true</default>
-      <_summary>Show Graphics in Outline</_summary>
+      <summary>Show Graphics in Outline</summary>
     </key>
     <key name="issues-show-warnings" type="b">
       <default>true</default>
-      <_summary>Show Warnings in Issues</_summary>
+      <summary>Show Warnings in Issues</summary>
     </key>
     <key name="issues-show-tasks" type="b">
       <default>true</default>
-      <_summary>Show Tasks in Issues</_summary>
+      <summary>Show Tasks in Issues</summary>
     </key>
     <key name="hide-box-warnings" type="b">
       <default>false</default>
-      <_summary>Hide Box Warnings</_summary>
+      <summary>Hide Box Warnings</summary>
     </key>
    <key name="toolbar-mode" enum="org.gnome.gedit.plugins.latex.ToolbarMode">
       <default>'combined'</default>
-      <_summary>Show LaTeX Toolbar below (normal), combined with the main toolbar, or disabled</_summary>
+      <summary>Show LaTeX Toolbar below (normal), combined with the main toolbar, or disabled</summary>
     </key>
     <key name="expanded-symbol-groups" type="s">
       <default>'Greek,Operators,Arrows,Special'</default>
-      <_summary>Expanded Symbol Groups</_summary>
+      <summary>Expanded Symbol Groups</summary>
     </key>
     <key name="latex-extensions" type="s">
       <default>'.tex,.sty,.Rnw'</default>
-      <_summary>LaTeX Extensions</_summary>
+      <summary>LaTeX Extensions</summary>
     </key>
     <key name="graphics-extensions" type="s">
       <default>'.eps,.pdf,.jpg,.jpeg,.gif,.png'</default>
-      <_summary>Graphics File Extensions</_summary>
+      <summary>Graphics File Extensions</summary>
     </key>
     <key name="graphics-paths" type="s">
       <default>'.'</default>
-      <_summary>Paths Relative to .tex File to Look for Graphics</_summary>
+      <summary>Paths Relative to .tex File to Look for Graphics</summary>
     </key>
     <key name="extra-issue-commands" type="s">
       <default>'fxnote'</default>
-      <_summary>Extra LaTeX commands used to mark issues, such as \fxnote{foo}</_summary>
+      <summary>Extra LaTeX commands used to mark issues, such as \fxnote{foo}</summary>
     </key>
 
     <key name="light-foreground-color" type="s">
