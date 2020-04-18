@@ -1,16 +1,16 @@
 latex.plugin.desktop.in.in
 data/bibtex.xml
-data/org.gnome.gedit.plugins.latex.gschema.xml.in.in
-[type: gettext/glade]data/ui/build_image_dialog.ui
-[type: gettext/glade]data/ui/choose_master_dialog.ui
-[type: gettext/glade]data/ui/configure.ui
-[type: gettext/glade]data/ui/configure_tool.ui
-[type: gettext/glade]data/ui/insert_bibtex_entry.ui
-[type: gettext/glade]data/ui/insert_graphics_dialog.ui
-[type: gettext/glade]data/ui/insert_listing_dialog.ui
-[type: gettext/glade]data/ui/insert_table_dialog.ui
-[type: gettext/glade]data/ui/new_document_template_dialog.ui
-[type: gettext/glade]data/ui/use_bibliography_dialog.ui
+org.gnome.gedit.plugins.latex.gschema.xml
+data/ui/build_image_dialog.ui
+data/ui/choose_master_dialog.ui
+data/ui/configure_tool.ui
+data/ui/configure.ui
+data/ui/insert_bibtex_entry.ui
+data/ui/insert_graphics_dialog.ui
+data/ui/insert_listing_dialog.ui
+data/ui/insert_table_dialog.ui
+data/ui/new_document_template_dialog.ui
+data/ui/use_bibliography_dialog.ui
 latex/appactivatable.py
 latex/bibtex/actions.py
 latex/bibtex/views.py
