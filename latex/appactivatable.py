@@ -15,9 +15,6 @@
 #    along with this program; if not, write to the Free Software
 #    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 
-import os.path
-import platform
-
 from gi.repository import GLib, Gedit, GObject, Gio, Gtk
 from .resources import Resources
 
@@ -34,20 +31,6 @@ class LaTeXAppActivatable(GObject.Object, Gedit.AppActivatable):
         GObject.Object.__init__(self)
 
     def do_activate(self):
-        if platform.platform() == 'Windows':
-            userdir = os.path.expanduser('~/gedit/latex')
-        else:
-            userdir = os.path.join(GLib.get_user_config_dir(), 'gedit/latex')
-
-        #check if running from srcdir and if so, prefer that for all data files
-        me = os.path.realpath(os.path.dirname(__file__))
-        if os.path.exists(os.path.join(me, "..", "configure.ac")):
-            sysdir = os.path.abspath(os.path.join(me, "..", "data"))
-        else:
-            sysdir = self.plugin_info.get_data_dir()
-
-        Resources().set_dirs(userdir, sysdir)
-        
         #The following is needed to support gedit 3.12 new menu api.
         #It adds menus and shortcuts here.
         #Actions and toolbar construction are still done in windowactivatable.py.

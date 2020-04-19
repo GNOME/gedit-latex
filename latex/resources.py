@@ -23,7 +23,10 @@
 resources
 """
 
+from gi.repository import GLib
+
 import logging
+import platform
 import os.path
 import errno
 from .singleton import Singleton
@@ -32,9 +35,20 @@ _log = logging.getLogger("resources")
 
 class Resources(Singleton):
     def __init_once__(self):
-        pass
+        if platform.platform() == 'Windows':
+            userdir = os.path.expanduser('~/gedit/latex')
+        else:
+            userdir = os.path.join(GLib.get_user_config_dir(), 'gedit/latex')
 
-    def set_dirs(self, userdir, systemdir):
+        #check if running from srcdir and if so, prefer that for all data files
+        me = os.path.realpath(os.path.dirname(__file__))
+        if os.path.exists(os.path.join(me, "..", "meson.build")):
+            self.from_source = True
+            systemdir = os.path.abspath(os.path.join(me, "..", "data"))
+        else:
+            self.from_source = False
+            systemdir = self.plugin_info.get_data_dir()
+
         self.userdir = userdir
         self.systemdir = systemdir
 
