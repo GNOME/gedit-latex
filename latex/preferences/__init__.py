@@ -30,6 +30,7 @@ import logging
 import configparser
 
 from ..util import singleton
+from ..resources import Resources
 
 LOG = logging.getLogger(__name__)
 
@@ -92,7 +93,21 @@ class Preferences(_Preferences):
 
     def __init__(self):
         _Preferences.__init__(self)
-        self._settings = Gio.Settings("org.gnome.gedit.plugins.latex")
+
+        if Resources().from_source:
+            schema_source = Gio.SettingsSchemaSource.new_from_directory(
+                                        Resources().systemdir,
+                                        Gio.SettingsSchemaSource.get_default(),
+                                        False)
+            schema = schema_source.lookup("org.gnome.gedit.plugins.latex",
+                                          False)
+            self._settings = Gio.Settings.new_full(schema, None, None)
+
+        elif "org.gnome.gedit.plugins.latex" not in Gio.Settings.list_schemas():
+            logging.critical("Could not find GSettings schema: org.gnome.gedit.plugins.latex")
+            raise Exception("Plugin schema not installed")
+        else:
+            self._settings = Gio.Settings("org.gnome.gedit.plugins.latex")
         
         LOG.debug("Pref singleton constructed")
 
