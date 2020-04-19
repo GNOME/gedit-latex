@@ -29,12 +29,6 @@ logging.basicConfig(
     level=log_level,
     format="%(levelname)-8s:%(name)-30s: %(message)s (l.%(lineno)d)")
 
-from gi.repository import Gio
-
-if "org.gnome.gedit.plugins.latex" not in Gio.Settings.list_schemas():
-    logging.critical("Could not find GSettings schema: org.gnome.gedit.plugins.latex")
-    raise Exception("Plugin schema not installed")
-
 from .appactivatable import LaTeXAppActivatable
 from .windowactivatable import LaTeXWindowActivatable
 
