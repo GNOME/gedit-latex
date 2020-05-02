@@ -72,7 +72,10 @@ class LaTeXEditor(Editor, IIssueHandler):
 
         style_scheme = self._text_buffer.get_style_scheme()
         w_style = style_scheme.get_style('def:warning')
-        w_color = w_style.get_properties('background')[0]
+        if w_style:
+            w_color = w_style.get_properties('background')[0]
+        else:
+            w_color = None
         self.register_marker_type("latex-warning", w_color)
 
         e_style = style_scheme.get_style('def:error')
