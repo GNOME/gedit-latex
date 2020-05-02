@@ -1,4 +1,4 @@
-# i Brazilian portuguese translation of gedit-latex.
+# Brazilian portuguese translation of gedit-latex.
 # Copyright (C) 2019 the gedit-latex'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the gedit-latex package.
 # Bruno Gurgel <bruno.gurgel@gmail.com>, 2011.

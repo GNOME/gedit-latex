@@ -1,4 +1,4 @@
-# Occitan translatiion for gedit-latex.
+# Occitan translation for gedit-latex.
 # Copyright (C) 2011-12 gedit-latex's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gedit-latex package.
 # Cédric Valmary (totenoc.eu) <cvalmary@yahoo.fr>, 2016.
