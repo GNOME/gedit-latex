@@ -1,4 +1,42 @@
 =================
+gedit-latex 3.36
+=================
+
+New features and fixes
+======================
+
+- Fixed bugs affecting gedit 3.34 and later
+- Now supports running from source
+- Switched from autotools to meson for build
+
+New translations
+================
+- Dutch (Nathan Follens)
+- Turkish (Muhammet Kara)
+- Ukrainian (Yuri Chornoivan)
+
+Updated translations
+================
+- Akom Chotiphantawanon (th)
+- Anders Jonsson (sv)
+- Balázs Úr (hu)
+- Boyuan Yang (zh_CN)
+- Carles Ferrando Garcia (ca)
+- Daniel Mustieles (es)
+- Florentina Mușat (ro)
+- Kukuh Syafaat (id)
+- Marek Černocký (cs)
+- Mario Blättermann (de)
+- Matej Urbančič (sl)
+- Miroslav Nikolić (sr@latin)
+- Piotr Drąg (pl)
+- Rafael Fontenelle (pt_BR)
+- Rūdolfs Mazurs (lv)
+- scootergrisen (da)
+- Марко М. Костић (sr)
+
+
+=================
 gedit-latex 3.20
 =================
 
