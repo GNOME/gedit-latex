@@ -223,7 +223,7 @@ class LaTeXOutlineView(BaseOutlineView):
         @param node: an instance of latex.outline.OutlineNode
         """
         if node.type == OutlineNode.GRAPHICS:
-            # use 'gvfs-open' to open the graphics file
+            # use 'gio open' to open the graphics file
 
             target = node.value
 

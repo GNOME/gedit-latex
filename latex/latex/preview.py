@@ -97,7 +97,7 @@ class ImageToolGenerator(object):
 
         if self.open:
             extension = {self.FORMAT_PNG : "png", self.FORMAT_JPEG: "jpg", self.FORMAT_GIF : "gif"}[self.format]
-            tool.jobs.append(Job("gvfs-open \"$shortname.%s\"" % extension, True, GenericPostProcessor))
+            tool.jobs.append(Job("gio open \"$shortname.%s\"" % extension, True, GenericPostProcessor))
 
         return tool
 
