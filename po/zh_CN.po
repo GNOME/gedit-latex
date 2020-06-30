@@ -7,277 +7,142 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gedit-latex master\n"
-"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/enter_bug.cgi?"
-"product=gedit&keywords=I18N+L10N&component=LaTeX\n"
-"POT-Creation-Date: 2017-04-08 14:15+0000\n"
-"PO-Revision-Date: 2016-10-10 16:58+0800\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gedit-latex/issues\n"
+"POT-Creation-Date: 2020-05-28 11:45+0000\n"
+"PO-Revision-Date: 2020-06-30 18:53-0400\n"
 "Last-Translator: Boyuan Yang <073plan@gmail.com>\n"
 "Language-Team: Chinese (Simplified) <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.9\n"
+"X-Generator: Poedit 2.3.1\n"
 
-#: ../latex.plugin.desktop.in.in.h:1
+#: latex.plugin.desktop.in.in:6
 msgid "LaTeX Plugin"
 msgstr "LaTeX 插件"
 
-#: ../latex.plugin.desktop.in.in.h:2
+#: latex.plugin.desktop.in.in:7
 msgid ""
 "A plugin that assists you in handling LaTeX documents and BibTeX "
 "bibliographies"
 msgstr "一个辅助您处理 LaTeX 文档和 BibTeX 参考文献的插件"
 
-#: ../data/bibtex.xml.h:1
-msgid "Title"
-msgstr "标题"
-
-#: ../data/bibtex.xml.h:2
-msgid "Book Title"
-msgstr "书标题"
-
-#: ../data/bibtex.xml.h:3
-msgid "Author"
-msgstr "作者"
-
-#: ../data/bibtex.xml.h:4
-msgid "Editor"
-msgstr "编辑"
-
-#: ../data/bibtex.xml.h:5
-msgid "Pages"
-msgstr "页数"
-
-#: ../data/bibtex.xml.h:6
-msgid "Journal"
-msgstr "杂志"
-
-#: ../data/bibtex.xml.h:7
-msgid "Volume"
-msgstr "卷"
-
-#: ../data/bibtex.xml.h:8
-msgid "Number"
-msgstr "号码"
-
-#: ../data/bibtex.xml.h:9
-msgid "Month"
-msgstr "月份"
-
-#: ../data/bibtex.xml.h:10
-msgid "Year"
-msgstr "年份"
-
-#: ../data/bibtex.xml.h:11
-msgid "ISSN"
-msgstr "ISSN"
-
-#: ../data/bibtex.xml.h:12
-msgid "Series"
-msgstr "系列"
-
-#: ../data/bibtex.xml.h:13
-msgid "Edition"
-msgstr "版本"
-
-#: ../data/bibtex.xml.h:14
-msgid "Publisher"
-msgstr "出版者"
-
-#: ../data/bibtex.xml.h:15
-msgid "Address"
-msgstr "地址"
-
-#: ../data/bibtex.xml.h:16
-msgid "ISBN"
-msgstr "ISBN"
-
-#: ../data/bibtex.xml.h:17
-msgid "How Published"
-msgstr "出版方式"
-
-#: ../data/bibtex.xml.h:18
-msgid "Organization"
-msgstr "组织"
-
-#: ../data/bibtex.xml.h:19
-msgid "Location"
-msgstr "位置"
-
-#: ../data/bibtex.xml.h:20
-msgid "URL"
-msgstr "URL"
-
-#: ../data/bibtex.xml.h:21
-msgid "Note"
-msgstr "注"
-
-#: ../data/bibtex.xml.h:22
-msgid "Type"
-msgstr "类型"
-
-#: ../data/bibtex.xml.h:23 ../latex/latex/actions.py:315
-#: ../latex/latex/actions.py:316
-msgid "Chapter"
-msgstr "章"
-
-#: ../data/bibtex.xml.h:24
-msgid "Key"
-msgstr "键"
-
-#: ../data/bibtex.xml.h:25
-msgid "School"
-msgstr "学校"
-
-#: ../data/bibtex.xml.h:26
-msgid "Institution"
-msgstr "机构"
-
-#: ../data/bibtex.xml.h:27
-msgid "Cross Reference"
-msgstr "交叉引用"
-
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:1
+#: org.gnome.gedit.plugins.latex.gschema.xml:10
 msgid "Maximum BibTeX Size"
 msgstr "最大 BibTeX 尺寸"
 
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:2
+#: org.gnome.gedit.plugins.latex.gschema.xml:17
 msgid "Connect Outline to Editor"
 msgstr "将大纲与编辑器相连"
 
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:3
+#: org.gnome.gedit.plugins.latex.gschema.xml:21
 msgid "Show Labels in Outline"
 msgstr "在大纲中显示标签"
 
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:4
+#: org.gnome.gedit.plugins.latex.gschema.xml:25
 msgid "Show Tables in Outline"
 msgstr "在大纲中显示表格"
 
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:5
+#: org.gnome.gedit.plugins.latex.gschema.xml:29
 msgid "Show Graphics in Outline"
 msgstr "在大纲中显示图形"
 
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:6
+#: org.gnome.gedit.plugins.latex.gschema.xml:33
 msgid "Show Warnings in Issues"
 msgstr "在问题中显示警告"
 
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:7
+#: org.gnome.gedit.plugins.latex.gschema.xml:37
 msgid "Show Tasks in Issues"
 msgstr "在问题中显示任务"
 
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:8
-#: ../data/ui/configure.ui.h:6
+#: org.gnome.gedit.plugins.latex.gschema.xml:41 data/ui/configure.ui:239
 msgid "Hide Box Warnings"
 msgstr "隐藏框警告"
 
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:9
+#: org.gnome.gedit.plugins.latex.gschema.xml:45
 msgid ""
 "Show LaTeX Toolbar below (normal), combined with the main toolbar, or "
 "disabled"
 msgstr "在下方显示 LaTeX 工具栏(正常)，与主工具栏合并，或禁用"
 
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:10
+#: org.gnome.gedit.plugins.latex.gschema.xml:49
 msgid "Expanded Symbol Groups"
 msgstr "扩展符号组"
 
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:11
+#: org.gnome.gedit.plugins.latex.gschema.xml:53
 msgid "LaTeX Extensions"
 msgstr "LaTeX 扩展"
 
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:12
+#: org.gnome.gedit.plugins.latex.gschema.xml:57
 msgid "Graphics File Extensions"
 msgstr "图形文件扩展"
 
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:13
+#: org.gnome.gedit.plugins.latex.gschema.xml:61
 msgid "Paths Relative to .tex File to Look for Graphics"
 msgstr "用来查找图形的相对 .tex 文件的路径"
 
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:14
+#: org.gnome.gedit.plugins.latex.gschema.xml:65
 msgid "Extra LaTeX commands used to mark issues, such as \\fxnote{foo}"
 msgstr "用于标记问题的其他 LaTeX 命令，例如 \\fxnote{foo}"
 
-#: ../data/ui/build_image_dialog.ui.h:1
+#: data/ui/build_image_dialog.ui:16
 msgid "Render to Image"
 msgstr "渲染为图像"
 
-#: ../data/ui/build_image_dialog.ui.h:2
+#: data/ui/build_image_dialog.ui:84
 msgid "<b>Image Format</b>"
 msgstr "<b>图像格式</b>"
 
-#: ../data/ui/build_image_dialog.ui.h:3
+#: data/ui/build_image_dialog.ui:107
 msgid "PNG"
 msgstr "PNG"
 
-#: ../data/ui/build_image_dialog.ui.h:4
+#: data/ui/build_image_dialog.ui:127
 msgid "Color Mode:"
 msgstr "颜色模式："
 
-#: ../data/ui/build_image_dialog.ui.h:5
+#: data/ui/build_image_dialog.ui:148
 msgid "JPEG"
 msgstr "JPEG"
 
-#: ../data/ui/build_image_dialog.ui.h:6
+#: data/ui/build_image_dialog.ui:165
 msgid "GIF"
 msgstr "GIF"
 
-#: ../data/ui/build_image_dialog.ui.h:7
+#: data/ui/build_image_dialog.ui:202
 msgid "<b>Rendering</b>"
 msgstr "<b>渲染</b>"
 
-#: ../data/ui/build_image_dialog.ui.h:8
+#: data/ui/build_image_dialog.ui:216
 msgid "<b>Area</b>"
 msgstr "<b>区域</b>"
 
-#: ../data/ui/build_image_dialog.ui.h:9
+#: data/ui/build_image_dialog.ui:242
 msgid "Antialiasing:"
 msgstr "平滑："
 
-#: ../data/ui/build_image_dialog.ui.h:10
+#: data/ui/build_image_dialog.ui:267
 msgid "Resolution:"
 msgstr "分辨率："
 
-#: ../data/ui/build_image_dialog.ui.h:11
+#: data/ui/build_image_dialog.ui:308
 msgid "Render whole page(s)"
 msgstr "渲染整个页面"
 
-#: ../data/ui/build_image_dialog.ui.h:12
+#: data/ui/build_image_dialog.ui:325
 msgid "Attempt to render tight bounding box"
 msgstr "尝试渲染紧凑的包围框"
 
-#: ../data/ui/choose_master_dialog.ui.h:1
+#: data/ui/choose_master_dialog.ui:9
 msgid "Select Master Document"
 msgstr "选择主文档"
 
-#: ../data/ui/choose_master_dialog.ui.h:2
+#: data/ui/choose_master_dialog.ui:78
 msgid "Filename:"
 msgstr "文件名："
 
-#: ../data/ui/configure.ui.h:1 ../latex/tools/views.py:116
-msgid "Tools"
-msgstr "工具"
-
-#: ../data/ui/configure.ui.h:2
-msgid "<b>BibTeX</b>"
-msgstr "<b>BibTeX</b>"
-
-#: ../data/ui/configure.ui.h:3
-msgid "<b><i>rubber</i> Post-Processor</b>"
-msgstr "<b><i>rubber</i> 后处理器</b>"
-
-#: ../data/ui/configure.ui.h:4
-msgid "Maximum Parsed File Size:"
-msgstr "最大解析文件尺寸："
-
-#: ../data/ui/configure.ui.h:5
-msgid "KB"
-msgstr "KB"
-
-#: ../data/ui/configure.ui.h:7
-msgid "Miscellaneous"
-msgstr "杂项"
-
-#: ../data/ui/configure_tool.ui.h:1
+#: data/ui/configure_tool.ui:73
 msgid ""
 "Remember to run all commands in batch mode (e.g. append <tt>-interaction "
 "batchmode</tt> to <tt>latex</tt>)"
@@ -285,723 +150,844 @@ msgstr ""
 "请记得以批方式(batch mode)运行所有命令(例如，向 <tt>latex</tt> 附加 <tt>-"
 "interaction batchmode</tt>)"
 
-#: ../data/ui/configure_tool.ui.h:2
+#: data/ui/configure_tool.ui:118
 msgid "<b>_Label</b>"
 msgstr "<b>标签(_L)</b>"
 
-#: ../data/ui/configure_tool.ui.h:3
+#: data/ui/configure_tool.ui:259
 msgid ""
 "Valid placeholders are <tt>$filename</tt>, <tt>$shortname</tt>, <tt>"
 "$directory</tt>"
 msgstr ""
 "有效的占位符有 <tt>$filename</tt>、<tt>$shortname</tt>和<tt>$directory</tt>"
 
-#: ../data/ui/configure_tool.ui.h:4
+#: data/ui/configure_tool.ui:276
 msgid "<b>_Jobs</b>"
 msgstr "<b>任务(_J)</b>"
 
-#: ../data/ui/configure_tool.ui.h:5
+#: data/ui/configure_tool.ui:312
 msgid "<b>_Description</b>"
 msgstr "<b>描述(_D)</b>"
 
-#: ../data/ui/configure_tool.ui.h:6
+#: data/ui/configure_tool.ui:434
 msgid "<b>_File Extensions</b>"
 msgstr "<b>文件扩展名(_F)</b>"
 
-#: ../data/ui/configure_tool.ui.h:7
+#: data/ui/configure_tool.ui:464
 msgid "_Generated"
 msgstr "已生成(_G)"
 
-#: ../data/ui/configure_tool.ui.h:8
+#: data/ui/configure_tool.ui:482
 msgid "_User Defined:"
 msgstr "用户定义(_U)："
 
-#: ../data/ui/configure_tool.ui.h:9
+#: data/ui/configure_tool.ui:506
 msgid "<Ctrl><Alt>1"
 msgstr "<Ctrl><Alt>1"
 
-#: ../data/ui/configure_tool.ui.h:10
+#: data/ui/configure_tool.ui:522
 msgid "<b>Accelerator</b>"
 msgstr "<b>快捷键</b>"
 
-#: ../data/ui/insert_bibtex_entry.ui.h:1
+#: data/ui/configure.ui:140 latex/tools/views.py:116
+msgid "Tools"
+msgstr "工具"
+
+#: data/ui/configure.ui:157
+msgid "<b>BibTeX</b>"
+msgstr "<b>BibTeX</b>"
+
+#: data/ui/configure.ui:171
+msgid "<b><i>rubber</i> Post-Processor</b>"
+msgstr "<b><i>rubber</i> 后处理器</b>"
+
+#: data/ui/configure.ui:193
+msgid "Maximum Parsed File Size:"
+msgstr "最大解析文件尺寸："
+
+#: data/ui/configure.ui:217
+msgid "KB"
+msgstr "KB"
+
+#: data/ui/configure.ui:264
+msgid "Miscellaneous"
+msgstr "杂项"
+
+#: data/ui/insert_bibtex_entry.ui:9
 msgid "Create Bibliography Entry"
 msgstr "创建参考文献条目"
 
-#: ../data/ui/insert_bibtex_entry.ui.h:2
+#: data/ui/insert_bibtex_entry.ui:99
 msgid "Required Fields"
 msgstr "必需字段"
 
-#: ../data/ui/insert_bibtex_entry.ui.h:3
+#: data/ui/insert_bibtex_entry.ui:124
 msgid "Optional Fields"
 msgstr "可选字段"
 
-#: ../data/ui/insert_bibtex_entry.ui.h:4
+#: data/ui/insert_bibtex_entry.ui:156
 msgid "_Identifier:"
 msgstr "标识符(_I)："
 
-#: ../data/ui/insert_bibtex_entry.ui.h:5
+#: data/ui/insert_bibtex_entry.ui:186
 msgid "_Type:"
 msgstr "类型(_T)："
 
-#: ../data/ui/insert_graphics_dialog.ui.h:1
+#: data/ui/insert_graphics_dialog.ui:23
 msgid "Image Size"
 msgstr "图像尺寸"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:2
+#: data/ui/insert_graphics_dialog.ui:26
 msgid "Text Width"
 msgstr "文本宽度"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:3 ../latex/latex/actions.py:356
-#: ../latex/latex/actions.py:358
+#: data/ui/insert_graphics_dialog.ui:34 latex/latex/actions.py:356
+#: latex/latex/actions.py:358
 msgid "Insert Graphics"
 msgstr "插入图形"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:4
+#: data/ui/insert_graphics_dialog.ui:103
 msgid "_File:"
 msgstr "文件(_F)："
 
-#: ../data/ui/insert_graphics_dialog.ui.h:5
-#: ../data/ui/insert_table_dialog.ui.h:7
+#: data/ui/insert_graphics_dialog.ui:129 data/ui/insert_table_dialog.ui:234
 msgid "_Caption:"
 msgstr "题注(_C)："
 
-#: ../data/ui/insert_graphics_dialog.ui.h:6
-#: ../data/ui/insert_table_dialog.ui.h:8
+#: data/ui/insert_graphics_dialog.ui:157 data/ui/insert_table_dialog.ui:267
 msgid "_Label:"
 msgstr "标签(_L)："
 
-#: ../data/ui/insert_graphics_dialog.ui.h:7
+#: data/ui/insert_graphics_dialog.ui:173
 msgid "fig:"
 msgstr "图："
 
-#: ../data/ui/insert_graphics_dialog.ui.h:8
+#: data/ui/insert_graphics_dialog.ui:185
 msgid "_Width:"
 msgstr "宽度(_W)："
 
-#: ../data/ui/insert_graphics_dialog.ui.h:10
-#, no-c-format
+#: data/ui/insert_graphics_dialog.ui:213
 msgid "% _of"
 msgstr "%(_O)"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:11
+#: data/ui/insert_graphics_dialog.ui:246
 msgid "_Rotate:"
 msgstr "旋转(_R)："
 
-#: ../data/ui/insert_graphics_dialog.ui.h:12
+#: data/ui/insert_graphics_dialog.ui:274
 msgid "° CCW"
-msgstr "° CCW"
+msgstr "° 逆时针"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:13
+#: data/ui/insert_graphics_dialog.ui:284
 msgid "Flip _Horizontally"
 msgstr "水平翻转(_H)"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:14
+#: data/ui/insert_graphics_dialog.ui:301
 msgid "_Spread over two Columns"
 msgstr "横跨两列(_S)"
 
-#: ../data/ui/insert_graphics_dialog.ui.h:15
+#: data/ui/insert_graphics_dialog.ui:318
 msgid "Floating _Object"
 msgstr "浮动对象(_O)"
 
-#: ../data/ui/insert_listing_dialog.ui.h:1 ../latex/latex/actions.py:388
-#: ../latex/latex/actions.py:390
+#: data/ui/insert_listing_dialog.ui:7 latex/latex/actions.py:388
+#: latex/latex/actions.py:390
 msgid "Insert Source Code Listing"
 msgstr "插入源代码清单"
 
-#: ../data/ui/insert_listing_dialog.ui.h:2
+#: data/ui/insert_listing_dialog.ui:71
 msgid "Load From _File:"
 msgstr "从文件加载(_F)："
 
-#: ../data/ui/insert_listing_dialog.ui.h:3
+#: data/ui/insert_listing_dialog.ui:108
 msgid "Programming _Language:"
 msgstr "编程语言(_L)："
 
-#: ../data/ui/insert_listing_dialog.ui.h:4
+#: data/ui/insert_listing_dialog.ui:138
 msgid "_Dialect:"
 msgstr "方言(_D)："
 
-#: ../data/ui/insert_table_dialog.ui.h:1 ../latex/latex/actions.py:372
-#: ../latex/latex/actions.py:374
+#: data/ui/insert_table_dialog.ui:22 latex/latex/actions.py:372
+#: latex/latex/actions.py:374
 msgid "Insert Table or Matrix"
 msgstr "插入表格或矩阵"
 
-#: ../data/ui/insert_table_dialog.ui.h:2
+#: data/ui/insert_table_dialog.ui:94
 msgid "Type:"
 msgstr "类型："
 
-#: ../data/ui/insert_table_dialog.ui.h:3
+#: data/ui/insert_table_dialog.ui:105
 msgid "_Table"
 msgstr "表格(_T)"
 
-#: ../data/ui/insert_table_dialog.ui.h:4
+#: data/ui/insert_table_dialog.ui:126
 msgid "_Matrix:"
 msgstr "矩阵(_M)："
 
-#: ../data/ui/insert_table_dialog.ui.h:5
+#: data/ui/insert_table_dialog.ui:168
 msgid "_Rows:"
 msgstr "行(_R)："
 
-#: ../data/ui/insert_table_dialog.ui.h:6
+#: data/ui/insert_table_dialog.ui:201
 msgid "C_olumns:"
 msgstr "列(_O)："
 
-#: ../data/ui/insert_table_dialog.ui.h:9
+#: data/ui/insert_table_dialog.ui:285
 msgid "tab:"
 msgstr "表："
 
-#: ../data/ui/insert_table_dialog.ui.h:10
+#: data/ui/insert_table_dialog.ui:297
 msgid "_Floating Object"
 msgstr "浮动对象(_F)"
 
-#: ../data/ui/new_document_template_dialog.ui.h:1
+#: data/ui/new_document_template_dialog.ui:16
 msgid "New LaTeX Document"
 msgstr "新 LaTeX 文档"
 
-#: ../data/ui/new_document_template_dialog.ui.h:2
+#: data/ui/new_document_template_dialog.ui:104
 msgid "T_emplate:"
 msgstr "模板(_E)："
 
-#: ../data/ui/new_document_template_dialog.ui.h:3
+#: data/ui/new_document_template_dialog.ui:123
 msgid "document"
 msgstr "文档"
 
-#: ../data/ui/new_document_template_dialog.ui.h:4
+#: data/ui/new_document_template_dialog.ui:135
 msgid ".tex"
 msgstr ".tex"
 
-#: ../data/ui/new_document_template_dialog.ui.h:5
+#: data/ui/new_document_template_dialog.ui:165
 msgid "Di_rectory:"
 msgstr "目录(_R)："
 
-#: ../data/ui/new_document_template_dialog.ui.h:6
+#: data/ui/new_document_template_dialog.ui:179
 msgid "_Name:"
 msgstr "名称(_N)："
 
-#: ../data/ui/new_document_template_dialog.ui.h:7
+#: data/ui/new_document_template_dialog.ui:216
 msgid "_Babel Package:"
 msgstr "_Babel 宏包："
 
-#: ../data/ui/new_document_template_dialog.ui.h:8
+#: data/ui/new_document_template_dialog.ui:231
 msgid "_Input Encoding:"
 msgstr "输入编码(_I)："
 
-#: ../data/ui/new_document_template_dialog.ui.h:9
+#: data/ui/new_document_template_dialog.ui:247
 msgid "<b>Language Customization</b>"
 msgstr "<b>语言自定义</b>"
 
-#: ../data/ui/new_document_template_dialog.ui.h:10
+#: data/ui/new_document_template_dialog.ui:277
 msgid "_Landscape"
 msgstr "横向(_L)"
 
-#: ../data/ui/new_document_template_dialog.ui.h:11
+#: data/ui/new_document_template_dialog.ui:305
 msgid "_Paper:"
 msgstr "纸型(_P)："
 
-#: ../data/ui/new_document_template_dialog.ui.h:12
+#: data/ui/new_document_template_dialog.ui:323
 msgid "De_fault"
 msgstr "默认(_F)"
 
-#: ../data/ui/new_document_template_dialog.ui.h:13
+#: data/ui/new_document_template_dialog.ui:341
 msgid "U_ser Defined:"
 msgstr "用户定义(_S)："
 
-#: ../data/ui/new_document_template_dialog.ui.h:14
+#: data/ui/new_document_template_dialog.ui:378
 msgid "pt"
 msgstr "磅"
 
-#: ../data/ui/new_document_template_dialog.ui.h:15
+#: data/ui/new_document_template_dialog.ui:400
 msgid "Base Font Size:"
 msgstr "基字体尺寸："
 
-#: ../data/ui/new_document_template_dialog.ui.h:16
+#: data/ui/new_document_template_dialog.ui:426
 msgid "Document _Class:"
 msgstr "文档类(_C)："
 
-#: ../data/ui/new_document_template_dialog.ui.h:17
+#: data/ui/new_document_template_dialog.ui:442
 msgid "<b>Style and Layout</b>"
 msgstr "<b>样式和布局</b>"
 
-#: ../data/ui/new_document_template_dialog.ui.h:18
+#: data/ui/new_document_template_dialog.ui:454
 msgid "Include PDF _Metadata"
 msgstr "包含 PDF 元数据(_M)"
 
-#: ../data/ui/new_document_template_dialog.ui.h:19
+#: data/ui/new_document_template_dialog.ui:461
 msgid "This adds metadata to the document. Requires package <tt>ifpdf</tt>."
 msgstr "这会向文档添加元数据。需要 <tt>ifpdf</tt> 宏包。"
 
-#: ../data/ui/new_document_template_dialog.ui.h:20
+#: data/ui/new_document_template_dialog.ui:492
 msgid "Date:"
 msgstr "日期："
 
-#: ../data/ui/new_document_template_dialog.ui.h:21
+#: data/ui/new_document_template_dialog.ui:508
 msgid "To_day"
 msgstr "今天(_D)"
 
-#: ../data/ui/new_document_template_dialog.ui.h:22
+#: data/ui/new_document_template_dialog.ui:527
 msgid "C_ustom:"
 msgstr "自定义(_U)："
 
-#: ../data/ui/new_document_template_dialog.ui.h:23
+#: data/ui/new_document_template_dialog.ui:572
 msgid "_Author:"
 msgstr "作者(_A)："
 
-#: ../data/ui/new_document_template_dialog.ui.h:24
+#: data/ui/new_document_template_dialog.ui:603
 msgid "_Title:"
 msgstr "标题(_T)："
 
-#: ../data/ui/new_document_template_dialog.ui.h:25
+#: data/ui/new_document_template_dialog.ui:620
 msgid "<b>Meta Information</b>"
 msgstr "<b>元信息</b>"
 
-#: ../data/ui/new_document_template_dialog.ui.h:26
+#: data/ui/new_document_template_dialog.ui:635
 msgid "Default F_ont Family:"
 msgstr "默认字体族(_O)："
 
-#: ../data/ui/use_bibliography_dialog.ui.h:1 ../latex/latex/actions.py:159
+#: data/ui/use_bibliography_dialog.ui:9 latex/latex/actions.py:159
 msgid "Use Bibliography"
 msgstr "使用参考文件"
 
-#: ../data/ui/use_bibliography_dialog.ui.h:2
+#: data/ui/use_bibliography_dialog.ui:79
 msgid "Bibliography _File:"
 msgstr "参考文献文件(_F)："
 
-#: ../data/ui/use_bibliography_dialog.ui.h:3
+#: data/ui/use_bibliography_dialog.ui:106
 msgid "_Style:"
 msgstr "样式(_S)："
 
-#: ../data/ui/use_bibliography_dialog.ui.h:4
+#: data/ui/use_bibliography_dialog.ui:147
 msgid "Style Preview:"
 msgstr "样式预览："
 
-#: ../data/ui/use_bibliography_dialog.ui.h:5
+#: data/ui/use_bibliography_dialog.ui:165
 msgid "Refresh Style Preview"
 msgstr "刷新样式预览"
 
-#: ../latex/appactivatable.py:66 ../latex/latex/actions.py:63
+#: latex/appactivatable.py:66 latex/latex/actions.py:63
 msgid "LaTeX"
 msgstr "LaTeX"
 
-#: ../latex/appactivatable.py:89
+#: latex/appactivatable.py:89
 msgid "LaTeX Tools"
 msgstr "LaTeX 工具"
 
-#: ../latex/bibtex/actions.py:32
+#: latex/bibtex/actions.py:32
 msgid "BibTeX"
 msgstr "BibTeX"
 
-#: ../latex/bibtex/actions.py:43
-msgid "New BibTeX Entry..."
-msgstr "新建 BibTeX 条目..."
+#: latex/bibtex/actions.py:43
+msgid "New BibTeX Entry…"
+msgstr "新建 BibTeX 条目…"
 
-#: ../latex/bibtex/actions.py:46
+#: latex/bibtex/actions.py:46
 msgid "Create a new BibTeX entry"
 msgstr "新建一个 BibTeX 条目"
 
 #. add grouping controls to toolbar
-#: ../latex/bibtex/views.py:56
+#: latex/bibtex/views.py:56
 msgid "No Grouping"
 msgstr "不分组"
 
-#: ../latex/bibtex/views.py:57
+#: latex/bibtex/views.py:57
 msgid "Group by Type"
 msgstr "按类型分组"
 
-#: ../latex/bibtex/views.py:58
+#: latex/bibtex/views.py:58
 msgid "Group by Author"
 msgstr "按作者分组"
 
-#: ../latex/bibtex/views.py:59
+#: latex/bibtex/views.py:59
 msgid "Group by Year"
 msgstr "按年份分组"
 
 #. group by year
-#: ../latex/bibtex/views.py:197
+#: latex/bibtex/views.py:197
 msgid "<i>n/a</i>"
 msgstr "<i>无效</i>"
 
-#: ../latex/bibtex/views.py:240
+#: latex/bibtex/views.py:240
 msgid "Unknown Author"
 msgstr "未知作者"
 
-#: ../latex/latex/actions.py:73
-msgid "New LaTeX Document..."
-msgstr "新 LaTeX 文档..."
+#: latex/latex/actions.py:73
+msgid "New LaTeX Document…"
+msgstr "新 LaTeX 文档…"
 
-#: ../latex/latex/actions.py:76
+#: latex/latex/actions.py:76
 msgid "Create a new LaTeX document"
 msgstr "新建 LaTeX 文档"
 
-#: ../latex/latex/actions.py:95
-msgid "Choose Master Document..."
-msgstr "选择主文档..."
+#: latex/latex/actions.py:95
+msgid "Choose Master Document…"
+msgstr "选择主文档…"
 
-#: ../latex/latex/actions.py:107
+#: latex/latex/actions.py:107
 msgid "Close Nearest Environment"
 msgstr "闭合最临近的环境"
 
-#: ../latex/latex/actions.py:109
+#: latex/latex/actions.py:109
 msgid "Close the nearest TeX environment at left of the cursor"
 msgstr "闭合光标左侧最临近的 TeX 环境"
 
-#: ../latex/latex/actions.py:157
-msgid "Use Bibliography..."
-msgstr "使用参考文件..."
+#: latex/latex/actions.py:157
+msgid "Use Bibliography…"
+msgstr "使用参考文献（Bibliography）…"
 
-#: ../latex/latex/actions.py:179 ../latex/latex/actions.py:181
-#: ../latex/latex/actions.py:189 ../latex/latex/actions.py:190
+#: latex/latex/actions.py:179 latex/latex/actions.py:181
+#: latex/latex/actions.py:189 latex/latex/actions.py:190
 msgid "Font Family"
 msgstr "字体族"
 
-#: ../latex/latex/actions.py:194 ../latex/latex/actions.py:195
+#: latex/latex/actions.py:194 latex/latex/actions.py:195
 msgid "Bold"
 msgstr "粗体"
 
-#: ../latex/latex/actions.py:201 ../latex/latex/actions.py:202
+#: latex/latex/actions.py:201 latex/latex/actions.py:202
 msgid "Italic"
 msgstr "斜体"
 
-#: ../latex/latex/actions.py:208 ../latex/latex/actions.py:209
+#: latex/latex/actions.py:208 latex/latex/actions.py:209
 msgid "Emphasize"
 msgstr "强调"
 
-#: ../latex/latex/actions.py:215 ../latex/latex/actions.py:216
+#: latex/latex/actions.py:215 latex/latex/actions.py:216
 msgid "Underline"
 msgstr "下划线"
 
-#: ../latex/latex/actions.py:222 ../latex/latex/actions.py:223
+#: latex/latex/actions.py:222 latex/latex/actions.py:223
 msgid "Small Capitals"
 msgstr "小型大写字母"
 
-#: ../latex/latex/actions.py:229 ../latex/latex/actions.py:230
+#: latex/latex/actions.py:229 latex/latex/actions.py:230
 msgid "Roman"
 msgstr "罗马"
 
-#: ../latex/latex/actions.py:236 ../latex/latex/actions.py:237
+#: latex/latex/actions.py:236 latex/latex/actions.py:237
 msgid "Sans Serif"
 msgstr "无衬线"
 
-#: ../latex/latex/actions.py:243 ../latex/latex/actions.py:244
+#: latex/latex/actions.py:243 latex/latex/actions.py:244
 msgid "Typewriter"
 msgstr "打字机"
 
-#: ../latex/latex/actions.py:250 ../latex/latex/actions.py:251
+#: latex/latex/actions.py:250 latex/latex/actions.py:251
 msgid "Blackboard Bold"
 msgstr "黑板粗体"
 
-#: ../latex/latex/actions.py:258 ../latex/latex/actions.py:259
+#: latex/latex/actions.py:258 latex/latex/actions.py:259
 msgid "Calligraphy"
 msgstr "书法"
 
-#: ../latex/latex/actions.py:265 ../latex/latex/actions.py:266
+#: latex/latex/actions.py:265 latex/latex/actions.py:266
 msgid "Fraktur"
 msgstr "德文活字"
 
-#: ../latex/latex/actions.py:273 ../latex/latex/actions.py:274
-#: ../latex/latex/actions.py:286 ../latex/latex/actions.py:287
+#: latex/latex/actions.py:273 latex/latex/actions.py:274
+#: latex/latex/actions.py:286 latex/latex/actions.py:287
 msgid "List"
 msgstr "列表"
 
-#: ../latex/latex/actions.py:278 ../latex/latex/actions.py:279
+#: latex/latex/actions.py:278 latex/latex/actions.py:279
 msgid "Itemize"
 msgstr "项目符号"
 
-#: ../latex/latex/actions.py:291 ../latex/latex/actions.py:292
+#: latex/latex/actions.py:291 latex/latex/actions.py:292
 msgid "Enumerate"
 msgstr "项目编号"
 
-#: ../latex/latex/actions.py:298 ../latex/latex/actions.py:299
+#: latex/latex/actions.py:298 latex/latex/actions.py:299
 msgid "Description"
 msgstr "描述"
 
-#: ../latex/latex/actions.py:304 ../latex/latex/actions.py:305
-#: ../latex/latex/actions.py:330 ../latex/latex/actions.py:331
+#: latex/latex/actions.py:304 latex/latex/actions.py:305
+#: latex/latex/actions.py:330 latex/latex/actions.py:331
 msgid "Structure"
 msgstr "结构"
 
-#: ../latex/latex/actions.py:308 ../latex/latex/actions.py:309
+#: latex/latex/actions.py:308 latex/latex/actions.py:309
 msgid "Part"
 msgstr "部"
 
-#: ../latex/latex/actions.py:322 ../latex/latex/actions.py:323
+#: latex/latex/actions.py:315 latex/latex/actions.py:316
+msgid "Chapter"
+msgstr "章"
+
+#: latex/latex/actions.py:322 latex/latex/actions.py:323
 msgid "Section"
 msgstr "节"
 
-#: ../latex/latex/actions.py:335 ../latex/latex/actions.py:336
+#: latex/latex/actions.py:335 latex/latex/actions.py:336
 msgid "Subsection"
 msgstr "次节"
 
-#: ../latex/latex/actions.py:342 ../latex/latex/actions.py:343
+#: latex/latex/actions.py:342 latex/latex/actions.py:343
 msgid "Paragraph"
 msgstr "段"
 
-#: ../latex/latex/actions.py:349 ../latex/latex/actions.py:350
+#: latex/latex/actions.py:349 latex/latex/actions.py:350
 msgid "Subparagraph"
 msgstr "次段"
 
-#: ../latex/latex/actions.py:405 ../latex/latex/actions.py:407
-#: ../latex/latex/actions.py:415 ../latex/latex/actions.py:416
+#: latex/latex/actions.py:405 latex/latex/actions.py:407
+#: latex/latex/actions.py:415 latex/latex/actions.py:416
 msgid "Build"
 msgstr "构建"
 
-#: ../latex/latex/actions.py:420
+#: latex/latex/actions.py:420
 msgid "Build Image"
 msgstr "构建图像"
 
-#: ../latex/latex/actions.py:422
+#: latex/latex/actions.py:422
 msgid "Build an image from the LaTeX document"
 msgstr "从 LaTeX 文档构建图像"
 
-#: ../latex/latex/actions.py:440 ../latex/latex/actions.py:441
-#: ../latex/latex/actions.py:460 ../latex/latex/actions.py:461
+#: latex/latex/actions.py:440 latex/latex/actions.py:441
+#: latex/latex/actions.py:460 latex/latex/actions.py:461
 msgid "Justify"
 msgstr "对齐"
 
-#: ../latex/latex/actions.py:445 ../latex/latex/actions.py:446
+#: latex/latex/actions.py:445 latex/latex/actions.py:446
 msgid "Justify Left"
 msgstr "左对齐"
 
-#: ../latex/latex/actions.py:452 ../latex/latex/actions.py:453
+#: latex/latex/actions.py:452 latex/latex/actions.py:453
 msgid "Justify Center"
 msgstr "居中对齐"
 
-#: ../latex/latex/actions.py:465 ../latex/latex/actions.py:466
+#: latex/latex/actions.py:465 latex/latex/actions.py:466
 msgid "Justify Right"
 msgstr "右对齐"
 
-#: ../latex/latex/actions.py:472 ../latex/latex/actions.py:473
-#: ../latex/latex/actions.py:485 ../latex/latex/actions.py:486
+#: latex/latex/actions.py:472 latex/latex/actions.py:473
+#: latex/latex/actions.py:485 latex/latex/actions.py:486
 msgid "Math"
 msgstr "数学"
 
-#: ../latex/latex/actions.py:477 ../latex/latex/actions.py:478
+#: latex/latex/actions.py:477 latex/latex/actions.py:478
 msgid "Mathematical Environment"
 msgstr "数学环境"
 
-#: ../latex/latex/actions.py:490 ../latex/latex/actions.py:491
+#: latex/latex/actions.py:490 latex/latex/actions.py:491
 msgid "Centered Formula"
 msgstr "居中公式"
 
-#: ../latex/latex/actions.py:497 ../latex/latex/actions.py:498
+#: latex/latex/actions.py:497 latex/latex/actions.py:498
 msgid "Numbered Equation"
 msgstr "带编号公式"
 
-#: ../latex/latex/actions.py:506 ../latex/latex/actions.py:507
+#: latex/latex/actions.py:506 latex/latex/actions.py:507
 msgid "Array of Equations"
 msgstr "公式组"
 
-#: ../latex/latex/actions.py:516 ../latex/latex/actions.py:517
+#: latex/latex/actions.py:516 latex/latex/actions.py:517
 msgid "Numbered Array of Equations"
 msgstr "带编号公式组"
 
-#: ../latex/latex/dialogs.py:331
+#: latex/latex/dialogs.py:331
 msgid "Default"
 msgstr "默认"
 
 #. PNG mode
 #. label, mode constant
-#: ../latex/latex/dialogs.py:1062
+#: latex/latex/dialogs.py:1062
 msgid "Monochrome"
 msgstr "单色"
 
-#: ../latex/latex/dialogs.py:1063
+#: latex/latex/dialogs.py:1063
 msgid "Grayscale"
 msgstr "灰度"
 
-#: ../latex/latex/dialogs.py:1064
+#: latex/latex/dialogs.py:1064
 msgid "RGB"
 msgstr "RGB"
 
-#: ../latex/latex/dialogs.py:1065
+#: latex/latex/dialogs.py:1065
 msgid "RGBA"
 msgstr "RGBA"
 
 #. anti-alias
 #. label, factor
-#: ../latex/latex/dialogs.py:1077
+#: latex/latex/dialogs.py:1077
 msgid "Off"
 msgstr "关闭"
 
-#: ../latex/latex/dialogs.py:1078
-msgid "1x"
-msgstr "1倍"
+#: latex/latex/dialogs.py:1078
+msgid "1×"
+msgstr "1×"
 
-#: ../latex/latex/dialogs.py:1079
-msgid "2x"
-msgstr "2倍"
+#: latex/latex/dialogs.py:1079
+msgid "2×"
+msgstr "2×"
 
-#: ../latex/latex/dialogs.py:1080
-msgid "4x"
-msgstr "4倍"
+#: latex/latex/dialogs.py:1080
+msgid "4×"
+msgstr "4×"
 
-#: ../latex/latex/dialogs.py:1081
-msgid "8x"
-msgstr "8倍"
+#: latex/latex/dialogs.py:1081
+msgid "8×"
+msgstr "8×"
 
-#: ../latex/latex/environment.py:141
+#: latex/latex/environment.py:141
 msgid "Book of abstracts"
 msgstr "摘要帐"
 
-#: ../latex/latex/environment.py:142
+#: latex/latex/environment.py:142
 msgid "Article"
 msgstr "文章"
 
-#: ../latex/latex/environment.py:143
+#: latex/latex/environment.py:143
 msgid "Article (AMS)"
 msgstr "文章 (AMS)"
 
-#: ../latex/latex/environment.py:144
+#: latex/latex/environment.py:144
 msgid "Book (AMS)"
 msgstr "书 (AMS)"
 
-#: ../latex/latex/environment.py:145
+#: latex/latex/environment.py:145
 msgid "AMS Documentation"
 msgstr "AMS 文档"
 
-#: ../latex/latex/environment.py:146
+#: latex/latex/environment.py:146
 msgid "Proceedings (AMS)"
 msgstr "会议论文 (AMS)"
 
-#: ../latex/latex/environment.py:147
+#: latex/latex/environment.py:147
 msgid "Report"
 msgstr "报告"
 
-#: ../latex/latex/environment.py:148
+#: latex/latex/environment.py:148
 msgid "Beamer slides"
 msgstr "Beamer 幻灯片"
 
-#: ../latex/latex/environment.py:149
+#: latex/latex/environment.py:149
 msgid "Belgian letter"
 msgstr "Belgian 信件"
 
-#: ../latex/latex/environment.py:150
+#: latex/latex/environment.py:150
 msgid "Book"
 msgstr "书"
 
-#: ../latex/latex/environment.py:151
+#: latex/latex/environment.py:151
 msgid "Flashcard"
 msgstr "抽认卡"
 
-#: ../latex/latex/environment.py:152
+#: latex/latex/environment.py:152
 msgid "Proceedings (IAG)"
 msgstr "会议论文 (IAG)"
 
-#: ../latex/latex/environment.py:153
+#: latex/latex/environment.py:153
 msgid "Letter"
 msgstr "信件"
 
-#: ../latex/latex/environment.py:154
+#: latex/latex/environment.py:154
 msgid "LaTeX News"
 msgstr "LaTeX 新闻"
 
-#: ../latex/latex/environment.py:155
+#: latex/latex/environment.py:155
 msgid "LaTeX Documentation"
 msgstr "LaTeX 文档"
 
-#: ../latex/latex/environment.py:156
+#: latex/latex/environment.py:156
 msgid "LaTeX Guide"
 msgstr "LaTeX 向导"
 
-#: ../latex/latex/environment.py:157
+#: latex/latex/environment.py:157
 msgid "Proceedings"
 msgstr "会议论文"
 
-#: ../latex/latex/environment.py:158
+#: latex/latex/environment.py:158
 msgid "Article (KOMA-Script)"
 msgstr "文章 (KOMA-Script)"
 
-#: ../latex/latex/environment.py:159 ../latex/latex/environment.py:163
+#: latex/latex/environment.py:159 latex/latex/environment.py:163
 msgid "Report (KOMA-Script)"
 msgstr "报告 (KOMA-Script)"
 
-#: ../latex/latex/environment.py:160
+#: latex/latex/environment.py:160
 msgid "Book (KOMA-Script)"
 msgstr "书 (KOMA-Script)"
 
-#: ../latex/latex/environment.py:161
+#: latex/latex/environment.py:161
 msgid "Letter (KOMA-Script)"
 msgstr "信件 (KOMA-Script)"
 
-#: ../latex/latex/environment.py:162
+#: latex/latex/environment.py:162
 msgid "Letter 2 (KOMA-Script)"
 msgstr "信件 2 (KOMA-Script)"
 
-#: ../latex/latex/environment.py:164
+#: latex/latex/environment.py:164
 msgid "Slides"
 msgstr "幻灯片"
 
-#: ../latex/latex/views.py:107
+#: latex/latex/views.py:107
 msgid "Symbols"
 msgstr "符号"
 
-#: ../latex/latex/views.py:190
+#: latex/latex/views.py:190
 msgid "Show graphics"
 msgstr "显示图形"
 
-#: ../latex/latex/views.py:195
+#: latex/latex/views.py:195
 msgid "Show tables"
 msgstr "显示表格"
 
-#: ../latex/outline.py:58
+#: latex/outline.py:58
 msgid "Follow Editor"
 msgstr "依据编辑器"
 
-#: ../latex/outline.py:63
+#: latex/outline.py:63
 msgid "Expand All"
 msgstr "全部展开"
 
-#: ../latex/outline.py:67
+#: latex/outline.py:67
 msgid "Collapse All"
 msgstr "全部折叠"
 
-#: ../latex/outline.py:114
+#: latex/outline.py:114
 msgid "Outline"
 msgstr "大纲"
 
-#: ../latex/preferences/tools.py:81
+#: latex/preferences/tools.py:81
 #, python-format
 msgid ""
-"The file \"%s\" is corrupted and cannot be parsed. It was moved to \"%s\", "
-"and the Latex Plugin will now fallback to the default tools."
+"The file “%s” is corrupted and cannot be parsed. It was moved to “%s”, and "
+"the Latex Plugin will now fallback to the default tools."
 msgstr ""
-"文件“%s”已损坏且无法解析。它已经被移动为“%s”，现在 Latex 插件会回落到使用默认"
-"工具。"
+"文件“%s”已损坏且无法解析。它已经被移动为“%s”，现在 Latex 插件会回退到使用默"
+"认工具。"
 
-#: ../latex/tools/views.py:62
+#: latex/tools/views.py:62
 msgid "Job"
 msgstr "任务"
 
-#: ../latex/tools/views.py:73 ../latex/views.py:80
+#: latex/tools/views.py:73 latex/views.py:80
 msgid "File"
 msgstr "文件"
 
-#: ../latex/tools/views.py:74
+#: latex/tools/views.py:74
 msgid "Line"
 msgstr "行"
 
-#: ../latex/tools/views.py:87
+#: latex/tools/views.py:87
 msgid "Abort Job"
 msgstr "放弃工作"
 
-#: ../latex/tools/views.py:92
+#: latex/tools/views.py:92
 msgid "Show Detailed Output"
 msgstr "显示详细输出"
 
-#: ../latex/views.py:67
+#: latex/views.py:67
 msgid "Message"
 msgstr "消息"
 
-#: ../latex/views.py:99
+#: latex/views.py:99
 msgid "Show/Hide Warnings"
 msgstr "显示/隐藏警告"
 
-#: ../latex/views.py:107
+#: latex/views.py:107
 msgid "Show/Hide Tasks"
 msgstr "显示/隐藏任务"
 
-#: ../latex/views.py:139
+#: latex/views.py:139
 msgid "Issues"
 msgstr "问题"
+
+#~ msgid "Title"
+#~ msgstr "标题"
+
+#~ msgid "Book Title"
+#~ msgstr "书标题"
+
+#~ msgid "Author"
+#~ msgstr "作者"
+
+#~ msgid "Editor"
+#~ msgstr "编辑"
+
+#~ msgid "Pages"
+#~ msgstr "页数"
+
+#~ msgid "Journal"
+#~ msgstr "杂志"
+
+#~ msgid "Volume"
+#~ msgstr "卷"
+
+#~ msgid "Number"
+#~ msgstr "号码"
+
+#~ msgid "Month"
+#~ msgstr "月份"
+
+#~ msgid "Year"
+#~ msgstr "年份"
+
+#~ msgid "ISSN"
+#~ msgstr "ISSN"
+
+#~ msgid "Series"
+#~ msgstr "系列"
+
+#~ msgid "Edition"
+#~ msgstr "版本"
+
+#~ msgid "Publisher"
+#~ msgstr "出版者"
+
+#~ msgid "Address"
+#~ msgstr "地址"
+
+#~ msgid "ISBN"
+#~ msgstr "ISBN"
+
+#~ msgid "How Published"
+#~ msgstr "出版方式"
+
+#~ msgid "Organization"
+#~ msgstr "组织"
+
+#~ msgid "Location"
+#~ msgstr "位置"
+
+#~ msgid "URL"
+#~ msgstr "URL"
+
+#~ msgid "Note"
+#~ msgstr "注"
+
+#~ msgid "Type"
+#~ msgstr "类型"
+
+#~ msgid "Key"
+#~ msgstr "键"
+
+#~ msgid "School"
+#~ msgstr "学校"
+
+#~ msgid "Institution"
+#~ msgstr "机构"
+
+#~ msgid "Cross Reference"
+#~ msgstr "交叉引用"
+
+#~ msgid "New LaTeX Document..."
+#~ msgstr "新 LaTeX 文档..."
+
+#~ msgid "Use Bibliography..."
+#~ msgstr "使用参考文件..."
+
+#~ msgid "1x"
+#~ msgstr "1倍"
+
+#~ msgid "2x"
+#~ msgstr "2倍"
+
+#~ msgid "4x"
+#~ msgstr "4倍"
+
+#~ msgid "8x"
+#~ msgstr "8倍"
 
 #~ msgid "<b>LaTeX Toolbar</b>"
 #~ msgstr "<b>LaTeX 工具栏</b>"
