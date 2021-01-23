@@ -153,25 +153,26 @@ class BibTeXEditor(Editor, IIssueHandler, JobChangeListener):
 #        self.parse(self._file)
 
         if BENCHMARK:
-            t = time.clock()
+            t = time.perf_counter()
 
         # parse document
         self._document = self._parser.parse(content, self._file, self)
 
         if BENCHMARK:
-            LOG.info("BibTeXParser.parse: %f" % (time.clock() - t))
+            LOG.info("BibTeXParser.parse: %f" % (time.perf_counter() - t))
 
         LOG.debug("Parsed %s bytes of content" % len(content))
 
         # validate
         if BENCHMARK:
-            t = time.clock()
+            t = time.perf_counter()
 
         self._validator.validate(self._document, self._file, self)
 
         # 0.11
         if BENCHMARK:
-            LOG.info("BibTeXValidator.validate: %f" % (time.clock() - t))
+            LOG.info("BibTeXValidator.validate: %f" % (time.perf_counter()
+                                                       - t))
 
         self._outline_view.set_outline(self._document)
 
