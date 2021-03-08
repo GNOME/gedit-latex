@@ -1,23 +1,25 @@
 # Turkish translation for gedit-latex.
-# Copyright (C) 2016 gedit-latex's COPYRIGHT HOLDER
+# Copyright (C) 2016-2019 gedit-latex's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gedit-latex package.
+# 
 # Muhammet Kara <muhammetk@gmail.com>, 2016.
+# Serdar Sağlam <teknomobil@yandex.com>, 2019.
+# Sabri Ünal <libreajans@gmail.com>, 2019.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gedit-latex master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
-"product=gedit&keywords=I18N+L10N&component=LaTeX\n"
-"POT-Creation-Date: 2016-11-16 12:51+0000\n"
-"PO-Revision-Date: 2016-12-01 23:05+0300\n"
-"Last-Translator: Muhammet Kara <muhammetk@gmail.com>\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gedit-latex/issues\n"
+"POT-Creation-Date: 2019-08-19 12:32+0000\n"
+"PO-Revision-Date: 2019-08-23 22:58+0300\n"
+"Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
 "Language-Team: Türkçe <gnome-turk@gnome.org>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Gtranslator 2.91.7\n"
+"X-Generator: Poedit 2.0.6\n"
 
 #: ../latex.plugin.desktop.in.in.h:1
 msgid "LaTeX Plugin"
@@ -28,6 +30,8 @@ msgid ""
 "A plugin that assists you in handling LaTeX documents and BibTeX "
 "bibliographies"
 msgstr ""
+"LaTeX belgelerini ve BibTeX bibliyografyalarını kullanmanıza yardımcı olan "
+"bir eklenti"
 
 #: ../data/bibtex.xml.h:1
 msgid "Title"
@@ -75,11 +79,11 @@ msgstr "ISSN"
 
 #: ../data/bibtex.xml.h:12
 msgid "Series"
-msgstr ""
+msgstr "Seri"
 
 #: ../data/bibtex.xml.h:13
 msgid "Edition"
-msgstr ""
+msgstr "Baskı"
 
 #: ../data/bibtex.xml.h:14
 msgid "Publisher"
@@ -95,7 +99,7 @@ msgstr "ISBN"
 
 #: ../data/bibtex.xml.h:17
 msgid "How Published"
-msgstr ""
+msgstr "Nasıl Yayınlandı"
 
 #: ../data/bibtex.xml.h:18
 msgid "Organization"
@@ -120,11 +124,11 @@ msgstr "Tür"
 #: ../data/bibtex.xml.h:23 ../latex/latex/actions.py:315
 #: ../latex/latex/actions.py:316
 msgid "Chapter"
-msgstr ""
+msgstr "Bölüm"
 
 #: ../data/bibtex.xml.h:24
 msgid "Key"
-msgstr ""
+msgstr "Anahtar"
 
 #: ../data/bibtex.xml.h:25
 msgid "School"
@@ -140,66 +144,70 @@ msgstr "Çapraz Başvuru"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:1
 msgid "Maximum BibTeX Size"
-msgstr ""
+msgstr "Azami BibTeX Boyutu"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:2
 msgid "Connect Outline to Editor"
-msgstr ""
+msgstr "Anahat Düzenleyiciye Bağlan"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:3
 msgid "Show Labels in Outline"
-msgstr ""
+msgstr "Etiketleri Anahatta Göster"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:4
 msgid "Show Tables in Outline"
-msgstr ""
+msgstr "Tabloları Anahatta Göster"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:5
 msgid "Show Graphics in Outline"
-msgstr ""
+msgstr "Grafikleri Anahatta Göster"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:6
 msgid "Show Warnings in Issues"
-msgstr ""
+msgstr "Sayılardaki Uyarıları Göster"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:7
 msgid "Show Tasks in Issues"
-msgstr ""
+msgstr "Sayılardaki Görevleri Göster"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:8
 #: ../data/ui/configure.ui.h:6
 msgid "Hide Box Warnings"
-msgstr ""
+msgstr "Kutu Uyarılarını Gizle"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:9
 msgid ""
 "Show LaTeX Toolbar below (normal), combined with the main toolbar, or "
 "disabled"
 msgstr ""
+"LaTeX Araç Çubuğunu aşağıda (normal), ana araç çubuğuyla birlikte veya "
+"devre dışı bırakılmış olarak göster"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:10
 msgid "Expanded Symbol Groups"
-msgstr ""
+msgstr "Genişletilmiş Sembol Grupları"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:11
 msgid "LaTeX Extensions"
-msgstr ""
+msgstr "LaTeX Eklentileri"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:12
 msgid "Graphics File Extensions"
-msgstr ""
+msgstr "Grafik Dosyası Uzantıları"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:13
 msgid "Paths Relative to .tex File to Look for Graphics"
-msgstr ""
+msgstr "Grafikler için bakılacak göreceli .tex dosyası yolları"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:14
 msgid "Extra LaTeX commands used to mark issues, such as \\fxnote{foo}"
 msgstr ""
+"Sayıları işaretlemek için ilave LaTeX komutları kullanıldı, örneğin "
+"\\fxnote{foo}"
 
 #: ../data/ui/build_image_dialog.ui.h:1
 msgid "Render to Image"
-msgstr ""
+msgstr "Resme İşle"
 
 #: ../data/ui/build_image_dialog.ui.h:2
 msgid "<b>Image Format</b>"
@@ -223,7 +231,7 @@ msgstr "GIF"
 
 #: ../data/ui/build_image_dialog.ui.h:7
 msgid "<b>Rendering</b>"
-msgstr ""
+msgstr "<b>İşleme</b>"
 
 #: ../data/ui/build_image_dialog.ui.h:8
 msgid "<b>Area</b>"
@@ -231,7 +239,7 @@ msgstr "<b>Alan</b>"
 
 #: ../data/ui/build_image_dialog.ui.h:9
 msgid "Antialiasing:"
-msgstr ""
+msgstr "Kenar yumuşatma:"
 
 #: ../data/ui/build_image_dialog.ui.h:10
 msgid "Resolution:"
@@ -239,15 +247,15 @@ msgstr "Çözünürlük:"
 
 #: ../data/ui/build_image_dialog.ui.h:11
 msgid "Render whole page(s)"
-msgstr ""
+msgstr "Tüm sayfaları işle"
 
 #: ../data/ui/build_image_dialog.ui.h:12
 msgid "Attempt to render tight bounding box"
-msgstr ""
+msgstr "Sıkı ciltleme kutusu oluşturulmaya çalış"
 
 #: ../data/ui/choose_master_dialog.ui.h:1
 msgid "Select Master Document"
-msgstr ""
+msgstr "Ana Belgeyi Seç"
 
 #: ../data/ui/choose_master_dialog.ui.h:2
 msgid "Filename:"
@@ -263,11 +271,11 @@ msgstr "<b>BibTeX</b>"
 
 #: ../data/ui/configure.ui.h:3
 msgid "<b><i>rubber</i> Post-Processor</b>"
-msgstr ""
+msgstr "<b><i>rubber</i> Son İşleyici</b>"
 
 #: ../data/ui/configure.ui.h:4
 msgid "Maximum Parsed File Size:"
-msgstr ""
+msgstr "Azami Ayrıştırılmış Dosya Boyutu:"
 
 #: ../data/ui/configure.ui.h:5
 msgid "KB"
@@ -282,77 +290,81 @@ msgid ""
 "Remember to run all commands in batch mode (e.g. append <tt>-interaction "
 "batchmode</tt> to <tt>latex</tt>)"
 msgstr ""
+"Tüm komutları toplu iş kipinde çalıştırmayı unutmayın (örneğin, <tt>latex</"
+"tt> komutuna <tt>-interaction batchmode</tt> parametresini ekleyin)"
 
 #: ../data/ui/configure_tool.ui.h:2
 msgid "<b>_Label</b>"
-msgstr ""
+msgstr "<b>_Etiket</b>"
 
 #: ../data/ui/configure_tool.ui.h:3
 msgid ""
 "Valid placeholders are <tt>$filename</tt>, <tt>$shortname</tt>, <tt>"
 "$directory</tt>"
 msgstr ""
+"Geçerli yer tutucular <tt>$filename</tt>, <tt>$shortname</tt>, <tt>"
+"$directory</tt>"
 
 #: ../data/ui/configure_tool.ui.h:4
 msgid "<b>_Jobs</b>"
-msgstr ""
+msgstr "<b>_İşler</b>"
 
 #: ../data/ui/configure_tool.ui.h:5
 msgid "<b>_Description</b>"
-msgstr ""
+msgstr "<b>_Açıklama</b>"
 
 #: ../data/ui/configure_tool.ui.h:6
 msgid "<b>_File Extensions</b>"
-msgstr ""
+msgstr "<b>_Dosya Uzantıları</b>"
 
 #: ../data/ui/configure_tool.ui.h:7
 msgid "_Generated"
-msgstr ""
+msgstr "_Oluşturan"
 
 #: ../data/ui/configure_tool.ui.h:8
 msgid "_User Defined:"
-msgstr ""
+msgstr "_Kullanıcı Tanımlı:"
 
 #: ../data/ui/configure_tool.ui.h:9
 msgid "<Ctrl><Alt>1"
-msgstr ""
+msgstr "<Ctrl><Alt>1"
 
 #: ../data/ui/configure_tool.ui.h:10
 msgid "<b>Accelerator</b>"
-msgstr ""
+msgstr "<b>Hızlandırıcı</b>"
 
 #: ../data/ui/insert_bibtex_entry.ui.h:1
 msgid "Create Bibliography Entry"
-msgstr ""
+msgstr "Kaynakça Girdisi Oluştur"
 
 #: ../data/ui/insert_bibtex_entry.ui.h:2
 msgid "Required Fields"
-msgstr ""
+msgstr "Zorunlu Alanlar"
 
 #: ../data/ui/insert_bibtex_entry.ui.h:3
 msgid "Optional Fields"
-msgstr ""
+msgstr "Seçimlik Alanlar"
 
 #: ../data/ui/insert_bibtex_entry.ui.h:4
 msgid "_Identifier:"
-msgstr ""
+msgstr "_Tanımlayıcı:"
 
 #: ../data/ui/insert_bibtex_entry.ui.h:5
 msgid "_Type:"
-msgstr ""
+msgstr "_Tür:"
 
 #: ../data/ui/insert_graphics_dialog.ui.h:1
 msgid "Image Size"
-msgstr ""
+msgstr "Görüntü Boyutu"
 
 #: ../data/ui/insert_graphics_dialog.ui.h:2
 msgid "Text Width"
-msgstr ""
+msgstr "Metin Genişliği"
 
 #: ../data/ui/insert_graphics_dialog.ui.h:3 ../latex/latex/actions.py:356
 #: ../latex/latex/actions.py:358
 msgid "Insert Graphics"
-msgstr ""
+msgstr "Grafik Ekle"
 
 #: ../data/ui/insert_graphics_dialog.ui.h:4
 msgid "_File:"
@@ -361,13 +373,14 @@ msgstr "_Dosya:"
 #: ../data/ui/insert_graphics_dialog.ui.h:5
 #: ../data/ui/insert_table_dialog.ui.h:7
 msgid "_Caption:"
-msgstr ""
+msgstr "_Altyazı:"
 
 #: ../data/ui/insert_graphics_dialog.ui.h:6
 #: ../data/ui/insert_table_dialog.ui.h:8
 msgid "_Label:"
 msgstr "_Etiket:"
 
+# figure kelimesinin kısaltması olabilir ama net değil.
 #: ../data/ui/insert_graphics_dialog.ui.h:7
 msgid "fig:"
 msgstr ""
@@ -376,6 +389,7 @@ msgstr ""
 msgid "_Width:"
 msgstr "_Genişlik:"
 
+# Bölünmüş cümle, hata raporlandı.
 #: ../data/ui/insert_graphics_dialog.ui.h:10
 #, no-c-format
 msgid "% _of"
@@ -383,45 +397,45 @@ msgstr ""
 
 #: ../data/ui/insert_graphics_dialog.ui.h:11
 msgid "_Rotate:"
-msgstr ""
+msgstr "_Döndür:"
 
 #: ../data/ui/insert_graphics_dialog.ui.h:12
 msgid "° CCW"
-msgstr ""
+msgstr "° Saat Yönünün Tersine"
 
 #: ../data/ui/insert_graphics_dialog.ui.h:13
 msgid "Flip _Horizontally"
-msgstr ""
+msgstr "_Yatay Çevir"
 
 #: ../data/ui/insert_graphics_dialog.ui.h:14
 msgid "_Spread over two Columns"
-msgstr ""
+msgstr "İki Sütuna _Yay"
 
 #: ../data/ui/insert_graphics_dialog.ui.h:15
 msgid "Floating _Object"
-msgstr ""
+msgstr "_Yüzen Nesne"
 
 #: ../data/ui/insert_listing_dialog.ui.h:1 ../latex/latex/actions.py:388
 #: ../latex/latex/actions.py:390
 msgid "Insert Source Code Listing"
-msgstr ""
+msgstr "Kaynak Kodu Listelemesi Ekle"
 
 #: ../data/ui/insert_listing_dialog.ui.h:2
 msgid "Load From _File:"
-msgstr ""
+msgstr "_Dosyadan Yükle:"
 
 #: ../data/ui/insert_listing_dialog.ui.h:3
 msgid "Programming _Language:"
-msgstr ""
+msgstr "Programlama _Dili:"
 
 #: ../data/ui/insert_listing_dialog.ui.h:4
 msgid "_Dialect:"
-msgstr ""
+msgstr "_Diyalekt:"
 
 #: ../data/ui/insert_table_dialog.ui.h:1 ../latex/latex/actions.py:372
 #: ../latex/latex/actions.py:374
 msgid "Insert Table or Matrix"
-msgstr ""
+msgstr "Tablo veya Matris Ekle"
 
 #: ../data/ui/insert_table_dialog.ui.h:2
 msgid "Type:"
@@ -449,15 +463,15 @@ msgstr "sekme:"
 
 #: ../data/ui/insert_table_dialog.ui.h:10
 msgid "_Floating Object"
-msgstr ""
+msgstr "_Yüzen Nesne"
 
 #: ../data/ui/new_document_template_dialog.ui.h:1
 msgid "New LaTeX Document"
-msgstr ""
+msgstr "Yeni LaTeX Belgesi"
 
 #: ../data/ui/new_document_template_dialog.ui.h:2
 msgid "T_emplate:"
-msgstr ""
+msgstr "Şabl_on:"
 
 #: ../data/ui/new_document_template_dialog.ui.h:3
 msgid "document"
@@ -469,63 +483,63 @@ msgstr ".tex"
 
 #: ../data/ui/new_document_template_dialog.ui.h:5
 msgid "Di_rectory:"
-msgstr ""
+msgstr "_Dizin:"
 
 #: ../data/ui/new_document_template_dialog.ui.h:6
 msgid "_Name:"
-msgstr ""
+msgstr "_Ad:"
 
 #: ../data/ui/new_document_template_dialog.ui.h:7
 msgid "_Babel Package:"
-msgstr ""
+msgstr "_Babel Paketi:"
 
 #: ../data/ui/new_document_template_dialog.ui.h:8
 msgid "_Input Encoding:"
-msgstr ""
+msgstr "_Girdi Kodlaması:"
 
 #: ../data/ui/new_document_template_dialog.ui.h:9
 msgid "<b>Language Customization</b>"
-msgstr ""
+msgstr "<b>Dil Özelleştirme</b>"
 
 #: ../data/ui/new_document_template_dialog.ui.h:10
 msgid "_Landscape"
-msgstr ""
+msgstr "_Yatay"
 
 #: ../data/ui/new_document_template_dialog.ui.h:11
 msgid "_Paper:"
-msgstr ""
+msgstr "_Kağıt:"
 
 #: ../data/ui/new_document_template_dialog.ui.h:12
 msgid "De_fault"
-msgstr ""
+msgstr "Ö_ntanımlı"
 
 #: ../data/ui/new_document_template_dialog.ui.h:13
 msgid "U_ser Defined:"
-msgstr ""
+msgstr "_Kullanıcı Tanımlı:"
 
 #: ../data/ui/new_document_template_dialog.ui.h:14
 msgid "pt"
-msgstr ""
+msgstr "pt"
 
 #: ../data/ui/new_document_template_dialog.ui.h:15
 msgid "Base Font Size:"
-msgstr ""
+msgstr "Temel Yazı Tipi Boyutu:"
 
 #: ../data/ui/new_document_template_dialog.ui.h:16
 msgid "Document _Class:"
-msgstr ""
+msgstr "Belge _Sınıfı:"
 
 #: ../data/ui/new_document_template_dialog.ui.h:17
 msgid "<b>Style and Layout</b>"
-msgstr ""
+msgstr "<b>Biçem ve Yerleşim</b>"
 
 #: ../data/ui/new_document_template_dialog.ui.h:18
 msgid "Include PDF _Metadata"
-msgstr ""
+msgstr "PDF _Üstverisi Ekle"
 
 #: ../data/ui/new_document_template_dialog.ui.h:19
 msgid "This adds metadata to the document. Requires package <tt>ifpdf</tt>."
-msgstr ""
+msgstr "Bu, üst veriyi belgeye ekler.<tt>ifpdf</tt> paketini gerektirir."
 
 #: ../data/ui/new_document_template_dialog.ui.h:20
 msgid "Date:"
@@ -533,35 +547,35 @@ msgstr "Tarih:"
 
 #: ../data/ui/new_document_template_dialog.ui.h:21
 msgid "To_day"
-msgstr ""
+msgstr "_Bugün"
 
 #: ../data/ui/new_document_template_dialog.ui.h:22
 msgid "C_ustom:"
-msgstr ""
+msgstr "_Özel:"
 
 #: ../data/ui/new_document_template_dialog.ui.h:23
 msgid "_Author:"
-msgstr ""
+msgstr "_Yazar:"
 
 #: ../data/ui/new_document_template_dialog.ui.h:24
 msgid "_Title:"
-msgstr ""
+msgstr "_Başlık:"
 
 #: ../data/ui/new_document_template_dialog.ui.h:25
 msgid "<b>Meta Information</b>"
-msgstr ""
+msgstr "<b>Üstveri Bilgisi</b>"
 
 #: ../data/ui/new_document_template_dialog.ui.h:26
 msgid "Default F_ont Family:"
-msgstr ""
+msgstr "Öntanımlı _Yazı Tipi Ailesi:"
 
 #: ../data/ui/use_bibliography_dialog.ui.h:1 ../latex/latex/actions.py:159
 msgid "Use Bibliography"
-msgstr ""
+msgstr "Kaynakça Kullan"
 
 #: ../data/ui/use_bibliography_dialog.ui.h:2
 msgid "Bibliography _File:"
-msgstr ""
+msgstr "Kaynakça _Dosyası:"
 
 #: ../data/ui/use_bibliography_dialog.ui.h:3
 msgid "_Style:"
@@ -569,11 +583,11 @@ msgstr "_Biçem:"
 
 #: ../data/ui/use_bibliography_dialog.ui.h:4
 msgid "Style Preview:"
-msgstr ""
+msgstr "Biçem Önizleme:"
 
 #: ../data/ui/use_bibliography_dialog.ui.h:5
 msgid "Refresh Style Preview"
-msgstr ""
+msgstr "Biçem Önizlemesini Tazele"
 
 #: ../latex/appactivatable.py:66 ../latex/latex/actions.py:63
 msgid "LaTeX"
@@ -581,74 +595,75 @@ msgstr "LaTeX"
 
 #: ../latex/appactivatable.py:89
 msgid "LaTeX Tools"
-msgstr ""
+msgstr "LaTeX Araçlar"
 
 #: ../latex/bibtex/actions.py:32
 msgid "BibTeX"
 msgstr "BibTeX"
 
 #: ../latex/bibtex/actions.py:43
-msgid "New BibTeX Entry..."
-msgstr ""
+msgid "New BibTeX Entry…"
+msgstr "Yeni BibTeX Girdisi…"
 
 #: ../latex/bibtex/actions.py:46
 msgid "Create a new BibTeX entry"
-msgstr ""
+msgstr "Yeni BibTeX girdisi oluştur"
 
 #. add grouping controls to toolbar
 #: ../latex/bibtex/views.py:56
 msgid "No Grouping"
-msgstr ""
+msgstr "Gruplandırma Yok"
 
 #: ../latex/bibtex/views.py:57
 msgid "Group by Type"
-msgstr ""
+msgstr "Türe Göre Grupla"
 
 #: ../latex/bibtex/views.py:58
 msgid "Group by Author"
-msgstr ""
+msgstr "Yazara Göre Grupla"
 
 #: ../latex/bibtex/views.py:59
 msgid "Group by Year"
-msgstr ""
+msgstr "Yıla Göre Grupla"
 
 #. group by year
 #: ../latex/bibtex/views.py:197
 msgid "<i>n/a</i>"
-msgstr ""
+msgstr "<i>yok</i>"
 
 #: ../latex/bibtex/views.py:240
 msgid "Unknown Author"
-msgstr ""
+msgstr "Bilinmeyen Yazar"
 
 #: ../latex/latex/actions.py:73
-msgid "New LaTeX Document..."
-msgstr ""
+#| msgid "LaTeX Documentation"
+msgid "New LaTeX Document…"
+msgstr "Yeni LaTeX Belgesi…"
 
 #: ../latex/latex/actions.py:76
 msgid "Create a new LaTeX document"
-msgstr ""
+msgstr "Yeni LaTeX belgesi oluştur"
 
 #: ../latex/latex/actions.py:95
-msgid "Choose Master Document..."
-msgstr ""
+msgid "Choose Master Document…"
+msgstr "Ana Belgeyi Seç…"
 
 #: ../latex/latex/actions.py:107
 msgid "Close Nearest Environment"
-msgstr ""
+msgstr "En Yakın Ortamı Kapat"
 
 #: ../latex/latex/actions.py:109
 msgid "Close the nearest TeX environment at left of the cursor"
-msgstr ""
+msgstr "İmlecin solundaki en yakın TeX ortamını kapat"
 
 #: ../latex/latex/actions.py:157
-msgid "Use Bibliography..."
-msgstr ""
+msgid "Use Bibliography…"
+msgstr "Kaynakça Kullan…"
 
 #: ../latex/latex/actions.py:179 ../latex/latex/actions.py:181
 #: ../latex/latex/actions.py:189 ../latex/latex/actions.py:190
 msgid "Font Family"
-msgstr "Yazıtipi Ailesi"
+msgstr "Yazı Tipi Ailesi"
 
 #: ../latex/latex/actions.py:194 ../latex/latex/actions.py:195
 msgid "Bold"
@@ -672,40 +687,42 @@ msgstr "Küçük İlk Harfler"
 
 #: ../latex/latex/actions.py:229 ../latex/latex/actions.py:230
 msgid "Roman"
-msgstr ""
+msgstr "Roman"
 
 #: ../latex/latex/actions.py:236 ../latex/latex/actions.py:237
 msgid "Sans Serif"
-msgstr ""
+msgstr "Sans Serif"
 
 #: ../latex/latex/actions.py:243 ../latex/latex/actions.py:244
 msgid "Typewriter"
-msgstr ""
+msgstr "Daktilo"
 
+# Yazı tipi ailesi adı, çevirilmedi.
 #: ../latex/latex/actions.py:250 ../latex/latex/actions.py:251
 msgid "Blackboard Bold"
-msgstr ""
+msgstr "Blackboard Bold"
 
 #: ../latex/latex/actions.py:258 ../latex/latex/actions.py:259
 msgid "Calligraphy"
-msgstr ""
+msgstr "Yazı Sanatı"
 
+# Yazı tipi ailesi olduğu için çevrilmedi.	
 #: ../latex/latex/actions.py:265 ../latex/latex/actions.py:266
 msgid "Fraktur"
-msgstr ""
+msgstr "Fraktur"
 
 #: ../latex/latex/actions.py:273 ../latex/latex/actions.py:274
 #: ../latex/latex/actions.py:286 ../latex/latex/actions.py:287
 msgid "List"
-msgstr ""
+msgstr "Liste"
 
 #: ../latex/latex/actions.py:278 ../latex/latex/actions.py:279
 msgid "Itemize"
-msgstr ""
+msgstr "Madde imli"
 
 #: ../latex/latex/actions.py:291 ../latex/latex/actions.py:292
 msgid "Enumerate"
-msgstr ""
+msgstr "Numaralandır"
 
 #: ../latex/latex/actions.py:298 ../latex/latex/actions.py:299
 msgid "Description"
@@ -714,82 +731,82 @@ msgstr "Açıklama"
 #: ../latex/latex/actions.py:304 ../latex/latex/actions.py:305
 #: ../latex/latex/actions.py:330 ../latex/latex/actions.py:331
 msgid "Structure"
-msgstr ""
+msgstr "Yapı"
 
 #: ../latex/latex/actions.py:308 ../latex/latex/actions.py:309
 msgid "Part"
-msgstr ""
+msgstr "Parça"
 
 #: ../latex/latex/actions.py:322 ../latex/latex/actions.py:323
 msgid "Section"
-msgstr ""
+msgstr "Bölüm"
 
 #: ../latex/latex/actions.py:335 ../latex/latex/actions.py:336
 msgid "Subsection"
-msgstr ""
+msgstr "Alt bölüm"
 
 #: ../latex/latex/actions.py:342 ../latex/latex/actions.py:343
 msgid "Paragraph"
-msgstr ""
+msgstr "Paragraf"
 
 #: ../latex/latex/actions.py:349 ../latex/latex/actions.py:350
 msgid "Subparagraph"
-msgstr ""
+msgstr "Alt paragraf"
 
 #: ../latex/latex/actions.py:405 ../latex/latex/actions.py:407
 #: ../latex/latex/actions.py:415 ../latex/latex/actions.py:416
 msgid "Build"
-msgstr ""
+msgstr "Derle"
 
 #: ../latex/latex/actions.py:420
 msgid "Build Image"
-msgstr ""
+msgstr "Resim derle"
 
 #: ../latex/latex/actions.py:422
 msgid "Build an image from the LaTeX document"
-msgstr ""
+msgstr "LaTeX belgesinden resim derle"
 
 #: ../latex/latex/actions.py:440 ../latex/latex/actions.py:441
 #: ../latex/latex/actions.py:460 ../latex/latex/actions.py:461
 msgid "Justify"
-msgstr ""
+msgstr "Hizala"
 
 #: ../latex/latex/actions.py:445 ../latex/latex/actions.py:446
 msgid "Justify Left"
-msgstr ""
+msgstr "Sola Hizala"
 
 #: ../latex/latex/actions.py:452 ../latex/latex/actions.py:453
 msgid "Justify Center"
-msgstr ""
+msgstr "Ortaya Hizala"
 
 #: ../latex/latex/actions.py:465 ../latex/latex/actions.py:466
 msgid "Justify Right"
-msgstr ""
+msgstr "Sağa Hizala"
 
 #: ../latex/latex/actions.py:472 ../latex/latex/actions.py:473
 #: ../latex/latex/actions.py:485 ../latex/latex/actions.py:486
 msgid "Math"
-msgstr ""
+msgstr "Matematik"
 
 #: ../latex/latex/actions.py:477 ../latex/latex/actions.py:478
 msgid "Mathematical Environment"
-msgstr ""
+msgstr "Matematik Ortamı"
 
 #: ../latex/latex/actions.py:490 ../latex/latex/actions.py:491
 msgid "Centered Formula"
-msgstr ""
+msgstr "Ortalanmış Formül"
 
 #: ../latex/latex/actions.py:497 ../latex/latex/actions.py:498
 msgid "Numbered Equation"
-msgstr ""
+msgstr "Numaralandırılmış Denklem"
 
 #: ../latex/latex/actions.py:506 ../latex/latex/actions.py:507
 msgid "Array of Equations"
-msgstr ""
+msgstr "Denklem Dizisi"
 
 #: ../latex/latex/actions.py:516 ../latex/latex/actions.py:517
 msgid "Numbered Array of Equations"
-msgstr ""
+msgstr "Numaralandırılmış Denklem Dizisi"
 
 #: ../latex/latex/dialogs.py:331
 msgid "Default"
@@ -820,24 +837,24 @@ msgid "Off"
 msgstr "Kapalı"
 
 #: ../latex/latex/dialogs.py:1078
-msgid "1x"
-msgstr "1x"
+msgid "1×"
+msgstr "1×"
 
 #: ../latex/latex/dialogs.py:1079
-msgid "2x"
-msgstr "2x"
+msgid "2×"
+msgstr "2×"
 
 #: ../latex/latex/dialogs.py:1080
-msgid "4x"
-msgstr "4x"
+msgid "4×"
+msgstr "4×"
 
 #: ../latex/latex/dialogs.py:1081
-msgid "8x"
-msgstr "8x"
+msgid "8×"
+msgstr "8×"
 
 #: ../latex/latex/environment.py:141
 msgid "Book of abstracts"
-msgstr ""
+msgstr "Özetler kitabı"
 
 #: ../latex/latex/environment.py:142
 msgid "Article"
@@ -845,19 +862,19 @@ msgstr "Makale"
 
 #: ../latex/latex/environment.py:143
 msgid "Article (AMS)"
-msgstr ""
+msgstr "Makale (AMS)"
 
 #: ../latex/latex/environment.py:144
 msgid "Book (AMS)"
-msgstr ""
+msgstr "Kitap (AMS)"
 
 #: ../latex/latex/environment.py:145
 msgid "AMS Documentation"
-msgstr ""
+msgstr "AMS Belgeleri"
 
 #: ../latex/latex/environment.py:146
 msgid "Proceedings (AMS)"
-msgstr ""
+msgstr "Bildiriler (AMS)"
 
 #: ../latex/latex/environment.py:147
 msgid "Report"
@@ -865,11 +882,11 @@ msgstr "Bildiri"
 
 #: ../latex/latex/environment.py:148
 msgid "Beamer slides"
-msgstr ""
+msgstr "Beamer slaytları"
 
 #: ../latex/latex/environment.py:149
 msgid "Belgian letter"
-msgstr ""
+msgstr "Belçika mektubu"
 
 #: ../latex/latex/environment.py:150
 msgid "Book"
@@ -877,11 +894,11 @@ msgstr "Kitap"
 
 #: ../latex/latex/environment.py:151
 msgid "Flashcard"
-msgstr ""
+msgstr "Kart"
 
 #: ../latex/latex/environment.py:152
 msgid "Proceedings (IAG)"
-msgstr ""
+msgstr "Bildiriler (IAG)"
 
 #: ../latex/latex/environment.py:153
 msgid "Letter"
@@ -889,111 +906,127 @@ msgstr "Mektup"
 
 #: ../latex/latex/environment.py:154
 msgid "LaTeX News"
-msgstr ""
+msgstr "LaTeX Haberleri"
 
 #: ../latex/latex/environment.py:155
 msgid "LaTeX Documentation"
-msgstr ""
+msgstr "LaTeX Belgeleri"
 
 #: ../latex/latex/environment.py:156
 msgid "LaTeX Guide"
-msgstr ""
+msgstr "LaTeX Kılavuzu"
 
 #: ../latex/latex/environment.py:157
 msgid "Proceedings"
-msgstr ""
+msgstr "Bildiriler"
 
 #: ../latex/latex/environment.py:158
 msgid "Article (KOMA-Script)"
-msgstr ""
+msgstr "Makale (KOMA-Script)"
 
 #: ../latex/latex/environment.py:159 ../latex/latex/environment.py:163
 msgid "Report (KOMA-Script)"
-msgstr ""
+msgstr "Rapor (KOMA-Script)"
 
 #: ../latex/latex/environment.py:160
 msgid "Book (KOMA-Script)"
-msgstr ""
+msgstr "Kitap (KOMA-Script)"
 
 #: ../latex/latex/environment.py:161
 msgid "Letter (KOMA-Script)"
-msgstr ""
+msgstr "Mektup (KOMA-Script)"
 
 #: ../latex/latex/environment.py:162
 msgid "Letter 2 (KOMA-Script)"
-msgstr ""
+msgstr "Mektup 2 (KOMA-Script)"
 
 #: ../latex/latex/environment.py:164
 msgid "Slides"
-msgstr ""
+msgstr "Slaytlar"
 
 #: ../latex/latex/views.py:107
 msgid "Symbols"
-msgstr ""
+msgstr "Semboller"
 
 #: ../latex/latex/views.py:190
 msgid "Show graphics"
-msgstr ""
+msgstr "Grafikleri göster"
 
 #: ../latex/latex/views.py:195
 msgid "Show tables"
-msgstr ""
+msgstr "Tabloları göster"
 
 #: ../latex/outline.py:58
 msgid "Follow Editor"
-msgstr ""
+msgstr "Editörü Takip Et"
 
 #: ../latex/outline.py:63
 msgid "Expand All"
-msgstr ""
+msgstr "Tümünü Genişlet"
 
 #: ../latex/outline.py:67
 msgid "Collapse All"
-msgstr ""
+msgstr "Tümünü Daralt"
 
 #: ../latex/outline.py:114
 msgid "Outline"
-msgstr ""
+msgstr "Anahat"
 
+# %s1: filename
+# %s2: destname
 #: ../latex/preferences/tools.py:81
 #, python-format
 msgid ""
-"The file \"%s\" is corrupted and cannot be parsed. It was moved to \"%s\", "
-"and the Latex Plugin will now fallback to the default tools."
+"The file “%s” is corrupted and cannot be parsed. It was moved to “%s”, and "
+"the Latex Plugin will now fallback to the default tools."
 msgstr ""
+"“%s” dosyası bozulmuş ve ayrıştırılamaz. “%s” konumuna taşındı ve Latex "
+"Eklentisi şimdi öntanımlı araçlara geri dönecek."
 
 #: ../latex/tools/views.py:62
 msgid "Job"
-msgstr ""
+msgstr "Görev"
 
 #: ../latex/tools/views.py:73 ../latex/views.py:80
 msgid "File"
-msgstr ""
+msgstr "Dosya"
 
 #: ../latex/tools/views.py:74
 msgid "Line"
-msgstr ""
+msgstr "Çizgi"
 
 #: ../latex/tools/views.py:87
 msgid "Abort Job"
-msgstr ""
+msgstr "Görevi İptal Et"
 
 #: ../latex/tools/views.py:92
 msgid "Show Detailed Output"
-msgstr ""
+msgstr "Ayrıntılı Çıktıyı Göster"
 
 #: ../latex/views.py:67
 msgid "Message"
-msgstr ""
+msgstr "İleti"
 
 #: ../latex/views.py:99
 msgid "Show/Hide Warnings"
-msgstr ""
+msgstr "Uyarıları Göster/Gizle"
 
 #: ../latex/views.py:107
 msgid "Show/Hide Tasks"
-msgstr ""
+msgstr "Görevleri Göster/Gizle"
 
 #: ../latex/views.py:139
 msgid "Issues"
-msgstr ""
+msgstr "Sayılar"
+
+#~ msgid "1x"
+#~ msgstr "1x"
+
+#~ msgid "2x"
+#~ msgstr "2x"
+
+#~ msgid "4x"
+#~ msgstr "4x"
+
+#~ msgid "8x"
+#~ msgstr "8x"
