@@ -4,20 +4,20 @@
 #
 # Iñaki Larrañaga Murgoitio <dooteo@zundan.com>, 2014, 2015, 2017.
 # Edurne Labaka <elabaka@uzei.com>, 2015.
+# Asier Sarasua Garmendia <asiersarasua@ni.eus>, 2021.
+#
 msgid ""
-msgstr ""
-"Project-Id-Version: gedit-latex master\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-04-28 09:28+0200\n"
-"PO-Revision-Date: 2017-04-28 09:26+0200\n"
-"Last-Translator: Inaki Larranaga Murgoitio <dooteo@zundan.com>\n"
+msgstr "Project-Id-Version: gedit-latex master\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gedit-latex/issues\n"
+"POT-Creation-Date: 2020-03-29 13:41+0000\n"
+"PO-Revision-Date: 2021-03-20 22:50+0200\n"
+"Last-Translator: Asier Sarasua Garmendia <asiersarasua@ni.eus>\n"
 "Language-Team: Basque <librezale@librezale.eus>\n"
 "Language: eu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 1.5\n"
 
 #: ../latex.plugin.desktop.in.in.h:1
 msgid "LaTeX Plugin"
@@ -27,8 +27,7 @@ msgstr "LaTeX plugina"
 msgid ""
 "A plugin that assists you in handling LaTeX documents and BibTeX "
 "bibliographies"
-msgstr ""
-"LaTeX dokumentuak eta BibTeX bibliografiak kudeatzen lagunduko dizun plugina"
+msgstr "LaTeX dokumentuak eta BibTeX bibliografiak kudeatzen lagunduko dizun plugina"
 
 #: ../data/bibtex.xml.h:1
 msgid "Title"
@@ -176,9 +175,7 @@ msgstr "Ezkutatu abisuen kutxa"
 msgid ""
 "Show LaTeX Toolbar below (normal), combined with the main toolbar, or "
 "disabled"
-msgstr ""
-"Erakutsi LaTeX-en tresna-barra azpian, tresna-barra nagusiarekin "
-"konbinatuta, edo desgaituta"
+msgstr "Erakutsi LaTeX-en tresna-barra azpian, tresna-barra nagusiarekin konbinatuta, edo desgaituta"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:10
 msgid "Expanded Symbol Groups"
@@ -198,9 +195,7 @@ msgstr "'.tex' fitxategien bide-izen erlatiboa grafikoak bilatzeko"
 
 #: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:14
 msgid "Extra LaTeX commands used to mark issues, such as \\fxnote{foo}"
-msgstr ""
-"LaTeX-en komando gehigarriak landuko diren dokumentuaren zatiak markatzeko, "
-"\\fxnote{foo} bezalakoak"
+msgstr "LaTeX-en komando gehigarriak landuko diren dokumentuaren zatiak markatzeko, \\fxnote{foo} bezalakoak"
 
 #: ../data/ui/build_image_dialog.ui.h:1
 msgid "Render to Image"
@@ -286,9 +281,7 @@ msgstr "Hainbat"
 msgid ""
 "Remember to run all commands in batch mode (e.g. append <tt>-interaction "
 "batchmode</tt> to <tt>latex</tt>)"
-msgstr ""
-"Gogoratu komando guztiak Batch moduan exekutatzea (adib. erantsi <tt>-"
-"interaction batchmode</tt> iezaiozu <tt>latex</tt>-i)"
+msgstr "Gogoratu komando guztiak Batch moduan exekutatzea (adib. erantsi <tt>-interaction batchmode</tt> iezaiozu <tt>latex</tt>-i)"
 
 #: ../data/ui/configure_tool.ui.h:2
 msgid "<b>_Label</b>"
@@ -298,9 +291,7 @@ msgstr "<b>_Etiketa</b>"
 msgid ""
 "Valid placeholders are <tt>$filename</tt>, <tt>$shortname</tt>, <tt>"
 "$directory</tt>"
-msgstr ""
-"Baliozko heldu-lekuak hauek dira: <tt>$filename</tt>, <tt>$shortname</tt>, "
-"<tt>$directory</tt>"
+msgstr "Baliozko heldu-lekuak hauek dira: <tt>$filename</tt>, <tt>$shortname</tt>, <tt>$directory</tt>"
 
 #: ../data/ui/configure_tool.ui.h:4
 msgid "<b>_Jobs</b>"
@@ -388,7 +379,7 @@ msgstr "_Zabalera:"
 #: ../data/ui/insert_graphics_dialog.ui.h:10
 #, no-c-format
 msgid "% _of"
-msgstr "Honen %: "
+msgstr "Honen %:"
 
 #: ../data/ui/insert_graphics_dialog.ui.h:11
 msgid "_Rotate:"
@@ -534,9 +525,7 @@ msgstr "PDFren _metadatuak barne"
 
 #: ../data/ui/new_document_template_dialog.ui.h:19
 msgid "This adds metadata to the document. Requires package <tt>ifpdf</tt>."
-msgstr ""
-"Honek meta-datuak gehitzen dizkio dokumentuari. <tt>ifpdf</tt> paketea behar "
-"du."
+msgstr "Honek meta-datuak gehitzen dizkio dokumentuari. <tt>ifpdf</tt> paketea behar du."
 
 #: ../data/ui/new_document_template_dialog.ui.h:20
 msgid "Date:"
@@ -868,7 +857,7 @@ msgstr "AMS dokumentazioa"
 
 #: ../latex/latex/environment.py:146
 msgid "Proceedings (AMS)"
-msgstr ""
+msgstr "Aktak (AMS)"
 
 #: ../latex/latex/environment.py:147
 msgid "Report"
@@ -876,7 +865,7 @@ msgstr "Txostena"
 
 #: ../latex/latex/environment.py:148
 msgid "Beamer slides"
-msgstr ""
+msgstr "Beamer diapositibak"
 
 #: ../latex/latex/environment.py:149
 msgid "Belgian letter"
@@ -888,11 +877,11 @@ msgstr "Liburua"
 
 #: ../latex/latex/environment.py:151
 msgid "Flashcard"
-msgstr ""
+msgstr "Hezkuntza-txartela"
 
 #: ../latex/latex/environment.py:152
 msgid "Proceedings (IAG)"
-msgstr ""
+msgstr "Aktak (IAG)"
 
 #: ../latex/latex/environment.py:153
 msgid "Letter"
@@ -912,7 +901,7 @@ msgstr "LaTeX gida"
 
 #: ../latex/latex/environment.py:157
 msgid "Proceedings"
-msgstr ""
+msgstr "Aktak"
 
 #: ../latex/latex/environment.py:158
 msgid "Article (KOMA-Script)"
@@ -936,7 +925,7 @@ msgstr "2. gutuna (KOMA-Script)"
 
 #: ../latex/latex/environment.py:164
 msgid "Slides"
-msgstr "Gardenkiak"
+msgstr "Diapositibak"
 
 #: ../latex/latex/views.py:107
 msgid "Symbols"
