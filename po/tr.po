@@ -10,16 +10,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gedit-latex master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gedit-latex/issues\n"
-"POT-Creation-Date: 2022-09-22 20:57+0000\n"
-"PO-Revision-Date: 2021-03-09 01:47+0300\n"
-"Last-Translator: Muhammet Kara <muhammetk@gmail.com>\n"
+"POT-Creation-Date: 2022-11-23 20:07+0000\n"
+"PO-Revision-Date: 2022-12-11 14:06+0300\n"
+"Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
 "Language-Team: Turkish <gnometurk@gnome.org>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0\n"
-"X-Generator: Gtranslator 3.38.0\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.1.1\n"
 
 #: latex.plugin.desktop.in.in:6
 msgid "LaTeX Plugin"
@@ -262,7 +262,7 @@ msgstr "_Dosya:"
 
 #: data/ui/insert_graphics_dialog.ui:129 data/ui/insert_table_dialog.ui:234
 msgid "_Caption:"
-msgstr "_Altyazı:"
+msgstr "_Alt Yazı:"
 
 #: data/ui/insert_graphics_dialog.ui:157 data/ui/insert_table_dialog.ui:267
 msgid "_Label:"
@@ -422,7 +422,7 @@ msgstr "<b>Biçem ve Yerleşim</b>"
 
 #: data/ui/new_document_template_dialog.ui:454
 msgid "Include PDF _Metadata"
-msgstr "PDF _Üstverisi Ekle"
+msgstr "PDF _Üst Verisi Ekle"
 
 #: data/ui/new_document_template_dialog.ui:461
 msgid "This adds metadata to the document. Requires package <tt>ifpdf</tt>."
@@ -450,7 +450,7 @@ msgstr "_Başlık:"
 
 #: data/ui/new_document_template_dialog.ui:620
 msgid "<b>Meta Information</b>"
-msgstr "<b>Üstveri Bilgisi</b>"
+msgstr "<b>Üst Veri Bilgisi</b>"
 
 #: data/ui/new_document_template_dialog.ui:635
 msgid "Default F_ont Family:"
@@ -592,7 +592,7 @@ msgstr "Blackboard Bold"
 msgid "Calligraphy"
 msgstr "Yazı Sanatı"
 
-# Yazı tipi ailesi olduğu için çevrilmedi.	
+# Yazı tipi ailesi olduğu için çevrilmedi.
 #: latex/latex/actions.py:265 latex/latex/actions.py:266
 msgid "Fraktur"
 msgstr "Fraktur"
