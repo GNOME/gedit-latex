@@ -2,581 +2,904 @@
 # Copyright (C) 2011 gedit-latex's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gedit-latex package.
 # Yuri Myasoedov <omerta13@yandex.ru>, 2011.
+# Ser82-png <asvmail.as@gmail.com>, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gedit-latex master\n"
-"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?product=gedit&keywords=I18N+L10N&component=Plugins\n"
-"POT-Creation-Date: 2011-08-20 09:29+0000\n"
-"PO-Revision-Date: 2011-08-22 20:22+0300\n"
-"Last-Translator: Yuri Myasoedov <omerta13@yandex.ru>\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gedit-latex/issues\n"
+"POT-Creation-Date: 2023-01-25 17:33+0000\n"
+"PO-Revision-Date: 2023-04-16 12:51+1000\n"
+"Last-Translator: Ser82-png <asvmail.as@gmail.com>\n"
 "Language-Team: Russian <gnome-cyr@gnome.org>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-
-#: ../data/bibtex.xml.h:1
-msgid "Address"
-msgstr "Адрес"
-
-#: ../data/bibtex.xml.h:2
-msgid "Author"
-msgstr "Автор"
-
-#: ../data/bibtex.xml.h:3
-msgid "Book Title"
-msgstr "Название книги"
-
-#: ../data/bibtex.xml.h:4
-msgid "Chapter"
-msgstr "Глава"
-
-#: ../data/bibtex.xml.h:5
-msgid "Cross Reference"
-msgstr "Перекрёстная ссылка"
-
-#: ../data/bibtex.xml.h:6
-msgid "Edition"
-msgstr "Издание"
-
-#: ../data/bibtex.xml.h:7
-msgid "Editor"
-msgstr "Редактор"
-
-#: ../data/bibtex.xml.h:8
-msgid "How Published"
-msgstr "Как опубликовано"
-
-#: ../data/bibtex.xml.h:9
-msgid "ISBN"
-msgstr "ISBN"
-
-#: ../data/bibtex.xml.h:10
-msgid "ISSN"
-msgstr "ISSN"
-
-#: ../data/bibtex.xml.h:11
-msgid "Institution"
-msgstr "Учреждение"
-
-#: ../data/bibtex.xml.h:12
-msgid "Journal"
-msgstr "Журнал"
-
-#: ../data/bibtex.xml.h:13
-msgid "Key"
-msgstr "Ключ"
-
-#: ../data/bibtex.xml.h:14
-msgid "Location"
-msgstr "Местоположение"
-
-#: ../data/bibtex.xml.h:15
-msgid "Month"
-msgstr "Месяц"
-
-#: ../data/bibtex.xml.h:16
-msgid "Note"
-msgstr "Примечание"
-
-#: ../data/bibtex.xml.h:17
-msgid "Number"
-msgstr "Номер"
-
-#: ../data/bibtex.xml.h:18
-msgid "Organization"
-msgstr "Организация"
-
-#: ../data/bibtex.xml.h:19
-msgid "Pages"
-msgstr "Страницы"
-
-#: ../data/bibtex.xml.h:20
-msgid "Publisher"
-msgstr "Издатель"
-
-#: ../data/bibtex.xml.h:21
-msgid "School"
-msgstr "Школа"
-
-#: ../data/bibtex.xml.h:22
-msgid "Series"
-msgstr "Цикл"
-
-#: ../data/bibtex.xml.h:23
-msgid "Title"
-msgstr "Название"
-
-#: ../data/bibtex.xml.h:24
-msgid "Type"
-msgstr "Тип"
-
-#: ../data/bibtex.xml.h:25
-msgid "URL"
-msgstr "URL"
-
-#: ../data/bibtex.xml.h:26
-msgid "Volume"
-msgstr "Том"
-
-#: ../data/bibtex.xml.h:27
-msgid "Year"
-msgstr "Год"
-
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:1
-msgid "Connect Outline to Editor"
-msgstr "Подключить структуру к редактору"
-
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:2
-msgid "Expanded Symbol Groups"
-msgstr "Расширенные группы символов"
-
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:3
-msgid "Extra LaTeX commands used to mark issues, such as \\fxnote{foo}"
-msgstr ""
-
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:4
-msgid "Graphics File Extensions"
-msgstr "Расширения графических файлов"
-
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:5
-#: ../data/ui/configure.ui.h:5
-#, fuzzy
-msgid "Hide Box Warnings"
-msgstr "Скрывать предупреждения"
-
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:6
-msgid "LaTeX Extensions"
-msgstr "Расширения LaTeX"
-
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:7
-msgid "Maximum BibTeX Size"
-msgstr "Максимальный размер BibTeX"
-
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:8
-msgid "Paths Relative to .tex File to Look for Graphics"
-msgstr "Пути, указанные относительно tex-файла, для поиска графики"
-
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:9
-msgid "Show Graphics in Outline"
-msgstr "Показывать графику в структуре"
-
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:10
-msgid "Show LaTeX Toolbar below (normal), combined with the main toolbar, or disabled"
-msgstr ""
-
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:11
-msgid "Show Labels in Outline"
-msgstr "Показывать метки в структуре"
-
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:12
-msgid "Show Tables in Outline"
-msgstr "Показывать таблицы в структуре"
-
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:13
-msgid "Show Tasks in Issues"
-msgstr ""
-
-#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:14
-msgid "Show Warnings in Issues"
-msgstr ""
-
-#: ../data/ui/build_image_dialog.ui.h:1
-msgid "<b>Area</b>"
-msgstr "<b>Область</b>"
-
-#: ../data/ui/build_image_dialog.ui.h:2
-msgid "<b>Image Format</b>"
-msgstr "<b>Формат изображения</b>"
-
-#: ../data/ui/build_image_dialog.ui.h:3
-msgid "<b>Rendering</b>"
-msgstr "<b>Обработка</b>"
-
-#: ../data/ui/build_image_dialog.ui.h:4
-msgid "Antialiasing:"
-msgstr "Сглаживание:"
-
-#: ../data/ui/build_image_dialog.ui.h:5
-msgid "Attempt to render tight bounding box"
-msgstr ""
-
-#: ../data/ui/build_image_dialog.ui.h:6
-msgid "Color Mode:"
-msgstr "Цветовой режим:"
-
-#: ../data/ui/build_image_dialog.ui.h:7
-msgid "GIF"
-msgstr "GIF"
-
-#: ../data/ui/build_image_dialog.ui.h:8
-msgid "JPEG"
-msgstr "JPEG"
-
-#: ../data/ui/build_image_dialog.ui.h:9
-msgid "PNG"
-msgstr "PNG"
-
-#: ../data/ui/build_image_dialog.ui.h:10
-msgid "Render to Image"
-msgstr "Преобразовать в изображение"
-
-#: ../data/ui/build_image_dialog.ui.h:11
-msgid "Render whole page(s)"
-msgstr "Обработать целую страницу(ы)"
-
-#: ../data/ui/build_image_dialog.ui.h:12
-msgid "Resolution:"
-msgstr "Разрешение:"
-
-#: ../data/ui/choose_master_dialog.ui.h:1
-msgid "Filename:"
-msgstr "Имя файла:"
-
-#: ../data/ui/choose_master_dialog.ui.h:2
-msgid "Select Master Document"
-msgstr "Выбрать главный документ"
-
-#: ../data/ui/configure.ui.h:1
-msgid "<b><i>rubber</i> Post-Processor</b>"
-msgstr ""
-
-#: ../data/ui/configure.ui.h:2
-msgid "<b>BibTeX</b>"
-msgstr "<b>BibTeX</b>"
-
-#: ../data/ui/configure.ui.h:3
-msgid "<b>Templates</b>"
-msgstr "<b>Шаблоны</b>"
-
-#: ../data/ui/configure.ui.h:4
-msgid "Folder:"
-msgstr "Папка:"
-
-#: ../data/ui/configure.ui.h:6
-msgid "KB"
-msgstr "КБ"
-
-#: ../data/ui/configure.ui.h:7
-msgid "Maximum Parsed File Size:"
-msgstr "Максимальный размер разобранного файла:"
-
-#: ../data/ui/configure.ui.h:8
-msgid "Miscellaneous"
-msgstr "Разное"
-
-#: ../data/ui/configure.ui.h:9
-msgid "Tools"
-msgstr "Инструменты"
-
-#: ../data/ui/configure_tool.ui.h:1
-msgid "<Ctrl><Alt>1"
-msgstr "<Ctrl><Alt>1"
-
-#: ../data/ui/configure_tool.ui.h:2
-msgid "<b>Accelerator</b>"
-msgstr "<b>Ускоритель</b>"
-
-#: ../data/ui/configure_tool.ui.h:3
-msgid "<b>_Description</b>"
-msgstr "<b>_Описание</b>"
-
-#: ../data/ui/configure_tool.ui.h:4
-msgid "<b>_File Extensions</b>"
-msgstr "<b>_Расширения файлов</b>"
-
-#: ../data/ui/configure_tool.ui.h:5
-msgid "<b>_Jobs</b>"
-msgstr "<b>_Работы</b>"
-
-#: ../data/ui/configure_tool.ui.h:6
-msgid "<b>_Label</b>"
-msgstr "<b>_Метка</b>"
-
-#: ../data/ui/configure_tool.ui.h:7
-msgid "Remember to run all commands in batch mode (e.g. append <tt>-interaction batchmode</tt> to <tt>latex</tt>)"
-msgstr "Не забудьте выполнить все команды в пакетном режиме (например, к <tt>latex</tt> добавьте <tt>-interaction batchmode</tt>)"
-
-#: ../data/ui/configure_tool.ui.h:8
-msgid "Valid placeholders are <tt>$filename</tt>, <tt>$shortname</tt>, <tt>$directory</tt>"
-msgstr "Допустимые заполнители: <tt>$filename</tt>, <tt>$shortname</tt>, <tt>$directory</tt>"
-
-#: ../data/ui/configure_tool.ui.h:9
-msgid "_Generated"
-msgstr "_Сгенерированный"
-
-#: ../data/ui/configure_tool.ui.h:10
-msgid "_User Defined:"
-msgstr "_Указанный пользователем:"
-
-#: ../data/ui/insert_bibtex_entry.ui.h:1
-msgid "Create Bibliography Entry"
-msgstr "Создать библиографическую запись "
-
-#: ../data/ui/insert_bibtex_entry.ui.h:2
-msgid "Optional Fields"
-msgstr "Необязательные поля"
-
-#: ../data/ui/insert_bibtex_entry.ui.h:3
-msgid "Required Fields"
-msgstr "Обязательные поля"
-
-#: ../data/ui/insert_bibtex_entry.ui.h:4
-msgid "_Identifier:"
-msgstr "_Идентификатор:"
-
-#: ../data/ui/insert_bibtex_entry.ui.h:5
-msgid "_Type:"
-msgstr "_Тип:"
-
-#: ../data/ui/insert_graphics_dialog.ui.h:2
-#, no-c-format
-msgid "% _of"
-msgstr "% _из"
-
-#: ../data/ui/insert_graphics_dialog.ui.h:3
-#, fuzzy
-msgid "&#xB0; CCW"
-msgstr "&#xB0; CCW"
-
-#: ../data/ui/insert_graphics_dialog.ui.h:4
-msgid "Flip _Horizontally"
-msgstr "Повернуть по _горизонтали"
-
-#: ../data/ui/insert_graphics_dialog.ui.h:5
-msgid "Floating _Object"
-msgstr "_Плавающий объект"
-
-#: ../data/ui/insert_graphics_dialog.ui.h:6
-msgid "Image Size"
-msgstr "Размер изображения"
-
-#: ../data/ui/insert_graphics_dialog.ui.h:7
-msgid "Insert Graphics"
-msgstr "Вставить графику"
-
-#: ../data/ui/insert_graphics_dialog.ui.h:8
-msgid "Text Width"
-msgstr "Ширина текста"
-
-#: ../data/ui/insert_graphics_dialog.ui.h:9
-#: ../data/ui/insert_table_dialog.ui.h:4
-msgid "_Caption:"
-msgstr "По_дпись:"
-
-#: ../data/ui/insert_graphics_dialog.ui.h:10
-msgid "_File:"
-msgstr "_Файл:"
-
-#: ../data/ui/insert_graphics_dialog.ui.h:11
-#: ../data/ui/insert_table_dialog.ui.h:6
-msgid "_Label:"
-msgstr "_Метка:"
-
-#: ../data/ui/insert_graphics_dialog.ui.h:12
-msgid "_Rotate:"
-msgstr "_Поворот:"
-
-#: ../data/ui/insert_graphics_dialog.ui.h:13
-msgid "_Spread over two Columns"
-msgstr ""
-
-#: ../data/ui/insert_graphics_dialog.ui.h:14
-msgid "_Width:"
-msgstr "_Ширина:"
-
-#: ../data/ui/insert_graphics_dialog.ui.h:15
-msgid "fig:"
-msgstr "рис.:"
-
-#: ../data/ui/insert_listing_dialog.ui.h:1
-msgid "Insert Source Code Listing"
-msgstr "Вставить фрагмент исходного кода"
-
-#: ../data/ui/insert_listing_dialog.ui.h:2
-msgid "Load From _File:"
-msgstr "Загрузить из _файла:"
-
-#: ../data/ui/insert_listing_dialog.ui.h:3
-msgid "Programming _Language:"
-msgstr "_Язык программирования:"
-
-#: ../data/ui/insert_listing_dialog.ui.h:4
-msgid "_Dialect:"
-msgstr "_Диалект:"
-
-#: ../data/ui/insert_table_dialog.ui.h:1
-msgid "C_olumns:"
-msgstr "_Столбцы:"
-
-#: ../data/ui/insert_table_dialog.ui.h:2
-msgid "Insert Table or Matrix"
-msgstr "Вставить таблицу или матрицу"
-
-#: ../data/ui/insert_table_dialog.ui.h:3
-msgid "Type:"
-msgstr "Тип:"
-
-#: ../data/ui/insert_table_dialog.ui.h:5
-msgid "_Floating Object"
-msgstr "_Плавающий объект"
-
-#: ../data/ui/insert_table_dialog.ui.h:7
-msgid "_Matrix:"
-msgstr "_Матрица:"
-
-#: ../data/ui/insert_table_dialog.ui.h:8
-msgid "_Rows:"
-msgstr "_Строки:"
-
-#: ../data/ui/insert_table_dialog.ui.h:9
-msgid "_Table"
-msgstr "_Таблица"
-
-#: ../data/ui/insert_table_dialog.ui.h:10
-msgid "tab:"
-msgstr "таб.:"
-
-#: ../data/ui/new_document_template_dialog.ui.h:1
-msgid ".tex"
-msgstr ".tex"
-
-#: ../data/ui/new_document_template_dialog.ui.h:2
-msgid "<b>Language Customization</b>"
-msgstr "<b>Параметры языка</b>"
-
-#: ../data/ui/new_document_template_dialog.ui.h:3
-msgid "<b>Meta Information</b>"
-msgstr "<b>Метаинформация</b>"
-
-#: ../data/ui/new_document_template_dialog.ui.h:4
-msgid "<b>Style and Layout</b>"
-msgstr "<b>Стиль и расположение</b>"
-
-#: ../data/ui/new_document_template_dialog.ui.h:5
-msgid "Base Font Size:"
-msgstr "Размер обычного шрифта:"
-
-#: ../data/ui/new_document_template_dialog.ui.h:6
-msgid "C_ustom:"
-msgstr "_Другая:"
-
-#: ../data/ui/new_document_template_dialog.ui.h:7
-msgid "Date:"
-msgstr "Дата:"
-
-#: ../data/ui/new_document_template_dialog.ui.h:8
-msgid "De_fault"
-msgstr "По _умолчанию"
-
-#: ../data/ui/new_document_template_dialog.ui.h:9
-msgid "Default F_ont Family:"
-msgstr "_Семейство шрифта по умолчанию:"
-
-#: ../data/ui/new_document_template_dialog.ui.h:10
-msgid "Di_rectory:"
-msgstr "_Каталог:"
-
-#: ../data/ui/new_document_template_dialog.ui.h:11
-msgid "Document _Class:"
-msgstr "_Класс документа:"
-
-#: ../data/ui/new_document_template_dialog.ui.h:12
-msgid "Include PDF _Metadata"
-msgstr "Включить _метаданные PDF"
-
-#: ../data/ui/new_document_template_dialog.ui.h:13
-msgid "New LaTeX Document"
-msgstr "Создать документ LaTeX"
-
-#: ../data/ui/new_document_template_dialog.ui.h:14
-msgid "T_emplate:"
-msgstr "_Шаблон:"
-
-#: ../data/ui/new_document_template_dialog.ui.h:15
-msgid "To_day"
-msgstr "_Сегодня"
-
-#: ../data/ui/new_document_template_dialog.ui.h:16
-msgid "U_ser Defined:"
-msgstr "_Указанный пользователем:"
-
-#: ../data/ui/new_document_template_dialog.ui.h:17
-msgid "_Author:"
-msgstr "_Автор:"
-
-#: ../data/ui/new_document_template_dialog.ui.h:18
-msgid "_Babel Package:"
-msgstr "_Пакте Babel:"
-
-#: ../data/ui/new_document_template_dialog.ui.h:19
-msgid "_Input Encoding:"
-msgstr "_Входная кодировка:"
-
-#: ../data/ui/new_document_template_dialog.ui.h:20
-msgid "_Landscape"
-msgstr "_Ландшафт"
-
-#: ../data/ui/new_document_template_dialog.ui.h:21
-#: ../data/ui/save_as_template_dialog.ui.h:3
-msgid "_Name:"
-msgstr "_Название:"
-
-#: ../data/ui/new_document_template_dialog.ui.h:22
-msgid "_Paper:"
-msgstr "_Бумага:"
-
-#: ../data/ui/new_document_template_dialog.ui.h:23
-msgid "_Title:"
-msgstr "_Заголовок:"
-
-#: ../data/ui/new_document_template_dialog.ui.h:24
-msgid "document"
-msgstr "документ"
-
-#: ../data/ui/new_document_template_dialog.ui.h:25
-msgid "pt"
-msgstr "тч"
-
-#: ../data/ui/save_as_template_dialog.ui.h:1
-msgid "Please specify a name for the new template."
-msgstr "Укажите название для нового шаблона."
-
-#: ../data/ui/save_as_template_dialog.ui.h:2
-msgid "Save As Template"
-msgstr "Сохранить как шаблон"
-
-#: ../data/ui/save_as_template_dialog.ui.h:4
-msgid "label"
-msgstr "метка"
-
-#: ../data/ui/use_bibliography_dialog.ui.h:1
-msgid "Bibliography _File:"
-msgstr "_Файл библиографии:"
-
-#: ../data/ui/use_bibliography_dialog.ui.h:2
-msgid "Refresh Style Preview"
-msgstr "Обновить просмотр стиля"
-
-#: ../data/ui/use_bibliography_dialog.ui.h:3
-msgid "Style Preview:"
-msgstr "Просмотр стиля:"
-
-#: ../data/ui/use_bibliography_dialog.ui.h:4
-msgid "Use Bibliography"
-msgstr "Использовать библиографию"
-
-#: ../data/ui/use_bibliography_dialog.ui.h:5
-msgid "_Style:"
-msgstr "_Стиль:"
-
-#: ../latex.plugin.desktop.in.in.h:1
-msgid "A plugin that assists you in handling LaTeX documents and BibTeX bibliographies"
-msgstr "Модуль, позволяющий обрабатывать документы LaTeX и библиографии BibTeX"
-
-#: ../latex.plugin.desktop.in.in.h:2
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Poedit 3.0.1\n"
+
+#: latex.plugin.desktop.in.in:6
 msgid "LaTeX Plugin"
 msgstr "Модуль LaTeX"
 
+#: latex.plugin.desktop.in.in:7
+msgid ""
+"A plugin that assists you in handling LaTeX documents and BibTeX "
+"bibliographies"
+msgstr "Модуль, позволяющий обрабатывать документы LaTeX и библиографии BibTeX"
+
+#: org.gnome.gedit.plugins.latex.gschema.xml:10
+msgid "Maximum BibTeX Size"
+msgstr "Максимальный размер BibTeX"
+
+#: org.gnome.gedit.plugins.latex.gschema.xml:17
+msgid "Connect Outline to Editor"
+msgstr "Подключить панель «Структура» к редактору"
+
+#: org.gnome.gedit.plugins.latex.gschema.xml:21
+msgid "Show Labels in Outline"
+msgstr "Показывать метки в панели «Структура»"
+
+#: org.gnome.gedit.plugins.latex.gschema.xml:25
+msgid "Show Tables in Outline"
+msgstr "Показывать таблицы в панели «Структура»"
+
+#: org.gnome.gedit.plugins.latex.gschema.xml:29
+msgid "Show Graphics in Outline"
+msgstr "Показывать графику в панели «Структура»"
+
+#: org.gnome.gedit.plugins.latex.gschema.xml:33
+msgid "Show Warnings in Issues"
+msgstr "Показывать предупреждения в панели «Проблемы»"
+
+#: org.gnome.gedit.plugins.latex.gschema.xml:37
+msgid "Show Tasks in Issues"
+msgstr "Показывать задачи в панели «Проблемы»"
+
+#: org.gnome.gedit.plugins.latex.gschema.xml:41 data/ui/configure.ui:239
+msgid "Hide Box Warnings"
+msgstr "Скрыть блок предупреждений"
+
+#: org.gnome.gedit.plugins.latex.gschema.xml:45
+msgid ""
+"Show LaTeX Toolbar below (normal), combined with the main toolbar, or "
+"disabled"
+msgstr ""
+"Показывать панель инструментов LaTeX внизу (обычно) объединив с главной "
+"панелью инструментов или выключив её"
+
+#: org.gnome.gedit.plugins.latex.gschema.xml:49
+msgid "Expanded Symbol Groups"
+msgstr "Расширенные группы символов"
+
+#: org.gnome.gedit.plugins.latex.gschema.xml:53
+msgid "LaTeX Extensions"
+msgstr "Расширения LaTeX"
+
+#: org.gnome.gedit.plugins.latex.gschema.xml:57
+msgid "Graphics File Extensions"
+msgstr "Расширения графических файлов"
+
+#: org.gnome.gedit.plugins.latex.gschema.xml:61
+msgid "Paths Relative to .tex File to Look for Graphics"
+msgstr "Пути, указанные относительно tex-файла, для поиска графики"
+
+#: org.gnome.gedit.plugins.latex.gschema.xml:65
+msgid "Extra LaTeX commands used to mark issues, such as \\fxnote{foo}"
+msgstr ""
+"Дополнительные LaTeX-команды используются для маркировки выпусков, таких как "
+"\\fxnote{foo}"
+
+#: data/ui/build_image_dialog.ui:16
+msgid "Render to Image"
+msgstr "Преобразовать в изображение"
+
+#: data/ui/build_image_dialog.ui:84
+msgid "<b>Image Format</b>"
+msgstr "<b>Формат изображения</b>"
+
+#: data/ui/build_image_dialog.ui:107
+msgid "PNG"
+msgstr "PNG"
+
+#: data/ui/build_image_dialog.ui:127
+msgid "Color Mode:"
+msgstr "Цветовой режим:"
+
+#: data/ui/build_image_dialog.ui:148
+msgid "JPEG"
+msgstr "JPEG"
+
+#: data/ui/build_image_dialog.ui:165
+msgid "GIF"
+msgstr "GIF"
+
+#: data/ui/build_image_dialog.ui:202
+msgid "<b>Rendering</b>"
+msgstr "<b>Обработка</b>"
+
+#: data/ui/build_image_dialog.ui:216
+msgid "<b>Area</b>"
+msgstr "<b>Область</b>"
+
+#: data/ui/build_image_dialog.ui:242
+msgid "Antialiasing:"
+msgstr "Сглаживание:"
+
+#: data/ui/build_image_dialog.ui:267
+msgid "Resolution:"
+msgstr "Разрешение:"
+
+#: data/ui/build_image_dialog.ui:308
+msgid "Render whole page(s)"
+msgstr "Обработать целую страницу(ы)"
+
+#: data/ui/build_image_dialog.ui:325
+msgid "Attempt to render tight bounding box"
+msgstr "Попытка обработки слишком узкой ограничительной рамки"
+
+#: data/ui/choose_master_dialog.ui:9
+msgid "Select Master Document"
+msgstr "Выбрать главный документ"
+
+#: data/ui/choose_master_dialog.ui:78
+msgid "Filename:"
+msgstr "Имя файла:"
+
+#: data/ui/configure_tool.ui:73
+msgid ""
+"Remember to run all commands in batch mode (e.g. append <tt>-interaction "
+"batchmode</tt> to <tt>latex</tt>)"
+msgstr ""
+"Не забудьте выполнить все команды в пакетном режиме (например, к <tt>latex</"
+"tt> добавьте <tt>-interaction batchmode</tt>)"
+
+#: data/ui/configure_tool.ui:118
+msgid "<b>_Label</b>"
+msgstr "<b>_Метка</b>"
+
+#: data/ui/configure_tool.ui:259
+msgid ""
+"Valid placeholders are <tt>$filename</tt>, <tt>$shortname</tt>, "
+"<tt>$directory</tt>"
+msgstr ""
+"Допустимые заполнители: <tt>$filename</tt>, <tt>$shortname</tt>, "
+"<tt>$directory</tt>"
+
+#: data/ui/configure_tool.ui:276
+msgid "<b>_Jobs</b>"
+msgstr "<b>_Работы</b>"
+
+#: data/ui/configure_tool.ui:312
+msgid "<b>_Description</b>"
+msgstr "<b>_Описание</b>"
+
+#: data/ui/configure_tool.ui:434
+msgid "<b>_File Extensions</b>"
+msgstr "<b>_Расширения файлов</b>"
+
+#: data/ui/configure_tool.ui:464
+msgid "_Generated"
+msgstr "_Сгенерированный"
+
+#: data/ui/configure_tool.ui:482
+msgid "_User Defined:"
+msgstr "_Указанный пользователем:"
+
+#: data/ui/configure_tool.ui:506
+msgid "<Ctrl><Alt>1"
+msgstr "<Ctrl><Alt>1"
+
+#: data/ui/configure_tool.ui:522
+msgid "<b>Accelerator</b>"
+msgstr "<b>Ускоритель</b>"
+
+#: data/ui/configure.ui:140 latex/tools/views.py:116
+msgid "Tools"
+msgstr "Инструменты"
+
+#: data/ui/configure.ui:157
+msgid "<b>BibTeX</b>"
+msgstr "<b>BibTeX</b>"
+
+#: data/ui/configure.ui:171
+msgid "<b><i>rubber</i> Post-Processor</b>"
+msgstr "<b>Постобработчик <i>rubber</i></b>"
+
+#: data/ui/configure.ui:193
+msgid "Maximum Parsed File Size:"
+msgstr "Максимальный размер разобранного файла:"
+
+#: data/ui/configure.ui:217
+msgid "KB"
+msgstr "КБ"
+
+#: data/ui/configure.ui:264
+msgid "Miscellaneous"
+msgstr "Разное"
+
+#: data/ui/insert_bibtex_entry.ui:9
+msgid "Create Bibliography Entry"
+msgstr "Создать библиографическую запись"
+
+#: data/ui/insert_bibtex_entry.ui:99
+msgid "Required Fields"
+msgstr "Обязательные поля"
+
+#: data/ui/insert_bibtex_entry.ui:124
+msgid "Optional Fields"
+msgstr "Необязательные поля"
+
+#: data/ui/insert_bibtex_entry.ui:156
+msgid "_Identifier:"
+msgstr "_Идентификатор:"
+
+#: data/ui/insert_bibtex_entry.ui:186
+msgid "_Type:"
+msgstr "_Тип:"
+
+#: data/ui/insert_graphics_dialog.ui:23
+msgid "Image Size"
+msgstr "Размер изображения"
+
+#: data/ui/insert_graphics_dialog.ui:26
+msgid "Text Width"
+msgstr "Ширина текста"
+
+#: data/ui/insert_graphics_dialog.ui:34 latex/latex/actions.py:356
+#: latex/latex/actions.py:358
+msgid "Insert Graphics"
+msgstr "Вставить графику"
+
+#: data/ui/insert_graphics_dialog.ui:103
+msgid "_File:"
+msgstr "_Файл:"
+
+#: data/ui/insert_graphics_dialog.ui:129 data/ui/insert_table_dialog.ui:234
+msgid "_Caption:"
+msgstr "По_дпись:"
+
+#: data/ui/insert_graphics_dialog.ui:157 data/ui/insert_table_dialog.ui:267
+msgid "_Label:"
+msgstr "_Метка:"
+
+#: data/ui/insert_graphics_dialog.ui:173
+msgid "fig:"
+msgstr "рис.:"
+
+#: data/ui/insert_graphics_dialog.ui:185
+msgid "_Width:"
+msgstr "_Ширина:"
+
+#: data/ui/insert_graphics_dialog.ui:213
+msgid "% _of"
+msgstr "% _из"
+
+#: data/ui/insert_graphics_dialog.ui:246
+msgid "_Rotate:"
+msgstr "_Поворот:"
+
+#: data/ui/insert_graphics_dialog.ui:274
+msgid "° CCW"
+msgstr "Против часовой стрелки"
+
+#: data/ui/insert_graphics_dialog.ui:284
+msgid "Flip _Horizontally"
+msgstr "Повернуть по _горизонтали"
+
+#: data/ui/insert_graphics_dialog.ui:301
+msgid "_Spread over two Columns"
+msgstr "_Распределить по двум столбцам"
+
+#: data/ui/insert_graphics_dialog.ui:318
+msgid "Floating _Object"
+msgstr "_Плавающий объект"
+
+#: data/ui/insert_listing_dialog.ui:7 latex/latex/actions.py:388
+#: latex/latex/actions.py:390
+msgid "Insert Source Code Listing"
+msgstr "Вставить фрагмент исходного кода"
+
+#: data/ui/insert_listing_dialog.ui:71
+msgid "Load From _File:"
+msgstr "Загрузить из _файла:"
+
+#: data/ui/insert_listing_dialog.ui:108
+msgid "Programming _Language:"
+msgstr "_Язык программирования:"
+
+#: data/ui/insert_listing_dialog.ui:138
+msgid "_Dialect:"
+msgstr "_Диалект:"
+
+#: data/ui/insert_table_dialog.ui:22 latex/latex/actions.py:372
+#: latex/latex/actions.py:374
+msgid "Insert Table or Matrix"
+msgstr "Вставить таблицу или матрицу"
+
+#: data/ui/insert_table_dialog.ui:94
+msgid "Type:"
+msgstr "Тип:"
+
+#: data/ui/insert_table_dialog.ui:105
+msgid "_Table"
+msgstr "_Таблица"
+
+#: data/ui/insert_table_dialog.ui:126
+msgid "_Matrix:"
+msgstr "_Матрица:"
+
+#: data/ui/insert_table_dialog.ui:168
+msgid "_Rows:"
+msgstr "_Строки:"
+
+#: data/ui/insert_table_dialog.ui:201
+msgid "C_olumns:"
+msgstr "_Столбцы:"
+
+#: data/ui/insert_table_dialog.ui:285
+msgid "tab:"
+msgstr "таб.:"
+
+#: data/ui/insert_table_dialog.ui:297
+msgid "_Floating Object"
+msgstr "_Плавающий объект"
+
+#: data/ui/new_document_template_dialog.ui:16
+msgid "New LaTeX Document"
+msgstr "Создать документ LaTeX"
+
+#: data/ui/new_document_template_dialog.ui:104
+msgid "T_emplate:"
+msgstr "_Шаблон:"
+
+#: data/ui/new_document_template_dialog.ui:123
+msgid "document"
+msgstr "документ"
+
+#: data/ui/new_document_template_dialog.ui:135
+msgid ".tex"
+msgstr ".tex"
+
+#: data/ui/new_document_template_dialog.ui:165
+msgid "Di_rectory:"
+msgstr "_Каталог:"
+
+#: data/ui/new_document_template_dialog.ui:179
+msgid "_Name:"
+msgstr "_Название:"
+
+#: data/ui/new_document_template_dialog.ui:216
+msgid "_Babel Package:"
+msgstr "_Пакте Babel:"
+
+#: data/ui/new_document_template_dialog.ui:231
+msgid "_Input Encoding:"
+msgstr "_Входная кодировка:"
+
+#: data/ui/new_document_template_dialog.ui:247
+msgid "<b>Language Customization</b>"
+msgstr "<b>Параметры языка</b>"
+
+#: data/ui/new_document_template_dialog.ui:277
+msgid "_Landscape"
+msgstr "_Ландшафт"
+
+#: data/ui/new_document_template_dialog.ui:305
+msgid "_Paper:"
+msgstr "_Бумага:"
+
+#: data/ui/new_document_template_dialog.ui:323
+msgid "De_fault"
+msgstr "По _умолчанию"
+
+#: data/ui/new_document_template_dialog.ui:341
+msgid "U_ser Defined:"
+msgstr "_Указанный пользователем:"
+
+#: data/ui/new_document_template_dialog.ui:378
+msgid "pt"
+msgstr "тч"
+
+#: data/ui/new_document_template_dialog.ui:400
+msgid "Base Font Size:"
+msgstr "Размер обычного шрифта:"
+
+#: data/ui/new_document_template_dialog.ui:426
+msgid "Document _Class:"
+msgstr "_Класс документа:"
+
+#: data/ui/new_document_template_dialog.ui:442
+msgid "<b>Style and Layout</b>"
+msgstr "<b>Стиль и расположение</b>"
+
+#: data/ui/new_document_template_dialog.ui:454
+msgid "Include PDF _Metadata"
+msgstr "Включить _метаданные PDF"
+
+#: data/ui/new_document_template_dialog.ui:461
+msgid "This adds metadata to the document. Requires package <tt>ifpdf</tt>."
+msgstr "Это добавит в документ метаданные. Требуется пакет <tt>ifpdf</tt>."
+
+#: data/ui/new_document_template_dialog.ui:492
+msgid "Date:"
+msgstr "Дата:"
+
+#: data/ui/new_document_template_dialog.ui:508
+msgid "To_day"
+msgstr "_Сегодня"
+
+#: data/ui/new_document_template_dialog.ui:527
+msgid "C_ustom:"
+msgstr "_Другая:"
+
+#: data/ui/new_document_template_dialog.ui:572
+msgid "_Author:"
+msgstr "_Автор:"
+
+#: data/ui/new_document_template_dialog.ui:603
+msgid "_Title:"
+msgstr "_Заголовок:"
+
+#: data/ui/new_document_template_dialog.ui:620
+msgid "<b>Meta Information</b>"
+msgstr "<b>Метаинформация</b>"
+
+#: data/ui/new_document_template_dialog.ui:635
+msgid "Default F_ont Family:"
+msgstr "_Семейство шрифта по умолчанию:"
+
+#: data/ui/use_bibliography_dialog.ui:9 latex/latex/actions.py:159
+msgid "Use Bibliography"
+msgstr "Использовать библиографию"
+
+#: data/ui/use_bibliography_dialog.ui:79
+msgid "Bibliography _File:"
+msgstr "_Файл библиографии:"
+
+#: data/ui/use_bibliography_dialog.ui:106
+msgid "_Style:"
+msgstr "_Стиль:"
+
+#: data/ui/use_bibliography_dialog.ui:147
+msgid "Style Preview:"
+msgstr "Просмотр стиля:"
+
+#: data/ui/use_bibliography_dialog.ui:165
+msgid "Refresh Style Preview"
+msgstr "Обновить просмотр стиля"
+
+#: latex/appactivatable.py:66 latex/latex/actions.py:63
+msgid "LaTeX"
+msgstr "LaTeX"
+
+#: latex/appactivatable.py:89
+#| msgid "Tools"
+msgid "LaTeX Tools"
+msgstr "Инструменты LaTeX"
+
+#: latex/bibtex/actions.py:32
+#| msgid "<b>BibTeX</b>"
+msgid "BibTeX"
+msgstr "BibTeX"
+
+#: latex/bibtex/actions.py:43
+msgid "New BibTeX Entry…"
+msgstr "Новая запись BibTeX…"
+
+#: latex/bibtex/actions.py:46
+msgid "Create a new BibTeX entry"
+msgstr "Создать новую запись BibTeX"
+
+#. add grouping controls to toolbar
+#: latex/bibtex/views.py:56
+msgid "No Grouping"
+msgstr "Без группировки"
+
+#: latex/bibtex/views.py:57
+msgid "Group by Type"
+msgstr "Группировать по типу"
+
+#: latex/bibtex/views.py:58
+msgid "Group by Author"
+msgstr "Группировать по автору"
+
+#: latex/bibtex/views.py:59
+msgid "Group by Year"
+msgstr "Группировать по году"
+
+#. group by year
+#: latex/bibtex/views.py:197
+msgid "<i>n/a</i>"
+msgstr "<i>н/д</i>"
+
+#: latex/bibtex/views.py:240
+msgid "Unknown Author"
+msgstr "Неизвестный автор"
+
+#: latex/latex/actions.py:73
+msgid "New LaTeX Document…"
+msgstr "Создать документ LaTeX…"
+
+#: latex/latex/actions.py:76
+msgid "Create a new LaTeX document"
+msgstr "Создать новый документ LaTeX"
+
+#: latex/latex/actions.py:95
+msgid "Choose Master Document…"
+msgstr "Выбрать главный документ…"
+
+#: latex/latex/actions.py:107
+msgid "Close Nearest Environment"
+msgstr "Закрыть ближайшее окружение"
+
+#: latex/latex/actions.py:109
+msgid "Close the nearest TeX environment at left of the cursor"
+msgstr "Закрыть ближайшее окружение TeX слева от курсора"
+
+#: latex/latex/actions.py:157
+msgid "Use Bibliography…"
+msgstr "Использовать библиографию…"
+
+#: latex/latex/actions.py:179 latex/latex/actions.py:181
+#: latex/latex/actions.py:189 latex/latex/actions.py:190
+msgid "Font Family"
+msgstr "Семейство шрифта"
+
+#: latex/latex/actions.py:194 latex/latex/actions.py:195
+msgid "Bold"
+msgstr "Жирный"
+
+#: latex/latex/actions.py:201 latex/latex/actions.py:202
+msgid "Italic"
+msgstr "Курсив"
+
+#: latex/latex/actions.py:208 latex/latex/actions.py:209
+msgid "Emphasize"
+msgstr "Выделенный"
+
+#: latex/latex/actions.py:215 latex/latex/actions.py:216
+msgid "Underline"
+msgstr "Подчёркнутый"
+
+#: latex/latex/actions.py:222 latex/latex/actions.py:223
+msgid "Small Capitals"
+msgstr "Капитель"
+
+#: latex/latex/actions.py:229 latex/latex/actions.py:230
+msgid "Roman"
+msgstr "Roman"
+
+#: latex/latex/actions.py:236 latex/latex/actions.py:237
+msgid "Sans Serif"
+msgstr "Без засечек"
+
+#: latex/latex/actions.py:243 latex/latex/actions.py:244
+msgid "Typewriter"
+msgstr "Машинописный"
+
+#: latex/latex/actions.py:250 latex/latex/actions.py:251
+msgid "Blackboard Bold"
+msgstr "Контурный жирный"
+
+#: latex/latex/actions.py:258 latex/latex/actions.py:259
+msgid "Calligraphy"
+msgstr "Калиграфический"
+
+#: latex/latex/actions.py:265 latex/latex/actions.py:266
+msgid "Fraktur"
+msgstr "Готический"
+
+#: latex/latex/actions.py:273 latex/latex/actions.py:274
+#: latex/latex/actions.py:286 latex/latex/actions.py:287
+msgid "List"
+msgstr "Список"
+
+#: latex/latex/actions.py:278 latex/latex/actions.py:279
+msgid "Itemize"
+msgstr "Перечисление"
+
+#: latex/latex/actions.py:291 latex/latex/actions.py:292
+msgid "Enumerate"
+msgstr "Нумерация"
+
+#: latex/latex/actions.py:298 latex/latex/actions.py:299
+#| msgid "<b>_Description</b>"
+msgid "Description"
+msgstr "Описание"
+
+#: latex/latex/actions.py:304 latex/latex/actions.py:305
+#: latex/latex/actions.py:330 latex/latex/actions.py:331
+msgid "Structure"
+msgstr "Структура"
+
+#: latex/latex/actions.py:308 latex/latex/actions.py:309
+msgid "Part"
+msgstr "Часть"
+
+#: latex/latex/actions.py:315 latex/latex/actions.py:316
+msgid "Chapter"
+msgstr "Глава"
+
+#: latex/latex/actions.py:322 latex/latex/actions.py:323
+msgid "Section"
+msgstr "Раздел"
+
+#: latex/latex/actions.py:335 latex/latex/actions.py:336
+msgid "Subsection"
+msgstr "Подраздел"
+
+#: latex/latex/actions.py:342 latex/latex/actions.py:343
+msgid "Paragraph"
+msgstr "Абзац"
+
+#: latex/latex/actions.py:349 latex/latex/actions.py:350
+msgid "Subparagraph"
+msgstr "Подабзац"
+
+#: latex/latex/actions.py:405 latex/latex/actions.py:407
+#: latex/latex/actions.py:415 latex/latex/actions.py:416
+msgid "Build"
+msgstr "Создать"
+
+#: latex/latex/actions.py:420
+msgid "Build Image"
+msgstr "Создать изображение"
+
+#: latex/latex/actions.py:422
+msgid "Build an image from the LaTeX document"
+msgstr "Создать изображение из документа LaTeX"
+
+#: latex/latex/actions.py:440 latex/latex/actions.py:441
+#: latex/latex/actions.py:460 latex/latex/actions.py:461
+msgid "Justify"
+msgstr "Выравнивание"
+
+#: latex/latex/actions.py:445 latex/latex/actions.py:446
+msgid "Justify Left"
+msgstr "Выровнять по левому краю"
+
+#: latex/latex/actions.py:452 latex/latex/actions.py:453
+msgid "Justify Center"
+msgstr "Выровнять по центру"
+
+#: latex/latex/actions.py:465 latex/latex/actions.py:466
+msgid "Justify Right"
+msgstr "Выровнять по правому краю"
+
+#: latex/latex/actions.py:472 latex/latex/actions.py:473
+#: latex/latex/actions.py:485 latex/latex/actions.py:486
+msgid "Math"
+msgstr "Формулы"
+
+#: latex/latex/actions.py:477 latex/latex/actions.py:478
+msgid "Mathematical Environment"
+msgstr "Математическое окружение"
+
+#: latex/latex/actions.py:490 latex/latex/actions.py:491
+msgid "Centered Formula"
+msgstr "Центрованная формула"
+
+#: latex/latex/actions.py:497 latex/latex/actions.py:498
+msgid "Numbered Equation"
+msgstr "Пронумерованное уравнение"
+
+#: latex/latex/actions.py:506 latex/latex/actions.py:507
+msgid "Array of Equations"
+msgstr "Массив уравнений"
+
+#: latex/latex/actions.py:516 latex/latex/actions.py:517
+msgid "Numbered Array of Equations"
+msgstr "Пронумерованный массив уравнений"
+
+#: latex/latex/dialogs.py:331
+msgid "Default"
+msgstr "По умолчанию"
+
+#. PNG mode
+#. label, mode constant
+#: latex/latex/dialogs.py:1062
+msgid "Monochrome"
+msgstr "Монохромный"
+
+#: latex/latex/dialogs.py:1063
+msgid "Grayscale"
+msgstr "Оттенки серого"
+
+#: latex/latex/dialogs.py:1064
+msgid "RGB"
+msgstr "RGB"
+
+#: latex/latex/dialogs.py:1065
+msgid "RGBA"
+msgstr "RGBA"
+
+#. anti-alias
+#. label, factor
+#: latex/latex/dialogs.py:1077
+msgid "Off"
+msgstr "Выкл"
+
+#: latex/latex/dialogs.py:1078
+msgid "1×"
+msgstr "1×"
+
+#: latex/latex/dialogs.py:1079
+msgid "2×"
+msgstr "2×"
+
+#: latex/latex/dialogs.py:1080
+msgid "4×"
+msgstr "4×"
+
+#: latex/latex/dialogs.py:1081
+msgid "8×"
+msgstr "8×"
+
+#: latex/latex/environment.py:141
+msgid "Book of abstracts"
+msgstr "Сборник тезисов"
+
+#: latex/latex/environment.py:142
+msgid "Article"
+msgstr "Статья"
+
+#: latex/latex/environment.py:143
+msgid "Article (AMS)"
+msgstr "Статья (AMS)"
+
+#: latex/latex/environment.py:144
+msgid "Book (AMS)"
+msgstr "Книга (AMS)"
+
+#: latex/latex/environment.py:145
+msgid "AMS Documentation"
+msgstr "Документация по AMS"
+
+#: latex/latex/environment.py:146
+msgid "Proceedings (AMS)"
+msgstr "Труды (AMS)"
+
+#: latex/latex/environment.py:147
+msgid "Report"
+msgstr "Отчёт"
+
+#: latex/latex/environment.py:148
+msgid "Beamer slides"
+msgstr "Слайды Beamer"
+
+#: latex/latex/environment.py:149
+msgid "Belgian letter"
+msgstr "Письмо (бельгийский стандарт)"
+
+#: latex/latex/environment.py:150
+msgid "Book"
+msgstr "Книга"
+
+#: latex/latex/environment.py:151
+msgid "Flashcard"
+msgstr "Карточка"
+
+#: latex/latex/environment.py:152
+msgid "Proceedings (IAG)"
+msgstr "Труды (IAG)"
+
+#: latex/latex/environment.py:153
+msgid "Letter"
+msgstr "Письмо"
+
+#: latex/latex/environment.py:154
+#| msgid "LaTeX Extensions"
+msgid "LaTeX News"
+msgstr "Новости LaTeX"
+
+#: latex/latex/environment.py:155
+msgid "LaTeX Documentation"
+msgstr "Документация LaTeX"
+
+#: latex/latex/environment.py:156
+msgid "LaTeX Guide"
+msgstr "Руководство по LaTeX"
+
+#: latex/latex/environment.py:157
+msgid "Proceedings"
+msgstr "Труды"
+
+#: latex/latex/environment.py:158
+msgid "Article (KOMA-Script)"
+msgstr "Статья (KOMA-Script)"
+
+#: latex/latex/environment.py:159 latex/latex/environment.py:163
+msgid "Report (KOMA-Script)"
+msgstr "Отчёт (KOMA-Script)"
+
+#: latex/latex/environment.py:160
+msgid "Book (KOMA-Script)"
+msgstr "Книга (KOMA-Script)"
+
+#: latex/latex/environment.py:161
+msgid "Letter (KOMA-Script)"
+msgstr "Письмо (KOMA-Script)"
+
+#: latex/latex/environment.py:162
+msgid "Letter 2 (KOMA-Script)"
+msgstr "Письмо 2 (KOMA-Script)"
+
+#: latex/latex/environment.py:164
+msgid "Slides"
+msgstr "Слайды"
+
+#: latex/latex/views.py:107
+msgid "Symbols"
+msgstr "Символы"
+
+#: latex/latex/views.py:190
+msgid "Show graphics"
+msgstr "Показывать графику"
+
+#: latex/latex/views.py:195
+msgid "Show tables"
+msgstr "Показывать таблицы"
+
+#: latex/outline.py:58
+msgid "Follow Editor"
+msgstr "Показать редактор"
+
+#: latex/outline.py:63
+msgid "Expand All"
+msgstr "Развернуть все"
+
+#: latex/outline.py:67
+msgid "Collapse All"
+msgstr "Свернуть все"
+
+#: latex/outline.py:114
+msgid "Outline"
+msgstr "Структура"
+
+#: latex/preferences/tools.py:81
+#, python-format
+msgid ""
+"The file “%s” is corrupted and cannot be parsed. It was moved to “%s”, and "
+"the Latex Plugin will now fallback to the default tools."
+msgstr ""
+"Файл «%s» повреждён и не может быть проанализирован. Он был перемещен в "
+"«%s», и модуль Latex возвращается к инструментам, установленным по умолчанию."
+
+#: latex/tools/views.py:62
+msgid "Job"
+msgstr "Задание"
+
+#: latex/tools/views.py:73 latex/views.py:80
+msgid "File"
+msgstr "Файл"
+
+#: latex/tools/views.py:74
+msgid "Line"
+msgstr "Строка"
+
+#: latex/tools/views.py:87
+msgid "Abort Job"
+msgstr "Прервать задание"
+
+#: latex/tools/views.py:92
+msgid "Show Detailed Output"
+msgstr "Показывать детализированный результат"
+
+#: latex/views.py:67
+msgid "Message"
+msgstr "Сообщения"
+
+#: latex/views.py:99
+msgid "Show/Hide Warnings"
+msgstr "Показать/Скрыть предупреждения"
+
+#: latex/views.py:107
+msgid "Show/Hide Tasks"
+msgstr "Показать/Скрыть задачи"
+
+#: latex/views.py:139
+msgid "Issues"
+msgstr "Проблемы"
