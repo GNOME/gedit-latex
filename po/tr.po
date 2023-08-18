@@ -1,17 +1,18 @@
 # Turkish translation for gedit-latex.
-# Copyright (C) 2016-2022 gedit-latex's COPYRIGHT HOLDER
+# Copyright (C) 2016-2023 gedit-latex's COPYRIGHT HOLDER
 # This file is distributed under the same license as the gedit-latex package.
 #
 # Serdar Sağlam <teknomobil@yandex.com>, 2019.
-# Sabri Ünal <libreajans@gmail.com>, 2019.
+# Sabri Ünal <libreajans@gmail.com>, 2019, 2023.
 # Muhammet Kara <muhammetk@gmail.com>, 2016-2021.
+# Emin Tufan Çetin <etcetin@gmail.com>, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gedit-latex master\n"
 "Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gedit-latex/issues\n"
-"POT-Creation-Date: 2023-01-25 17:33+0000\n"
-"PO-Revision-Date: 2022-12-11 14:06+0300\n"
+"POT-Creation-Date: 2023-07-15 15:48+0000\n"
+"PO-Revision-Date: 2023-08-06 18:24+0300\n"
 "Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
 "Language-Team: Turkish <takim@gnome.org.tr>\n"
 "Language: tr\n"
@@ -19,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #: latex.plugin.desktop.in.in:6
 msgid "LaTeX Plugin"
@@ -165,11 +166,11 @@ msgstr "<b>_Etiket</b>"
 
 #: data/ui/configure_tool.ui:259
 msgid ""
-"Valid placeholders are <tt>$filename</tt>, <tt>$shortname</tt>, <tt>"
-"$directory</tt>"
+"Valid placeholders are <tt>$filename</tt>, <tt>$shortname</tt>, "
+"<tt>$directory</tt>"
 msgstr ""
-"Geçerli yer tutucular <tt>$filename</tt>, <tt>$shortname</tt>, <tt>"
-"$directory</tt>"
+"Geçerli yer tutucular <tt>$filename</tt>, <tt>$shortname</tt>, "
+"<tt>$directory</tt>"
 
 #: data/ui/configure_tool.ui:276
 msgid "<b>_Jobs</b>"
