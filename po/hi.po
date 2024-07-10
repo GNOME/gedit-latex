@@ -1,0 +1,997 @@
+# Hindi translation for gedit-latex 3-20.
+# Copyright (C) 2024 gedit-latex's COPYRIGHT HOLDER
+# This file is distributed under the same license as the gedit-latex package.
+# Scrambled777 <weblate.scrambled777@simplelogin.com>, 2024.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: gedit-latex 3-20\n"
+"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gedit-latex/issues\n"
+"POT-Creation-Date: 2023-04-22 12:23+0000\n"
+"PO-Revision-Date: 2024-06-27 10:40+0530\n"
+"Last-Translator: Scrambled777 <weblate.scrambled777@simplelogin.com>\n"
+"Language-Team: Hindi <indlinux-hindi@lists.sourceforge.net>\n"
+"Language: hi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Gtranslator 46.1\n"
+
+#: ../latex.plugin.desktop.in.in.h:1
+msgid "LaTeX Plugin"
+msgstr "LaTeX प्लगइन"
+
+#: ../latex.plugin.desktop.in.in.h:2
+msgid ""
+"A plugin that assists you in handling LaTeX documents and BibTeX "
+"bibliographies"
+msgstr ""
+"एक प्लगइन जो आपको LaTeX दस्तावेज़ों और BibTeX ग्रंथसूची को संभालने में सहायता करता है"
+
+#: ../data/bibtex.xml.h:1
+msgid "Title"
+msgstr "शीर्षक"
+
+#: ../data/bibtex.xml.h:2
+msgid "Book Title"
+msgstr "पुस्तक शीर्षक"
+
+#: ../data/bibtex.xml.h:3
+msgid "Author"
+msgstr "लेखक"
+
+#: ../data/bibtex.xml.h:4
+msgid "Editor"
+msgstr "संपादक"
+
+#: ../data/bibtex.xml.h:5
+msgid "Pages"
+msgstr "पृष्ठ"
+
+#: ../data/bibtex.xml.h:6
+msgid "Journal"
+msgstr "पत्रिका"
+
+#: ../data/bibtex.xml.h:7
+msgid "Volume"
+msgstr "खंड"
+
+#: ../data/bibtex.xml.h:8
+msgid "Number"
+msgstr "संख्या"
+
+#: ../data/bibtex.xml.h:9
+msgid "Month"
+msgstr "महीना"
+
+#: ../data/bibtex.xml.h:10
+msgid "Year"
+msgstr "वर्ष"
+
+#: ../data/bibtex.xml.h:11
+msgid "ISSN"
+msgstr "ISSN"
+
+#: ../data/bibtex.xml.h:12
+msgid "Series"
+msgstr "शृंखला"
+
+#: ../data/bibtex.xml.h:13
+msgid "Edition"
+msgstr "संस्करण"
+
+#: ../data/bibtex.xml.h:14
+msgid "Publisher"
+msgstr "प्रकाशक"
+
+#: ../data/bibtex.xml.h:15
+msgid "Address"
+msgstr "पता"
+
+#: ../data/bibtex.xml.h:16
+msgid "ISBN"
+msgstr "ISBN"
+
+#: ../data/bibtex.xml.h:17
+msgid "How Published"
+msgstr "कैसे प्रकाशित"
+
+#: ../data/bibtex.xml.h:18
+msgid "Organization"
+msgstr "संगठन"
+
+#: ../data/bibtex.xml.h:19
+msgid "Location"
+msgstr "स्थान"
+
+#: ../data/bibtex.xml.h:20
+msgid "URL"
+msgstr "URL"
+
+#: ../data/bibtex.xml.h:21
+msgid "Note"
+msgstr "नोट"
+
+#: ../data/bibtex.xml.h:22
+msgid "Type"
+msgstr "प्रकार"
+
+#: ../data/bibtex.xml.h:23 ../latex/latex/actions.py:315
+#: ../latex/latex/actions.py:316
+msgid "Chapter"
+msgstr "अध्याय"
+
+#: ../data/bibtex.xml.h:24
+msgid "Key"
+msgstr "कुंजी"
+
+#: ../data/bibtex.xml.h:25
+msgid "School"
+msgstr "विद्यालय"
+
+#: ../data/bibtex.xml.h:26
+msgid "Institution"
+msgstr "संस्थान"
+
+#: ../data/bibtex.xml.h:27
+msgid "Cross Reference"
+msgstr "प्रति संदर्भ"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:1
+msgid "Maximum BibTeX Size"
+msgstr "अधिकतम BibTeX आकार"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:2
+msgid "Connect Outline to Editor"
+msgstr "रूपरेखा को संपादक से जोड़ें"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:3
+msgid "Show Labels in Outline"
+msgstr "रूपरेखा में लेबल दिखाएं"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:4
+msgid "Show Tables in Outline"
+msgstr "रूपरेखा में तालिकाएं दिखाएं"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:5
+msgid "Show Graphics in Outline"
+msgstr "रूपरेखा में ग्राफिक्स दिखाएं"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:6
+msgid "Show Warnings in Issues"
+msgstr "मुद्दों में चेतावनियां दिखाएं"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:7
+msgid "Show Tasks in Issues"
+msgstr "मुद्दों में कार्य दिखाएं"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:8
+#: ../data/ui/configure.ui.h:6
+msgid "Hide Box Warnings"
+msgstr "बॉक्स चेतावनियां छिपाएं"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:9
+msgid ""
+"Show LaTeX Toolbar below (normal), combined with the main toolbar, or "
+"disabled"
+msgstr "नीचे LaTeX टूलबार दिखाएं (सामान्य), मुख्य टूलबार के साथ संयुक्त, या अक्षम"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:10
+msgid "Expanded Symbol Groups"
+msgstr "बॉक्स चेतावनियां छिपाएं"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:11
+msgid "LaTeX Extensions"
+msgstr "LaTeX विस्तार"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:12
+msgid "Graphics File Extensions"
+msgstr "ग्राफिक्स फाइल विस्तार"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:13
+msgid "Paths Relative to .tex File to Look for Graphics"
+msgstr "ग्राफिक्स देखने के लिए .tex फाइल से संबंधित पथ"
+
+#: ../data/org.gnome.gedit.plugins.latex.gschema.xml.in.in.h:14
+msgid "Extra LaTeX commands used to mark issues, such as \\fxnote{foo}"
+msgstr ""
+"मुद्दों को चिह्नित करने के लिए अतिरिक्त LaTeX कमांड का उपयोग किया जाता है, जैसे "
+"\\fxnote{foo}"
+
+#: ../data/ui/build_image_dialog.ui.h:1
+msgid "Render to Image"
+msgstr "छवि को प्रस्तुत करें"
+
+#: ../data/ui/build_image_dialog.ui.h:2
+msgid "<b>Image Format</b>"
+msgstr "<b>छवि प्रारूप</b>"
+
+#: ../data/ui/build_image_dialog.ui.h:3
+msgid "PNG"
+msgstr "PNG"
+
+#: ../data/ui/build_image_dialog.ui.h:4
+msgid "Color Mode:"
+msgstr "रंग विधा:"
+
+#: ../data/ui/build_image_dialog.ui.h:5
+msgid "JPEG"
+msgstr "JPEG"
+
+#: ../data/ui/build_image_dialog.ui.h:6
+msgid "GIF"
+msgstr "GIF"
+
+#: ../data/ui/build_image_dialog.ui.h:7
+msgid "<b>Rendering</b>"
+msgstr "<b>प्रतिपादन</b>"
+
+#: ../data/ui/build_image_dialog.ui.h:8
+msgid "<b>Area</b>"
+msgstr "<b>क्षेत्रफल</b>"
+
+#: ../data/ui/build_image_dialog.ui.h:9
+msgid "Antialiasing:"
+msgstr "उपघटन प्रतिरोधी:"
+
+#: ../data/ui/build_image_dialog.ui.h:10
+msgid "Resolution:"
+msgstr "रिसॉल्यूशन:"
+
+#: ../data/ui/build_image_dialog.ui.h:11
+msgid "Render whole page(s)"
+msgstr "संपूर्ण पृष्ठ प्रस्तुत करें"
+
+#: ../data/ui/build_image_dialog.ui.h:12
+msgid "Attempt to render tight bounding box"
+msgstr "तंग सीमांकन बॉक्स प्रस्तुत करने का प्रयास"
+
+#: ../data/ui/choose_master_dialog.ui.h:1
+msgid "Select Master Document"
+msgstr "मास्टर दस्तावेज़ का चयन करें"
+
+#: ../data/ui/choose_master_dialog.ui.h:2
+msgid "Filename:"
+msgstr "फाइलनाम:"
+
+#: ../data/ui/configure.ui.h:1 ../latex/tools/views.py:116
+msgid "Tools"
+msgstr "औजार"
+
+#: ../data/ui/configure.ui.h:2
+msgid "<b>BibTeX</b>"
+msgstr "<b>BibTeX</b>"
+
+#: ../data/ui/configure.ui.h:3
+msgid "<b><i>rubber</i> Post-Processor</b>"
+msgstr "<b><i>रबर</i> पोस्ट-प्रोसेसर</b>"
+
+#: ../data/ui/configure.ui.h:4
+msgid "Maximum Parsed File Size:"
+msgstr "अधिकतम विश्लेषित फाइल आकार:"
+
+#: ../data/ui/configure.ui.h:5
+msgid "KB"
+msgstr "KB"
+
+#: ../data/ui/configure.ui.h:7
+msgid "Miscellaneous"
+msgstr "मिश्रित"
+
+#: ../data/ui/configure_tool.ui.h:1
+msgid ""
+"Remember to run all commands in batch mode (e.g. append <tt>-interaction "
+"batchmode</tt> to <tt>latex</tt>)"
+msgstr ""
+"सभी कमांड को बैच मोड में चलाना याद रखें (उदाहरण के लिए <tt>-interaction batchmode</"
+"tt> को <tt>latex</tt> में जोड़ें)"
+
+#: ../data/ui/configure_tool.ui.h:2
+msgid "<b>_Label</b>"
+msgstr "<b>लेबल (_L)</b>"
+
+#: ../data/ui/configure_tool.ui.h:3
+msgid ""
+"Valid placeholders are <tt>$filename</tt>, <tt>$shortname</tt>, "
+"<tt>$directory</tt>"
+msgstr ""
+"मान्य स्थानधारक हैं <tt>$filename</tt>, <tt>$shortname</tt>, <tt>$directory</tt>"
+
+#: ../data/ui/configure_tool.ui.h:4
+msgid "<b>_Jobs</b>"
+msgstr "<b>कार्य (_J)</b>"
+
+#: ../data/ui/configure_tool.ui.h:5
+msgid "<b>_Description</b>"
+msgstr "<b>विवरण (_D)</b>"
+
+#: ../data/ui/configure_tool.ui.h:6
+msgid "<b>_File Extensions</b>"
+msgstr "<b>फाइल विस्तार (_F)</b>"
+
+#: ../data/ui/configure_tool.ui.h:7
+msgid "_Generated"
+msgstr "उत्पन्न (_G)"
+
+#: ../data/ui/configure_tool.ui.h:8
+msgid "_User Defined:"
+msgstr "उपयोक्ता परिभाषित (_U):"
+
+#: ../data/ui/configure_tool.ui.h:9
+msgid "<Ctrl><Alt>1"
+msgstr "<Ctrl><Alt>1"
+
+#: ../data/ui/configure_tool.ui.h:10
+msgid "<b>Accelerator</b>"
+msgstr "<b>त्वरक</b>"
+
+#: ../data/ui/insert_bibtex_entry.ui.h:1
+msgid "Create Bibliography Entry"
+msgstr "ग्रन्थसूची प्रविष्टि बनाएं"
+
+#: ../data/ui/insert_bibtex_entry.ui.h:2
+msgid "Required Fields"
+msgstr "आवश्यक क्षेत्र"
+
+#: ../data/ui/insert_bibtex_entry.ui.h:3
+msgid "Optional Fields"
+msgstr "वैकल्पिक क्षेत्र"
+
+#: ../data/ui/insert_bibtex_entry.ui.h:4
+msgid "_Identifier:"
+msgstr "पहचानकर्ता (_I):"
+
+#: ../data/ui/insert_bibtex_entry.ui.h:5
+msgid "_Type:"
+msgstr "प्रकार (_T):"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:1
+msgid "Image Size"
+msgstr "छवि आकार"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:2
+msgid "Text Width"
+msgstr "पाठ की चौड़ाई"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:3 ../latex/latex/actions.py:356
+#: ../latex/latex/actions.py:358
+msgid "Insert Graphics"
+msgstr "ग्राफिक्स सम्मिलित करें"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:4
+msgid "_File:"
+msgstr "फाइल (_F):"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:5
+#: ../data/ui/insert_table_dialog.ui.h:7
+msgid "_Caption:"
+msgstr "अनुशीर्षक (_C):"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:6
+#: ../data/ui/insert_table_dialog.ui.h:8
+msgid "_Label:"
+msgstr "लेबल (_L):"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:7
+msgid "fig:"
+msgstr "चित्र:"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:8
+msgid "_Width:"
+msgstr "चौड़ाई (_W):"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:10
+#, no-c-format
+msgid "% _of"
+msgstr "% का (_o)"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:11
+msgid "_Rotate:"
+msgstr "घुमाएं (_R):"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:12
+msgid "° CCW"
+msgstr "° CCW"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:13
+msgid "Flip _Horizontally"
+msgstr "क्षैतिज पलटें (_H)"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:14
+msgid "_Spread over two Columns"
+msgstr "दो स्तम्भों में फैला हुआ (_S)"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:15
+msgid "Floating _Object"
+msgstr "फ़्लोटिंग ऑब्जेक्ट (_O"
+
+#: ../data/ui/insert_listing_dialog.ui.h:1 ../latex/latex/actions.py:388
+#: ../latex/latex/actions.py:390
+msgid "Insert Source Code Listing"
+msgstr "स्रोत कोड सूची सम्मिलित करें"
+
+#: ../data/ui/insert_listing_dialog.ui.h:2
+msgid "Load From _File:"
+msgstr "फाइल से लोड करें (_F):"
+
+#: ../data/ui/insert_listing_dialog.ui.h:3
+msgid "Programming _Language:"
+msgstr "प्रोग्रामिंग भाषा (_L):"
+
+#: ../data/ui/insert_listing_dialog.ui.h:4
+msgid "_Dialect:"
+msgstr "बोली (_D):"
+
+#: ../data/ui/insert_table_dialog.ui.h:1 ../latex/latex/actions.py:372
+#: ../latex/latex/actions.py:374
+msgid "Insert Table or Matrix"
+msgstr "तालिका या मैट्रिक्स सम्मिलित करें"
+
+#: ../data/ui/insert_table_dialog.ui.h:2
+msgid "Type:"
+msgstr "प्रकार:"
+
+#: ../data/ui/insert_table_dialog.ui.h:3
+msgid "_Table"
+msgstr "तालिका (_T)"
+
+#: ../data/ui/insert_table_dialog.ui.h:4
+msgid "_Matrix:"
+msgstr "आव्यूह (_M):"
+
+#: ../data/ui/insert_table_dialog.ui.h:5
+msgid "_Rows:"
+msgstr "पंक्तियां (_R):"
+
+#: ../data/ui/insert_table_dialog.ui.h:6
+msgid "C_olumns:"
+msgstr "स्तम्भ (_o):"
+
+#: ../data/ui/insert_table_dialog.ui.h:9
+msgid "tab:"
+msgstr "टैब:"
+
+#: ../data/ui/insert_table_dialog.ui.h:10
+msgid "_Floating Object"
+msgstr "फ़्लोटिंग ऑब्जेक्ट (_F)"
+
+#: ../data/ui/new_document_template_dialog.ui.h:1
+msgid "New LaTeX Document"
+msgstr "नया LaTeX दस्तावेज़"
+
+#: ../data/ui/new_document_template_dialog.ui.h:2
+msgid "T_emplate:"
+msgstr "खाका (_e):"
+
+#: ../data/ui/new_document_template_dialog.ui.h:3
+msgid "document"
+msgstr "दस्तावेज़"
+
+#: ../data/ui/new_document_template_dialog.ui.h:4
+msgid ".tex"
+msgstr ".tex"
+
+#: ../data/ui/new_document_template_dialog.ui.h:5
+msgid "Di_rectory:"
+msgstr "निर्देशिका (_r):"
+
+#: ../data/ui/new_document_template_dialog.ui.h:6
+msgid "_Name:"
+msgstr "नाम (_N):"
+
+#: ../data/ui/new_document_template_dialog.ui.h:7
+msgid "_Babel Package:"
+msgstr "बेबेल पैकेज (_B):"
+
+#: ../data/ui/new_document_template_dialog.ui.h:8
+msgid "_Input Encoding:"
+msgstr "इनपुट एनकोडिंग (_I):"
+
+#: ../data/ui/new_document_template_dialog.ui.h:9
+msgid "<b>Language Customization</b>"
+msgstr "<b>भाषा अनुकूलन</b>"
+
+#: ../data/ui/new_document_template_dialog.ui.h:10
+msgid "_Landscape"
+msgstr "लैंडस्केप (_L)"
+
+#: ../data/ui/new_document_template_dialog.ui.h:11
+msgid "_Paper:"
+msgstr "कागज (_P):"
+
+#: ../data/ui/new_document_template_dialog.ui.h:12
+msgid "De_fault"
+msgstr "तयशुदा (_f)"
+
+#: ../data/ui/new_document_template_dialog.ui.h:13
+msgid "U_ser Defined:"
+msgstr "उपयोक्ता परिभाषित (_s):"
+
+#: ../data/ui/new_document_template_dialog.ui.h:14
+msgid "pt"
+msgstr "pt"
+
+#: ../data/ui/new_document_template_dialog.ui.h:15
+msgid "Base Font Size:"
+msgstr "आधार फॉन्ट का आकार:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:16
+msgid "Document _Class:"
+msgstr "दस्तावेज़ वर्ग (_C):"
+
+#: ../data/ui/new_document_template_dialog.ui.h:17
+msgid "<b>Style and Layout</b>"
+msgstr "<b>शैली और अभिन्यास</b>"
+
+#: ../data/ui/new_document_template_dialog.ui.h:18
+msgid "Include PDF _Metadata"
+msgstr "PDF मेटाडेटा शामिल करें (_M)"
+
+#: ../data/ui/new_document_template_dialog.ui.h:19
+msgid "This adds metadata to the document. Requires package <tt>ifpdf</tt>."
+msgstr "यह दस्तावेज़ में मेटाडेटा जोड़ता है। पैकेज <tt>ifpdf</tt> की आवश्यकता है।"
+
+#: ../data/ui/new_document_template_dialog.ui.h:20
+msgid "Date:"
+msgstr "तारीख:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:21
+msgid "To_day"
+msgstr "आज (_d)"
+
+#: ../data/ui/new_document_template_dialog.ui.h:22
+msgid "C_ustom:"
+msgstr "तदनुकूल (_u):"
+
+#: ../data/ui/new_document_template_dialog.ui.h:23
+msgid "_Author:"
+msgstr "लेखक (_A):"
+
+#: ../data/ui/new_document_template_dialog.ui.h:24
+msgid "_Title:"
+msgstr "शीर्षक (_T):"
+
+#: ../data/ui/new_document_template_dialog.ui.h:25
+msgid "<b>Meta Information</b>"
+msgstr "<b>मेटा जानकारी</b>"
+
+#: ../data/ui/new_document_template_dialog.ui.h:26
+msgid "Default F_ont Family:"
+msgstr "तयशुदा फॉन्ट परिवार (_o):"
+
+#: ../data/ui/use_bibliography_dialog.ui.h:1 ../latex/latex/actions.py:159
+msgid "Use Bibliography"
+msgstr "ग्रंथसूची का प्रयोग करें"
+
+#: ../data/ui/use_bibliography_dialog.ui.h:2
+msgid "Bibliography _File:"
+msgstr "ग्रंथसूची फाइल (_F):"
+
+#: ../data/ui/use_bibliography_dialog.ui.h:3
+msgid "_Style:"
+msgstr "शैली (_S):"
+
+#: ../data/ui/use_bibliography_dialog.ui.h:4
+msgid "Style Preview:"
+msgstr "शैली पूर्वावलोकन:"
+
+#: ../data/ui/use_bibliography_dialog.ui.h:5
+msgid "Refresh Style Preview"
+msgstr "शैली पूर्वावलोकन ताज़ा करें"
+
+#: ../latex/appactivatable.py:66 ../latex/latex/actions.py:63
+msgid "LaTeX"
+msgstr "LaTeX"
+
+#: ../latex/appactivatable.py:89
+msgid "LaTeX Tools"
+msgstr "LaTeX उपकरण"
+
+#: ../latex/bibtex/actions.py:32
+msgid "BibTeX"
+msgstr "BibTeX"
+
+#: ../latex/bibtex/actions.py:43
+msgid "New BibTeX Entry..."
+msgstr "नई BibTeX प्रविष्टि..."
+
+#: ../latex/bibtex/actions.py:46
+msgid "Create a new BibTeX entry"
+msgstr "एक नई BibTeX प्रविष्टि बनाएं"
+
+#. add grouping controls to toolbar
+#: ../latex/bibtex/views.py:56
+msgid "No Grouping"
+msgstr "कोई समूहीकरण नहीं"
+
+#: ../latex/bibtex/views.py:57
+msgid "Group by Type"
+msgstr "प्रकार द्वारा समूह"
+
+#: ../latex/bibtex/views.py:58
+msgid "Group by Author"
+msgstr "लेखक द्वारा समूह"
+
+#: ../latex/bibtex/views.py:59
+msgid "Group by Year"
+msgstr "वर्ष के अनुसार समूह"
+
+#. group by year
+#: ../latex/bibtex/views.py:197
+msgid "<i>n/a</i>"
+msgstr "<i>n/a</i>"
+
+#: ../latex/bibtex/views.py:240
+msgid "Unknown Author"
+msgstr "अज्ञात लेखक"
+
+#: ../latex/latex/actions.py:73
+msgid "New LaTeX Document..."
+msgstr "नया LaTeX दस्तावेज़..."
+
+#: ../latex/latex/actions.py:76
+msgid "Create a new LaTeX document"
+msgstr "एक नया LaTeX दस्तावेज़ बनाएं"
+
+#: ../latex/latex/actions.py:95
+msgid "Choose Master Document..."
+msgstr "मास्टर दस्तावेज़ चुनें..."
+
+#: ../latex/latex/actions.py:107
+msgid "Close Nearest Environment"
+msgstr "निकटतम परिवेश बंद करें"
+
+#: ../latex/latex/actions.py:109
+msgid "Close the nearest TeX environment at left of the cursor"
+msgstr "कर्सर के बाईं ओर निकटतम TeX परिवेश बंद करें"
+
+#: ../latex/latex/actions.py:157
+msgid "Use Bibliography..."
+msgstr "ग्रंथसूची का प्रयोग करें..."
+
+#: ../latex/latex/actions.py:179 ../latex/latex/actions.py:181
+#: ../latex/latex/actions.py:189 ../latex/latex/actions.py:190
+msgid "Font Family"
+msgstr "फॉन्ट परिवार"
+
+#: ../latex/latex/actions.py:194 ../latex/latex/actions.py:195
+msgid "Bold"
+msgstr "बोल्ड"
+
+#: ../latex/latex/actions.py:201 ../latex/latex/actions.py:202
+msgid "Italic"
+msgstr "इटैलिक"
+
+#: ../latex/latex/actions.py:208 ../latex/latex/actions.py:209
+msgid "Emphasize"
+msgstr "जोर दें"
+
+#: ../latex/latex/actions.py:215 ../latex/latex/actions.py:216
+msgid "Underline"
+msgstr "रेखांकित"
+
+#: ../latex/latex/actions.py:222 ../latex/latex/actions.py:223
+msgid "Small Capitals"
+msgstr "छोटे अक्षर"
+
+#: ../latex/latex/actions.py:229 ../latex/latex/actions.py:230
+msgid "Roman"
+msgstr "रोमन"
+
+#: ../latex/latex/actions.py:236 ../latex/latex/actions.py:237
+msgid "Sans Serif"
+msgstr "सैन्स सेरिफ़"
+
+#: ../latex/latex/actions.py:243 ../latex/latex/actions.py:244
+msgid "Typewriter"
+msgstr "टाइपराइटर"
+
+#: ../latex/latex/actions.py:250 ../latex/latex/actions.py:251
+msgid "Blackboard Bold"
+msgstr "ब्लैकबोर्ड बोल्ड"
+
+#: ../latex/latex/actions.py:258 ../latex/latex/actions.py:259
+msgid "Calligraphy"
+msgstr "सुलेख"
+
+#: ../latex/latex/actions.py:265 ../latex/latex/actions.py:266
+msgid "Fraktur"
+msgstr "फ़्रेक्टर"
+
+#: ../latex/latex/actions.py:273 ../latex/latex/actions.py:274
+#: ../latex/latex/actions.py:286 ../latex/latex/actions.py:287
+msgid "List"
+msgstr "सूची"
+
+#: ../latex/latex/actions.py:278 ../latex/latex/actions.py:279
+msgid "Itemize"
+msgstr "सूचीबद्ध करें"
+
+#: ../latex/latex/actions.py:291 ../latex/latex/actions.py:292
+msgid "Enumerate"
+msgstr "क्रमांकित सूची"
+
+#: ../latex/latex/actions.py:298 ../latex/latex/actions.py:299
+msgid "Description"
+msgstr "विवरण"
+
+#: ../latex/latex/actions.py:304 ../latex/latex/actions.py:305
+#: ../latex/latex/actions.py:330 ../latex/latex/actions.py:331
+msgid "Structure"
+msgstr "संरचना"
+
+#: ../latex/latex/actions.py:308 ../latex/latex/actions.py:309
+msgid "Part"
+msgstr "भाग"
+
+#: ../latex/latex/actions.py:322 ../latex/latex/actions.py:323
+msgid "Section"
+msgstr "अनुभाग"
+
+#: ../latex/latex/actions.py:335 ../latex/latex/actions.py:336
+msgid "Subsection"
+msgstr "उप-अनुभाग"
+
+#: ../latex/latex/actions.py:342 ../latex/latex/actions.py:343
+msgid "Paragraph"
+msgstr "अनुच्छेद"
+
+#: ../latex/latex/actions.py:349 ../latex/latex/actions.py:350
+msgid "Subparagraph"
+msgstr "उप-अनुच्छेद"
+
+#: ../latex/latex/actions.py:405 ../latex/latex/actions.py:407
+#: ../latex/latex/actions.py:415 ../latex/latex/actions.py:416
+msgid "Build"
+msgstr "बनाएं"
+
+#: ../latex/latex/actions.py:420
+msgid "Build Image"
+msgstr "छवि बनाएं"
+
+#: ../latex/latex/actions.py:422
+msgid "Build an image from the LaTeX document"
+msgstr "LaTeX दस्तावेज़ से एक छवि बनाएं"
+
+#: ../latex/latex/actions.py:440 ../latex/latex/actions.py:441
+#: ../latex/latex/actions.py:460 ../latex/latex/actions.py:461
+msgid "Justify"
+msgstr "संरेखित करें"
+
+#: ../latex/latex/actions.py:445 ../latex/latex/actions.py:446
+msgid "Justify Left"
+msgstr "बाएं संरेखित करें"
+
+#: ../latex/latex/actions.py:452 ../latex/latex/actions.py:453
+msgid "Justify Center"
+msgstr "केंद्र में संरेखित करें"
+
+#: ../latex/latex/actions.py:465 ../latex/latex/actions.py:466
+msgid "Justify Right"
+msgstr "दाएं संरेखित करें"
+
+#: ../latex/latex/actions.py:472 ../latex/latex/actions.py:473
+#: ../latex/latex/actions.py:485 ../latex/latex/actions.py:486
+msgid "Math"
+msgstr "गणित"
+
+#: ../latex/latex/actions.py:477 ../latex/latex/actions.py:478
+msgid "Mathematical Environment"
+msgstr "गणितीय परिवेश"
+
+#: ../latex/latex/actions.py:490 ../latex/latex/actions.py:491
+msgid "Centered Formula"
+msgstr "केन्द्रित सूत्र"
+
+#: ../latex/latex/actions.py:497 ../latex/latex/actions.py:498
+msgid "Numbered Equation"
+msgstr "क्रमांकित समीकरण"
+
+#: ../latex/latex/actions.py:506 ../latex/latex/actions.py:507
+msgid "Array of Equations"
+msgstr "समीकरणों की सरणी"
+
+#: ../latex/latex/actions.py:516 ../latex/latex/actions.py:517
+msgid "Numbered Array of Equations"
+msgstr "समीकरणों की क्रमांकित सरणी"
+
+#: ../latex/latex/dialogs.py:331
+msgid "Default"
+msgstr "तयशुदा"
+
+#. PNG mode
+#. label, mode constant
+#: ../latex/latex/dialogs.py:1062
+msgid "Monochrome"
+msgstr "मोनोक्रोम"
+
+#: ../latex/latex/dialogs.py:1063
+msgid "Grayscale"
+msgstr "ग्रेस्केल"
+
+#: ../latex/latex/dialogs.py:1064
+msgid "RGB"
+msgstr "RGB"
+
+#: ../latex/latex/dialogs.py:1065
+msgid "RGBA"
+msgstr "RGBA"
+
+#. anti-alias
+#. label, factor
+#: ../latex/latex/dialogs.py:1077
+msgid "Off"
+msgstr "अक्षम"
+
+#: ../latex/latex/dialogs.py:1078
+msgid "1x"
+msgstr "1x"
+
+#: ../latex/latex/dialogs.py:1079
+msgid "2x"
+msgstr "2x"
+
+#: ../latex/latex/dialogs.py:1080
+msgid "4x"
+msgstr "4x"
+
+#: ../latex/latex/dialogs.py:1081
+msgid "8x"
+msgstr "8x"
+
+#: ../latex/latex/environment.py:141
+msgid "Book of abstracts"
+msgstr "सार की पुस्तक"
+
+#: ../latex/latex/environment.py:142
+msgid "Article"
+msgstr "लेख"
+
+#: ../latex/latex/environment.py:143
+msgid "Article (AMS)"
+msgstr "लेख (AMS)"
+
+#: ../latex/latex/environment.py:144
+msgid "Book (AMS)"
+msgstr "पुस्तक (AMS)"
+
+#: ../latex/latex/environment.py:145
+msgid "AMS Documentation"
+msgstr "AMS दस्तावेज़ीकरण"
+
+#: ../latex/latex/environment.py:146
+msgid "Proceedings (AMS)"
+msgstr "कार्यवाही (AMS)"
+
+#: ../latex/latex/environment.py:147
+msgid "Report"
+msgstr "रिपोर्ट"
+
+#: ../latex/latex/environment.py:148
+msgid "Beamer slides"
+msgstr "बीमर स्लाइड"
+
+#: ../latex/latex/environment.py:149
+msgid "Belgian letter"
+msgstr "बेल्जियम पत्र"
+
+#: ../latex/latex/environment.py:150
+msgid "Book"
+msgstr "पुस्तक"
+
+#: ../latex/latex/environment.py:151
+msgid "Flashcard"
+msgstr "फ़्लैशकार्ड"
+
+#: ../latex/latex/environment.py:152
+msgid "Proceedings (IAG)"
+msgstr "कार्यवाही (IAG)"
+
+#: ../latex/latex/environment.py:153
+msgid "Letter"
+msgstr "पत्र"
+
+#: ../latex/latex/environment.py:154
+msgid "LaTeX News"
+msgstr "LaTeX समाचार"
+
+#: ../latex/latex/environment.py:155
+msgid "LaTeX Documentation"
+msgstr "LaTeX दस्तावेज़ीकरण"
+
+#: ../latex/latex/environment.py:156
+msgid "LaTeX Guide"
+msgstr "LaTeX मार्गदर्शिका"
+
+#: ../latex/latex/environment.py:157
+msgid "Proceedings"
+msgstr "कार्यवाही"
+
+#: ../latex/latex/environment.py:158
+msgid "Article (KOMA-Script)"
+msgstr "आलेख (KOMA-स्क्रिप्ट)"
+
+#: ../latex/latex/environment.py:159 ../latex/latex/environment.py:163
+msgid "Report (KOMA-Script)"
+msgstr "रिपोर्ट (KOMA-स्क्रिप्ट)"
+
+#: ../latex/latex/environment.py:160
+msgid "Book (KOMA-Script)"
+msgstr "पुस्तक (KOMA-स्क्रिप्ट)"
+
+#: ../latex/latex/environment.py:161
+msgid "Letter (KOMA-Script)"
+msgstr "पत्र (KOMA-स्क्रिप्ट)"
+
+#: ../latex/latex/environment.py:162
+msgid "Letter 2 (KOMA-Script)"
+msgstr "पत्र 2 (KOMA-स्क्रिप्ट)"
+
+#: ../latex/latex/environment.py:164
+msgid "Slides"
+msgstr "स्लाइड"
+
+#: ../latex/latex/views.py:107
+msgid "Symbols"
+msgstr "प्रतीक"
+
+#: ../latex/latex/views.py:190
+msgid "Show graphics"
+msgstr "ग्राफिक्स दिखाएं"
+
+#: ../latex/latex/views.py:195
+msgid "Show tables"
+msgstr "तालिकाएं दिखाएं"
+
+#: ../latex/outline.py:58
+msgid "Follow Editor"
+msgstr "संपादक का अनुसरण करें"
+
+#: ../latex/outline.py:63
+msgid "Expand All"
+msgstr "सभी विस्तृत करें"
+
+#: ../latex/outline.py:67
+msgid "Collapse All"
+msgstr "सभी संक्षिप्त करें"
+
+#: ../latex/outline.py:114
+msgid "Outline"
+msgstr "रूपरेखा"
+
+#: ../latex/tools/views.py:62
+msgid "Job"
+msgstr "कार्य"
+
+#: ../latex/tools/views.py:73 ../latex/views.py:80
+msgid "File"
+msgstr "फाइल"
+
+#: ../latex/tools/views.py:74
+msgid "Line"
+msgstr "रेखा"
+
+#: ../latex/tools/views.py:87
+msgid "Abort Job"
+msgstr "कार्य निरस्त करें"
+
+#: ../latex/tools/views.py:92
+msgid "Show Detailed Output"
+msgstr "विस्तृत आउटपुट दिखाएं"
+
+#: ../latex/views.py:67
+msgid "Message"
+msgstr "संदेश"
+
+#: ../latex/views.py:99
+msgid "Show/Hide Warnings"
+msgstr "चेतावनियां दिखाएं/छिपाएं"
+
+#: ../latex/views.py:107
+msgid "Show/Hide Tasks"
+msgstr "कार्य दिखाएं/छिपाएं"
+
+#: ../latex/views.py:139
+msgid "Issues"
+msgstr "समस्याएं"
