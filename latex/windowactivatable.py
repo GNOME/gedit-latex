@@ -386,6 +386,12 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
          * GeditTabDecorator when the Editor instance changes
         """
 
+        if tab_decorator not in self._tab_decorators:
+            # The window is presumably being destroyed.
+            # If it contains two tabs, peas calls this after the decorators
+            # have already being destroyed.
+            return
+
         # TODO: improve and simplify this!
         extension = tab_decorator.extension
 
