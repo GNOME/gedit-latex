@@ -23,6 +23,7 @@ latex.environment
 """
 
 from gi.repository import Gdk
+import os
 from os import popen, system
 #from Gtk.gdk import screen_width, screen_height, screen_width_mm, screen_height_mm
 from pwd import getpwnam
@@ -184,8 +185,7 @@ from ..file import File
 
 class Environment(object):
 
-    _CONFIG_FILENAME = "/etc/texmf/texmf.cnf"
-    _DEFAULT_TEXMF_DIR = "/usr/share/texmf-texlive"
+    _DEFAULT_TEXMF_DIR = "/usr/share/texlive/texmf-dist"
     _DEFAULT_TEXMF_DIR_HOME = "~/texmf"
 
     """
@@ -214,26 +214,13 @@ class Environment(object):
             self._search_paths = []
             default_search_paths = [self._DEFAULT_TEXMF_DIR, expanduser(self._DEFAULT_TEXMF_DIR_HOME)]
 
-            try:
-                cnf_file = CnfFile(self._CONFIG_FILENAME)
-
-                path_found = False
-
+            if self.kpsewhich_installed:
                 for key in ["TEXMFMAIN", "TEXMFDIST", "TEXMFHOME"]:
-                    try:
-                        self._search_paths.append(cnf_file[key])
-                        path_found = True
-                    except KeyError:
-                        # config key not found
-                        self._log.error("Key %s not found in %s" % (key, self._CONFIG_FILENAME))
-
-                if not path_found:
-                    self._log.error("No search paths found in %s, using default search paths %s" % (self._CONFIG_FILENAME, default_search_paths))
-                    self._search_paths = default_search_paths
-
-            except IOError:
-                # file _CONFIG_FILENAME not found - use default path
-                self._log.error("%s not found, using default search paths %s" % (self._CONFIG_FILENAME, default_search_paths))
+                    found = popen("kpsewhich -var-value %s" % key).read().splitlines()
+                    exists = bool(len(found))
+                    self._search_paths.append(found[0])
+            else:
+                self._log.error("Command \"kpsewhich\" not found, using default search paths %s" % (self._CONFIG_FILENAME, default_search_paths))
                 self._search_paths = default_search_paths
 
             self._ready = True
@@ -309,7 +296,10 @@ class Environment(object):
         files = []
 
         for search_path in self._search_paths:
-            files += [File(f) for f in popen("find %s%s -name '*%s'" % (search_path, relative, extension)).readlines()]
+            dir_path = "%s%s" % (search_path, relative)
+            if not os.path.exists(dir_path):
+                continue
+            files += [File(f) for f in popen("find %s -name '*%s'" % (dir_path, extension)).readlines()]
 
         if len(files) > 0:
             for file in files:
