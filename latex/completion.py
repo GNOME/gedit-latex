@@ -282,7 +282,7 @@ class ProposalPopup(Gtk.Window):
             self._details_popup.move(x + width + 2, y + rect.y)
 
             # activate
-            self._details_popup.activate(proposal.details)
+            self._details_popup.activate(proposal.details, self)
 
         except Exception as e:
             self._log.error(e)
@@ -335,10 +335,11 @@ class DetailsPopup(Gtk.Window):
 
         self.add(self._frame)
 
-    def activate(self, details):
+    def activate(self, details, parent):
         """
         Create widget(s) for the given details and show the popup
         """
+
         # remove the old child widget if present
         child = self._frame.get_child()
         if child:
@@ -378,6 +379,7 @@ class DetailsPopup(Gtk.Window):
             label.set_use_markup(True)
             self._frame.add(label)
 
+        self.set_parent_window(parent.get_window())
         self.show_all()
 
         # force a recompute of the window size
