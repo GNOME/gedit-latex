@@ -16,7 +16,7 @@
     <foaf:Person>
       <foaf:name>Pietro Battiston</foaf:name>
       <foaf:mbox rdf:resource="mailto:me@pietrobattiston.it" />
-<!--      <gnome:userid>pbattiston</gnome:userid> -->
+      <gnome:userid>pbattiston</gnome:userid>
     </foaf:Person>
   </maintainer>
   <maintainer>
