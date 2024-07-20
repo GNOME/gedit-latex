@@ -1,40 +1,57 @@
-=================
-gedit-latex 3.36
-=================
+===================
+gedit-latex 46.2.1
+===================
+
+Starting from this version, the versioning number is of the form X.Y, where
+X is the most recent Gedit version against which the plugin was tested, and
+Y is an integer number starting from 1.
+Note that gedit-latex 3.36 previously had an entry in this NEWS file but was
+ultimately never released; hence, that entry was absorbed in the present.
 
 New features and fixes
 ======================
 
+- Do not use deprecated Gedit.Document.get_location() (closes #3)
+- Use Unicode for symbols in translatable strings (!2)
+- Fixed style not set (was breaking compilation of Latex -> pdf) (!1)
 - Fixed bugs affecting gedit 3.34 and later
 - Now supports running from source
 - Switched from autotools to meson for build
 
 New translations
-================
+================    
 - Dutch (Nathan Follens)
-- Turkish (Muhammet Kara)
+- Georgian (Ekaterine Papava)
+- Hindi (Scrambled 777)
+- Turkish (Sabri Ünal, Emin Tufan Çetin, Muhammet Kara)
 - Ukrainian (Yuri Chornoivan)
 
 Updated translations
 ================
-- Akom Chotiphantawanon (th)
-- Anders Jonsson (sv)
-- Balázs Úr (hu)
-- Boyuan Yang (zh_CN)
-- Carles Ferrando Garcia (ca)
-- Daniel Mustieles (es)
-- Florentina Mușat (ro)
-- Kukuh Syafaat (id)
-- Marek Černocký (cs)
-- Mario Blättermann (de)
-- Matej Urbančič (sl)
-- Miroslav Nikolić (sr@latin)
-- Piotr Drąg (pl)
-- Rafael Fontenelle (pt_BR)
-- Rūdolfs Mazurs (lv)
-- scootergrisen (da)
-- Марко М. Костић (sr)
-
+  - Basque (Asier Sarasua Garmendia)
+  - Catalan (Jordi Mas, Carles Ferrando Garcia)
+  - Chinese (China) (Boyuan Yang)
+  - Czech (Marek Černocký)
+  - Danish (Alan Mortensen, Ask Hjorth Larsen)
+  - Dutch (Nathan Follens, GNOME Translation Robot)
+  - Esperanto (Piotr Drąg)
+  - French (Alexandre Franke, Piotr Drąg)
+  - German (Mario Blättermann, Jürgen Benvenuti)
+  - Hungarian (Balázs Úr, Balázs Meskó)
+  - Indonesian (Andika Triwidada, Kukuh Syafaat)
+  - Latvian (Rūdolfs Mazurs)
+  - Occitan (post 1500) (Piotr Drąg)
+  - Polish (Piotr Drąg)
+  - Portuguese (Hugo Carvalho)
+  - Portuguese (Brazil) (Rafael Fontenelle, Enrico Nicoletto)
+  - Romanian (Florentina Mușat)
+  - Russian (Sergej A, Piotr Drąg)
+  - Serbian (Марко Костић, Мирослав Николић)
+  - Serbian (latin) (Piotr Drąg, Мирослав Николић)
+  - Slovenian (Piotr Drąg, Matej Urbančič)
+  - Spanish (Daniel Mustieles, Piotr Drąg)
+  - Swedish (Anders Jonsson)
+  - Thai (Akom Chotiphantawanon)
 
 =================
 gedit-latex 3.20
