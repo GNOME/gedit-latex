@@ -3,6 +3,8 @@ Installation Instructions
 
 * mkdir build
 
+* meson setup build
+
 * cd build
 
 * meson --prefix /your/prefix
