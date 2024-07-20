@@ -23,7 +23,7 @@
     <foaf:Person>
       <foaf:name>José Aliste</foaf:name>
       <foaf:mbox rdf:resource="mailto:jaliste@src.gnome.org" />
-      <gnome:userid>jaliste</gnome:userid>
+<!--      <gnome:userid>jaliste</gnome:userid> -->
     </foaf:Person>
   </maintainer>
 
