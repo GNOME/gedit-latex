@@ -56,10 +56,10 @@ class BibTeXEntryTypeProposal(Proposal):
         """
         Generate snippet and details string
         """
-        snippet = "@%s{${Identifier}" % self._type.name
+        snippet = "@%s{${1:Identifier}" % self._type.name
         self._details = "@%s{<span color='%s'>Identifier</span>" % (self._type.name, self._color)
-        for field in self._type.required_fields:
-            snippet += ",\n\t%s = {${%s}}" % (field.name, field.label)
+        for idx, field in enumerate(self._type.required_fields, start=2):
+            snippet += ",\n\t%s = {${%d:%s}}" % (field.name, idx, field.label)
             self._details += ",\n\t%s = {<span color='%s'>%s</span>}" % (field.name, self._color, field.label)
         snippet += "\n}"
         self._details += "\n}"
