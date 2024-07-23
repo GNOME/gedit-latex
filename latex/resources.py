@@ -35,19 +35,26 @@ _log = logging.getLogger("resources")
 
 class Resources(Singleton):
     def __init_once__(self):
-        if platform.platform() == 'Windows':
-            userdir = os.path.expanduser('~/gedit/latex')
-        else:
-            userdir = os.path.join(GLib.get_user_config_dir(), 'gedit/latex')
 
         #check if running from srcdir and if so, prefer that for all data files
         me = os.path.realpath(os.path.dirname(__file__))
         if os.path.exists(os.path.join(me, "..", "meson.build")):
             self.from_source = True
-            systemdir = os.path.abspath(os.path.join(me, "..", "data"))
         else:
             self.from_source = False
-            systemdir = self.plugin_info.get_data_dir()
+
+    def set_paths(self, lapp):
+        #check if running from srcdir and if so, prefer that for all data files
+        me = os.path.realpath(os.path.dirname(__file__))
+        if self.from_source:
+            systemdir = os.path.abspath(os.path.join(me, "..", "data"))
+        else:
+            systemdir = lapp.plugin_info.get_data_dir()
+
+        if platform.platform() == 'Windows':
+            userdir = os.path.expanduser('~/gedit/latex')
+        else:
+            userdir = os.path.join(GLib.get_user_config_dir(), 'gedit/latex')
 
         self.userdir = userdir
         self.systemdir = systemdir
