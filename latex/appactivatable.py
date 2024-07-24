@@ -29,9 +29,9 @@ class LaTeXAppActivatable(GObject.Object, Gedit.AppActivatable):
     
     def __init__(self):
         GObject.Object.__init__(self)
+        Resources().set_paths(self)
 
     def do_activate(self):
-        Resources().set_paths(self)
         #The following is needed to support gedit 3.12 new menu api.
         #It adds menus and shortcuts here.
         #Actions and toolbar construction are still done in windowactivatable.py.
@@ -113,5 +113,5 @@ class LaTeXAppActivatable(GObject.Object, Gedit.AppActivatable):
         del self.latex_tools_menu
         del self.menu_ext
         del self.appmenu_ext
-        
+
 # ex:ts=4:et

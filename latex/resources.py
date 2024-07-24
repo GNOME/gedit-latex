@@ -40,28 +40,26 @@ class Resources(Singleton):
         me = os.path.realpath(os.path.dirname(__file__))
         if os.path.exists(os.path.join(me, "..", "meson.build")):
             self.from_source = True
+            self.systemdir = os.path.abspath(os.path.join(me, "..", "data"))
         else:
             self.from_source = False
+            # In this case, we need to wait for app to be instantiated
+            # before setting "systemdir"
 
     def set_paths(self, lapp):
         #check if running from srcdir and if so, prefer that for all data files
         me = os.path.realpath(os.path.dirname(__file__))
-        if self.from_source:
-            systemdir = os.path.abspath(os.path.join(me, "..", "data"))
-        else:
-            systemdir = lapp.plugin_info.get_data_dir()
+        if not self.from_source:
+            self.systemdir = lapp.plugin_info.get_data_dir()
 
         if platform.platform() == 'Windows':
-            userdir = os.path.expanduser('~/gedit/latex')
+            self.userdir = os.path.expanduser('~/gedit/latex')
         else:
-            userdir = os.path.join(GLib.get_user_config_dir(), 'gedit/latex')
-
-        self.userdir = userdir
-        self.systemdir = systemdir
+            self.userdir = os.path.join(GLib.get_user_config_dir(), 'gedit/latex')
 
         # Make sure dir exists
         try:
-            os.makedirs(userdir)
+            os.makedirs(self.userdir)
         except OSError as e:
             if e.errno != errno.EEXIST:
                 raise
