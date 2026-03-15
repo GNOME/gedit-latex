@@ -1,0 +1,903 @@
+# Kazakh translation for gedit-latex.
+# Copyright (C) 2026 gedit-latex's COPYRIGHT HOLDER
+# This file is distributed under the same license as the gedit-latex package.
+# Baurzhan Muftakhidinov <baurthefirst@gmail.com>,  2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: gedit-latex master\n"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/browse.cgi?"
+"product=gedit&component=latex\n"
+"POT-Creation-Date: 2024-07-24 14:05+0000\n"
+"PO-Revision-Date: 2026-03-15 15:43+0500\n"
+"Last-Translator: Baurzhan Muftakhidinov <baurthefirst@gmail.com>\n"
+"Language-Team: Kazakh <Kazakh>\n"
+"Language: kk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.9\n"
+
+#: latex.plugin.desktop.in.in:5
+msgid "LaTeX Plugin"
+msgstr "LaTeX плагині"
+
+#: latex.plugin.desktop.in.in:6
+msgid ""
+"A plugin that assists you in handling LaTeX documents and BibTeX "
+"bibliographies"
+msgstr ""
+"LaTeX құжаттарымен және BibTeX библиографияларымен жұмыс істеуге "
+"көмектесетін плагин"
+
+#: org.gnome.gedit.plugins.latex.gschema.xml:10
+msgid "Maximum BibTeX Size"
+msgstr "BibTeX максималды өлшемі"
+
+#: org.gnome.gedit.plugins.latex.gschema.xml:17
+msgid "Connect Outline to Editor"
+msgstr "Құрылымды түзеткішпен байланыстыру"
+
+#: org.gnome.gedit.plugins.latex.gschema.xml:21
+msgid "Show Labels in Outline"
+msgstr "Құрылымда белгілерді көрсету"
+
+#: org.gnome.gedit.plugins.latex.gschema.xml:25
+msgid "Show Tables in Outline"
+msgstr "Құрылымда кестелерді көрсету"
+
+#: org.gnome.gedit.plugins.latex.gschema.xml:29
+msgid "Show Graphics in Outline"
+msgstr "Құрылымда суреттерді көрсету"
+
+#: org.gnome.gedit.plugins.latex.gschema.xml:33
+msgid "Show Warnings in Issues"
+msgstr "Мәселелерде ескертулерді көрсету"
+
+#: org.gnome.gedit.plugins.latex.gschema.xml:37
+msgid "Show Tasks in Issues"
+msgstr "Мәселелерде тапсырмаларды көрсету"
+
+#: org.gnome.gedit.plugins.latex.gschema.xml:41 data/ui/configure.ui:239
+msgid "Hide Box Warnings"
+msgstr "Box ескертулерін жасыру"
+
+#: org.gnome.gedit.plugins.latex.gschema.xml:45
+msgid ""
+"Show LaTeX Toolbar below (normal), combined with the main toolbar, or "
+"disabled"
+msgstr ""
+"LaTeX саймандар панелін төменде (қалыпты), негізгі саймандар панелімен "
+"біріктірілген күйде көрсету немесе сөндіру"
+
+#: org.gnome.gedit.plugins.latex.gschema.xml:49
+msgid "Expanded Symbol Groups"
+msgstr "Жайылған таңбалар топтары"
+
+#: org.gnome.gedit.plugins.latex.gschema.xml:53
+msgid "LaTeX Extensions"
+msgstr "LaTeX кеңейтулері"
+
+#: org.gnome.gedit.plugins.latex.gschema.xml:57
+msgid "Graphics File Extensions"
+msgstr "Сурет файлдарының кеңейтулері"
+
+#: org.gnome.gedit.plugins.latex.gschema.xml:61
+msgid "Paths Relative to .tex File to Look for Graphics"
+msgstr "Суреттерді іздеу үшін .tex файлына қатысты жолдар"
+
+#: org.gnome.gedit.plugins.latex.gschema.xml:65
+msgid "Extra LaTeX commands used to mark issues, such as \\fxnote{foo}"
+msgstr ""
+"Мәселелерді белгілеу үшін қолданылатын қосымша LaTeX командалары, мысалы "
+"\\fxnote{foo}"
+
+#: data/ui/build_image_dialog.ui:16
+msgid "Render to Image"
+msgstr "Сурет ретінде рендерингтеу"
+
+#: data/ui/build_image_dialog.ui:84
+msgid "<b>Image Format</b>"
+msgstr "<b>Сурет пішімі</b>"
+
+#: data/ui/build_image_dialog.ui:107
+msgid "PNG"
+msgstr "PNG"
+
+#: data/ui/build_image_dialog.ui:127
+msgid "Color Mode:"
+msgstr "Түс режимі:"
+
+#: data/ui/build_image_dialog.ui:148
+msgid "JPEG"
+msgstr "JPEG"
+
+#: data/ui/build_image_dialog.ui:165
+msgid "GIF"
+msgstr "GIF"
+
+#: data/ui/build_image_dialog.ui:202
+msgid "<b>Rendering</b>"
+msgstr "<b>Рендеринг</b>"
+
+#: data/ui/build_image_dialog.ui:216
+msgid "<b>Area</b>"
+msgstr "<b>Аймақ</b>"
+
+#: data/ui/build_image_dialog.ui:242
+msgid "Antialiasing:"
+msgstr "Тегістеу:"
+
+#: data/ui/build_image_dialog.ui:267
+msgid "Resolution:"
+msgstr "Ажыратылымдығы:"
+
+#: data/ui/build_image_dialog.ui:308
+msgid "Render whole page(s)"
+msgstr "Толық бет(тер)ді рендерингтеу"
+
+#: data/ui/build_image_dialog.ui:325
+msgid "Attempt to render tight bounding box"
+msgstr "Шектеуші рамка бойынша рендерингтеуге тырысу"
+
+#: data/ui/choose_master_dialog.ui:9
+msgid "Select Master Document"
+msgstr "Негізгі құжатты таңдау"
+
+#: data/ui/choose_master_dialog.ui:78
+msgid "Filename:"
+msgstr "Файл аты:"
+
+#: data/ui/configure_tool.ui:73
+msgid ""
+"Remember to run all commands in batch mode (e.g. append <tt>-interaction "
+"batchmode</tt> to <tt>latex</tt>)"
+msgstr ""
+"Барлық командаларды пакеттік режимде орындауды ұмытпаңыз (мысалы, "
+"<tt>latex</tt> командасына <tt>-interaction batchmode</tt> параметрін "
+"қосыңыз)"
+
+#: data/ui/configure_tool.ui:118
+msgid "<b>_Label</b>"
+msgstr "<b>_Белгі</b>"
+
+#: data/ui/configure_tool.ui:259
+msgid ""
+"Valid placeholders are <tt>$filename</tt>, <tt>$shortname</tt>, "
+"<tt>$directory</tt>"
+msgstr ""
+"Жарамды орын толтырғыштар: <tt>$filename</tt>, <tt>$shortname</tt>, "
+"<tt>$directory</tt>"
+
+#: data/ui/configure_tool.ui:276
+msgid "<b>_Jobs</b>"
+msgstr "<b>_Тапсырмалар</b>"
+
+#: data/ui/configure_tool.ui:312
+msgid "<b>_Description</b>"
+msgstr "<b>_Сипаттамасы</b>"
+
+#: data/ui/configure_tool.ui:434
+msgid "<b>_File Extensions</b>"
+msgstr "<b>_Файл кеңейтулері</b>"
+
+#: data/ui/configure_tool.ui:464
+msgid "_Generated"
+msgstr "_Генерацияланған"
+
+#: data/ui/configure_tool.ui:482
+msgid "_User Defined:"
+msgstr "_Пайдаланушы анықтаған:"
+
+#: data/ui/configure_tool.ui:506
+msgid "<Ctrl><Alt>1"
+msgstr "<Ctrl><Alt>1"
+
+#: data/ui/configure_tool.ui:522
+msgid "<b>Accelerator</b>"
+msgstr "<b>Үдеткіш</b>"
+
+#: data/ui/configure.ui:140 latex/tools/views.py:116
+msgid "Tools"
+msgstr "Саймандар"
+
+#: data/ui/configure.ui:157
+msgid "<b>BibTeX</b>"
+msgstr "<b>BibTeX</b>"
+
+#: data/ui/configure.ui:171
+msgid "<b><i>rubber</i> Post-Processor</b>"
+msgstr "<b><i>rubber</i> пост-процессоры</b>"
+
+#: data/ui/configure.ui:193
+msgid "Maximum Parsed File Size:"
+msgstr "Өңделген файлдың максималды өлшемі:"
+
+#: data/ui/configure.ui:217
+msgid "KB"
+msgstr "КБ"
+
+#: data/ui/configure.ui:264
+msgid "Miscellaneous"
+msgstr "Әртүрлі"
+
+#: data/ui/insert_bibtex_entry.ui:9
+msgid "Create Bibliography Entry"
+msgstr "Библиография жазбасын жасау"
+
+#: data/ui/insert_bibtex_entry.ui:99
+msgid "Required Fields"
+msgstr "Міндетті өрістер"
+
+#: data/ui/insert_bibtex_entry.ui:124
+msgid "Optional Fields"
+msgstr "Міндетті емес өрістер"
+
+#: data/ui/insert_bibtex_entry.ui:156
+msgid "_Identifier:"
+msgstr "_Идентификатор:"
+
+#: data/ui/insert_bibtex_entry.ui:186
+msgid "_Type:"
+msgstr "_Түрі:"
+
+#: data/ui/insert_graphics_dialog.ui:23
+msgid "Image Size"
+msgstr "Сурет өлшемі"
+
+#: data/ui/insert_graphics_dialog.ui:26
+msgid "Text Width"
+msgstr "Мәтін ені"
+
+#: data/ui/insert_graphics_dialog.ui:34 latex/latex/actions.py:356
+#: latex/latex/actions.py:358
+msgid "Insert Graphics"
+msgstr "Суретті кірістіру"
+
+#: data/ui/insert_graphics_dialog.ui:103
+msgid "_File:"
+msgstr "_Файл:"
+
+#: data/ui/insert_graphics_dialog.ui:129 data/ui/insert_table_dialog.ui:234
+msgid "_Caption:"
+msgstr "_Атауы:"
+
+#: data/ui/insert_graphics_dialog.ui:157 data/ui/insert_table_dialog.ui:267
+msgid "_Label:"
+msgstr "_Белгі:"
+
+#: data/ui/insert_graphics_dialog.ui:173
+msgid "fig:"
+msgstr "fig:"
+
+#: data/ui/insert_graphics_dialog.ui:185
+msgid "_Width:"
+msgstr "_Ені:"
+
+#: data/ui/insert_graphics_dialog.ui:213
+msgid "% _of"
+msgstr "% _-"
+
+#: data/ui/insert_graphics_dialog.ui:246
+msgid "_Rotate:"
+msgstr "_Бұру:"
+
+#: data/ui/insert_graphics_dialog.ui:274
+msgid "° CCW"
+msgstr "° сағат тіліне қарсы"
+
+#: data/ui/insert_graphics_dialog.ui:284
+msgid "Flip _Horizontally"
+msgstr "_Горизонталды айналдыру"
+
+#: data/ui/insert_graphics_dialog.ui:301
+msgid "_Spread over two Columns"
+msgstr "_Екі бағанға жаю"
+
+#: data/ui/insert_graphics_dialog.ui:318
+msgid "Floating _Object"
+msgstr "Жылжымалы _объект"
+
+#: data/ui/insert_listing_dialog.ui:7 latex/latex/actions.py:388
+#: latex/latex/actions.py:390
+msgid "Insert Source Code Listing"
+msgstr "Бастапқы код тізімін кірістіру"
+
+#: data/ui/insert_listing_dialog.ui:71
+msgid "Load From _File:"
+msgstr "_Файлдан жүктеу:"
+
+#: data/ui/insert_listing_dialog.ui:108
+msgid "Programming _Language:"
+msgstr "Бағдарламалау _тілі:"
+
+#: data/ui/insert_listing_dialog.ui:138
+msgid "_Dialect:"
+msgstr "_Диалекті:"
+
+#: data/ui/insert_table_dialog.ui:22 latex/latex/actions.py:372
+#: latex/latex/actions.py:374
+msgid "Insert Table or Matrix"
+msgstr "Кесте немесе матрицаны кірістіру"
+
+#: data/ui/insert_table_dialog.ui:94
+msgid "Type:"
+msgstr "Түрі:"
+
+#: data/ui/insert_table_dialog.ui:105
+msgid "_Table"
+msgstr "_Кесте"
+
+#: data/ui/insert_table_dialog.ui:126
+msgid "_Matrix:"
+msgstr "_Матрица:"
+
+#: data/ui/insert_table_dialog.ui:168
+msgid "_Rows:"
+msgstr "_Жолдар:"
+
+#: data/ui/insert_table_dialog.ui:201
+msgid "C_olumns:"
+msgstr "_Бағандар:"
+
+#: data/ui/insert_table_dialog.ui:285
+msgid "tab:"
+msgstr "tab:"
+
+#: data/ui/insert_table_dialog.ui:297
+msgid "_Floating Object"
+msgstr "Жылжымалы _объект"
+
+#: data/ui/new_document_template_dialog.ui:16
+msgid "New LaTeX Document"
+msgstr "Жаңа LaTeX құжаты"
+
+#: data/ui/new_document_template_dialog.ui:104
+msgid "T_emplate:"
+msgstr "_Үлгі:"
+
+#: data/ui/new_document_template_dialog.ui:123
+msgid "document"
+msgstr "құжат"
+
+#: data/ui/new_document_template_dialog.ui:135
+msgid ".tex"
+msgstr ".tex"
+
+#: data/ui/new_document_template_dialog.ui:165
+msgid "Di_rectory:"
+msgstr "_Бума:"
+
+#: data/ui/new_document_template_dialog.ui:179
+msgid "_Name:"
+msgstr "_Аты:"
+
+#: data/ui/new_document_template_dialog.ui:216
+msgid "_Babel Package:"
+msgstr "_Babel дестесі:"
+
+#: data/ui/new_document_template_dialog.ui:231
+msgid "_Input Encoding:"
+msgstr "_Кіріс кодтауы:"
+
+#: data/ui/new_document_template_dialog.ui:247
+msgid "<b>Language Customization</b>"
+msgstr "<b>Тілді баптау</b>"
+
+#: data/ui/new_document_template_dialog.ui:277
+msgid "_Landscape"
+msgstr "_Альбомдық"
+
+#: data/ui/new_document_template_dialog.ui:305
+msgid "_Paper:"
+msgstr "_Қағаз:"
+
+#: data/ui/new_document_template_dialog.ui:323
+msgid "De_fault"
+msgstr "_Бастапқы"
+
+#: data/ui/new_document_template_dialog.ui:341
+msgid "U_ser Defined:"
+msgstr "_Пайдаланушы анықтаған:"
+
+#: data/ui/new_document_template_dialog.ui:378
+msgid "pt"
+msgstr "pt"
+
+#: data/ui/new_document_template_dialog.ui:400
+msgid "Base Font Size:"
+msgstr "Негізгі қаріп өлшемі:"
+
+#: data/ui/new_document_template_dialog.ui:426
+msgid "Document _Class:"
+msgstr "Құжат _класы:"
+
+#: data/ui/new_document_template_dialog.ui:442
+msgid "<b>Style and Layout</b>"
+msgstr "<b>Стиль және жайма</b>"
+
+#: data/ui/new_document_template_dialog.ui:454
+msgid "Include PDF _Metadata"
+msgstr "PDF _метадеректерін қосу"
+
+#: data/ui/new_document_template_dialog.ui:461
+msgid "This adds metadata to the document. Requires package <tt>ifpdf</tt>."
+msgstr ""
+"Бұл құжатқа метадеректерді қосады. <tt>ifpdf</tt> дестесін талап етеді."
+
+#: data/ui/new_document_template_dialog.ui:492
+msgid "Date:"
+msgstr "Күні:"
+
+#: data/ui/new_document_template_dialog.ui:508
+msgid "To_day"
+msgstr "_Бүгін"
+
+#: data/ui/new_document_template_dialog.ui:527
+msgid "C_ustom:"
+msgstr "_Таңдауыңызша:"
+
+#: data/ui/new_document_template_dialog.ui:572
+msgid "_Author:"
+msgstr "_Авторы:"
+
+#: data/ui/new_document_template_dialog.ui:603
+msgid "_Title:"
+msgstr "_Тақырыбы:"
+
+#: data/ui/new_document_template_dialog.ui:620
+msgid "<b>Meta Information</b>"
+msgstr "<b>Мета ақпарат</b>"
+
+#: data/ui/new_document_template_dialog.ui:635
+msgid "Default F_ont Family:"
+msgstr "Бастапқы қаріптер о_тбасы:"
+
+#: data/ui/use_bibliography_dialog.ui:9 latex/latex/actions.py:159
+msgid "Use Bibliography"
+msgstr "Библиографияны қолдану"
+
+#: data/ui/use_bibliography_dialog.ui:79
+msgid "Bibliography _File:"
+msgstr "Библиография _файлы:"
+
+#: data/ui/use_bibliography_dialog.ui:106
+msgid "_Style:"
+msgstr "_Стиль:"
+
+#: data/ui/use_bibliography_dialog.ui:147
+msgid "Style Preview:"
+msgstr "Стильді алдын ала қарау:"
+
+#: data/ui/use_bibliography_dialog.ui:165
+msgid "Refresh Style Preview"
+msgstr "Стильді алдын ала қарауды жаңарту"
+
+#: latex/appactivatable.py:50 latex/latex/actions.py:63
+msgid "LaTeX"
+msgstr "LaTeX"
+
+#: latex/appactivatable.py:73
+msgid "LaTeX Tools"
+msgstr "LaTeX саймандары"
+
+#: latex/bibtex/actions.py:32
+msgid "BibTeX"
+msgstr "BibTeX"
+
+#: latex/bibtex/actions.py:43
+msgid "New BibTeX Entry…"
+msgstr "Жаңа BibTeX жазбасы…"
+
+#: latex/bibtex/actions.py:46
+msgid "Create a new BibTeX entry"
+msgstr "Жаңа BibTeX жазбасын жасау"
+
+#. add grouping controls to toolbar
+#: latex/bibtex/views.py:56
+msgid "No Grouping"
+msgstr "Топтаусыз"
+
+#: latex/bibtex/views.py:57
+msgid "Group by Type"
+msgstr "Түрі бойынша топтау"
+
+#: latex/bibtex/views.py:58
+msgid "Group by Author"
+msgstr "Авторы бойынша топтау"
+
+#: latex/bibtex/views.py:59
+msgid "Group by Year"
+msgstr "Жылы бойынша топтау"
+
+#. group by year
+#: latex/bibtex/views.py:197
+msgid "<i>n/a</i>"
+msgstr "<i>қ/ж</i>"
+
+#: latex/bibtex/views.py:240
+msgid "Unknown Author"
+msgstr "Белгісіз автор"
+
+#: latex/latex/actions.py:73
+msgid "New LaTeX Document…"
+msgstr "Жаңа LaTeX құжаты…"
+
+#: latex/latex/actions.py:76
+msgid "Create a new LaTeX document"
+msgstr "Жаңа LaTeX құжатын жасау"
+
+#: latex/latex/actions.py:95
+msgid "Choose Master Document…"
+msgstr "Негізгі құжатты таңдау…"
+
+#: latex/latex/actions.py:107
+msgid "Close Nearest Environment"
+msgstr "Ең жақын ортаны жабу"
+
+#: latex/latex/actions.py:109
+msgid "Close the nearest TeX environment at left of the cursor"
+msgstr "Курсордың сол жағындағы ең жақын TeX ортасын жабу"
+
+#: latex/latex/actions.py:157
+msgid "Use Bibliography…"
+msgstr "Библиографияны қолдану…"
+
+#: latex/latex/actions.py:179 latex/latex/actions.py:181
+#: latex/latex/actions.py:189 latex/latex/actions.py:190
+msgid "Font Family"
+msgstr "Қаріптер отбасы"
+
+#: latex/latex/actions.py:194 latex/latex/actions.py:195
+msgid "Bold"
+msgstr "Жуан"
+
+#: latex/latex/actions.py:201 latex/latex/actions.py:202
+msgid "Italic"
+msgstr "Көлбеу"
+
+#: latex/latex/actions.py:208 latex/latex/actions.py:209
+msgid "Emphasize"
+msgstr "Ерекшелеу"
+
+#: latex/latex/actions.py:215 latex/latex/actions.py:216
+msgid "Underline"
+msgstr "Асты сызылған"
+
+#: latex/latex/actions.py:222 latex/latex/actions.py:223
+msgid "Small Capitals"
+msgstr "Кіші бас әріптер"
+
+#: latex/latex/actions.py:229 latex/latex/actions.py:230
+msgid "Roman"
+msgstr "Роман"
+
+#: latex/latex/actions.py:236 latex/latex/actions.py:237
+msgid "Sans Serif"
+msgstr "Кертіксіз"
+
+#: latex/latex/actions.py:243 latex/latex/actions.py:244
+msgid "Typewriter"
+msgstr "Машинкалық"
+
+#: latex/latex/actions.py:250 latex/latex/actions.py:251
+msgid "Blackboard Bold"
+msgstr "Тақталық жуан"
+
+#: latex/latex/actions.py:258 latex/latex/actions.py:259
+msgid "Calligraphy"
+msgstr "Каллиграфия"
+
+#: latex/latex/actions.py:265 latex/latex/actions.py:266
+msgid "Fraktur"
+msgstr "Фрактура"
+
+#: latex/latex/actions.py:273 latex/latex/actions.py:274
+#: latex/latex/actions.py:286 latex/latex/actions.py:287
+msgid "List"
+msgstr "Тізім"
+
+#: latex/latex/actions.py:278 latex/latex/actions.py:279
+msgid "Itemize"
+msgstr "Таңбаланған тізім"
+
+#: latex/latex/actions.py:291 latex/latex/actions.py:292
+msgid "Enumerate"
+msgstr "Нөмірленген тізім"
+
+#: latex/latex/actions.py:298 latex/latex/actions.py:299
+msgid "Description"
+msgstr "Сипаттама"
+
+#: latex/latex/actions.py:304 latex/latex/actions.py:305
+#: latex/latex/actions.py:330 latex/latex/actions.py:331
+msgid "Structure"
+msgstr "Құрылым"
+
+#: latex/latex/actions.py:308 latex/latex/actions.py:309
+msgid "Part"
+msgstr "Бөлім"
+
+#: latex/latex/actions.py:315 latex/latex/actions.py:316
+msgid "Chapter"
+msgstr "Тарау"
+
+#: latex/latex/actions.py:322 latex/latex/actions.py:323
+msgid "Section"
+msgstr "Секция"
+
+#: latex/latex/actions.py:335 latex/latex/actions.py:336
+msgid "Subsection"
+msgstr "Ішкі секция"
+
+#: latex/latex/actions.py:342 latex/latex/actions.py:343
+msgid "Paragraph"
+msgstr "Параграф"
+
+#: latex/latex/actions.py:349 latex/latex/actions.py:350
+msgid "Subparagraph"
+msgstr "Ішкі параграф"
+
+#: latex/latex/actions.py:405 latex/latex/actions.py:407
+#: latex/latex/actions.py:415 latex/latex/actions.py:416
+msgid "Build"
+msgstr "Құрастыру"
+
+#: latex/latex/actions.py:420
+msgid "Build Image"
+msgstr "Суретті құрастыру"
+
+#: latex/latex/actions.py:422
+msgid "Build an image from the LaTeX document"
+msgstr "LaTeX құжатынан суретті құрастыру"
+
+#: latex/latex/actions.py:440 latex/latex/actions.py:441
+#: latex/latex/actions.py:460 latex/latex/actions.py:461
+msgid "Justify"
+msgstr "Ені бойынша туралау"
+
+#: latex/latex/actions.py:445 latex/latex/actions.py:446
+msgid "Justify Left"
+msgstr "Сол жаққа туралау"
+
+#: latex/latex/actions.py:452 latex/latex/actions.py:453
+msgid "Justify Center"
+msgstr "Ортаға туралау"
+
+#: latex/latex/actions.py:465 latex/latex/actions.py:466
+msgid "Justify Right"
+msgstr "Оң жаққа туралау"
+
+#: latex/latex/actions.py:472 latex/latex/actions.py:473
+#: latex/latex/actions.py:485 latex/latex/actions.py:486
+msgid "Math"
+msgstr "Математика"
+
+#: latex/latex/actions.py:477 latex/latex/actions.py:478
+msgid "Mathematical Environment"
+msgstr "Математикалық орта"
+
+#: latex/latex/actions.py:490 latex/latex/actions.py:491
+msgid "Centered Formula"
+msgstr "Ортаға тураланған формула"
+
+#: latex/latex/actions.py:497 latex/latex/actions.py:498
+msgid "Numbered Equation"
+msgstr "Нөмірленген теңдеу"
+
+#: latex/latex/actions.py:506 latex/latex/actions.py:507
+msgid "Array of Equations"
+msgstr "Теңдеулер массиві"
+
+#: latex/latex/actions.py:516 latex/latex/actions.py:517
+msgid "Numbered Array of Equations"
+msgstr "Нөмірленген теңдеулер массиві"
+
+#: latex/latex/dialogs.py:331
+msgid "Default"
+msgstr "Бастапқы"
+
+#. PNG mode
+#. label, mode constant
+#: latex/latex/dialogs.py:1062
+msgid "Monochrome"
+msgstr "Монохромды"
+
+#: latex/latex/dialogs.py:1063
+msgid "Grayscale"
+msgstr "Сұр түсті"
+
+#: latex/latex/dialogs.py:1064
+msgid "RGB"
+msgstr "RGB"
+
+#: latex/latex/dialogs.py:1065
+msgid "RGBA"
+msgstr "RGBA"
+
+#. anti-alias
+#. label, factor
+#: latex/latex/dialogs.py:1077
+msgid "Off"
+msgstr "Сөндірулі"
+
+#: latex/latex/dialogs.py:1078
+msgid "1×"
+msgstr "1×"
+
+#: latex/latex/dialogs.py:1079
+msgid "2×"
+msgstr "2×"
+
+#: latex/latex/dialogs.py:1080
+msgid "4×"
+msgstr "4×"
+
+#: latex/latex/dialogs.py:1081
+msgid "8×"
+msgstr "8×"
+
+#: latex/latex/environment.py:142
+msgid "Book of abstracts"
+msgstr "Тезистер жинағы"
+
+#: latex/latex/environment.py:143
+msgid "Article"
+msgstr "Мақала"
+
+#: latex/latex/environment.py:144
+msgid "Article (AMS)"
+msgstr "Мақала (AMS)"
+
+#: latex/latex/environment.py:145
+msgid "Book (AMS)"
+msgstr "Кітап (AMS)"
+
+#: latex/latex/environment.py:146
+msgid "AMS Documentation"
+msgstr "AMS құжаттамасы"
+
+#: latex/latex/environment.py:147
+msgid "Proceedings (AMS)"
+msgstr "Еңбектер (AMS)"
+
+#: latex/latex/environment.py:148
+msgid "Report"
+msgstr "Есеп"
+
+#: latex/latex/environment.py:149
+msgid "Beamer slides"
+msgstr "Beamer слайдтары"
+
+#: latex/latex/environment.py:150
+msgid "Belgian letter"
+msgstr "Бельгиялық хат"
+
+#: latex/latex/environment.py:151
+msgid "Book"
+msgstr "Кітап"
+
+#: latex/latex/environment.py:152
+msgid "Flashcard"
+msgstr "Флэш-карта"
+
+#: latex/latex/environment.py:153
+msgid "Proceedings (IAG)"
+msgstr "Еңбектер (IAG)"
+
+#: latex/latex/environment.py:154
+msgid "Letter"
+msgstr "Хат"
+
+#: latex/latex/environment.py:155
+msgid "LaTeX News"
+msgstr "LaTeX жаңалықтары"
+
+#: latex/latex/environment.py:156
+msgid "LaTeX Documentation"
+msgstr "LaTeX құжаттамасы"
+
+#: latex/latex/environment.py:157
+msgid "LaTeX Guide"
+msgstr "LaTeX нұсқаулығы"
+
+#: latex/latex/environment.py:158
+msgid "Proceedings"
+msgstr "Еңбектер"
+
+#: latex/latex/environment.py:159
+msgid "Article (KOMA-Script)"
+msgstr "Мақала (KOMA-Script)"
+
+#: latex/latex/environment.py:160 latex/latex/environment.py:164
+msgid "Report (KOMA-Script)"
+msgstr "Есеп (KOMA-Script)"
+
+#: latex/latex/environment.py:161
+msgid "Book (KOMA-Script)"
+msgstr "Кітап (KOMA-Script)"
+
+#: latex/latex/environment.py:162
+msgid "Letter (KOMA-Script)"
+msgstr "Хат (KOMA-Script)"
+
+#: latex/latex/environment.py:163
+msgid "Letter 2 (KOMA-Script)"
+msgstr "Хат 2 (KOMA-Script)"
+
+#: latex/latex/environment.py:165
+msgid "Slides"
+msgstr "Слайдтар"
+
+#: latex/latex/views.py:107
+msgid "Symbols"
+msgstr "Таңбалар"
+
+#: latex/latex/views.py:190
+msgid "Show graphics"
+msgstr "Суреттерді көрсету"
+
+#: latex/latex/views.py:195
+msgid "Show tables"
+msgstr "Кестелерді көрсету"
+
+#: latex/outline.py:58
+msgid "Follow Editor"
+msgstr "Түзеткішке ілесу"
+
+#: latex/outline.py:63
+msgid "Expand All"
+msgstr "Барлығын жаю"
+
+#: latex/outline.py:67
+msgid "Collapse All"
+msgstr "Барлығын жинау"
+
+#: latex/outline.py:114
+msgid "Outline"
+msgstr "Құрылым"
+
+#: latex/preferences/tools.py:81
+#, python-format
+msgid ""
+"The file “%s” is corrupted and cannot be parsed. It was moved to “%s”, and "
+"the Latex Plugin will now fallback to the default tools."
+msgstr ""
+"«%s» файлы зақымдалған және оны талдау мүмкін емес. Ол «%s» орнына "
+"жылжытылды, енді LaTeX плагині бастапқы саймандарға оралады."
+
+#: latex/tools/views.py:62
+msgid "Job"
+msgstr "Тапсырма"
+
+#: latex/tools/views.py:73 latex/views.py:80
+msgid "File"
+msgstr "Файл"
+
+#: latex/tools/views.py:74
+msgid "Line"
+msgstr "Жол"
+
+#: latex/tools/views.py:87
+msgid "Abort Job"
+msgstr "Тапсырманы тоқтату"
+
+#: latex/tools/views.py:92
+msgid "Show Detailed Output"
+msgstr "Толық шығысты көрсету"
+
+#: latex/views.py:67
+msgid "Message"
+msgstr "Хабарлама"
+
+#: latex/views.py:99
+msgid "Show/Hide Warnings"
+msgstr "Ескертулерді көрсету/жасыру"
+
+#: latex/views.py:107
+msgid "Show/Hide Tasks"
+msgstr "Тапсырмаларды көрсету/жасыру"
+
+#: latex/views.py:139
+msgid "Issues"
+msgstr "Мәселелер"
