@@ -1,31 +1,34 @@
 # Georgian translation for gedit-latex.
-# Copyright (C) 2024 gedit-latex's COPYRIGHT HOLDER
+# Copyright (C) 2024 gedit-latex's authors
 # This file is distributed under the same license as the gedit-latex package.
-# Ekaterine Papava <papava.e@gtu.ge>, 2024.
+# Ekaterine Papava <papava.e@gtu.ge>, 2024 2026.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: gedit-latex master\n"
-"Report-Msgid-Bugs-To: https://gitlab.gnome.org/GNOME/gedit-latex/issues\n"
-"POT-Creation-Date: 2024-03-01 23:04+0000\n"
-"PO-Revision-Date: 2024-03-22 05:01+0100\n"
+"Report-Msgid-Bugs-To: https://bugzilla.gnome.org/browse.cgi?"
+"product=gedit&component=latex\n"
+"POT-Creation-Date: 2024-07-24 14:05+0000\n"
+"PO-Revision-Date: 2026-04-25 11:29+0200\n"
 "Last-Translator: Ekaterine Papava <papava.e@gtu.ge>\n"
 "Language-Team: Georgian <ka@li.org>\n"
 "Language: ka\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Poedit 3.9\n"
 
-#: latex.plugin.desktop.in.in:6
+#: latex.plugin.desktop.in.in:5
 msgid "LaTeX Plugin"
 msgstr "LaTeX-ის დამატება"
 
-#: latex.plugin.desktop.in.in:7
+#: latex.plugin.desktop.in.in:6
 msgid ""
 "A plugin that assists you in handling LaTeX documents and BibTeX "
 "bibliographies"
 msgstr ""
+"დამატება, რომელიც LaTeX-ის დოკუმენტებთან და BibTeX-ის ბიბლიოგრაფიებთან "
+"მუშაობაში დაგეხმარებათ"
 
 #: org.gnome.gedit.plugins.latex.gschema.xml:10
 msgid "Maximum BibTeX Size"
@@ -64,6 +67,8 @@ msgid ""
 "Show LaTeX Toolbar below (normal), combined with the main toolbar, or "
 "disabled"
 msgstr ""
+"LaTeX-ის ხელსაწყოთა პანელის ჩვენება ქვემოთ (ნორმალურია), მთავარ პანელთან "
+"კომბინირებულად თუ გამორთვა"
 
 #: org.gnome.gedit.plugins.latex.gschema.xml:49
 msgid "Expanded Symbol Groups"
@@ -79,11 +84,12 @@ msgstr "გრაფიკული ფაილის გაფართოე�
 
 #: org.gnome.gedit.plugins.latex.gschema.xml:61
 msgid "Paths Relative to .tex File to Look for Graphics"
-msgstr ""
+msgstr "ბილიკები .tex ფაილთან შედარებით გრაფიკული ფაილების საძებნად"
 
 #: org.gnome.gedit.plugins.latex.gschema.xml:65
 msgid "Extra LaTeX commands used to mark issues, such as \\fxnote{foo}"
 msgstr ""
+"დამატებითი LaTeX-ის ბრძანებები პრობლემების მოსანიშნად. მაგ: \\fxnote{foo}"
 
 #: data/ui/build_image_dialog.ui:16
 msgid "Render to Image"
@@ -131,7 +137,7 @@ msgstr "მთლიანი გვერდების რენდერი"
 
 #: data/ui/build_image_dialog.ui:325
 msgid "Attempt to render tight bounding box"
-msgstr ""
+msgstr "მჭიდროდ შემომსაზღვრელი ჩარჩოს რენდერის მცდელობა"
 
 #: data/ui/choose_master_dialog.ui:9
 msgid "Select Master Document"
@@ -146,6 +152,8 @@ msgid ""
 "Remember to run all commands in batch mode (e.g. append <tt>-interaction "
 "batchmode</tt> to <tt>latex</tt>)"
 msgstr ""
+"დამახსოვრება, რომ ყველა ბრძანება პაკეტურ რეჟიმში უნდა გაეშვას (მაგ: <tt>-"
+"interaction batchmode</tt> პარამეტრის მიწერა პროგრამისთვის <tt>latex</tt>)"
 
 #: data/ui/configure_tool.ui:118
 msgid "<b>_Label</b>"
@@ -156,8 +164,8 @@ msgid ""
 "Valid placeholders are <tt>$filename</tt>, <tt>$shortname</tt>, "
 "<tt>$directory</tt>"
 msgstr ""
-"სწორი ადგილმჭერებია <tt>$filename</tt>, <tt>$shortname</tt>, "
-"<tt>$directory</tt>"
+"სწორი ადგილმჭერებია <tt>$filename</tt>, <tt>$shortname</tt>, <tt>$directory</"
+"tt>"
 
 #: data/ui/configure_tool.ui:276
 msgid "<b>_Jobs</b>"
@@ -197,7 +205,7 @@ msgstr "<b>BibTeX</b>"
 
 #: data/ui/configure.ui:171
 msgid "<b><i>rubber</i> Post-Processor</b>"
-msgstr ""
+msgstr "<b>პოსტპროცესორის <i>rubber</i></b>"
 
 #: data/ui/configure.ui:193
 msgid "Maximum Parsed File Size:"
@@ -412,7 +420,7 @@ msgstr "PDF _მეტამონაცემების ჩასმა"
 
 #: data/ui/new_document_template_dialog.ui:461
 msgid "This adds metadata to the document. Requires package <tt>ifpdf</tt>."
-msgstr ""
+msgstr "ეს დოკუმენტს მეტამონაცემებს ამატებს. სჭირდება პაკეტი <tt>ifpdf</tt>."
 
 #: data/ui/new_document_template_dialog.ui:492
 msgid "Date:"
@@ -462,11 +470,11 @@ msgstr "სტილის მინიატურა:"
 msgid "Refresh Style Preview"
 msgstr "სტილის მინიატურის განახლება"
 
-#: latex/appactivatable.py:66 latex/latex/actions.py:63
+#: latex/appactivatable.py:50 latex/latex/actions.py:63
 msgid "LaTeX"
 msgstr "LaTeX"
 
-#: latex/appactivatable.py:89
+#: latex/appactivatable.py:73
 msgid "LaTeX Tools"
 msgstr "LaTeX-ის ხელსაწყოები"
 
@@ -526,7 +534,7 @@ msgstr "უახლოესი გარემოს დახურვა"
 
 #: latex/latex/actions.py:109
 msgid "Close the nearest TeX environment at left of the cursor"
-msgstr ""
+msgstr "დახურავს უახლოეს TeX გარემოს კურსორის მარცხენა მხარეს"
 
 #: latex/latex/actions.py:157
 msgid "Use Bibliography…"
@@ -726,95 +734,95 @@ msgstr "4×"
 msgid "8×"
 msgstr "8×"
 
-#: latex/latex/environment.py:141
-msgid "Book of abstracts"
-msgstr ""
-
 #: latex/latex/environment.py:142
+msgid "Book of abstracts"
+msgstr "აბსტრაქტულების წიგნი"
+
+#: latex/latex/environment.py:143
 msgid "Article"
 msgstr "სტატია"
 
-#: latex/latex/environment.py:143
+#: latex/latex/environment.py:144
 msgid "Article (AMS)"
 msgstr "სტატია (AMS)"
 
-#: latex/latex/environment.py:144
+#: latex/latex/environment.py:145
 msgid "Book (AMS)"
 msgstr "წიგნი (AMS)"
 
-#: latex/latex/environment.py:145
+#: latex/latex/environment.py:146
 msgid "AMS Documentation"
 msgstr "AMS-ის დოკუმენტაცია"
 
-#: latex/latex/environment.py:146
+#: latex/latex/environment.py:147
 msgid "Proceedings (AMS)"
 msgstr "მოხსენებები (AMS)"
 
-#: latex/latex/environment.py:147
+#: latex/latex/environment.py:148
 msgid "Report"
 msgstr "ანგარიში"
 
-#: latex/latex/environment.py:148
-msgid "Beamer slides"
-msgstr ""
-
 #: latex/latex/environment.py:149
+msgid "Beamer slides"
+msgstr "Beamer-ის სლაიდები"
+
+#: latex/latex/environment.py:150
 msgid "Belgian letter"
 msgstr "ბელგიური წერილი"
 
-#: latex/latex/environment.py:150
+#: latex/latex/environment.py:151
 msgid "Book"
 msgstr "წიგნი"
 
-#: latex/latex/environment.py:151
+#: latex/latex/environment.py:152
 msgid "Flashcard"
 msgstr "ბარათი"
 
-#: latex/latex/environment.py:152
+#: latex/latex/environment.py:153
 msgid "Proceedings (IAG)"
 msgstr "მოხსენებები (IAG)"
 
-#: latex/latex/environment.py:153
+#: latex/latex/environment.py:154
 msgid "Letter"
 msgstr "წერილი"
 
-#: latex/latex/environment.py:154
+#: latex/latex/environment.py:155
 msgid "LaTeX News"
 msgstr "LaTeX-ის სიახლეები"
 
-#: latex/latex/environment.py:155
+#: latex/latex/environment.py:156
 msgid "LaTeX Documentation"
 msgstr "LaTeX-ისდოკუმენტაცია"
 
-#: latex/latex/environment.py:156
+#: latex/latex/environment.py:157
 msgid "LaTeX Guide"
 msgstr "LaTeX-ის გიდი"
 
-#: latex/latex/environment.py:157
+#: latex/latex/environment.py:158
 msgid "Proceedings"
 msgstr "მოხსენებები"
 
-#: latex/latex/environment.py:158
+#: latex/latex/environment.py:159
 msgid "Article (KOMA-Script)"
 msgstr "სტატია (KOMA-Script)"
 
-#: latex/latex/environment.py:159 latex/latex/environment.py:163
+#: latex/latex/environment.py:160 latex/latex/environment.py:164
 msgid "Report (KOMA-Script)"
 msgstr "ანგარიში (KOMA-Script)"
 
-#: latex/latex/environment.py:160
+#: latex/latex/environment.py:161
 msgid "Book (KOMA-Script)"
 msgstr "წიგნი (KOMA-Script)"
 
-#: latex/latex/environment.py:161
+#: latex/latex/environment.py:162
 msgid "Letter (KOMA-Script)"
 msgstr "წერილი (KOMA-Script)"
 
-#: latex/latex/environment.py:162
+#: latex/latex/environment.py:163
 msgid "Letter 2 (KOMA-Script)"
 msgstr "წერილი 2 (KOMA-Script)"
 
-#: latex/latex/environment.py:164
+#: latex/latex/environment.py:165
 msgid "Slides"
 msgstr "სლაიდერი"
 
@@ -852,6 +860,8 @@ msgid ""
 "The file “%s” is corrupted and cannot be parsed. It was moved to “%s”, and "
 "the Latex Plugin will now fallback to the default tools."
 msgstr ""
+"ფაილი \"%s\" დაზიანებულია და მისი დამუშავება შეუძლებელია. ის გადატანილია "
+"\"%s\"-ში და LaTeX-ის დამატება ნაგულისხმევ პროგრამებზე გადაერთვება."
 
 #: latex/tools/views.py:62
 msgid "Job"
