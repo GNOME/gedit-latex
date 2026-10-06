@@ -26,7 +26,9 @@ import logging
 import string
 from traceback import print_exc
 
-from gi.repository import Gedit, GObject, Gio, Gtk, PeasGtk
+import gi
+gi.require_version('Tepl', '6')
+from gi.repository import Gedit, GObject, Gio, Gtk, PeasGtk, Tepl
 
 from .preferences import Preferences
 from .preferences.dialog import PreferencesDialog
@@ -461,23 +463,28 @@ class LaTeXWindowActivatable(GObject.Object, Gedit.WindowActivatable, PeasGtk.Co
             view.hide()
 
         # show all current views
-        i = len(self._side_views)
-        for view in side_views:
-            if view in self._side_views:
-                view.show()
-            else:
-                self.window.get_side_panel().add_titled(view, "after_side_view_id" + str(i), view.get_label())
-                self._side_views.append(view)
-                i += 1
+        for source, target, label, panel in ((side_views, self._side_views,
+                                              'after_side',
+                                              self.window.get_side_panel()),
+                                             (bottom_views, self._bottom_views,
+                                              'bottom',
+                                               self.window.get_bottom_panel())
+                                             ):
+            i = len(target)
+            for view in source:
+                if view.get_parent() is not None:
+                    continue
+                if view in target:
+                    view.show()
+                else:
+                    item = Tepl.PanelItem.new(view,
+                                              f"{label}_view_id{i}",
+                                              view.get_label(),
+                                              None,
+                                              i)
+                    panel.add(item)
+                    i += 1
 
-        i = len(self._bottom_views)
-        for view in bottom_views:
-            if view in self._bottom_views:
-                view.show()
-            else:
-                self.window.get_bottom_panel().add_titled(view, "bottom_view_id" + str(i), view.get_label())
-                self._bottom_views.append(view)
-                i += 1
 
     def _on_tab_added(self, window, tab):
         """
