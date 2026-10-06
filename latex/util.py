@@ -152,4 +152,12 @@ class GladeInterface(object):
         """
         self.__get_tree().connect_signals(mapping)
 
+def rgba_to_string(color):
+    """
+    Represent a Gdk.RGBA object as an HTML string.
+    """
+    components = [round(getattr(color, col) * 255)
+                  for col in ('red', 'green', 'blue')]
+    return '#%02x%02x%02x' % tuple(components)
+
 # ex:ts=4:et:

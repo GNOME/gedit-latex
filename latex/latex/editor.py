@@ -38,6 +38,7 @@ from .expander import LaTeXReferenceExpander
 from .outline import LaTeXOutlineGenerator
 from .validator import LaTeXValidator
 from .completion import LaTeXCompletionHandler
+from ..util import rgba_to_string
 
 from .dialogs import ChooseMasterDialog
 
@@ -72,14 +73,14 @@ class LaTeXEditor(Editor, IIssueHandler):
 
         style_scheme = self._text_buffer.get_style_scheme()
         w_style = style_scheme.get_style('def:warning')
-        if w_style:
-            w_color = w_style.get_properties('background')[0]
+        if w_style is not None and w_style.use_background_color:
+            w_color = rgba_to_string(w_style.background_color)
         else:
             w_color = None
         self.register_marker_type("latex-warning", w_color)
 
         e_style = style_scheme.get_style('def:error')
-        e_color = e_style.get_properties('background')[0]
+        e_color = rgba_to_string(e_style.background_color)
         self.register_marker_type("latex-error", e_color)
 
         self._issue_view = context.find_view(self, "IssueView")
