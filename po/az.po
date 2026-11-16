@@ -1,0 +1,540 @@
+# Azerbaijani translation for gedit-latex.
+# Copyright (C) 2026 gedit-latex's COPYRIGHT HOLDER
+# This file is distributed under the same license as the gedit-latex package.
+# Nicat Xalid <nicat.m@pm.me>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: gedit-latex master\n"
+"Report-Msgid-Bugs-To: http://bugzilla.gnome.org/enter_bug.cgi?"
+"product=gedit&keywords=I18N+L10N&component=Plugins\n"
+"POT-Creation-Date: 2011-07-15 12:45+0000\n"
+"PO-Revision-Date: 2026-11-16 12:30+0400\n"
+"Last-Translator: \n"
+"Language-Team: Azerbaijani <Azerbaijani>\n"
+"Language: az\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-DamnedLies-Scope: partial\n"
+"X-Generator: Poedit 3.10\n"
+
+#: ../data/bibtex.xml.h:1
+msgid "Address"
+msgstr "Ünvan"
+
+#: ../data/bibtex.xml.h:2
+msgid "Author"
+msgstr "Müəllif"
+
+#: ../data/bibtex.xml.h:3
+msgid "Book Title"
+msgstr "Kitab başlığı"
+
+#: ../data/bibtex.xml.h:4
+msgid "Chapter"
+msgstr "Fəsil"
+
+#: ../data/bibtex.xml.h:5
+msgid "Cross Reference"
+msgstr "Çarpaz istinad"
+
+#: ../data/bibtex.xml.h:6
+msgid "Edition"
+msgstr ""
+
+#: ../data/bibtex.xml.h:7
+msgid "Editor"
+msgstr "Redaktor"
+
+#: ../data/bibtex.xml.h:8
+msgid "How Published"
+msgstr "Necə yayımlanıb"
+
+#: ../data/bibtex.xml.h:9
+msgid "ISBN"
+msgstr "ISBN"
+
+#: ../data/bibtex.xml.h:10
+msgid "ISSN"
+msgstr "ISSN"
+
+#: ../data/bibtex.xml.h:11
+msgid "Institution"
+msgstr ""
+
+#: ../data/bibtex.xml.h:12
+msgid "Journal"
+msgstr "Jurnal"
+
+#: ../data/bibtex.xml.h:13
+msgid "Key"
+msgstr "Açar"
+
+#: ../data/bibtex.xml.h:14
+msgid "Location"
+msgstr "Məkan"
+
+#: ../data/bibtex.xml.h:15
+msgid "Month"
+msgstr "Ay"
+
+#: ../data/bibtex.xml.h:16
+msgid "Note"
+msgstr "Qeyd"
+
+#: ../data/bibtex.xml.h:17
+msgid "Number"
+msgstr "Nömrə"
+
+#: ../data/bibtex.xml.h:18
+msgid "Organization"
+msgstr "Təşkilat"
+
+#: ../data/bibtex.xml.h:19
+msgid "Pages"
+msgstr ""
+
+#: ../data/bibtex.xml.h:20
+msgid "Publisher"
+msgstr "Yayımlayıcı"
+
+#: ../data/bibtex.xml.h:21
+msgid "School"
+msgstr "Məktəb"
+
+#: ../data/bibtex.xml.h:22
+msgid "Series"
+msgstr "Seriya"
+
+#: ../data/bibtex.xml.h:23
+msgid "Title"
+msgstr "Başlıq"
+
+#: ../data/bibtex.xml.h:24
+msgid "Type"
+msgstr "Növ"
+
+#: ../data/bibtex.xml.h:25
+msgid "URL"
+msgstr "URL"
+
+#: ../data/bibtex.xml.h:26
+msgid "Volume"
+msgstr "Cild"
+
+#: ../data/bibtex.xml.h:27
+msgid "Year"
+msgstr "İl"
+
+#: ../data/ui/build_image_dialog.ui.h:1
+msgid "<b>Area</b>"
+msgstr "<b>Ərazi</b>"
+
+#: ../data/ui/build_image_dialog.ui.h:2
+msgid "<b>Image Format</b>"
+msgstr ""
+
+#: ../data/ui/build_image_dialog.ui.h:3
+msgid "<b>Rendering</b>"
+msgstr ""
+
+#: ../data/ui/build_image_dialog.ui.h:4
+msgid "Antialiasing:"
+msgstr ""
+
+#: ../data/ui/build_image_dialog.ui.h:5
+msgid "Attempt to render tight bounding box"
+msgstr ""
+
+#: ../data/ui/build_image_dialog.ui.h:6
+msgid "Color Mode:"
+msgstr "Rəng rejimi:"
+
+#: ../data/ui/build_image_dialog.ui.h:7
+msgid "GIF"
+msgstr "GIF"
+
+#: ../data/ui/build_image_dialog.ui.h:8
+msgid "JPEG"
+msgstr "JPEG"
+
+#: ../data/ui/build_image_dialog.ui.h:9
+msgid "PNG"
+msgstr "PNG"
+
+#: ../data/ui/build_image_dialog.ui.h:10
+msgid "Render to Image"
+msgstr ""
+
+#: ../data/ui/build_image_dialog.ui.h:11
+msgid "Render whole page(s)"
+msgstr ""
+
+#: ../data/ui/build_image_dialog.ui.h:12
+msgid "Resolution:"
+msgstr ""
+
+#: ../data/ui/choose_master_dialog.ui.h:1
+msgid "Filename:"
+msgstr "Fayl adı:"
+
+#: ../data/ui/choose_master_dialog.ui.h:2
+msgid "Select Master Document"
+msgstr ""
+
+#: ../data/ui/configure.ui.h:1
+msgid "<b><i>rubber</i> Post-Processor</b>"
+msgstr ""
+
+#: ../data/ui/configure.ui.h:2
+msgid "<b>BibTeX</b>"
+msgstr "<b>BibTeX</b>"
+
+#: ../data/ui/configure.ui.h:3
+msgid "<b>LaTeX Toolbar</b>"
+msgstr "<b>LaTeX alətlər çubuğu</b>"
+
+#: ../data/ui/configure.ui.h:4
+msgid "<b>Templates</b>"
+msgstr "<b>Şablonlar</b>"
+
+#: ../data/ui/configure.ui.h:5
+msgid "Folder:"
+msgstr "Qovluq:"
+
+#: ../data/ui/configure.ui.h:7
+msgid "KB"
+msgstr "KB"
+
+#: ../data/ui/configure.ui.h:8
+msgid "Maximum Parsed File Size:"
+msgstr ""
+
+#: ../data/ui/configure.ui.h:9
+msgid "Miscellaneous"
+msgstr "Qarışıq"
+
+#: ../data/ui/configure.ui.h:10
+msgid "Show LaTeX Toolbar when editing LaTeX files"
+msgstr ""
+
+#: ../data/ui/configure.ui.h:11
+msgid "Tools"
+msgstr "Alətlər"
+
+#: ../data/ui/configure_tool.ui.h:1
+msgid "<Ctrl><Alt>1"
+msgstr "<Ctrl><Alt>1"
+
+#: ../data/ui/configure_tool.ui.h:2
+msgid "<b>Accelerator</b>"
+msgstr ""
+
+#: ../data/ui/configure_tool.ui.h:3
+msgid "<b>_Description</b>"
+msgstr "<b>_Təfərrüat</b>"
+
+#: ../data/ui/configure_tool.ui.h:4
+msgid "<b>_File Extensions</b>"
+msgstr "<b>_Fayl uzantıları</b>"
+
+#: ../data/ui/configure_tool.ui.h:5
+msgid "<b>_Jobs</b>"
+msgstr "<b>_İşlər</b>"
+
+#: ../data/ui/configure_tool.ui.h:6
+msgid "<b>_Label</b>"
+msgstr "<b>_Etiket</b>"
+
+#: ../data/ui/configure_tool.ui.h:7
+msgid ""
+"Remember to run all commands in batch mode (e.g. append <tt>-interaction "
+"batchmode</tt> to <tt>latex</tt>)"
+msgstr ""
+
+#: ../data/ui/configure_tool.ui.h:8
+msgid ""
+"Valid placeholders are <tt>$filename</tt>, <tt>$shortname</tt>, "
+"<tt>$directory</tt>"
+msgstr ""
+
+#: ../data/ui/configure_tool.ui.h:9
+msgid "_Generated"
+msgstr "_Yaradılıb"
+
+#: ../data/ui/configure_tool.ui.h:10
+msgid "_User Defined:"
+msgstr "_İstifadəçi tərəfindən təyin edilən:"
+
+#: ../data/ui/insert_bibtex_entry.ui.h:1
+msgid "Create Bibliography Entry"
+msgstr "Biblioqrafiya daxiletməsi yarat"
+
+#: ../data/ui/insert_bibtex_entry.ui.h:2
+msgid "Optional Fields"
+msgstr ""
+
+#: ../data/ui/insert_bibtex_entry.ui.h:3
+msgid "Required Fields"
+msgstr "Tələb olunan sahələr"
+
+#: ../data/ui/insert_bibtex_entry.ui.h:4
+msgid "_Identifier:"
+msgstr ""
+
+#: ../data/ui/insert_bibtex_entry.ui.h:5
+msgid "_Type:"
+msgstr "_Növ:"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:2
+#, no-c-format
+msgid "% _of"
+msgstr ""
+
+#: ../data/ui/insert_graphics_dialog.ui.h:3
+msgid "&#xB0; CCW"
+msgstr ""
+
+#: ../data/ui/insert_graphics_dialog.ui.h:4
+msgid "Flip _Horizontally"
+msgstr "_Şaquli çevir"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:5
+msgid "Floating _Object"
+msgstr ""
+
+#: ../data/ui/insert_graphics_dialog.ui.h:6
+msgid "Image Size"
+msgstr "Təsvir ölçüsü"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:7
+msgid "Insert Graphics"
+msgstr ""
+
+#: ../data/ui/insert_graphics_dialog.ui.h:8
+msgid "Text Width"
+msgstr "Mətn eni"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:9
+#: ../data/ui/insert_table_dialog.ui.h:4
+msgid "_Caption:"
+msgstr "_Başlıq:"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:10
+msgid "_File:"
+msgstr "_Fayl:"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:11
+#: ../data/ui/insert_table_dialog.ui.h:6
+msgid "_Label:"
+msgstr "_Etiket:"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:12
+msgid "_Rotate:"
+msgstr "_Fırlat:"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:13
+msgid "_Spread over two Columns"
+msgstr ""
+
+#: ../data/ui/insert_graphics_dialog.ui.h:14
+msgid "_Width:"
+msgstr "_En:"
+
+#: ../data/ui/insert_graphics_dialog.ui.h:15
+msgid "fig:"
+msgstr ""
+
+#: ../data/ui/insert_listing_dialog.ui.h:1
+msgid "Insert Source Code Listing"
+msgstr ""
+
+#: ../data/ui/insert_listing_dialog.ui.h:2
+msgid "Load From _File:"
+msgstr ""
+
+#: ../data/ui/insert_listing_dialog.ui.h:3
+msgid "Programming _Language:"
+msgstr "Proqramlaşdırma _dili:"
+
+#: ../data/ui/insert_listing_dialog.ui.h:4
+msgid "_Dialect:"
+msgstr ""
+
+#: ../data/ui/insert_table_dialog.ui.h:1
+msgid "C_olumns:"
+msgstr "Sü_tunlar:"
+
+#: ../data/ui/insert_table_dialog.ui.h:2
+msgid "Insert Table or Matrix"
+msgstr "Cədvəl və ya matris daxil et"
+
+#: ../data/ui/insert_table_dialog.ui.h:3
+msgid "Type:"
+msgstr "Növ:"
+
+#: ../data/ui/insert_table_dialog.ui.h:5
+msgid "_Floating Object"
+msgstr ""
+
+#: ../data/ui/insert_table_dialog.ui.h:7
+msgid "_Matrix:"
+msgstr "_Matris:"
+
+#: ../data/ui/insert_table_dialog.ui.h:8
+msgid "_Rows:"
+msgstr "_Sətirlər:"
+
+#: ../data/ui/insert_table_dialog.ui.h:9
+msgid "_Table"
+msgstr "_Cədvəl"
+
+#: ../data/ui/insert_table_dialog.ui.h:10
+msgid "tab:"
+msgstr ""
+
+#: ../data/ui/new_document_template_dialog.ui.h:1
+msgid ".tex"
+msgstr ".tex"
+
+#: ../data/ui/new_document_template_dialog.ui.h:2
+msgid "<b>Language Customization</b>"
+msgstr "<b>Dil fərdiləşdirməsi</b>"
+
+#: ../data/ui/new_document_template_dialog.ui.h:3
+msgid "<b>Meta Information</b>"
+msgstr "<b>Meta məlumatlar</b>"
+
+#: ../data/ui/new_document_template_dialog.ui.h:4
+msgid "<b>Style and Layout</b>"
+msgstr "<b>Üslub və düzülüş</b>"
+
+#: ../data/ui/new_document_template_dialog.ui.h:5
+msgid "Base Font Size:"
+msgstr "Əsas şrfit ölçüsü"
+
+#: ../data/ui/new_document_template_dialog.ui.h:6
+msgid "C_ustom:"
+msgstr "_Fərdi:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:7
+msgid "Date:"
+msgstr "_Tarix:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:8
+msgid "De_fault"
+msgstr "_Varsayılan"
+
+#: ../data/ui/new_document_template_dialog.ui.h:9
+msgid "Default F_ont Family:"
+msgstr "Varsayılan ş_rift ailəsi:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:10
+msgid "Di_rectory:"
+msgstr "_Kataloq:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:11
+msgid "Document _Class:"
+msgstr "Sənəd sinifi:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:12
+msgid "Include PDF _Metadata"
+msgstr "PDF _meta məlumatlarını daxil et"
+
+#: ../data/ui/new_document_template_dialog.ui.h:13
+msgid "New LaTeX Document"
+msgstr ""
+
+#: ../data/ui/new_document_template_dialog.ui.h:14
+msgid "T_emplate:"
+msgstr "_Şablon:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:15
+msgid "To_day"
+msgstr "B_ugün:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:16
+msgid "U_ser Defined:"
+msgstr "İstifadəçi tərəfindən təyin edilən:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:17
+msgid "_Author:"
+msgstr "_Müəllif:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:18
+msgid "_Babel Package:"
+msgstr "_Babel paketi:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:19
+msgid "_Input Encoding:"
+msgstr "_Daxiletmə kodlaması:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:20
+msgid "_Landscape"
+msgstr ""
+
+#: ../data/ui/new_document_template_dialog.ui.h:21
+#: ../data/ui/save_as_template_dialog.ui.h:3
+msgid "_Name:"
+msgstr "_Ad:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:22
+msgid "_Paper:"
+msgstr "_Kağız:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:23
+msgid "_Title:"
+msgstr "_Başlıq:"
+
+#: ../data/ui/new_document_template_dialog.ui.h:24
+msgid "document"
+msgstr "sənəd"
+
+#: ../data/ui/new_document_template_dialog.ui.h:25
+msgid "pt"
+msgstr ""
+
+#: ../data/ui/save_as_template_dialog.ui.h:1
+msgid "Please specify a name for the new template."
+msgstr "Zəhmət olmasa, yeni şablon üçün ad təyin edin."
+
+#: ../data/ui/save_as_template_dialog.ui.h:2
+msgid "Save As Template"
+msgstr "Şablon kimi saxla"
+
+#: ../data/ui/save_as_template_dialog.ui.h:4
+msgid "label"
+msgstr "etiket"
+
+#: ../data/ui/use_bibliography_dialog.ui.h:1
+msgid "Bibliography _File:"
+msgstr "Biblioqrafiya _faylı:"
+
+#: ../data/ui/use_bibliography_dialog.ui.h:2
+msgid "Refresh Style Preview"
+msgstr "Üslub önbaxışını yenilə"
+
+#: ../data/ui/use_bibliography_dialog.ui.h:3
+msgid "Style Preview:"
+msgstr "Üslub önbaxışı:"
+
+#: ../data/ui/use_bibliography_dialog.ui.h:4
+msgid "Use Bibliography"
+msgstr "Biblioqrafiya istifadə et"
+
+#: ../data/ui/use_bibliography_dialog.ui.h:5
+msgid "_Style:"
+msgstr "_Üslub:"
+
+#: ../latex.plugin.desktop.in.in.h:1
+msgid ""
+"A plugin that assists you in handling LaTeX documents and BibTeX "
+"bibliographies"
+msgstr ""
+"LaTeX sənədləri və BibTeX biblioqrafiyaları ilə işləməyə yardım edən "
+"qoşma"
+
+#: ../latex.plugin.desktop.in.in.h:2
+msgid "LaTeX Plugin"
+msgstr "LaTeX qoşması"
